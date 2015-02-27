@@ -2,7 +2,7 @@
 
 An announcement center app for ownCloud
 
-This app allows administrators to post announcements to users and groups.
+This app allows administrators to post announcements for users and groups.
 
 ## QA metrics on master branch:
 
