@@ -11,7 +11,7 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-/**
+// ToDo Use Container and Services
 \OCP\App::addNavigationEntry([
 	'id' => 'announcementcenter',
 	'order' => 10,
@@ -19,4 +19,3 @@ namespace OCA\AnnouncementCenter\AppInfo;
 	'icon' => \OCP\Util::imagePath('announcementcenter', 'app.svg'),
 	'name' => \OC_L10N::get('announcementcenter')->t('Announcement Center')
 ]);
- */

@@ -1,10 +1,12 @@
 <ul>
-	<li><a href="#">First level entry</a></li>
 	<li>
-		<a href="#">First level container</a>
-		<ul>
-			<li><a href="#">Second level entry</a></li>
-			<li><a href="#">Second level entry</a></li>
-		</ul>
+		<a href="<?php p($_['u_index']); ?>"><?php p($l->t('Announcements')); ?></a>
 	</li>
+	<?php if ($_['is_admin']): ?>
+	<li class="new-announcement">
+		<a href="<?php p($_['u_add']); ?>">
+			<span><?php p($l->t('Add announcement')); ?></span>
+		</a>
+	</li>
+	<?php endif; ?>
 </ul>

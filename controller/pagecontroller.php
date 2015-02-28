@@ -11,23 +11,35 @@
 
 namespace OCA\AnnouncementCenter\Controller;
 
-use \OCP\IRequest;
-use \OCP\AppFramework\Http\TemplateResponse;
-use \OCP\AppFramework\Http\DataResponse;
-use \OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Controller;
+use OCP\IGroupManager;
+use OCP\IRequest;
+use OCP\IURLGenerator;
 
 class PageController extends Controller {
+	/** @var IGroupManager */
+	private $groupManager;
+
+	/** @var IURLGenerator */
+	private $urlGenerator;
+
 	/** @var string */
 	private $userId;
 
 	/**
 	 * @param string $AppName
 	 * @param IRequest $request
-	 * @param string $userId
+	 * @param IGroupManager $groupManager
+	 * @param IURLGenerator $urlGenerator
+	 * @param string $UserId
 	 */
-	public function __construct($AppName, IRequest $request, $userId){
+	public function __construct($AppName, IRequest $request, IGroupManager $groupManager, IURLGenerator $urlGenerator, $UserId){
 		parent::__construct($AppName, $request);
-		$this->userId = $userId;
+		$this->groupManager = $groupManager;
+		$this->urlGenerator = $urlGenerator;
+		$this->userId = $UserId;
 	}
 
 	/**
@@ -43,9 +55,33 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index() {
-		return new TemplateResponse('announcementcenter', 'main', [
-			'user' => $this->userId,
-		]);
+		return $this->templateResponse();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse
+	 */
+	public function add() {
+		return $this->templateResponse('part.add');
+	}
+
+	/**
+	 * @param string $templateFile
+	 * @param array $templateData
+	 * @return TemplateResponse
+	 */
+	protected function templateResponse($templateFile = 'part.content', array $templateData = []) {
+		return new TemplateResponse('announcementcenter', 'main', array_merge([
+			'user'		=> $this->userId,
+			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
+			'template'	=> $templateFile,
+
+			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
+			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
+		], $templateData));
 	}
 
 	/**

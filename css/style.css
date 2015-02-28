@@ -1,3 +1,22 @@
 #hello {
-	color: red;
+	color: #00AA00;
+}
+
+#app-navigation .new-announcement a span { margin-left: 20px; }
+#app-navigation .new-announcement a span:before {
+	position: absolute;
+	left: 12px;
+	top: -2px;
+	content: '+';
+	font-weight: bold;
+	font-size: 150%;
+}
+
+#announcement-title {
+	width: 250px;
+}
+
+#announcement-text {
+	width: 500px;
+	height: 250px;
 }
