@@ -36,7 +36,7 @@ class Manager {
 	public function announce($subject, $message, $user, $time) {
 		$subject = trim($subject);
 		$message = trim($message);
-		$subject = (isset($subject[513])) ? substr($subject, 0, 512) : $subject;
+		$subject = (isset($subject[512])) ? substr($subject, 0, 512) : $subject;
 
 		if ($subject === '') {
 			throw new \RuntimeException('INVALID SUBJECT');
