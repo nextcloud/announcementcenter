@@ -9,23 +9,30 @@
  */
 
 (function ($, OC) {
-
 	$(document).ready(function () {
-		$('#hello').click(function () {
-			alert('Hello from your script file');
-		});
+		$('#submit_announcement').click(function () {
+			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
 
-		$('#echo').click(function () {
-			var url = OC.generateUrl('/apps/announcementcenter/echo');
-			var data = {
-				echo: $('#echo-content').val()
-			};
-
-			$.post(url, data).success(function (response) {
-				$('#echo-result').text(response.echo);
+			$.ajax({
+				type: 'POST',
+				url: OC.generateUrl('/apps/announcementcenter/add'),
+				data: {
+					subject: $('#subject').val(),
+					message: $('#message').val()
+				}
+			}).done(function(){
+				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
+				$('#subject').val('');
+				$('#message').val('');
+			}).fail(function (response) {
+				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
 
 		});
 	});
 
+	$('#app-content').find('.tooltip').tipsy({
+		gravity:	's',
+		fade:		true
+	});
 })(jQuery, OC);

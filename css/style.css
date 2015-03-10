@@ -12,11 +12,38 @@
 	font-size: 150%;
 }
 
-#announcement-title {
+#subject {
 	width: 250px;
 }
 
-#announcement-text {
+#message {
 	width: 500px;
 	height: 250px;
+}
+
+#announcement_submit_msg.success {
+	color: #fff;
+	background-color: #47a447;
+	border-radius: 3px;
+	padding: 3px;
+}
+#announcement_submit_msg.error {
+	color: #fff;
+	background-color: #d2322d;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+#no-announcements {
+	position: absolute;
+	text-align: center;
+	top: 40%;
+	width: 100%;
+	padding: 20px;
+}
+
+#no-announcements p {
+	color: #666;
+	margin-top: 10px;
+	font-size: 1em;
 }

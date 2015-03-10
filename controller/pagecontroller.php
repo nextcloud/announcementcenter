@@ -11,19 +11,31 @@
 
 namespace OCA\AnnouncementCenter\Controller;
 
+use OCA\AnnouncementCenter\Manager;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 
 class PageController extends Controller {
+	/** @var int */
+	private $pageLimit = 5;
+
+	/** @var IDBConnection */
+	private $connection;
+
 	/** @var IGroupManager */
 	private $groupManager;
 
 	/** @var IURLGenerator */
 	private $urlGenerator;
+
+	/** @var Manager */
+	private $manager;
 
 	/** @var string */
 	private $userId;
@@ -31,14 +43,18 @@ class PageController extends Controller {
 	/**
 	 * @param string $AppName
 	 * @param IRequest $request
+	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
 	 * @param IURLGenerator $urlGenerator
+	 * @param Manager $manager
 	 * @param string $UserId
 	 */
-	public function __construct($AppName, IRequest $request, IGroupManager $groupManager, IURLGenerator $urlGenerator, $UserId){
+	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IURLGenerator $urlGenerator, Manager $manager, $UserId){
 		parent::__construct($AppName, $request);
+		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->urlGenerator = $urlGenerator;
+		$this->manager = $manager;
 		$this->userId = $UserId;
 	}
 
@@ -55,17 +71,60 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index() {
-		return $this->templateResponse();
+		$query = $this->connection->prepare(
+			'SELECT * FROM `*PREFIX*announcements` ORDER BY `announcement_time` DESC',
+			$this->pageLimit
+		);
+		$query->execute();
+		$announcements = [];
+		while ($row = $query->fetch()) {
+			$announcements[] = [
+				'author'	=> \OCP\User::getDisplayName($row['announcement_user']),
+				'time'		=> \OCP\Template::relative_modified_date($row['announcement_time']),
+				'subject'	=> $row['announcement_subject'],
+				'message'	=> str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $row['announcement_message'])),
+			];
+		}
+		return $this->templateResponse('part.content', ['announcements' => $announcements]);
 	}
 
 	/**
-	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
 	 * @return TemplateResponse
 	 */
 	public function add() {
 		return $this->templateResponse('part.add');
+	}
+
+	/**
+	 * @param string $subject
+	 * @param string $message
+	 * @return DataResponse
+	 */
+	public function addSubmit($subject, $message) {
+		try {
+			$id = $this->manager->announce($subject, $message, $this->userId, time());
+		} catch (\RuntimeException $e) {
+			$l = \OC::$server->getL10N('announcementcenter');
+			return new DataResponse(
+				['error' => (string) $l->t('The subject must not be empty.')],
+				Http::STATUS_BAD_REQUEST
+			);
+		}
+
+		\OC::$server->getActivityManager()->publishActivity(
+			'announcementcenter',
+			'announcementsubject#' . $id,
+			[$this->userId],
+			'announcementmessage#' . $id,
+			[$this->userId],
+			'', '',
+			$this->userId,
+			'announcementcenter', \OCP\Activity\IExtension::PRIORITY_MEDIUM
+		);
+
+		return new DataResponse();
 	}
 
 	/**
@@ -82,16 +141,5 @@ class PageController extends Controller {
 			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
 			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
 		], $templateData));
-	}
-
-	/**
-	 * Simply method that posts back the payload of the request
-	 * @NoAdminRequired
-	 *
-	 * @param string $echo
-	 * @return DataResponse
-	 */
-	public function doEcho($echo) {
-		return new DataResponse(['echo' => $echo]);
 	}
 }
