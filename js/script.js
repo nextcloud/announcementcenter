@@ -30,9 +30,4 @@
 
 		});
 	});
-
-	$('#app-content').find('.tooltip').tipsy({
-		gravity:	's',
-		fade:		true
-	});
 })(jQuery, OC);

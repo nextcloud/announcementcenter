@@ -13,17 +13,22 @@
 namespace OCA\AnnouncementCenter;
 
 use OCP\Activity\IExtension;
+use OCP\Activity\IManager;
 
 class ActivityExtension implements IExtension {
 
 	/** @var Manager */
 	private $manager;
+	/** @var IManager */
+	private $activityManager;
 
 	/**
 	 * @param Manager $manager
+	 * @param IManager $activityManager
 	 */
-	public function __construct(Manager $manager) {
+	public function __construct(Manager $manager, IManager $activityManager) {
 		$this->manager = $manager;
+		$this->activityManager = $activityManager;
 	}
 
 	/**
@@ -72,21 +77,33 @@ class ActivityExtension implements IExtension {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-		if ($app === 'announcementcenter') {
-			list($type, $id) = explode('#', $text);
-			if ($type === 'announcementsubject') {
-				if ($highlightParams) {
-					$params[] = '<strong>' . $this->manager->translateSubject($id) . '</strong>';
-				} else {
-					$params[] = $this->manager->translateSubject($id);
-				}
+		if ($app === 'announcementcenter' && strpos($text, 'announcementsubject#') === 0) {
+			$l = \OC::$server->getL10N('announcementcenter', $languageCode);
 
-				$l = \OC::$server->getL10N('announcementcenter');
-				return (string) $l->t('%s announced %s', $params);
-			} else {
-				return '';
+			list(, $id) = explode('#', $text);
+
+			try {
+				$announcement = $this->manager->get($id);
+			} catch (\InvalidArgumentException $e) {
+				return (string) $l->t('%s announced news that has been deleted', $params);
 			}
+
+			if ($highlightParams) {
+				$params[] = '<strong>' . $announcement['announcement_subject'] . '</strong>';
+			} else {
+				$params[] = $announcement['announcement_subject'];
+			}
+
+			if ($announcement['announcement_user'] === $this->activityManager->getCurrentUserId()) {
+				array_shift($params);
+				return (string) $l->t('You announced %s', $params);
+			}
+			return (string) $l->t('%s announced %s', $params);
+		} else if ($app === 'announcementcenter') {
+			// Remove the message body
+			return '';
 		}
+
 		return false;
 	}
 

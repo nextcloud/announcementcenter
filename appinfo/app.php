@@ -25,6 +25,7 @@ namespace OCA\AnnouncementCenter\AppInfo;
 
 \OC::$server->getActivityManager()->registerExtension(function() {
 	return new \OCA\AnnouncementCenter\ActivityExtension(
-		new \OCA\AnnouncementCenter\Manager(\OC::$server->getDatabaseConnection())
+		new \OCA\AnnouncementCenter\Manager(\OC::$server->getDatabaseConnection()),
+		\OC::$server->getActivityManager()
 	);
 });

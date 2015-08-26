@@ -39,24 +39,56 @@ class Manager {
 		$subject = (isset($subject[512])) ? substr($subject, 0, 512) : $subject;
 
 		if ($subject === '') {
-			throw new \RuntimeException('INVALID SUBJECT');
+			throw new \InvalidArgumentException('INVALID SUBJECT');
 		}
 
-		$this->connection->executeQuery(
-			'INSERT INTO `*PREFIX*announcements` (`announcement_time`, `announcement_user`, `announcement_subject`, `announcement_message`) VALUES (?,?,?,?)',
-			[$time, $user, $subject, $message]
-		);
+		$queryBuilder = $this->connection->getQueryBuilder();
+		$queryBuilder->insert('announcements')
+			->values([
+				'announcement_time' => $queryBuilder->createParameter('time'),
+				'announcement_user' => $queryBuilder->createParameter('user'),
+				'announcement_subject' => $queryBuilder->createParameter('subject'),
+				'announcement_message' => $queryBuilder->createParameter('message'),
+			])
+			->setParameter('time', $time)
+			->setParameter('user', $user)
+			->setParameter('subject', $subject)
+			->setParameter('message', $message);
+		$queryBuilder->execute();
 
-		return $this->connection->lastInsertId();
+		$queryBuilder = $this->connection->getQueryBuilder();
+		$query = $queryBuilder->select('announcement_id')
+			->from('announcements')
+			->where($queryBuilder->expr()->eq('announcement_time', $queryBuilder->createParameter('time')))
+			->andWhere($queryBuilder->expr()->eq('announcement_user', $queryBuilder->createParameter('user')))
+			->setParameter('time', (int) $time)
+			->setParameter('user', $user);
+		$result = $query->execute();
+		$row = $result->fetch();
+		$result->closeCursor();
+
+		return $row['announcement_id'];
 	}
 
 	/**
 	 * @param int $id
-	 * @return string
+	 * @return array
+	 * @throws \RuntimeException when the id is invalid
 	 */
-	public function translateSubject($id) {
-		$result = $this->connection->executeQuery('SELECT * FROM `*PREFIX*announcements` WHERE `announcement_id` = ?', [(int) $id]);
+	public function get($id) {
+		$queryBuilder = $this->connection->getQueryBuilder();
+		$query = $queryBuilder->select('*')
+			->from('announcements')
+			->where($queryBuilder->expr()->eq('announcement_id', $queryBuilder->createParameter('id')))
+			->setParameter('id', (int) $id);
+		$result = $query->execute();
 		$row = $result->fetch();
-		return $row['announcement_subject'];
+		$result->closeCursor();
+
+		if ($row === false) {
+			throw new \InvalidArgumentException('INVALID ID');
+		}
+
+		return $row;
 	}
 }

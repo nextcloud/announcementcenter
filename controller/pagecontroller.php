@@ -12,6 +12,7 @@
 namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
@@ -23,7 +24,7 @@ use OCP\IURLGenerator;
 
 class PageController extends Controller {
 	/** @var int */
-	private $pageLimit = 5;
+	private $pageLimit = null;
 
 	/** @var IDBConnection */
 	private $connection;
@@ -37,6 +38,9 @@ class PageController extends Controller {
 	/** @var Manager */
 	private $manager;
 
+	/** @var IManager */
+	private $activityManager;
+
 	/** @var string */
 	private $userId;
 
@@ -45,14 +49,17 @@ class PageController extends Controller {
 	 * @param IRequest $request
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
+	 * @param IManager $activityManager
 	 * @param IURLGenerator $urlGenerator
 	 * @param Manager $manager
 	 * @param string $UserId
 	 */
-	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IURLGenerator $urlGenerator, Manager $manager, $UserId){
+	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IManager $activityManager, IURLGenerator $urlGenerator, Manager $manager, $UserId){
 		parent::__construct($AppName, $request);
+
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
+		$this->activityManager = $activityManager;
 		$this->urlGenerator = $urlGenerator;
 		$this->manager = $manager;
 		$this->userId = $UserId;
@@ -103,8 +110,9 @@ class PageController extends Controller {
 	 * @return DataResponse
 	 */
 	public function addSubmit($subject, $message) {
+		$timeStamp = time();
 		try {
-			$id = $this->manager->announce($subject, $message, $this->userId, time());
+			$id = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
 		} catch (\RuntimeException $e) {
 			$l = \OC::$server->getL10N('announcementcenter');
 			return new DataResponse(
@@ -113,16 +121,18 @@ class PageController extends Controller {
 			);
 		}
 
-		\OC::$server->getActivityManager()->publishActivity(
-			'announcementcenter',
-			'announcementsubject#' . $id,
-			[$this->userId],
-			'announcementmessage#' . $id,
-			[$this->userId],
-			'', '',
-			$this->userId,
-			'announcementcenter', \OCP\Activity\IExtension::PRIORITY_MEDIUM
-		);
+		$event = $this->activityManager->generateEvent();
+		$event
+			->setApp('announcementcenter')
+			->setType('announcementcenter')
+			->setAffectedUser($this->userId)
+			->setAuthor($this->userId)
+			->setTimestamp($timeStamp)
+			->setSubject('announcementsubject#' . $id, [$this->userId])
+			->setMessage('announcementmessage#' . $id, [$this->userId])
+			->setObject('announcement', $id)
+		;
+		$this->activityManager->publish($event);
 
 		return new DataResponse();
 	}
