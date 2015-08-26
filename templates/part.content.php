@@ -10,7 +10,7 @@ foreach ($_['announcements'] as $announcement) {
 ?>
 	<div class="section">
 		<h2><?php p($announcement['subject']); ?></h2>
-		<em><?php p($announcement['author']); ?> — <?php p($announcement['time']); ?></em>
+		<em><?php p($announcement['author']); ?> — <?php p(\OCP\Template::relative_modified_date($announcement['time'])); ?></em>
 
 	<?php
 	if ($announcement['message'] !== '') {

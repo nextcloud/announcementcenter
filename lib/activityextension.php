@@ -85,7 +85,7 @@ class ActivityExtension implements IExtension {
 			try {
 				$announcement = $this->manager->get($id);
 			} catch (\InvalidArgumentException $e) {
-				return (string) $l->t('%s announced news that has been deleted', $params);
+				return (string) $l->t('Announcement does not exist anymore', $params);
 			}
 
 			if ($highlightParams) {

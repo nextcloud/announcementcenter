@@ -20,6 +20,7 @@
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
+		['name' => 'page#get', 'url' => '/get', 'verb' => 'GET'],
 		['name' => 'page#add', 'url' => '/add', 'verb' => 'GET'],
 		['name' => 'page#addSubmit', 'url' => '/add', 'verb' => 'POST'],
 	]
