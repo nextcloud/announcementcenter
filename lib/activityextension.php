@@ -14,21 +14,25 @@ namespace OCA\AnnouncementCenter;
 
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;
+use OCP\L10N\IFactory;
 
 class ActivityExtension implements IExtension {
-
 	/** @var Manager */
-	private $manager;
+	protected $manager;
 	/** @var IManager */
-	private $activityManager;
+	protected $activityManager;
+	/** @var IFactory */
+	protected $languageFactory;
 
 	/**
 	 * @param Manager $manager
 	 * @param IManager $activityManager
+	 * @param IFactory $languageFactory
 	 */
-	public function __construct(Manager $manager, IManager $activityManager) {
+	public function __construct(Manager $manager, IManager $activityManager, IFactory $languageFactory) {
 		$this->manager = $manager;
 		$this->activityManager = $activityManager;
+		$this->languageFactory = $languageFactory;
 	}
 
 	/**
@@ -78,23 +82,23 @@ class ActivityExtension implements IExtension {
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
 		if ($app === 'announcementcenter' && strpos($text, 'announcementsubject#') === 0) {
-			$l = \OC::$server->getL10N('announcementcenter', $languageCode);
+			$l = $this->languageFactory->get('announcementcenter', $languageCode);
 
 			list(, $id) = explode('#', $text);
 
 			try {
-				$announcement = $this->manager->get($id);
+				$announcement = $this->manager->getAnnouncement($id);
 			} catch (\InvalidArgumentException $e) {
 				return (string) $l->t('Announcement does not exist anymore', $params);
 			}
 
 			if ($highlightParams) {
-				$params[] = '<strong>' . $announcement['announcement_subject'] . '</strong>';
+				$params[] = '<strong>' . $announcement['subject'] . '</strong>';
 			} else {
-				$params[] = $announcement['announcement_subject'];
+				$params[] = $announcement['subject'];
 			}
 
-			if ($announcement['announcement_user'] === $this->activityManager->getCurrentUserId()) {
+			if ($announcement['author'] === $this->activityManager->getCurrentUserId()) {
 				array_shift($params);
 				return (string) $l->t('You announced %s', $params);
 			}

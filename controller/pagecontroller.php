@@ -83,53 +83,25 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @return TemplateResponse
-	 */
-	public function index() {
-		$jsonResponse = $this->get(1);
-		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
-	}
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * @param int $page
 	 * @return JSONResponse
 	 */
 	public function get($page = 1) {
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$query = $queryBuilder->select('*')
-			->from('announcements')
-			->orderBy('announcement_time', 'DESC')
-			->setFirstResult(self::PAGE_LIMIT * (max(1, $page) - 1))
-			->setMaxResults(self::PAGE_LIMIT);
-		$result = $query->execute();
-
+		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, self::PAGE_LIMIT * (max(1, $page) - 1));
 
 		$announcements = [];
-		while ($row = $result->fetch()) {
-			$user = $this->userManager->get($row['announcement_user']);
+		foreach ($rows as $row) {
+			$user = $this->userManager->get($row['author']);
 			$announcements[] = [
-				'author'	=> ($user instanceof IUser) ? $user->getDisplayName() : $row['announcement_user'],
-				'author_id'	=> $row['announcement_user'],
-				'time'		=> $row['announcement_time'],
-				'subject'	=> $row['announcement_subject'],
-				'message'	=> str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $row['announcement_message'])),
+				'author'	=> ($user instanceof IUser) ? $user->getDisplayName() : $row['author'],
+				'author_id'	=> $row['author'],
+				'time'		=> $row['time'],
+				'subject'	=> $row['subject'],
+				'message'	=> str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $row['message'])),
 			];
 		}
-		$result->closeCursor();
 
 		return new JSONResponse($announcements);
-	}
-
-	/**
-	 * @NoCSRFRequired
-	 *
-	 * @return TemplateResponse
-	 */
-	public function add() {
-		return $this->templateResponse('part.add');
 	}
 
 	/**
@@ -158,6 +130,7 @@ class PageController extends Controller {
 			->setSubject('announcementsubject#' . $id, [$this->userId])
 			->setMessage('announcementmessage#' . $id, [$this->userId])
 			->setObject('announcement', $id);
+		$this->activityManager->publish($event);
 
 		foreach ($users as $user) {
 			$event->setAffectedUser($user->getUID());
@@ -165,6 +138,26 @@ class PageController extends Controller {
 		}
 
 		return new DataResponse();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse
+	 */
+	public function index() {
+		$jsonResponse = $this->get(1);
+		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
+	}
+
+	/**
+	 * @NoCSRFRequired
+	 *
+	 * @return TemplateResponse
+	 */
+	public function add() {
+		return $this->templateResponse('part.add');
 	}
 
 	/**

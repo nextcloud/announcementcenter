@@ -16,16 +16,17 @@ namespace OCA\AnnouncementCenter\AppInfo;
 	$l = \OC::$server->getL10N('announcementcenter');
 	return [
 		'id' => 'announcementcenter',
-		'order' => 10,
+		'order' => -10,
 		'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
 		'icon' => $urlGenerator->imagePath('announcementcenter', 'app.svg'),
-		'name' => $l->t('Announcement Center'),
+		'name' => $l->t('Announcements'),
 	];
 });
 
 \OC::$server->getActivityManager()->registerExtension(function() {
 	return new \OCA\AnnouncementCenter\ActivityExtension(
 		new \OCA\AnnouncementCenter\Manager(\OC::$server->getDatabaseConnection()),
-		\OC::$server->getActivityManager()
+		\OC::$server->getActivityManager(),
+		\OC::$server->getL10NFactory()
 	);
 });
