@@ -136,29 +136,36 @@ class PageController extends Controller {
 			$id = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
 		} catch (\InvalidArgumentException $e) {
 			return new DataResponse(
-				['error' => (string) $this->l->t('The subject must not be empty.')],
+				['error' => (string)$this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
 			);
 		}
 
+		$this->publishActivities($id, $this->userId, $timeStamp);
+
+		return new DataResponse();
+	}
+
+	/**
+	 * @param int $id
+	 * @param string $authorId
+	 * @param int $timeStamp
+	 */
+	protected function publishActivities($id, $authorId, $timeStamp) {
 		$users = $this->userManager->search('');
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
-			->setAffectedUser($this->userId)
-			->setAuthor($this->userId)
+			->setAuthor($authorId)
 			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject#' . $id, [$this->userId])
-			->setMessage('announcementmessage#' . $id, [$this->userId])
+			->setSubject('announcementsubject#' . $id, [$authorId])
+			->setMessage('announcementmessage#' . $id, [$authorId])
 			->setObject('announcement', $id);
-		$this->activityManager->publish($event);
 
 		foreach ($users as $user) {
 			$event->setAffectedUser($user->getUID());
 			$this->activityManager->publish($event);
 		}
-
-		return new DataResponse();
 	}
 
 	/**
@@ -168,6 +175,14 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function index() {
+		return new TemplateResponse('announcementcenter', 'main', [
+			'user'		=> $this->userId,
+			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
+			'template'	=> '',
+
+			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
+			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
+		]);
 		$jsonResponse = $this->get(1);
 		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
 	}

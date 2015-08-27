@@ -42,9 +42,6 @@ class PageController extends TestCase {
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
 
-	/** @var PageController */
-	protected $controller;
-
 	protected function setUp() {
 		parent::setUp();
 
@@ -77,19 +74,39 @@ class PageController extends TestCase {
 		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
 			->disableOriginalConstructor()
 			->getMock();
+	}
 
-		$this->controller = new \OCA\AnnouncementCenter\Controller\PageController(
-			'announcementcenter',
-			$this->request,
-			\OC::$server->getDatabaseConnection(),
-			$this->groupManager,
-			$this->userManager,
-			$this->activityManager,
-			$this->l,
-			$this->urlGenerator,
-			$this->manager,
-			'author'
-		);
+	protected function getController(array $methods = []) {
+		if (empty($methods)) {
+			return new \OCA\AnnouncementCenter\Controller\PageController(
+				'announcementcenter',
+				$this->request,
+				\OC::$server->getDatabaseConnection(),
+				$this->groupManager,
+				$this->userManager,
+				$this->activityManager,
+				$this->l,
+				$this->urlGenerator,
+				$this->manager,
+				'author'
+			);
+		} else {
+			return $this->getMockBuilder('OCA\AnnouncementCenter\Controller\PageController')
+				->setConstructorArgs([
+					'announcementcenter',
+					$this->request,
+					\OC::$server->getDatabaseConnection(),
+					$this->groupManager,
+					$this->userManager,
+					$this->activityManager,
+					$this->l,
+					$this->urlGenerator,
+					$this->manager,
+					'author',
+				])
+				->setMethods($methods)
+				->getMock();
+		}
 	}
 
 	protected function getUserMock($uid, $displayName) {
@@ -163,40 +180,106 @@ class PageController extends TestCase {
 			->with(15, $offset)
 			->willReturn($announcements);
 
-		$jsonResponse = $this->controller->get($page);
+		$controller = $this->getController();
+		$jsonResponse = $controller->get($page);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $jsonResponse);
 		$this->assertEquals($expected, $jsonResponse->getData());
 	}
 
+	public function dataAdd() {
+		return [
+			['', '', true, ['error' => 'The subject is too long or empty']],
+			['subject', 'message', false, []],
+		];
+	}
+
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param int $page
-	 * @return JSONResponse
+	 * @dataProvider dataAdd
+	 * @param string $subject
+	 * @param string $message
+	 * @param bool $exception
+	 * @param array $expectedData
 	 */
-	public function get($page = 1) {
-		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, self::PAGE_LIMIT * (max(1, $page) - 1));
-
-		$announcements = [];
-		foreach ($rows as $row) {
-			$displayName = $row['author'];
-			$user = $this->userManager->get($displayName);
-			if ($user instanceof IUser) {
-				$displayName = $user->getDisplayName();
-			}
-
-			$announcements[] = [
-				'author'	=> $displayName,
-				'author_id'	=> $row['author'],
-				'time'		=> $row['time'],
-				'subject'	=> $row['subject'],
-				'message'	=> str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $row['message'])),
-			];
+	public function testAdd($subject, $message, $exception, array $expectedData) {
+		if ($exception) {
+			$this->manager->expects($this->once())
+				->method('announce')
+				->with($subject, $message, 'author', $this->anything())
+				->willThrowException(new \InvalidArgumentException());
+		} else {
+			$this->manager->expects($this->once())
+				->method('announce')
+				->with($subject, $message, 'author', $this->anything())
+				->willReturn(10);
 		}
 
-		return new JSONResponse($announcements);
+		$controller = $this->getController(['publishActivities']);
+		$controller->expects(($exception) ? $this->never() : $this->once())
+			->method('publishActivities')
+			->with(10, 'author', $this->anything());
+
+		$response = $controller->addSubmit($subject, $message);
+
+		$this->assertInstanceOf('OCP\AppFramework\Http\DataResponse', $response);
+		$this->assertSame($expectedData, $response->getData());
+	}
+
+	public function testPublishActivities() {
+		$event = $this->getMockBuilder('OCP\Activity\IEvent')
+			->disableOriginalConstructor()
+			->getMock();
+		$event->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setType')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setAuthor')
+			->with('author')
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setTimestamp')
+			->with(1337)
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setSubject')
+			->with('announcementsubject#10', ['author'])
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setMessage')
+			->with('announcementmessage#10', ['author'])
+			->willReturnSelf();
+		$event->expects($this->once())
+			->method('setObject')
+			->with('announcement', 10)
+			->willReturnSelf();
+		$event->expects($this->exactly(5))
+			->method('setAffectedUser')
+			->willReturnSelf();
+
+		$controller = $this->getController();
+		$this->activityManager->expects($this->once())
+			->method('generateEvent')
+			->willReturn($event);
+		$this->userManager->expects($this->once())
+			->method('search')
+			->with('')
+			->willReturn([
+				$this->getUserMock('u1', 'User One'),
+				$this->getUserMock('u2', 'User Two'),
+				$this->getUserMock('u3', 'User Three'),
+				$this->getUserMock('u4', 'User Four'),
+				$this->getUserMock('u5', 'User Five'),
+			]);
+
+		$this->activityManager->expects($this->exactly(5))
+			->method('publish');
+
+		$this->invokePrivate($controller, 'publishActivities', [10, 'author', 1337]);
 	}
 
 	/**
