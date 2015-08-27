@@ -91,17 +91,38 @@ class PageController extends Controller {
 
 		$announcements = [];
 		foreach ($rows as $row) {
-			$user = $this->userManager->get($row['author']);
+			$displayName = $row['author'];
+			$user = $this->userManager->get($displayName);
+			if ($user instanceof IUser) {
+				$displayName = $user->getDisplayName();
+			}
+
 			$announcements[] = [
-				'author'	=> ($user instanceof IUser) ? $user->getDisplayName() : $row['author'],
+				'author'	=> $displayName,
 				'author_id'	=> $row['author'],
 				'time'		=> $row['time'],
-				'subject'	=> $row['subject'],
-				'message'	=> str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $row['message'])),
+				'subject'	=> $this->parseSubject($row['subject']),
+				'message'	=> $this->parseMessage($row['message']),
 			];
 		}
 
 		return new JSONResponse($announcements);
+	}
+
+	/**
+	 * @param string $message
+	 * @return string
+	 */
+	protected function parseMessage($message) {
+		return str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $message));
+	}
+
+	/**
+	 * @param string $subject
+	 * @return string
+	 */
+	protected function parseSubject($subject) {
+		return str_replace(['<', '>'], ['&lt;', '&gt;'], $subject);
 	}
 
 	/**
