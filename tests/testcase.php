@@ -1,10 +1,10 @@
 <?php
 
 /**
- * ownCloud - Activity App
+ * ownCloud - AnnouncementCenter App
  *
  * @author Joas Schilling
- * @copyright 2014 Joas Schilling nickvergessen@owncloud.com
+ * @copyright 2015 Joas Schilling nickvergessen@owncloud.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -20,7 +20,7 @@
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\AnnouncementCenter\Tests;
 
 abstract class TestCase extends \Test\TestCase {
 	/** @var array */

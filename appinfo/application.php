@@ -39,6 +39,8 @@ use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\App;
 use OCP\IContainer;
+use OCP\IUser;
+use OCP\IUserSession;
 
 class Application extends App {
 	public function __construct (array $urlParams = array()) {
@@ -48,6 +50,7 @@ class Application extends App {
 		$container->registerService('PageController', function(IContainer $c) {
 			/** @var \OC\Server $server */
 			$server = $c->query('ServerContainer');
+
 			return new PageController(
 				$c->query('AppName'),
 				$server->getRequest(),
@@ -58,8 +61,21 @@ class Application extends App {
 				$server->getL10N('announcementcenter'),
 				$server->getURLGenerator(),
 				new Manager($server->getDatabaseConnection()),
-				$c->query('CurrentUID')
+				$this->getCurrentUser($server->getUserSession())
 			);
 		});
+	}
+
+	/**
+	 * @param IUserSession $session
+	 * @return string
+	 */
+	protected function getCurrentUser(IUserSession $session) {
+		$user = $session->getUser();
+		if ($user instanceof IUser) {
+			$user = $user->getUID();
+		}
+
+		return (string) $user;
 	}
 }

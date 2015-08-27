@@ -24,12 +24,13 @@ namespace OCA\AnnouncementCenter\Tests\Lib;
 
 use OCA\AnnouncementCenter\ActivityExtension;
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;
 use OCP\IL10N;
 use OCP\L10N\IFactory;
 
-class ActivityExtensionTest extends \Test\TestCase {
+class ActivityExtensionTest extends TestCase {
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
 	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
