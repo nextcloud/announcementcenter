@@ -28,7 +28,7 @@ use OCP\IUserManager;
 
 class PageController extends Controller {
 	/** @var int */
-	const PAGE_LIMIT = 15;
+	const PAGE_LIMIT = 5;
 
 	/** @var IDBConnection */
 	private $connection;
@@ -130,7 +130,7 @@ class PageController extends Controller {
 	 * @param string $message
 	 * @return DataResponse
 	 */
-	public function addSubmit($subject, $message) {
+	public function add($subject, $message) {
 		$timeStamp = time();
 		try {
 			$id = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
@@ -143,7 +143,13 @@ class PageController extends Controller {
 
 		$this->publishActivities($id, $this->userId, $timeStamp);
 
-		return new DataResponse();
+		return new JSONResponse([
+			'author'	=> $this->userManager->get($this->userId)->getDisplayName(),
+			'author_id'	=> $this->userId,
+			'time'		=> $timeStamp,
+			'subject'	=> $this->parseSubject($subject),
+			'message'	=> $this->parseMessage($message),
+		]);
 	}
 
 	/**
@@ -185,15 +191,6 @@ class PageController extends Controller {
 		]);
 		$jsonResponse = $this->get(1);
 		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
-	}
-
-	/**
-	 * @NoCSRFRequired
-	 *
-	 * @return TemplateResponse
-	 */
-	public function add() {
-		return $this->templateResponse('part.add');
 	}
 
 	/**

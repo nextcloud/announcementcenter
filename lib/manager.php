@@ -83,10 +83,11 @@ class Manager {
 
 	/**
 	 * @param int $id
+	 * @param bool $parseStrings
 	 * @return array
 	 * @throws \RuntimeException when the id is invalid
 	 */
-	public function getAnnouncement($id) {
+	public function getAnnouncement($id, $parseStrings = true) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('announcements')
@@ -103,17 +104,18 @@ class Manager {
 		return [
 			'author'	=> $row['announcement_user'],
 			'time'		=> (int) $row['announcement_time'],
-			'subject'	=> $row['announcement_subject'],
-			'message'	=> $row['announcement_message'],
+			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
+			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 		];
 	}
 
 	/**
 	 * @param int $limit
 	 * @param int $offset
+	 * @param bool $parseStrings
 	 * @return array
 	 */
-	public function getAnnouncements($limit = 15, $offset = 0) {
+	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('announcements')
@@ -128,13 +130,29 @@ class Manager {
 			$announcements[] = [
 				'author'	=> $row['announcement_user'],
 				'time'		=> $row['announcement_time'],
-				'subject'	=> $row['announcement_subject'],
-				'message'	=> $row['announcement_message'],
+				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
+				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			];
 		}
 		$result->closeCursor();
 
 
 		return $announcements;
+	}
+
+	/**
+	 * @param string $message
+	 * @return string
+	 */
+	protected function parseMessage($message) {
+		return str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $message));
+	}
+
+	/**
+	 * @param string $subject
+	 * @return string
+	 */
+	protected function parseSubject($subject) {
+		return str_replace(['<', '>'], ['&lt;', '&gt;'], $subject);
 	}
 }

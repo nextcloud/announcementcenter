@@ -81,7 +81,7 @@ class ActivityExtension implements IExtension {
 	 * @return string|false
 	 */
 	public function translate($app, $text, $params, $stripPath, $highlightParams, $languageCode) {
-		if ($app === 'announcementcenter' && strpos($text, 'announcementsubject#') === 0) {
+		if ($app === 'announcementcenter') {
 			$l = $this->languageFactory->get('announcementcenter', $languageCode);
 
 			list(, $id) = explode('#', $text);
@@ -90,6 +90,10 @@ class ActivityExtension implements IExtension {
 				$announcement = $this->manager->getAnnouncement($id);
 			} catch (\InvalidArgumentException $e) {
 				return (string) $l->t('Announcement does not exist anymore', $params);
+			}
+
+			if (strpos($text, 'announcementmessage#') === 0) {
+				return $announcement['message'];
 			}
 
 			if ($highlightParams) {
@@ -103,9 +107,6 @@ class ActivityExtension implements IExtension {
 				return (string) $l->t('You announced %s', $params);
 			}
 			return (string) $l->t('%s announced %s', $params);
-		} else if ($app === 'announcementcenter') {
-			// Remove the message body
-			return '';
 		}
 
 		return false;
@@ -123,7 +124,7 @@ class ActivityExtension implements IExtension {
 	 * @return array|false
 	 */
 	public function getSpecialParameterList($app, $text) {
-		if ($app === 'announcementcenter') {
+		if ($app === 'announcementcenter'&& strpos($text, 'announcementsubject#') === 0) {
 			return [
 				0 => 'username',
 			];

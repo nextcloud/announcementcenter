@@ -21,6 +21,12 @@
 	height: 250px;
 }
 
+#app-content hr {
+	width: 85%;
+	border: none;
+	border-bottom: solid 1px #ddd;
+}
+
 #announcement_submit_msg.success {
 	color: #fff;
 	background-color: #47a447;

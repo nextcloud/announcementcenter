@@ -1,4 +1,4 @@
-<form class="section">
+<form id="announce" class="section">
 	<h2><?php p($l->t('Add announcement')); ?></h2>
 
 	<input type="text" name="subject" id="subject" placeholder="<?php p($l->t('Subject…')); ?>" />
