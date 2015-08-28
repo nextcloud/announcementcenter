@@ -11,11 +11,22 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-// ToDo Use Container and Services
-\OCP\App::addNavigationEntry([
-	'id' => 'announcementcenter',
-	'order' => 10,
-	'href' => \OCP\Util::linkToRoute('announcementcenter.page.index'),
-	'icon' => \OCP\Util::imagePath('announcementcenter', 'app.svg'),
-	'name' => \OC_L10N::get('announcementcenter')->t('Announcement Center')
-]);
+\OC::$server->getNavigationManager()->add(function () {
+	$urlGenerator = \OC::$server->getURLGenerator();
+	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
+	return [
+		'id' => 'announcementcenter',
+		'order' => 10,
+		'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
+		'icon' => $urlGenerator->imagePath('announcementcenter', 'app.svg'),
+		'name' => $l->t('Announcements'),
+	];
+});
+
+\OC::$server->getActivityManager()->registerExtension(function() {
+	return new \OCA\AnnouncementCenter\ActivityExtension(
+		new \OCA\AnnouncementCenter\Manager(\OC::$server->getDatabaseConnection()),
+		\OC::$server->getActivityManager(),
+		\OC::$server->getL10NFactory()
+	);
+});

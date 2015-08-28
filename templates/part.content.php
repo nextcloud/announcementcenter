@@ -1,12 +1,26 @@
-<div class="section">
-	<p>Hello World <?php p($_['user']) ?></p>
-
-	<p><button id="hello">click me</button></p>
-
-	<p><textarea id="echo-content">
-		Send this as ajax
-	</textarea></p>
-	<p><button id="echo">Send ajax request</button></p>
-
-	Ajax response: <div id="echo-result"></div>
+<?php
+if (empty($_['announcements'])) {
+	?>
+<div id="no-announcements">
+	<p><?php p($l->t('No announcements posted')); ?></p>
 </div>
+<?php
+}
+foreach ($_['announcements'] as $announcement) {
+?>
+	<div class="section">
+		<h2><?php p($announcement['subject']); ?></h2>
+		<em><?php p($announcement['author']); ?> — <?php p(\OCP\Template::relative_modified_date($announcement['time'])); ?></em>
+
+	<?php
+	if ($announcement['message'] !== '') {
+	?>
+		<br />
+		<br />
+		<p><?php print_unescaped($announcement['message']); ?></p>
+	<?php
+	}
+	?>
+	</div>
+<?php
+}

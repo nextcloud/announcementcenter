@@ -20,7 +20,8 @@
 return [
 	'routes' => [
 		['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
-		['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-		['name' => 'page#add', 'url' => '/add', 'verb' => 'GET'],
+		['name' => 'page#get', 'url' => '/announcement', 'verb' => 'GET'],
+		['name' => 'page#add', 'url' => '/announcement', 'verb' => 'POST'],
+		['name' => 'page#delete', 'url' => '/announcement/{id}', 'verb' => 'DELETE'],
 	]
 ];

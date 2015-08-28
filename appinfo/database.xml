@@ -29,13 +29,13 @@
 				<length>64</length>
 			</field>
 			<field>
-				<name>announcement_title</name>
+				<name>announcement_subject</name>
 				<type>text</type>
 				<notnull>true</notnull>
-				<length>255</length>
+				<length>512</length>
 			</field>
 			<field>
-				<name>announcement_text</name>
+				<name>announcement_message</name>
 				<type>text</type>
 				<notnull>false</notnull>
 				<length>64000</length>
