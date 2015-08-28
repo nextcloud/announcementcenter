@@ -60,8 +60,8 @@ matrix:
       env: DB=mysql
     - php: 5.4
       env: DB=pgsql
-    - php: 5.4
-      env: DB=oracle
+#    - php: 5.4
+#      env: DB=oracle
     - php: 5.4
       env: DB=mysql;CODECHECK=1
     - php: 5.4
