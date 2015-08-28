@@ -126,8 +126,8 @@ class PageController extends TestCase {
 		return [
 			[0, [], [], 0, []],
 			[1, [], [], 0, []],
-			[2, [], [], 15, []],
-			[3, [], [], 30, []],
+			[2, [], [], 5, []],
+			[3, [], [], 10, []],
 			[
 				1,
 				[
@@ -177,7 +177,7 @@ class PageController extends TestCase {
 
 		$this->manager->expects($this->any())
 			->method('getAnnouncements')
-			->with(15, $offset)
+			->with(5, $offset)
 			->willReturn($announcements);
 
 		$controller = $this->getController();
@@ -187,6 +187,34 @@ class PageController extends TestCase {
 		$this->assertEquals($expected, $jsonResponse->getData());
 	}
 
+	public function dataAddThrows() {
+		return [
+			['', ['error' => 'The subject is too long or empty']],
+			[str_repeat('a', 513), ['error' => 'The subject is too long or empty']],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAddThrows
+	 * @param string $subject
+	 * @param array $expectedData
+	 */
+	public function testAddThrows($subject, array $expectedData) {
+		$this->manager->expects($this->once())
+			->method('announce')
+			->with($subject, '', 'author', $this->anything())
+			->willThrowException(new \InvalidArgumentException());
+
+		$controller = $this->getController(['publishActivities']);
+		$controller->expects($this->never())
+			->method('publishActivities');
+
+		$response = $controller->add($subject, '');
+
+		$this->assertInstanceOf('OCP\AppFramework\Http\DataResponse', $response);
+		$this->assertSame($expectedData, $response->getData());
+	}
+
 	public function dataAdd() {
 		return [
 			['', '', true, ['error' => 'The subject is too long or empty']],
@@ -194,35 +222,34 @@ class PageController extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataAdd
-	 * @param string $subject
-	 * @param string $message
-	 * @param bool $exception
-	 * @param array $expectedData
-	 */
-	public function testAdd($subject, $message, $exception, array $expectedData) {
-		if ($exception) {
-			$this->manager->expects($this->once())
-				->method('announce')
-				->with($subject, $message, 'author', $this->anything())
-				->willThrowException(new \InvalidArgumentException());
-		} else {
-			$this->manager->expects($this->once())
-				->method('announce')
-				->with($subject, $message, 'author', $this->anything())
-				->willReturn(10);
-		}
+	public function testAdd() {
+		$this->manager->expects($this->once())
+			->method('announce')
+			->with('subject', 'message', 'author', $this->anything())
+			->willReturn(10);
+		$this->userManager->expects($this->once())
+			->method('get')
+			->with('author')
+			->willReturn($this->getUserMock('author', 'Author'));
 
 		$controller = $this->getController(['publishActivities']);
-		$controller->expects(($exception) ? $this->never() : $this->once())
+		$controller->expects($this->once())
 			->method('publishActivities')
 			->with(10, 'author', $this->anything());
 
-		$response = $controller->addSubmit($subject, $message);
+		$response = $controller->add('subject', 'message');
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\DataResponse', $response);
-		$this->assertSame($expectedData, $response->getData());
+		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$data = $response->getData();
+		$this->assertArrayHasKey('time', $data);
+		$this->assertInternalType('int', $data['time']);
+		unset($data['time']);
+		$this->assertSame([
+			'author' => 'Author',
+			'author_id' => 'author',
+			'subject' => 'subject',
+			'message' => 'message',
+		], $data);
 	}
 
 	public function testPublishActivities() {
@@ -280,77 +307,5 @@ class PageController extends TestCase {
 			->method('publish');
 
 		$this->invokePrivate($controller, 'publishActivities', [10, 'author', 1337]);
-	}
-
-	/**
-	 * @param string $subject
-	 * @param string $message
-	 * @return DataResponse
-	 */
-	public function addSubmit($subject, $message) {
-		$timeStamp = time();
-		try {
-			$id = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
-		} catch (\InvalidArgumentException $e) {
-			return new DataResponse(
-				['error' => (string) $this->l->t('The subject must not be empty.')],
-				Http::STATUS_BAD_REQUEST
-			);
-		}
-
-		$users = $this->userManager->search('');
-		$event = $this->activityManager->generateEvent();
-		$event->setApp('announcementcenter')
-			->setType('announcementcenter')
-			->setAffectedUser($this->userId)
-			->setAuthor($this->userId)
-			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject#' . $id, [$this->userId])
-			->setMessage('announcementmessage#' . $id, [$this->userId])
-			->setObject('announcement', $id);
-		$this->activityManager->publish($event);
-
-		foreach ($users as $user) {
-			$event->setAffectedUser($user->getUID());
-			$this->activityManager->publish($event);
-		}
-
-		return new DataResponse();
-	}
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @return TemplateResponse
-	 */
-	public function index() {
-		$jsonResponse = $this->get(1);
-		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
-	}
-
-	/**
-	 * @NoCSRFRequired
-	 *
-	 * @return TemplateResponse
-	 */
-	public function add() {
-		return $this->templateResponse('part.add');
-	}
-
-	/**
-	 * @param string $templateFile
-	 * @param array $templateData
-	 * @return TemplateResponse
-	 */
-	protected function templateResponse($templateFile = 'part.content', array $templateData = []) {
-		return new TemplateResponse('announcementcenter', 'main', array_merge([
-			'user'		=> $this->userId,
-			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
-			'template'	=> $templateFile,
-
-			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
-			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
-		], $templateData));
 	}
 }

@@ -189,23 +189,5 @@ class PageController extends Controller {
 			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
 			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
 		]);
-		$jsonResponse = $this->get(1);
-		return $this->templateResponse('part.content', ['announcements' => $jsonResponse->getData()]);
-	}
-
-	/**
-	 * @param string $templateFile
-	 * @param array $templateData
-	 * @return TemplateResponse
-	 */
-	protected function templateResponse($templateFile = 'part.content', array $templateData = []) {
-		return new TemplateResponse('announcementcenter', 'main', array_merge([
-			'user'		=> $this->userId,
-			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
-			'template'	=> $templateFile,
-
-			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
-			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
-		], $templateData));
 	}
 }
