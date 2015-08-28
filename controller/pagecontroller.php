@@ -184,7 +184,6 @@ class PageController extends Controller {
 		return new TemplateResponse('announcementcenter', 'main', [
 			'user'		=> $this->userId,
 			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
-			'template'	=> '',
 
 			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
 			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),

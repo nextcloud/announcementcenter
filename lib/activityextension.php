@@ -87,7 +87,7 @@ class ActivityExtension implements IExtension {
 			list(, $id) = explode('#', $text);
 
 			try {
-				$announcement = $this->manager->getAnnouncement($id);
+				$announcement = $this->manager->getAnnouncement($id, $highlightParams);
 			} catch (\InvalidArgumentException $e) {
 				return (string) $l->t('Announcement does not exist anymore', $params);
 			}

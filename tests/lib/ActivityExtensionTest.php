@@ -130,7 +130,12 @@ class ActivityExtensionTest extends TestCase {
 				'message' => 'Message #10',
 			], 'user', '<strong>author2</strong> announced <strong>Subject #10</strong>'],
 			['announcementcenter', 'announcementsubject#10', [], false, false, '', false, null, 'Announcement does not exist anymore'],
-			['announcementcenter', 'announcementmessage#10', [], false, false, '', null, null, ''],
+			['announcementcenter', 'announcementmessage#10', [], false, false, '', [
+				'subject' => 'Subject #10',
+				'author' => 'author2',
+				'time' => 1440672792,
+				'message' => 'Message #10',
+			], null, 'Message #10'],
 			['files', '', [], false, false, '', null, null, false],
 		];
 	}
@@ -165,12 +170,12 @@ class ActivityExtensionTest extends TestCase {
 			if ($managerReturn === false) {
 				$this->manager->expects($this->once())
 					->method('getAnnouncement')
-					->with(10)
+					->with(10, $highlightParams)
 					->willThrowException(new \InvalidArgumentException());
 			} else {
 				$this->manager->expects($this->once())
 					->method('getAnnouncement')
-					->with(10)
+					->with(10, $highlightParams)
 					->willReturn($managerReturn);
 			}
 		}
@@ -180,18 +185,20 @@ class ActivityExtensionTest extends TestCase {
 
 	public function dataGetSpecialParameterList() {
 		return [
-			['announcementcenter', [0 => 'username']],
-			['files', false]
+			['announcementcenter', 'announcementsubject#10', [0 => 'username']],
+			['announcementcenter', 'announcementmessage#10', false],
+			['files', '', false]
 		];
 	}
 
 	/**
 	 * @dataProvider dataGetSpecialParameterList
 	 * @param string $app
+	 * @param string $text
 	 * @param mixed $expected
 	 */
-	public function testGetSpecialParameterList($app, $expected) {
-		$this->assertSame($expected, $this->extension->getSpecialParameterList($app, ''));
+	public function testGetSpecialParameterList($app, $text, $expected) {
+		$this->assertSame($expected, $this->extension->getSpecialParameterList($app, $text));
 	}
 
 	public function testGetGroupParameter() {

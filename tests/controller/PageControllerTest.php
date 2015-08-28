@@ -308,4 +308,44 @@ class PageController extends TestCase {
 
 		$this->invokePrivate($controller, 'publishActivities', [10, 'author', 1337]);
 	}
+
+	public function dataIndex() {
+		return [
+			[true],
+			[false],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIndex
+	 * @param bool $isAdmin
+	 */
+	public function testIndex($isAdmin) {
+
+		$this->groupManager->expects($this->once())
+			->method('isAdmin')
+			->with('author')
+			->willReturn($isAdmin);
+		$this->urlGenerator->expects($this->exactly(2))
+			->method('linkToRoute')
+			->willReturnMap([
+				['announcementcenter.page.add', [], '/apps/announcementcenter/announcement/add'],
+				['announcementcenter.page.index', [], '/apps/announcementcenter/announcement'],
+			]);
+
+		$controller = $this->getController();
+		$response = $controller->index();
+		$this->assertInstanceOf('OCP\AppFramework\Http\TemplateResponse', $response);
+
+		$this->assertSame(
+			[
+				'user' => 'author',
+				'is_admin' => $isAdmin,
+
+				'u_add' => '/apps/announcementcenter/announcement/add',
+				'u_index' => '/apps/announcementcenter/announcement',
+			],
+			$response->getParams()
+		);
+	}
 }

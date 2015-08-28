@@ -13,10 +13,10 @@ namespace OCA\AnnouncementCenter\AppInfo;
 
 \OC::$server->getNavigationManager()->add(function () {
 	$urlGenerator = \OC::$server->getURLGenerator();
-	$l = \OC::$server->getL10N('announcementcenter');
+	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
 	return [
 		'id' => 'announcementcenter',
-		'order' => -10,
+		'order' => 10,
 		'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
 		'icon' => $urlGenerator->imagePath('announcementcenter', 'app.svg'),
 		'name' => $l->t('Announcements'),
