@@ -27,6 +27,8 @@ before_install:
   - ./occ check
   - ./occ status
   - ./occ app:list
+  - ./occ app:enable announcementcenter
+  - ./occ app:list
 
 script:
   - cd apps/$APP_NAME/
