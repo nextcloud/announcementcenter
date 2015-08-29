@@ -5,10 +5,10 @@
     <description>An announcement center for ownCloud</description>
     <licence>AGPL</licence>
     <author>Joas Schilling</author>
-    <version>0.0.2</version>
+    <version>1.0.0-a1</version>
     <namespace>AnnouncementCenter</namespace>
     <category>other</category>
     <dependencies>
-        <owncloud min-version="8.0" />
+        <owncloud min-version="8.2" />
     </dependencies>
 </info>
