@@ -10,3 +10,25 @@ This app allows administrators to post announcements
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nickv-oc/announcementcenter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nickv-oc/announcementcenter/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/nickv-oc/announcementcenter/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nickv-oc/announcementcenter/?branch=master)
 
+---
+
+## Screenshots
+
+### Announcements front page (the "Add announcement" form is admin only)
+
+![Announcement Center Frontpage](docs/AnnouncementCenterFrontpage.png)
+
+---
+
+### The users are also informed by an activity in their stream (can not be disabled)
+
+![Announcement Activity](docs/AnnouncementActivity.png)
+
+---
+
+### Notifications and confirmation
+
+Still todo:
+
+1. Send notifications about announcement
+2. Optional: request confirmation of the announcement
