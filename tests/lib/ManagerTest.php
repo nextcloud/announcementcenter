@@ -63,33 +63,29 @@ class ManagerTest extends TestCase {
 	}
 
 	public function testAnnouncement() {
-		$subject = 'subject';
-		$message = 'message';
+		$subject = 'subject' . "\n<html>";
+		$message = 'message' . "\n<html>";
 		$author = 'author';
 		$time = time() - 10;
 
-		$id = $this->manager->announce($subject, $message, $author, $time);
-		$this->assertInternalType('int', $id);
-		$this->assertGreaterThan(0, $id);
+		$announcement = $this->manager->announce($subject, $message, $author, $time);
+		$this->assertInternalType('int', $announcement['id']);
+		$this->assertGreaterThan(0, $announcement['id']);
+		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
+		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
+		$this->assertSame('author', $announcement['author']);
+		$this->assertSame($time, $announcement['time']);
 
-		$this->assertEquals([
-			'subject' => $subject,
-			'message' => $message,
-			'author' => $author,
-			'time' => $time,
-		], $this->manager->getAnnouncement($id));
+		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
-		$this->assertEquals([[
-			'subject' => $subject,
-			'message' => $message,
-			'author' => $author,
-			'time' => $time,
-		]], $this->manager->getAnnouncements(1));
+		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
-		$this->manager->delete($id);
+		$this->assertEquals([$announcement], $this->manager->getAnnouncements(1));
+
+		$this->manager->delete($announcement['id']);
 
 		try {
-			$this->manager->getAnnouncement($id);
+			$this->manager->getAnnouncement($announcement['id']);
 			$this->fail('Failed to delete the announcement');
 		} catch (\InvalidArgumentException $e) {
 			$this->assertInstanceOf('InvalidArgumentException', $e);
