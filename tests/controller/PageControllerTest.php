@@ -153,7 +153,7 @@ class PageController extends TestCase {
 			[
 				1,
 				[
-					['author' => 'author1', 'subject' => 'Subject <html>#1</html>', 'message' => "Message\n<html>#1</html>", 'time' => 1440672792],
+					['author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792],
 				], [], 0,
 				[
 					['author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792],
@@ -226,7 +226,13 @@ class PageController extends TestCase {
 		$this->manager->expects($this->once())
 			->method('announce')
 			->with('subject', 'message', 'author', $this->anything())
-			->willReturn(10);
+			->willReturn([
+				'author' => 'author',
+				'subject' => 'subject',
+				'message' => 'message',
+				'time' => time(),
+				'id' => 10,
+			]);
 		$this->userManager->expects($this->once())
 			->method('get')
 			->with('author')
@@ -244,7 +250,8 @@ class PageController extends TestCase {
 		$this->assertArrayHasKey('time', $data);
 		$this->assertInternalType('int', $data['time']);
 		unset($data['time']);
-		$this->assertSame([
+		unset($data['id']);
+		$this->assertEquals([
 			'author' => 'Author',
 			'author_id' => 'author',
 			'subject' => 'subject',

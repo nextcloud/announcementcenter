@@ -30,10 +30,11 @@ class Manager {
 	 * @param string $message
 	 * @param string $user
 	 * @param int $time
-	 * @return int
+	 * @param bool $parseStrings If the returned message should be parsed or not
+	 * @return array
 	 * @throws \RuntimeException when the subject is empty or invalid
 	 */
-	public function announce($subject, $message, $user, $time) {
+	public function announce($subject, $message, $user, $time, $parseStrings = true) {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -59,7 +60,7 @@ class Manager {
 		$queryBuilder->execute();
 
 		$queryBuilder = $this->connection->getQueryBuilder();
-		$query = $queryBuilder->select('announcement_id')
+		$query = $queryBuilder->select('*')
 			->from('announcements')
 			->where($queryBuilder->expr()->eq('announcement_time', $queryBuilder->createParameter('time')))
 			->andWhere($queryBuilder->expr()->eq('announcement_user', $queryBuilder->createParameter('user')))
@@ -70,9 +71,18 @@ class Manager {
 		$row = $result->fetch();
 		$result->closeCursor();
 
-		return (int) $row['announcement_id'];
+		return [
+			'id'		=> (int) $row['announcement_id'],
+			'author'	=> $row['announcement_user'],
+			'time'		=> (int) $row['announcement_time'],
+			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
+			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+		];
 	}
 
+	/**
+	 * @param int $id
+	 */
 	public function delete($id) {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$queryBuilder->delete('announcements')
@@ -102,6 +112,7 @@ class Manager {
 		}
 
 		return [
+			'id'		=> (int) $row['announcement_id'],
 			'author'	=> $row['announcement_user'],
 			'time'		=> (int) $row['announcement_time'],
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
@@ -128,8 +139,9 @@ class Manager {
 		$announcements = [];
 		while ($row = $result->fetch()) {
 			$announcements[] = [
+				'id'		=> (int) $row['announcement_id'],
 				'author'	=> $row['announcement_user'],
-				'time'		=> $row['announcement_time'],
+				'time'		=> (int) $row['announcement_time'],
 				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			];
@@ -153,6 +165,6 @@ class Manager {
 	 * @return string
 	 */
 	protected function parseSubject($subject) {
-		return str_replace(['<', '>'], ['&lt;', '&gt;'], $subject);
+		return str_replace("\n", ' ', str_replace(['<', '>'], ['&lt;', '&gt;'], $subject));
 	}
 }

@@ -101,28 +101,12 @@ class PageController extends Controller {
 				'author'	=> $displayName,
 				'author_id'	=> $row['author'],
 				'time'		=> $row['time'],
-				'subject'	=> $this->parseSubject($row['subject']),
-				'message'	=> $this->parseMessage($row['message']),
+				'subject'	=> $row['subject'],
+				'message'	=> $row['message'],
 			];
 		}
 
 		return new JSONResponse($announcements);
-	}
-
-	/**
-	 * @param string $message
-	 * @return string
-	 */
-	protected function parseMessage($message) {
-		return str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $message));
-	}
-
-	/**
-	 * @param string $subject
-	 * @return string
-	 */
-	protected function parseSubject($subject) {
-		return str_replace(['<', '>'], ['&lt;', '&gt;'], $subject);
 	}
 
 	/**
@@ -133,7 +117,7 @@ class PageController extends Controller {
 	public function add($subject, $message) {
 		$timeStamp = time();
 		try {
-			$id = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
+			$announcement = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
 		} catch (\InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => (string)$this->l->t('The subject is too long or empty')],
@@ -141,15 +125,12 @@ class PageController extends Controller {
 			);
 		}
 
-		$this->publishActivities($id, $this->userId, $timeStamp);
+		$this->publishActivities($announcement['id'], $announcement['author'], $timeStamp);
 
-		return new JSONResponse([
-			'author'	=> $this->userManager->get($this->userId)->getDisplayName(),
-			'author_id'	=> $this->userId,
-			'time'		=> $timeStamp,
-			'subject'	=> $this->parseSubject($subject),
-			'message'	=> $this->parseMessage($message),
-		]);
+		$announcement['author_id'] = $announcement['author'];
+		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
+
+		return new JSONResponse($announcement);
 	}
 
 	/**
