@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \OCP\IL10N $l
+ */
+?>
 <form id="announce" class="section">
 	<h2><?php p($l->t('Add announcement')); ?></h2>
 
