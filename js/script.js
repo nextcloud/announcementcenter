@@ -42,10 +42,11 @@
 					message: announcement.message
 				}));
 
-				$('#app-content-wrapper').prepend($html);
+				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
 				setTimeout(function() {
 					$html.slideDown();
+					$('#emptycontent').addClass('hidden');
 				}, 750);
 
 				$('#subject').val('');
@@ -63,15 +64,19 @@
 				page: 1
 			}
 		}).done(function (response) {
-			_.each(response, function (announcement) {
-				var $html = $(compiledTemplate({
-					time: OC.Util.formatDate(announcement.time * 1000),
-					author: announcement.author,
-					subject: announcement.subject,
-					message: announcement.message
-				}));
-				$('#app-content-wrapper').append($html);
-			});
+			if (response.length > 0) {
+				_.each(response, function (announcement) {
+					var $html = $(compiledTemplate({
+						time: OC.Util.formatDate(announcement.time * 1000),
+						author: announcement.author,
+						subject: announcement.subject,
+						message: announcement.message
+					}));
+					$('#app-content-wrapper').append($html);
+				});
+			} else {
+				$('#emptycontent').removeClass('hidden');
+			}
 		});
 	});
 })(jQuery, OC);

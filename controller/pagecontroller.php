@@ -163,11 +163,7 @@ class PageController extends Controller {
 	 */
 	public function index() {
 		return new TemplateResponse('announcementcenter', 'main', [
-			'user'		=> $this->userId,
 			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
-
-			'u_add'		=> $this->urlGenerator->linkToRoute('announcementcenter.page.add'),
-			'u_index'	=> $this->urlGenerator->linkToRoute('announcementcenter.page.index'),
 		]);
 	}
 }

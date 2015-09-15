@@ -1,24 +1,10 @@
-#hello {
-	color: #00AA00;
-}
-
-#app-navigation .new-announcement a span { margin-left: 20px; }
-#app-navigation .new-announcement a span:before {
-	position: absolute;
-	left: 12px;
-	top: -2px;
-	content: '+';
-	font-weight: bold;
-	font-size: 150%;
-}
-
 #subject {
-	width: 250px;
+	width: 720px;
 }
 
 #message {
-	width: 500px;
-	height: 250px;
+	width: 720px;
+	height: 350px;
 }
 
 #app-content hr {
@@ -40,16 +26,6 @@
 	padding: 3px;
 }
 
-#no-announcements {
-	position: absolute;
-	text-align: center;
-	top: 40%;
-	width: 100%;
-	padding: 20px;
-}
-
-#no-announcements p {
-	color: #666;
-	margin-top: 10px;
-	font-size: 1em;
+.emptycontent-admin {
+	position: inherit !important;
 }
