@@ -58,6 +58,7 @@ class Application extends App {
 				$server->getGroupManager(),
 				$server->getUserManager(),
 				$server->getActivityManager(),
+				$server->getNotificationManager(),
 				$server->getL10N('announcementcenter'),
 				$server->getURLGenerator(),
 				new Manager($server->getDatabaseConnection()),

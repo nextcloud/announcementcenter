@@ -11,6 +11,7 @@
 
 namespace OCA\AnnouncementCenter\Controller;
 
+use OC\Notification\IManager as INotificationManager;
 use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
@@ -29,6 +30,9 @@ use OCP\IUserManager;
 class PageController extends Controller {
 	/** @var int */
 	const PAGE_LIMIT = 5;
+
+	/** @var INotificationManager */
+	protected $notificationManager;
 
 	/** @var IDBConnection */
 	private $connection;
@@ -61,18 +65,20 @@ class PageController extends Controller {
 	 * @param IGroupManager $groupManager
 	 * @param IUserManager $userManager
 	 * @param IManager $activityManager
+	 * @param INotificationManager $notificationManager
 	 * @param IL10N $l
 	 * @param IURLGenerator $urlGenerator
 	 * @param Manager $manager
 	 * @param string $UserId
 	 */
-	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IManager $activityManager, IL10N $l, IURLGenerator $urlGenerator, Manager $manager, $UserId){
+	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IManager $activityManager, INotificationManager $notificationManager, IL10N $l, IURLGenerator $urlGenerator, Manager $manager, $UserId){
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
 		$this->activityManager = $activityManager;
+		$this->notificationManager = $notificationManager;
 		$this->l = $l;
 		$this->urlGenerator = $urlGenerator;
 		$this->manager = $manager;
@@ -125,7 +131,7 @@ class PageController extends Controller {
 			);
 		}
 
-		$this->publishActivities($announcement['id'], $announcement['author'], $timeStamp);
+		$this->createPublicity($announcement['id'], $announcement['author'], $timeStamp);
 
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
@@ -138,7 +144,7 @@ class PageController extends Controller {
 	 * @param string $authorId
 	 * @param int $timeStamp
 	 */
-	protected function publishActivities($id, $authorId, $timeStamp) {
+	protected function createPublicity($id, $authorId, $timeStamp) {
 		$users = $this->userManager->search('');
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
@@ -149,9 +155,21 @@ class PageController extends Controller {
 			->setMessage('announcementmessage#' . $id, [$authorId])
 			->setObject('announcement', $id);
 
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setTimestamp($timeStamp)
+			->setObject('announcement', $id)
+			->setSubject('announced', [$authorId])
+			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
+
 		foreach ($users as $user) {
 			$event->setAffectedUser($user->getUID());
 			$this->activityManager->publish($event);
+
+			if ($authorId !== $user->getUID()) {
+				$notification->setUser($user->getUID());
+				$this->notificationManager->notify($notification);
+			}
 		}
 	}
 

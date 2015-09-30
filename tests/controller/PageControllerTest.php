@@ -11,6 +11,7 @@
 
 namespace OCA\AnnouncementCenter\Tests\Controller;
 
+use OC\Notification\IManager as INotificationManager;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\IManager;
@@ -23,7 +24,6 @@ use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
-use OCP\IUser;
 use OCP\IUserManager;
 
 class PageController extends TestCase {
@@ -35,6 +35,8 @@ class PageController extends TestCase {
 	protected $userManager;
 	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $activityManager;
+	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $notificationManager;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $l;
 	/** @var IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
@@ -57,7 +59,7 @@ class PageController extends TestCase {
 		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
+		$this->notificationManager = $this->getMockBuilder('OC\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->l = $this->getMockBuilder('OCP\IL10N')
@@ -85,6 +87,7 @@ class PageController extends TestCase {
 				$this->groupManager,
 				$this->userManager,
 				$this->activityManager,
+				$this->notificationManager,
 				$this->l,
 				$this->urlGenerator,
 				$this->manager,
@@ -99,6 +102,7 @@ class PageController extends TestCase {
 					$this->groupManager,
 					$this->userManager,
 					$this->activityManager,
+					$this->notificationManager,
 					$this->l,
 					$this->urlGenerator,
 					$this->manager,
@@ -205,9 +209,9 @@ class PageController extends TestCase {
 			->with($subject, '', 'author', $this->anything())
 			->willThrowException(new \InvalidArgumentException());
 
-		$controller = $this->getController(['publishActivities']);
+		$controller = $this->getController(['createPublicity']);
 		$controller->expects($this->never())
-			->method('publishActivities');
+			->method('createPublicity');
 
 		$response = $controller->add($subject, '');
 
@@ -238,9 +242,9 @@ class PageController extends TestCase {
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
 
-		$controller = $this->getController(['publishActivities']);
+		$controller = $this->getController(['createPublicity']);
 		$controller->expects($this->once())
-			->method('publishActivities')
+			->method('createPublicity')
 			->with(10, 'author', $this->anything());
 
 		$response = $controller->add('subject', 'message');
@@ -259,7 +263,7 @@ class PageController extends TestCase {
 		], $data);
 	}
 
-	public function testPublishActivities() {
+	public function testCreatePublicity() {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
@@ -295,15 +299,44 @@ class PageController extends TestCase {
 			->method('setAffectedUser')
 			->willReturnSelf();
 
+		$notification = $this->getMockBuilder('OC\Notification\INotification')
+			->disableOriginalConstructor()
+			->getMock();
+		$notification->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setTimestamp')
+			->with(1337)
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setSubject')
+			->with('announced', ['author'])
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setObject')
+			->with('announcement', 10)
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setLink')
+			->willReturnSelf();
+		$notification->expects($this->exactly(4))
+			->method('setUser')
+			->willReturnSelf();
+
 		$controller = $this->getController();
 		$this->activityManager->expects($this->once())
 			->method('generateEvent')
 			->willReturn($event);
+		$this->notificationManager->expects($this->once())
+			->method('createNotification')
+			->willReturn($notification);
 		$this->userManager->expects($this->once())
 			->method('search')
 			->with('')
 			->willReturn([
-				$this->getUserMock('u1', 'User One'),
+				$this->getUserMock('author', 'User One'),
 				$this->getUserMock('u2', 'User Two'),
 				$this->getUserMock('u3', 'User Three'),
 				$this->getUserMock('u4', 'User Four'),
@@ -312,8 +345,10 @@ class PageController extends TestCase {
 
 		$this->activityManager->expects($this->exactly(5))
 			->method('publish');
+		$this->notificationManager->expects($this->exactly(4))
+			->method('notify');
 
-		$this->invokePrivate($controller, 'publishActivities', [10, 'author', 1337]);
+		$this->invokePrivate($controller, 'createPublicity', [10, 'author', 1337]);
 	}
 
 	public function dataIndex() {

@@ -11,6 +11,10 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
+use OCA\AnnouncementCenter\ActivityExtension;
+use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\NotificationsNotifier;
+
 \OC::$server->getNavigationManager()->add(function () {
 	$urlGenerator = \OC::$server->getURLGenerator();
 	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
@@ -24,9 +28,16 @@ namespace OCA\AnnouncementCenter\AppInfo;
 });
 
 \OC::$server->getActivityManager()->registerExtension(function() {
-	return new \OCA\AnnouncementCenter\ActivityExtension(
-		new \OCA\AnnouncementCenter\Manager(\OC::$server->getDatabaseConnection()),
+	return new ActivityExtension(
+		new Manager(\OC::$server->getDatabaseConnection()),
 		\OC::$server->getActivityManager(),
+		\OC::$server->getL10NFactory()
+	);
+});
+
+\OC::$server->getNotificationManager()->registerNotifier(function() {
+	return new NotificationsNotifier(
+		new Manager(\OC::$server->getDatabaseConnection()),
 		\OC::$server->getL10NFactory()
 	);
 });

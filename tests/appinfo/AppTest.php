@@ -31,6 +31,8 @@ class AppTest extends TestCase {
 	protected $language;
 	/** @var \OCP\L10N\IFactory|\PHPUnit_Framework_MockObject_MockObject */
 	protected $languageFactory;
+	/** @var \OC\Notification\IManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $notificationManager;
 	/** @var \OCP\Activity\IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $activityManager;
 
@@ -46,6 +48,9 @@ class AppTest extends TestCase {
 		$this->languageFactory = $this->getMockBuilder('OCP\L10N\IFactory')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->notificationManager = $this->getMockBuilder('OC\Notification\IManager')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
 			->disableOriginalConstructor()
 			->getMock();
@@ -59,6 +64,7 @@ class AppTest extends TestCase {
 			});
 
 		$this->overwriteService('NavigationManager', $this->navigationManager);
+		$this->overwriteService('NotificationManager', $this->notificationManager);
 		$this->overwriteService('ActivityManager', $this->activityManager);
 		$this->overwriteService('URLGenerator', $this->urlGenerator);
 		$this->overwriteService('L10NFactory', $this->languageFactory);
@@ -66,6 +72,7 @@ class AppTest extends TestCase {
 
 	protected function tearDown() {
 		$this->restoreService('NavigationManager');
+		$this->restoreService('NotificationManager');
 		$this->restoreService('ActivityManager');
 		$this->restoreService('URLGenerator');
 		$this->restoreService('L10NFactory');
@@ -112,6 +119,18 @@ class AppTest extends TestCase {
 				$this->assertInstanceOf('\Closure', $closure);
 				$navigation = $closure();
 				$this->assertInstanceOf('\OCA\AnnouncementCenter\ActivityExtension', $navigation);
+			});
+
+		include(__DIR__ . '/../../appinfo/app.php');
+	}
+
+	public function testAppNotification() {
+		$this->notificationManager->expects($this->once())
+			->method('registerNotifier')
+			->willReturnCallback(function($closure) {
+				$this->assertInstanceOf('\Closure', $closure);
+				$navigation = $closure();
+				$this->assertInstanceOf('\OCA\AnnouncementCenter\NotificationsNotifier', $navigation);
 			});
 
 		include(__DIR__ . '/../../appinfo/app.php');
