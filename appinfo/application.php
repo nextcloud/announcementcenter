@@ -1,10 +1,9 @@
 <?php
-
 /**
- * ownCloud - Activity App
+ * ownCloud - AnnouncementCenter App
  *
  * @author Joas Schilling
- * @copyright 2014 Joas Schilling nickvergessen@owncloud.com
+ * @copyright 2015 Joas Schilling nickvergessen@owncloud.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -22,19 +21,6 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-use OC\Files\View;
-use OCA\Activity\Consumer;
-use OCA\Activity\Controller\Activities;
-use OCA\Activity\Controller\Feed;
-use OCA\Activity\Controller\Settings;
-use OCA\Activity\Data;
-use OCA\Activity\DataHelper;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\FilesHooks;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\Navigation;
-use OCA\Activity\ParameterHelper;
-use OCA\Activity\UserSettings;
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\App;
