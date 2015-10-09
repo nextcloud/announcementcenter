@@ -92,7 +92,7 @@ class AppTest extends TestCase {
 					'id' => 'announcementcenter',
 					'order' => 10,
 					'href' => '/apps/announcementcenter/announcement',
-					'icon' => '/apps/announcementcenter/img/app.svg',
+					'icon' => '/apps/announcementcenter/img/announcementcenter.svg',
 					'name' => 'Announcements',
 					], $navigation);
 			});
@@ -102,8 +102,8 @@ class AppTest extends TestCase {
 			->willReturn('/apps/announcementcenter/announcement');
 		$this->urlGenerator->expects($this->once())
 			->method('imagePath')
-			->with('announcementcenter', 'app.svg')
-			->willReturn('/apps/announcementcenter/img/app.svg');
+			->with('announcementcenter', 'announcementcenter.svg')
+			->willReturn('/apps/announcementcenter/img/announcementcenter.svg');
 		$this->languageFactory->expects($this->once())
 			->method('get')
 			->with('announcementcenter')

@@ -22,7 +22,7 @@ use OCA\AnnouncementCenter\NotificationsNotifier;
 		'id' => 'announcementcenter',
 		'order' => 10,
 		'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
-		'icon' => $urlGenerator->imagePath('announcementcenter', 'app.svg'),
+		'icon' => $urlGenerator->imagePath('announcementcenter', 'announcementcenter.svg'),
 		'name' => $l->t('Announcements'),
 	];
 });
