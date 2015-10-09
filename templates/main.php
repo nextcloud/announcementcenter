@@ -7,7 +7,7 @@ script('announcementcenter', 'script');
 style('announcementcenter', 'style');
 ?>
 
-<div id="app">
+<div id="app" class="announcementcenter">
 	<div id="app-content">
 		<div id="app-content-wrapper">
 			<?php if ($_['is_admin']) {

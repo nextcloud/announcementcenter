@@ -29,3 +29,11 @@
 .emptycontent-admin {
 	position: inherit !important;
 }
+
+.announcementcenter .delete-link {
+	display: none;
+}
+
+.announcementcenter .section:hover .delete-link {
+	display: inline;
+}
