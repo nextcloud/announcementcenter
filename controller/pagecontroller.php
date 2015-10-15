@@ -27,7 +27,7 @@ use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
-use OCP\AppFramework\Http\DataResponse;
+use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Controller;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
@@ -114,6 +114,7 @@ class PageController extends Controller {
 			}
 
 			$announcements[] = [
+				'id'		=> $row['id'],
 				'author'	=> $displayName,
 				'author_id'	=> $row['author'],
 				'time'		=> $row['time'],
@@ -128,14 +129,14 @@ class PageController extends Controller {
 	/**
 	 * @param string $subject
 	 * @param string $message
-	 * @return DataResponse
+	 * @return JSONResponse
 	 */
 	public function add($subject, $message) {
 		$timeStamp = time();
 		try {
 			$announcement = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
 		} catch (\InvalidArgumentException $e) {
-			return new DataResponse(
+			return new JSONResponse(
 				['error' => (string)$this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
 			);
@@ -147,6 +148,21 @@ class PageController extends Controller {
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
 
 		return new JSONResponse($announcement);
+	}
+
+	/**
+	 * @param int $id
+	 * @return Response
+	 */
+	public function delete($id) {
+		$this->manager->delete($id);
+
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('announcement', $id);
+		$this->notificationManager->markProcessed($notification);
+
+		return new Response();
 	}
 
 	/**

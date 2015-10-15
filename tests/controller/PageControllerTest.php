@@ -141,32 +141,32 @@ class PageController extends TestCase {
 			[
 				1,
 				[
-					['author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				], [], 0,
 				[
-					['author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				],
 			],
 			[
 				1,
 				[
-					['author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				],
 				[
 					['author1', $this->getUserMock('author1', 'Author One')],
 				],
 				0,
 				[
-					['author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				],
 			],
 			[
 				1,
 				[
-					['author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792],
+					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792],
 				], [], 0,
 				[
-					['author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792],
+					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792],
 				],
 			],
 		];
@@ -197,6 +197,48 @@ class PageController extends TestCase {
 		$this->assertEquals($expected, $jsonResponse->getData());
 	}
 
+	public function dataDelete() {
+		return [
+			[42],
+			[1337],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDelete
+	 * @param int $id
+	 */
+	public function testDelete($id) {
+
+		$notification = $this->getMockBuilder('OC\Notification\INotification')
+			->disableOriginalConstructor()
+			->getMock();
+		$notification->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setObject')
+			->with('announcement', $id)
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->once())
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->once())
+			->method('markProcessed');
+
+		$this->manager->expects($this->once())
+			->method('delete')
+			->with($id);
+
+		$controller = $this->getController();
+		$response = $controller->delete($id);
+
+		$this->assertInstanceOf('OCP\AppFramework\Http\Response', $response);
+		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+	}
+
 	public function dataAddThrows() {
 		return [
 			['', ['error' => 'The subject is too long or empty']],
@@ -221,7 +263,7 @@ class PageController extends TestCase {
 
 		$response = $controller->add($subject, '');
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\DataResponse', $response);
+		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame($expectedData, $response->getData());
 	}
 
@@ -260,12 +302,12 @@ class PageController extends TestCase {
 		$this->assertArrayHasKey('time', $data);
 		$this->assertInternalType('int', $data['time']);
 		unset($data['time']);
-		unset($data['id']);
 		$this->assertEquals([
 			'author' => 'Author',
 			'author_id' => 'author',
 			'subject' => 'subject',
 			'message' => 'message',
+			'id' => 10,
 		], $data);
 	}
 

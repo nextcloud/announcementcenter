@@ -11,13 +11,46 @@
 (function ($, OC) {
 	var TEMPLATE =
 	'<div class="section">' +
-	'<h2>{{{subject}}}</h2>' +
-	'<em>{{author}} — {{time}}</em>' +
-	'{{#if message}}' +
-	'<br /><br /><p>{{{message}}}</p>' +
-	'{{/if}}' +
+		'<h2>{{{subject}}}</h2>' +
+		'<em>' +
+			'{{author}} — {{time}}' +
+			'{{#if announcementId}}' +
+				'<span class="delete-link">' +
+					' — ' +
+					'<a href="#" data-announcement-id="{{{announcementId}}}">' +
+						t('announcementcenter', 'Delete') +
+					'</a>' +
+				'</span>' +
+			'{{/if}}' +
+		'</em>' +
+		'{{#if message}}' +
+		'<br /><br /><p>{{{message}}}</p>' +
+		'{{/if}}' +
 	'</div>' +
 	'<hr />';
+
+	function deleteLinkFunctionality() {
+		var $element = $(this);
+		$.ajax({
+			type: 'DELETE',
+			url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
+		}).done(function () {
+			var $announcement = $element.parents('.section').first();
+
+			$announcement.slideUp();
+			// Remove the hr
+			$announcement.next().remove();
+
+			setTimeout(function() {
+				$announcement.remove();
+
+				if ($('#app-content-wrapper .section').length == 1) {
+					$('#emptycontent').removeClass('hidden');
+				}
+			}, 750);
+
+		});
+	}
 
 	$(document).ready(function () {
 		var compiledTemplate = Handlebars.compile(TEMPLATE);
@@ -39,9 +72,11 @@
 					time: OC.Util.formatDate(announcement.time * 1000),
 					author: OC.currentUser,
 					subject: announcement.subject,
-					message: announcement.message
+					message: announcement.message,
+					announcementId: (oc_isadmin) ? announcement.id : 0
 				}));
 
+				$html.find('span.delete-link a').on('click', deleteLinkFunctionality);
 				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
 				setTimeout(function() {
@@ -54,7 +89,6 @@
 			}).fail(function (response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
-
 		});
 
 		$.ajax({
@@ -70,8 +104,10 @@
 						time: OC.Util.formatDate(announcement.time * 1000),
 						author: announcement.author,
 						subject: announcement.subject,
-						message: announcement.message
+						message: announcement.message,
+						announcementId: (oc_isadmin) ? announcement.id : 0
 					}));
+					$html.find('span.delete-link a').on('click', deleteLinkFunctionality);
 					$('#app-content-wrapper').append($html);
 				});
 			} else {
