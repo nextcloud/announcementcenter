@@ -28,6 +28,7 @@
 
 .emptycontent-admin {
 	position: inherit !important;
+	margin-top: 50px !important;
 }
 
 .announcementcenter .delete-link {
