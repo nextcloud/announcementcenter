@@ -24,11 +24,3 @@ This app allows administrators to post announcements
 
 ![Announcement Activity](docs/AnnouncementActivity.png)
 
----
-
-### Notifications and confirmation
-
-Still todo:
-
-1. Send notifications about announcement
-2. Optional: request confirmation of the announcement
