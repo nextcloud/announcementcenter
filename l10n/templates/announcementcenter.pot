@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ownCloud announcementcenter 8.0.0\n"
+"Report-Msgid-Bugs-To: translations@owncloud.org\n"
+"POT-Creation-Date: 2015-11-02 11:25+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: appinfo/app.php:36
+msgid "Announcements"
+msgstr ""
+
+#: controller/pagecontroller.php:140
+msgid "The subject is too long or empty"
+msgstr ""
+
+#: js/script.js:21
+msgid "Delete"
+msgstr ""
+
+#: js/script.js:59
+msgid "Announcing…"
+msgstr ""
+
+#: js/script.js:69
+msgid "Announced!"
+msgstr ""
+
+#: lib/activityextension.php:101
+msgid "Announcement does not exist anymore"
+msgstr ""
+
+#: lib/activityextension.php:116
+#, php-format
+msgid "You announced %s"
+msgstr ""
+
+#: lib/activityextension.php:118
+#, php-format
+msgid "%s announced %s"
+msgstr ""
+
+#: lib/notificationsnotifier.php:71
+#, php-format
+msgid "%1$s announced “%2$s”"
+msgstr ""
+
+#: templates/main.php:18
+msgid "No Announcements"
+msgstr ""
+
+#: templates/main.php:19
+msgid "There are currently no announcements…"
+msgstr ""
+
+#: templates/part.add.php:7
+msgid "Add announcement"
+msgstr ""
+
+#: templates/part.add.php:9
+msgid "Subject…"
+msgstr ""
+
+#: templates/part.add.php:11
+msgid "Your announcement…"
+msgstr ""
+
+#: templates/part.add.php:13
+msgid "Announce"
+msgstr ""

@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+lang_map = ja_JP: ja
+
+[owncloud.announcementcenter]
+file_filter = <lang>/announcementcenter.po
+source_file = templates/announcementcenter.pot
+source_lang = en
+type = PO
