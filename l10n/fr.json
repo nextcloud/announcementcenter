@@ -1,16 +1,18 @@
 { "translations": {
-    "No Announcements" : "Aucune annonce",
-    "There are currently no announcements…" : "Il n'y a aucune annonce pour le moment…",
-    "Add announcement" : "Ajouter une annonce",
-    "Subject…" : "Sujet…",
-    "Your announcement…" : "Votre annonce…",
-    "Announce" : "Publier",
-    "Announcement does not exist anymore" : "L'annonce n'existe plus",
-    "You announced %s" : "Vous annoncez %s",
-    "%s announced %s" : "%s annoncer %s",
-    "%1$s announced “%2$s”" : "%1$s annoncer “%2$s”",
-    "Delete" : "Supprimer",
-    "Announcing…" : "Publication de l'annonce en cours…",
-    "Announced!" : "Annonce publier!"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+    "Announcements": "Annonces",
+    "The subject is too long or empty": "The subject is too long or empty",
+    "Delete": "Supprimer",
+    "Announcing…": "Publication de l'annonce en cours…",
+    "Announced!": "Annonce publier!",
+    "Announcement does not exist anymore": "L'annonce n'existe plus",
+    "You announced %s": "Vous annoncez %s",
+    "%s announced %s": "%s annoncer %s",
+    "%1$s announced “%2$s”": "%1$s annoncer “%2$s”",
+    "No Announcements": "Aucune annonce",
+    "There are currently no announcements…": "Il n'y a aucune annonce pour le moment…",
+    "Add announcement": "Ajouter une annonce",
+    "Subject…": "Sujet…",
+    "Your announcement…": "Votre annonce…",
+    "Announce": "Publier"
+},"pluralForm": "nplurals=2; plural=(n != 1);"
 }
