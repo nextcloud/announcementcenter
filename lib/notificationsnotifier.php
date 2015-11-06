@@ -63,10 +63,10 @@ class NotificationsNotifier implements INotifier {
 			case 'announced':
 				$params = $notification->getSubjectParameters();
 
-				$announcement = $this->manager->getAnnouncement($notification->getObjectId(), true);
-				$params[] = $announcement['subject'];
+				$announcement = $this->manager->getAnnouncement($notification->getObjectId(), false);
+				$params[] = $this->prepareMessage($announcement['subject']);
 
-				$notification->setParsedMessage($announcement['message'])
+				$notification->setParsedMessage($this->prepareMessage($announcement['message']))
 					->setParsedSubject(
 						(string) $l->t('%1$s announced “%2$s”', $params)
 					);
@@ -76,5 +76,28 @@ class NotificationsNotifier implements INotifier {
 				// Unknown subject => Unknown notification => throw
 				throw new \InvalidArgumentException();
 		}
+	}
+
+	/**
+	 * Prepare message for notification usage
+	 *
+	 * + Replace line breaks with spaces
+	 * + Trim on word end after 100 chars or hard 120 chars
+	 *
+	 * @param string $message
+	 * @return string
+	 */
+	protected function prepareMessage($message) {
+		$message = str_replace("\n", ' ', $message);
+
+		if (isset($message[120])) {
+			$findSpace = strpos($message, ' ', 100);
+			if ($findSpace !== false && $findSpace < 120) {
+				return substr($message, 0, $findSpace) . '…';
+			}
+			return substr($message, 0, 120) . '…';
+		}
+
+		return $message;
 	}
 }
