@@ -354,9 +354,11 @@ class PageController extends TestCase {
 			->method('setApp')
 			->with('announcementcenter')
 			->willReturnSelf();
+		$dateTime = new \DateTime();
+		$dateTime->setTimestamp(1337);
 		$notification->expects($this->once())
-			->method('setTimestamp')
-			->with(1337)
+			->method('setDateTime')
+			->with($dateTime)
 			->willReturnSelf();
 		$notification->expects($this->once())
 			->method('setSubject')
