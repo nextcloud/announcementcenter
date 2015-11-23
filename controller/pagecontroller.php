@@ -181,9 +181,12 @@ class PageController extends Controller {
 			->setMessage('announcementmessage#' . $id, [$authorId])
 			->setObject('announcement', $id);
 
+		$dateTime = new \DateTime();
+		$dateTime->setTimestamp($timeStamp);
+
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
-			->setTimestamp($timeStamp)
+			->setDateTime($dateTime)
 			->setObject('announcement', $id)
 			->setSubject('announced', [$authorId])
 			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
