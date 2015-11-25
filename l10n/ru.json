@@ -1,0 +1,18 @@
+{ "translations": {
+    "Announcements": "Объявления",
+    "The subject is too long or empty": "Название темы слишком дланное или поле пустое",
+    "Delete": "Удалить",
+    "Announcing…": "Объявляю…",
+    "Announced!": "Объявлено!",
+    "Announcement does not exist anymore": "Объявление больше не существует",
+    "You announced %s": "Вы объявили %s",
+    "%s announced %s": "%s объявил %s",
+    "%1$s announced “%2$s”": "%1$s объявил “%2$s”",
+    "No Announcements": "Нет объявлений",
+    "There are currently no announcements…": "В настоящее время нет объявлений…",
+    "Add announcement": "Добавить объявление",
+    "Subject…": "Тема…",
+    "Your announcement…": "Ваше объявление…",
+    "Announce": "Объявить"
+},"pluralForm":"nplurals=2; plural=(n != 1);"
+}
