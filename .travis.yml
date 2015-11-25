@@ -4,7 +4,6 @@ php:
   - 5.5
   - 5.6
   - 7
-  - hhvm
 
 env:
   global:
@@ -27,7 +26,7 @@ before_install:
   - ./occ check
   - ./occ status
   - ./occ app:list
-  - ./occ app:enable announcementcenter
+  - ./occ app:enable $APP_NAME
   - ./occ app:list
 
 script:
@@ -69,6 +68,5 @@ matrix:
 #    - php: 5.4
 #      env: DB=mysql;JSTESTS=1
   allow_failures:
-    - php: hhvm
     - env: DB=mysql;CODECHECK=2
   fast_finish: true
