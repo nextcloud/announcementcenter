@@ -36,9 +36,8 @@
 			</field>
 			<field>
 				<name>announcement_message</name>
-				<type>text</type>
+				<type>clob</type>
 				<notnull>false</notnull>
-				<length>64000</length>
 			</field>
 		</declaration>
 	</table>
