@@ -1,4 +1,6 @@
-{ "translations": {
+OC.L10N.register(
+    "announcementcenter",
+    {
     "Announcements" : "Ankündigungen",
     "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
     "Delete" : "Löschen",
@@ -14,5 +16,5 @@
     "Subject…" : "Betreff…",
     "Your announcement…" : "Deine Ankündigungen…",
     "Announce" : "Ankündigen"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
-}
+},
+"nplurals=2; plural=(n != 1);");
