@@ -24,6 +24,12 @@ namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\AppInfo\Application;
 
+/**
+ * Class ApplicationTest
+ *
+ * @package OCA\AnnouncementCenter\Tests
+ * @group DB
+ */
 class ApplicationTest extends TestCase {
 	/** @var \OCA\Activity\AppInfo\Application */
 	protected $app;

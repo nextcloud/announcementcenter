@@ -24,6 +24,12 @@ namespace OCA\AnnouncementCenter\Tests\Lib;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 
+/**
+ * Class ManagerTest
+ *
+ * @package OCA\AnnouncementCenter\Tests\Lib
+ * @group DB
+ */
 class ManagerTest extends TestCase {
 	/** @var Manager */
 	protected $manager;

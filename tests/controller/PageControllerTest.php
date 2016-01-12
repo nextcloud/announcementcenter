@@ -32,6 +32,12 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 
+/**
+ * Class PageController
+ *
+ * @package OCA\AnnouncementCenter\Tests\Controller
+ * @group DB
+ */
 class PageController extends TestCase {
 	/** @var IRequest|\PHPUnit_Framework_MockObject_MockObject */
 	protected $request;
