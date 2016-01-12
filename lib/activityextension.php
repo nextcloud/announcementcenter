@@ -96,7 +96,7 @@ class ActivityExtension implements IExtension {
 			list(, $id) = explode('#', $text);
 
 			try {
-				$announcement = $this->manager->getAnnouncement($id, $highlightParams);
+				$announcement = $this->manager->getAnnouncement($id, true);
 			} catch (\InvalidArgumentException $e) {
 				return (string) $l->t('Announcement does not exist anymore', $params);
 			}
@@ -105,11 +105,7 @@ class ActivityExtension implements IExtension {
 				return $announcement['message'];
 			}
 
-			if ($highlightParams) {
-				$params[] = '<strong>' . $announcement['subject'] . '</strong>';
-			} else {
-				$params[] = $announcement['subject'];
-			}
+			$params[] = '<parameter>' . $announcement['subject'] . '</parameter>';
 
 			if ($announcement['author'] === $this->activityManager->getCurrentUserId()) {
 				array_shift($params);
