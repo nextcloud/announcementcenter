@@ -115,19 +115,19 @@ class ActivityExtensionTest extends TestCase {
 				'author' => 'user',
 				'time' => 1440672792,
 				'message' => 'Message #10',
-			], 'user', 'You announced Subject #10'],
+			], 'user', 'You announced <parameter>Subject #10</parameter>'],
 			['announcementcenter', 'announcementsubject#10', ['author2'], false, false, '', [
 				'subject' => 'Subject #10',
 				'author' => 'author2',
 				'time' => 1440672792,
 				'message' => 'Message #10',
-			], 'user', 'author2 announced Subject #10'],
-			['announcementcenter', 'announcementsubject#10', ['<strong>author2</strong>'], false, true, '', [
+			], 'user', 'author2 announced <parameter>Subject #10</parameter>'],
+			['announcementcenter', 'announcementsubject#10', ['<user display-name="Author Two">author2</user>'], false, true, '', [
 				'subject' => 'Subject #10',
 				'author' => 'author2',
 				'time' => 1440672792,
 				'message' => 'Message #10',
-			], 'user', '<strong>author2</strong> announced <strong>Subject #10</strong>'],
+			], 'user', '<user display-name="Author Two">author2</user> announced <parameter>Subject #10</parameter>'],
 			['announcementcenter', 'announcementsubject#10', [], false, false, '', false, null, 'Announcement does not exist anymore'],
 			['announcementcenter', 'announcementmessage#10', [], false, false, '', [
 				'subject' => 'Subject #10',
@@ -169,12 +169,12 @@ class ActivityExtensionTest extends TestCase {
 			if ($managerReturn === false) {
 				$this->manager->expects($this->once())
 					->method('getAnnouncement')
-					->with(10, $highlightParams)
+					->with(10, true)
 					->willThrowException(new \InvalidArgumentException());
 			} else {
 				$this->manager->expects($this->once())
 					->method('getAnnouncement')
-					->with(10, $highlightParams)
+					->with(10, true)
 					->willReturn($managerReturn);
 			}
 		}
