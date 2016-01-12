@@ -21,6 +21,12 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
+/**
+ * Class AppTest
+ *
+ * @package OCA\AnnouncementCenter\Tests
+ * @group DB
+ */
 class AppTest extends TestCase {
 	/** @var \OCP\INavigationManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $navigationManager;
