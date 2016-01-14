@@ -21,7 +21,6 @@
 
 namespace OCA\AnnouncementCenter\Controller;
 
-use OC\Notification\IManager as INotificationManager;
 use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
@@ -36,6 +35,7 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
+use OCP\Notification\IManager as INotificationManager;
 
 class PageController extends Controller {
 	/** @var int */

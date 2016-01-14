@@ -22,9 +22,9 @@
 namespace OCA\AnnouncementCenter;
 
 
-use OC\Notification\INotification;
-use OC\Notification\INotifier;
 use OCP\L10N\IFactory;
+use OCP\Notification\INotification;
+use OCP\Notification\INotifier;
 
 class NotificationsNotifier implements INotifier {
 
