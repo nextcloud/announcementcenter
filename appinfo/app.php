@@ -50,4 +50,10 @@ use OCA\AnnouncementCenter\NotificationsNotifier;
 		new Manager(\OC::$server->getDatabaseConnection()),
 		\OC::$server->getL10NFactory()
 	);
+}, function() {
+	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
+	return [
+		'id' => 'announcementcenter',
+		'name' => $l->t('Announcements'),
+	];
 });
