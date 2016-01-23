@@ -21,7 +21,6 @@
 
 namespace OCA\AnnouncementCenter\Tests\Controller;
 
-use OC\Notification\IManager as INotificationManager;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\IManager;
@@ -31,6 +30,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
+use OCP\Notification\IManager as INotificationManager;
 
 /**
  * Class PageController
@@ -71,7 +71,7 @@ class PageController extends TestCase {
 		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OC\Notification\IManager')
+		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->l = $this->getMockBuilder('OCP\IL10N')
@@ -216,7 +216,7 @@ class PageController extends TestCase {
 	 */
 	public function testDelete($id) {
 
-		$notification = $this->getMockBuilder('OC\Notification\INotification')
+		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
 		$notification->expects($this->once())
@@ -353,7 +353,7 @@ class PageController extends TestCase {
 			->method('setAffectedUser')
 			->willReturnSelf();
 
-		$notification = $this->getMockBuilder('OC\Notification\INotification')
+		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
 		$notification->expects($this->once())

@@ -36,7 +36,7 @@ class AppTest extends TestCase {
 	protected $language;
 	/** @var \OCP\L10N\IFactory|\PHPUnit_Framework_MockObject_MockObject */
 	protected $languageFactory;
-	/** @var \OC\Notification\IManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var \OCP\Notification\IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $notificationManager;
 	/** @var \OCP\Activity\IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $activityManager;
@@ -53,7 +53,7 @@ class AppTest extends TestCase {
 		$this->languageFactory = $this->getMockBuilder('OCP\L10N\IFactory')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OC\Notification\IManager')
+		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
