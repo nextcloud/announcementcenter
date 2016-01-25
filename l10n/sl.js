@@ -9,7 +9,7 @@ OC.L10N.register(
     "Announcement does not exist anymore" : "Objava ni več na voljo",
     "You announced %s" : "Objavili ste %s",
     "%s announced %s" : "Oseba %s je objavila %s",
-    "%1$s announced “%2$s”" : "Oseba %1$s je objavila “%2$s”",
+    "%1$s announced “%2$s”" : "Oseba %1$s je objavila sporočilo “%2$s”",
     "No Announcements" : "Ni objav",
     "There are currently no announcements…" : "Trenutno ni objav ...",
     "Add announcement" : "Dodaj objavo",
