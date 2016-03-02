@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <info>
-    <id>announcementcenter</id>
-    <name>Announcement Center</name>
-    <description>An announcement center for ownCloud</description>
-    <licence>AGPL</licence>
-    <author>Joas Schilling</author>
-    <version>1.1.0</version>
-    <namespace>AnnouncementCenter</namespace>
-    <category>other</category>
-    <dependencies>
-        <owncloud min-version="9.0" max-version="9.0" />
-    </dependencies>
-    <ocsid>173921</ocsid>
+	<id>announcementcenter</id>
+	<name>Announcement Center</name>
+	<description>An announcement center for ownCloud</description>
+	<licence>AGPL</licence>
+	<author>Joas Schilling</author>
+	<version>1.2.0</version>
+	<namespace>AnnouncementCenter</namespace>
+	<category>other</category>
+	<dependencies>
+		<owncloud min-version="9.1" max-version="9.1" />
+	</dependencies>
+	<ocsid>173921</ocsid>
 </info>
