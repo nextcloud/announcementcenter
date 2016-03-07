@@ -107,9 +107,13 @@ class ActivityExtension implements IExtension {
 
 			$params[] = '<parameter>' . $announcement['subject'] . '</parameter>';
 
-			if ($announcement['author'] === $this->activityManager->getCurrentUserId()) {
-				array_shift($params);
-				return (string) $l->t('You announced %s', $params);
+			try {
+				if ($announcement['author'] === $this->activityManager->getCurrentUserId()) {
+					array_shift($params);
+					return (string) $l->t('You announced %s', $params);
+				}
+			} catch (\UnexpectedValueException $e) {
+				// FIXME this is awkward, but we have no access to the current user in emails
 			}
 			return (string) $l->t('%s announced %s', $params);
 		}
