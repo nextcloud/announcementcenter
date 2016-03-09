@@ -9,7 +9,7 @@ OC.L10N.register(
     "Announcement does not exist anymore" : "Ogłoszenie już nie istnieje",
     "You announced %s" : "Ogłosiłeś %s",
     "%s announced %s" : "%s ogłoszono %s",
-    "%1$s announced “%2$s”" : "%1$s ogłoszono “%2$s”",
+    "%1$s announced “%2$s”" : "%1$s announced “%2$s”",
     "No Announcements" : "Brak ogłoszeń",
     "There are currently no announcements…" : "W chwili obecnej nie ma żadnych ogłoszeń",
     "Add announcement" : "Dodaj ogłoszenie",
