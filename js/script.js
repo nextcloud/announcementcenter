@@ -70,7 +70,7 @@
 
 				var $html = $(compiledTemplate({
 					time: OC.Util.formatDate(announcement.time * 1000),
-					author: OC.currentUser,
+					author: announcement.author,
 					subject: announcement.subject,
 					message: announcement.message,
 					announcementId: (oc_isadmin) ? announcement.id : 0
