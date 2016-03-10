@@ -171,7 +171,6 @@ class PageController extends Controller {
 	 * @param int $timeStamp
 	 */
 	protected function createPublicity($id, $authorId, $timeStamp) {
-		$users = $this->userManager->search('');
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
@@ -191,7 +190,7 @@ class PageController extends Controller {
 			->setSubject('announced', [$authorId])
 			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
 
-		foreach ($users as $user) {
+		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
 			$event->setAffectedUser($user->getUID());
 			$this->activityManager->publish($event);
 
@@ -199,7 +198,7 @@ class PageController extends Controller {
 				$notification->setUser($user->getUID());
 				$this->notificationManager->notify($notification);
 			}
-		}
+		});
 	}
 
 	/**
