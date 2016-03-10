@@ -389,15 +389,21 @@ class PageController extends TestCase {
 			->method('createNotification')
 			->willReturn($notification);
 		$this->userManager->expects($this->once())
-			->method('search')
-			->with('')
-			->willReturn([
-				$this->getUserMock('author', 'User One'),
-				$this->getUserMock('u2', 'User Two'),
-				$this->getUserMock('u3', 'User Three'),
-				$this->getUserMock('u4', 'User Four'),
-				$this->getUserMock('u5', 'User Five'),
-			]);
+			->method('callForAllUsers')
+			->with($this->anything(), '')
+			->willReturnCallback(function($callback) {
+				$users = [
+					$this->getUserMock('author', 'User One'),
+					$this->getUserMock('u2', 'User Two'),
+					$this->getUserMock('u3', 'User Three'),
+					$this->getUserMock('u4', 'User Four'),
+					$this->getUserMock('u5', 'User Five'),
+				];
+				foreach ($users as $user) {
+					$callback($user);
+				}
+			})
+		;
 
 		$this->activityManager->expects($this->exactly(5))
 			->method('publish');
