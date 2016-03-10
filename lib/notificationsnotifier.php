@@ -22,6 +22,8 @@
 namespace OCA\AnnouncementCenter;
 
 
+use OCP\IUser;
+use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
@@ -34,12 +36,17 @@ class NotificationsNotifier implements INotifier {
 	/** @var Manager */
 	protected $manager;
 
+	/** @var IUserManager */
+	protected $userManager;
+
 	/**
 	 * @param Manager $manager
 	 * @param IFactory $l10nFactory
+	 * @param IUserManager $userManager
 	 */
-	public function __construct(Manager $manager, IFactory $l10nFactory) {
+	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager) {
 		$this->manager = $manager;
+		$this->userManager = $userManager;
 		$this->l10nFactory = $l10nFactory;
 	}
 
@@ -62,6 +69,10 @@ class NotificationsNotifier implements INotifier {
 			// Deal with known subjects
 			case 'announced':
 				$params = $notification->getSubjectParameters();
+				$user = $this->userManager->get($params[0]);
+				if ($user instanceof IUser) {
+					$params[0] = $user->getDisplayName();
+				}
 
 				$announcement = $this->manager->getAnnouncement($notification->getObjectId(), false);
 				$params[] = $this->prepareMessage($announcement['subject']);
