@@ -25,6 +25,7 @@ use OCA\AnnouncementCenter\NotificationsNotifier;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\IL10N;
+use OCP\IUserManager;
 use OCP\L10N\IFactory;
 
 class NotificationsNotifierTest extends TestCase {
@@ -33,6 +34,8 @@ class NotificationsNotifierTest extends TestCase {
 
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
+	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $userManager;
 	/** @var IFactory|\PHPUnit_Framework_MockObject_MockObject */
 	protected $factory;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
@@ -42,6 +45,9 @@ class NotificationsNotifierTest extends TestCase {
 		parent::setUp();
 
 		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->l = $this->getMockBuilder('OCP\IL10N')
@@ -61,7 +67,8 @@ class NotificationsNotifierTest extends TestCase {
 
 		$this->notifier = new NotificationsNotifier(
 			$this->manager,
-			$this->factory
+			$this->factory,
+			$this->userManager
 		);
 	}
 
@@ -102,14 +109,26 @@ class NotificationsNotifierTest extends TestCase {
 		$this->notifier->prepare($notification, 'en');
 	}
 
+	/**
+	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_Builder_InvocationMocker
+	 */
+	protected function getUserMock() {
+		$user = $this->getMock('OCP\IUser');
+		$user->expects($this->once())
+			->method('getDisplayName')
+			->willReturn('Author');
+		return $user;
+	}
+
 	public function dataPrepare() {
 		$subject = "subject\nsubject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject";
 		$subjectTrim = 'subject subject subject subject subject subject subject subject subject subject subject subject subject…';
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		$messageTrim = 'message message message message message message message message message message message message messagemessagemessagemes…';
 		return [
-			['author', 'subject', 'message', 42, 'author announced “subject”', 'message'],
-			['author2', $subject, $message, 21, 'author2 announced “' . $subjectTrim . '”', $messageTrim],
+			['author', 'subject', 'message', 42, null, 'author announced “subject”', 'message'],
+			['author1', 'subject', 'message', 42, $this->getUserMock(), 'Author announced “subject”', 'message'],
+			['author2', $subject, $message, 21, null, 'author2 announced “' . $subjectTrim . '”', $messageTrim],
 		];
 	}
 
@@ -120,10 +139,11 @@ class NotificationsNotifierTest extends TestCase {
 	 * @param string $subject
 	 * @param string $message
 	 * @param int $objectId
+	 * @param \OCP\IUser $userObject
 	 * @param string $expectedSubject
 	 * @param string $expectedMessage
 	 */
-	public function testPrepare($author, $subject, $message, $objectId, $expectedSubject, $expectedMessage) {
+	public function testPrepare($author, $subject, $message, $objectId, $userObject, $expectedSubject, $expectedMessage) {
 		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
@@ -149,6 +169,10 @@ class NotificationsNotifierTest extends TestCase {
 				'subject' => $subject,
 				'message' => $message,
 			]);
+		$this->userManager->expects($this->once())
+			->method('get')
+			->with($author)
+			->willReturn($userObject);
 
 		$notification->expects($this->once())
 			->method('setParsedMessage')
