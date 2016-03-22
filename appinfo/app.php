@@ -25,9 +25,11 @@ use OCA\AnnouncementCenter\ActivityExtension;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\NotificationsNotifier;
 
-\OC::$server->getNavigationManager()->add(function () {
-	$urlGenerator = \OC::$server->getURLGenerator();
-	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
+$app = new Application();
+
+\OC::$server->getNavigationManager()->add(function() use ($app) {
+	$urlGenerator = $app->getContainer()->getServer()->getURLGenerator();
+	$l = $app->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
 	return [
 		'id' => 'announcementcenter',
 		'order' => 10,
@@ -37,22 +39,14 @@ use OCA\AnnouncementCenter\NotificationsNotifier;
 	];
 });
 
-\OC::$server->getActivityManager()->registerExtension(function() {
-	return new ActivityExtension(
-		new Manager(\OC::$server->getDatabaseConnection()),
-		\OC::$server->getActivityManager(),
-		\OC::$server->getL10NFactory()
-	);
+\OC::$server->getActivityManager()->registerExtension(function() use ($app) {
+	return $app->getContainer()->query('OCA\AnnouncementCenter\ActivityExtension');
 });
 
-\OC::$server->getNotificationManager()->registerNotifier(function() {
-	return new NotificationsNotifier(
-		new Manager(\OC::$server->getDatabaseConnection()),
-		\OC::$server->getL10NFactory(),
-		\OC::$server->getUserManager()
-	);
-}, function() {
-	$l = \OC::$server->getL10NFactory()->get('announcementcenter');
+\OC::$server->getNotificationManager()->registerNotifier(function() use ($app) {
+	return $app->getContainer()->query('OCA\AnnouncementCenter\NotificationsNotifier');
+}, function() use ($app) {
+	$l = $app->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
 	return [
 		'id' => 'announcementcenter',
 		'name' => $l->t('Announcements'),

@@ -41,7 +41,7 @@ class Manager {
 	 * @param int $time
 	 * @param bool $parseStrings If the returned message should be parsed or not
 	 * @return array
-	 * @throws \RuntimeException when the subject is empty or invalid
+	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
 	public function announce($subject, $message, $user, $time, $parseStrings = true) {
 		$subject = trim($subject);
@@ -104,7 +104,7 @@ class Manager {
 	 * @param int $id
 	 * @param bool $parseStrings
 	 * @return array
-	 * @throws \RuntimeException when the id is invalid
+	 * @throws \InvalidArgumentException when the id is invalid
 	 */
 	public function getAnnouncement($id, $parseStrings = true) {
 		$queryBuilder = $this->connection->getQueryBuilder();
