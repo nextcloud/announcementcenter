@@ -22,17 +22,16 @@
 namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\Manager;
-use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Controller;
+use OCP\BackgroundJob\IJobList;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
@@ -43,6 +42,9 @@ class PageController extends Controller {
 
 	/** @var INotificationManager */
 	protected $notificationManager;
+
+	/** @var IJobList */
+	protected $jobList;
 
 	/** @var IDBConnection */
 	private $connection;
@@ -56,14 +58,8 @@ class PageController extends Controller {
 	/** @var IL10N */
 	private $l;
 
-	/** @var IURLGenerator */
-	private $urlGenerator;
-
 	/** @var Manager */
 	private $manager;
-
-	/** @var IManager */
-	private $activityManager;
 
 	/** @var string */
 	private $userId;
@@ -74,23 +70,21 @@ class PageController extends Controller {
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
 	 * @param IUserManager $userManager
-	 * @param IManager $activityManager
+	 * @param IJobList $jobList
 	 * @param INotificationManager $notificationManager
 	 * @param IL10N $l
-	 * @param IURLGenerator $urlGenerator
 	 * @param Manager $manager
 	 * @param string $UserId
 	 */
-	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IManager $activityManager, INotificationManager $notificationManager, IL10N $l, IURLGenerator $urlGenerator, Manager $manager, $UserId){
+	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IJobList $jobList, INotificationManager $notificationManager, IL10N $l, Manager $manager, $UserId) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
-		$this->activityManager = $activityManager;
+		$this->jobList = $jobList;
 		$this->notificationManager = $notificationManager;
 		$this->l = $l;
-		$this->urlGenerator = $urlGenerator;
 		$this->manager = $manager;
 		$this->userId = $UserId;
 	}
@@ -142,7 +136,7 @@ class PageController extends Controller {
 			);
 		}
 
-		$this->createPublicity($announcement['id'], $announcement['author'], $timeStamp);
+		$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', ['id' => $announcement['id']]);
 
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
@@ -163,42 +157,6 @@ class PageController extends Controller {
 		$this->notificationManager->markProcessed($notification);
 
 		return new Response();
-	}
-
-	/**
-	 * @param int $id
-	 * @param string $authorId
-	 * @param int $timeStamp
-	 */
-	protected function createPublicity($id, $authorId, $timeStamp) {
-		$event = $this->activityManager->generateEvent();
-		$event->setApp('announcementcenter')
-			->setType('announcementcenter')
-			->setAuthor($authorId)
-			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject#' . $id, [$authorId])
-			->setMessage('announcementmessage#' . $id, [$authorId])
-			->setObject('announcement', $id);
-
-		$dateTime = new \DateTime();
-		$dateTime->setTimestamp($timeStamp);
-
-		$notification = $this->notificationManager->createNotification();
-		$notification->setApp('announcementcenter')
-			->setDateTime($dateTime)
-			->setObject('announcement', $id)
-			->setSubject('announced', [$authorId])
-			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
-
-		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
-			$event->setAffectedUser($user->getUID());
-			$this->activityManager->publish($event);
-
-			if ($authorId !== $user->getUID()) {
-				$notification->setUser($user->getUID());
-				$this->notificationManager->notify($notification);
-			}
-		});
 	}
 
 	/**

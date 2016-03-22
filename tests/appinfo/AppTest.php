@@ -130,12 +130,24 @@ class AppTest extends TestCase {
 	}
 
 	public function testAppNotification() {
+		$this->languageFactory->expects($this->once())
+			->method('get')
+			->with('announcementcenter')
+			->willReturn($this->language);
+
 		$this->notificationManager->expects($this->once())
 			->method('registerNotifier')
-			->willReturnCallback(function($closure) {
-				$this->assertInstanceOf('\Closure', $closure);
-				$navigation = $closure();
-				$this->assertInstanceOf('\OCA\AnnouncementCenter\NotificationsNotifier', $navigation);
+			->willReturnCallback(function($closureNotifier, $closureInfo) {
+				$this->assertInstanceOf('\Closure', $closureNotifier);
+				$notifier = $closureNotifier();
+				$this->assertInstanceOf('\OCA\AnnouncementCenter\NotificationsNotifier', $notifier);
+				$this->assertInstanceOf('\Closure', $closureInfo);
+				$info = $closureInfo();
+				$this->assertInternalType('array', $info);
+				$this->assertArrayHasKey('id', $info);
+				$this->assertInternalType('string', $info['id']);
+				$this->assertArrayHasKey('name', $info);
+				$this->assertInternalType('string', $info['name']);
 			});
 
 		include(__DIR__ . '/../../appinfo/app.php');

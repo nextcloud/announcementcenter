@@ -23,8 +23,8 @@ namespace OCA\AnnouncementCenter\Tests\Controller;
 
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
-use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
+use OCP\BackgroundJob\IJobList;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -38,21 +38,19 @@ use OCP\Notification\IManager as INotificationManager;
  * @package OCA\AnnouncementCenter\Tests\Controller
  * @group DB
  */
-class PageController extends TestCase {
+class PageControllerTest extends TestCase {
 	/** @var IRequest|\PHPUnit_Framework_MockObject_MockObject */
 	protected $request;
 	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $groupManager;
 	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userManager;
-	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
-	protected $activityManager;
+	/** @var IJobList|\PHPUnit_Framework_MockObject_MockObject */
+	protected $jobList;
 	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $notificationManager;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $l;
-	/** @var IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
-	protected $urlGenerator;
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
 
@@ -68,9 +66,6 @@ class PageController extends TestCase {
 		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
-			->disableOriginalConstructor()
-			->getMock();
 		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
@@ -82,7 +77,7 @@ class PageController extends TestCase {
 			->willReturnCallback(function($string, $args) {
 				return vsprintf($string, $args);
 			});
-		$this->urlGenerator = $this->getMockBuilder('OCP\IURLGenerator')
+		$this->jobList = $this->getMockBuilder('OCP\BackgroundJob\IJobList')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
@@ -98,10 +93,9 @@ class PageController extends TestCase {
 				\OC::$server->getDatabaseConnection(),
 				$this->groupManager,
 				$this->userManager,
-				$this->activityManager,
+				$this->jobList,
 				$this->notificationManager,
 				$this->l,
-				$this->urlGenerator,
 				$this->manager,
 				'author'
 			);
@@ -113,10 +107,9 @@ class PageController extends TestCase {
 					\OC::$server->getDatabaseConnection(),
 					$this->groupManager,
 					$this->userManager,
-					$this->activityManager,
+					$this->jobList,
 					$this->notificationManager,
 					$this->l,
-					$this->urlGenerator,
 					$this->manager,
 					'author',
 				])
@@ -295,11 +288,11 @@ class PageController extends TestCase {
 			->method('get')
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
+		$this->jobList->expects($this->once())
+			->method('add')
+			->with('OCA\AnnouncementCenter\BackgroundJob', ['id' => 10]);
 
-		$controller = $this->getController(['createPublicity']);
-		$controller->expects($this->once())
-			->method('createPublicity')
-			->with(10, 'author', $this->anything());
+		$controller = $this->getController();
 
 		$response = $controller->add('subject', 'message');
 
@@ -315,102 +308,6 @@ class PageController extends TestCase {
 			'message' => 'message',
 			'id' => 10,
 		], $data);
-	}
-
-	public function testCreatePublicity() {
-		$event = $this->getMockBuilder('OCP\Activity\IEvent')
-			->disableOriginalConstructor()
-			->getMock();
-		$event->expects($this->once())
-			->method('setApp')
-			->with('announcementcenter')
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setType')
-			->with('announcementcenter')
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setAuthor')
-			->with('author')
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setTimestamp')
-			->with(1337)
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setSubject')
-			->with('announcementsubject#10', ['author'])
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setMessage')
-			->with('announcementmessage#10', ['author'])
-			->willReturnSelf();
-		$event->expects($this->once())
-			->method('setObject')
-			->with('announcement', 10)
-			->willReturnSelf();
-		$event->expects($this->exactly(5))
-			->method('setAffectedUser')
-			->willReturnSelf();
-
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
-		$notification->expects($this->once())
-			->method('setApp')
-			->with('announcementcenter')
-			->willReturnSelf();
-		$dateTime = new \DateTime();
-		$dateTime->setTimestamp(1337);
-		$notification->expects($this->once())
-			->method('setDateTime')
-			->with($dateTime)
-			->willReturnSelf();
-		$notification->expects($this->once())
-			->method('setSubject')
-			->with('announced', ['author'])
-			->willReturnSelf();
-		$notification->expects($this->once())
-			->method('setObject')
-			->with('announcement', 10)
-			->willReturnSelf();
-		$notification->expects($this->once())
-			->method('setLink')
-			->willReturnSelf();
-		$notification->expects($this->exactly(4))
-			->method('setUser')
-			->willReturnSelf();
-
-		$controller = $this->getController();
-		$this->activityManager->expects($this->once())
-			->method('generateEvent')
-			->willReturn($event);
-		$this->notificationManager->expects($this->once())
-			->method('createNotification')
-			->willReturn($notification);
-		$this->userManager->expects($this->once())
-			->method('callForAllUsers')
-			->with($this->anything(), '')
-			->willReturnCallback(function($callback) {
-				$users = [
-					$this->getUserMock('author', 'User One'),
-					$this->getUserMock('u2', 'User Two'),
-					$this->getUserMock('u3', 'User Three'),
-					$this->getUserMock('u4', 'User Four'),
-					$this->getUserMock('u5', 'User Five'),
-				];
-				foreach ($users as $user) {
-					$callback($user);
-				}
-			})
-		;
-
-		$this->activityManager->expects($this->exactly(5))
-			->method('publish');
-		$this->notificationManager->expects($this->exactly(4))
-			->method('notify');
-
-		$this->invokePrivate($controller, 'createPublicity', [10, 'author', 1337]);
 	}
 
 	public function dataIndex() {
