@@ -121,14 +121,11 @@ class NotificationsNotifierTest extends TestCase {
 	}
 
 	public function dataPrepare() {
-		$subject = "subject\nsubject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject subject";
-		$subjectTrim = 'subject subject subject subject subject subject subject subject subject subject subject subject subject…';
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
-		$messageTrim = 'message message message message message message message message message message message message messagemessagemessagemes…';
 		return [
 			['author', 'subject', 'message', 42, null, 'author announced “subject”', 'message'],
 			['author1', 'subject', 'message', 42, $this->getUserMock(), 'Author announced “subject”', 'message'],
-			['author2', $subject, $message, 21, null, 'author2 announced “' . $subjectTrim . '”', $messageTrim],
+			['author2', "subject\nsubject", $message, 21, null, 'author2 announced “subject subject”', $message],
 		];
 	}
 
