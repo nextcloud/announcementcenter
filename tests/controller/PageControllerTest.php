@@ -133,15 +133,14 @@ class PageControllerTest extends TestCase {
 
 	public function dataGet() {
 		return [
-			[0, [], [], 0, []],
-			[1, [], [], 0, []],
-			[2, [], [], 5, []],
-			[3, [], [], 10, []],
+			[0, [], [], []],
+			[1, [], [], []],
+			[2, [], [], []],
 			[
 				1,
 				[
 					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
-				], [], 0,
+				], [],
 				[
 					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				],
@@ -154,7 +153,6 @@ class PageControllerTest extends TestCase {
 				[
 					['author1', $this->getUserMock('author1', 'Author One')],
 				],
-				0,
 				[
 					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
 				],
@@ -163,7 +161,8 @@ class PageControllerTest extends TestCase {
 				1,
 				[
 					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792],
-				], [], 0,
+				],
+				[],
 				[
 					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792],
 				],
@@ -173,13 +172,12 @@ class PageControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataGet
-	 * @param int $page
+	 * @param int $offset
 	 * @param array $announcements
 	 * @param array $userMap
-	 * @param int $offset
 	 * @param array $expected
 	 */
-	public function testGet($page, $announcements, $userMap, $offset, $expected) {
+	public function testGet($offset, $announcements, $userMap, $expected) {
 		$this->userManager->expects($this->any())
 			->method('get')
 			->willReturnMap($userMap);
@@ -190,7 +188,7 @@ class PageControllerTest extends TestCase {
 			->willReturn($announcements);
 
 		$controller = $this->getController();
-		$jsonResponse = $controller->get($page);
+		$jsonResponse = $controller->get($offset);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $jsonResponse);
 		$this->assertEquals($expected, $jsonResponse->getData());
