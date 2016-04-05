@@ -8,54 +8,68 @@
  * @copyright Joas Schilling 2015
  */
 
-(function ($, OC) {
-	var TEMPLATE =
-	'<div class="section">' +
-		'<h2>{{{subject}}}</h2>' +
-		'<em>' +
-			'{{author}} — {{time}}' +
-			'{{#if announcementId}}' +
-				'<span class="delete-link">' +
-					' — ' +
-					'<a href="#" data-announcement-id="{{{announcementId}}}">' +
-						t('announcementcenter', 'Delete') +
-					'</a>' +
-				'</span>' +
-			'{{/if}}' +
-		'</em>' +
-		'{{#if message}}' +
-		'<br /><br /><p>{{{message}}}</p>' +
-		'{{/if}}' +
-	'</div>' +
-	'<hr />';
-
-	function deleteLinkFunctionality() {
-		var $element = $(this);
-		$.ajax({
-			type: 'DELETE',
-			url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
-		}).done(function () {
-			var $announcement = $element.parents('.section').first();
-
-			$announcement.slideUp();
-			// Remove the hr
-			$announcement.next().remove();
-
-			setTimeout(function() {
-				$announcement.remove();
-
-				if ($('#app-content-wrapper .section').length == 1) {
-					$('#emptycontent').removeClass('hidden');
-				}
-			}, 750);
-
-		});
+(function() {
+	if (!OCA.AnnouncementCenter) {
+		/**
+		 * @namespace
+		 */
+		OCA.AnnouncementCenter = {};
 	}
 
-	$(document).ready(function () {
-		var compiledTemplate = Handlebars.compile(TEMPLATE);
+	OCA.AnnouncementCenter.App = {
+		compiledTemplate: null,
+		handlebarTemplate: '<div class="section">' +
+				'<h2>{{{subject}}}</h2>' +
+				'<em>' +
+					'{{author}} — {{time}}' +
+					'{{#if announcementId}}' +
+						'<span class="delete-link">' +
+							' — ' +
+							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
+								t('announcementcenter', 'Delete') +
+							'</a>' +
+						'</span>' +
+					'{{/if}}' +
+				'</em>' +
+				'{{#if message}}' +
+					'<br /><br /><p>{{{message}}}</p>' +
+				'{{/if}}' +
+			'</div>' +
+			'<hr />',
 
-		$('#submit_announcement').click(function () {
+		init: function() {
+			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
+
+			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
+
+			this.loadAnnouncements();
+		},
+
+		deleteAnnouncement: function() {
+			var $element = $(this);
+			$.ajax({
+				type: 'DELETE',
+				url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
+			}).done(function () {
+				var $announcement = $element.parents('.section').first();
+
+				$announcement.slideUp();
+				// Remove the hr
+				$announcement.next().remove();
+
+				setTimeout(function() {
+					$announcement.remove();
+
+					if ($('#app-content-wrapper .section').length == 1) {
+						$('#emptycontent').removeClass('hidden');
+					}
+				}, 750);
+
+			});
+		},
+
+		postAnnouncement: function() {
+			var self = this;
 			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
 
 			$.ajax({
@@ -68,7 +82,7 @@
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
-				var $html = $(compiledTemplate({
+				var $html = $(self.compiledTemplate({
 					time: OC.Util.formatDate(announcement.time * 1000),
 					author: announcement.author,
 					subject: announcement.subject,
@@ -76,7 +90,7 @@
 					announcementId: (oc_isadmin) ? announcement.id : 0
 				}));
 
-				$html.find('span.delete-link a').on('click', deleteLinkFunctionality);
+				$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
 				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
 				setTimeout(function() {
@@ -89,30 +103,38 @@
 			}).fail(function (response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
-		});
+		},
 
-		$.ajax({
-			type: 'GET',
-			url: OC.generateUrl('/apps/announcementcenter/announcement'),
-			data: {
-				page: 1
-			}
-		}).done(function (response) {
-			if (response.length > 0) {
-				_.each(response, function (announcement) {
-					var $html = $(compiledTemplate({
-						time: OC.Util.formatDate(announcement.time * 1000),
-						author: announcement.author,
-						subject: announcement.subject,
-						message: announcement.message,
-						announcementId: (oc_isadmin) ? announcement.id : 0
-					}));
-					$html.find('span.delete-link a').on('click', deleteLinkFunctionality);
-					$('#app-content-wrapper').append($html);
-				});
-			} else {
-				$('#emptycontent').removeClass('hidden');
-			}
-		});
-	});
-})(jQuery, OC);
+		loadAnnouncements: function() {
+			var self = this;
+			$.ajax({
+				type: 'GET',
+				url: OC.generateUrl('/apps/announcementcenter/announcement'),
+				data: {
+					page: 1
+				}
+			}).done(function (response) {
+				if (response.length > 0) {
+					_.each(response, function (announcement) {
+						var $html = $(self.compiledTemplate({
+							time: OC.Util.formatDate(announcement.time * 1000),
+							author: announcement.author,
+							subject: announcement.subject,
+							message: announcement.message,
+							announcementId: (oc_isadmin) ? announcement.id : 0
+						}));
+						$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
+						$('#app-content-wrapper').append($html);
+					});
+				} else {
+					$('#emptycontent').removeClass('hidden');
+				}
+			});
+		}
+	};
+
+})();
+
+$(document).ready(function() {
+	OCA.AnnouncementCenter.App.init();
+});
