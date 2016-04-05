@@ -21,6 +21,7 @@
 
 namespace OCA\AnnouncementCenter;
 
+use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 class Manager {
@@ -140,8 +141,12 @@ class Manager {
 		$query = $queryBuilder->select('*')
 			->from('announcements')
 			->orderBy('announcement_time', 'DESC')
-			->setFirstResult($offset)
 			->setMaxResults($limit);
+
+		if ($offset > 0) {
+			$query->where($query->expr()->lt('announcement_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
+		}
+
 		$result = $query->execute();
 
 

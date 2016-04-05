@@ -17,6 +17,11 @@
 	}
 
 	OCA.AnnouncementCenter.App = {
+		ignoreScroll: 0,
+		$container: null,
+		$content: null,
+		lastLoadedAnnouncement: 0,
+
 		compiledTemplate: null,
 		handlebarTemplate: '<div class="section">' +
 				'<h2>{{{subject}}}</h2>' +
@@ -38,10 +43,14 @@
 			'<hr />',
 
 		init: function() {
+			this.$container = $('#app-content-wrapper');
+			this.$content = $('#app-content');
 			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
 
 			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
+			this.$content.on('scroll', _.bind(this.onScroll, this));
 
+			this.ignoreScroll = 1;
 			this.loadAnnouncements();
 		},
 
@@ -106,12 +115,13 @@
 		},
 
 		loadAnnouncements: function() {
-			var self = this;
+			var self = this,
+				offset = self.lastLoadedAnnouncement;
 			$.ajax({
 				type: 'GET',
 				url: OC.generateUrl('/apps/announcementcenter/announcement'),
 				data: {
-					page: 1
+					offset: offset
 				}
 			}).done(function (response) {
 				if (response.length > 0) {
@@ -125,11 +135,24 @@
 						}));
 						$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
 						$('#app-content-wrapper').append($html);
+
+						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
+							self.lastLoadedAnnouncement = announcement.id;
+						}
 					});
-				} else {
+					self.ignoreScroll = 0;
+				} else if (offset === 0) {
 					$('#emptycontent').removeClass('hidden');
 				}
 			});
+		},
+
+		onScroll: function () {
+			if (this.ignoreScroll <= 0 && this.$content.scrollTop() +
+				this.$content.height() > this.$container.height() - 100) {
+				this.ignoreScroll = 1;
+				this.loadAnnouncements();
+			}
 		}
 	};
 

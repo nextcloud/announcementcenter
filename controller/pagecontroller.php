@@ -93,11 +93,11 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param int $page
+	 * @param int $offset
 	 * @return JSONResponse
 	 */
-	public function get($page = 1) {
-		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, self::PAGE_LIMIT * (max(1, $page) - 1));
+	public function get($offset = 0) {
+		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, $offset);
 
 		$announcements = [];
 		foreach ($rows as $row) {
