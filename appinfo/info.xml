@@ -5,7 +5,7 @@
     <description>An announcement center for ownCloud</description>
     <licence>AGPL</licence>
     <author>Joas Schilling</author>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <namespace>AnnouncementCenter</namespace>
     <category>other</category>
     <dependencies>
