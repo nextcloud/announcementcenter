@@ -19,9 +19,9 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Tests\Lib;
+namespace OCA\AnnouncementCenter\Tests\Activity;
 
-use OCA\AnnouncementCenter\ActivityExtension;
+use OCA\AnnouncementCenter\Activity\Extension;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\IExtension;
@@ -29,7 +29,7 @@ use OCP\Activity\IManager;
 use OCP\IL10N;
 use OCP\L10N\IFactory;
 
-class ActivityExtensionTest extends TestCase {
+class ExtensionTest extends TestCase {
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
 	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
@@ -38,7 +38,7 @@ class ActivityExtensionTest extends TestCase {
 	protected $factory;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $l;
-	/** @var ActivityExtension */
+	/** @var Extension */
 	protected $extension;
 
 	protected function setUp() {
@@ -65,7 +65,7 @@ class ActivityExtensionTest extends TestCase {
 			->method('get')
 			->willReturn($this->l);
 
-		$this->extension = new ActivityExtension(
+		$this->extension = new Extension(
 			$this->manager,
 			$this->activity,
 			$this->factory

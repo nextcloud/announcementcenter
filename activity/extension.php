@@ -19,13 +19,14 @@
  *
  */
 
-namespace OCA\AnnouncementCenter;
+namespace OCA\AnnouncementCenter\Activity;
 
+use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;
 use OCP\L10N\IFactory;
 
-class ActivityExtension implements IExtension {
+class Extension implements IExtension {
 	/** @var Manager */
 	protected $manager;
 	/** @var IManager */

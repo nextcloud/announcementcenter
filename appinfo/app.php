@@ -21,10 +21,6 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-use OCA\AnnouncementCenter\ActivityExtension;
-use OCA\AnnouncementCenter\Manager;
-use OCA\AnnouncementCenter\NotificationsNotifier;
-
 $app = new Application();
 
 \OC::$server->getNavigationManager()->add(function() use ($app) {
@@ -40,11 +36,11 @@ $app = new Application();
 });
 
 \OC::$server->getActivityManager()->registerExtension(function() use ($app) {
-	return $app->getContainer()->query('OCA\AnnouncementCenter\ActivityExtension');
+	return $app->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
 });
 
 \OC::$server->getNotificationManager()->registerNotifier(function() use ($app) {
-	return $app->getContainer()->query('OCA\AnnouncementCenter\NotificationsNotifier');
+	return $app->getContainer()->query('OCA\AnnouncementCenter\Notification\Notifier');
 }, function() use ($app) {
 	$l = $app->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
 	return [

@@ -123,7 +123,7 @@ class AppTest extends TestCase {
 			->willReturnCallback(function($closure) {
 				$this->assertInstanceOf('\Closure', $closure);
 				$navigation = $closure();
-				$this->assertInstanceOf('\OCA\AnnouncementCenter\ActivityExtension', $navigation);
+				$this->assertInstanceOf('\OCA\AnnouncementCenter\Activity\Extension', $navigation);
 			});
 
 		include(__DIR__ . '/../../appinfo/app.php');
@@ -140,7 +140,7 @@ class AppTest extends TestCase {
 			->willReturnCallback(function($closureNotifier, $closureInfo) {
 				$this->assertInstanceOf('\Closure', $closureNotifier);
 				$notifier = $closureNotifier();
-				$this->assertInstanceOf('\OCA\AnnouncementCenter\NotificationsNotifier', $notifier);
+				$this->assertInstanceOf('\OCA\AnnouncementCenter\Notification\Notifier', $notifier);
 				$this->assertInstanceOf('\Closure', $closureInfo);
 				$info = $closureInfo();
 				$this->assertInternalType('array', $info);

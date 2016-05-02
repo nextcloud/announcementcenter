@@ -19,16 +19,17 @@
  *
  */
 
-namespace OCA\AnnouncementCenter;
+namespace OCA\AnnouncementCenter\Notification;
 
 
+use OCA\AnnouncementCenter\Manager;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
 
-class NotificationsNotifier implements INotifier {
+class Notifier implements INotifier {
 
 	/** @var IFactory */
 	protected $l10nFactory;

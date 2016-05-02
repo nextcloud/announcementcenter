@@ -19,10 +19,9 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Tests\Lib;
+namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
-use OCA\AnnouncementCenter\Tests\TestCase;
 
 /**
  * Class ManagerTest
