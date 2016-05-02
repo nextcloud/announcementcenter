@@ -7,17 +7,13 @@
 		 timeoutForLargeTests="900"
 		>
 	<testsuite name='ownCloud - Announcement Center App Tests'>
-		<directory suffix='.php'>.</directory>
+		<directory suffix='Test.php'>.</directory>
 	</testsuite>
 	<!-- filters for code coverage -->
 	<filter>
 		<whitelist>
-			<directory suffix=".php">../../announcementcenter</directory>
-			<exclude>
-				<directory suffix=".php">../../announcementcenter/l10n</directory>
-				<directory suffix=".php">../../announcementcenter/templates</directory>
-				<directory suffix=".php">../../announcementcenter/tests</directory>
-			</exclude>
+			<directory suffix=".php">../../announcementcenter/appinfo</directory>
+			<directory suffix=".php">../../announcementcenter/lib</directory>
 		</whitelist>
 	</filter>
 	<logging>

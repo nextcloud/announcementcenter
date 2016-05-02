@@ -19,10 +19,11 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Tests;
+namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
 
 use OCA\AnnouncementCenter\AppInfo\Application;
+use OCA\AnnouncementCenter\Tests\TestCase;
 
 /**
  * Class ApplicationTest
@@ -31,7 +32,7 @@ use OCA\AnnouncementCenter\AppInfo\Application;
  * @group DB
  */
 class ApplicationTest extends TestCase {
-	/** @var \OCA\Activity\AppInfo\Application */
+	/** @var \OCA\AnnouncementCenter\AppInfo\Application */
 	protected $app;
 
 	/** @var \OCP\AppFramework\IAppContainer */
