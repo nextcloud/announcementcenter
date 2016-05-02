@@ -19,17 +19,17 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Tests\Lib;
+namespace OCA\AnnouncementCenter\Tests\Notification;
 
-use OCA\AnnouncementCenter\NotificationsNotifier;
+use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\IL10N;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 
-class NotificationsNotifierTest extends TestCase {
-	/** @var NotificationsNotifier */
+class NotifierTest extends TestCase {
+	/** @var Notifier */
 	protected $notifier;
 
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
@@ -65,7 +65,7 @@ class NotificationsNotifierTest extends TestCase {
 			->method('get')
 			->willReturn($this->l);
 
-		$this->notifier = new NotificationsNotifier(
+		$this->notifier = new Notifier(
 			$this->manager,
 			$this->factory,
 			$this->userManager
