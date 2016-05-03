@@ -1,14 +1,14 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Announcement does not exist anymore" : "Оголошення більше не існує",
+    "You announced %s" : "Ви оголосили %s",
+    "%s announced %s" : "%s оголосив %s",
     "Announcements" : "Оголошення",
     "The subject is too long or empty" : "Тема занадто довга або порожня",
     "Delete" : "Видалити",
     "Announcing…" : "Оголошую...",
     "Announced!" : "Анонсовано!",
-    "Announcement does not exist anymore" : "Оголошення більше не існує",
-    "You announced %s" : "Ви оголосили %s",
-    "%s announced %s" : "%s оголосив %s",
     "%1$s announced “%2$s”" : "%1$s оголосив “%2$s”",
     "No Announcements" : "Оголошення відсутні",
     "There are currently no announcements…" : "На даний час оголошення відсутні...",

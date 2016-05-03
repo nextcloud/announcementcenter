@@ -1,12 +1,12 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Delete" : "Обриши",
-    "Announcing…" : "Објављујем…",
-    "Announced!" : "Објављено!",
     "Announcement does not exist anymore" : "Објава више не постоји",
     "You announced %s" : "Објавили сте %s",
     "%s announced %s" : "%s објави %s",
+    "Delete" : "Обриши",
+    "Announcing…" : "Објављујем…",
+    "Announced!" : "Објављено!",
     "%1$s announced “%2$s”" : "%1$s објави „%2$s“",
     "No Announcements" : "Нема објава",
     "There are currently no announcements…" : "Тренутно нема објава…",

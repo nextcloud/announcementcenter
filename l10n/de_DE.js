@@ -1,14 +1,14 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
+    "You announced %s" : "Sie haben %s angekündigt",
+    "%s announced %s" : "%s hat %s angekündigt",
     "Announcements" : "Ankündigungen",
     "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
     "Delete" : "Löschen",
     "Announcing…" : "Ankündigung wird gesendet…",
     "Announced!" : "Angekündigt!",
-    "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
-    "You announced %s" : "Sie haben %s angekündigt",
-    "%s announced %s" : "%s hat %s angekündigt",
     "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt",
     "No Announcements" : "Keine Ankündigungen",
     "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
