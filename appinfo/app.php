@@ -19,9 +19,7 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\AppInfo;
-
-$app = new Application();
+$app = new \OCA\AnnouncementCenter\AppInfo\Application();
 
 \OC::$server->getNavigationManager()->add(function() use ($app) {
 	$urlGenerator = $app->getContainer()->getServer()->getURLGenerator();
