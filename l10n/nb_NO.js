@@ -1,14 +1,14 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Announcement does not exist anymore" : "Kunngjøring finnes ikke lenger",
-    "You announced %s" : "Du kunngorde %s",
-    "%s announced %s" : "%s kunngorde %s",
     "Announcements" : "Kunngjøringer",
-    "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "Delete" : "Slett",
     "Announcing…" : "Kunngjør...",
     "Announced!" : "Kunngjort!",
+    "Announcement does not exist anymore" : "Kunngjøring finnes ikke lenger",
+    "You announced %s" : "Du kunngorde %s",
+    "%s announced %s" : "%s kunngorde %s",
+    "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”",
     "No Announcements" : "Ingen kunngjøringer",
     "There are currently no announcements…" : "Det er for øyeblikket ingen kunngjøringer...",

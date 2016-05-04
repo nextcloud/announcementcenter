@@ -1,14 +1,14 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Announcement does not exist anymore" : "Съобщенията вече не съществуват",
-    "You announced %s" : "Вие сте уведомени %s",
-    "%s announced %s" : "%s уведомен %s",
     "Announcements" : "Уведомления",
-    "The subject is too long or empty" : "Темата е твърде дълга или празна",
     "Delete" : "Изтриване",
     "Announcing…" : "Анонсиране...",
     "Announced!" : "Анонсиран!",
+    "Announcement does not exist anymore" : "Съобщенията вече не съществуват",
+    "You announced %s" : "Вие сте уведомени %s",
+    "%s announced %s" : "%s уведомен %s",
+    "The subject is too long or empty" : "Темата е твърде дълга или празна",
     "%1$s announced “%2$s”" : "%1$s уведомени “%2$s” ",
     "No Announcements" : "Няма уведомления",
     "There are currently no announcements…" : "В моемнта няма уведомления ...",

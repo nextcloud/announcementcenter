@@ -1,14 +1,14 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Announcement does not exist anymore" : "Objava ni več na voljo",
-    "You announced %s" : "Objavili ste %s",
-    "%s announced %s" : "Oseba %s je objavila %s",
     "Announcements" : "Objave",
-    "The subject is too long or empty" : "Zadeva je predolga oziroma je ni",
     "Delete" : "Izbriši",
     "Announcing…" : "Objavljanje ...",
     "Announced!" : "Objavljeno",
+    "Announcement does not exist anymore" : "Objava ni več na voljo",
+    "You announced %s" : "Objavili ste %s",
+    "%s announced %s" : "Oseba %s je objavila %s",
+    "The subject is too long or empty" : "Zadeva je predolga oziroma je ni",
     "%1$s announced “%2$s”" : "Oseba %1$s je objavila sporočilo “%2$s”",
     "No Announcements" : "Ni objav",
     "There are currently no announcements…" : "Trenutno ni objav ...",
