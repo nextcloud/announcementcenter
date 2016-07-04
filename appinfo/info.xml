@@ -2,16 +2,16 @@
 <info>
 	<id>announcementcenter</id>
 	<name>Announcement Center</name>
-	<description>An announcement center for ownCloud</description>
+	<description>An announcement center for Nextcloud</description>
 	<licence>AGPL</licence>
 	<author>Joas Schilling</author>
 	<version>1.2.0</version>
 	<namespace>AnnouncementCenter</namespace>
 
 	<category>other</category>
-	<website>https://github.com/owncloud/announcementcenter</website>
-	<bugs>https://github.com/owncloud/announcementcenter/issues</bugs>
-	<repository type="git">https://github.com/owncloud/announcementcenter.git</repository>
+	<website>https://github.com/nextcloud/announcementcenter</website>
+	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
+	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
 
 	<dependencies>
 		<owncloud min-version="9.1" max-version="9.1" />
