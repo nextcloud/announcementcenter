@@ -123,12 +123,13 @@ class PageController extends Controller {
 	/**
 	 * @param string $subject
 	 * @param string $message
+	 * @param string[] $groups
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message) {
+	public function add($subject, $message, array $groups) {
 		$timeStamp = time();
 		try {
-			$announcement = $this->manager->announce($subject, $message, $this->userId, $timeStamp);
+			$announcement = $this->manager->announce($subject, $message, $this->userId, $timeStamp, $groups);
 		} catch (\InvalidArgumentException $e) {
 			return new JSONResponse(
 				['error' => (string)$this->l->t('The subject is too long or empty')],

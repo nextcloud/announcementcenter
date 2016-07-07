@@ -23,16 +23,23 @@ namespace OCA\AnnouncementCenter;
 
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use OCP\IGroupManager;
 
 class Manager {
+
 	/** @var IDBConnection */
 	private $connection;
 
+	/** @var IGroupManager */
+	private $groupManager;
+
 	/**
 	 * @param IDBConnection $connection
+	 * @param IGroupManager $groupManager
 	 */
-	public function __construct(IDBConnection $connection){
+	public function __construct(IDBConnection $connection, IGroupManager $groupManager) {
 		$this->connection = $connection;
+		$this->groupManager = $groupManager;
 	}
 
 	/**
@@ -40,11 +47,11 @@ class Manager {
 	 * @param string $message
 	 * @param string $user
 	 * @param int $time
-	 * @param bool $parseStrings If the returned message should be parsed or not
+	 * @param string[] $groups
 	 * @return array
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce($subject, $message, $user, $time, $parseStrings = true) {
+	public function announce($subject, $message, $user, $time, array $groups) {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -81,24 +88,54 @@ class Manager {
 		$row = $result->fetch();
 		$result->closeCursor();
 
+		$addedGroups = 0;
+		foreach ($groups as $group) {
+			if ($this->groupManager->groupExists($group)) {
+				$this->addGroupLink((int) $row['announcement_id'], $group);
+				$addedGroups++;
+			}
+		}
+
+		if ($addedGroups === 0) {
+			$this->addGroupLink((int) $row['announcement_id'], 'everyone');
+		}
+
 		return [
 			'id'		=> (int) $row['announcement_id'],
 			'author'	=> $row['announcement_user'],
 			'time'		=> (int) $row['announcement_time'],
-			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
-			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+			'subject'	=> $this->parseSubject($row['announcement_subject']),
+			'message'	=> $this->parseMessage($row['announcement_message']),
 		];
+	}
+
+	/**
+	 * @param int $announcementId
+	 * @param string $group
+	 */
+	protected function addGroupLink($announcementId, $group) {
+		$query = $this->connection->getQueryBuilder();
+		$query->insert('announcements_groups')
+			->values([
+				'announcement_id' => $query->createNamedParameter($announcementId),
+				'gid' => $query->createNamedParameter($group),
+			]);
+		$query->execute();
 	}
 
 	/**
 	 * @param int $id
 	 */
 	public function delete($id) {
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$queryBuilder->delete('announcements')
-			->where($queryBuilder->expr()->eq('announcement_id', $queryBuilder->createParameter('id')))
-			->setParameter('id', (int) $id)
-			->execute();
+		$query = $this->connection->getQueryBuilder();
+		$query->delete('announcements')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
+		$query->execute();
+
+		$query = $this->connection->getQueryBuilder();
+		$query->delete('announcements_groups')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
+		$query->execute();
 	}
 
 	/**
