@@ -20,29 +20,4 @@
  */
 
 $app = new \OCA\AnnouncementCenter\AppInfo\Application();
-
-\OC::$server->getNavigationManager()->add(function() use ($app) {
-	$urlGenerator = $app->getContainer()->getServer()->getURLGenerator();
-	$l = $app->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
-	return [
-		'id' => 'announcementcenter',
-		'order' => 10,
-		'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
-		'icon' => $urlGenerator->imagePath('announcementcenter', 'announcementcenter.svg'),
-		'name' => $l->t('Announcements'),
-	];
-});
-
-\OC::$server->getActivityManager()->registerExtension(function() use ($app) {
-	return $app->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
-});
-
-\OC::$server->getNotificationManager()->registerNotifier(function() use ($app) {
-	return $app->getContainer()->query('OCA\AnnouncementCenter\Notification\Notifier');
-}, function() use ($app) {
-	$l = $app->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
-	return [
-		'id' => 'announcementcenter',
-		'name' => $l->t('Announcements'),
-	];
-});
+$app->register();
