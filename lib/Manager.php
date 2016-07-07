@@ -24,6 +24,8 @@ namespace OCA\AnnouncementCenter;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
+use OCP\IUser;
+use OCP\IUserSession;
 
 class Manager {
 
@@ -33,13 +35,19 @@ class Manager {
 	/** @var IGroupManager */
 	private $groupManager;
 
+
+	/** @var IUserSession */
+	private $userSession;
+
 	/**
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
+	 * @param IUserSession $userSession
 	 */
-	public function __construct(IDBConnection $connection, IGroupManager $groupManager) {
+	public function __construct(IDBConnection $connection, IGroupManager $groupManager, IUserSession $userSession) {
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
+		$this->userSession = $userSession;
 	}
 
 	/**
@@ -141,10 +149,37 @@ class Manager {
 	/**
 	 * @param int $id
 	 * @param bool $parseStrings
+	 * @param bool $ignorePermissions
 	 * @return array
 	 * @throws \InvalidArgumentException when the id is invalid
 	 */
-	public function getAnnouncement($id, $parseStrings = true) {
+	public function getAnnouncement($id, $parseStrings = true, $ignorePermissions = false) {
+		if (!$ignorePermissions) {
+			$user = $this->userSession->getUser();
+			if ($user instanceof IUser) {
+				$groups = $this->groupManager->getUserGroupIds($user);
+				$groups[] = 'everyone';
+			} else {
+				$groups = ['everyone'];
+			}
+
+			if (!in_array('admin', $groups)) {
+				$query = $this->connection->getQueryBuilder();
+				$query->select('*')
+					->from('announcements_groups')
+					->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)))
+					->andWhere($query->expr()->in('gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)))
+					->setMaxResults(1);
+				$result = $query->execute();
+				$entry = $result->fetch();
+				$result->closeCursor();
+
+				if ($entry === null) {
+					throw new \InvalidArgumentException('Invalid ID');
+				}
+			}
+		}
+
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$query = $queryBuilder->select('*')
 			->from('announcements')
@@ -174,14 +209,29 @@ class Manager {
 	 * @return array
 	 */
 	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$query = $queryBuilder->select('*')
-			->from('announcements')
-			->orderBy('announcement_time', 'DESC')
+		$query = $this->connection->getQueryBuilder();
+		$query->select('a.*')
+			->from('announcements', 'a')
+			->orderBy('a.announcement_time', 'DESC')
 			->setMaxResults($limit);
 
+		$user = $this->userSession->getUser();
+		if ($user instanceof IUser) {
+			$groups = $this->groupManager->getUserGroupIds($user);
+			$groups[] = 'everyone';
+		} else {
+			$groups = ['everyone'];
+		}
+
+		if (!in_array('admin', $groups)) {
+			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
+				'a.announcement_id', 'ag.announcement_id'
+			))
+				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)));
+		}
+
 		if ($offset > 0) {
-			$query->where($query->expr()->lt('announcement_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
+			$query->andWhere($query->expr()->lt('a.announcement_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
 		}
 
 		$result = $query->execute();
