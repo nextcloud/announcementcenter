@@ -9,6 +9,8 @@
 	<namespace>AnnouncementCenter</namespace>
 
 	<category>other</category>
+	<ocsid>173921</ocsid>
+
 	<website>https://github.com/nextcloud/announcementcenter</website>
 	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
 	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
@@ -16,5 +18,10 @@
 	<dependencies>
 		<owncloud min-version="9.1" max-version="9.1" />
 	</dependencies>
-	<ocsid>173921</ocsid>
+
+	<repair-steps>
+		<post-migration>
+			<step>OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks</step>
+		</post-migration>
+	</repair-steps>
 </info>
