@@ -52,6 +52,15 @@
 
 			this.ignoreScroll = 1;
 			this.loadAnnouncements();
+
+			$('#groups').each(function (index, element) {
+				OC.Settings.setupGroupsSelect($(element));
+				$(element).change(function(ev) {
+					var groups = ev.val || [];
+					groups = JSON.stringify(groups);
+					OC.AppConfig.setValue('core', $(this).attr('name'), groups);
+				});
+			});
 		},
 
 		deleteAnnouncement: function() {
@@ -86,7 +95,8 @@
 				url: OC.generateUrl('/apps/announcementcenter/announcement'),
 				data: {
 					subject: $('#subject').val(),
-					message: $('#message').val()
+					message: $('#message').val(),
+					groups: $('#groups').val().split('|')
 				}
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
@@ -109,6 +119,7 @@
 
 				$('#subject').val('');
 				$('#message').val('');
+				$('#groups').val('');
 			}).fail(function (response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
