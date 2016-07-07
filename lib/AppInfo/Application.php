@@ -52,6 +52,46 @@ class Application extends App {
 		});
 	}
 
+	public function register() {
+		$this->registerNavigationEntry();
+		$this->registerActivityExtension();
+		$this->registerNotificationNotifier();
+	}
+
+	protected function registerNavigationEntry() {
+		$server = $this->getContainer()->getServer();
+
+		$server->getNavigationManager()->add(function() use ($server) {
+			$urlGenerator = $server->getURLGenerator();
+			$l = $server->getL10NFactory()->get('announcementcenter');
+			return [
+				'id' => 'announcementcenter',
+				'order' => 10,
+				'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
+				'icon' => $urlGenerator->imagePath('announcementcenter', 'announcementcenter.svg'),
+				'name' => $l->t('Announcements'),
+			];
+		});
+	}
+
+	protected function registerActivityExtension() {
+		$this->getContainer()->getServer()->getActivityManager()->registerExtension(function() {
+			return $this->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
+		});
+	}
+
+	protected function registerNotificationNotifier() {
+		$this->getContainer()->getServer()->getNotificationManager()->registerNotifier(function() {
+			return $this->getContainer()->query('OCA\AnnouncementCenter\Notification\Notifier');
+		}, function() {
+			$l = $this->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
+			return [
+				'id' => 'announcementcenter',
+				'name' => $l->t('Announcements'),
+			];
+		});
+	}
+
 	/**
 	 * @param IUserSession $session
 	 * @return string
