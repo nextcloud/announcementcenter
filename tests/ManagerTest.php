@@ -22,6 +22,8 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\IGroupManager;
+use OCP\IUserSession;
 
 /**
  * Class ManagerTest
@@ -30,13 +32,30 @@ use OCA\AnnouncementCenter\Manager;
  * @group DB
  */
 class ManagerTest extends TestCase {
+
 	/** @var Manager */
 	protected $manager;
 
+	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $groupManager;
+
+	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	protected $userSession;
+
 	protected function setUp() {
 		parent::setUp();
+
+		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
+			->disableOriginalConstructor()
+			->getMock();
+
 		$this->manager = new Manager(
-			\OC::$server->getDatabaseConnection()
+			\OC::$server->getDatabaseConnection(),
+			$this->groupManager,
+			$this->userSession
 		);
 	}
 
@@ -54,7 +73,7 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 2
 	 */
 	public function testAnnounceNoSubject() {
-		$this->manager->announce('', '', '', 0);
+		$this->manager->announce('', '', '', 0, []);
 	}
 
 	/**
@@ -63,7 +82,7 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 1
 	 */
 	public function testAnnounceSubjectTooLong() {
-		$this->manager->announce(str_repeat('a', 513), '', '', 0);
+		$this->manager->announce(str_repeat('a', 513), '', '', 0, []);
 	}
 
 	public function testAnnouncement() {
@@ -72,7 +91,7 @@ class ManagerTest extends TestCase {
 		$author = 'author';
 		$time = time() - 10;
 
-		$announcement = $this->manager->announce($subject, $message, $author, $time);
+		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);

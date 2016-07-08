@@ -258,7 +258,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '');
+		$response = $controller->add($subject, '', []);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame($expectedData, $response->getData());
@@ -274,7 +274,7 @@ class PageControllerTest extends TestCase {
 	public function testAdd() {
 		$this->manager->expects($this->once())
 			->method('announce')
-			->with('subject', 'message', 'author', $this->anything())
+			->with('subject', 'message', 'author', $this->anything(), ['gid1'])
 			->willReturn([
 				'author' => 'author',
 				'subject' => 'subject',
@@ -292,7 +292,7 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 
-		$response = $controller->add('subject', 'message');
+		$response = $controller->add('subject', 'message', ['gid1']);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$data = $response->getData();

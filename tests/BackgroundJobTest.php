@@ -24,6 +24,7 @@ namespace OCA\AnnouncementCenter\Tests;
 use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
+use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
@@ -37,6 +38,8 @@ use OCP\Notification\IManager as INotificationManager;
 class BackgroundJobTest extends TestCase {
 	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userManager;
+	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $groupManager;
 	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $activityManager;
 	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
@@ -50,6 +53,9 @@ class BackgroundJobTest extends TestCase {
 		parent::setUp();
 
 		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
@@ -70,6 +76,7 @@ class BackgroundJobTest extends TestCase {
 		if (empty($methods)) {
 			return new \OCA\AnnouncementCenter\BackgroundJob(
 				$this->userManager,
+				$this->groupManager,
 				$this->activityManager,
 				$this->notificationManager,
 				$this->urlGenerator,
@@ -79,6 +86,7 @@ class BackgroundJobTest extends TestCase {
 			return $this->getMockBuilder('OCA\AnnouncementCenter\BackgroundJob')
 				->setConstructorArgs([
 					$this->userManager,
+					$this->groupManager,
 					$this->activityManager,
 					$this->notificationManager,
 					$this->urlGenerator,
@@ -91,34 +99,44 @@ class BackgroundJobTest extends TestCase {
 
 	public function dataRun() {
 		return [
-			[23, new \InvalidArgumentException()],
-			[42, ['id' => 42, 'author' => 'user', 'time' => 123456789]],
+			[23, null, new \InvalidArgumentException()],
+			[42, ['gid1', 'gid2'], ['id' => 42, 'author' => 'user', 'time' => 123456789]],
+			[42, ['everyone'], ['id' => 42, 'author' => 'user', 'time' => 123456789]],
 		];
 	}
 
 	/**
 	 * @dataProvider dataRun
+	 * @param string[]|null $groups
 	 * @param int $id
 	 * @param \Exception|array $getResult
 	 */
-	public function testRun($id, $getResult) {
+	public function testRun($id, $groups, $getResult) {
 		$job = $this->getJob(['createPublicity']);
 
 		if ($getResult instanceof \Exception) {
-			$job->expects($this->never())
-				->method('createPublicity');
 			$this->manager->expects($this->once())
 				->method('getAnnouncement')
 				->with($id, false)
 				->willThrowException($getResult);
+			$this->manager->expects($this->never())
+				->method('getGroups');
+
+			$job->expects($this->never())
+				->method('createPublicity');
 		} else {
 			$this->manager->expects($this->once())
 				->method('getAnnouncement')
 				->with($id, false)
 				->willReturn($getResult);
+			$this->manager->expects($this->once())
+				->method('getGroups')
+				->with($id)
+				->willReturn($groups);
+
 			$job->expects($this->once())
 				->method('createPublicity')
-				->with($getResult['id'], $getResult['author'], $getResult['time']);
+				->with($getResult['id'], $getResult['author'], $getResult['time'], $groups);
 		}
 
 		$this->invokePrivate($job, 'run', [['id' => $id]]);
@@ -231,6 +249,6 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($this->exactly(4))
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337]);
+		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, ['everyone']]);
 	}
 }
