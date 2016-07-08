@@ -174,7 +174,7 @@ class Manager {
 				$entry = $result->fetch();
 				$result->closeCursor();
 
-				if ($entry === null) {
+				if (!$entry) {
 					throw new \InvalidArgumentException('Invalid ID');
 				}
 			}
@@ -213,6 +213,7 @@ class Manager {
 		$query->select('a.*')
 			->from('announcements', 'a')
 			->orderBy('a.announcement_time', 'DESC')
+			->groupBy('a.announcement_id')
 			->setMaxResults($limit);
 
 		$user = $this->userSession->getUser();
@@ -224,9 +225,9 @@ class Manager {
 		}
 
 		if (!in_array('admin', $groups)) {
-			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
-				'a.announcement_id', 'ag.announcement_id'
-			))
+			$query->rightJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
+					'a.announcement_id', 'ag.announcement_id'
+				))
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)));
 		}
 
