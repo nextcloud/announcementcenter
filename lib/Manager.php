@@ -254,6 +254,28 @@ class Manager {
 	}
 
 	/**
+	 * Return the groups (or string everyone) which have access to the announcement
+	 *
+	 * @param int $id
+	 * @return string[]
+	 */
+	public function getGroups($id) {
+		$query = $this->connection->getQueryBuilder();
+		$query->select('gid')
+			->from('announcements_groups')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
+		$result = $query->execute();
+
+		$groups = [];
+		while ($row = $result->fetch()) {
+			$groups[] = $row['gid'];
+		}
+		$result->closeCursor();
+
+		return $groups;
+	}
+
+	/**
 	 * @param string $message
 	 * @return string
 	 */

@@ -23,6 +23,8 @@ namespace OCA\AnnouncementCenter;
 
 use OC\BackgroundJob\QueuedJob;
 use OCP\Activity\IManager;
+use OCP\IGroup;
+use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
@@ -35,6 +37,9 @@ class BackgroundJob extends QueuedJob {
 	/** @var IUserManager */
 	private $userManager;
 
+	/** @var IGroupManager */
+	private $groupManager;
+
 	/** @var IURLGenerator */
 	private $urlGenerator;
 
@@ -44,15 +49,26 @@ class BackgroundJob extends QueuedJob {
 	/** @var IManager */
 	private $activityManager;
 
+	/** @var array */
+	protected $notifiedUsers = [];
+
 	/**
 	 * @param IUserManager $userManager
+	 * @param IGroupManager $groupManager
 	 * @param IManager $activityManager
 	 * @param INotificationManager $notificationManager
 	 * @param IURLGenerator $urlGenerator
 	 * @param Manager $manager
 	 */
-	public function __construct(IUserManager $userManager, IManager $activityManager, INotificationManager $notificationManager, IURLGenerator $urlGenerator, Manager $manager) {
+	public function __construct(
+		IUserManager $userManager,
+		IGroupManager $groupManager,
+		IManager $activityManager,
+		INotificationManager $notificationManager,
+		IURLGenerator $urlGenerator,
+		Manager $manager) {
 		$this->userManager = $userManager;
+		$this->groupManager = $groupManager;
 		$this->activityManager = $activityManager;
 		$this->notificationManager = $notificationManager;
 		$this->urlGenerator = $urlGenerator;
@@ -71,15 +87,17 @@ class BackgroundJob extends QueuedJob {
 			return;
 		}
 
-		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time']);
+		$groups = $this->manager->getGroups($argument['id']);
+		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time'], $groups);
 	}
 
 	/**
 	 * @param int $id
 	 * @param string $authorId
 	 * @param int $timeStamp
+	 * @param string[] $groups
 	 */
-	protected function createPublicity($id, $authorId, $timeStamp) {
+	protected function createPublicity($id, $authorId, $timeStamp, array $groups) {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
@@ -99,14 +117,41 @@ class BackgroundJob extends QueuedJob {
 			->setSubject('announced', [$authorId])
 			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
 
-		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
-			$event->setAffectedUser($user->getUID());
-			$this->activityManager->publish($event);
+		if (in_array('everyone', $groups)) {
+			$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
+				$event->setAffectedUser($user->getUID());
+				$this->activityManager->publish($event);
 
-			if ($authorId !== $user->getUID()) {
-				$notification->setUser($user->getUID());
-				$this->notificationManager->notify($notification);
+				if ($authorId !== $user->getUID()) {
+					$notification->setUser($user->getUID());
+					$this->notificationManager->notify($notification);
+				}
+			});
+		} else {
+			foreach ($groups as $gid) {
+				$group = $this->groupManager->get($gid);
+				if (!($group instanceof IGroup)) {
+					continue;
+				}
+
+				$users = $group->getUsers();
+				foreach ($users as $user) {
+					$uid = $user->getUID();
+					if (isset($this->notifiedUsers[$uid])) {
+						continue;
+					}
+
+					$event->setAffectedUser($uid);
+					$this->activityManager->publish($event);
+
+					if ($authorId !== $uid) {
+						$notification->setUser($uid);
+						$this->notificationManager->notify($notification);
+					}
+
+					$this->notifiedUsers[$uid] = true;
+				}
 			}
-		});
+		}
 	}
 }
