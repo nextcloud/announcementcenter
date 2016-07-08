@@ -22,6 +22,7 @@
 namespace OCA\AnnouncementCenter;
 
 use OC\BackgroundJob\QueuedJob;
+use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
 use OCP\IGroup;
 use OCP\IGroupManager;
@@ -29,6 +30,7 @@ use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
+use OCP\Notification\INotification;
 
 class BackgroundJob extends QueuedJob {
 	/** @var INotificationManager */
@@ -118,39 +120,58 @@ class BackgroundJob extends QueuedJob {
 			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
 
 		if (in_array('everyone', $groups)) {
-			$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
-				$event->setAffectedUser($user->getUID());
-				$this->activityManager->publish($event);
-
-				if ($authorId !== $user->getUID()) {
-					$notification->setUser($user->getUID());
-					$this->notificationManager->notify($notification);
-				}
-			});
+			$this->createPublicityEveryone($authorId, $event, $notification);
 		} else {
-			foreach ($groups as $gid) {
-				$group = $this->groupManager->get($gid);
-				if (!($group instanceof IGroup)) {
+			$this->createPublicityGroups($authorId, $event, $notification, $groups);
+		}
+	}
+
+	/**
+	 * @param string $authorId
+	 * @param IEvent $event
+	 * @param INotification $notification
+	 */
+	protected function createPublicityEveryone($authorId, IEvent $event, INotification $notification) {
+		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
+			$event->setAffectedUser($user->getUID());
+			$this->activityManager->publish($event);
+
+			if ($authorId !== $user->getUID()) {
+				$notification->setUser($user->getUID());
+				$this->notificationManager->notify($notification);
+			}
+		});
+	}
+
+	/**
+	 * @param string $authorId
+	 * @param IEvent $event
+	 * @param INotification $notification
+	 * @param string[] $groups
+	 */
+	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, array $groups) {
+		foreach ($groups as $gid) {
+			$group = $this->groupManager->get($gid);
+			if (!($group instanceof IGroup)) {
+				continue;
+			}
+
+			$users = $group->getUsers();
+			foreach ($users as $user) {
+				$uid = $user->getUID();
+				if (isset($this->notifiedUsers[$uid])) {
 					continue;
 				}
 
-				$users = $group->getUsers();
-				foreach ($users as $user) {
-					$uid = $user->getUID();
-					if (isset($this->notifiedUsers[$uid])) {
-						continue;
-					}
+				$event->setAffectedUser($uid);
+				$this->activityManager->publish($event);
 
-					$event->setAffectedUser($uid);
-					$this->activityManager->publish($event);
-
-					if ($authorId !== $uid) {
-						$notification->setUser($uid);
-						$this->notificationManager->notify($notification);
-					}
-
-					$this->notifiedUsers[$uid] = true;
+				if ($authorId !== $uid) {
+					$notification->setUser($uid);
+					$this->notificationManager->notify($notification);
 				}
+
+				$this->notifiedUsers[$uid] = true;
 			}
 		}
 	}

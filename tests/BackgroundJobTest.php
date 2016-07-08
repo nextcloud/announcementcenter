@@ -156,7 +156,29 @@ class BackgroundJobTest extends TestCase {
 		return $user;
 	}
 
-	public function testCreatePublicity() {
+	protected function getGroupMock($users) {
+		$group = $this->getMockBuilder('OCP\IGroup')
+			->disableOriginalConstructor()
+			->getMock();
+		$group->expects($this->any())
+			->method('getUsers')
+			->willReturn($users);
+		return $group;
+	}
+
+	public function dataCreatePublicity() {
+		return [
+			[['everyone'], true],
+			[['gid1', 'gid2'], false],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCreatePublicity
+	 * @param string[] $groups
+	 * @param bool $everyone
+	 */
+	public function testCreatePublicity(array $groups, $everyone) {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
@@ -188,9 +210,6 @@ class BackgroundJobTest extends TestCase {
 			->method('setObject')
 			->with('announcement', 10)
 			->willReturnSelf();
-		$event->expects($this->exactly(5))
-			->method('setAffectedUser')
-			->willReturnSelf();
 
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
@@ -216,17 +235,48 @@ class BackgroundJobTest extends TestCase {
 		$notification->expects($this->once())
 			->method('setLink')
 			->willReturnSelf();
-		$notification->expects($this->exactly(4))
-			->method('setUser')
-			->willReturnSelf();
 
-		$job = $this->getJob();
+		$job = $this->getJob([
+			'createPublicityEveryone',
+			'createPublicityGroups',
+		]);
+
+		if ($everyone) {
+			$job->expects($this->once())
+				->method('createPublicityEveryone')
+				->with('author', $event, $notification);
+		} else {
+			$job->expects($this->once())
+				->method('createPublicityGroups')
+				->with('author', $event, $notification, $groups);
+		}
+
 		$this->activityManager->expects($this->once())
 			->method('generateEvent')
 			->willReturn($event);
 		$this->notificationManager->expects($this->once())
 			->method('createNotification')
 			->willReturn($notification);
+
+		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, $groups]);
+	}
+
+	public function testCreatePublicityEveryone() {
+		$event = $this->getMockBuilder('OCP\Activity\IEvent')
+			->disableOriginalConstructor()
+			->getMock();
+		$event->expects($this->exactly(5))
+			->method('setAffectedUser')
+			->willReturnSelf();
+
+		$notification = $this->getMockBuilder('OCP\Notification\INotification')
+			->disableOriginalConstructor()
+			->getMock();
+		$notification->expects($this->exactly(4))
+			->method('setUser')
+			->willReturnSelf();
+
+		$job = $this->getJob();
 		$this->userManager->expects($this->once())
 			->method('callForAllUsers')
 			->with($this->anything(), '')
@@ -249,6 +299,47 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($this->exactly(4))
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, ['everyone']]);
+		$this->invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification]);
+	}
+
+	public function testCreatePublicityGroups() {
+		$event = $this->getMockBuilder('OCP\Activity\IEvent')
+			->disableOriginalConstructor()
+			->getMock();
+		$event->expects($this->exactly(5))
+			->method('setAffectedUser')
+			->willReturnSelf();
+
+		$notification = $this->getMockBuilder('OCP\Notification\INotification')
+			->disableOriginalConstructor()
+			->getMock();
+		$notification->expects($this->exactly(4))
+			->method('setUser')
+			->willReturnSelf();
+
+		$job = $this->getJob();
+		$this->groupManager->expects($this->exactly(4))
+			->method('get')
+			->willReturnMap([
+				['gid0', null],
+				['gid1', $this->getGroupMock([])],
+				['gid2', $this->getGroupMock([
+					$this->getUserMock('author', 'User One'),
+					$this->getUserMock('u2', 'User Two'),
+					$this->getUserMock('u3', 'User Three'),
+				])],
+				['gid3', $this->getGroupMock([
+					$this->getUserMock('u3', 'User Three'),
+					$this->getUserMock('u4', 'User Four'),
+					$this->getUserMock('u5', 'User Five'),
+				])],
+			]);
+
+		$this->activityManager->expects($this->exactly(5))
+			->method('publish');
+		$this->notificationManager->expects($this->exactly(4))
+			->method('notify');
+
+		$this->invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3']]);
 	}
 }
