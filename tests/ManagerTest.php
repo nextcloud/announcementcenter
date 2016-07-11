@@ -108,7 +108,22 @@ class ManagerTest extends TestCase {
 		}
 	}
 
-	public function testAnnouncement() {
+
+	public function dataAnnouncement() {
+		return [
+			[null, true, false],
+			[['gid1', 'gid2'], true, true],
+			[['admin'], false, true],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnnouncement
+	 * @param string[] $groups
+	 * @param bool $noGroupsSet
+	 * @param bool $canAccessBoth
+	 */
+	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
 		$author = 'author';
@@ -120,11 +135,17 @@ class ManagerTest extends TestCase {
 				['gid1', true],
 				['gid2', true],
 			]);
+		$this->setUserGroups($groups);
 
 		$this->assertEquals([], $this->manager->getAnnouncements());
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
 		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
+		if ($noGroupsSet) {
+			$announcement['groups'] = null;
+			$announcement2['groups'] = null;
+		}
+
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
@@ -133,17 +154,32 @@ class ManagerTest extends TestCase {
 		$this->assertSame($time, $announcement['time']);
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-		try {
+		if ($canAccessBoth) {
 			$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
-			$this->fail('Failed to check permissions for the announcement');
-		} catch (\InvalidArgumentException $e) {
-			$this->assertInstanceOf('InvalidArgumentException', $e);
+		} else {
+			try {
+				$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
+				$this->fail('Failed to check permissions for the announcement');
+			} catch (\InvalidArgumentException $e) {
+				$this->assertInstanceOf('InvalidArgumentException', $e);
+			}
+			$this->assertEquals(
+				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
+				$this->manager->getAnnouncement($announcement2['id'], true, true)
+			);
 		}
-		$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id'], true, true));
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
-		$this->assertEquals([$announcement], $this->manager->getAnnouncements());
+		if ($canAccessBoth) {
+			$this->assertEquals([$announcement2['id'] => $announcement2, $announcement['id'] => $announcement], $this->manager->getAnnouncements());
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
+			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
+		} else {
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements());
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
+			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
+		}
 
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
 		$this->manager->delete($announcement['id']);
@@ -159,50 +195,6 @@ class ManagerTest extends TestCase {
 
 		try {
 			$this->manager->getAnnouncement($announcement2['id'], true, true);
-			$this->fail('Failed to delete the announcement');
-		} catch (\InvalidArgumentException $e) {
-			$this->assertInstanceOf('InvalidArgumentException', $e);
-		}
-	}
-
-	public function testAnnouncementGroupMember() {
-		$subject = 'subject' . "\n<html>";
-		$message = 'message' . "\n<html>";
-		$author = 'author';
-		$time = time() - 10;
-
-		$this->groupManager->expects($this->exactly(2))
-			->method('groupExists')
-			->willReturnMap([
-				['gid1', true],
-				['gid2', true],
-			]);
-		$this->setUserGroups(['gid1', 'gid2']);
-
-		$this->assertEquals([], $this->manager->getAnnouncements());
-
-		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
-		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
-		$this->assertInternalType('int', $announcement['id']);
-		$this->assertGreaterThan(0, $announcement['id']);
-		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
-		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
-		$this->assertSame('author', $announcement['author']);
-		$this->assertSame($time, $announcement['time']);
-
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-
-		$this->assertEquals([$announcement, $announcement2], $this->manager->getAnnouncements());
-		$this->assertEquals([$announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
-
-		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
-		$this->manager->delete($announcement['id']);
-		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
-
-		try {
-			$this->manager->getAnnouncement($announcement['id']);
 			$this->fail('Failed to delete the announcement');
 		} catch (\InvalidArgumentException $e) {
 			$this->assertInstanceOf('InvalidArgumentException', $e);

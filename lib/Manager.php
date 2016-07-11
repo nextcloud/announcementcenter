@@ -73,48 +73,28 @@ class Manager {
 		$queryBuilder = $this->connection->getQueryBuilder();
 		$queryBuilder->insert('announcements')
 			->values([
-				'announcement_time' => $queryBuilder->createParameter('time'),
-				'announcement_user' => $queryBuilder->createParameter('user'),
-				'announcement_subject' => $queryBuilder->createParameter('subject'),
-				'announcement_message' => $queryBuilder->createParameter('message'),
-			])
-			->setParameter('time', $time)
-			->setParameter('user', $user)
-			->setParameter('subject', $subject)
-			->setParameter('message', $message);
+				'announcement_time' => $queryBuilder->createNamedParameter($time),
+				'announcement_user' => $queryBuilder->createNamedParameter($user),
+				'announcement_subject' => $queryBuilder->createNamedParameter($subject),
+				'announcement_message' => $queryBuilder->createNamedParameter($message),
+			]);
 		$queryBuilder->execute();
 
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$query = $queryBuilder->select('*')
-			->from('announcements')
-			->where($queryBuilder->expr()->eq('announcement_time', $queryBuilder->createParameter('time')))
-			->andWhere($queryBuilder->expr()->eq('announcement_user', $queryBuilder->createParameter('user')))
-			->orderBy('announcement_id', 'DESC')
-			->setParameter('time', (int) $time)
-			->setParameter('user', $user);
-		$result = $query->execute();
-		$row = $result->fetch();
-		$result->closeCursor();
+		$id = $queryBuilder->getLastInsertId();
 
 		$addedGroups = 0;
 		foreach ($groups as $group) {
 			if ($this->groupManager->groupExists($group)) {
-				$this->addGroupLink((int) $row['announcement_id'], $group);
+				$this->addGroupLink((int) $id, $group);
 				$addedGroups++;
 			}
 		}
 
 		if ($addedGroups === 0) {
-			$this->addGroupLink((int) $row['announcement_id'], 'everyone');
+			$this->addGroupLink((int) $id, 'everyone');
 		}
 
-		return [
-			'id'		=> (int) $row['announcement_id'],
-			'author'	=> $row['announcement_user'],
-			'time'		=> (int) $row['announcement_time'],
-			'subject'	=> $this->parseSubject($row['announcement_subject']),
-			'message'	=> $this->parseMessage($row['announcement_message']),
-		];
+		return $this->getAnnouncement($id, true, true);
 	}
 
 	/**
@@ -157,18 +137,18 @@ class Manager {
 		if (!$ignorePermissions) {
 			$user = $this->userSession->getUser();
 			if ($user instanceof IUser) {
-				$groups = $this->groupManager->getUserGroupIds($user);
-				$groups[] = 'everyone';
+				$userGroups = $this->groupManager->getUserGroupIds($user);
+				$userGroups[] = 'everyone';
 			} else {
-				$groups = ['everyone'];
+				$userGroups = ['everyone'];
 			}
 
-			if (!in_array('admin', $groups)) {
+			if (!in_array('admin', $userGroups)) {
 				$query = $this->connection->getQueryBuilder();
 				$query->select('*')
 					->from('announcements_groups')
 					->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)))
-					->andWhere($query->expr()->in('gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)))
+					->andWhere($query->expr()->in('gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)))
 					->setMaxResults(1);
 				$result = $query->execute();
 				$entry = $result->fetch();
@@ -194,7 +174,7 @@ class Manager {
 		}
 
 		$groups = null;
-		if (in_array('admin', $groups)) {
+		if ($ignorePermissions || (isset($userGroups) && in_array('admin', $userGroups))) {
 			$groups = $this->getGroups($id);
 		}
 
@@ -295,7 +275,7 @@ class Manager {
 		}
 		$result->closeCursor();
 
-		return $returnSingleResult ? array_pop($groups) : $groups;
+		return $returnSingleResult ? (array) array_pop($groups) : $groups;
 	}
 
 	/**
