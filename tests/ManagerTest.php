@@ -124,7 +124,7 @@ class ManagerTest extends TestCase {
 		$this->assertEquals([], $this->manager->getAnnouncements());
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
-		$announcement2 = $this->manager->announce($subject, $message, $author, $time, ['gid1', 'gid2']);
+		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
@@ -182,7 +182,7 @@ class ManagerTest extends TestCase {
 		$this->assertEquals([], $this->manager->getAnnouncements());
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
-		$announcement2 = $this->manager->announce($subject, $message, $author, $time, ['gid1', 'gid2']);
+		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);

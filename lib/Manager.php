@@ -225,7 +225,7 @@ class Manager {
 		}
 
 		if (!in_array('admin', $groups)) {
-			$query->rightJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
+			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
 					'a.announcement_id', 'ag.announcement_id'
 				))
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)));
