@@ -114,6 +114,7 @@ class PageController extends Controller {
 				'time'		=> $row['time'],
 				'subject'	=> $row['subject'],
 				'message'	=> $row['message'],
+				'groups'	=> $row['groups'],
 			];
 		}
 

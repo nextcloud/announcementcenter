@@ -28,6 +28,14 @@
 				'<em>' +
 					'{{author}} — {{time}}' +
 					'{{#if announcementId}}' +
+						' — ' +
+						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
+							'{{#if visibilityEveryone}}' +
+								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
+							'{{else}}' +
+								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
+							'{{/if}}' +
+						'</span>' +
 						'<span class="delete-link">' +
 							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
@@ -137,14 +145,33 @@
 			}).done(function (response) {
 				if (response.length > 0) {
 					_.each(response, function (announcement) {
-						var $html = $(self.compiledTemplate({
+						var object = {
 							time: OC.Util.formatDate(announcement.time * 1000),
 							author: announcement.author,
 							subject: announcement.subject,
 							message: announcement.message,
+							visibilityEveryone: null,
+							visibilityString: null,
 							announcementId: (oc_isadmin) ? announcement.id : 0
-						}));
+						};
+
+						if (oc_isadmin) {
+							if (announcement.groups.indexOf('everyone') > -1) {
+								object.visibilityEveryone = true;
+								object.visibilityString = t('announcementcenter', 'Visible for everyone');
+							} else {
+								object.visibilityEveryone = false;
+								object.visibilityString = t('announcementcenter', 'Visible for groups: {groups}', {
+									groups: announcement.groups.join(t('announcementcenter', ', '))
+								});
+							}
+						}
+
+						var $html = $(self.compiledTemplate(object));
 						$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
+						$html.find('.has-tooltip').tooltip({
+							placement: 'bottom'
+						});
 						$('#app-content-wrapper').append($html);
 
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {

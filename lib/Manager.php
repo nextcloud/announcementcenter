@@ -193,12 +193,18 @@ class Manager {
 			throw new \InvalidArgumentException('Invalid ID');
 		}
 
+		$groups = null;
+		if (in_array('admin', $groups)) {
+			$groups = $this->getGroups($id);
+		}
+
 		return [
 			'id'		=> (int) $row['announcement_id'],
 			'author'	=> $row['announcement_user'],
 			'time'		=> (int) $row['announcement_time'],
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+			'groups'	=> $groups,
 		];
 	}
 
@@ -218,17 +224,17 @@ class Manager {
 
 		$user = $this->userSession->getUser();
 		if ($user instanceof IUser) {
-			$groups = $this->groupManager->getUserGroupIds($user);
-			$groups[] = 'everyone';
+			$userGroups = $this->groupManager->getUserGroupIds($user);
+			$userGroups[] = 'everyone';
 		} else {
-			$groups = ['everyone'];
+			$userGroups = ['everyone'];
 		}
 
-		if (!in_array('admin', $groups)) {
+		if (!in_array('admin', $userGroups)) {
 			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
 					'a.announcement_id', 'ag.announcement_id'
 				))
-				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($groups, IQueryBuilder::PARAM_STR_ARRAY)));
+				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
 		}
 
 		if ($offset > 0) {
@@ -237,43 +243,59 @@ class Manager {
 
 		$result = $query->execute();
 
-
 		$announcements = [];
 		while ($row = $result->fetch()) {
-			$announcements[] = [
-				'id'		=> (int) $row['announcement_id'],
+			$id = (int) $row['announcement_id'];
+			$announcements[$id] = [
+				'id'		=> $id,
 				'author'	=> $row['announcement_user'],
 				'time'		=> (int) $row['announcement_time'],
 				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+				'groups'	=> null,
 			];
 		}
 		$result->closeCursor();
 
+		if (in_array('admin', $userGroups)) {
+			$allGroups = $this->getGroups(array_keys($announcements));
+			foreach ($allGroups as $id => $groups) {
+				$announcements[$id]['groups'] = $groups;
+			}
+		}
 
 		return $announcements;
 	}
 
 	/**
-	 * Return the groups (or string everyone) which have access to the announcement
+	 * Return the groups (or string everyone) which have access to the announcement(s)
 	 *
-	 * @param int $id
-	 * @return string[]
+	 * @param int|int[] $ids
+	 * @return string[]|array[]
 	 */
-	public function getGroups($id) {
+	public function getGroups($ids) {
+		$returnSingleResult = false;
+		if (is_int($ids)) {
+			$ids = [$ids];
+			$returnSingleResult = true;
+		}
+
 		$query = $this->connection->getQueryBuilder();
-		$query->select('gid')
+		$query->select('*')
 			->from('announcements_groups')
-			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
+			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 		$result = $query->execute();
 
 		$groups = [];
 		while ($row = $result->fetch()) {
-			$groups[] = $row['gid'];
+			if (!isset($groups[(int) $row['announcement_id']])) {
+				$groups[(int) $row['announcement_id']] = [];
+			}
+			$groups[(int) $row['announcement_id']][] = $row['gid'];
 		}
 		$result->closeCursor();
 
-		return $groups;
+		return $returnSingleResult ? array_pop($groups) : $groups;
 	}
 
 	/**
