@@ -4,6 +4,7 @@
 	<create>true</create>
 	<overwrite>false</overwrite>
 	<charset>utf8</charset>
+
 	<table>
 		<name>*dbprefix*announcements</name>
 		<declaration>
@@ -39,6 +40,35 @@
 				<type>clob</type>
 				<notnull>false</notnull>
 			</field>
+		</declaration>
+	</table>
+
+	<table>
+		<name>*dbprefix*announcements_groups</name>
+		<declaration>
+			<field>
+				<name>announcement_id</name>
+				<type>integer</type>
+				<notnull>true</notnull>
+				<length>4</length>
+			</field>
+			<field>
+				<name>gid</name>
+				<type>text</type>
+				<notnull>true</notnull>
+				<length>64</length>
+			</field>
+
+			<index>
+				<name>announce_group</name>
+				<unique>true</unique>
+				<field>
+					<name>announcement_id</name>
+				</field>
+				<field>
+					<name>gid</name>
+				</field>
+			</index>
 		</declaration>
 	</table>
 </database>

@@ -31,6 +31,12 @@
 	margin-top: 50px !important;
 }
 
+.announcementcenter .visibility img {
+	width: 16px;
+	vertical-align: middle;
+	padding-bottom: 3px;
+}
+
 .announcementcenter .delete-link {
 	display: none;
 }

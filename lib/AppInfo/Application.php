@@ -46,7 +46,7 @@ class Application extends App {
 				$server->getJobList(),
 				$server->getNotificationManager(),
 				$server->getL10N('announcementcenter'),
-				new Manager($server->getDatabaseConnection()),
+				$c->query('OCA\AnnouncementCenter\Manager'),
 				$this->getCurrentUser($server->getUserSession())
 			);
 		});

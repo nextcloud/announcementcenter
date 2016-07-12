@@ -139,32 +139,32 @@ class PageControllerTest extends TestCase {
 			[
 				1,
 				[
-					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
 				], [],
 				[
-					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
 				],
 				[
 					['author1', $this->getUserMock('author1', 'Author One')],
 				],
 				[
-					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792],
+					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792],
+					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792, 'groups' => null],
 				],
 				[],
 				[
-					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792],
+					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null],
 				],
 			],
 		];
@@ -258,7 +258,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '');
+		$response = $controller->add($subject, '', []);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame($expectedData, $response->getData());
@@ -274,7 +274,7 @@ class PageControllerTest extends TestCase {
 	public function testAdd() {
 		$this->manager->expects($this->once())
 			->method('announce')
-			->with('subject', 'message', 'author', $this->anything())
+			->with('subject', 'message', 'author', $this->anything(), ['gid1'])
 			->willReturn([
 				'author' => 'author',
 				'subject' => 'subject',
@@ -292,7 +292,7 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 
-		$response = $controller->add('subject', 'message');
+		$response = $controller->add('subject', 'message', ['gid1']);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$data = $response->getData();

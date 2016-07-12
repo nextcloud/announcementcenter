@@ -22,6 +22,8 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\IGroupManager;
+use OCP\IUserSession;
 
 /**
  * Class ManagerTest
@@ -30,14 +32,35 @@ use OCA\AnnouncementCenter\Manager;
  * @group DB
  */
 class ManagerTest extends TestCase {
+
 	/** @var Manager */
 	protected $manager;
 
+	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $groupManager;
+
+	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	protected $userSession;
+
 	protected function setUp() {
 		parent::setUp();
+
+		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
+			->disableOriginalConstructor()
+			->getMock();
+		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
+			->disableOriginalConstructor()
+			->getMock();
+
 		$this->manager = new Manager(
-			\OC::$server->getDatabaseConnection()
+			\OC::$server->getDatabaseConnection(),
+			$this->groupManager,
+			$this->userSession
 		);
+
+		$query = \OC::$server->getDatabaseConnection()->getQueryBuilder();
+		$query->delete('announcements')->execute();
+		$query->delete('announcements_groups')->execute();
 	}
 
 	/**
@@ -54,7 +77,7 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 2
 	 */
 	public function testAnnounceNoSubject() {
-		$this->manager->announce('', '', '', 0);
+		$this->manager->announce('', '', '', 0, []);
 	}
 
 	/**
@@ -63,16 +86,66 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 1
 	 */
 	public function testAnnounceSubjectTooLong() {
-		$this->manager->announce(str_repeat('a', 513), '', '', 0);
+		$this->manager->announce(str_repeat('a', 513), '', '', 0, []);
 	}
 
-	public function testAnnouncement() {
+	protected function setUserGroups($groups) {
+		if ($groups === null) {
+			$this->userSession->expects($this->any())
+				->method('getUser')
+				->willReturn(null);
+		} else {
+			$user = $this->getMockBuilder('OCP\IUser')
+				->disableOriginalConstructor()
+				->getMock();
+			$this->userSession->expects($this->any())
+				->method('getUser')
+				->willReturn($user);
+			$this->groupManager->expects($this->any())
+				->method('getUserGroupIds')
+				->with($user)
+				->willReturn($groups);
+		}
+	}
+
+
+	public function dataAnnouncement() {
+		return [
+			[null, true, false],
+			[['gid1', 'gid2'], true, true],
+			[['admin'], false, true],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAnnouncement
+	 * @param string[] $groups
+	 * @param bool $noGroupsSet
+	 * @param bool $canAccessBoth
+	 */
+	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
 		$author = 'author';
 		$time = time() - 10;
 
-		$announcement = $this->manager->announce($subject, $message, $author, $time);
+		$this->groupManager->expects($this->exactly(2))
+			->method('groupExists')
+			->willReturnMap([
+				['gid1', true],
+				['gid2', true],
+			]);
+		$this->setUserGroups($groups);
+
+		$this->assertEquals([], $this->manager->getAnnouncements());
+
+		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
+		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
+		if ($noGroupsSet) {
+			$announcement['groups'] = null;
+			$announcement2['groups'] = null;
+		}
+
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
@@ -81,12 +154,37 @@ class ManagerTest extends TestCase {
 		$this->assertSame($time, $announcement['time']);
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
+		if ($canAccessBoth) {
+			$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
+		} else {
+			try {
+				$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
+				$this->fail('Failed to check permissions for the announcement');
+			} catch (\InvalidArgumentException $e) {
+				$this->assertInstanceOf('InvalidArgumentException', $e);
+			}
+			$this->assertEquals(
+				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
+				$this->manager->getAnnouncement($announcement2['id'], true, true)
+			);
+		}
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
-		$this->assertEquals([$announcement], $this->manager->getAnnouncements(1));
+		if ($canAccessBoth) {
+			$this->assertEquals([$announcement2['id'] => $announcement2, $announcement['id'] => $announcement], $this->manager->getAnnouncements());
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
+			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
+		} else {
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements());
+			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
+			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
+		}
 
+		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
 		$this->manager->delete($announcement['id']);
+		$this->manager->delete($announcement2['id']);
+		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 
 		try {
 			$this->manager->getAnnouncement($announcement['id']);
@@ -94,5 +192,50 @@ class ManagerTest extends TestCase {
 		} catch (\InvalidArgumentException $e) {
 			$this->assertInstanceOf('InvalidArgumentException', $e);
 		}
+
+		try {
+			$this->manager->getAnnouncement($announcement2['id'], true, true);
+			$this->fail('Failed to delete the announcement');
+		} catch (\InvalidArgumentException $e) {
+			$this->assertInstanceOf('InvalidArgumentException', $e);
+		}
+	}
+
+	public function testAnnouncementGroups() {
+		$subject = 'subject' . "\n<html>";
+		$message = 'message' . "\n<html>";
+		$author = 'author';
+		$time = time() - 10;
+
+		$this->groupManager->expects($this->exactly(3))
+			->method('groupExists')
+			->willReturnMap([
+				['gid0', false],
+				['gid1', true],
+				['gid2', true],
+			]);
+
+		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2']);
+		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
+		$this->manager->delete($announcement['id']);
+		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
+	}
+
+	public function testAnnouncementGroupsAllInvalid() {
+		$subject = 'subject' . "\n<html>";
+		$message = 'message' . "\n<html>";
+		$author = 'author';
+		$time = time() - 10;
+
+		$this->groupManager->expects($this->exactly(1))
+			->method('groupExists')
+			->willReturnMap([
+				['gid0', false],
+			]);
+
+		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0']);
+		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
+		$this->manager->delete($announcement['id']);
+		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
 }

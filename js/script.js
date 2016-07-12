@@ -21,13 +21,21 @@
 		$container: null,
 		$content: null,
 		lastLoadedAnnouncement: 0,
+		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 
 		compiledTemplate: null,
 		handlebarTemplate: '<div class="section">' +
 				'<h2>{{{subject}}}</h2>' +
 				'<em>' +
-					'{{author}} — {{time}}' +
+					'{{time}} {{author}} ' +
 					'{{#if announcementId}}' +
+						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
+							'{{#if visibilityEveryone}}' +
+								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
+							'{{else}}' +
+								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
+							'{{/if}}' +
+						'</span>' +
 						'<span class="delete-link">' +
 							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
@@ -52,6 +60,15 @@
 
 			this.ignoreScroll = 1;
 			this.loadAnnouncements();
+
+			$('#groups').each(function (index, element) {
+				OC.Settings.setupGroupsSelect($(element));
+				$(element).change(function(ev) {
+					var groups = ev.val || [];
+					groups = JSON.stringify(groups);
+					OC.AppConfig.setValue('core', $(this).attr('name'), groups);
+				});
+			});
 		},
 
 		deleteAnnouncement: function() {
@@ -86,20 +103,13 @@
 				url: OC.generateUrl('/apps/announcementcenter/announcement'),
 				data: {
 					subject: $('#subject').val(),
-					message: $('#message').val()
+					message: $('#message').val(),
+					groups: $('#groups').val().split('|')
 				}
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
-				var $html = $(self.compiledTemplate({
-					time: OC.Util.formatDate(announcement.time * 1000),
-					author: announcement.author,
-					subject: announcement.subject,
-					message: announcement.message,
-					announcementId: (oc_isadmin) ? announcement.id : 0
-				}));
-
-				$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
+				var $html = self.announcementToHtml(announcement);
 				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
 				setTimeout(function() {
@@ -109,6 +119,7 @@
 
 				$('#subject').val('');
 				$('#message').val('');
+				$('#groups').val('');
 			}).fail(function (response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
@@ -126,16 +137,8 @@
 			}).done(function (response) {
 				if (response.length > 0) {
 					_.each(response, function (announcement) {
-						var $html = $(self.compiledTemplate({
-							time: OC.Util.formatDate(announcement.time * 1000),
-							author: announcement.author,
-							subject: announcement.subject,
-							message: announcement.message,
-							announcementId: (oc_isadmin) ? announcement.id : 0
-						}));
-						$html.find('span.delete-link a').on('click', self.deleteAnnouncement);
+						var $html = self.announcementToHtml(announcement);
 						$('#app-content-wrapper').append($html);
-
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
@@ -145,6 +148,49 @@
 					$('#emptycontent').removeClass('hidden');
 				}
 			});
+		},
+
+		announcementToHtml: function (announcement) {
+
+			var currentTimestamp = new Date().getTime();
+			var details = '';
+			if (currentTimestamp >= announcement.time * 1000 + this.sevenDaysMilliseconds) {
+				// Old announcement show full date
+				details += OC.Util.formatDate(announcement.time * 1000)
+			} else {
+				details += OC.Util.relativeModifiedDate(announcement.time * 1000)
+			}
+
+			var object = {
+				time: details,
+				author: t('announcementcenter', 'by {author}', announcement),
+				subject: announcement.subject,
+				message: announcement.message,
+				visibilityEveryone: null,
+				visibilityString: null,
+				announcementId: (oc_isadmin) ? announcement.id : 0
+			};
+
+
+			if (oc_isadmin) {
+				if (announcement.groups.indexOf('everyone') > -1) {
+					object.visibilityEveryone = true;
+					object.visibilityString = t('announcementcenter', 'Visible for everyone');
+				} else {
+					object.visibilityEveryone = false;
+					object.visibilityString = t('announcementcenter', 'Visible for groups: {groups}', {
+						groups: announcement.groups.join(t('announcementcenter', ', '))
+					});
+				}
+			}
+
+			var $html = $(this.compiledTemplate(object));
+			$html.find('span.delete-link a').on('click', this.deleteAnnouncement);
+			$html.find('.has-tooltip').tooltip({
+				placement: 'bottom'
+			});
+
+			return $html;
 		},
 
 		onScroll: function () {
