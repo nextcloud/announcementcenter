@@ -21,14 +21,14 @@
 		$container: null,
 		$content: null,
 		lastLoadedAnnouncement: 0,
+		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 
 		compiledTemplate: null,
 		handlebarTemplate: '<div class="section">' +
 				'<h2>{{{subject}}}</h2>' +
 				'<em>' +
-					'{{author}} — {{time}}' +
+					'{{time}} {{author}} ' +
 					'{{#if announcementId}}' +
-						' — ' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
 								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
@@ -151,15 +151,26 @@
 		},
 
 		announcementToHtml: function (announcement) {
+
+			var currentTimestamp = new Date().getTime();
+			var details = '';
+			if (currentTimestamp >= announcement.time * 1000 + this.sevenDaysMilliseconds) {
+				// Old announcement show full date
+				details += OC.Util.formatDate(announcement.time * 1000)
+			} else {
+				details += OC.Util.relativeModifiedDate(announcement.time * 1000)
+			}
+
 			var object = {
-				time: OC.Util.formatDate(announcement.time * 1000),
-				author: announcement.author,
+				time: details,
+				author: t('announcementcenter', 'by {author}', announcement),
 				subject: announcement.subject,
 				message: announcement.message,
 				visibilityEveryone: null,
 				visibilityString: null,
 				announcementId: (oc_isadmin) ? announcement.id : 0
 			};
+
 
 			if (oc_isadmin) {
 				if (announcement.groups.indexOf('everyone') > -1) {
