@@ -59,6 +59,7 @@
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
 			this.ignoreScroll = 1;
+			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin');
 			this.loadAnnouncements();
 
 			$('#groups').each(function (index, element) {
@@ -168,11 +169,11 @@
 				message: announcement.message,
 				visibilityEveryone: null,
 				visibilityString: null,
-				announcementId: (oc_isadmin) ? announcement.id : 0
+				announcementId: (this.isAdmin) ? announcement.id : 0
 			};
 
 
-			if (oc_isadmin) {
+			if (this.isAdmin) {
 				if (announcement.groups.indexOf('everyone') > -1) {
 					object.visibilityEveryone = true;
 					object.visibilityString = t('announcementcenter', 'Visible for everyone');

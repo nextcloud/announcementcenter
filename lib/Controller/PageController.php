@@ -34,6 +34,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserManager;
+use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 
 class PageController extends Controller {
@@ -47,22 +48,22 @@ class PageController extends Controller {
 	protected $jobList;
 
 	/** @var IDBConnection */
-	private $connection;
+	protected $connection;
 
 	/** @var IGroupManager */
-	private $groupManager;
+	protected $groupManager;
 
 	/** @var IUserManager */
-	private $userManager;
+	protected $userManager;
 
 	/** @var IL10N */
-	private $l;
+	protected $l;
 
 	/** @var Manager */
-	private $manager;
+	protected $manager;
 
-	/** @var string */
-	private $userId;
+	/** @var IUserSession */
+	protected $userSession;
 
 	/**
 	 * @param string $AppName
@@ -74,9 +75,9 @@ class PageController extends Controller {
 	 * @param INotificationManager $notificationManager
 	 * @param IL10N $l
 	 * @param Manager $manager
-	 * @param string $UserId
+	 * @param IUserSession $userSession
 	 */
-	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IJobList $jobList, INotificationManager $notificationManager, IL10N $l, Manager $manager, $UserId) {
+	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IJobList $jobList, INotificationManager $notificationManager, IL10N $l, Manager $manager, IUserSession $userSession) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
@@ -86,7 +87,7 @@ class PageController extends Controller {
 		$this->notificationManager = $notificationManager;
 		$this->l = $l;
 		$this->manager = $manager;
-		$this->userId = $UserId;
+		$this->userSession = $userSession;
 	}
 
 	/**
@@ -122,15 +123,24 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * @NoAdminRequired
+	 *
 	 * @param string $subject
 	 * @param string $message
 	 * @param string[] $groups
 	 * @return JSONResponse
 	 */
 	public function add($subject, $message, array $groups) {
+		if (!$this->manager->checkIsAdmin()) {
+			return new JSONResponse(
+				['message' => 'Logged in user must be an admin'],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+
 		$timeStamp = time();
 		try {
-			$announcement = $this->manager->announce($subject, $message, $this->userId, $timeStamp, $groups);
+			$announcement = $this->manager->announce($subject, $message, $this->userSession->getUser()->getUID(), $timeStamp, $groups);
 		} catch (\InvalidArgumentException $e) {
 			return new JSONResponse(
 				['error' => (string)$this->l->t('The subject is too long or empty')],
@@ -147,10 +157,19 @@ class PageController extends Controller {
 	}
 
 	/**
+	 * @NoAdminRequired
+	 *
 	 * @param int $id
 	 * @return Response
 	 */
 	public function delete($id) {
+		if (!$this->manager->checkIsAdmin()) {
+			return new JSONResponse(
+				['message' => 'Logged in user must be an admin'],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+
 		$this->manager->delete($id);
 
 		$notification = $this->notificationManager->createNotification();
@@ -169,7 +188,7 @@ class PageController extends Controller {
 	 */
 	public function index() {
 		return new TemplateResponse('announcementcenter', 'main', [
-			'is_admin'	=> $this->groupManager->isAdmin($this->userId),
+			'is_admin'	=> $this->manager->checkIsAdmin(),
 		]);
 	}
 }

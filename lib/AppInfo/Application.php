@@ -33,23 +33,7 @@ class Application extends App {
 		parent::__construct('announcementcenter', $urlParams);
 		$container = $this->getContainer();
 
-		$container->registerService('PageController', function(IContainer $c) {
-			/** @var \OC\Server $server */
-			$server = $c->query('ServerContainer');
-
-			return new PageController(
-				$c->query('AppName'),
-				$server->getRequest(),
-				$server->getDatabaseConnection(),
-				$server->getGroupManager(),
-				$server->getUserManager(),
-				$server->getJobList(),
-				$server->getNotificationManager(),
-				$server->getL10N('announcementcenter'),
-				$c->query('OCA\AnnouncementCenter\Manager'),
-				$this->getCurrentUser($server->getUserSession())
-			);
-		});
+		$container->registerAlias('PageController', 'OCA\AnnouncementCenter\Controller\PageController');
 	}
 
 	public function register() {
@@ -90,18 +74,5 @@ class Application extends App {
 				'name' => $l->t('Announcements'),
 			];
 		});
-	}
-
-	/**
-	 * @param IUserSession $session
-	 * @return string
-	 */
-	protected function getCurrentUser(IUserSession $session) {
-		$user = $session->getUser();
-		if ($user instanceof IUser) {
-			$user = $user->getUID();
-		}
-
-		return (string) $user;
 	}
 }

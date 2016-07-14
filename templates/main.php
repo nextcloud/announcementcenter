@@ -7,7 +7,7 @@ script('announcementcenter', 'script');
 style('announcementcenter', 'style');
 ?>
 
-<div id="app" class="announcementcenter">
+<div id="app" class="announcementcenter" data-is-admin="<?php if ($_['is_admin']) { p(1); } else p(0); ?>">
 	<div id="app-content">
 		<div id="app-content-wrapper">
 			<?php if ($_['is_admin']) {
