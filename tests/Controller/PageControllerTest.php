@@ -30,6 +30,7 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
+use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 
 /**
@@ -53,6 +54,8 @@ class PageControllerTest extends TestCase {
 	protected $l;
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
+	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	protected $userSession;
 
 	protected function setUp() {
 		parent::setUp();
@@ -83,6 +86,9 @@ class PageControllerTest extends TestCase {
 		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 	protected function getController(array $methods = []) {
@@ -97,7 +103,7 @@ class PageControllerTest extends TestCase {
 				$this->notificationManager,
 				$this->l,
 				$this->manager,
-				'author'
+				$this->userSession
 			);
 		} else {
 			return $this->getMockBuilder('OCA\AnnouncementCenter\Controller\PageController')
@@ -111,7 +117,7 @@ class PageControllerTest extends TestCase {
 					$this->notificationManager,
 					$this->l,
 					$this->manager,
-					'author',
+					$this->userSession,
 				])
 				->setMethods($methods)
 				->getMock();
@@ -196,44 +202,58 @@ class PageControllerTest extends TestCase {
 
 	public function dataDelete() {
 		return [
-			[42],
-			[1337],
+			[42, true, Http::STATUS_OK],
+			[1337, false, Http::STATUS_FORBIDDEN],
 		];
 	}
 
 	/**
 	 * @dataProvider dataDelete
 	 * @param int $id
+	 * @param bool $isAdmin
+	 * @param int $statusCode
 	 */
-	public function testDelete($id) {
-
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
-		$notification->expects($this->once())
-			->method('setApp')
-			->with('announcementcenter')
-			->willReturnSelf();
-		$notification->expects($this->once())
-			->method('setObject')
-			->with('announcement', $id)
-			->willReturnSelf();
-
-		$this->notificationManager->expects($this->once())
-			->method('createNotification')
-			->willReturn($notification);
-		$this->notificationManager->expects($this->once())
-			->method('markProcessed');
-
+	public function testDelete($id, $isAdmin, $statusCode) {
 		$this->manager->expects($this->once())
-			->method('delete')
-			->with($id);
+			->method('checkIsAdmin')
+			->willReturn($isAdmin);
+
+		if ($isAdmin) {
+			$notification = $this->getMockBuilder('OCP\Notification\INotification')
+				->disableOriginalConstructor()
+				->getMock();
+			$notification->expects($this->once())
+				->method('setApp')
+				->with('announcementcenter')
+				->willReturnSelf();
+			$notification->expects($this->once())
+				->method('setObject')
+				->with('announcement', $id)
+				->willReturnSelf();
+
+			$this->notificationManager->expects($this->once())
+				->method('createNotification')
+				->willReturn($notification);
+			$this->notificationManager->expects($this->once())
+				->method('markProcessed')
+				->with($notification);
+
+			$this->manager->expects($this->once())
+				->method('delete')
+				->with($id);
+		} else {
+			$this->notificationManager->expects($this->never())
+				->method('markProcessed');
+
+			$this->manager->expects($this->never())
+				->method('delete');
+		}
 
 		$controller = $this->getController();
 		$response = $controller->delete($id);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\Response', $response);
-		$this->assertEquals(Http::STATUS_OK, $response->getStatus());
+		$this->assertEquals($statusCode, $response->getStatus());
 	}
 
 	public function dataAddThrows() {
@@ -250,6 +270,13 @@ class PageControllerTest extends TestCase {
 	 */
 	public function testAddThrows($subject, array $expectedData) {
 		$this->manager->expects($this->once())
+			->method('checkIsAdmin')
+			->willReturn(true);
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($this->getUserMock('author', 'author'));
+
+		$this->manager->expects($this->once())
 			->method('announce')
 			->with($subject, '', 'author', $this->anything())
 			->willThrowException(new \InvalidArgumentException());
@@ -264,6 +291,26 @@ class PageControllerTest extends TestCase {
 		$this->assertSame($expectedData, $response->getData());
 	}
 
+	public function testAddNoAdmin() {
+		$this->manager->expects($this->once())
+			->method('checkIsAdmin')
+			->willReturn(false);
+
+		$this->manager->expects($this->never())
+			->method('announce');
+		$this->jobList->expects($this->never())
+			->method('add');
+
+		$controller = $this->getController(['createPublicity']);
+		$controller->expects($this->never())
+			->method('createPublicity');
+
+		$response = $controller->add('subject', '', []);
+
+		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
+	}
+
 	public function dataAdd() {
 		return [
 			['', '', true, ['error' => 'The subject is too long or empty']],
@@ -271,7 +318,17 @@ class PageControllerTest extends TestCase {
 		];
 	}
 
+	/**
+	 * @dataProvider dataAdd
+	 */
 	public function testAdd() {
+		$this->manager->expects($this->once())
+			->method('checkIsAdmin')
+			->willReturn(true);
+		$this->userSession->expects($this->once())
+			->method('getUser')
+			->willReturn($this->getUserMock('author', 'author'));
+
 		$this->manager->expects($this->once())
 			->method('announce')
 			->with('subject', 'message', 'author', $this->anything(), ['gid1'])
@@ -320,9 +377,8 @@ class PageControllerTest extends TestCase {
 	 * @param bool $isAdmin
 	 */
 	public function testIndex($isAdmin) {
-		$this->groupManager->expects($this->once())
-			->method('isAdmin')
-			->with('author')
+		$this->manager->expects($this->once())
+			->method('checkIsAdmin')
 			->willReturn($isAdmin);
 
 		$controller = $this->getController();

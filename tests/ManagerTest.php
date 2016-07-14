@@ -22,6 +22,7 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserSession;
 
@@ -36,6 +37,9 @@ class ManagerTest extends TestCase {
 	/** @var Manager */
 	protected $manager;
 
+	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	protected $config;
+
 	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $groupManager;
 
@@ -45,6 +49,9 @@ class ManagerTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
+		$this->config = $this->getMockBuilder('OCP\IConfig')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
 			->disableOriginalConstructor()
 			->getMock();
@@ -53,6 +60,7 @@ class ManagerTest extends TestCase {
 			->getMock();
 
 		$this->manager = new Manager(
+			$this->config,
 			\OC::$server->getDatabaseConnection(),
 			$this->groupManager,
 			$this->userSession
@@ -89,15 +97,23 @@ class ManagerTest extends TestCase {
 		$this->manager->announce(str_repeat('a', 513), '', '', 0, []);
 	}
 
+	protected function getUserMock($uid) {
+		$user = $this->getMockBuilder('OCP\IUser')
+			->disableOriginalConstructor()
+			->getMock();
+		$user->expects($this->any())
+			->method('getUID')
+			->willReturn($uid);
+		return $user;
+	}
+
 	protected function setUserGroups($groups) {
 		if ($groups === null) {
 			$this->userSession->expects($this->any())
 				->method('getUser')
 				->willReturn(null);
 		} else {
-			$user = $this->getMockBuilder('OCP\IUser')
-				->disableOriginalConstructor()
-				->getMock();
+			$user = $this->getUserMock('uid');
 			$this->userSession->expects($this->any())
 				->method('getUser')
 				->willReturn($user);
@@ -107,7 +123,6 @@ class ManagerTest extends TestCase {
 				->willReturn($groups);
 		}
 	}
-
 
 	public function dataAnnouncement() {
 		return [
@@ -124,6 +139,11 @@ class ManagerTest extends TestCase {
 	 * @param bool $canAccessBoth
 	 */
 	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
+		$this->config->expects($this->atLeastOnce())
+			->method('getAppValue')
+			->with('announcementcenter', 'admin_group', 'admin')
+			->willReturn('admin');
+
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
 		$author = 'author';
@@ -237,5 +257,49 @@ class ManagerTest extends TestCase {
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
 		$this->manager->delete($announcement['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
+	}
+
+	public function dataCheckIsAdmin() {
+		return [
+			['admin', true],
+			['admin', false],
+			['gid1', true],
+			['gid1', false],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCheckIsAdmin
+	 * @param string $adminGroup
+	 * @param bool $expected
+	 */
+	public function testCheckIsAdmin($adminGroup, $expected) {
+		$this->config->expects($this->any())
+			->method('getAppValue')
+			->with('announcementcenter', 'admin_group', 'admin')
+			->willReturn($adminGroup);
+
+		$user = $this->getUserMock('uid');
+		$this->userSession->expects($this->any())
+			->method('getUser')
+			->willReturn($user);
+
+		$this->groupManager->expects($this->once())
+			->method('isInGroup')
+			->with('uid', $adminGroup)
+			->willReturn($expected);
+
+		$this->assertEquals($expected, $this->manager->checkIsAdmin());
+	}
+
+	public function testCheckIsAdminNoUser() {
+		$this->userSession->expects($this->any())
+			->method('getUser')
+			->willReturn(null);
+
+		$this->groupManager->expects($this->never())
+			->method('isInGroup');
+
+		$this->assertEquals(false, $this->manager->checkIsAdmin());
 	}
 }
