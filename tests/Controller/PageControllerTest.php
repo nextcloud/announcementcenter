@@ -392,4 +392,53 @@ class PageControllerTest extends TestCase {
 			$response->getParams()
 		);
 	}
+
+	protected function getGroupMock($gid) {
+		$group = $this->getMockBuilder('OCP\IGroup')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$group->expects($this->any())
+			->method('getGID')
+			->willReturn($gid);
+
+		return $group;
+	}
+
+	public function dataSearchGroup() {
+		return [
+			[true, 'gid', [], [], Http::STATUS_OK],
+			[true, 'gid', [$this->getGroupMock('gid1'), $this->getGroupMock('gid2')], ['gid1', 'gid2'], Http::STATUS_OK],
+			[false, '', null, ['message' => 'Logged in user must be an admin'], Http::STATUS_FORBIDDEN],
+		];
+	}
+
+	/**
+	 * @dataProvider dataSearchGroup
+	 * @param bool $isAdmin
+	 * @param string $pattern
+	 * @param array|null $groupSearch
+	 * @param string $expected
+	 * @param int $code
+	 */
+	public function testSearchGroup($isAdmin, $pattern, $groupSearch, $expected, $code) {
+		$this->manager->expects($this->once())
+			->method('checkIsAdmin')
+			->willReturn($isAdmin);
+
+		if ($groupSearch !== null) {
+			$this->groupManager->expects($this->once())
+				->method('search')
+				->willReturn($groupSearch);
+		} else {
+			$this->groupManager->expects($this->never())
+				->method('search');
+		}
+
+		$controller = $this->getController();
+		$response = $controller->searchGroups($pattern);
+		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertSame($code, $response->getStatus());
+		$this->assertSame($expected, $response->getData());
+	}
 }

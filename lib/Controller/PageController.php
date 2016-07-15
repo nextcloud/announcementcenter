@@ -191,4 +191,27 @@ class PageController extends Controller {
 			'is_admin'	=> $this->manager->checkIsAdmin(),
 		]);
 	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param string $pattern
+	 * @return JSONResponse
+	 */
+	public function searchGroups($pattern) {
+		if (!$this->manager->checkIsAdmin()) {
+			return new JSONResponse(
+				['message' => 'Logged in user must be an admin'],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+
+		$groups = $this->groupManager->search($pattern, 10);
+		$gids = [];
+		foreach ($groups as $group) {
+			$gids[] = $group->getGID();
+		}
+
+		return new JSONResponse($gids);
+	}
 }
