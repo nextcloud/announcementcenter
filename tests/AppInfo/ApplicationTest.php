@@ -63,34 +63,4 @@ class ApplicationTest extends TestCase {
 	public function testContainerQuery($service, $expected) {
 		$this->assertTrue($this->container->query($service) instanceof $expected);
 	}
-
-	public function dataGetCurrentUser() {
-		$user = $this->getMockBuilder('OCP\IUser')
-			->disableOriginalConstructor()
-			->getMock();
-		$user->expects($this->any())
-			->method('getUID')
-			->willReturn('uid');
-
-		return [
-			[$user, 'uid'],
-			[null, ''],
-		];
-	}
-
-	/**
-	 * @dataProvider dataGetCurrentUser
-	 * @param mixed $user
-	 * @param string $expected
-	 */
-	public function testGetCurrentUser($user, $expected) {
-		$session = $this->getMockBuilder('OCP\IUserSession')
-			->disableOriginalConstructor()
-			->getMock();
-		$session->expects($this->any())
-			->method('getUser')
-			->willReturn($user);
-
-		$this->assertSame($expected, $this->invokePrivate($this->app, 'getCurrentUser', [$session]));
-	}
 }

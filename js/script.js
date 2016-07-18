@@ -59,15 +59,12 @@
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
 			this.ignoreScroll = 1;
+			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin');
 			this.loadAnnouncements();
 
+			var self = this;
 			$('#groups').each(function (index, element) {
-				OC.Settings.setupGroupsSelect($(element));
-				$(element).change(function(ev) {
-					var groups = ev.val || [];
-					groups = JSON.stringify(groups);
-					OC.AppConfig.setValue('core', $(this).attr('name'), groups);
-				});
+				self.setupGroupsSelect($(element));
 			});
 		},
 
@@ -168,11 +165,11 @@
 				message: announcement.message,
 				visibilityEveryone: null,
 				visibilityString: null,
-				announcementId: (oc_isadmin) ? announcement.id : 0
+				announcementId: (this.isAdmin) ? announcement.id : 0
 			};
 
 
-			if (oc_isadmin) {
+			if (this.isAdmin) {
 				if (announcement.groups.indexOf('everyone') > -1) {
 					object.visibilityEveryone = true;
 					object.visibilityString = t('announcementcenter', 'Visible for everyone');
@@ -198,6 +195,61 @@
 				this.$content.height() > this.$container.height() - 100) {
 				this.ignoreScroll = 1;
 				this.loadAnnouncements();
+			}
+		},
+
+		/**
+		 * Setup selection box for group selection.
+		 *
+		 * Values need to be separated by a pipe "|" character.
+		 * (mostly because a comma is more likely to be used
+		 * for groups)
+		 *
+		 * @param $elements jQuery element (hidden input) to setup select2 on
+		 */
+		setupGroupsSelect: function($elements) {
+			if ($elements.length > 0) {
+				// note: settings are saved through a "change" event registered
+				// on all input fields
+				$elements.select2(_.extend({
+					placeholder: t('core', 'Groups'),
+					allowClear: true,
+					multiple: true,
+					separator: '|',
+					query: _.debounce(function(query) {
+						var queryData = {};
+						if (query.term !== '') {
+							queryData = {
+								pattern: query.term
+							};
+						}
+						$.ajax({
+							url: OC.generateUrl('/apps/announcementcenter/groups'),
+							data: queryData,
+							dataType: 'json',
+							success: function(data) {
+								query.callback({results: data});
+							}
+						});
+					}, 100, true),
+					id: function(element) {
+						return element;
+					},
+					initSelection: function(element, callback) {
+						var selection = ($(element).val() || []).split('|').sort();
+						callback(selection);
+					},
+					formatResult: function (group) {
+						return escapeHTML(group);
+					},
+					formatSelection: function (group) {
+						return escapeHTML(group);
+					},
+					escapeMarkup: function(m) {
+						// prevent double markup escape
+						return m;
+					}
+				}));
 			}
 		}
 	};

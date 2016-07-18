@@ -22,6 +22,7 @@
 namespace OCA\AnnouncementCenter;
 
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IUser;
@@ -29,22 +30,27 @@ use OCP\IUserSession;
 
 class Manager {
 
+	/** @var IConfig */
+	protected $config;
+
 	/** @var IDBConnection */
-	private $connection;
+	protected $connection;
 
 	/** @var IGroupManager */
-	private $groupManager;
+	protected $groupManager;
 
 
 	/** @var IUserSession */
-	private $userSession;
+	protected $userSession;
 
 	/**
+	 * @param IConfig $config
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
 	 * @param IUserSession $userSession
 	 */
-	public function __construct(IDBConnection $connection, IGroupManager $groupManager, IUserSession $userSession) {
+	public function __construct(IConfig $config, IDBConnection $connection, IGroupManager $groupManager, IUserSession $userSession) {
+		$this->config = $config;
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->userSession = $userSession;
@@ -143,7 +149,7 @@ class Manager {
 				$userGroups = ['everyone'];
 			}
 
-			if (!in_array('admin', $userGroups)) {
+			if (!in_array($this->getAdminGroupName(), $userGroups)) {
 				$query = $this->connection->getQueryBuilder();
 				$query->select('*')
 					->from('announcements_groups')
@@ -174,7 +180,7 @@ class Manager {
 		}
 
 		$groups = null;
-		if ($ignorePermissions || (isset($userGroups) && in_array('admin', $userGroups))) {
+		if ($ignorePermissions || (isset($userGroups) && in_array($this->getAdminGroupName(), $userGroups))) {
 			$groups = $this->getGroups($id);
 		}
 
@@ -210,7 +216,7 @@ class Manager {
 			$userGroups = ['everyone'];
 		}
 
-		if (!in_array('admin', $userGroups)) {
+		if (!in_array($this->getAdminGroupName(), $userGroups)) {
 			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
 					'a.announcement_id', 'ag.announcement_id'
 				))
@@ -237,7 +243,7 @@ class Manager {
 		}
 		$result->closeCursor();
 
-		if (in_array('admin', $userGroups)) {
+		if (in_array($this->getAdminGroupName(), $userGroups)) {
 			$allGroups = $this->getGroups(array_keys($announcements));
 			foreach ($allGroups as $id => $groups) {
 				$announcements[$id]['groups'] = $groups;
@@ -292,5 +298,23 @@ class Manager {
 	 */
 	protected function parseSubject($subject) {
 		return str_replace("\n", ' ', str_replace(['<', '>'], ['&lt;', '&gt;'], $subject));
+	}
+
+	/**
+	 * Check if the user is in the admin group
+	 * @return bool
+	 */
+	public function checkIsAdmin() {
+		$user = $this->userSession->getUser();
+
+		if ($user instanceof IUser) {
+			return $this->groupManager->isInGroup($user->getUID(), $this->getAdminGroupName());
+		}
+
+		return false;
+	}
+
+	protected function getAdminGroupName() {
+		return $this->config->getAppValue('announcementcenter', 'admin_group', 'admin');
 	}
 }
