@@ -1,13 +1,18 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Announcements" : "Anúncios",
     "Delete" : "Excluir",
     "Announcing…" : "Anunciando...",
     "Announced!" : "Anunciado!",
+    "by {author}" : "por {author}",
+    "Visible for everyone" : "Visível para todos",
+    ", " : ", ",
+    "Visible for groups: {groups}" : "Visível para os grupos:{groups}",
+    "Groups" : "Grupos",
     "Announcement does not exist anymore" : "O anúncio já não mais existe",
     "You announced %s" : "Você anunciou %s",
     "%s announced %s" : "%s anunciados %s",
+    "Announcements" : "Anúncios",
     "The subject is too long or empty" : "O assunto está demasiado longo ou vazio",
     "%1$s announced “%2$s”" : "%1$s anunciados “%2$s”",
     "No Announcements" : "Não há nenhum anúncio",
@@ -15,6 +20,8 @@ OC.L10N.register(
     "Add announcement" : "Adicionar anúncio",
     "Subject…" : "Assunto...",
     "Your announcement…" : "Seu anúncio... ",
+    "Groups…" : "Grupos...",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estes grupos poderão ver o anúncio. Se nenhum grupo estiver selecionado, todos os usuários poderão vê-lo.",
     "Announce" : "Anunciar"
 },
 "nplurals=2; plural=(n > 1);");
