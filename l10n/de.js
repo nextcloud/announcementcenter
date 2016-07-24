@@ -4,7 +4,10 @@ OC.L10N.register(
     "Delete" : "Löschen",
     "Announcing…" : "Ankündigung wird gesendet…",
     "Announced!" : "Angekündigt!",
+    "by {author}" : "von {author}",
+    "Visible for everyone" : "Für jeden sichtbar",
     ", " : ",",
+    "Visible for groups: {groups}" : "Sichtbar für folgende Gruppen: {groups}",
     "Groups" : "Gruppen",
     "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
     "You announced %s" : "Du hast %s angekündigt",
@@ -18,6 +21,7 @@ OC.L10N.register(
     "Subject…" : "Betreff…",
     "Your announcement…" : "Deine Ankündigungen…",
     "Groups…" : "Gruppen...",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen können die Ankündigungen sehen. Wenn keine Gruppe ausgewählt ist, können sie alle Nutzer sehen.",
     "Announce" : "Ankündigen"
 },
 "nplurals=2; plural=(n != 1);");
