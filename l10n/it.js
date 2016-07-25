@@ -21,6 +21,7 @@ OC.L10N.register(
     "Subject…" : "Oggetto...",
     "Your announcement…" : "Il tuo annuncio...",
     "Groups…" : "Gruppi...",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Questi gruppi saranno in grado di vedere l'annuncio. Se non è selezionato alcun gruppo, potranno vederlo tutti gli utenti.",
     "Announce" : "Annuncio"
 },
 "nplurals=2; plural=(n != 1);");
