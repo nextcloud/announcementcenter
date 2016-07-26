@@ -16,19 +16,21 @@
 		OCA.AnnouncementCenter = {};
 	}
 
+	OCA.AnnouncementCenter.Comments = {};
 	OCA.AnnouncementCenter.App = {
 		ignoreScroll: 0,
 		$container: null,
 		$content: null,
 		lastLoadedAnnouncement: 0,
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
+		commentsTabView: null,
 
 		compiledTemplate: null,
-		handlebarTemplate: '<div class="section">' +
+		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
 				'<em>' +
 					'{{time}} {{author}} ' +
-					'{{#if announcementId}}' +
+					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
 								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
@@ -55,6 +57,9 @@
 			this.$content = $('#app-content');
 			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
 
+			this.commentsTabView = OCA.AnnouncementCenter.Comments.CommentsTabView;
+			this.commentsTabView.initialize();
+
 			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
@@ -68,10 +73,17 @@
 			});
 		},
 
-		deleteAnnouncement: function() {
+		highlightAnnouncement: function(event) {
+			var $element = $(event.currentTarget);
+			this.commentsTabView.setObjectId($element.data('announcement-id'));
+		},
+
+		deleteAnnouncement: function(event) {
+			event.stopPropagation();
+
 			var $element = $(this);
 			$.ajax({
-				type: 'DELETE',
+				//type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
 			}).done(function () {
 				var $announcement = $element.parents('.section').first();
@@ -167,7 +179,8 @@
 				message: announcement.message,
 				visibilityEveryone: null,
 				visibilityString: null,
-				announcementId: (this.isAdmin) ? announcement.id : 0
+				announcementId: announcement.id,
+				isAdmin: this.isAdmin
 			};
 
 
@@ -185,6 +198,7 @@
 
 			var $html = $(this.compiledTemplate(object));
 			$html.find('span.delete-link a').on('click', this.deleteAnnouncement);
+			$html.on('click', _.bind(this.highlightAnnouncement, this));
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});

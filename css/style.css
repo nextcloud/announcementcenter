@@ -44,3 +44,7 @@
 .announcementcenter .section:hover .delete-link {
 	display: inline;
 }
+
+#app-sidebar .tab {
+	padding: 15px
+}
