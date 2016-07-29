@@ -71,8 +71,14 @@ class Application extends App {
 	protected function registerCommentsEntity() {
 		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function(CommentsEntityEvent $event) {
 			$event->addEntityCollection('announcement', function($name) {
-				// TODO check for existance with the manager
-				return true;
+				/** @var \OCA\AnnouncementCenter\Manager $manager */
+				$manager = $this->getContainer()->query('OCA\AnnouncementCenter\Manager');
+				try {
+					$announcement = $manager->getAnnouncement((int) $name);
+				} catch (\InvalidArgumentException $e) {
+					return false;
+				}
+				return $announcement['comments'];
 			});
 		});
 	}
