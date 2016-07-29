@@ -24,6 +24,7 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserSession;
@@ -49,6 +50,9 @@ class ManagerTest extends TestCase {
 	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $notificationManager;
 
+	/** @var ICommentsManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $commentsManager;
+
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
 
@@ -64,6 +68,9 @@ class ManagerTest extends TestCase {
 		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->commentsManager = $this->getMockBuilder('OCP\Comments\ICommentsManager')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
 			->disableOriginalConstructor()
 			->getMock();
@@ -73,6 +80,7 @@ class ManagerTest extends TestCase {
 			\OC::$server->getDatabaseConnection(),
 			$this->groupManager,
 			$this->notificationManager,
+			$this->commentsManager,
 			$this->userSession
 		);
 
@@ -217,9 +225,9 @@ class ManagerTest extends TestCase {
 		}
 
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteNotifications($announcement['id']);
+		$this->assertDeleteMetaData($announcement['id']);
 		$this->manager->delete($announcement['id']);
-		$this->assertDeleteNotifications($announcement2['id']);
+		$this->assertDeleteMetaData($announcement2['id']);
 		$this->manager->delete($announcement2['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 
@@ -254,7 +262,7 @@ class ManagerTest extends TestCase {
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2']);
 		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteNotifications($announcement['id']);
+		$this->assertDeleteMetaData($announcement['id']);
 		$this->manager->delete($announcement['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
@@ -273,7 +281,7 @@ class ManagerTest extends TestCase {
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0']);
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteNotifications($announcement['id']);
+		$this->assertDeleteMetaData($announcement['id']);
 		$this->manager->delete($announcement['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
@@ -322,7 +330,7 @@ class ManagerTest extends TestCase {
 		$this->assertEquals(false, $this->manager->checkIsAdmin());
 	}
 
-	protected function assertDeleteNotifications($id) {
+	protected function assertDeleteMetaData($id) {
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
@@ -341,5 +349,11 @@ class ManagerTest extends TestCase {
 		$this->notificationManager->expects($this->at(1))
 			->method('markProcessed')
 			->with($notification);
+
+		$this->commentsManager->expects($this->at(0))
+			->method('deleteCommentsAtObject')
+			->with('announcement', $id);
+
+
 	}
 }

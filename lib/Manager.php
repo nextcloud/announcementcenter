@@ -23,6 +23,7 @@
 
 namespace OCA\AnnouncementCenter;
 
+use OCP\Comments\ICommentsManager;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
@@ -45,6 +46,9 @@ class Manager {
 	/** @var INotificationManager */
 	protected $notificationManager;
 
+	/** @var ICommentsManager */
+	protected $commentsManager;
+
 	/** @var IUserSession */
 	protected $userSession;
 
@@ -53,17 +57,20 @@ class Manager {
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
 	 * @param INotificationManager $notificationManager
+	 * @param ICommentsManager $commentsManager
 	 * @param IUserSession $userSession
 	 */
 	public function __construct(IConfig $config,
 								IDBConnection $connection,
 								IGroupManager $groupManager,
 								INotificationManager $notificationManager,
+								ICommentsManager $commentsManager,
 								IUserSession $userSession) {
 		$this->config = $config;
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->notificationManager = $notificationManager;
+		$this->commentsManager = $commentsManager;
 		$this->userSession = $userSession;
 	}
 
@@ -137,6 +144,9 @@ class Manager {
 		$notification->setApp('announcementcenter')
 			->setObject('announcement', $id);
 		$this->notificationManager->markProcessed($notification);
+
+		// Delete comments
+		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
 
 		$query = $this->connection->getQueryBuilder();
 		$query->delete('announcements')
