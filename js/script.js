@@ -101,7 +101,9 @@
 				data: {
 					subject: $('#subject').val(),
 					message: $('#message').val(),
-					groups: $('#groups').val().split('|')
+					groups: $('#groups').val().split('|'),
+					activities: $('#create_activities').attr('checked') === 'checked',
+					notifications: $('#create_notifications').attr('checked') === 'checked'
 				}
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));

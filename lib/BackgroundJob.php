@@ -80,19 +80,18 @@ class BackgroundJob extends QueuedJob {
 	}
 
 	/**
-	 * @param array $argument
+	 * @param array $arguments
 	 */
-	public function run($argument) {
+	public function run($arguments) {
 		try {
-			$announcement = $this->manager->getAnnouncement($argument['id'], false);
+			$announcement = $this->manager->getAnnouncement($arguments['id'], false, true);
 		} catch (\InvalidArgumentException $e) {
 			// Announcement was deleted in the meantime, so no need to announce it anymore
 			// So we die silently
 			return;
 		}
 
-		$groups = $this->manager->getGroups($argument['id']);
-		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time'], $groups);
+		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time'], $announcement['groups'], $arguments);
 	}
 
 	/**
@@ -100,8 +99,9 @@ class BackgroundJob extends QueuedJob {
 	 * @param string $authorId
 	 * @param int $timeStamp
 	 * @param string[] $groups
+	 * @param array $publicity
 	 */
-	protected function createPublicity($id, $authorId, $timeStamp, array $groups) {
+	protected function createPublicity($id, $authorId, $timeStamp, array $groups, array $publicity) {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
@@ -122,9 +122,9 @@ class BackgroundJob extends QueuedJob {
 			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
 
 		if (in_array('everyone', $groups)) {
-			$this->createPublicityEveryone($authorId, $event, $notification);
+			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
 		} else {
-			$this->createPublicityGroups($authorId, $event, $notification, $groups);
+			$this->createPublicityGroups($authorId, $event, $notification, $groups, $publicity);
 		}
 	}
 
@@ -132,13 +132,16 @@ class BackgroundJob extends QueuedJob {
 	 * @param string $authorId
 	 * @param IEvent $event
 	 * @param INotification $notification
+	 * @param array $publicity
 	 */
-	protected function createPublicityEveryone($authorId, IEvent $event, INotification $notification) {
-		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification) {
-			$event->setAffectedUser($user->getUID());
-			$this->activityManager->publish($event);
+	protected function createPublicityEveryone($authorId, IEvent $event, INotification $notification, array $publicity) {
+		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
+			if (!empty($publicity['activities'])) {
+				$event->setAffectedUser($user->getUID());
+				$this->activityManager->publish($event);
+			}
 
-			if ($authorId !== $user->getUID()) {
+			if (!empty($publicity['notifications']) && $authorId !== $user->getUID()) {
 				$notification->setUser($user->getUID());
 				$this->notificationManager->notify($notification);
 			}
@@ -150,8 +153,9 @@ class BackgroundJob extends QueuedJob {
 	 * @param IEvent $event
 	 * @param INotification $notification
 	 * @param string[] $groups
+	 * @param array $publicity
 	 */
-	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, array $groups) {
+	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, array $groups, array $publicity) {
 		foreach ($groups as $gid) {
 			$group = $this->groupManager->get($gid);
 			if (!($group instanceof IGroup)) {
@@ -165,10 +169,12 @@ class BackgroundJob extends QueuedJob {
 					continue;
 				}
 
-				$event->setAffectedUser($uid);
-				$this->activityManager->publish($event);
+				if (!empty($publicity['activities'])) {
+					$event->setAffectedUser($uid);
+					$this->activityManager->publish($event);
+				}
 
-				if ($authorId !== $uid) {
+				if (!empty($publicity['notifications']) && $authorId !== $uid) {
 					$notification->setUser($uid);
 					$this->notificationManager->notify($notification);
 				}

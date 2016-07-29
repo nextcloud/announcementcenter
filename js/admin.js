@@ -25,9 +25,13 @@ $(document).ready(function() {
 		$adminGroup = $announcementCenter.find('.admin_groups');
 
 	OC.Settings.setupGroupsSelect($adminGroup);
-	$adminGroup.change(function(ev) {
-		var groups = ev.val || ['admin'];
+	$adminGroup.change(function(event) {
+		var groups = event.val || ['admin'];
 		groups = JSON.stringify(groups);
 		OC.AppConfig.setValue('announcementcenter', 'admin_groups', groups);
+	});
+
+	$announcementCenter.find('.checkbox').change(function() {
+		OC.AppConfig.setValue('announcementcenter', $(this).attr('name'), (this.checked ? 'yes' : 'no'));
 	});
 });

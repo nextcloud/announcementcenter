@@ -30,6 +30,7 @@ use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Controller;
 use OCP\BackgroundJob\IJobList;
+use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IL10N;
@@ -64,6 +65,9 @@ class PageController extends Controller {
 	/** @var Manager */
 	protected $manager;
 
+	/** @var IConfig */
+	protected $config;
+
 	/** @var IUserSession */
 	protected $userSession;
 
@@ -77,9 +81,20 @@ class PageController extends Controller {
 	 * @param INotificationManager $notificationManager
 	 * @param IL10N $l
 	 * @param Manager $manager
+	 * @param IConfig $config
 	 * @param IUserSession $userSession
 	 */
-	public function __construct($AppName, IRequest $request, IDBConnection $connection, IGroupManager $groupManager, IUserManager $userManager, IJobList $jobList, INotificationManager $notificationManager, IL10N $l, Manager $manager, IUserSession $userSession) {
+	public function __construct($AppName,
+								IRequest $request,
+								IDBConnection $connection,
+								IGroupManager $groupManager,
+								IUserManager $userManager,
+								IJobList $jobList,
+								INotificationManager $notificationManager,
+								IL10N $l,
+								Manager $manager,
+								IConfig $config,
+								IUserSession $userSession) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
@@ -89,6 +104,7 @@ class PageController extends Controller {
 		$this->notificationManager = $notificationManager;
 		$this->l = $l;
 		$this->manager = $manager;
+		$this->config = $config;
 		$this->userSession = $userSession;
 	}
 
@@ -129,10 +145,12 @@ class PageController extends Controller {
 	 *
 	 * @param string $subject
 	 * @param string $message
-	 * @param string[] $groups
+	 * @param string[] $groups,
+	 * @param bool $activities
+	 * @param bool $notifications
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups) {
+	public function add($subject, $message, array $groups, $activities, $notifications) {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -150,7 +168,13 @@ class PageController extends Controller {
 			);
 		}
 
-		$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', ['id' => $announcement['id']]);
+		if ($activities || $notifications) {
+			$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $announcement['id'],
+				'activities' => $activities,
+				'notifications' => $notifications,
+			]);
+		}
 
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
@@ -190,7 +214,9 @@ class PageController extends Controller {
 	 */
 	public function index() {
 		return new TemplateResponse('announcementcenter', 'main', [
-			'is_admin'	=> $this->manager->checkIsAdmin(),
+			'isAdmin'	=> $this->manager->checkIsAdmin(),
+			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
+			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
 		]);
 	}
 

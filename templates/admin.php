@@ -34,4 +34,19 @@ script('announcementcenter', 'admin');
 		<br />
 		<em><?php p($l->t('These groups will be able to post announcements.')); ?></em>
 	</p>
+	<br />
+
+	<p>
+		<input id="announcementcenter_create_activities" name="create_activities"
+			   type="checkbox" class="checkbox" value="1"
+			   <?php if ($_['createActivities']) print_unescaped('checked="checked"'); ?> />
+		<label for="announcementcenter_create_activities"><?php p($l->t('Create activities by default'));?></label><br/>
+	</p>
+
+	<p>
+		<input id="announcementcenter_create_notifications" name="create_notifications"
+			   type="checkbox" class="checkbox" value="1"
+			   <?php if ($_['createNotifications']) print_unescaped('checked="checked"'); ?> />
+		<label for="announcementcenter_create_notifications"><?php p($l->t('Create notifications by default'));?></label><br/>
+	</p>
 </div>

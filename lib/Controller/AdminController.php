@@ -54,6 +54,8 @@ class AdminController extends Controller {
 		$adminGroups = implode('|', json_decode($adminGroups, true));
 		return new TemplateResponse('announcementcenter', 'admin', [
 			'adminGroups' => $adminGroups,
+			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
+			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
 		], 'blank');
 	}
 }
