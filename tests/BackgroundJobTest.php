@@ -101,19 +101,20 @@ class BackgroundJobTest extends TestCase {
 
 	public function dataRun() {
 		return [
-			[23, null, new \InvalidArgumentException()],
-			[42, ['gid1', 'gid2'], ['id' => 42, 'author' => 'user', 'time' => 123456789]],
-			[42, ['everyone'], ['id' => 42, 'author' => 'user', 'time' => 123456789]],
+			[23, true, true, new \InvalidArgumentException()],
+			[42, true, false, ['id' => 42, 'author' => 'user', 'time' => 123456789, 'groups' => ['gid1', 'gid2']]],
+			[42, false, true, ['id' => 42, 'author' => 'user', 'time' => 123456789, 'groups' => ['everyone']]],
 		];
 	}
 
 	/**
 	 * @dataProvider dataRun
-	 * @param string[]|null $groups
 	 * @param int $id
-	 * @param \Exception|array $getResult
+	 * @param bool $activities
+	 * @param bool $notifications
+	 * @param \Exception|array|null $getResult
 	 */
-	public function testRun($id, $groups, $getResult) {
+	public function testRun($id, $activities, $notifications, $getResult) {
 		$job = $this->getJob(['createPublicity']);
 
 		if ($getResult instanceof \Exception) {
@@ -121,8 +122,6 @@ class BackgroundJobTest extends TestCase {
 				->method('getAnnouncement')
 				->with($id, false)
 				->willThrowException($getResult);
-			$this->manager->expects($this->never())
-				->method('getGroups');
 
 			$job->expects($this->never())
 				->method('createPublicity');
@@ -131,17 +130,21 @@ class BackgroundJobTest extends TestCase {
 				->method('getAnnouncement')
 				->with($id, false)
 				->willReturn($getResult);
-			$this->manager->expects($this->once())
-				->method('getGroups')
-				->with($id)
-				->willReturn($groups);
 
 			$job->expects($this->once())
 				->method('createPublicity')
-				->with($getResult['id'], $getResult['author'], $getResult['time'], $groups);
+				->with($getResult['id'], $getResult['author'], $getResult['time'], $getResult['groups'], [
+					'id' => $id,
+					'activities' => $activities,
+					'notifications' => $notifications,
+				]);
 		}
 
-		$this->invokePrivate($job, 'run', [['id' => $id]]);
+		$this->invokePrivate($job, 'run', [[
+			'id' => $id,
+			'activities' => $activities,
+			'notifications' => $notifications,
+		]]);
 
 	}
 
@@ -170,8 +173,14 @@ class BackgroundJobTest extends TestCase {
 
 	public function dataCreatePublicity() {
 		return [
-			[['everyone'], true],
-			[['gid1', 'gid2'], false],
+			[['everyone'], true, [
+				'activities' => true,
+				'notifications' => false,
+			]],
+			[['gid1', 'gid2'], false, [
+				'activities' => false,
+				'notifications' => true,
+			]],
 		];
 	}
 
@@ -179,8 +188,9 @@ class BackgroundJobTest extends TestCase {
 	 * @dataProvider dataCreatePublicity
 	 * @param string[] $groups
 	 * @param bool $everyone
+	 * @param array $publicity
 	 */
-	public function testCreatePublicity(array $groups, $everyone) {
+	public function testCreatePublicity(array $groups, $everyone, array $publicity) {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
@@ -246,11 +256,11 @@ class BackgroundJobTest extends TestCase {
 		if ($everyone) {
 			$job->expects($this->once())
 				->method('createPublicityEveryone')
-				->with('author', $event, $notification);
+				->with('author', $event, $notification, $publicity);
 		} else {
 			$job->expects($this->once())
 				->method('createPublicityGroups')
-				->with('author', $event, $notification, $groups);
+				->with('author', $event, $notification, $groups, $publicity);
 		}
 
 		$this->activityManager->expects($this->once())
@@ -260,21 +270,41 @@ class BackgroundJobTest extends TestCase {
 			->method('createNotification')
 			->willReturn($notification);
 
-		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, $groups]);
+		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, $groups, $publicity]);
 	}
 
-	public function testCreatePublicityEveryone() {
+	public function dataCreatePublicityEveryoneAndGroup() {
+		return [
+			[[
+				'activities' => true,
+				'notifications' => false,
+			], true, false],
+			[[
+				'activities' => false,
+				'notifications' => true,
+			], false, true],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCreatePublicityEveryoneAndGroup
+	 *
+	 * @param array $publicity
+	 * @param bool $activities
+	 * @param bool $notifications
+	 */
+	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications) {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
-		$event->expects($this->exactly(5))
+		$event->expects($activities ? $this->exactly(5) : $this->never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
-		$notification->expects($this->exactly(4))
+		$notification->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('setUser')
 			->willReturnSelf();
 
@@ -296,26 +326,33 @@ class BackgroundJobTest extends TestCase {
 			})
 		;
 
-		$this->activityManager->expects($this->exactly(5))
+		$this->activityManager->expects($activities ? $this->exactly(5) : $this->never())
 			->method('publish');
-		$this->notificationManager->expects($this->exactly(4))
+		$this->notificationManager->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification]);
+		$this->invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $publicity]);
 	}
 
-	public function testCreatePublicityGroups() {
+	/**
+	 * @dataProvider dataCreatePublicityEveryoneAndGroup
+	 *
+	 * @param array $publicity
+	 * @param bool $activities
+	 * @param bool $notifications
+	 */
+	public function testCreatePublicityGroups(array $publicity, $activities, $notifications) {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
-		$event->expects($this->exactly(5))
+		$event->expects($activities ? $this->exactly(5) : $this->never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
-		$notification->expects($this->exactly(4))
+		$notification->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('setUser')
 			->willReturnSelf();
 
@@ -337,11 +374,11 @@ class BackgroundJobTest extends TestCase {
 				])],
 			]);
 
-		$this->activityManager->expects($this->exactly(5))
+		$this->activityManager->expects($activities ? $this->exactly(5) : $this->never())
 			->method('publish');
-		$this->notificationManager->expects($this->exactly(4))
+		$this->notificationManager->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3']]);
+		$this->invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
 	}
 }

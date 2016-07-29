@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
 use OCP\BackgroundJob\IJobList;
+use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
@@ -56,6 +57,8 @@ class PageControllerTest extends TestCase {
 	protected $l;
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $manager;
+	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	protected $config;
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
 
@@ -88,6 +91,9 @@ class PageControllerTest extends TestCase {
 		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->config = $this->getMockBuilder('OCP\IConfig')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
 			->disableOriginalConstructor()
 			->getMock();
@@ -105,6 +111,7 @@ class PageControllerTest extends TestCase {
 				$this->notificationManager,
 				$this->l,
 				$this->manager,
+				$this->config,
 				$this->userSession
 			);
 		} else {
@@ -119,6 +126,7 @@ class PageControllerTest extends TestCase {
 					$this->notificationManager,
 					$this->l,
 					$this->manager,
+					$this->config,
 					$this->userSession,
 				])
 				->setMethods($methods)
@@ -287,7 +295,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '', []);
+		$response = $controller->add($subject, '', [], true, true);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame($expectedData, $response->getData());
@@ -307,7 +315,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add('subject', '', []);
+		$response = $controller->add('subject', '', [], true, true);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
@@ -315,15 +323,23 @@ class PageControllerTest extends TestCase {
 
 	public function dataAdd() {
 		return [
-			['', '', true, ['error' => 'The subject is too long or empty']],
-			['subject', 'message', false, []],
+			['subject1', 'message1', ['gid1'], true, true],
+			['subject2', 'message2', ['gid2'], true, false],
+			['subject3', 'message3', ['gid3'], false, true],
+			['subject4', 'message4', ['gid4'], false, false],
 		];
 	}
 
 	/**
 	 * @dataProvider dataAdd
+	 *
+	 * @param string $subject
+	 * @param string $message
+	 * @param array $groups
+	 * @param bool $activities
+	 * @param bool $notifications
 	 */
-	public function testAdd() {
+	public function testAdd($subject, $message, array $groups, $activities, $notifications) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -333,11 +349,11 @@ class PageControllerTest extends TestCase {
 
 		$this->manager->expects($this->once())
 			->method('announce')
-			->with('subject', 'message', 'author', $this->anything(), ['gid1'])
+			->with($subject, $message, 'author', $this->anything(), $groups)
 			->willReturn([
 				'author' => 'author',
-				'subject' => 'subject',
-				'message' => 'message',
+				'subject' => $subject,
+				'message' => $message,
 				'time' => time(),
 				'id' => 10,
 			]);
@@ -345,13 +361,17 @@ class PageControllerTest extends TestCase {
 			->method('get')
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
-		$this->jobList->expects($this->once())
+		$this->jobList->expects(($activities || $notifications) ? $this->once() : $this->never())
 			->method('add')
-			->with('OCA\AnnouncementCenter\BackgroundJob', ['id' => 10]);
+			->with('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => 10,
+				'activities' => $activities,
+				'notifications' => $notifications,
+			]);
 
 		$controller = $this->getController();
 
-		$response = $controller->add('subject', 'message', ['gid1']);
+		$response = $controller->add($subject, $message, $groups, $activities, $notifications);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$data = $response->getData();
@@ -361,27 +381,37 @@ class PageControllerTest extends TestCase {
 		$this->assertEquals([
 			'author' => 'Author',
 			'author_id' => 'author',
-			'subject' => 'subject',
-			'message' => 'message',
+			'subject' => $subject,
+			'message' => $message,
 			'id' => 10,
 		], $data);
 	}
 
 	public function dataIndex() {
 		return [
-			[true],
-			[false],
+			[true, 'yes', true, 'no', false],
+			[false, 'no', false, 'yes', true],
 		];
 	}
 
 	/**
 	 * @dataProvider dataIndex
 	 * @param bool $isAdmin
+	 * @param string $createActivitiesConfig
+	 * @param bool $createActivities
+	 * @param string $createNotificationsConfig
+	 * @param bool $createNotifications
 	 */
-	public function testIndex($isAdmin) {
+	public function testIndex($isAdmin, $createActivitiesConfig, $createActivities, $createNotificationsConfig, $createNotifications) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
+		$this->config->expects($this->exactly(2))
+			->method('getAppValue')
+			->willReturnMap([
+				['announcementcenter', 'create_activities', 'yes', $createActivitiesConfig],
+				['announcementcenter', 'create_notifications', 'yes', $createNotificationsConfig],
+			]);
 
 		$controller = $this->getController();
 		$response = $controller->index();
@@ -389,7 +419,9 @@ class PageControllerTest extends TestCase {
 
 		$this->assertSame(
 			[
-				'is_admin' => $isAdmin,
+				'isAdmin' => $isAdmin,
+				'createActivities' => $createActivities,
+				'createNotifications' => $createNotifications,
 			],
 			$response->getParams()
 		);

@@ -78,6 +78,11 @@ class ManagerTest extends TestCase {
 	 * @expectedMessage Invalid ID
 	 */
 	public function testGetAnnouncementNotExist() {
+		$this->config->expects($this->atLeastOnce())
+			->method('getAppValue')
+			->with('announcementcenter', 'admin_groups', '["admin"]')
+			->willReturn('["admin"]');
+
 		$this->manager->getAnnouncement(0);
 	}
 
@@ -143,8 +148,8 @@ class ManagerTest extends TestCase {
 	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
 		$this->config->expects($this->atLeastOnce())
 			->method('getAppValue')
-			->with('announcementcenter', 'admin_group', 'admin')
-			->willReturn('admin');
+			->with('announcementcenter', 'admin_groups', '["admin"]')
+			->willReturn('["admin"]');
 
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
@@ -278,8 +283,8 @@ class ManagerTest extends TestCase {
 	public function testCheckIsAdmin($adminGroup, $expected) {
 		$this->config->expects($this->any())
 			->method('getAppValue')
-			->with('announcementcenter', 'admin_group', 'admin')
-			->willReturn($adminGroup);
+			->with('announcementcenter', 'admin_groups', '["admin"]')
+			->willReturn(json_encode([$adminGroup]));
 
 		$user = $this->getUserMock('uid');
 		$this->userSession->expects($this->any())

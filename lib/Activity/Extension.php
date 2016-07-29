@@ -99,7 +99,7 @@ class Extension implements IExtension {
 			list(, $id) = explode('#', $text);
 
 			try {
-				$announcement = $this->manager->getAnnouncement($id, true);
+				$announcement = $this->manager->getAnnouncement((int) $id, true);
 			} catch (\InvalidArgumentException $e) {
 				return (string) $l->t('Announcement does not exist anymore', $params);
 			}

@@ -23,12 +23,7 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-use OCA\AnnouncementCenter\Controller\PageController;
-use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\App;
-use OCP\IContainer;
-use OCP\IUser;
-use OCP\IUserSession;
 
 class Application extends App {
 	public function __construct (array $urlParams = array()) {
@@ -40,6 +35,7 @@ class Application extends App {
 
 	public function register() {
 		$this->registerNavigationEntry();
+		$this->registerAdminPanel();
 		$this->registerActivityExtension();
 		$this->registerNotificationNotifier();
 	}
@@ -58,6 +54,10 @@ class Application extends App {
 				'name' => $l->t('Announcements'),
 			];
 		});
+	}
+
+	protected function registerAdminPanel() {
+		\OCP\App::registerAdmin('announcementcenter', 'settings/admin');
 	}
 
 	protected function registerActivityExtension() {
