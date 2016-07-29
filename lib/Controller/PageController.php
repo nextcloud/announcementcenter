@@ -38,14 +38,10 @@ use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
-use OCP\Notification\IManager as INotificationManager;
 
 class PageController extends Controller {
 	/** @var int */
 	const PAGE_LIMIT = 5;
-
-	/** @var INotificationManager */
-	protected $notificationManager;
 
 	/** @var IJobList */
 	protected $jobList;
@@ -78,7 +74,6 @@ class PageController extends Controller {
 	 * @param IGroupManager $groupManager
 	 * @param IUserManager $userManager
 	 * @param IJobList $jobList
-	 * @param INotificationManager $notificationManager
 	 * @param IL10N $l
 	 * @param Manager $manager
 	 * @param IConfig $config
@@ -90,7 +85,6 @@ class PageController extends Controller {
 								IGroupManager $groupManager,
 								IUserManager $userManager,
 								IJobList $jobList,
-								INotificationManager $notificationManager,
 								IL10N $l,
 								Manager $manager,
 								IConfig $config,
@@ -101,7 +95,6 @@ class PageController extends Controller {
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
 		$this->jobList = $jobList;
-		$this->notificationManager = $notificationManager;
 		$this->l = $l;
 		$this->manager = $manager;
 		$this->config = $config;
@@ -197,11 +190,6 @@ class PageController extends Controller {
 		}
 
 		$this->manager->delete($id);
-
-		$notification = $this->notificationManager->createNotification();
-		$notification->setApp('announcementcenter')
-			->setObject('announcement', $id);
-		$this->notificationManager->markProcessed($notification);
 
 		return new Response();
 	}

@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserSession;
+use OCP\Notification\IManager as INotificationManager;
 
 /**
  * Class ManagerTest
@@ -45,6 +46,9 @@ class ManagerTest extends TestCase {
 	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $groupManager;
 
+	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
+	protected $notificationManager;
+
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
 
@@ -57,6 +61,9 @@ class ManagerTest extends TestCase {
 		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
 			->disableOriginalConstructor()
 			->getMock();
+		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
+			->disableOriginalConstructor()
+			->getMock();
 		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
 			->disableOriginalConstructor()
 			->getMock();
@@ -65,6 +72,7 @@ class ManagerTest extends TestCase {
 			$this->config,
 			\OC::$server->getDatabaseConnection(),
 			$this->groupManager,
+			$this->notificationManager,
 			$this->userSession
 		);
 
@@ -209,7 +217,9 @@ class ManagerTest extends TestCase {
 		}
 
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
+		$this->assertDeleteNotifications($announcement['id']);
 		$this->manager->delete($announcement['id']);
+		$this->assertDeleteNotifications($announcement2['id']);
 		$this->manager->delete($announcement2['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 
@@ -244,6 +254,7 @@ class ManagerTest extends TestCase {
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2']);
 		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
+		$this->assertDeleteNotifications($announcement['id']);
 		$this->manager->delete($announcement['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
@@ -262,6 +273,7 @@ class ManagerTest extends TestCase {
 
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0']);
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
+		$this->assertDeleteNotifications($announcement['id']);
 		$this->manager->delete($announcement['id']);
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
@@ -308,5 +320,26 @@ class ManagerTest extends TestCase {
 			->method('isInGroup');
 
 		$this->assertEquals(false, $this->manager->checkIsAdmin());
+	}
+
+	protected function assertDeleteNotifications($id) {
+		$notification = $this->getMockBuilder('OCP\Notification\INotification')
+			->disableOriginalConstructor()
+			->getMock();
+		$notification->expects($this->at(0))
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->at(1))
+			->method('setObject')
+			->with('announcement', $id)
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->at(0))
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->at(1))
+			->method('markProcessed')
+			->with($notification);
 	}
 }

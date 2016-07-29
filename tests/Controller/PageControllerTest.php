@@ -31,10 +31,8 @@ use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
-use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\IUserSession;
-use OCP\Notification\IManager as INotificationManager;
 
 /**
  * Class PageController
@@ -51,8 +49,6 @@ class PageControllerTest extends TestCase {
 	protected $userManager;
 	/** @var IJobList|\PHPUnit_Framework_MockObject_MockObject */
 	protected $jobList;
-	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
-	protected $notificationManager;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $l;
 	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
@@ -72,9 +68,6 @@ class PageControllerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->l = $this->getMockBuilder('OCP\IL10N')
@@ -108,7 +101,6 @@ class PageControllerTest extends TestCase {
 				$this->groupManager,
 				$this->userManager,
 				$this->jobList,
-				$this->notificationManager,
 				$this->l,
 				$this->manager,
 				$this->config,
@@ -123,7 +115,6 @@ class PageControllerTest extends TestCase {
 					$this->groupManager,
 					$this->userManager,
 					$this->jobList,
-					$this->notificationManager,
 					$this->l,
 					$this->manager,
 					$this->config,
@@ -229,32 +220,10 @@ class PageControllerTest extends TestCase {
 			->willReturn($isAdmin);
 
 		if ($isAdmin) {
-			$notification = $this->getMockBuilder('OCP\Notification\INotification')
-				->disableOriginalConstructor()
-				->getMock();
-			$notification->expects($this->once())
-				->method('setApp')
-				->with('announcementcenter')
-				->willReturnSelf();
-			$notification->expects($this->once())
-				->method('setObject')
-				->with('announcement', $id)
-				->willReturnSelf();
-
-			$this->notificationManager->expects($this->once())
-				->method('createNotification')
-				->willReturn($notification);
-			$this->notificationManager->expects($this->once())
-				->method('markProcessed')
-				->with($notification);
-
 			$this->manager->expects($this->once())
 				->method('delete')
 				->with($id);
 		} else {
-			$this->notificationManager->expects($this->never())
-				->method('markProcessed');
-
 			$this->manager->expects($this->never())
 				->method('delete');
 		}

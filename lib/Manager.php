@@ -27,6 +27,7 @@ use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
+use OCP\Notification\IManager as INotificationManager;
 use OCP\IUser;
 use OCP\IUserSession;
 
@@ -41,6 +42,8 @@ class Manager {
 	/** @var IGroupManager */
 	protected $groupManager;
 
+	/** @var INotificationManager */
+	protected $notificationManager;
 
 	/** @var IUserSession */
 	protected $userSession;
@@ -49,12 +52,18 @@ class Manager {
 	 * @param IConfig $config
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
+	 * @param INotificationManager $notificationManager
 	 * @param IUserSession $userSession
 	 */
-	public function __construct(IConfig $config, IDBConnection $connection, IGroupManager $groupManager, IUserSession $userSession) {
+	public function __construct(IConfig $config,
+								IDBConnection $connection,
+								IGroupManager $groupManager,
+								INotificationManager $notificationManager,
+								IUserSession $userSession) {
 		$this->config = $config;
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
+		$this->notificationManager = $notificationManager;
 		$this->userSession = $userSession;
 	}
 
@@ -123,6 +132,12 @@ class Manager {
 	 * @param int $id
 	 */
 	public function delete($id) {
+		// Delete notifications
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('announcement', $id);
+		$this->notificationManager->markProcessed($notification);
+
 		$query = $this->connection->getQueryBuilder();
 		$query->delete('announcements')
 			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
