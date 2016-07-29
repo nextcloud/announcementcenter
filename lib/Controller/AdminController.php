@@ -25,24 +25,35 @@ namespace OCA\AnnouncementCenter\Controller;
 
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 
 class AdminController extends Controller {
 
+	/** @var IConfig */
+	protected $config;
+
 	/**
 	 * @param string $appName
 	 * @param IRequest $request
+	 * @param IConfig $config
 	 */
 	public function __construct($appName,
-								IRequest $request) {
+								IRequest $request,
+								IConfig $config) {
 		parent::__construct($appName, $request);
+
+		$this->config = $config;
 	}
 
 	/**
 	 * @return TemplateResponse
 	 */
 	public function index() {
+		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
+		$adminGroups = implode('|', json_decode($adminGroups, true));
 		return new TemplateResponse('announcementcenter', 'admin', [
+			'adminGroups' => $adminGroups,
 		], 'blank');
 	}
 }

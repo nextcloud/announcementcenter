@@ -1,4 +1,3 @@
-<?php
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -21,17 +20,14 @@
  *
  */
 
-script('announcementcenter', 'admin');
+$(document).ready(function() {
+	var $announcementCenter = $('#announcementcenter'),
+		$adminGroup = $announcementCenter.find('.admin_groups');
 
-/** @var array $_ */
-/** @var \OCP\IL10N $l */
-?>
-<div id="announcementcenter" class="section">
-	<h2 class="inlineblock"><?php p($l->t('Announcements')); ?></h2>
-
-	<p>
-		<input type="hidden" name="admin_groups" class="admin_groups" value="<?php p($_['adminGroups']) ?>" style="width: 320px;" />
-		<br />
-		<em><?php p($l->t('These groups will be able to post announcements.')); ?></em>
-	</p>
-</div>
+	OC.Settings.setupGroupsSelect($adminGroup);
+	$adminGroup.change(function(ev) {
+		var groups = ev.val || ['admin'];
+		groups = JSON.stringify(groups);
+		OC.AppConfig.setValue('announcementcenter', 'admin_groups', groups);
+	});
+});

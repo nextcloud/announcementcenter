@@ -150,8 +150,9 @@ class Manager {
 			} else {
 				$userGroups = ['everyone'];
 			}
+			$isInAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
 
-			if (!in_array($this->getAdminGroupName(), $userGroups)) {
+			if (empty($isInAdminGroups)) {
 				$query = $this->connection->getQueryBuilder();
 				$query->select('*')
 					->from('announcements_groups')
@@ -182,7 +183,7 @@ class Manager {
 		}
 
 		$groups = null;
-		if ($ignorePermissions || (isset($userGroups) && in_array($this->getAdminGroupName(), $userGroups))) {
+		if ($ignorePermissions || (isset($isInAdminGroups) && !empty($isInAdminGroups))) {
 			$groups = $this->getGroups($id);
 		}
 
@@ -218,7 +219,8 @@ class Manager {
 			$userGroups = ['everyone'];
 		}
 
-		if (!in_array($this->getAdminGroupName(), $userGroups)) {
+		$isInAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		if (empty($isInAdminGroups)) {
 			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
 					'a.announcement_id', 'ag.announcement_id'
 				))
@@ -245,7 +247,7 @@ class Manager {
 		}
 		$result->closeCursor();
 
-		if (in_array($this->getAdminGroupName(), $userGroups)) {
+		if (!empty($isInAdminGroups)) {
 			$allGroups = $this->getGroups(array_keys($announcements));
 			foreach ($allGroups as $id => $groups) {
 				$announcements[$id]['groups'] = $groups;
@@ -310,13 +312,18 @@ class Manager {
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
-			return $this->groupManager->isInGroup($user->getUID(), $this->getAdminGroupName());
+			$groups = $this->getAdminGroups();
+			foreach ($groups as $group) {
+				return $this->groupManager->isInGroup($user->getUID(), $group);
+			}
 		}
 
 		return false;
 	}
 
-	protected function getAdminGroupName() {
-		return $this->config->getAppValue('announcementcenter', 'admin_group', 'admin');
+	protected function getAdminGroups() {
+		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
+		$adminGroups = json_decode($adminGroups, true);
+		return $adminGroups;
 	}
 }
