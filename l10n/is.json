@@ -1,11 +1,16 @@
 { "translations": {
-    "Announcements" : "Tilkynningar",
     "Delete" : "Eyða",
     "Announcing…" : "Tilkynni...",
     "Announced!" : "Tilkynnt!",
+    "by {author}" : "eftir {author}",
+    "Visible for everyone" : "Sýnilegt öllum",
+    ", " : ", ",
+    "Visible for groups: {groups}" : "Sýnilegt hópunum: {groups}",
+    "Groups" : "Hópar",
     "Announcement does not exist anymore" : "Tilkynningin er ekki lengur til",
     "You announced %s" : "Þú tilkynntir %s",
     "%s announced %s" : "%s tilkynnti %s",
+    "Announcements" : "Tilkynningar",
     "The subject is too long or empty" : "Efnislínan er of löng eða er tóm",
     "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”",
     "No Announcements" : "Engar tilkynningar",
@@ -13,6 +18,8 @@
     "Add announcement" : "Bæta við tilkynningu",
     "Subject…" : "Efni…",
     "Your announcement…" : "Tilkynningin þín...",
+    "Groups…" : "Hópar…",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana.",
     "Announce" : "Tilkynna"
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }
