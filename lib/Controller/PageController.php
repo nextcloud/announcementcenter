@@ -127,6 +127,7 @@ class PageController extends Controller {
 				'subject'	=> $row['subject'],
 				'message'	=> $row['message'],
 				'groups'	=> $row['groups'],
+				'comments'	=> $row['comments'],
 			];
 		}
 
@@ -141,9 +142,10 @@ class PageController extends Controller {
 	 * @param string[] $groups,
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $comments
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications) {
+	public function add($subject, $message, array $groups, $activities, $notifications, $comments) {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -153,7 +155,7 @@ class PageController extends Controller {
 
 		$timeStamp = time();
 		try {
-			$announcement = $this->manager->announce($subject, $message, $this->userSession->getUser()->getUID(), $timeStamp, $groups);
+			$announcement = $this->manager->announce($subject, $message, $this->userSession->getUser()->getUID(), $timeStamp, $groups, $comments);
 		} catch (\InvalidArgumentException $e) {
 			return new JSONResponse(
 				['error' => (string)$this->l->t('The subject is too long or empty')],
@@ -205,6 +207,7 @@ class PageController extends Controller {
 			'isAdmin'	=> $this->manager->checkIsAdmin(),
 			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
 			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
+			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
 		]);
 	}
 

@@ -18,6 +18,7 @@
 
 	OCA.AnnouncementCenter.Comments = {};
 	OCA.AnnouncementCenter.App = {
+		announcements: {},
 		ignoreScroll: 0,
 		$container: null,
 		$content: null,
@@ -74,19 +75,30 @@
 		},
 
 		highlightAnnouncement: function(event) {
-			var $element = $(event.currentTarget);
-			this.commentsTabView.setObjectId($element.data('announcement-id'));
+			var $element = $(event.currentTarget),
+				announcementId = $element.data('announcement-id');
+
+			console.log(this.announcements);
+			if (this.announcements[announcementId]['comments']) {
+				this.commentsTabView.setObjectId(announcementId);
+			} else {
+				this.commentsTabView.setObjectId(0);
+			}
 		},
 
 		deleteAnnouncement: function(event) {
+			var self = this;
 			event.stopPropagation();
 
-			var $element = $(this);
+			var $element = $(event.currentTarget),
+				announcementId = $element.data('announcement-id');
 			$.ajax({
-				//type: 'DELETE',
-				url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
+				type: 'DELETE',
+				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId)
 			}).done(function () {
 				var $announcement = $element.parents('.section').first();
+				delete self.announcements[announcementId];
+				self.commentsTabView.setObjectId(0);
 
 				$announcement.slideUp();
 				// Remove the hr
@@ -115,11 +127,13 @@
 					message: $('#message').val(),
 					groups: $('#groups').val().split('|'),
 					activities: $('#create_activities').attr('checked') === 'checked',
-					notifications: $('#create_notifications').attr('checked') === 'checked'
+					notifications: $('#create_notifications').attr('checked') === 'checked',
+					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
+				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
 				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
@@ -148,6 +162,7 @@
 			}).done(function (response) {
 				if (response.length > 0) {
 					_.each(response, function (announcement) {
+						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
 						$('#app-content-wrapper').append($html);
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
@@ -197,7 +212,7 @@
 			}
 
 			var $html = $(this.compiledTemplate(object));
-			$html.find('span.delete-link a').on('click', this.deleteAnnouncement);
+			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.on('click', _.bind(this.highlightAnnouncement, this));
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'

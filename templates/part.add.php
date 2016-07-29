@@ -36,6 +36,13 @@ script('settings', 'settings');
 		<label for="create_notifications"><?php p($l->t('Create notifications'));?></label><br/>
 	</p>
 
+	<p>
+		<input id="allow_comments" name="allow_comments"
+			   type="checkbox" class="checkbox" value="1"
+			<?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />
+		<label for="allow_comments"><?php p($l->t('Allow comments'));?></label><br/>
+	</p>
+
 	<input type="button" id="submit_announcement" value="<?php p($l->t('Announce')); ?>" name="submit" />
 	<span id="announcement_submit_msg" class="msg"></span>
 </form>

@@ -49,4 +49,11 @@ script('announcementcenter', 'admin');
 			   <?php if ($_['createNotifications']) print_unescaped('checked="checked"'); ?> />
 		<label for="announcementcenter_create_notifications"><?php p($l->t('Create notifications by default'));?></label><br/>
 	</p>
+
+	<p>
+		<input id="announcementcenter_allow_comments" name="allow_comments"
+			   type="checkbox" class="checkbox" value="1"
+			   <?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />
+		<label for="announcementcenter_allow_comments"><?php p($l->t('Allow comments by default'));?></label><br/>
+	</p>
 </div>

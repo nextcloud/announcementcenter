@@ -146,32 +146,32 @@ class PageControllerTest extends TestCase {
 			[
 				1,
 				[
-					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
+					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				], [],
 				[
-					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
+					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
+					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 				[
 					['author1', $this->getUserMock('author1', 'Author One')],
 				],
 				[
-					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1']],
+					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792, 'groups' => null],
+					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792, 'groups' => null, 'comments' => true],
 				],
 				[],
 				[
-					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null],
+					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null, 'comments' => true],
 				],
 			],
 		];
@@ -264,7 +264,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '', [], true, true);
+		$response = $controller->add($subject, '', [], true, true, true);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame($expectedData, $response->getData());
@@ -284,7 +284,7 @@ class PageControllerTest extends TestCase {
 		$controller->expects($this->never())
 			->method('createPublicity');
 
-		$response = $controller->add('subject', '', [], true, true);
+		$response = $controller->add('subject', '', [], true, true, true);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$this->assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
@@ -292,10 +292,11 @@ class PageControllerTest extends TestCase {
 
 	public function dataAdd() {
 		return [
-			['subject1', 'message1', ['gid1'], true, true],
-			['subject2', 'message2', ['gid2'], true, false],
-			['subject3', 'message3', ['gid3'], false, true],
-			['subject4', 'message4', ['gid4'], false, false],
+			['subject1', 'message1', ['gid1'], true, true, false],
+			['subject2', 'message2', ['gid2'], true, false, false],
+			['subject3', 'message3', ['gid3'], false, true, false],
+			['subject4', 'message4', ['gid4'], false, false, false],
+			['subject4', 'message4', ['gid4'], false, false, true],
 		];
 	}
 
@@ -307,8 +308,9 @@ class PageControllerTest extends TestCase {
 	 * @param array $groups
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $comments
 	 */
-	public function testAdd($subject, $message, array $groups, $activities, $notifications) {
+	public function testAdd($subject, $message, array $groups, $activities, $notifications, $comments) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -318,13 +320,14 @@ class PageControllerTest extends TestCase {
 
 		$this->manager->expects($this->once())
 			->method('announce')
-			->with($subject, $message, 'author', $this->anything(), $groups)
+			->with($subject, $message, 'author', $this->anything(), $groups, $comments)
 			->willReturn([
 				'author' => 'author',
 				'subject' => $subject,
 				'message' => $message,
 				'time' => time(),
 				'id' => 10,
+				'comments' => $comments,
 			]);
 		$this->userManager->expects($this->once())
 			->method('get')
@@ -340,7 +343,7 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 
-		$response = $controller->add($subject, $message, $groups, $activities, $notifications);
+		$response = $controller->add($subject, $message, $groups, $activities, $notifications, $comments);
 
 		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
 		$data = $response->getData();
@@ -353,13 +356,15 @@ class PageControllerTest extends TestCase {
 			'subject' => $subject,
 			'message' => $message,
 			'id' => 10,
+			'comments' => $comments,
 		], $data);
 	}
 
 	public function dataIndex() {
 		return [
-			[true, 'yes', true, 'no', false],
-			[false, 'no', false, 'yes', true],
+			[true, 'yes', true, 'no', false, 'no', false],
+			[false, 'no', false, 'yes', true, 'yes', true],
+			[false, 'no', false, 'no', false, 'yes', true],
 		];
 	}
 
@@ -370,16 +375,19 @@ class PageControllerTest extends TestCase {
 	 * @param bool $createActivities
 	 * @param string $createNotificationsConfig
 	 * @param bool $createNotifications
+	 * @param string $allowCommentsConfig
+	 * @param bool $allowComments
 	 */
-	public function testIndex($isAdmin, $createActivitiesConfig, $createActivities, $createNotificationsConfig, $createNotifications) {
+	public function testIndex($isAdmin, $createActivitiesConfig, $createActivities, $createNotificationsConfig, $createNotifications, $allowCommentsConfig, $allowComments) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
-		$this->config->expects($this->exactly(2))
+		$this->config->expects($this->exactly(3))
 			->method('getAppValue')
 			->willReturnMap([
 				['announcementcenter', 'create_activities', 'yes', $createActivitiesConfig],
 				['announcementcenter', 'create_notifications', 'yes', $createNotificationsConfig],
+				['announcementcenter', 'allow_comments', 'yes', $allowCommentsConfig],
 			]);
 
 		$controller = $this->getController();
@@ -391,6 +399,7 @@ class PageControllerTest extends TestCase {
 				'isAdmin' => $isAdmin,
 				'createActivities' => $createActivities,
 				'createNotifications' => $createNotifications,
+				'allowComments' => $allowComments,
 			],
 			$response->getParams()
 		);

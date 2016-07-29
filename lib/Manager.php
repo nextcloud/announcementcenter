@@ -80,10 +80,11 @@ class Manager {
 	 * @param string $user
 	 * @param int $time
 	 * @param string[] $groups
+	 * @param bool $comments
 	 * @return array
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce($subject, $message, $user, $time, array $groups) {
+	public function announce($subject, $message, $user, $time, array $groups, $comments) {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -101,6 +102,7 @@ class Manager {
 				'announcement_user' => $queryBuilder->createNamedParameter($user),
 				'announcement_subject' => $queryBuilder->createNamedParameter($subject),
 				'announcement_message' => $queryBuilder->createNamedParameter($message),
+				'allow_comments' => $queryBuilder->createNamedParameter((int) $comments),
 			]);
 		$queryBuilder->execute();
 
@@ -219,6 +221,7 @@ class Manager {
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			'groups'	=> $groups,
+			'comments'	=> $row['allow_comments'] === '1',
 		];
 	}
 
@@ -268,6 +271,7 @@ class Manager {
 				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 				'groups'	=> null,
+				'comments'	=> (bool) $row['allow_comments'],
 			];
 		}
 		$result->closeCursor();

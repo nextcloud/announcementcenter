@@ -161,9 +161,9 @@
 				// reset to first page
 				this.collection.reset([], {silent: true});
 				this.nextPage();
-				this.currentId = announcementId;
 			}
 
+			this.currentId = announcementId;
 		},
 
 		render: function() {

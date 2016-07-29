@@ -108,7 +108,7 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 2
 	 */
 	public function testAnnounceNoSubject() {
-		$this->manager->announce('', '', '', 0, []);
+		$this->manager->announce('', '', '', 0, [], false);
 	}
 
 	/**
@@ -117,7 +117,7 @@ class ManagerTest extends TestCase {
 	 * @expectedCode 1
 	 */
 	public function testAnnounceSubjectTooLong() {
-		$this->manager->announce(str_repeat('a', 513), '', '', 0, []);
+		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
 	}
 
 	protected function getUserMock($uid) {
@@ -182,8 +182,8 @@ class ManagerTest extends TestCase {
 
 		$this->assertEquals([], $this->manager->getAnnouncements());
 
-		$announcement = $this->manager->announce($subject, $message, $author, $time, []);
-		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2']);
+		$announcement = $this->manager->announce($subject, $message, $author, $time, [], false);
+		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2'], true);
 		if ($noGroupsSet) {
 			$announcement['groups'] = null;
 			$announcement2['groups'] = null;
@@ -195,6 +195,7 @@ class ManagerTest extends TestCase {
 		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
 		$this->assertSame('author', $announcement['author']);
 		$this->assertSame($time, $announcement['time']);
+		$this->assertSame(false, $announcement['comments']);
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 		if ($canAccessBoth) {
@@ -210,6 +211,7 @@ class ManagerTest extends TestCase {
 				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
 				$this->manager->getAnnouncement($announcement2['id'], true, true)
 			);
+			$this->assertSame(true, $announcement2['comments']);
 		}
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
@@ -260,7 +262,7 @@ class ManagerTest extends TestCase {
 				['gid2', true],
 			]);
 
-		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2']);
+		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2'], true);
 		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
 		$this->assertDeleteMetaData($announcement['id']);
 		$this->manager->delete($announcement['id']);
@@ -279,7 +281,7 @@ class ManagerTest extends TestCase {
 				['gid0', false],
 			]);
 
-		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0']);
+		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0'], true);
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
 		$this->assertDeleteMetaData($announcement['id']);
 		$this->manager->delete($announcement['id']);
