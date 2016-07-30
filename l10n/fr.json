@@ -18,6 +18,8 @@
     "Add announcement" : "Ajouter une annonce",
     "Subject…" : "Sujet...",
     "Your announcement…" : "Votre annonce...",
+    "Groups…" : "Groupes...",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ces groupes vont être capable de voir les annonces. Si aucun groupe n'est sélectionné, elles seront visibles par tous les utilisateurs.",
     "Announce" : "Annoncer"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }
