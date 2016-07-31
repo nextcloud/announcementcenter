@@ -13,6 +13,9 @@
     "Announcements" : "Aankondigingen",
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "%1$s announced “%2$s”" : "%1$s meldde “%2$s”",
+    "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
+    "Create activities by default" : "Standaard activiteiten creëren",
+    "Create notifications by default" : "Standaard meldingen creëren",
     "No Announcements" : "Geen aankondigingen",
     "There are currently no announcements…" : "Er zijn nu geen aankondigingen...",
     "Add announcement" : "Melding toevoegen",
@@ -20,6 +23,8 @@
     "Your announcement…" : "Je aankondiging...",
     "Groups…" : "Groepen...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Deze groepen zullen de aankondiging kunnen zien. Als er geen groep is geseleceerd, kunnen alle gebruikers het zien.",
+    "Create activities" : "Creëren activiteiten",
+    "Create notifications" : "Creëren meldingen",
     "Announce" : "Aankondigen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

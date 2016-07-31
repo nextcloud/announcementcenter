@@ -15,6 +15,9 @@ OC.L10N.register(
     "Announcements" : "Pengumuman",
     "The subject is too long or empty" : "Subjek terlalu panjang atau kosong",
     "%1$s announced “%2$s”" : "%1$s mengumumkan “%2$s”",
+    "These groups will be able to post announcements." : "Grup-grup ini akan bisa membuat pengumuman.",
+    "Create activities by default" : "Buat aktivitas sebagai bawaan",
+    "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
     "No Announcements" : "Tidak ada pengumuman",
     "There are currently no announcements…" : "Saat ini tidak ada pengumuman...",
     "Add announcement" : "Tambah pengumuman",
@@ -22,6 +25,8 @@ OC.L10N.register(
     "Your announcement…" : "Pengumuman Anda...",
     "Groups…" : "Grup...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Grup ini akan bisa melihat pengumuman. Apabila tidak ada grup terpilih, semua orang bisa melihat.",
+    "Create activities" : "Buat aktivitas",
+    "Create notifications" : "Buat pemberitahuan",
     "Announce" : "Umumkan"
 },
 "nplurals=1; plural=0;");
