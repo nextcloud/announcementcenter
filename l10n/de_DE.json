@@ -13,12 +13,18 @@
     "Announcements" : "Ankündigungen",
     "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
     "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt",
+    "These groups will be able to post announcements." : "Diese Gruppen können Ankündigungen veröffentlichen.",
+    "Create activities by default" : "Erstelle Aktivität standardmäßig ",
+    "Create notifications by default" : "Erstelle Benachrichtigung standardmäßig",
     "No Announcements" : "Keine Ankündigungen",
     "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
     "Add announcement" : "Ankündigungen machen",
     "Subject…" : "Betreff…",
     "Your announcement…" : "Ihre Ankündigungen…",
     "Groups…" : "Gruppen...",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen werden die Ankündigung sehen. Wenn keine Gruppe ausgewählt ist, können alle Benutzer diese sehen.",
+    "Create activities" : "Erstelle Aktivitäten",
+    "Create notifications" : "Erstelle Benachrichtigung",
     "Announce" : "Ankündigen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
