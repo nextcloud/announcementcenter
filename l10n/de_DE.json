@@ -18,13 +18,13 @@
     "Create notifications by default" : "Erstelle Benachrichtigung standardmäßig",
     "No Announcements" : "Keine Ankündigungen",
     "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
-    "Add announcement" : "Ankündigungen machen",
+    "Add announcement" : "Ankündigungen hinzufügen",
     "Subject…" : "Betreff…",
-    "Your announcement…" : "Ihre Ankündigungen…",
+    "Your announcement…" : "Ihre Ankündigung…",
     "Groups…" : "Gruppen...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen werden die Ankündigung sehen. Wenn keine Gruppe ausgewählt ist, können alle Benutzer diese sehen.",
     "Create activities" : "Erstelle Aktivitäten",
-    "Create notifications" : "Erstelle Benachrichtigung",
+    "Create notifications" : "Erstelle Benachrichtigungen",
     "Announce" : "Ankündigen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

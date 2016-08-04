@@ -15,6 +15,9 @@ OC.L10N.register(
     "Announcements" : "Annonces",
     "The subject is too long or empty" : "Le sujet est trop long ou vide",
     "%1$s announced “%2$s”" : "%1$s a annoncé \"%2$s\"",
+    "These groups will be able to post announcements." : "Ces groupes vont être autorisés à poster des annonces.",
+    "Create activities by default" : "Créer des activités par défaut",
+    "Create notifications by default" : "Créer des notifications par défaut",
     "No Announcements" : "Aucune annonce",
     "There are currently no announcements…" : "Il n'y a pas d'annonce pour le moment...",
     "Add announcement" : "Ajouter une annonce",
@@ -22,6 +25,8 @@ OC.L10N.register(
     "Your announcement…" : "Votre annonce...",
     "Groups…" : "Groupes...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ces groupes vont être capable de voir les annonces. Si aucun groupe n'est sélectionné, elles seront visibles par tous les utilisateurs.",
+    "Create activities" : "Créer des activités",
+    "Create notifications" : "Créer des notifications",
     "Announce" : "Annoncer"
 },
 "nplurals=2; plural=(n > 1);");
