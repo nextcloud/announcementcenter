@@ -15,6 +15,9 @@ OC.L10N.register(
     "Announcements" : "Oznámení",
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo prázdný",
     "%1$s announced “%2$s”" : "%1$s oznámil(a) “%2$s”",
+    "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
+    "Create activities by default" : "Ve výchozím stavu vytvářet aktivity",
+    "Create notifications by default" : "Ve výchozím stavu vytvářet upozornění",
     "No Announcements" : "Žádná oznámení",
     "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení...",
     "Add announcement" : "Přidat oznámení",
@@ -22,6 +25,8 @@ OC.L10N.register(
     "Your announcement…" : "Vaše oznámení...",
     "Groups…" : "Skupiny.",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Uživatelé to mohou vidět",
+    "Create activities" : "Vytvořit aktivity",
+    "Create notifications" : "Vytvořit upozornění",
     "Announce" : "Oznámit"
 },
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
