@@ -15,6 +15,9 @@ OC.L10N.register(
     "Announcements" : "Tilkynningar",
     "The subject is too long or empty" : "Efnislínan er of löng eða er tóm",
     "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”",
+    "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
+    "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
+    "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
     "No Announcements" : "Engar tilkynningar",
     "There are currently no announcements…" : "Það eru engar tilkynningar í gangi...",
     "Add announcement" : "Bæta við tilkynningu",
@@ -22,6 +25,8 @@ OC.L10N.register(
     "Your announcement…" : "Tilkynningin þín...",
     "Groups…" : "Hópar…",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana.",
+    "Create activities" : "Búa til virkniaðgerðir",
+    "Create notifications" : "Búa til tilkynningar",
     "Announce" : "Tilkynna"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
