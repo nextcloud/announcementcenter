@@ -11,7 +11,7 @@
     "You announced %s" : "Du hast %s angekündigt",
     "%s announced %s" : "%s hat %s angekündigt",
     "Announcements" : "Ankündigungen",
-    "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
+    "The subject is too long or empty" : "Der Betreff ist zu lang oder leer",
     "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt",
     "These groups will be able to post announcements." : "Diese Gruppen werden in der Lage sein Ankündigungen zu senden.",
     "Create activities by default" : "Aktivitäten standardmäßig erstellen",
