@@ -221,7 +221,7 @@ class Manager {
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			'groups'	=> $groups,
-			'comments'	=> $row['allow_comments'] === '1',
+			'comments'	=> (bool) $row['allow_comments'],
 		];
 	}
 
