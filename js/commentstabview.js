@@ -14,7 +14,8 @@
 	var TEMPLATE =
 		'<ul class="comments">' +
 		'</ul>' +
-		'<div class="empty hidden">{{emptyResultLabel}}</div>' +
+		'<div class="emptycontent hidden"><div class="icon-comment"></div>' +
+		'<p>{{emptyResultLabel}}</p></div>' +
 		'<input type="button" class="showMore hidden" value="{{moreLabel}}"' +
 		' name="show-more" id="show-more" />' +
 		'<div class="loading hidden" style="height: 50px"></div>';
@@ -31,10 +32,10 @@
 		'{{/if}}' +
 		'    </div>' +
 		'    <form class="newCommentForm">' +
-		'        <textarea class="message" placeholder="{{newMessagePlaceholder}}">{{{message}}}</textarea>' +
-		'        <input class="submit" type="submit" value="{{submitText}}" />' +
+		'        <input type="text" class="message" placeholder="{{newMessagePlaceholder}}" value="{{{message}}}" />' +
+		'        <input class="submit icon-confirm" type="submit" value="" />' +
 		'{{#if isEditMode}}' +
-		'        <input class="cancel" type="button" value="{{cancelText}}" />' +
+		'        <input class="cancel pull-right" type="button" value="{{cancelText}}" />' +
 		'{{/if}}' +
 		'        <div class="submitLoading icon-loading-small hidden"></div>'+
 		'    </form>' +
@@ -105,7 +106,7 @@
 				avatarEnabled: this._avatarsEnabled,
 				actorId: currentUser.uid,
 				actorDisplayName: currentUser.displayName,
-				newMessagePlaceholder: t('comments', 'Type in a new comment...'),
+				newMessagePlaceholder: t('comments', 'New comment …'),
 				deleteTooltip: t('comments', 'Delete comment'),
 				submitText: t('comments', 'Post'),
 				cancelText: t('comments', 'Cancel')
@@ -168,16 +169,16 @@
 
 		render: function() {
 			this.$el.html(this.template({
-				emptyResultLabel: t('comments', 'No other comments available'),
-				moreLabel: t('comments', 'More comments...')
+				emptyResultLabel: t('comments', 'No comments yet, start the conversation!'),
+				moreLabel: t('comments', 'More comments …')
 			}));
 			this.$el.find('.comments').before(this.editCommentTemplate({}));
 			this.$el.find('.has-tooltip').tooltip();
 			this.$container = this.$el.find('ul.comments');
 			if (this._avatarsEnabled) {
-				this.$el.find('.avatar').avatar(OC.getCurrentUser().uid, 28);
+				this.$el.find('.avatar').avatar(OC.getCurrentUser().uid, 32);
 			}
-			this.$el.find('textarea').on('keydown input change', this._onTypeComment);
+			this.$el.find('.message').on('keydown input change', this._onTypeComment);
 			this.$el.find('.showMore').on('click', this._onClickShowMore);
 		},
 
@@ -205,7 +206,7 @@
 
 		_onEndRequest: function(type) {
 			this._toggleLoading(false);
-			this.$el.find('.empty').toggleClass('hidden', !!this.collection.length);
+			this.$el.find('.emptycontent').toggleClass('hidden', !!this.collection.length);
 			this.$el.find('.showMore').toggleClass('hidden', !this.collection.hasMoreResults());
 
 			if (type !== 'REPORT') {
@@ -240,7 +241,7 @@
 			if(this._avatarsEnabled) {
 				$el.find('.avatar').each(function() {
 					var $this = $(this);
-					$this.avatar($this.attr('data-username'), 28);
+					$this.avatar($this.attr('data-username'), 32);
 				});
 			}
 		},
@@ -362,7 +363,7 @@
 			var currentUser = OC.getCurrentUser();
 			var $submit = $form.find('.submit');
 			var $loading = $form.find('.submitLoading');
-			var $textArea = $form.find('textarea');
+			var $textArea = $form.find('.message');
 			var message = $textArea.val().trim();
 			e.preventDefault();
 
