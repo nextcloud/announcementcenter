@@ -30,7 +30,7 @@
 		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
 				'<em>' +
-					'{{time}} {{author}} ' +
+					'{{time}} {{{author}}} ' +
 					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
