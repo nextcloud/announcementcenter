@@ -211,7 +211,7 @@ class ManagerTest extends TestCase {
 				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
 				$this->manager->getAnnouncement($announcement2['id'], true, true)
 			);
-			$this->assertSame(true, $announcement2['comments']);
+			$this->assertSame(0, $announcement2['comments']);
 		}
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
