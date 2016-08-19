@@ -69,6 +69,9 @@
 			this.loadAnnouncements();
 
 			var self = this;
+			$('#announcement_options_button').on('click', function() {
+				$('#announcement_options').toggleClass('hidden');
+			});
 			$('#groups').each(function (index, element) {
 				self.setupGroupsSelect($(element));
 			});

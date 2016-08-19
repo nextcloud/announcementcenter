@@ -22,27 +22,30 @@ script('settings', 'settings');
 		<br />
 	</p>
 
-	<p>
-		<input id="create_activities" name="create_activities"
-			   type="checkbox" class="checkbox" value="1"
-			<?php if ($_['createActivities']) print_unescaped('checked="checked"'); ?> />
-		<label for="create_activities"><?php p($l->t('Create activities'));?></label><br/>
-	</p>
-
-	<p>
-		<input id="create_notifications" name="create_notifications"
-			   type="checkbox" class="checkbox" value="1"
-			<?php if ($_['createNotifications']) print_unescaped('checked="checked"'); ?> />
-		<label for="create_notifications"><?php p($l->t('Create notifications'));?></label><br/>
-	</p>
-
-	<p>
-		<input id="allow_comments" name="allow_comments"
-			   type="checkbox" class="checkbox" value="1"
-			<?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />
-		<label for="allow_comments"><?php p($l->t('Allow comments'));?></label><br/>
-	</p>
-
-	<input type="button" id="submit_announcement" value="<?php p($l->t('Announce')); ?>" name="submit" />
+	<input type="button" id="submit_announcement" class="primary" value="<?php p($l->t('Announce')); ?>" name="submit" />
+	<input type="button" id="announcement_options_button" value="<?php p($l->t('Advanced options')); ?>" name="options" />
 	<span id="announcement_submit_msg" class="msg"></span>
+
+	<div id="announcement_options" class="hidden">
+		<p>
+			<input id="create_activities" name="create_activities"
+				   type="checkbox" class="checkbox" value="1"
+				<?php if ($_['createActivities']) print_unescaped('checked="checked"'); ?> />
+			<label for="create_activities"><?php p($l->t('Create activities'));?></label><br/>
+		</p>
+
+		<p>
+			<input id="create_notifications" name="create_notifications"
+				   type="checkbox" class="checkbox" value="1"
+				<?php if ($_['createNotifications']) print_unescaped('checked="checked"'); ?> />
+			<label for="create_notifications"><?php p($l->t('Create notifications'));?></label><br/>
+		</p>
+
+		<p>
+			<input id="allow_comments" name="allow_comments"
+				   type="checkbox" class="checkbox" value="1"
+				<?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />
+			<label for="allow_comments"><?php p($l->t('Allow comments'));?></label><br/>
+		</p>
+	</div>
 </form>
