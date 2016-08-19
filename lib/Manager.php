@@ -23,10 +23,12 @@
 
 namespace OCA\AnnouncementCenter;
 
+use OCP\Comments\ICommentsManager;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
+use OCP\Notification\IManager as INotificationManager;
 use OCP\IUser;
 use OCP\IUserSession;
 
@@ -41,6 +43,11 @@ class Manager {
 	/** @var IGroupManager */
 	protected $groupManager;
 
+	/** @var INotificationManager */
+	protected $notificationManager;
+
+	/** @var ICommentsManager */
+	protected $commentsManager;
 
 	/** @var IUserSession */
 	protected $userSession;
@@ -49,12 +56,21 @@ class Manager {
 	 * @param IConfig $config
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
+	 * @param INotificationManager $notificationManager
+	 * @param ICommentsManager $commentsManager
 	 * @param IUserSession $userSession
 	 */
-	public function __construct(IConfig $config, IDBConnection $connection, IGroupManager $groupManager, IUserSession $userSession) {
+	public function __construct(IConfig $config,
+								IDBConnection $connection,
+								IGroupManager $groupManager,
+								INotificationManager $notificationManager,
+								ICommentsManager $commentsManager,
+								IUserSession $userSession) {
 		$this->config = $config;
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
+		$this->notificationManager = $notificationManager;
+		$this->commentsManager = $commentsManager;
 		$this->userSession = $userSession;
 	}
 
@@ -64,10 +80,11 @@ class Manager {
 	 * @param string $user
 	 * @param int $time
 	 * @param string[] $groups
+	 * @param bool $comments
 	 * @return array
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce($subject, $message, $user, $time, array $groups) {
+	public function announce($subject, $message, $user, $time, array $groups, $comments) {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -85,6 +102,7 @@ class Manager {
 				'announcement_user' => $queryBuilder->createNamedParameter($user),
 				'announcement_subject' => $queryBuilder->createNamedParameter($subject),
 				'announcement_message' => $queryBuilder->createNamedParameter($message),
+				'allow_comments' => $queryBuilder->createNamedParameter((int) $comments),
 			]);
 		$queryBuilder->execute();
 
@@ -123,6 +141,15 @@ class Manager {
 	 * @param int $id
 	 */
 	public function delete($id) {
+		// Delete notifications
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('announcement', $id);
+		$this->notificationManager->markProcessed($notification);
+
+		// Delete comments
+		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
+
 		$query = $this->connection->getQueryBuilder();
 		$query->delete('announcements')
 			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
@@ -194,6 +221,7 @@ class Manager {
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			'groups'	=> $groups,
+			'comments'	=> $row['allow_comments'] ? 0 : false,
 		];
 	}
 
@@ -243,6 +271,7 @@ class Manager {
 				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 				'groups'	=> null,
+				'comments'	=> $row['allow_comments'] ? $this->getNumberOfComments($id) : false,
 			];
 		}
 		$result->closeCursor();
@@ -286,6 +315,14 @@ class Manager {
 		$result->closeCursor();
 
 		return $returnSingleResult ? (array) array_pop($groups) : $groups;
+	}
+
+	/**
+	 * @param int $id
+	 * @return int
+	 */
+	protected function getNumberOfComments($id) {
+		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $id);
 	}
 
 	/**

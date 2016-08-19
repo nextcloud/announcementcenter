@@ -3,12 +3,28 @@
  * @var array $_
  * @var \OCP\IL10N $l
  */
-script('announcementcenter', 'script');
-style('announcementcenter', 'style');
+\OCP\Util::addScript('oc-backbone-webdav');
+script('announcementcenter', [
+	'script',
+	'commentmodel',
+	'commentcollection',
+	'commentsummarymodel',
+	'commentstabview',
+]);
+style('announcementcenter', [
+	'style',
+	'comments',
+]);
 ?>
 
 <div id="app" class="announcementcenter" data-is-admin="<?php if ($_['is_admin']) { p(1); } else p(0); ?>">
 	<div id="app-content">
+		<div id="app-sidebar" class="disappear detailsView scroll-container">
+			<div id="commentsTabView" class="tab">
+
+			</div>
+		</div>
+
 		<div id="app-content-wrapper">
 			<?php if ($_['isAdmin']) {
 				print_unescaped($this->inc('part.add'));

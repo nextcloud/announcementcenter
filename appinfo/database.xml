@@ -40,6 +40,13 @@
 				<type>clob</type>
 				<notnull>false</notnull>
 			</field>
+			<field>
+				<name>allow_comments</name>
+				<type>integer</type>
+				<notnull>false</notnull>
+				<length>1</length>
+				<default>1</default>
+			</field>
 		</declaration>
 	</table>
 

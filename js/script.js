@@ -16,19 +16,22 @@
 		OCA.AnnouncementCenter = {};
 	}
 
+	OCA.AnnouncementCenter.Comments = {};
 	OCA.AnnouncementCenter.App = {
+		announcements: {},
 		ignoreScroll: 0,
 		$container: null,
 		$content: null,
 		lastLoadedAnnouncement: 0,
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
+		commentsTabView: null,
 
 		compiledTemplate: null,
-		handlebarTemplate: '<div class="section">' +
+		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
 				'<em>' +
-					'{{time}} {{author}} ' +
-					'{{#if announcementId}}' +
+					'{{time}} {{{author}}} ' +
+					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
 								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
@@ -36,6 +39,7 @@
 								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
 							'{{/if}}' +
 						'</span>' +
+						'{{#if comments}}<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>{{/if}}' +
 						'<span class="delete-link">' +
 							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
@@ -55,6 +59,9 @@
 			this.$content = $('#app-content');
 			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
 
+			this.commentsTabView = OCA.AnnouncementCenter.Comments.CommentsTabView;
+			this.commentsTabView.initialize();
+
 			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
@@ -63,18 +70,38 @@
 			this.loadAnnouncements();
 
 			var self = this;
+			$('#announcement_options_button').on('click', function() {
+				$('#announcement_options').toggleClass('hidden');
+			});
 			$('#groups').each(function (index, element) {
 				self.setupGroupsSelect($(element));
 			});
 		},
 
-		deleteAnnouncement: function() {
-			var $element = $(this);
+		highlightAnnouncement: function(event) {
+			var $element = $(event.currentTarget),
+				announcementId = $element.data('announcement-id');
+
+			if (this.announcements[announcementId]['comments'] !== false) {
+				this.commentsTabView.setObjectId(announcementId);
+			} else {
+				this.commentsTabView.setObjectId(0);
+			}
+		},
+
+		deleteAnnouncement: function(event) {
+			var self = this;
+			event.stopPropagation();
+
+			var $element = $(event.currentTarget),
+				announcementId = $element.data('announcement-id');
 			$.ajax({
 				type: 'DELETE',
-				url: OC.generateUrl('/apps/announcementcenter/announcement/' + $element.data('announcement-id'))
+				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId)
 			}).done(function () {
 				var $announcement = $element.parents('.section').first();
+				delete self.announcements[announcementId];
+				self.commentsTabView.setObjectId(0);
 
 				$announcement.slideUp();
 				// Remove the hr
@@ -103,11 +130,13 @@
 					message: $('#message').val(),
 					groups: $('#groups').val().split('|'),
 					activities: $('#create_activities').attr('checked') === 'checked',
-					notifications: $('#create_notifications').attr('checked') === 'checked'
+					notifications: $('#create_notifications').attr('checked') === 'checked',
+					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
 			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
+				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
 				$('#app-content-wrapper .section:eq(0)').after($html);
 				$html.hide();
@@ -136,6 +165,7 @@
 			}).done(function (response) {
 				if (response.length > 0) {
 					_.each(response, function (announcement) {
+						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
 						$('#app-content-wrapper').append($html);
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
@@ -165,9 +195,12 @@
 				author: t('announcementcenter', 'by {author}', announcement),
 				subject: announcement.subject,
 				message: announcement.message,
+				comments: (announcement.comments !== false) ? n('announcementcenter', '%n comment', '%n comments', announcement.comments) : false,
+				num_comments: (announcement.comments !== false) ? announcement.comments : false,
 				visibilityEveryone: null,
 				visibilityString: null,
-				announcementId: (this.isAdmin) ? announcement.id : 0
+				announcementId: announcement.id,
+				isAdmin: this.isAdmin
 			};
 
 
@@ -184,7 +217,8 @@
 			}
 
 			var $html = $(this.compiledTemplate(object));
-			$html.find('span.delete-link a').on('click', this.deleteAnnouncement);
+			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
+			$html.on('click', _.bind(this.highlightAnnouncement, this));
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});

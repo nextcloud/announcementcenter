@@ -24,6 +24,7 @@
 namespace OCA\AnnouncementCenter\AppInfo;
 
 use OCP\AppFramework\App;
+use OCP\Comments\CommentsEntityEvent;
 
 class Application extends App {
 	public function __construct (array $urlParams = array()) {
@@ -38,6 +39,7 @@ class Application extends App {
 		$this->registerAdminPanel();
 		$this->registerActivityExtension();
 		$this->registerNotificationNotifier();
+		$this->registerCommentsEntity();
 	}
 
 	protected function registerNavigationEntry() {
@@ -63,6 +65,21 @@ class Application extends App {
 	protected function registerActivityExtension() {
 		$this->getContainer()->getServer()->getActivityManager()->registerExtension(function() {
 			return $this->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
+		});
+	}
+
+	protected function registerCommentsEntity() {
+		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function(CommentsEntityEvent $event) {
+			$event->addEntityCollection('announcement', function($name) {
+				/** @var \OCA\AnnouncementCenter\Manager $manager */
+				$manager = $this->getContainer()->query('OCA\AnnouncementCenter\Manager');
+				try {
+					$announcement = $manager->getAnnouncement((int) $name);
+				} catch (\InvalidArgumentException $e) {
+					return false;
+				}
+				return $announcement['comments'] !== false;
+			});
 		});
 	}
 

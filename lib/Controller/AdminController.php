@@ -56,6 +56,7 @@ class AdminController extends Controller {
 			'adminGroups' => $adminGroups,
 			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
 			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
+			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
 		], 'blank');
 	}
 }
