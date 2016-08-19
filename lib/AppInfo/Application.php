@@ -78,7 +78,7 @@ class Application extends App {
 				} catch (\InvalidArgumentException $e) {
 					return false;
 				}
-				return $announcement['comments'];
+				return $announcement['comments'] !== false;
 			});
 		});
 	}

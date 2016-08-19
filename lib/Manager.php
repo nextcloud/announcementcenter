@@ -221,7 +221,7 @@ class Manager {
 			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			'groups'	=> $groups,
-			'comments'	=> (bool) $row['allow_comments'],
+			'comments'	=> $row['allow_comments'] ? 0 : false,
 		];
 	}
 
@@ -271,7 +271,7 @@ class Manager {
 				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
 				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 				'groups'	=> null,
-				'comments'	=> (bool) $row['allow_comments'],
+				'comments'	=> $row['allow_comments'] ? $this->getNumberOfComments($id) : false,
 			];
 		}
 		$result->closeCursor();
@@ -315,6 +315,14 @@ class Manager {
 		$result->closeCursor();
 
 		return $returnSingleResult ? (array) array_pop($groups) : $groups;
+	}
+
+	/**
+	 * @param int $id
+	 * @return int
+	 */
+	protected function getNumberOfComments($id) {
+		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $id);
 	}
 
 	/**

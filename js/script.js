@@ -39,6 +39,7 @@
 								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
 							'{{/if}}' +
 						'</span>' +
+						'{{#if comments}}<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>{{/if}}' +
 						'<span class="delete-link">' +
 							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
@@ -81,8 +82,7 @@
 			var $element = $(event.currentTarget),
 				announcementId = $element.data('announcement-id');
 
-			console.log(this.announcements);
-			if (this.announcements[announcementId]['comments']) {
+			if (this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
 			} else {
 				this.commentsTabView.setObjectId(0);
@@ -195,6 +195,8 @@
 				author: t('announcementcenter', 'by {author}', announcement),
 				subject: announcement.subject,
 				message: announcement.message,
+				comments: (announcement.comments !== false) ? n('announcementcenter', '%n comment', '%n comments', announcement.comments) : false,
+				num_comments: (announcement.comments !== false) ? announcement.comments : false,
 				visibilityEveryone: null,
 				visibilityString: null,
 				announcementId: announcement.id,

@@ -329,7 +329,8 @@
 
 		_onClickDeleteComment: function(ev) {
 			ev.preventDefault();
-			var $comment = $(ev.target).closest('.comment');
+			var self = this,
+				$comment = $(ev.target).closest('.comment');
 			var commentId = $comment.data('id');
 			var $loading = $comment.find('.submitLoading');
 
@@ -339,6 +340,7 @@
 				success: function() {
 					$comment.data('commentEl').remove();
 					$comment.remove();
+					self._updateCommentCount(self.currentId, -1);
 				},
 				error: function() {
 					$loading.addClass('hidden');
@@ -415,6 +417,7 @@
 						$submit.removeClass('hidden');
 						$loading.addClass('hidden');
 						$textArea.val('').prop('disabled', false);
+						self._updateCommentCount(self.currentId, 1);
 					},
 					error: function() {
 						$submit.removeClass('hidden');
@@ -427,6 +430,15 @@
 			}
 
 			return false;
+		},
+
+		_updateCommentCount: function(announcement, diff) {
+			var $announcement = $('.section[data-announcement-id=' + announcement + ']'),
+				$details = $announcement.find('.comment-details'),
+				newCount = parseInt($details.attr('data-count'), 10) + diff;
+
+			$details.attr('data-count', newCount);
+			$details.text(n('announcementcenter', '%n comment', '%n comments', newCount));
 		},
 
 		/**
