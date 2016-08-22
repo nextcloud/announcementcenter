@@ -39,7 +39,7 @@
 								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
 							'{{/if}}' +
 						'</span>' +
-						'{{#if comments}}<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>{{/if}}' +
+						'{{#if comments}}&nbsp;<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>{{/if}}' +
 						'<span class="delete-link">' +
 							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
