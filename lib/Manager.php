@@ -351,7 +351,9 @@ class Manager {
 		if ($user instanceof IUser) {
 			$groups = $this->getAdminGroups();
 			foreach ($groups as $group) {
-				return $this->groupManager->isInGroup($user->getUID(), $group);
+				if ($this->groupManager->isInGroup($user->getUID(), $group)) {
+					return true;
+				}
 			}
 		}
 

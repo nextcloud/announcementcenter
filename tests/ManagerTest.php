@@ -290,33 +290,66 @@ class ManagerTest extends TestCase {
 
 	public function dataCheckIsAdmin() {
 		return [
-			['admin', true],
-			['admin', false],
-			['gid1', true],
-			['gid1', false],
+			[
+				['admin'],
+				[
+					['uid', 'admin', true],
+				],
+				true,
+			],
+			[
+				['admin'],
+				[
+					['uid', 'admin', false],
+				],
+				false,
+			],
+			[
+				['admin', 'gid1'],
+				[
+					['uid', 'admin', false],
+					['uid', 'gid1', false],
+				],
+				false,
+			],
+			[
+				['admin', 'gid1'],
+				[
+					['uid', 'admin', false],
+					['uid', 'gid1', true],
+				],
+				true,
+			],
+			[
+				['admin', 'gid1'],
+				[
+					['uid', 'admin', true],
+				],
+				true,
+			],
 		];
 	}
 
 	/**
 	 * @dataProvider dataCheckIsAdmin
-	 * @param string $adminGroup
+	 * @param string[] $adminGroups
+	 * @param array $inGroupMap
 	 * @param bool $expected
 	 */
-	public function testCheckIsAdmin($adminGroup, $expected) {
+	public function testCheckIsAdmin($adminGroups, $inGroupMap, $expected) {
 		$this->config->expects($this->any())
 			->method('getAppValue')
 			->with('announcementcenter', 'admin_groups', '["admin"]')
-			->willReturn(json_encode([$adminGroup]));
+			->willReturn(json_encode($adminGroups));
 
 		$user = $this->getUserMock('uid');
 		$this->userSession->expects($this->any())
 			->method('getUser')
 			->willReturn($user);
 
-		$this->groupManager->expects($this->once())
+		$this->groupManager->expects($this->exactly(sizeof($inGroupMap)))
 			->method('isInGroup')
-			->with('uid', $adminGroup)
-			->willReturn($expected);
+			->willReturnMap($inGroupMap);
 
 		$this->assertEquals($expected, $this->manager->checkIsAdmin());
 	}
