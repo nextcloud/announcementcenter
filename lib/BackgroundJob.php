@@ -119,7 +119,7 @@ class BackgroundJob extends QueuedJob {
 			->setDateTime($dateTime)
 			->setObject('announcement', $id)
 			->setSubject('announced', [$authorId])
-			->setLink($this->urlGenerator->linkToRoute('announcementcenter.page.index'));
+			->setLink($this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index'));
 
 		if (in_array('everyone', $groups)) {
 			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
