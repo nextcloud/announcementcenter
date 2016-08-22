@@ -12,6 +12,16 @@ This app allows administrators to post announcements
 
 ## Screenshots
 
-### Announcements front page (the "Add announcement" form is admin only)
+### Announcements front page
 
 ![Announcement Center Frontpage](docs/AnnouncementCenterFrontpage.png)
+
+
+### Features
+
+* Activities
+* Comments
+* Group permissions
+* Notifications
+
+For further information see the [Changelog](https://github.com/nextcloud/announcementcenter/wiki/Changelog).
