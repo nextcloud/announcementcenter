@@ -17,7 +17,7 @@ style('announcementcenter', [
 ]);
 ?>
 
-<div id="app" class="announcementcenter" data-is-admin="<?php if ($_['is_admin']) { p(1); } else p(0); ?>">
+<div id="app" class="announcementcenter" data-is-admin="<?php if (!empty($_['isAdmin'])) { p(1); } else { p(0); } ?>">
 	<div id="app-content">
 		<div id="app-sidebar" class="disappear detailsView scroll-container">
 			<div id="commentsTabView" class="tab">
