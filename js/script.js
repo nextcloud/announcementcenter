@@ -66,7 +66,7 @@
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
 			this.ignoreScroll = 1;
-			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin');
+			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin') === '1';
 			this.loadAnnouncements();
 
 			var self = this;
@@ -202,7 +202,6 @@
 				announcementId: announcement.id,
 				isAdmin: this.isAdmin
 			};
-
 
 			if (this.isAdmin) {
 				if (announcement.groups.indexOf('everyone') > -1) {
