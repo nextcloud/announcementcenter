@@ -52,3 +52,7 @@
 #app input[type="text"] {
 	box-sizing: content-box;
 }
+
+.icon-announcement {
+	background-image: url('../img/announcementcenter-dark.svg');
+}
