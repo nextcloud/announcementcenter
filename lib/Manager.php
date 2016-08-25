@@ -165,10 +165,11 @@ class Manager {
 	 * @param int $id
 	 * @param bool $parseStrings
 	 * @param bool $ignorePermissions
+	 * @param bool $returnGroups
 	 * @return array
 	 * @throws \InvalidArgumentException when the id is invalid
 	 */
-	public function getAnnouncement($id, $parseStrings = true, $ignorePermissions = false) {
+	public function getAnnouncement($id, $parseStrings = true, $ignorePermissions = false, $returnGroups = true) {
 		if (!$ignorePermissions) {
 			$user = $this->userSession->getUser();
 			if ($user instanceof IUser) {
@@ -210,8 +211,8 @@ class Manager {
 		}
 
 		$groups = null;
-		if ($ignorePermissions || (isset($isInAdminGroups) && !empty($isInAdminGroups))) {
-			$groups = $this->getGroups($id);
+		if ($returnGroups && ($ignorePermissions || !empty($isInAdminGroups))) {
+			$groups = $this->getGroups((int) $id);
 		}
 
 		return [

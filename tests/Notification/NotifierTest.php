@@ -186,34 +186,4 @@ class NotifierTest extends TestCase {
 
 		$this->assertEquals($notification, $return);
 	}
-
-	public function te1stAnnouncement() {
-		$subject = 'subject' . "\n<html>";
-		$message = 'message' . "\n<html>";
-		$author = 'author';
-		$time = time() - 10;
-
-		$announcement = $this->manager->announce($subject, $message, $author, $time);
-		$this->assertInternalType('int', $announcement['id']);
-		$this->assertGreaterThan(0, $announcement['id']);
-		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
-		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
-		$this->assertSame('author', $announcement['author']);
-		$this->assertSame($time, $announcement['time']);
-
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-
-		$this->assertEquals([$announcement], $this->manager->getAnnouncements(1));
-
-		$this->manager->delete($announcement['id']);
-
-		try {
-			$this->manager->getAnnouncement($announcement['id']);
-			$this->fail('Failed to delete the announcement');
-		} catch (\InvalidArgumentException $e) {
-			$this->assertInstanceOf('InvalidArgumentException', $e);
-		}
-	}
 }

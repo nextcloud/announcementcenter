@@ -17,7 +17,7 @@ style('announcementcenter', [
 ]);
 ?>
 
-<div id="app" class="announcementcenter" data-is-admin="<?php if ($_['is_admin']) { p(1); } else p(0); ?>">
+<div id="app" class="announcementcenter" data-is-admin="<?php if (!empty($_['isAdmin'])) { p(1); } else { p(0); } ?>">
 	<div id="app-content">
 		<div id="app-sidebar" class="disappear detailsView scroll-container">
 			<div id="commentsTabView" class="tab">
@@ -31,6 +31,7 @@ style('announcementcenter', [
 			} ?>
 
 			<div id="emptycontent" class="<?php if ($_['isAdmin']): ?>emptycontent-admin <?php endif; ?>hidden">
+				<div class="icon-announcement"></div>
 				<h2><?php p($l->t('No Announcements')); ?></h2>
 				<p><?php p($l->t('There are currently no announcements…')); ?></p>
 			</div>
