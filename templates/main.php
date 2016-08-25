@@ -31,6 +31,7 @@ style('announcementcenter', [
 			} ?>
 
 			<div id="emptycontent" class="<?php if ($_['isAdmin']): ?>emptycontent-admin <?php endif; ?>hidden">
+				<div class="icon-announcement"></div>
 				<h2><?php p($l->t('No Announcements')); ?></h2>
 				<p><?php p($l->t('There are currently no announcements…')); ?></p>
 			</div>
