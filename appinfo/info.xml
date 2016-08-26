@@ -8,8 +8,8 @@
 	<version>2.1.0</version>
 	<namespace>AnnouncementCenter</namespace>
 
-	<category>other</category>
-	<ocsid>173921</ocsid>
+	<category>organization</category>
+	<screenshot>https://github.com/nextcloud/announcementcenter/raw/master/docs/AnnouncementCenterFrontpage.png</screenshot>
 
 	<website>https://github.com/nextcloud/announcementcenter</website>
 	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
