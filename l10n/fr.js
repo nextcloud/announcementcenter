@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Nouveau commentaire...",
+    "Delete comment" : "Supprimer le commentaire",
+    "Post" : "Poster",
+    "Cancel" : "Annuler",
+    "Edit comment" : "Modifier le commentaire",
+    "[Deleted user]" : "[Utilisateur supprimé]",
+    "Comments" : "Commentaires",
+    "No comments yet, start the conversation!" : "Il n'y a aucun commentaire, démarrer la conversation!",
+    "More comments …" : "Plus de commentaires ...",
+    "Save" : "Enregistrer",
+    "Allowed characters {count} of {max}" : "Caractères autorisés {count} sur {max}",
+    "Error occurred while retrieving comment with id {id}" : "Une erreur est survenue lors de la récupération du commentaire avec l'id {id}",
+    "Error occurred while updating comment with id {id}" : "Une erreur est survenue lors de la mise à jour du commentaire avec l'id {id}",
+    "Error occurred while posting comment" : "Une erreur est survenue lors de l'envoi du commentaire",
+    "_%n comment_::_%n comments_" : ["%n commentaire","%n commentaires"],
     "Delete" : "Supprimer",
     "Announcing…" : "En train d'annoncer...",
     "Announced!" : "Annoncé !",
@@ -18,6 +33,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Ces groupes vont être autorisés à poster des annonces.",
     "Create activities by default" : "Créer des activités par défaut",
     "Create notifications by default" : "Créer des notifications par défaut",
+    "Allow comments by default" : "Autoriser les commentaires par défaut",
     "No Announcements" : "Aucune annonce",
     "There are currently no announcements…" : "Il n'y a pas d'annonce pour le moment...",
     "Add announcement" : "Ajouter une annonce",
@@ -25,8 +41,10 @@ OC.L10N.register(
     "Your announcement…" : "Votre annonce...",
     "Groups…" : "Groupes...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ces groupes vont être capable de voir les annonces. Si aucun groupe n'est sélectionné, elles seront visibles par tous les utilisateurs.",
+    "Announce" : "Annoncer",
+    "Advanced options" : "Options avancés",
     "Create activities" : "Créer des activités",
     "Create notifications" : "Créer des notifications",
-    "Announce" : "Annoncer"
+    "Allow comments" : "Autoriser les commentaires"
 },
 "nplurals=2; plural=(n > 1);");

@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Neuer Kommentar ...",
+    "Delete comment" : "Kommentar löschen",
+    "Post" : "Speichern",
+    "Cancel" : "Abbrechen",
+    "Edit comment" : "Kommentar bearbeiten",
+    "[Deleted user]" : "[Gelöschter Benutzer]",
+    "Comments" : "Kommentare",
+    "No comments yet, start the conversation!" : "Keine Kommentare bisher. Beginne die Diskussion!",
+    "More comments …" : "Weitere Kommentare ...",
+    "Save" : "Speichern",
+    "Allowed characters {count} of {max}" : "Erlaubte Zeichen {count} von {max}",
+    "Error occurred while retrieving comment with id {id}" : "Es ist ein Fehler beim Empfangen des Kommentars mit der ID {id} aufgetreten",
+    "Error occurred while updating comment with id {id}" : "Es ist ein Fehler beim Aktualisieren des Kommentars mit der ID {id} aufgetreten",
+    "Error occurred while posting comment" : "Es ist ein Fehler beim Veröffentlichen des Kommentars aufgetreten",
+    "_%n comment_::_%n comments_" : ["%n Kommentar","%n Kommentare"],
     "Delete" : "Löschen",
     "Announcing…" : "Ankündigung wird gesendet…",
     "Announced!" : "Angekündigt!",
@@ -18,6 +33,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Diese Gruppen werden in der Lage sein Ankündigungen zu senden.",
     "Create activities by default" : "Aktivitäten standardmäßig erstellen",
     "Create notifications by default" : "Benachrichtigungen standardmäßig erstellen",
+    "Allow comments by default" : "Das Kommentieren standardmäßig erlauben",
     "No Announcements" : "Keine Ankündigungen",
     "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
     "Add announcement" : "Ankündigungen machen",
@@ -25,8 +41,10 @@ OC.L10N.register(
     "Your announcement…" : "Deine Ankündigungen…",
     "Groups…" : "Gruppen...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen können die Ankündigungen sehen. Wenn keine Gruppe ausgewählt ist, können sie alle Nutzer sehen.",
+    "Announce" : "Ankündigen",
+    "Advanced options" : "Erweiterte Optionen",
     "Create activities" : "Aktivitäten erstellen",
     "Create notifications" : "Benachrichtigungen erstellen",
-    "Announce" : "Ankündigen"
+    "Allow comments" : "Kommentare erlauben"
 },
 "nplurals=2; plural=(n != 1);");

@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Nový komentář ...",
+    "Delete comment" : "Smazat komentář",
+    "Post" : "Zveřejnit",
+    "Cancel" : "Zrušit",
+    "Edit comment" : "Upravit komentář",
+    "[Deleted user]" : "[Smazaný uživatel]",
+    "Comments" : "Komentáře",
+    "No comments yet, start the conversation!" : "Zatím bez komentářů, začněte konverzaci!",
+    "More comments …" : "Více komentářů ...",
+    "Save" : "Uložit",
+    "Allowed characters {count} of {max}" : "Povolených znaků {count} z {max}",
+    "Error occurred while retrieving comment with id {id}" : "Došlo k chybě při načítání komentáře s id {id}",
+    "Error occurred while updating comment with id {id}" : "Došlo k chybě při aktualizování komentáře s id {id}",
+    "Error occurred while posting comment" : "Došlo k chybě při zveřejňování komentáře",
+    "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů"],
     "Delete" : "Smazat",
     "Announcing…" : "Oznamování...",
     "Announced!" : "Oznámeno!",
@@ -25,8 +40,10 @@ OC.L10N.register(
     "Your announcement…" : "Vaše oznámení...",
     "Groups…" : "Skupiny.",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Uživatelé to mohou vidět",
+    "Announce" : "Oznámit",
+    "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvořit aktivity",
     "Create notifications" : "Vytvořit upozornění",
-    "Announce" : "Oznámit"
+    "Allow comments" : "Povolit komentáře"
 },
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");
