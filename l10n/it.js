@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Nuovo commento...",
+    "Delete comment" : "Elimina commento",
+    "Post" : "Commento",
+    "Cancel" : "Annulla",
+    "Edit comment" : "Modifica commento",
+    "[Deleted user]" : "[Elimina utente]",
+    "Comments" : "Commenti",
+    "No comments yet, start the conversation!" : "Ancora nessun commento, inizia la conversazione!",
+    "More comments …" : "Altri commenti...",
+    "Save" : "Salva",
+    "Allowed characters {count} of {max}" : "Caratteri consentiti {count} di {max}",
+    "Error occurred while retrieving comment with id {id}" : "Errore durante il recupero del commento con id {id}",
+    "Error occurred while updating comment with id {id}" : "Errore durante l'aggiornamento del commento con id {id}",
+    "Error occurred while posting comment" : "Errore durante la pubblicazione del commento",
+    "_%n comment_::_%n comments_" : ["%n commento","%n commenti"],
     "Delete" : "Elimina",
     "Announcing…" : "Annuncio...",
     "Announced!" : "Annunciato!",
@@ -18,6 +33,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Questi gruppi saranno in grado di pubblicare annunci.",
     "Create activities by default" : "Creare attività per impostazione predefinita",
     "Create notifications by default" : "Creare notifiche per impostazione predefinita",
+    "Allow comments by default" : "Consenti i commenti in modo predefinito",
     "No Announcements" : "Nessun annuncio",
     "There are currently no announcements…" : "Attualmente non ci sono annunci...",
     "Add announcement" : "Aggiungi annuncio",
@@ -25,8 +41,10 @@ OC.L10N.register(
     "Your announcement…" : "Il tuo annuncio...",
     "Groups…" : "Gruppi...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Questi gruppi saranno in grado di vedere l'annuncio. Se non è selezionato alcun gruppo, potranno vederlo tutti gli utenti.",
+    "Announce" : "Annuncio",
+    "Advanced options" : "Opzioni avanzate",
     "Create activities" : "Crea attività",
     "Create notifications" : "Crea notifiche",
-    "Announce" : "Annuncio"
+    "Allow comments" : "Consenti i commenti"
 },
 "nplurals=2; plural=(n != 1);");
