@@ -1,4 +1,19 @@
 { "translations": {
+    "New comment …" : "Comentario nuevo",
+    "Delete comment" : "Borrar comentario",
+    "Post" : "Publicar",
+    "Cancel" : "Cancelar",
+    "Edit comment" : "Editar comentario",
+    "[Deleted user]" : "[Usuario eliminado]",
+    "Comments" : "Comentarios",
+    "No comments yet, start the conversation!" : "¡No hay comentarios, empieza la conversación!",
+    "More comments …" : "Más comentarios ...",
+    "Save" : "Guardar",
+    "Allowed characters {count} of {max}" : "Caracteres permitidos {count} de {max}",
+    "Error occurred while retrieving comment with id {id}" : "Se ha producido un error al recuperar el comentario con ID {id}",
+    "Error occurred while updating comment with id {id}" : "Se ha producido un error al actualizar el comentario con ID {id}",
+    "Error occurred while posting comment" : "Se ha producido un error al enviar el comentario",
+    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios"],
     "Delete" : "Eliminar",
     "Announcing…" : "Publicando...",
     "Announced!" : "¡Publicado!",
@@ -16,6 +31,7 @@
     "These groups will be able to post announcements." : "Estos grupos podrán poner anuncios.",
     "Create activities by default" : "Crear actividades por defecto.",
     "Create notifications by default" : "Crear notificaciones por defecto.",
+    "Allow comments by default" : "Permitir comentarios por defecto",
     "No Announcements" : "Sin avisos",
     "There are currently no announcements…" : "Actualmente no hay anuncios...",
     "Add announcement" : "Añadir aviso",
@@ -23,8 +39,10 @@
     "Your announcement…" : "Tu aviso...",
     "Groups…" : "Grupos...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estos grupos podrán ver el anuncio. Si no se selecciona ningún grupo, todos los usuarios podrán verlo.",
+    "Announce" : "Aviso",
+    "Advanced options" : "Configuración avanzada",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
-    "Announce" : "Aviso"
+    "Allow comments" : "Permitir comentarios"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

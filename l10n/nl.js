@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Nieuwe reactie ...",
+    "Delete comment" : "Verwijder reactie",
+    "Post" : "Plaatsen",
+    "Cancel" : "Annuleren",
+    "Edit comment" : "Bewerken reactie",
+    "[Deleted user]" : "[Verwijderde gebruiker]",
+    "Comments" : "Reacties",
+    "No comments yet, start the conversation!" : "Nog geen reacties, start de discussie!",
+    "More comments …" : "Meer reacties ...",
+    "Save" : "Bewaren",
+    "Allowed characters {count} of {max}" : "{count} van de {max} toegestane tekens",
+    "Error occurred while retrieving comment with id {id}" : "Er trad een fout op bij het ophalen van reactie met id {id}",
+    "Error occurred while updating comment with id {id}" : "Er trad een fout op bij het bijwerken van reactie met id {id}",
+    "Error occurred while posting comment" : "Er trad een fout op bij plaatsen reactie",
+    "_%n comment_::_%n comments_" : ["%n reactie","%n reacties"],
     "Delete" : "Verwijderen",
     "Announcing…" : "Aankondiging...",
     "Announced!" : "Aangekondigd!",
@@ -18,6 +33,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
     "Create activities by default" : "Standaard activiteiten creëren",
     "Create notifications by default" : "Standaard meldingen creëren",
+    "Allow comments by default" : "Reageren standaard toestaan",
     "No Announcements" : "Geen aankondigingen",
     "There are currently no announcements…" : "Er zijn nu geen aankondigingen...",
     "Add announcement" : "Melding toevoegen",
@@ -25,8 +41,10 @@ OC.L10N.register(
     "Your announcement…" : "Je aankondiging...",
     "Groups…" : "Groepen...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Deze groepen zullen de aankondiging kunnen zien. Als er geen groep is geseleceerd, kunnen alle gebruikers het zien.",
+    "Announce" : "Aankondigen",
+    "Advanced options" : "Geavanceerde opties",
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
-    "Announce" : "Aankondigen"
+    "Allow comments" : "Reageren toestaan"
 },
 "nplurals=2; plural=(n != 1);");
