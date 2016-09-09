@@ -25,7 +25,6 @@
 namespace OCA\AnnouncementCenter\Migration;
 
 
-use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;

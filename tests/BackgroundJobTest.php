@@ -25,7 +25,6 @@ namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IManager;
-use OCP\AppFramework\Http;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
