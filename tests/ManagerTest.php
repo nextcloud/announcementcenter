@@ -388,7 +388,5 @@ class ManagerTest extends TestCase {
 		$this->commentsManager->expects($this->at(0))
 			->method('deleteCommentsAtObject')
 			->with('announcement', $id);
-
-
 	}
 }
