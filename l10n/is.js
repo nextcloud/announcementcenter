@@ -1,6 +1,21 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Ný ummæli …",
+    "Delete comment" : "Eyða ummælum",
+    "Post" : "Senda",
+    "Cancel" : "Hætta við",
+    "Edit comment" : "Breyta ummælum",
+    "[Deleted user]" : "[Eyddur notandi]",
+    "Comments" : "Ummæli",
+    "No comments yet, start the conversation!" : "Engin ummæli ennþá, byrjaðu umræðuna!",
+    "More comments …" : "Fleiri ummæli...",
+    "Save" : "Vista",
+    "Allowed characters {count} of {max}" : "Leyfður stafafjöldi {count} af {max}",
+    "Error occurred while retrieving comment with id {id}" : "Villa kom upp við að reyna að ná í ummæli með auðkenninu {id}",
+    "Error occurred while updating comment with id {id}" : "Villa kom upp við að reyna að uppfæra ummæli með auðkenninu {id}",
+    "Error occurred while posting comment" : "Villa kom upp við að senda inn ummæli",
+    "_%n comment_::_%n comments_" : ["%n ummæli","%n ummæli"],
     "Delete" : "Eyða",
     "Announcing…" : "Tilkynni...",
     "Announced!" : "Tilkynnt!",
@@ -18,6 +33,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
     "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
     "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
+    "Allow comments by default" : "Sjálfgefið leyfa ummæli",
     "No Announcements" : "Engar tilkynningar",
     "There are currently no announcements…" : "Það eru engar tilkynningar í gangi...",
     "Add announcement" : "Bæta við tilkynningu",
@@ -25,8 +41,10 @@ OC.L10N.register(
     "Your announcement…" : "Tilkynningin þín...",
     "Groups…" : "Hópar…",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana.",
+    "Announce" : "Tilkynna",
+    "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Announce" : "Tilkynna"
+    "Allow comments" : "Leyfa ummæli"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
