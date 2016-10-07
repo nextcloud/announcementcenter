@@ -29,8 +29,7 @@
 		compiledTemplate: null,
 		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
-				'<em>' +
-					'<span{{#if milliseconds}} class="live-relative-timestamp" data-timestamp="{{timestamp}}"{{/if}}>{{time}}</span> {{{author}}} ' +
+					'<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span> <span>{{{author}}}</span> ' +
 					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
@@ -47,7 +46,6 @@
 							'</a>' +
 						'</span>' +
 					'{{/if}}' +
-				'</em>' +
 				'{{#if message}}' +
 					'<br /><br /><p>{{{message}}}</p>' +
 				'{{/if}}' +
@@ -180,20 +178,11 @@
 		},
 
 		announcementToHtml: function (announcement) {
-
-			var currentTimestamp = new Date().getTime();
-			var details = '',
-				timestamp = announcement.time * 1000;
-			if (currentTimestamp >= timestamp + this.sevenDaysMilliseconds) {
-				// Old announcement show full date
-				details += OC.Util.formatDate(timestamp);
-				timestamp = '';
-			} else {
-				details += OC.Util.relativeModifiedDate(timestamp);
-			}
+			var timestamp = announcement.time * 1000;
 
 			var object = {
-				time: details,
+				dateFormat: OC.Util.formatDate(timestamp),
+				dateRelative: OC.Util.relativeModifiedDate(timestamp),
 				timestamp: timestamp,
 				author: t('announcementcenter', 'by {author}', announcement),
 				subject: announcement.subject,

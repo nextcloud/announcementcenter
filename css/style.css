@@ -56,3 +56,7 @@
 .icon-announcement {
 	background-image: url('../img/announcementcenter-dark.svg');
 }
+
+.section > span {
+	opacity: 0.5;
+}
