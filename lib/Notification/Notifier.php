@@ -25,6 +25,7 @@ namespace OCA\AnnouncementCenter\Notification;
 
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
@@ -42,15 +43,20 @@ class Notifier implements INotifier {
 	/** @var IUserManager */
 	protected $userManager;
 
+	/** @var IURLGenerator */
+	protected $urlGenerator;
+
 	/**
 	 * @param Manager $manager
 	 * @param IFactory $l10nFactory
 	 * @param IUserManager $userManager
+	 * @param IURLGenerator $urlGenerator
 	 */
-	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager) {
+	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager, IURLGenerator $urlGenerator) {
 		$this->manager = $manager;
-		$this->userManager = $userManager;
 		$this->l10nFactory = $l10nFactory;
+		$this->userManager = $userManager;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 	/**
@@ -74,15 +80,34 @@ class Notifier implements INotifier {
 				$params = $notification->getSubjectParameters();
 				$user = $this->userManager->get($params[0]);
 				if ($user instanceof IUser) {
-					$params[0] = $user->getDisplayName();
+					$displayName = $user->getDisplayName();
+				} else {
+					$displayName = $params[0];
 				}
 
 				$announcement = $this->manager->getAnnouncement((int) $notification->getObjectId(), false, false, false);
-				$params[] = str_replace("\n", ' ', $announcement['subject']);
+				$subject = str_replace("\n", ' ', $announcement['subject']);
+				$parsedParameters = [$displayName, $subject];
 
 				$notification->setParsedMessage($announcement['message'])
+					->setRichSubject(
+						$l->t('{user} announced “{announcement}”'),
+						[
+							'user' => [
+								'type' => 'user',
+								'id' => $params[0],
+								'name' => $displayName,
+							],
+							'announcement' => [
+								'type' => 'announcement',
+								'id' => $notification->getObjectId(),
+								'name' => $subject,
+								'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $notification->getObjectId(),
+							],
+						]
+					)
 					->setParsedSubject(
-						(string) $l->t('%1$s announced “%2$s”', $params)
+						(string) $l->t('%1$s announced “%2$s”', $parsedParameters)
 					);
 				return $notification;
 
