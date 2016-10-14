@@ -26,18 +26,24 @@ namespace OCA\AnnouncementCenter\Controller;
 use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\NotFoundResponse;
+use OCP\AppFramework\Http\RedirectResponse;
 use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 use OCP\BackgroundJob\IJobList;
+use OCP\Comments\IComment;
+use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IL10N;
 use OCP\IRequest;
+use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use OCP\Notification\IManager as INotificationManager;
 
 class PageController extends Controller {
 	/** @var int */
@@ -55,6 +61,12 @@ class PageController extends Controller {
 	/** @var IUserManager */
 	protected $userManager;
 
+	/** @var ICommentsManager */
+	protected $commentsManager;
+
+	/** @var INotificationManager */
+	protected $notificationManager;
+
 	/** @var IL10N */
 	protected $l;
 
@@ -63,6 +75,9 @@ class PageController extends Controller {
 
 	/** @var IConfig */
 	protected $config;
+
+	/** @var IURLGenerator */
+	protected $urlGenerator;
 
 	/** @var IUserSession */
 	protected $userSession;
@@ -73,10 +88,13 @@ class PageController extends Controller {
 	 * @param IDBConnection $connection
 	 * @param IGroupManager $groupManager
 	 * @param IUserManager $userManager
+	 * @param ICommentsManager $commentsManager
+	 * @param INotificationManager $notificationManager
 	 * @param IJobList $jobList
 	 * @param IL10N $l
 	 * @param Manager $manager
 	 * @param IConfig $config
+	 * @param IURLGenerator $urlGenerator
 	 * @param IUserSession $userSession
 	 */
 	public function __construct($AppName,
@@ -84,20 +102,26 @@ class PageController extends Controller {
 								IDBConnection $connection,
 								IGroupManager $groupManager,
 								IUserManager $userManager,
+								ICommentsManager $commentsManager,
+								INotificationManager $notificationManager,
 								IJobList $jobList,
 								IL10N $l,
 								Manager $manager,
 								IConfig $config,
+								IURLGenerator $urlGenerator,
 								IUserSession $userSession) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
+		$this->commentsManager = $commentsManager;
+		$this->notificationManager = $notificationManager;
 		$this->jobList = $jobList;
 		$this->l = $l;
 		$this->manager = $manager;
 		$this->config = $config;
+		$this->urlGenerator = $urlGenerator;
 		$this->userSession = $userSession;
 	}
 
@@ -194,6 +218,61 @@ class PageController extends Controller {
 		$this->manager->delete($id);
 
 		return new Response();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
+	 * @param string $id
+	 * @return RedirectResponse|NotFoundResponse
+	 */
+	public function followComment($id) {
+		try {
+			$comment = $this->commentsManager->get($id);
+			if($comment->getObjectType() !== 'announcement') {
+				return new NotFoundResponse();
+			}
+
+			try {
+				$this->manager->getAnnouncement($comment->getObjectId());
+			} catch (\InvalidArgumentException $e) {
+				$this->markProcessed($comment);
+				return new NotFoundResponse();
+			}
+
+			$url = $this->urlGenerator->linkToRouteAbsolute(
+				'announcementcenter.page.index'
+			);
+			$url .= '#' . $comment->getObjectId() . '-comments';
+
+			$this->markProcessed($comment);
+
+			return new RedirectResponse($url);
+		} catch (\Exception $e) {
+			return new NotFoundResponse();
+		}
+	}
+
+
+	/**
+	 * Marks the notification about a comment as processed
+	 *
+	 * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
+	 * @param IComment $comment
+	 */
+	protected function markProcessed(IComment $comment) {
+		$user = $this->userSession->getUser();
+		if(is_null($user)) {
+			return;
+		}
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('comment', $comment->getId())
+			->setSubject('mention')
+			->setUser($user->getUID());
+		$this->notificationManager->markProcessed($notification);
 	}
 
 	/**

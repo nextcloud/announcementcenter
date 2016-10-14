@@ -27,6 +27,7 @@ return [
 		['name' => 'page#get', 'url' => '/announcement', 'verb' => 'GET'],
 		['name' => 'page#add', 'url' => '/announcement', 'verb' => 'POST'],
 		['name' => 'page#delete', 'url' => '/announcement/{id}', 'verb' => 'DELETE'],
+		['name' => 'page#followComment', 'url' => '/comment/{id}', 'verb' => 'GET'],
 		['name' => 'page#searchGroups', 'url' => '/groups', 'verb' => 'GET'],
 	]
 ];
