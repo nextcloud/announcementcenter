@@ -140,7 +140,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param array $publicity
 	 */
 	protected function createPublicityEveryone($authorId, IEvent $event, INotification $notification, array $publicity) {
-		$this->userManager->callForAllUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
+		$this->userManager->callForSeenUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
 			if (!empty($publicity['activities'])) {
 				$event->setAffectedUser($user->getUID());
 				$this->activityManager->publish($event);
@@ -170,7 +170,7 @@ class BackgroundJob extends QueuedJob {
 			$users = $group->getUsers();
 			foreach ($users as $user) {
 				$uid = $user->getUID();
-				if (isset($this->notifiedUsers[$uid])) {
+				if (isset($this->notifiedUsers[$uid]) || $user->getLastLogin() == null) {
 					continue;
 				}
 
