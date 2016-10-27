@@ -309,7 +309,7 @@ class BackgroundJobTest extends TestCase {
 
 		$job = $this->getJob();
 		$this->userManager->expects($this->once())
-			->method('callForAllUsers')
+			->method('callForSeenUsers')
 			->with($this->anything(), '')
 			->willReturnCallback(function($callback) {
 				$users = [
