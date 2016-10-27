@@ -170,7 +170,7 @@ class BackgroundJob extends QueuedJob {
 			$users = $group->getUsers();
 			foreach ($users as $user) {
 				$uid = $user->getUID();
-				if (isset($this->notifiedUsers[$uid]) || $user->getLastLogin() == null) {
+				if (isset($this->notifiedUsers[$uid]) || $user->getLastLogin() === null) {
 					continue;
 				}
 
