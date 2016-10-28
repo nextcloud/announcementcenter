@@ -147,7 +147,13 @@ class BackgroundJobTest extends TestCase {
 
 	}
 
-	protected function getUserMock($uid, $displayName) {
+	/**
+	 * @param string $uid
+	 * @param string $displayName
+	 * @param bool $loggedIn
+	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected function getUserMock($uid, $displayName, $loggedIn = true) {
 		$user = $this->getMockBuilder('OCP\IUser')
 			->disableOriginalConstructor()
 			->getMock();
@@ -157,6 +163,9 @@ class BackgroundJobTest extends TestCase {
 		$user->expects($this->any())
 			->method('getDisplayName')
 			->willReturn($displayName);
+		$user->expects($this->any())
+			->method('getLastLogin')
+			->willReturn($loggedIn ? 1234 : 0);
 		return $user;
 	}
 
@@ -309,8 +318,8 @@ class BackgroundJobTest extends TestCase {
 
 		$job = $this->getJob();
 		$this->userManager->expects($this->once())
-			->method('callForAllUsers')
-			->with($this->anything(), '')
+			->method('callForSeenUsers')
+			->with($this->anything())
 			->willReturnCallback(function($callback) {
 				$users = [
 					$this->getUserMock('author', 'User One'),
@@ -344,14 +353,14 @@ class BackgroundJobTest extends TestCase {
 		$event = $this->getMockBuilder('OCP\Activity\IEvent')
 			->disableOriginalConstructor()
 			->getMock();
-		$event->expects($activities ? $this->exactly(5) : $this->never())
+		$event->expects($activities ? $this->exactly(4) : $this->never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
 		$notification = $this->getMockBuilder('OCP\Notification\INotification')
 			->disableOriginalConstructor()
 			->getMock();
-		$notification->expects($notifications ? $this->exactly(4) : $this->never())
+		$notification->expects($notifications ? $this->exactly(3) : $this->never())
 			->method('setUser')
 			->willReturnSelf();
 
@@ -368,14 +377,14 @@ class BackgroundJobTest extends TestCase {
 				])],
 				['gid3', $this->getGroupMock([
 					$this->getUserMock('u3', 'User Three'),
-					$this->getUserMock('u4', 'User Four'),
+					$this->getUserMock('u4', 'User Four', false),
 					$this->getUserMock('u5', 'User Five'),
 				])],
 			]);
 
-		$this->activityManager->expects($activities ? $this->exactly(5) : $this->never())
+		$this->activityManager->expects($activities ? $this->exactly(4) : $this->never())
 			->method('publish');
-		$this->notificationManager->expects($notifications ? $this->exactly(4) : $this->never())
+		$this->notificationManager->expects($notifications ? $this->exactly(3) : $this->never())
 			->method('notify');
 
 		$this->invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
