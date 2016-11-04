@@ -28,10 +28,10 @@ $(document).ready(function() {
 	$adminGroup.change(function(event) {
 		var groups = event.val || ['admin'];
 		groups = JSON.stringify(groups);
-		OC.AppConfig.setValue('announcementcenter', 'admin_groups', groups);
+		OCP.AppConfig.setValue('announcementcenter', 'admin_groups', groups);
 	});
 
 	$announcementCenter.find('.checkbox').change(function() {
-		OC.AppConfig.setValue('announcementcenter', $(this).attr('name'), (this.checked ? 'yes' : 'no'));
+		OCP.AppConfig.setValue('announcementcenter', $(this).attr('name'), (this.checked ? 'yes' : 'no'));
 	});
 });
