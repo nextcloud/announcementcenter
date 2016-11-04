@@ -81,7 +81,7 @@ class EventHandler implements ICommentsEventHandler {
 	 */
 	public function evaluateMentions(CommentsEvent $event) {
 		$comment = $event->getComment();
-		$mentions = $this->extractMentions($comment->getMessage());
+		$mentions = $this->extractMentions($comment->getMentions());
 		if (empty($mentions)) {
 			// no one to notify
 			return;
@@ -89,8 +89,7 @@ class EventHandler implements ICommentsEventHandler {
 
 		$notification = $this->instantiateNotification($comment);
 
-		foreach ($mentions as $mention) {
-			$user = substr($mention, 1); // @username → username
+		foreach ($mentions as $user) {
 			if( ($comment->getActorType() === 'users' && $user === $comment->getActorId())
 				|| !$this->userManager->userExists($user)
 			) {
@@ -129,18 +128,21 @@ class EventHandler implements ICommentsEventHandler {
 	}
 
 	/**
-	 * extracts @-mentions out of a message body.
+	 * flattens the mention array returned from comments to a list of user ids.
 	 *
-	 * @param string $message
+	 * @param array $mentions
 	 * @return string[] containing the mentions, e.g. ['@alice', '@bob']
 	 */
-	public function extractMentions($message) {
-		$ok = preg_match_all('/\B@[a-z0-9_\-@\.\']+/i', $message, $mentions);
-
-		if (!$ok || !isset($mentions[0]) || !is_array($mentions[0])) {
+	public function extractMentions($mentions) {
+		if (empty($mentions)) {
 			return [];
 		}
-
-		return array_unique($mentions[0]);
+		$uids = [];
+		foreach ($mentions as $mention) {
+			if($mention['type'] === 'user') {
+				$uids[] = $mention['id'];
+			}
+		}
+		return $uids;
 	}
 }
