@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\IL10N;
+use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 
@@ -40,21 +41,18 @@ class NotifierTest extends TestCase {
 	protected $userManager;
 	/** @var IFactory|\PHPUnit_Framework_MockObject_MockObject */
 	protected $factory;
+	/** @var IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
+	protected $urlGenerator;
 	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $l;
 
 	protected function setUp() {
 		parent::setUp();
 
-		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->l = $this->getMockBuilder('OCP\IL10N')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->manager = $this->createMock(Manager::class);
+		$this->userManager = $this->createMock(IUserManager::class);
+		$this->urlGenerator = $this->createMock(IURLGenerator::class);
+		$this->l = $this->createMock(IL10N::class);
 		$this->l->expects($this->any())
 			->method('t')
 			->willReturnCallback(function($string, $args) {
@@ -70,7 +68,8 @@ class NotifierTest extends TestCase {
 		$this->notifier = new Notifier(
 			$this->manager,
 			$this->factory,
-			$this->userManager
+			$this->userManager,
+			$this->urlGenerator
 		);
 	}
 
@@ -157,7 +156,7 @@ class NotifierTest extends TestCase {
 		$notification->expects($this->once())
 			->method('getSubjectParameters')
 			->willReturn([$author]);
-		$notification->expects($this->once())
+		$notification->expects($this->exactly(3))
 			->method('getObjectId')
 			->willReturn($objectId);
 
@@ -176,6 +175,10 @@ class NotifierTest extends TestCase {
 		$notification->expects($this->once())
 			->method('setParsedMessage')
 			->with($expectedMessage)
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setRichSubject')
+			->with('{user} announced “{announcement}”', $this->anything())
 			->willReturnSelf();
 		$notification->expects($this->once())
 			->method('setParsedSubject')
