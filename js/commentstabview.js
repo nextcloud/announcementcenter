@@ -32,7 +32,7 @@
 		'{{/if}}' +
 		'    </div>' +
 		'    <form class="newCommentForm">' +
-		'        <input type="text" class="message" placeholder="{{newMessagePlaceholder}}" value="{{message}}" />' +
+		'        <textarea rows="1" class="message" placeholder="{{newMessagePlaceholder}}">{{message}}</textarea>' +
 		'        <input class="submit icon-confirm" type="submit" value="" />' +
 		'{{#if isEditMode}}' +
 		'        <input class="cancel pull-right" type="button" value="{{cancelText}}" />' +
@@ -180,6 +180,8 @@
 			}
 			this.$el.find('.message').on('keydown input change', this._onTypeComment);
 			this.$el.find('.showMore').on('click', this._onClickShowMore);
+
+			autosize(this.$el.find('.newCommentRow textarea'))
 		},
 
 		_formatItem: function(commentModel) {
@@ -282,6 +284,9 @@
 			// copy avatar element from original to avoid flickering
 			$formRow.find('.avatar').replaceWith($comment.find('.avatar').clone());
 			$formRow.find('.has-tooltip').tooltip();
+
+			// Enable autosize
+			autosize($formRow.find('textarea'));
 
 			return false;
 		},

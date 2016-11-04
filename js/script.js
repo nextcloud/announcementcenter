@@ -29,7 +29,8 @@
 		compiledTemplate: null,
 		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
-					'<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span> <span>{{{author}}}</span> ' +
+					'<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span>' +
+					'<span>{{{author}}}</span>' +
 					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
@@ -38,11 +39,14 @@
 								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
 							'{{/if}}' +
 						'</span>' +
-						'{{#if comments}}&nbsp;<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>{{/if}}' +
+					'{{/if}}' +
+					'{{#if comments}}' +
+						'<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>' +
+					'{{/if}}' +
+					'{{#if isAdmin}}' +
 						'<span class="delete-link">' +
-							' — ' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
-								t('announcementcenter', 'Delete') +
+								'<img class="svg" src="' + OC.imagePath('core', 'actions/delete') + '" alt="' + t('announcementcenter', 'Delete') + '"/>' +
 							'</a>' +
 						'</span>' +
 					'{{/if}}' +
