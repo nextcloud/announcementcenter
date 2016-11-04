@@ -121,9 +121,6 @@ class Notifier implements INotifier {
 					);
 				return $notification;
 
-			/**
-			 * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
-			 */
 			case 'mention':
 				try {
 					$comment = $this->commentsManager->get($notification->getObjectId());
@@ -146,21 +143,47 @@ class Notifier implements INotifier {
 					throw new \InvalidArgumentException('Unsupported comment object');
 				}
 
-				$announcement = $this->manager->getAnnouncement((int) $parameters[1], false, false, false);
+				$announcement = $this->manager->getAnnouncement($comment->getObjectId(), false, false, false);
 				$announcementSubject = str_replace("\n", ' ', $announcement['subject']);
+
 				if ($isDeletedActor) {
-					$subject = $l->t(
-						'A (now) deleted user mentioned you in a comment on “%1$s”.',
-						[$announcementSubject]
-					);
+					$notification->setParsedSubject($l->t(
+							'A (now) deleted user mentioned you in a comment on “%1$s”.',
+							[$announcementSubject]
+						))
+						->setRichSubject(
+							$l->t('A (now) deleted user mentioned you in a comment on “{announcement}”'),
+							[
+								'announcement' => [
+									'type' => 'announcement',
+									'id' => $comment->getObjectId(),
+									'name' => $announcementSubject,
+									'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $comment->getObjectId(),
+								],
+							]
+						);
 				} else {
-					$subject = $l->t(
-						'%1$s mentioned you in a comment on “%2$s”.',
-						[$displayName, $announcementSubject]
-					);
+					$notification->setParsedSubject($l->t(
+							'%1$s mentioned you in a comment on “%2$s”.',
+							[$displayName, $announcementSubject]
+						))
+						->setRichSubject(
+							$l->t('{user} mentioned you in a comment on “{announcement}”'),
+							[
+								'user' => [
+									'type' => 'user',
+									'id' => $comment->getActorId(),
+									'name' => $displayName,
+								],
+								'announcement' => [
+									'type' => 'announcement',
+									'id' => $comment->getObjectId(),
+									'name' => $announcementSubject,
+									'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $comment->getObjectId(),
+								],
+							]
+						);
 				}
-				$notification->setParsedMessage($comment->getMessage())
-					->setParsedSubject($subject);
 
 				return $notification;
 
