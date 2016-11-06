@@ -29,6 +29,7 @@ OC.L10N.register(
     "%s announced %s" : "%s közzétette: %s",
     "Announcements" : "Közlemények",
     "The subject is too long or empty" : "A tárgy túl hosszú vagy üres!",
+    "{user} announced “{announcement}”" : "{user} bejelentette: “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s közzétette: “%2$s”",
     "These groups will be able to post announcements." : "Ezek a csoportok beküldhetnek majd bejelentéseket.",
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
