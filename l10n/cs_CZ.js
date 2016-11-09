@@ -29,6 +29,7 @@ OC.L10N.register(
     "%s announced %s" : "%s oznámil(a) %s",
     "Announcements" : "Oznámení",
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo prázdný",
+    "{user} announced “{announcement}”" : "{user} oznamuje “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s oznámil(a) “%2$s”",
     "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
     "Create activities by default" : "Ve výchozím stavu vytvářet aktivity",
