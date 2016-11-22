@@ -1,8 +1,10 @@
 <?php
 /**
- * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
+ * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
+ * @copyright Copyright (c) 2016 Arthur Schiwon <blizzz@arthur-schiwon.de>
  *
  * @author Joas Schilling <coding@schilljs.com>
+ * @author Arthur Schiwon <blizzz@arthur-schiwon.de>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -25,6 +27,8 @@ namespace OCA\AnnouncementCenter\Notification;
 
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\Comments\ICommentsManager;
+use OCP\Comments\NotFoundException;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
@@ -34,11 +38,14 @@ use OCP\Notification\INotifier;
 
 class Notifier implements INotifier {
 
-	/** @var IFactory */
-	protected $l10nFactory;
-
 	/** @var Manager */
 	protected $manager;
+
+	/** @var ICommentsManager */
+	protected $commentsManager;
+
+	/** @var IFactory */
+	protected $l10nFactory;
 
 	/** @var IUserManager */
 	protected $userManager;
@@ -48,12 +55,15 @@ class Notifier implements INotifier {
 
 	/**
 	 * @param Manager $manager
+	 * @param ICommentsManager $commentsManager
 	 * @param IFactory $l10nFactory
 	 * @param IUserManager $userManager
 	 * @param IURLGenerator $urlGenerator
 	 */
-	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager, IURLGenerator $urlGenerator) {
+	public function __construct(Manager $manager, ICommentsManager $commentsManager, IFactory $l10nFactory, IUserManager $userManager, IURLGenerator $urlGenerator) {
 		$this->manager = $manager;
+		$this->commentsManager = $commentsManager;
+		$this->userManager = $userManager;
 		$this->l10nFactory = $l10nFactory;
 		$this->userManager = $userManager;
 		$this->urlGenerator = $urlGenerator;
@@ -109,6 +119,72 @@ class Notifier implements INotifier {
 					->setParsedSubject(
 						(string) $l->t('%1$s announced “%2$s”', $parsedParameters)
 					);
+				return $notification;
+
+			case 'mention':
+				try {
+					$comment = $this->commentsManager->get($notification->getObjectId());
+				} catch(NotFoundException $e) {
+					// needs to be converted to InvalidArgumentException, otherwise none Notifications will be shown at all
+					throw new \InvalidArgumentException('Comment not found', 0, $e);
+				}
+
+				$displayName = $comment->getActorId();
+				$isDeletedActor = $comment->getActorType() === ICommentsManager::DELETED_USER;
+				if ($comment->getActorType() === 'users') {
+					$commenter = $this->userManager->get($comment->getActorId());
+					if ($commenter instanceof IUser) {
+						$displayName = $commenter->getDisplayName();
+					}
+				}
+
+				$parameters = $notification->getSubjectParameters();
+				if ($parameters[0] !== 'announcement') {
+					throw new \InvalidArgumentException('Unsupported comment object');
+				}
+
+				$announcement = $this->manager->getAnnouncement($comment->getObjectId(), false, false, false);
+				$announcementSubject = str_replace("\n", ' ', $announcement['subject']);
+
+				if ($isDeletedActor) {
+					$notification->setParsedSubject($l->t(
+							'A (now) deleted user mentioned you in a comment on “%1$s”.',
+							[$announcementSubject]
+						))
+						->setRichSubject(
+							$l->t('A (now) deleted user mentioned you in a comment on “{announcement}”'),
+							[
+								'announcement' => [
+									'type' => 'announcement',
+									'id' => $comment->getObjectId(),
+									'name' => $announcementSubject,
+									'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $comment->getObjectId(),
+								],
+							]
+						);
+				} else {
+					$notification->setParsedSubject($l->t(
+							'%1$s mentioned you in a comment on “%2$s”.',
+							[$displayName, $announcementSubject]
+						))
+						->setRichSubject(
+							$l->t('{user} mentioned you in a comment on “{announcement}”'),
+							[
+								'user' => [
+									'type' => 'user',
+									'id' => $comment->getActorId(),
+									'name' => $displayName,
+								],
+								'announcement' => [
+									'type' => 'announcement',
+									'id' => $comment->getObjectId(),
+									'name' => $announcementSubject,
+									'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $comment->getObjectId(),
+								],
+							]
+						);
+				}
+
 				return $notification;
 
 			default:

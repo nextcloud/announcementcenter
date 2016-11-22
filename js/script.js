@@ -166,10 +166,38 @@
 				}
 			}).done(function (response) {
 				if (response.length > 0) {
+					if (window.location.hash) {
+						var hash = window.location.hash,
+							match = hash.match(/#(\d+)(-(comments))/),
+							focus = '',
+							sidebar = '';
+						if (match[1]) {
+							// TODO if not found, load more
+							focus = parseInt(match[1], 10);
+
+							if (match[3] && match[3] === 'comments') {
+								sidebar = 'comments';
+							}
+						}
+					}
+
 					_.each(response, function (announcement) {
 						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
 						$('#app-content-wrapper').append($html);
+
+						if (focus === announcement.id) {
+							$('#app-content').animate({
+								scrollTop: $html.offset().top
+							}, 500);
+
+							if (sidebar === 'comments') {
+								if (announcement['comments'] !== false) {
+									self.commentsTabView.setObjectId(announcement.id);
+								}
+							}
+						}
+
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
