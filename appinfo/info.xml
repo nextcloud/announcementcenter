@@ -16,7 +16,7 @@
 	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
 
 	<dependencies>
-		<owncloud min-version="9.1" max-version="9.2" />
+		<owncloud min-version="9.1" max-version="9.1" />
 	</dependencies>
 
 	<types>
