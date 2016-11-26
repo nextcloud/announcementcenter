@@ -29,6 +29,7 @@ OC.L10N.register(
     "%s announced %s" : "%s ha publicado %s",
     "Announcements" : "Avisos",
     "The subject is too long or empty" : "El asunto es demasiado largo o está vacío",
+    "{user} announced “{announcement}”" : "{user} ha anunciado \"{announcement}\"",
     "%1$s announced “%2$s”" : "%1$s ha publicado “%2$s”",
     "These groups will be able to post announcements." : "Estos grupos podrán poner anuncios.",
     "Create activities by default" : "Crear actividades por defecto.",
