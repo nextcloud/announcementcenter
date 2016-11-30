@@ -107,8 +107,8 @@ class BackgroundJob extends QueuedJob {
 			->setType('announcementcenter')
 			->setAuthor($authorId)
 			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject#' . $id, [$authorId])
-			->setMessage('announcementmessage#' . $id, [$authorId])
+			->setSubject('announcementsubject', [$authorId])
+			->setMessage('announcementmessage')
 			->setObject('announcement', $id);
 
 		$dateTime = new \DateTime();
