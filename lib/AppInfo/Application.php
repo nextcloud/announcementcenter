@@ -36,7 +36,6 @@ class Application extends App {
 
 	public function register() {
 		$this->registerNavigationEntry();
-		$this->registerAdminPanel();
 		$this->registerActivityExtension();
 		$this->registerNotificationNotifier();
 		$this->registerCommentsEntity();
@@ -56,10 +55,6 @@ class Application extends App {
 				'name' => $l->t('Announcements'),
 			];
 		});
-	}
-
-	protected function registerAdminPanel() {
-		\OCP\App::registerAdmin('announcementcenter', 'settings/admin');
 	}
 
 	protected function registerActivityExtension() {
