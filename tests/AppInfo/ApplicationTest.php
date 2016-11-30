@@ -24,9 +24,21 @@
 namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
 
+use OCA\AnnouncementCenter\Activity\Extension;
 use OCA\AnnouncementCenter\AppInfo\Application;
+use OCA\AnnouncementCenter\BackgroundJob;
+use OCA\AnnouncementCenter\Controller\PageController;
+use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks;
+use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use OCP\Activity\IExtension;
+use OCP\AppFramework\App;
+use OCP\AppFramework\Controller;
+use OCP\BackgroundJob\IJob;
+use OCP\Migration\IRepairStep;
+use OCP\Notification\INotifier;
 use OCP\Settings\ISettings;
 
 /**
@@ -54,11 +66,17 @@ class ApplicationTest extends TestCase {
 	}
 
 	public function dataContainerQuery() {
-		return array(
-			array('PageController', 'OCA\AnnouncementCenter\Controller\PageController'),
-
+		return [
+			[Extension::class, IExtension::class],
+			[Application::class, App::class],
+			['PageController', PageController::class],
+			[PageController::class, Controller::class],
+			[AnnouncementsGroupsLinks::class, IRepairStep::class],
+			[Notifier::class, INotifier::class],
 			[Admin::class, ISettings::class],
-		);
+			[BackgroundJob::class, IJob::class],
+			[Manager::class, Manager::class],
+		];
 	}
 
 	/**
