@@ -36,7 +36,6 @@ class Application extends App {
 
 	public function register() {
 		$this->registerNavigationEntry();
-		$this->registerActivityExtension();
 		$this->registerNotificationNotifier();
 		$this->registerCommentsEntity();
 	}
@@ -54,12 +53,6 @@ class Application extends App {
 				'icon' => $urlGenerator->imagePath('announcementcenter', 'announcementcenter.svg'),
 				'name' => $l->t('Announcements'),
 			];
-		});
-	}
-
-	protected function registerActivityExtension() {
-		$this->getContainer()->getServer()->getActivityManager()->registerExtension(function() {
-			return $this->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
 		});
 	}
 

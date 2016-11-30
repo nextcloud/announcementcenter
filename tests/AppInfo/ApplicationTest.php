@@ -24,7 +24,6 @@
 namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
 
-use OCA\AnnouncementCenter\Activity\Extension;
 use OCA\AnnouncementCenter\Activity\Provider;
 use OCA\AnnouncementCenter\Activity\Setting;
 use OCA\AnnouncementCenter\AppInfo\Application;
@@ -35,7 +34,6 @@ use OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
-use OCP\Activity\IExtension;
 use OCP\Activity\IProvider;
 use OCP\Activity\ISetting;
 use OCP\AppFramework\App;
@@ -71,7 +69,6 @@ class ApplicationTest extends TestCase {
 
 	public function dataContainerQuery() {
 		return [
-			[Extension::class, IExtension::class],
 			[Setting::class, ISetting::class],
 			[Provider::class, IProvider::class],
 			[Application::class, App::class],
