@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
+ * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
  * @author Joas Schilling <coding@schilljs.com>
  *
@@ -21,35 +21,28 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Controller;
+namespace OCA\AnnouncementCenter\Settings;
 
-use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
-use OCP\IRequest;
+use OCP\Settings\ISettings;
 
-class AdminController extends Controller {
+class Admin implements ISettings {
 
 	/** @var IConfig */
 	protected $config;
 
 	/**
-	 * @param string $appName
-	 * @param IRequest $request
 	 * @param IConfig $config
 	 */
-	public function __construct($appName,
-								IRequest $request,
-								IConfig $config) {
-		parent::__construct($appName, $request);
-
+	public function __construct(IConfig $config) {
 		$this->config = $config;
 	}
 
 	/**
 	 * @return TemplateResponse
 	 */
-	public function index() {
+	public function getForm() {
 		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
 		$adminGroups = implode('|', json_decode($adminGroups, true));
 		return new TemplateResponse('announcementcenter', 'admin', [
@@ -59,4 +52,23 @@ class AdminController extends Controller {
 			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
 		], 'blank');
 	}
+
+	/**
+	 * @return string the section ID, e.g. 'sharing'
+	 */
+	public function getSection() {
+		return 'additional';
+	}
+
+	/**
+	 * @return int whether the form should be rather on the top or bottom of
+	 * the admin section. The forms are arranged in ascending order of the
+	 * priority values. It is required to return a value between 0 and 100.
+	 *
+	 * E.g.: 70
+	 */
+	public function getPriority() {
+		return 55;
+	}
+
 }

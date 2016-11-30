@@ -5,7 +5,7 @@
 	<description>An announcement center for Nextcloud</description>
 	<licence>AGPL</licence>
 	<author>Joas Schilling</author>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<namespace>AnnouncementCenter</namespace>
 
 	<category>organization</category>
@@ -28,4 +28,8 @@
 			<step>OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks</step>
 		</post-migration>
 	</repair-steps>
+
+	<settings>
+		<admin>OCA\AnnouncementCenter\Settings\Admin</admin>
+	</settings>
 </info>
