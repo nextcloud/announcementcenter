@@ -25,7 +25,9 @@ namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
 
 use OCA\AnnouncementCenter\AppInfo\Application;
+use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use OCP\Settings\ISettings;
 
 /**
  * Class ApplicationTest
@@ -54,6 +56,8 @@ class ApplicationTest extends TestCase {
 	public function dataContainerQuery() {
 		return array(
 			array('PageController', 'OCA\AnnouncementCenter\Controller\PageController'),
+
+			[Admin::class, ISettings::class],
 		);
 	}
 
