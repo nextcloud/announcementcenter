@@ -1,6 +1,13 @@
 # Announcement Center
 
-This app allows administrators to post announcements
+This app allows admins to post announcements. Also supports the following features:
+
+* ⚡ Activities _(Requires the [activity app](https://github.com/nextcloud/activity) to be enabled)_
+* 📑 Comments
+* 👪 Group permissions
+* 🔔 Notifications _(Requires the [notifications app](https://github.com/nextcloud/notifications) to be enabled)_
+
+For further information see the [Changelog](https://github.com/nextcloud/announcementcenter/wiki/Changelog).
 
 ## QA metrics on master branch:
 
@@ -8,20 +15,7 @@ This app allows administrators to post announcements
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nextcloud/announcementcenter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nextcloud/announcementcenter/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/nextcloud/announcementcenter/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/nextcloud/announcementcenter/?branch=master)
 
----
 
-## Screenshots
+## Screenshot
 
-### Announcements front page
-
-![Announcement Center Frontpage](docs/AnnouncementCenterFrontpage.png)
-
-
-### Features
-
-* Activities
-* Comments
-* Group permissions
-* Notifications
-
-For further information see the [Changelog](https://github.com/nextcloud/announcementcenter/wiki/Changelog).
+![Announcement center frontpage](docs/AnnouncementCenterFrontpage.png)

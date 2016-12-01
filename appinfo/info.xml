@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
 <info>
 	<id>announcementcenter</id>
-	<name>Announcement Center</name>
-	<description>An announcement center for Nextcloud</description>
+	<name>Announcement center</name>
+	<description><![CDATA[This app allows admins to post announcements. Also supports the following features:
+
+⚡ Activities (Requires the activity app to be enabled)
+
+📑 Comments
+
+👪 Group permissions
+
+🔔 Notifications (Requires the notifications app to be enabled)]]></description>
 	<licence>AGPL</licence>
 	<author>Joas Schilling</author>
 	<version>3.0.1</version>
