@@ -25,15 +25,15 @@ use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
 use OCP\Activity\IProvider;
-use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
+use OCP\L10N\IFactory;
 
 class Provider implements IProvider {
 
-	/** @var IL10N */
-	protected $l;
+	/** @var IFactory */
+	protected $languageFactory;
 
 	/** @var IURLGenerator */
 	protected $url;
@@ -51,14 +51,14 @@ class Provider implements IProvider {
 	protected $displayNames = [];
 
 	/**
-	 * @param IL10N $l
+	 * @param IFactory $languageFactory
 	 * @param IURLGenerator $url
 	 * @param IManager $activityManager
 	 * @param IUserManager $userManager
 	 * @param Manager $manager
 	 */
-	public function __construct(IL10N $l, IURLGenerator $url, IManager $activityManager, IUserManager $userManager, Manager $manager) {
-		$this->l = $l;
+	public function __construct(IFactory $languageFactory, IURLGenerator $url, IManager $activityManager, IUserManager $userManager, Manager $manager) {
+		$this->languageFactory = $languageFactory;
 		$this->url = $url;
 		$this->activityManager = $activityManager;
 		$this->userManager = $userManager;
@@ -66,19 +66,22 @@ class Provider implements IProvider {
 	}
 
 	/**
+	 * @param string $language
 	 * @param IEvent $event
 	 * @param IEvent|null $previousEvent
 	 * @return IEvent
 	 * @throws \InvalidArgumentException
 	 * @since 11.0.0
 	 */
-	public function parse(IEvent $event, IEvent $previousEvent = null) {
+	public function parse($language, IEvent $event, IEvent $previousEvent = null) {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
 			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
 		) {
 			throw new \InvalidArgumentException();
 		}
+
+		$l = $this->languageFactory->get('announcementcenter', $language);
 
 		$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 
@@ -87,22 +90,22 @@ class Provider implements IProvider {
 
 			$parsedParameters = $this->getParameters($event, $announcement);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
-				$subject = $this->l->t('You announced {announcement}');
+				$subject = $l->t('You announced {announcement}');
 				unset($parsedParameters['actor']);
 			} else {
-				$subject = $this->l->t('{actor} announced {announcement}');
+				$subject = $l->t('{actor} announced {announcement}');
 			}
 			$event->setParsedMessage($announcement['message']);
 		} catch (\InvalidArgumentException $e) {
 			$parsedParameters = $this->getParameters($event, []);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
-				$subject = $this->l->t('You posted an announcement');
+				$subject = $l->t('You posted an announcement');
 				unset($parsedParameters['actor']);
 			} else {
-				$subject = $this->l->t('{actor} posted an announcement');
+				$subject = $l->t('{actor} posted an announcement');
 			}
 
-			$event->setParsedMessage($this->l->t('Announcement does not exist anymore'));
+			$event->setParsedMessage($l->t('Announcement does not exist anymore'));
 		}
 
 
