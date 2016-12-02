@@ -200,9 +200,14 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
+	 * @param int $announcement
 	 * @return TemplateResponse
 	 */
-	public function index() {
+	public function index($announcement = 0) {
+		if ($announcement) {
+			$this->manager->markNotificationRead($announcement);
+		}
+
 		return new TemplateResponse('announcementcenter', 'main', [
 			'isAdmin'	=> $this->manager->checkIsAdmin(),
 			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',

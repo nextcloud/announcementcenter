@@ -119,7 +119,9 @@ class BackgroundJob extends QueuedJob {
 			->setDateTime($dateTime)
 			->setObject('announcement', $id)
 			->setSubject('announced', [$authorId])
-			->setLink($this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index'));
+			->setLink($this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
+				'announcement' => $id,
+			]));
 
 		// Nextcloud 11+
 		if (method_exists($notification, 'setIcon')) {

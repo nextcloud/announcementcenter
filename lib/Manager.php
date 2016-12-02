@@ -320,6 +320,21 @@ class Manager {
 
 	/**
 	 * @param int $id
+	 */
+	public function markNotificationRead($id) {
+		$user = $this->userSession->getUser();
+
+		if ($user instanceof IUser) {
+			$notification = $this->notificationManager->createNotification();
+			$notification->setApp('announcementcenter')
+				->setUser($user->getUID())
+				->setObject('announcement', $id);
+			$this->notificationManager->markProcessed($notification);
+		}
+	}
+
+	/**
+	 * @param int $id
 	 * @return int
 	 */
 	protected function getNumberOfComments($id) {
