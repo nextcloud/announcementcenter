@@ -119,18 +119,6 @@ class AppTest extends TestCase {
 		include(__DIR__ . '/../../appinfo/app.php');
 	}
 
-	public function testAppActivity() {
-		$this->activityManager->expects($this->once())
-			->method('registerExtension')
-			->willReturnCallback(function($closure) {
-				$this->assertInstanceOf('\Closure', $closure);
-				$navigation = $closure();
-				$this->assertInstanceOf('\OCA\AnnouncementCenter\Activity\Extension', $navigation);
-			});
-
-		include(__DIR__ . '/../../appinfo/app.php');
-	}
-
 	public function testAppNotification() {
 		$this->languageFactory->expects($this->once())
 			->method('get')
