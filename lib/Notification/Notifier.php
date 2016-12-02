@@ -102,7 +102,9 @@ class Notifier implements INotifier {
 								'type' => 'announcement',
 								'id' => $notification->getObjectId(),
 								'name' => $subject,
-								'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $notification->getObjectId(),
+								'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
+										'announcement' => $notification->getObjectId(),
+									]),
 							],
 						]
 					)
