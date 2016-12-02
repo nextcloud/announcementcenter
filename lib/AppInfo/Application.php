@@ -23,20 +23,23 @@
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
+use OCA\AnnouncementCenter\Controller\PageController;
+use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Notification\Notifier;
 use OCP\AppFramework\App;
 use OCP\Comments\CommentsEntityEvent;
 
 class Application extends App {
-	public function __construct (array $urlParams = array()) {
-		parent::__construct('announcementcenter', $urlParams);
+
+	public function __construct() {
+		parent::__construct('announcementcenter');
 		$container = $this->getContainer();
 
-		$container->registerAlias('PageController', 'OCA\AnnouncementCenter\Controller\PageController');
+		$container->registerAlias('PageController', PageController::class);
 	}
 
 	public function register() {
 		$this->registerNavigationEntry();
-		$this->registerActivityExtension();
 		$this->registerNotificationNotifier();
 		$this->registerCommentsEntity();
 	}
@@ -57,17 +60,11 @@ class Application extends App {
 		});
 	}
 
-	protected function registerActivityExtension() {
-		$this->getContainer()->getServer()->getActivityManager()->registerExtension(function() {
-			return $this->getContainer()->query('OCA\AnnouncementCenter\Activity\Extension');
-		});
-	}
-
 	protected function registerCommentsEntity() {
 		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function(CommentsEntityEvent $event) {
 			$event->addEntityCollection('announcement', function($name) {
-				/** @var \OCA\AnnouncementCenter\Manager $manager */
-				$manager = $this->getContainer()->query('OCA\AnnouncementCenter\Manager');
+				/** @var Manager $manager */
+				$manager = $this->getContainer()->query(Manager::class);
 				try {
 					$announcement = $manager->getAnnouncement((int) $name);
 				} catch (\InvalidArgumentException $e) {
@@ -80,7 +77,7 @@ class Application extends App {
 
 	protected function registerNotificationNotifier() {
 		$this->getContainer()->getServer()->getNotificationManager()->registerNotifier(function() {
-			return $this->getContainer()->query('OCA\AnnouncementCenter\Notification\Notifier');
+			return $this->getContainer()->query(Notifier::class);
 		}, function() {
 			$l = $this->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
 			return [

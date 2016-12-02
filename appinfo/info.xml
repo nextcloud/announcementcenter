@@ -40,4 +40,14 @@
 	<settings>
 		<admin>OCA\AnnouncementCenter\Settings\Admin</admin>
 	</settings>
+
+	<activity>
+		<settings>
+			<setting>OCA\AnnouncementCenter\Activity\Setting</setting>
+		</settings>
+
+		<providers>
+			<provider>OCA\AnnouncementCenter\Activity\Provider</provider>
+		</providers>
+	</activity>
 </info>
