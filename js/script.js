@@ -69,6 +69,10 @@
 
 			this.ignoreScroll = 1;
 			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin') === '1';
+
+			OC.Util.History.addOnPopStateHandler(_.bind(this._onPopState, this));
+			var urlParams = OC.Util.History.parseUrlQuery();
+			this.announcement = parseInt(urlParams.announcement, 10);
 			this.loadAnnouncements();
 
 			var self = this;
@@ -80,15 +84,40 @@
 			});
 		},
 
-		highlightAnnouncement: function(event) {
+		_onPopState: function(params) {
+			params = _.extend({
+				announcement: 0
+			}, params);
+
+			console.log('_onPopState' + params.announcement);
+			this.highlightAnnouncement(params.announcement);
+		},
+
+		_onHighlightAnnouncement: function(event) {
 			var $element = $(event.currentTarget),
 				announcementId = $element.data('announcement-id');
 
+			OC.Util.History.pushState({
+				announcement: announcementId
+			});
+
+			this.highlightAnnouncement(announcementId);
+		},
+
+		highlightAnnouncement: function(announcementId) {
 			if (this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
 			} else {
 				this.commentsTabView.setObjectId(0);
 			}
+
+			var $appContent = $('#app-content'),
+				currentOffset = $appContent.scrollTop();
+
+			$appContent.animate({
+				// Scrolling to the top of the new element
+				scrollTop: currentOffset + $('div.section[data-announcement-id=' + announcementId + ']').offset().top - 50
+			}, 500);
 		},
 
 		deleteAnnouncement: function(event) {
@@ -173,6 +202,10 @@
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
+
+						if (self.announcement === announcement.id) {
+							self.highlightAnnouncement(announcement.id);
+						}
 					});
 					self.ignoreScroll = 0;
 				} else if (offset === 0) {
@@ -213,7 +246,7 @@
 
 			var $html = $(this.compiledTemplate(object));
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
-			$html.on('click', _.bind(this.highlightAnnouncement, this));
+			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});
