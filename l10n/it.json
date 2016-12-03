@@ -23,8 +23,6 @@
     "Visible for groups: {groups}" : "Visibile ai gruppi: {groups}",
     "Groups" : "Gruppi",
     "Announcement does not exist anymore" : "L'annuncio non esiste più",
-    "You announced %s" : "Hai annunciato %s",
-    "%s announced %s" : "%s ha annunciato %s",
     "Announcements" : "Annunci",
     "The subject is too long or empty" : "L'oggetto è troppo lungo o vuoto",
     "{user} announced “{announcement}”" : "{user} ha annunciato “{announcement}”",

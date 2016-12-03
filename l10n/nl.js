@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Zichtbaar voor groepen: {groups}",
     "Groups" : "Groepen",
     "Announcement does not exist anymore" : "Aankondiging bestaat niet meer",
-    "You announced %s" : "Je meldde %s",
-    "%s announced %s" : "%s meldde %s",
     "Announcements" : "Aankondigingen",
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "{user} announced “{announcement}”" : "{user} kondigde “{announcement}” aan",

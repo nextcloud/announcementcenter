@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "那些群組可看見: {groups}",
     "Groups" : "群組",
     "Announcement does not exist anymore" : "此公告已不存在",
-    "You announced %s" : "您公告了 %s",
-    "%s announced %s" : "%s 公告了 %s",
     "Announcements" : "公告",
     "The subject is too long or empty" : "主旨太長或是空白",
     "%1$s announced “%2$s”" : "%1$s 公告了「%2$s」",

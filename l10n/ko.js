@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "그룹에 보이기: {groups}",
     "Groups" : "그룹",
     "Announcement does not exist anymore" : "공지가 더 이상 존재하지 않습니다",
-    "You announced %s" : "내가 %s을(를) 공지함",
-    "%s announced %s" : "%s 님이 %s을(를) 공지함",
     "Announcements" : "공지",
     "The subject is too long or empty" : "제목이 너무 길거나 비어 있습니다",
     "%1$s announced “%2$s”" : "%1$s 님이 \"%2$s\"을(를) 공지함",

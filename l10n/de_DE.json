@@ -23,8 +23,6 @@
     "Visible for groups: {groups}" : "Für Gruppen sichtbar:: {groups}",
     "Groups" : "Gruppen",
     "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
-    "You announced %s" : "Sie haben %s angekündigt",
-    "%s announced %s" : "%s hat %s angekündigt",
     "Announcements" : "Ankündigungen",
     "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",

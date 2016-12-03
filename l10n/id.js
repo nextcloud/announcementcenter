@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Terlihat untuk grup: {groups}",
     "Groups" : "Grup",
     "Announcement does not exist anymore" : "Pengumuman tidak ada lagi",
-    "You announced %s" : "Anda mengumumkan %s",
-    "%s announced %s" : "%s mengumumkan %s",
     "Announcements" : "Pengumuman",
     "The subject is too long or empty" : "Subjek terlalu panjang atau kosong",
     "%1$s announced “%2$s”" : "%1$s mengumumkan “%2$s”",

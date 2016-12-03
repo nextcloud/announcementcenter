@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Widoczne dla grup: {groups}",
     "Groups" : "Grupy",
     "Announcement does not exist anymore" : "Ogłoszenie już nie istnieje",
-    "You announced %s" : "Ogłosiłeś %s",
-    "%s announced %s" : "%s ogłoszono %s",
     "Announcements" : "Ogłoszenia",
     "The subject is too long or empty" : "Temat jest zbyt długi lub pusty",
     "{user} announced “{announcement}”" : "{user} ogłosił “{announcement}”",

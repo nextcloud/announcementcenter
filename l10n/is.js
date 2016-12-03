@@ -25,8 +25,6 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Sýnilegt hópunum: {groups}",
     "Groups" : "Hópar",
     "Announcement does not exist anymore" : "Tilkynningin er ekki lengur til",
-    "You announced %s" : "Þú tilkynntir %s",
-    "%s announced %s" : "%s tilkynnti %s",
     "Announcements" : "Tilkynningar",
     "The subject is too long or empty" : "Efnislínan er of löng eða er tóm",
     "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”",
