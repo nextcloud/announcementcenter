@@ -24,6 +24,8 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Látható a csoportoknak: {groups}",
     "Groups" : "Csoportok",
+    "You announced {announcement}" : "Bejelentetted: {announcement}",
+    "{actor} announced {announcement}" : "{actor} bejelentette: {announcement}",
     "Announcement does not exist anymore" : "A közlemény többé nem létezik",
     "Announcements" : "Közlemények",
     "The subject is too long or empty" : "A tárgy túl hosszú vagy üres!",
