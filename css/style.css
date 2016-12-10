@@ -33,17 +33,20 @@
 }
 
 .announcementcenter .visibility img,
-.announcementcenter .delete-link img {
+.announcementcenter .delete-link img,
+.announcementcenter .mute-link img {
 	width: 16px;
 	vertical-align: middle;
 	padding-bottom: 3px;
 }
 
-.announcementcenter .delete-link {
+.announcementcenter .delete-link,
+.announcementcenter .mute-link {
 	display: none;
 }
 
-.announcementcenter .section:hover .delete-link {
+.announcementcenter .section:hover .delete-link,
+.announcementcenter .section:hover .mute-link {
 	display: inline;
 }
 
