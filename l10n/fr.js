@@ -8,7 +8,7 @@ OC.L10N.register(
     "Edit comment" : "Modifier le commentaire",
     "[Deleted user]" : "[Utilisateur supprimé]",
     "Comments" : "Commentaires",
-    "No comments yet, start the conversation!" : "Il n'y a aucun commentaire, démarrer la conversation!",
+    "No comments yet, start the conversation!" : "Il n'y a aucun commentaire, démarrer la conversation !",
     "More comments …" : "Plus de commentaires ...",
     "Save" : "Enregistrer",
     "Allowed characters {count} of {max}" : "Caractères autorisés {count} sur {max}",
