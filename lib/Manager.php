@@ -389,17 +389,30 @@ class Manager {
 	 * @param int $id
 	 */
 	public function removeNotifications($id) {
-		$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+		if ($this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
 			'id' => $id,
 			'activities' => true,
 			'notifications' => true,
-		]);
+		])) {
+			// Delete the current background job and add a new one without notifications
+			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => true,
+				'notifications' => true,
+			]);
+			$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => true,
+				'notifications' => false,
+			]);
 
-		$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
-			'id' => $id,
-			'activities' => false,
-			'notifications' => true,
-		]);
+		} else {
+			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => false,
+				'notifications' => true,
+			]);
+		}
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
