@@ -232,7 +232,7 @@ class Manager {
 			'comments'	=> $row['allow_comments'] ? 0 : false,
 		];
 
-		if (!empty($isInAdminGroups)) {
+		if ($ignorePermissions || !empty($isInAdminGroups)) {
 			$announcement['notifications'] = $this->hasNotifications((int) $id);
 		}
 

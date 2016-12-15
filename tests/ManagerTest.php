@@ -24,11 +24,13 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
+use OCP\Notification\INotification;
 
 /**
  * Class ManagerTest
@@ -53,6 +55,9 @@ class ManagerTest extends TestCase {
 	/** @var ICommentsManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $commentsManager;
 
+	/** @var IJobList|\PHPUnit_Framework_MockObject_MockObject */
+	protected $jobList;
+
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
 
@@ -71,9 +76,8 @@ class ManagerTest extends TestCase {
 		$this->commentsManager = $this->getMockBuilder('OCP\Comments\ICommentsManager')
 			->disableOriginalConstructor()
 			->getMock();
-		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->jobList = $this->createMock(IJobList::class);
+		$this->userSession = $this->createMock(IUserSession::class);
 
 		$this->manager = new Manager(
 			$this->config,
@@ -81,6 +85,7 @@ class ManagerTest extends TestCase {
 			$this->groupManager,
 			$this->notificationManager,
 			$this->commentsManager,
+			$this->jobList,
 			$this->userSession
 		);
 
@@ -182,7 +187,9 @@ class ManagerTest extends TestCase {
 
 		$this->assertEquals([], $this->manager->getAnnouncements());
 
+		$this->assertHasNotification();
 		$announcement = $this->manager->announce($subject, $message, $author, $time, [], false);
+		$this->assertHasNotification();
 		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2'], true);
 		if ($noGroupsSet) {
 			$announcement['groups'] = null;
@@ -195,10 +202,23 @@ class ManagerTest extends TestCase {
 		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
 		$this->assertSame('author', $announcement['author']);
 		$this->assertSame($time, $announcement['time']);
-		$this->assertSame(false, $announcement['comments']);
+		$this->assertFalse($announcement['comments']);
+		$this->assertFalse($announcement['notifications']);
+
+		if (!is_array($groups) || !in_array('admin', $groups, true)) {
+			unset($announcement['notifications']);
+			if (is_array($groups)) {
+				unset($announcement2['notifications']);
+			}
+		} else {
+			$this->assertHasNotification();
+		}
 
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 		if ($canAccessBoth) {
+			if (is_array($groups) && in_array('admin', $groups, true)) {
+				$this->assertHasNotification();
+			}
 			$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
 		} else {
 			try {
@@ -207,6 +227,7 @@ class ManagerTest extends TestCase {
 			} catch (\InvalidArgumentException $e) {
 				$this->assertInstanceOf('InvalidArgumentException', $e);
 			}
+			$this->assertHasNotification();
 			$this->assertEquals(
 				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
 				$this->manager->getAnnouncement($announcement2['id'], true, true)
@@ -214,10 +235,19 @@ class ManagerTest extends TestCase {
 			$this->assertSame(0, $announcement2['comments']);
 		}
 
+		if (is_array($groups) && in_array('admin', $groups, true)) {
+			$this->assertHasNotification();
+		}
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
 		if ($canAccessBoth) {
+			if (is_array($groups) && in_array('admin', $groups, true)) {
+				$this->assertHasNotification(2);
+			}
 			$this->assertEquals([$announcement2['id'] => $announcement2, $announcement['id'] => $announcement], $this->manager->getAnnouncements());
+			if (is_array($groups) && in_array('admin', $groups, true)) {
+				$this->assertHasNotification();
+			}
 			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
 			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
 		} else {
@@ -262,6 +292,7 @@ class ManagerTest extends TestCase {
 				['gid2', true],
 			]);
 
+		$this->assertHasNotification();
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2'], true);
 		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
 		$this->assertDeleteMetaData($announcement['id']);
@@ -281,6 +312,7 @@ class ManagerTest extends TestCase {
 				['gid0', false],
 			]);
 
+		$this->assertHasNotification();
 		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0'], true);
 		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
 		$this->assertDeleteMetaData($announcement['id']);
@@ -366,9 +398,7 @@ class ManagerTest extends TestCase {
 	}
 
 	protected function assertDeleteMetaData($id) {
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 		$notification->expects($this->at(0))
 			->method('setApp')
 			->with('announcementcenter')
@@ -388,5 +418,36 @@ class ManagerTest extends TestCase {
 		$this->commentsManager->expects($this->at(0))
 			->method('deleteCommentsAtObject')
 			->with('announcement', $id);
+	}
+
+	protected function assertHasNotification($calls = 1, $offset = 0) {
+		$this->jobList->expects($this->at($offset + 0))
+			->method('has')
+			->willReturn(false);
+		$this->jobList->expects($this->at($offset + 1))
+			->method('has')
+			->willReturn(false);
+
+		$notification = $this->createMock(INotification::class);
+		$notification->expects($this->at(0))
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->at(1))
+			->method('setObject')
+			->with('announcement', $this->anything())
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->at($offset + 0))
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->at($offset + 1))
+			->method('getCount')
+			->with($notification)
+			->willReturn(0);
+
+		if ($calls > 1) {
+			$this->assertHasNotification($calls - 1, $offset + 2);
+		}
 	}
 }
