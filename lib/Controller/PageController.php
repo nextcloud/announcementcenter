@@ -165,6 +165,7 @@ class PageController extends Controller {
 			]);
 		}
 
+		$announcement['notifications'] = $notifications;
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
 
