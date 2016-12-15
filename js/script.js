@@ -44,11 +44,18 @@
 						'<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>' +
 					'{{/if}}' +
 					'{{#if isAdmin}}' +
-						'<span class="delete-link">' +
+						'<span class="delete-link has-tooltip" title="' + t('announcementcenter', 'Delete') + '">' +
 							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
-								'<img class="svg" src="' + OC.imagePath('core', 'actions/delete') + '" alt="' + t('announcementcenter', 'Delete') + '"/>' +
+								'<img class="svg" src="' + OC.imagePath('core', 'actions/delete') + '" alt=""/>' +
 							'</a>' +
 						'</span>' +
+						'{{#if hasNotifications}}' +
+						'<span class="mute-link has-tooltip" title="' + t('announcementcenter', 'Remove notifications') + '">' +
+							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
+								'<img class="svg" src="' + OC.imagePath('announcementcenter', 'notifications-off.svg') + '" alt=""/>' +
+							'</a>' +
+						'</span>' +
+						'{{/if}}' +
 					'{{/if}}' +
 				'{{#if message}}' +
 					'<br /><br /><p>{{{message}}}</p>' +
@@ -149,6 +156,21 @@
 			});
 		},
 
+		removeNotifications: function(event) {
+			event.stopPropagation();
+
+			var $element = $(event.currentTarget),
+				announcementId = $element.data('announcement-id');
+			$.ajax({
+				type: 'DELETE',
+				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId + '/notifications')
+			}).done(function () {
+				var $link = $element.parents('.mute-link').first();
+				$link.tooltip('hide');
+				$link.remove();
+			});
+		},
+
 		postAnnouncement: function() {
 			var self = this;
 			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
@@ -226,6 +248,7 @@
 				message: announcement.message,
 				comments: (announcement.comments !== false) ? n('announcementcenter', '%n comment', '%n comments', announcement.comments) : false,
 				num_comments: (announcement.comments !== false) ? announcement.comments : false,
+				hasNotifications: announcement.notifications,
 				visibilityEveryone: null,
 				visibilityString: null,
 				announcementId: announcement.id,
@@ -246,6 +269,7 @@
 
 			var $html = $(this.compiledTemplate(object));
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
+			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'

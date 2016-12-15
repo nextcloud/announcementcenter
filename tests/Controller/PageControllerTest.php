@@ -357,6 +357,7 @@ class PageControllerTest extends TestCase {
 			'message' => $message,
 			'id' => 10,
 			'comments' => $comments,
+			'notifications' => $notifications,
 		], $data);
 	}
 

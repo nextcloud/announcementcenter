@@ -119,16 +119,10 @@ class PageController extends Controller {
 				$displayName = $user->getDisplayName();
 			}
 
-			$announcements[] = [
-				'id'		=> $row['id'],
-				'author'	=> $displayName,
-				'author_id'	=> $row['author'],
-				'time'		=> $row['time'],
-				'subject'	=> $row['subject'],
-				'message'	=> $row['message'],
-				'groups'	=> $row['groups'],
-				'comments'	=> $row['comments'],
-			];
+			$row['author_id'] = $row['author'];
+			$row['author'] = $displayName;
+
+			$announcements[] = $row;
 		}
 
 		return new JSONResponse($announcements);
@@ -171,6 +165,7 @@ class PageController extends Controller {
 			]);
 		}
 
+		$announcement['notifications'] = $notifications;
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
 
@@ -192,6 +187,25 @@ class PageController extends Controller {
 		}
 
 		$this->manager->delete($id);
+
+		return new Response();
+	}
+
+	/**
+	 * @NoAdminRequired
+	 *
+	 * @param int $id
+	 * @return Response
+	 */
+	public function removeNotifications($id) {
+		if (!$this->manager->checkIsAdmin()) {
+			return new JSONResponse(
+				['message' => 'Logged in user must be an admin'],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+
+		$this->manager->removeNotifications($id);
 
 		return new Response();
 	}

@@ -23,6 +23,7 @@
 
 namespace OCA\AnnouncementCenter;
 
+use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
@@ -49,6 +50,9 @@ class Manager {
 	/** @var ICommentsManager */
 	protected $commentsManager;
 
+	/** @var IJobList */
+	protected $jobList;
+
 	/** @var IUserSession */
 	protected $userSession;
 
@@ -58,6 +62,7 @@ class Manager {
 	 * @param IGroupManager $groupManager
 	 * @param INotificationManager $notificationManager
 	 * @param ICommentsManager $commentsManager
+	 * @param IJobList $jobList
 	 * @param IUserSession $userSession
 	 */
 	public function __construct(IConfig $config,
@@ -65,12 +70,14 @@ class Manager {
 								IGroupManager $groupManager,
 								INotificationManager $notificationManager,
 								ICommentsManager $commentsManager,
+								IJobList $jobList,
 								IUserSession $userSession) {
 		$this->config = $config;
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->notificationManager = $notificationManager;
 		$this->commentsManager = $commentsManager;
+		$this->jobList = $jobList;
 		$this->userSession = $userSession;
 	}
 
@@ -215,15 +222,21 @@ class Manager {
 			$groups = $this->getGroups((int) $id);
 		}
 
-		return [
+		$announcement = [
 			'id'		=> (int) $row['announcement_id'],
 			'author'	=> $row['announcement_user'],
 			'time'		=> (int) $row['announcement_time'],
-			'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
-			'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+			'subject'	=> $parseStrings ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
+			'message'	=> $parseStrings ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 			'groups'	=> $groups,
 			'comments'	=> $row['allow_comments'] ? 0 : false,
 		];
+
+		if ($ignorePermissions || !empty($isInAdminGroups)) {
+			$announcement['notifications'] = $this->hasNotifications((int) $id);
+		}
+
+		return $announcement;
 	}
 
 	/**
@@ -269,11 +282,15 @@ class Manager {
 				'id'		=> $id,
 				'author'	=> $row['announcement_user'],
 				'time'		=> (int) $row['announcement_time'],
-				'subject'	=> ($parseStrings) ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
-				'message'	=> ($parseStrings) ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
+				'subject'	=> $parseStrings ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
+				'message'	=> $parseStrings ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
 				'groups'	=> null,
 				'comments'	=> $row['allow_comments'] ? $this->getNumberOfComments($id) : false,
 			];
+
+			if (!empty($isInAdminGroups)) {
+				$announcements[$id]['notifications'] = $this->hasNotifications($id);
+			}
 		}
 		$result->closeCursor();
 
@@ -339,6 +356,68 @@ class Manager {
 	 */
 	protected function getNumberOfComments($id) {
 		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $id);
+	}
+
+	/**
+	 * @param int $id
+	 * @return bool
+	 */
+	protected function hasNotifications($id) {
+		$hasJob = $this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+			'id' => $id,
+			'activities' => true,
+			'notifications' => true,
+		]);
+
+		$hasJob = $hasJob || $this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+			'id' => $id,
+			'activities' => false,
+			'notifications' => true,
+		]);
+
+		if ($hasJob) {
+			return true;
+		}
+
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('announcement', $id);
+		return $this->notificationManager->getCount($notification) > 0;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function removeNotifications($id) {
+		if ($this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+			'id' => $id,
+			'activities' => true,
+			'notifications' => true,
+		])) {
+			// Delete the current background job and add a new one without notifications
+			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => true,
+				'notifications' => true,
+			]);
+			$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => true,
+				'notifications' => false,
+			]);
+
+		} else {
+			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+				'id' => $id,
+				'activities' => false,
+				'notifications' => true,
+			]);
+		}
+
+		$notification = $this->notificationManager->createNotification();
+		$notification->setApp('announcementcenter')
+			->setObject('announcement', $id);
+		$this->notificationManager->markProcessed($notification);
 	}
 
 	/**
