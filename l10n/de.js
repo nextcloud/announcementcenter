@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Es ist ein Fehler beim Veröffentlichen des Kommentars aufgetreten",
     "_%n comment_::_%n comments_" : ["%n Kommentar","%n Kommentare"],
     "Delete" : "Löschen",
+    "Remove notifications" : "Benachrichtigungen entfernen",
     "Announcing…" : "Ankündigung wird gesendet…",
     "Announced!" : "Angekündigt!",
     "by {author}" : "von {author}",

@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Ndodhi një gabim gjatë postimit të komentit",
     "_%n comment_::_%n comments_" : ["%n komente","%n komente "],
     "Delete" : "Fshije",
+    "Remove notifications" : "Hiqi njoftimet",
     "Announcing…" : "Po lajmërohet…",
     "Announced!" : "U lajmërua!",
     "by {author}" : "nga {author}",
