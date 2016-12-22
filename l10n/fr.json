@@ -15,6 +15,7 @@
     "Error occurred while posting comment" : "Une erreur est survenue lors de l'envoi du commentaire",
     "_%n comment_::_%n comments_" : ["%n commentaire","%n commentaires"],
     "Delete" : "Supprimer",
+    "Remove notifications" : "Supprimer des notifications",
     "Announcing…" : "En train d'annoncer...",
     "Announced!" : "Annoncé !",
     "by {author}" : "par {author}",
