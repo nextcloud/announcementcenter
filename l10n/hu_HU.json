@@ -15,6 +15,7 @@
     "Error occurred while posting comment" : "Hiba történt a hozzászólás küldése közben",
     "_%n comment_::_%n comments_" : ["%n hozzászólás","%n hozzászólás"],
     "Delete" : "Törlés",
+    "Remove notifications" : "Értesítések eltávolítása",
     "Announcing…" : "Közzététel...",
     "Announced!" : "Közzétéve!",
     "by {author}" : "szerző: {author}",

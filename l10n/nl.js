@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Er trad een fout op bij plaatsen reactie",
     "_%n comment_::_%n comments_" : ["%n reactie","%n reacties"],
     "Delete" : "Verwijderen",
+    "Remove notifications" : "Verwijderen meldingen",
     "Announcing…" : "Aankondiging...",
     "Announced!" : "Aangekondigd!",
     "by {author}" : "door {auteur}",

@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Um erro ocorreu ao postar o comentário",
     "_%n comment_::_%n comments_" : ["%n comentário","%n comentários"],
     "Delete" : "Excluir",
+    "Remove notifications" : "Remover notificações",
     "Announcing…" : "Anunciando...",
     "Announced!" : "Anunciado!",
     "by {author}" : "por {author}",
