@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "New comment …" : "Neuer Kommentar ...",
     "Delete comment" : "Kommentar löschen",
-    "Post" : "Speichern",
+    "Post" : "Absenden",
     "Cancel" : "Abbrechen",
     "Edit comment" : "Kommentar bearbeiten",
     "[Deleted user]" : "[Gelöschter Benutzer]",
