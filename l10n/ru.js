@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "При сохранении комментария произошла ошибка",
     "_%n comment_::_%n comments_" : ["%n комментарий","%n комментария","%n комментариев","%n комментариев"],
     "Delete" : "Удалить",
+    "Remove notifications" : "Удалить уведомления",
     "Announcing…" : "Уведомление...",
     "Announced!" : "Уведомление отправлено!",
     "by {author}" : "{author}",
