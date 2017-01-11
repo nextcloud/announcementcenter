@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Došlo k chybě při zveřejňování komentáře",
     "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů"],
     "Delete" : "Smazat",
+    "Remove notifications" : "Odstranit upozornění",
     "Announcing…" : "Oznamování...",
     "Announced!" : "Oznámeno!",
     "by {author}" : "od {author}",
