@@ -13,6 +13,7 @@ OC.L10N.register(
     "Save" : "Saglabāt",
     "Allowed characters {count} of {max}" : "Atļautās zīmes {count} no {max}",
     "Error occurred while retrieving comment with id {id}" : "Notika kļūda saņemot komentāru ar id {id}",
+    "Error occurred while updating comment with id {id}" : "Kļūda atjauninot komentāru ar id {id}",
     "Error occurred while posting comment" : "Radās kļūda, ievietojot komentāru",
     "_%n comment_::_%n comments_" : ["%n komentāri","%n komentāri","%n komentāri"],
     "Delete" : "Dzēst",
@@ -39,6 +40,7 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt.",
     "Announce" : "Paziņot",
     "Advanced options" : "Papildu opcijas",
+    "Create notifications" : "Izveidot paziņojumu",
     "Allow comments" : "Atļaut komentārus"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
