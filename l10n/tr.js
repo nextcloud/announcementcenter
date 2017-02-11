@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Yorum gönderilirken bir sorun çıktı",
     "_%n comment_::_%n comments_" : ["%n yorum","%n yorum"],
     "Delete" : "Sil",
+    "Remove notifications" : "Bildirimleri kapat",
     "Announcing…" : "Duyuruluyor…",
     "Announced!" : "Duyuruldu!",
     "by {author}" : "yazan {author}",
