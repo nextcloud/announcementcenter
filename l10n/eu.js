@@ -9,7 +9,7 @@ OC.L10N.register(
     "[Deleted user]" : "[Ezabatutako erabiltzailea]",
     "Comments" : "Iruzkinak",
     "No comments yet, start the conversation!" : "Oraindik ez dago iruzkinik, izan zaites lehena zerbait esanez!",
-    "More comments …" : "Iruzkin gehiago ...",
+    "More comments …" : "Iruzkin gehiago...",
     "Save" : "Gorde",
     "Allowed characters {count} of {max}" : "Allowed characters {count} of {max}",
     "Error occurred while retrieving comment with id {id}" : "Akats bat gertatu da {id} id duen iruzkina berreskuratzerakoan",
