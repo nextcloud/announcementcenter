@@ -36,7 +36,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user}, “{announcement}” duyurusunu yaptı",
     "%1$s announced “%2$s”" : "%1$s, \"%2$s\" duyurusunu yaptı",
     "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
-    "Create activities by default" : "Varsayılan olarak etkinlikler oluşturulsun",
+    "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
     "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
     "No Announcements" : "Duyuru Yok",
@@ -48,7 +48,7 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Bu gruplar duyuruları görebilir. Herhangi bir grup seçilmezse duyuruları tüm kullanıcılar görebilir.",
     "Announce" : "Duyur",
     "Advanced options" : "Gelişmiş ayarlar",
-    "Create activities" : "Etkinlikler oluştur",
+    "Create activities" : "İşlemler oluştur",
     "Create notifications" : "Bildirim oluştur",
     "Allow comments" : "Yorum yapılabilsin"
 },
