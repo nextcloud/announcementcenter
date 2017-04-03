@@ -22,6 +22,7 @@ OC.L10N.register(
     "Announced!" : "Tiedotettu!",
     "by {author}" : "tekijältä {author}",
     "Visible for everyone" : "Näkyy kaikille",
+    ", " : ",",
     "Visible for groups: {groups}" : "Näkyy ryhmille: {groups}",
     "Groups" : "Ryhmät",
     "You announced {announcement}" : "Tiedotit {announcement}",
