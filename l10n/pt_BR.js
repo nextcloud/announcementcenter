@@ -2,7 +2,7 @@ OC.L10N.register(
     "announcementcenter",
     {
     "New comment …" : "Novo comentário ...",
-    "Delete comment" : "Deletar comentário",
+    "Delete comment" : "Excluir comentário",
     "Post" : "Postar",
     "Cancel" : "Cancelar",
     "Edit comment" : "Editar comentário",
