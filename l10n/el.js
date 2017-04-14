@@ -15,6 +15,7 @@ OC.L10N.register(
     "Error occurred while updating comment with id {id}" : "Ένα σφάλμα προέκυψε κατά την προσπάθεια αναβάθμισης του σχολίου με το αναγνωριστικό {id}",
     "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
     "Delete" : "Διαγραφή",
+    "Remove notifications" : "Αφαίρεση ειδοποιήσεων",
     "Announcing…" : "Ανακοινώνεται...",
     "Announced!" : "Ανακοινώθηκε!",
     "by {author}" : "από {author}",
