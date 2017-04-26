@@ -1,7 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "New comment …" : "Novo comentário ...",
+    "New comment …" : "Novo comentário...",
     "Delete comment" : "Excluir comentário",
     "Post" : "Postar",
     "Cancel" : "Cancelar",
@@ -9,7 +9,7 @@ OC.L10N.register(
     "[Deleted user]" : "[Usuário excluído]",
     "Comments" : "Comentários",
     "No comments yet, start the conversation!" : "Sem comentários ainda, inicie uma conversa!",
-    "More comments …" : "Mais comentários ...",
+    "More comments …" : "Mais comentários...",
     "Save" : "Salvar",
     "Allowed characters {count} of {max}" : "{count} de {max} caracteres permitidos",
     "Error occurred while retrieving comment with id {id}" : "Um erro ocorreu ao recuperar o comentário com id {id}",
