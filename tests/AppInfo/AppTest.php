@@ -36,8 +36,6 @@ class AppTest extends TestCase {
 	protected $languageFactory;
 	/** @var \OCP\Notification\IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $notificationManager;
-	/** @var \OCP\Activity\IManager|\PHPUnit_Framework_MockObject_MockObject */
-	protected $activityManager;
 
 	protected function setUp() {
 		parent::setUp();
@@ -46,9 +44,6 @@ class AppTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
 			->disableOriginalConstructor()
 			->getMock();
 		$this->language = $this->getMockBuilder('OCP\IL10N')
@@ -61,13 +56,11 @@ class AppTest extends TestCase {
 			});
 
 		$this->overwriteService('NotificationManager', $this->notificationManager);
-		$this->overwriteService('ActivityManager', $this->activityManager);
 		$this->overwriteService('L10NFactory', $this->languageFactory);
 	}
 
 	protected function tearDown() {
 		$this->restoreService('NotificationManager');
-		$this->restoreService('ActivityManager');
 		$this->restoreService('L10NFactory');
 
 		parent::tearDown();
