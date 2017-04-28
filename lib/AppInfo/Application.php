@@ -39,25 +39,8 @@ class Application extends App {
 	}
 
 	public function register() {
-		$this->registerNavigationEntry();
 		$this->registerNotificationNotifier();
 		$this->registerCommentsEntity();
-	}
-
-	protected function registerNavigationEntry() {
-		$server = $this->getContainer()->getServer();
-
-		$server->getNavigationManager()->add(function() use ($server) {
-			$urlGenerator = $server->getURLGenerator();
-			$l = $server->getL10NFactory()->get('announcementcenter');
-			return [
-				'id' => 'announcementcenter',
-				'order' => 10,
-				'href' => $urlGenerator->linkToRoute('announcementcenter.page.index'),
-				'icon' => $urlGenerator->imagePath('announcementcenter', 'announcementcenter.svg'),
-				'name' => $l->t('Announcements'),
-			];
-		});
 	}
 
 	protected function registerCommentsEntity() {

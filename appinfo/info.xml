@@ -31,6 +31,14 @@
 		<logging/>
 	</types>
 
+	<navigations>
+		<navigation>
+			<name>Announcements</name>
+			<route>announcementcenter.page.index</route>
+			<order>10</order>
+		</navigation>
+	</navigations>
+
 	<repair-steps>
 		<post-migration>
 			<step>OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks</step>

@@ -30,10 +30,6 @@ namespace OCA\AnnouncementCenter\Tests;
  * @group DB
  */
 class AppTest extends TestCase {
-	/** @var \OCP\INavigationManager|\PHPUnit_Framework_MockObject_MockObject */
-	protected $navigationManager;
-	/** @var \OCP\IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
-	protected $urlGenerator;
 	/** @var \OCP\IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $language;
 	/** @var \OCP\L10N\IFactory|\PHPUnit_Framework_MockObject_MockObject */
@@ -46,12 +42,6 @@ class AppTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->navigationManager = $this->getMockBuilder('OCP\INavigationManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->urlGenerator = $this->getMockBuilder('OCP\IURLGenerator')
-			->disableOriginalConstructor()
-			->getMock();
 		$this->languageFactory = $this->getMockBuilder('OCP\L10N\IFactory')
 			->disableOriginalConstructor()
 			->getMock();
@@ -70,53 +60,17 @@ class AppTest extends TestCase {
 				return vsprintf($string, $args);
 			});
 
-		$this->overwriteService('NavigationManager', $this->navigationManager);
 		$this->overwriteService('NotificationManager', $this->notificationManager);
 		$this->overwriteService('ActivityManager', $this->activityManager);
-		$this->overwriteService('URLGenerator', $this->urlGenerator);
 		$this->overwriteService('L10NFactory', $this->languageFactory);
 	}
 
 	protected function tearDown() {
-		$this->restoreService('NavigationManager');
 		$this->restoreService('NotificationManager');
 		$this->restoreService('ActivityManager');
-		$this->restoreService('URLGenerator');
 		$this->restoreService('L10NFactory');
 
 		parent::tearDown();
-	}
-
-	public function testAppNavigation() {
-		$this->navigationManager->expects($this->once())
-			->method('add')
-			->willReturnCallback(function($closure) {
-				$this->assertInstanceOf('\Closure', $closure);
-				$navigation = $closure();
-				$this->assertInternalType('array', $navigation);
-				$this->assertCount(5, $navigation);
-				$this->assertSame([
-					'id' => 'announcementcenter',
-					'order' => 10,
-					'href' => '/apps/announcementcenter/announcement',
-					'icon' => '/apps/announcementcenter/img/announcementcenter.svg',
-					'name' => 'Announcements',
-					], $navigation);
-			});
-		$this->urlGenerator->expects($this->once())
-			->method('linkToRoute')
-			->with('announcementcenter.page.index')
-			->willReturn('/apps/announcementcenter/announcement');
-		$this->urlGenerator->expects($this->once())
-			->method('imagePath')
-			->with('announcementcenter', 'announcementcenter.svg')
-			->willReturn('/apps/announcementcenter/img/announcementcenter.svg');
-		$this->languageFactory->expects($this->once())
-			->method('get')
-			->with('announcementcenter')
-			->willReturn($this->language);
-
-		include(__DIR__ . '/../../appinfo/app.php');
 	}
 
 	public function testAppNotification() {
