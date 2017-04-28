@@ -63,6 +63,18 @@
 }
 
 .section > span {
-	opacity: 0.5;
 	padding-right: 7px;
+	color: #878787;
+}
+
+.announcementcenter .avatar {
+	vertical-align: middle;
+	display: inline-block;
+	margin: 0 5px 2px 3px;
+}
+
+.announcementcenter .avatar-name-wrapper {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
 }
