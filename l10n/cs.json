@@ -33,6 +33,7 @@
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo prázdný",
     "{user} announced “{announcement}”" : "{user} oznamuje “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s oznámil(a) “%2$s”",
+    "Announcement center" : "Centrum oznámení",
     "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
     "Create activities by default" : "Ve výchozím stavu vytvářet aktivity",
     "Create notifications by default" : "Ve výchozím stavu vytvářet upozornění",

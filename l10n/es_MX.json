@@ -33,6 +33,7 @@
     "The subject is too long or empty" : "El título es muy largo o está vacío",
     "{user} announced “{announcement}”" : "{user} anunció “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s anunció “%2$s”",
+    "Announcement center" : "Centro de anuncios",
     "These groups will be able to post announcements." : "Estos grupos podrán publicar anuncios.",
     "Create activities by default" : "Crear actividades predeterminadas",
     "Create notifications by default" : "Crear notificaciones predeterminada",

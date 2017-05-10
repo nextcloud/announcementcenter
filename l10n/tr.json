@@ -33,6 +33,7 @@
     "The subject is too long or empty" : "Konu çok uzun ya da boş",
     "{user} announced “{announcement}”" : "{user}, “{announcement}” duyurusunu yaptı",
     "%1$s announced “%2$s”" : "%1$s, \"%2$s\" duyurusunu yaptı",
+    "Announcement center" : "Duyuru merkezi",
     "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
     "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
