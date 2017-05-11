@@ -33,6 +33,7 @@
     "The subject is too long or empty" : "Το θέμα είναι πολύ μακροσκελές ή κενό",
     "{user} announced “{announcement}”" : "Ο {user} ανακοίνωσε “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s ανακοίνωσε “%2$s”",
+    "Announcement center" : "Κέντρο ανακοινώσεων",
     "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
     "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
     "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
