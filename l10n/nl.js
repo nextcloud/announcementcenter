@@ -35,6 +35,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "{user} announced “{announcement}”" : "{user} kondigde “{announcement}” aan",
     "%1$s announced “%2$s”" : "%1$s meldde “%2$s”",
+    "Announcement center" : "Meldingencentrum",
     "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
     "Create activities by default" : "Standaard activiteiten creëren",
     "Create notifications by default" : "Standaard meldingen creëren",

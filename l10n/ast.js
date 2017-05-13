@@ -26,6 +26,7 @@ OC.L10N.register(
     "Announcement does not exist anymore" : "L'anunciu yá nun esiste",
     "Announcements" : "Anuncios",
     "The subject is too long or empty" : "L'asuntu ye perllargu o baleru",
+    "{user} announced “{announcement}”" : "{user} anunció «{announcement}»",
     "%1$s announced “%2$s”" : "%1$s anunció «%2$s»",
     "These groups will be able to post announcements." : "Estos grupos sedrán a espublizar anuncios.",
     "No Announcements" : "Nun hai anuncios",
