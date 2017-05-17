@@ -30,7 +30,7 @@
 		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
 				'<h2>{{{subject}}}</h2>' +
 					'<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span>' +
-					'<span>{{{author}}}</span>' +
+					'<span class="avatar-name-wrapper" data-user="{{authorId}}"><div class="avatar" data-user="{{authorId}}" data-user-display-name="{{author}}"></div><strong>{{author}}</strong></span>' +
 					'{{#if isAdmin}}' +
 						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
 							'{{#if visibilityEveryone}}' +
@@ -243,7 +243,8 @@
 				dateFormat: OC.Util.formatDate(timestamp),
 				dateRelative: OC.Util.relativeModifiedDate(timestamp),
 				timestamp: timestamp,
-				author: t('announcementcenter', 'by {author}', announcement),
+				author: announcement.author,
+				authorId: announcement.author_id,
 				subject: announcement.subject,
 				message: announcement.message,
 				comments: (announcement.comments !== false) ? n('announcementcenter', '%n comment', '%n comments', announcement.comments) : false,
@@ -271,6 +272,24 @@
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
+
+			$html.find('.avatar').each(function() {
+				var element = $(this);
+				if (element.data('user-display-name')) {
+					element.avatar(element.data('user'), 21, undefined, false, undefined, element.data('user-display-name'));
+				} else {
+					element.avatar(element.data('user'), 21);
+				}
+			});
+
+			$html.find('.avatar-name-wrapper').each(function() {
+				var element = $(this),
+					avatar = element.find('.avatar'),
+					label = element.find('strong');
+
+				$.merge(avatar, label).contactsMenu(element.data('user'), 0, element);
+			});
+
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});

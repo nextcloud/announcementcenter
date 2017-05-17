@@ -13,7 +13,7 @@
 🔔 Notifications (Requires the notifications app to be enabled)]]></description>
 	<licence>AGPL</licence>
 	<author>Joas Schilling</author>
-	<version>3.0.1</version>
+	<version>4.0.0</version>
 	<namespace>AnnouncementCenter</namespace>
 
 	<category>organization</category>
@@ -24,12 +24,20 @@
 	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
 
 	<dependencies>
-		<nextcloud min-version="11" max-version="11" />
+		<nextcloud min-version="12" max-version="12" />
 	</dependencies>
 
 	<types>
 		<logging/>
 	</types>
+
+	<navigations>
+		<navigation>
+			<name>Announcements</name>
+			<route>announcementcenter.page.index</route>
+			<order>10</order>
+		</navigation>
+	</navigations>
 
 	<repair-steps>
 		<post-migration>
