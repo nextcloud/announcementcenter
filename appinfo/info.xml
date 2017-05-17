@@ -2,6 +2,7 @@
 <info>
 	<id>announcementcenter</id>
 	<name>Announcement center</name>
+	<summary><![CDATA[This app allows admins to post announcements.]]></summary>
 	<description><![CDATA[This app allows admins to post announcements. Also supports the following features:
 
 ⚡ Activities (Requires the activity app to be enabled)
