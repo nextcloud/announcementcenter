@@ -35,6 +35,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "{user} announced “{announcement}”" : "{user} kunngjorde “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”",
+    "Announcement center" : "Kunngjøringssenter",
     "These groups will be able to post announcements." : "Disse gruppene vil kunne poste kunngjøringer",
     "Create activities by default" : "Opprett aktiviteter som standard",
     "Create notifications by default" : "Opprett varsler som standard",
