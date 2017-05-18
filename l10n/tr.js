@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Bildirimleri kaldır",
     "Announcing…" : "Duyuruluyor…",
     "Announced!" : "Duyuruldu!",
-    "by {author}" : "yazan {author}",
     "Visible for everyone" : "Herkese görünür",
     ", " : ",",
     "Visible for groups: {groups}" : "Şu gruplara görünür: {groups}",

@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "Delete",
     "Announcing…" : "Announcing…",
     "Announced!" : "Announced!",
-    "by {author}" : "by {author}",
     "Visible for everyone" : "Visible for everyone",
     ", " : ",",
     "Visible for groups: {groups}" : "Visible for groups: {groups}",

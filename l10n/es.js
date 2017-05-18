@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Eliminar notificaciones",
     "Announcing…" : "Publicando...",
     "Announced!" : "¡Publicado!",
-    "by {author}" : "por {author}",
     "Visible for everyone" : "Visible para todo el mundo",
     ", " : ",",
     "Visible for groups: {groups}" : "Visible para grupos: {groups}",

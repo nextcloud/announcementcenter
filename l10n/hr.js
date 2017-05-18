@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Skloni obavijesti",
     "Announcing…" : "Oglašavam...",
     "Announced!" : "Oglašeno!",
-    "by {author}" : "objavio je {author}",
     "Visible for everyone" : "Vidljivo svima",
     ", " : ",",
     "Visible for groups: {groups}" : "Vidljivo ovim skupinama: {groups}",

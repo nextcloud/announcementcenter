@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Fjern varsler",
     "Announcing…" : "Kunngjør…",
     "Announced!" : "Kunngjort!",
-    "by {author}" : "av {author}",
     "Visible for everyone" : "Synlig for alle",
     ", " : ",",
     "Visible for groups: {groups}" : "Synlig for grupper: {groups}",

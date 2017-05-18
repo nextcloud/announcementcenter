@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Αφαίρεση ειδοποιήσεων",
     "Announcing…" : "Ανακοινώνεται...",
     "Announced!" : "Ανακοινώθηκε!",
-    "by {author}" : "από {author}",
     "Visible for everyone" : "Ορατό σε όλους",
     ", " : ", ",
     "Visible for groups: {groups}" : "Ορατό για τις ομάδες: {groups}",

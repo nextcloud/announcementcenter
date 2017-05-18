@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "通知を消去",
     "Announcing…" : "アナウンス中...",
     "Announced!" : "アナウンスしました！",
-    "by {author}" : "by {author}",
     "Visible for everyone" : "全員と共有",
     ", " : "、",
     "Visible for groups: {groups}" : "次のグループと共有: {groups}",

@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Hiqi njoftimet",
     "Announcing…" : "Po lajmërohet…",
     "Announced!" : "U lajmërua!",
-    "by {author}" : "nga {author}",
     "Visible for everyone" : "E dukshme për të gjithë",
     ", " : ",",
     "Visible for groups: {groups}" : "E dukshme për grupet: {groups}",

@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "Изтриване",
     "Announcing…" : "Анонсиране...",
     "Announced!" : "Анонсиран!",
-    "by {author}" : "от {author}",
     "Visible for everyone" : "Видим за всеки",
     ", " : ", ",
     "Visible for groups: {groups}" : "Видим за групи: {groups}",

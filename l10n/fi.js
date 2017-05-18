@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Poista ilmoitukset",
     "Announcing…" : "Tiedotetaan…",
     "Announced!" : "Tiedotettu!",
-    "by {author}" : "tekijältä {author}",
     "Visible for everyone" : "Näkyy kaikille",
     ", " : ",",
     "Visible for groups: {groups}" : "Näkyy ryhmille: {groups}",

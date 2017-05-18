@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Értesítések eltávolítása",
     "Announcing…" : "Közzététel...",
     "Announced!" : "Közzétéve!",
-    "by {author}" : "szerző: {author}",
     "Visible for everyone" : "Látható mindenkinek",
     ", " : ", ",
     "Visible for groups: {groups}" : "Látható a csoportoknak: {groups}",

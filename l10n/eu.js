@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Kendu jakinarazpenak",
     "Announcing…" : "Iragarriz...",
     "Announced!" : "Iragarrita!",
-    "by {author}" : "{author} eginikoa",
     "Visible for everyone" : "Guztiontzat ikusgai",
     ", " : ",",
     "Visible for groups: {groups}" : "Taldeentzat ikusgai: {groups}",

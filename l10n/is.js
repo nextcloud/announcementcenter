@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Fjarlægja tilkynningar",
     "Announcing…" : "Tilkynni...",
     "Announced!" : "Tilkynnt!",
-    "by {author}" : "eftir {author}",
     "Visible for everyone" : "Sýnilegt öllum",
     ", " : ", ",
     "Visible for groups: {groups}" : "Sýnilegt hópunum: {groups}",
