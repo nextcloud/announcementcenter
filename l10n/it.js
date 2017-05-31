@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "L'oggetto è troppo lungo o vuoto",
     "{user} announced “{announcement}”" : "{user} ha annunciato “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s ha annunciato “%2$s”",
+    "Announcement center" : "Centro annunci",
     "These groups will be able to post announcements." : "Questi gruppi saranno in grado di pubblicare annunci.",
     "Create activities by default" : "Creare attività per impostazione predefinita",
     "Create notifications by default" : "Creare notifiche per impostazione predefinita",

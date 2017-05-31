@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "件名が長すぎるか空です",
     "{user} announced “{announcement}”" : "{user} が “{announcement}” とアナウンスしました。",
     "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました",
+    "Announcement center" : "アナウンスセンター",
     "These groups will be able to post announcements." : "これらのグループはアナウンスを投稿することが可能",
     "Create activities by default" : "既定でアクティビティを作成",
     "Create notifications by default" : "既定で通知を作成",
