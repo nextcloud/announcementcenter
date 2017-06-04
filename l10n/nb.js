@@ -37,7 +37,7 @@ OC.L10N.register(
     "Announcement center" : "Kunngjøringssenter",
     "These groups will be able to post announcements." : "Disse gruppene vil kunne poste kunngjøringer",
     "Create activities by default" : "Opprett aktiviteter som standard",
-    "Create notifications by default" : "Opprett varsler som standard",
+    "Create notifications by default" : "Opprett varsler som forvalg",
     "Allow comments by default" : "Tillatt kommentarer som standard",
     "No Announcements" : "Ingen kunngjøringer",
     "There are currently no announcements…" : "Det er for øyeblikket ingen kunngjøringer…",
