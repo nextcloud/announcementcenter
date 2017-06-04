@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Noņemt ziņojumus",
     "Announcing…" : "Paziņo...",
     "Announced!" : "Paziņots!",
-    "by {author}" : "{author}",
     "Visible for everyone" : "Redzams visiem",
     ", " : ",",
     "Visible for groups: {groups}" : "Redzams grupām: {groups}",

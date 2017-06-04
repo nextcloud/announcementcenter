@@ -20,7 +20,6 @@ OC.L10N.register(
     "Remove notifications" : "Hapus notifikasi",
     "Announcing…" : "Mengumumkan...",
     "Announced!" : "Diumumkan!",
-    "by {author}" : "oleh {author}",
     "Visible for everyone" : "Terlihat oleh semua",
     ", " : "n",
     "Visible for groups: {groups}" : "Terlihat untuk grup: {groups}",

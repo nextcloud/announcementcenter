@@ -19,7 +19,6 @@ OC.L10N.register(
     "Delete" : "刪除",
     "Announcing…" : "發佈中…",
     "Announced!" : "已發佈！",
-    "by {author}" : "作者 {author}",
     "Visible for everyone" : "所有人均可看見",
     ", " : "，",
     "Visible for groups: {groups}" : "那些群組可看見: {groups}",
