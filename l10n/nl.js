@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Geavanceerde opties",
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
-    "Allow comments" : "Reageren toestaan"
+    "Allow comments" : "Reageren toestaan",
+    "by {author}" : "door {author}"
 },
 "nplurals=2; plural=(n != 1);");

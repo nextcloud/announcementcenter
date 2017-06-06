@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Advanced options",
     "Create activities" : "Create activities",
     "Create notifications" : "Create notifications",
-    "Allow comments" : "Allow comments"
+    "Allow comments" : "Allow comments",
+    "by {author}" : "by {author}"
 },
 "nplurals=2; plural=(n != 1);");
