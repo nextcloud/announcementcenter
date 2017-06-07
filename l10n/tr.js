@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Gelişmiş ayarlar",
     "Create activities" : "İşlemler oluştur",
     "Create notifications" : "Bildirim oluştur",
-    "Allow comments" : "Yorum yapılabilsin"
+    "Allow comments" : "Yorum yapılabilsin",
+    "by {author}" : "yazan {author}"
 },
 "nplurals=2; plural=(n > 1);");
