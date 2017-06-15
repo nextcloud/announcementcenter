@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "高级选项",
     "Create activities" : "创建活动",
     "Create notifications" : "创建提示",
-    "Allow comments" : "允许注释"
+    "Allow comments" : "允许注释",
+    "by {author}" : "按照{作者}"
 },
 "nplurals=1; plural=0;");
