@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli"
+    "Allow comments" : "Leyfa ummæli",
+    "by {author}" : "eftir {author}"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");
