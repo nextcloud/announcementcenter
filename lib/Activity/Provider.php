@@ -83,7 +83,11 @@ class Provider implements IProvider {
 
 		$l = $this->languageFactory->get('announcementcenter', $language);
 
-		$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
+		if (method_exists($this->activityManager, 'getRequirePNG') && $this->activityManager->getRequirePNG()) {
+			$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.png')));
+		} else {
+			$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
+		}
 
 		try {
 			$announcement = $this->manager->getAnnouncement($event->getObjectId(), true, false, false);
