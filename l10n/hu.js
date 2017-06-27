@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Haladó beállítások",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
-    "Allow comments" : "Hozzászólások engedélyezése"
+    "Allow comments" : "Hozzászólások engedélyezése",
+    "by {author}" : "szerző: {author}"
 },
 "nplurals=2; plural=(n != 1);");
