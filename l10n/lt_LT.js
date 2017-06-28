@@ -12,6 +12,7 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "Leidžiama simbolių {count} iš {max}",
     "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų"],
     "Delete" : "Ištrinti",
+    "Remove notifications" : "Šalinti pranešimus",
     "Announcing…" : "Skelbiama…",
     "Announced!" : "Paskelbta!",
     "Visible for everyone" : "Matoma visiems",
