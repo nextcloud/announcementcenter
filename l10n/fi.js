@@ -49,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Lisäasetukset",
     "Create activities" : "Luo toimet",
     "Create notifications" : "Luo ilmoitukset",
-    "Allow comments" : "Salli kommentit"
+    "Allow comments" : "Salli kommentit",
+    "by {author}" : "tekijältä {author}"
 },
 "nplurals=2; plural=(n != 1);");
