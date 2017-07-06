@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Naujas komentaras …",
     "Delete comment" : "Ištrinti komentarą",
     "Cancel" : "Atsisakyti",
     "Edit comment" : "Redaguoti komentarą",
