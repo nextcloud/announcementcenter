@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Avancerede indstillinger",
     "Create activities" : "Opret aktiviteter",
     "Create notifications" : "Opret notifikationer",
-    "Allow comments" : "Tillad kommentarer"
+    "Allow comments" : "Tillad kommentarer",
+    "by {author}" : "af {author}"
 },
 "nplurals=2; plural=(n != 1);");
