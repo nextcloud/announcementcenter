@@ -43,7 +43,7 @@ OC.L10N.register(
     "There are currently no announcements…" : "Actualmente no hay anuncios...",
     "Add announcement" : "Agregar anuncio",
     "Subject…" : "Título...",
-    "Your announcement…" : "Su anuncio...",
+    "Your announcement…" : "Tu anuncio...",
     "Groups…" : "Grupos...",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estos grupos podrán ver el anuncio. Si no se seleccióna un grupo, todos los usuarios podrán verlo.",
     "Announce" : "Anunciar",
