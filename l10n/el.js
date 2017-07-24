@@ -50,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Επιλογές για προχωρημένους",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
-    "Allow comments" : "Να επιτρέπονται σχόλια"
+    "Allow comments" : "Να επιτρέπονται σχόλια",
+    "by {author}" : "από {author}"
 },
 "nplurals=2; plural=(n != 1);");
