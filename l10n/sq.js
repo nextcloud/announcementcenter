@@ -49,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet"
+    "Allow comments" : "Lejo komentet",
+    "by {author}" : "nga {autori}"
 },
 "nplurals=2; plural=(n != 1);");
