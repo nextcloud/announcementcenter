@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Subjekti është shumë i gjatë ose i zbrazët",
     "{user} announced “{announcement}”" : "{user} njoftoi “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s lajmëroi “%2$s”",
+    "Announcement center" : "Qendra e njoftimeve",
     "These groups will be able to post announcements." : "Këto grupe do jenë në gjëndje të postojnë njoftime",
     "Create activities by default" : "Krijo aktivitete në mënyrë automatike",
     "Create notifications by default" : "Krijo njoftime në mënyrë automatike",
@@ -50,6 +51,6 @@ OC.L10N.register(
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
     "Allow comments" : "Lejo komentet",
-    "by {author}" : "nga {autori}"
+    "by {author}" : "nga {author}"
 },
 "nplurals=2; plural=(n != 1);");
