@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Subiectul este gol sau prea lung",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s a anunțat “%2$s”",
+    "Announcement center" : "Centru anunturi",
     "These groups will be able to post announcements." : "Aceste grupuri vor putea posta anunțuri.",
     "Create activities by default" : "Crează activități în mod implicit",
     "Create notifications by default" : "Crează notificări în mod implicit",
