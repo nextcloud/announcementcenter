@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Temats ir par garu vai arī tukšs",
     "{user} announced “{announcement}”" : "{user} paziņots “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s paziņoja “%2$s”",
+    "Announcement center" : "Paziņojumu centrs",
     "These groups will be able to post announcements." : "Šīs grupas varēs ievietot paziņojumus.",
     "Create activities by default" : "Izveidot darbības pēc noklusējuma",
     "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
@@ -49,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Papildu opcijas",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus"
+    "Allow comments" : "Atļaut komentārus",
+    "by {author}" : "{author}"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
