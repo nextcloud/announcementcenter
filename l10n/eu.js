@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Gaia luzeegia edo hutsik dago",
     "{user} announced “{announcement}”" : "{user} “{announcement}” esan du",
     "%1$s announced “%2$s”" : "%1$s “%2$s” esan du",
+    "Announcement center" : "Iragarpen-zentroa",
     "These groups will be able to post announcements." : "Talde ahuek oharrak argitaratzeko baimena dute",
     "Create activities by default" : "Sortu jarduerak lehenetsiz",
     "Create notifications by default" : "Sortu jakinarazpenak lehenetsiz",
@@ -49,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Ezarpen aurreratuak",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
-    "Allow comments" : "Baimendu iruzkinak"
+    "Allow comments" : "Baimendu iruzkinak",
+    "by {author}" : "{autor}-(e) egina"
 },
 "nplurals=2; plural=(n != 1);");
