@@ -1,7 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "New comment …" : "Ny kommentar",
+    "New comment …" : "Ny kommentar ...",
     "Delete comment" : "Radera kommentar",
     "Post" : "Skicka",
     "Cancel" : "Avbryt",
