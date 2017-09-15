@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Ďalšie komentáre ...",
     "Save" : "Uložiť",
     "Allowed characters {count} of {max}" : "Počet povolených znakov {count} z {max}",
+    "_%n comment_::_%n comments_" : ["%n komentár","%n komentáre","%n komentárov"],
     "Delete" : "Zmazať",
     "Remove notifications" : "Odstrániť hlásenia",
     "Announcing…" : "Oznamuje sa...",
