@@ -49,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "고급 설정",
     "Create activities" : "활동 만들기",
     "Create notifications" : "알림 만들기",
-    "Allow comments" : "댓글 허용"
+    "Allow comments" : "댓글 허용",
+    "by {author}" : "{author} 님이 씀"
 },
 "nplurals=1; plural=0;");
