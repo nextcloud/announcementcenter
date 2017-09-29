@@ -48,7 +48,7 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Bu gruplar duyuruları görebilir. Herhangi bir grup seçilmezse duyuruları tüm kullanıcılar görebilir.",
     "Announce" : "Duyur",
     "Advanced options" : "Gelişmiş ayarlar",
-    "Create activities" : "İşlemler oluştur",
+    "Create activities" : "Etkinlik oluştur",
     "Create notifications" : "Bildirim oluştur",
     "Allow comments" : "Yorum yapılabilsin",
     "by {author}" : "yazan {author}"
