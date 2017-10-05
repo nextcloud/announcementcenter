@@ -36,7 +36,7 @@ OC.L10N.register(
     "%1$s announced “%2$s”" : "Oseba %1$s je objavila sporočilo “%2$s”",
     "Announcement center" : "Center za obvestila",
     "These groups will be able to post announcements." : "Te skupine bodo lahko objavljala obvestila.",
-    "Create activities by default" : "Dovoli ustvarjanje aktivnosti",
+    "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
     "Create notifications by default" : "Dovoli ustvarjanje obvestil",
     "Allow comments by default" : "Dovoli komentarje",
     "No Announcements" : "Ni objav",
