@@ -163,7 +163,9 @@ class Provider implements IProvider {
 			'type' => 'announcement',
 			'id' => $announcement['id'],
 			'name' => $announcement['subject'],
-			'link' => $this->url->linkToRouteAbsolute('announcementcenter.page.index') . '#' . $announcement['id'],
+			'link' => $this->url->linkToRouteAbsolute('announcementcenter.page.index', [
+				'announcement' => $announcement['id'],
+			]),
 		];
 	}
 
