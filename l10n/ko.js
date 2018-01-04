@@ -34,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "제목이 너무 길거나 비어 있습니다",
     "{user} announced “{announcement}”" : "{user} 님이 “{announcement}”을(를) 공지함",
     "%1$s announced “%2$s”" : "%1$s 님이 \"%2$s\"을(를) 공지함",
+    "Announcement center" : "공지 센터",
     "These groups will be able to post announcements." : "다음 그룹에 속한 사용자는 공지 사항을 게시할 수 있습니다.",
     "Create activities by default" : "기본적으로 활동 만들기",
     "Create notifications by default" : "기본적으로 알림 만들기",
