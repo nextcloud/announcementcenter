@@ -1,6 +1,13 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Новий комент",
+    "Delete comment" : "Видалити комент",
+    "Cancel" : "Скасувати",
+    "Edit comment" : "Редагувати комент",
+    "Comments" : "Коментарі",
+    "More comments …" : "Більше коментарів",
+    "Save" : "Зберегти",
     "Delete" : "Видалити",
     "Announcing…" : "Оголошую...",
     "Announced!" : "Анонсовано!",
