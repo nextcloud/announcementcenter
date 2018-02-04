@@ -17,6 +17,7 @@ OC.L10N.register(
     "Error occurred while posting comment" : "Възникна грешка по време на изпращане на коментар",
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара"],
     "Delete" : "Изтриване",
+    "Remove notifications" : "Премахнете известията",
     "Announcing…" : "Анонсиране...",
     "Announced!" : "Анонсиран!",
     "Visible for everyone" : "Видим за всеки",
@@ -33,6 +34,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Темата е твърде дълга или празна",
     "{user} announced “{announcement}”" : "{user} заяви “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s уведомени “%2$s” ",
+    "Announcement center" : "Център за съобщения",
     "These groups will be able to post announcements." : "Следните групи ще могат да изпращат заявления.",
     "Create activities by default" : "Създава активности по подразбиране",
     "Create notifications by default" : "Създава известия по подразбиране",
@@ -48,6 +50,7 @@ OC.L10N.register(
     "Advanced options" : "Други опции",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
-    "Allow comments" : "Позволи коментари"
+    "Allow comments" : "Позволи коментари",
+    "by {author}" : "по {author}"
 },
 "nplurals=2; plural=(n != 1);");
