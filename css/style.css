@@ -14,6 +14,10 @@
 	border-bottom: solid 1px #ddd;
 }
 
+.announcementcenter #app-content-wrapper {
+	display: block;
+}
+
 #announcement_submit_msg.success {
 	color: #fff;
 	background-color: #47a447;
