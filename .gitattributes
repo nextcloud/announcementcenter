@@ -1,5 +1,5 @@
 docs export-ignore
-l10n/.tx export-ignore
+.tx export-ignore
 tests export-ignore
 CONTRIBUTING.md export-ignore
 README.md export-ignore
