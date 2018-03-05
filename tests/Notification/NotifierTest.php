@@ -30,6 +30,8 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
+use OCP\Notification\INotification;
+use OCP\IUser;
 
 class NotifierTest extends TestCase {
 	/** @var Notifier */
@@ -58,9 +60,7 @@ class NotifierTest extends TestCase {
 			->willReturnCallback(function($string, $args) {
 				return vsprintf($string, $args);
 			});
-		$this->factory = $this->getMockBuilder('OCP\L10N\IFactory')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->factory = $this->createMock(IFactory::class);
 		$this->factory->expects($this->any())
 			->method('get')
 			->willReturn($this->l);
@@ -78,9 +78,7 @@ class NotifierTest extends TestCase {
 	 */
 	public function testPrepareWrongApp() {
 		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
 			->method('getApp')
@@ -96,9 +94,7 @@ class NotifierTest extends TestCase {
 	 */
 	public function testPrepareWrongSubject() {
 		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
 			->method('getApp')
@@ -111,10 +107,10 @@ class NotifierTest extends TestCase {
 	}
 
 	/**
-	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_Builder_InvocationMocker
+	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected function getUserMock() {
-		$user = $this->getMock('OCP\IUser');
+		$user = $this->createMock(IUser::class);
 		$user->expects($this->once())
 			->method('getDisplayName')
 			->willReturn('Author');
@@ -143,9 +139,7 @@ class NotifierTest extends TestCase {
 	 */
 	public function testPrepare($author, $subject, $message, $objectId, $userObject, $expectedSubject, $expectedMessage) {
 		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
 			->method('getApp')

@@ -23,6 +23,7 @@
 
 namespace OCA\AnnouncementCenter\Tests\Controller;
 
+use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
@@ -33,6 +34,11 @@ use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use OCP\IUser;
+use OCP\AppFramework\Http\JSONResponse;
+use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\TemplateResponse;
+use OCP\IGroup;
 
 /**
  * Class PageController
@@ -61,40 +67,25 @@ class PageControllerTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->request = $this->getMockBuilder('OCP\IRequest')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->l = $this->getMockBuilder('OCP\IL10N')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->request = $this->createMock(IRequest::class);
+		$this->groupManager = $this->createMock(IGroupManager::class);
+		$this->userManager = $this->createMock(IUserManager::class);
+		$this->l = $this->createMock(IL10N::class);
+		$this->jobList = $this->createMock(IJobList::class);
+		$this->manager = $this->createMock(Manager::class);
+		$this->config = $this->createMock(IConfig::class);
+		$this->userSession = $this->createMock(IUserSession::class);
+
 		$this->l->expects($this->any())
 			->method('t')
 			->willReturnCallback(function($string, $args) {
 				return vsprintf($string, $args);
 			});
-		$this->jobList = $this->getMockBuilder('OCP\BackgroundJob\IJobList')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->config = $this->getMockBuilder('OCP\IConfig')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->userSession = $this->getMockBuilder('OCP\IUserSession')
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 	protected function getController(array $methods = []) {
 		if (empty($methods)) {
-			return new \OCA\AnnouncementCenter\Controller\PageController(
+			return new PageController(
 				'announcementcenter',
 				$this->request,
 				\OC::$server->getDatabaseConnection(),
@@ -106,29 +97,26 @@ class PageControllerTest extends TestCase {
 				$this->config,
 				$this->userSession
 			);
-		} else {
-			return $this->getMockBuilder('OCA\AnnouncementCenter\Controller\PageController')
-				->setConstructorArgs([
-					'announcementcenter',
-					$this->request,
-					\OC::$server->getDatabaseConnection(),
-					$this->groupManager,
-					$this->userManager,
-					$this->jobList,
-					$this->l,
-					$this->manager,
-					$this->config,
-					$this->userSession,
-				])
-				->setMethods($methods)
-				->getMock();
 		}
+		return $this->getMockBuilder(PageController::class)
+			->setConstructorArgs([
+				'announcementcenter',
+				$this->request,
+				\OC::$server->getDatabaseConnection(),
+				$this->groupManager,
+				$this->userManager,
+				$this->jobList,
+				$this->l,
+				$this->manager,
+				$this->config,
+				$this->userSession,
+			])
+			->setMethods($methods)
+			->getMock();
 	}
 
 	protected function getUserMock($uid, $displayName) {
-		$user = $this->getMockBuilder('OCP\IUser')
-			->disableOriginalConstructor()
-			->getMock();
+		$user = $this->createMock(IUser::class);
 		$user->expects($this->any())
 			->method('getUID')
 			->willReturn($uid);
@@ -197,7 +185,7 @@ class PageControllerTest extends TestCase {
 		$controller = $this->getController();
 		$jsonResponse = $controller->get($offset);
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $jsonResponse);
+		$this->assertInstanceOf(JSONResponse::class, $jsonResponse);
 		$this->assertEquals($expected, $jsonResponse->getData());
 	}
 
@@ -231,7 +219,7 @@ class PageControllerTest extends TestCase {
 		$controller = $this->getController();
 		$response = $controller->delete($id);
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\Response', $response);
+		$this->assertInstanceOf(Response::class, $response);
 		$this->assertEquals($statusCode, $response->getStatus());
 	}
 
@@ -266,7 +254,7 @@ class PageControllerTest extends TestCase {
 
 		$response = $controller->add($subject, '', [], true, true, true);
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertInstanceOf(JSONResponse::class, $response);
 		$this->assertSame($expectedData, $response->getData());
 	}
 
@@ -286,7 +274,7 @@ class PageControllerTest extends TestCase {
 
 		$response = $controller->add('subject', '', [], true, true, true);
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertInstanceOf(JSONResponse::class, $response);
 		$this->assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
 	}
 
@@ -345,7 +333,7 @@ class PageControllerTest extends TestCase {
 
 		$response = $controller->add($subject, $message, $groups, $activities, $notifications, $comments);
 
-		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertInstanceOf(JSONResponse::class, $response);
 		$data = $response->getData();
 		$this->assertArrayHasKey('time', $data);
 		$this->assertInternalType('int', $data['time']);
@@ -393,7 +381,7 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 		$response = $controller->index();
-		$this->assertInstanceOf('OCP\AppFramework\Http\TemplateResponse', $response);
+		$this->assertInstanceOf(TemplateResponse::class, $response);
 
 		$this->assertSame(
 			[
@@ -407,9 +395,7 @@ class PageControllerTest extends TestCase {
 	}
 
 	protected function getGroupMock($gid) {
-		$group = $this->getMockBuilder('OCP\IGroup')
-			->disableOriginalConstructor()
-			->getMock();
+		$group = $this->createMock(IGroup::class);
 
 		$group->expects($this->any())
 			->method('getGID')
@@ -450,7 +436,7 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 		$response = $controller->searchGroups($pattern);
-		$this->assertInstanceOf('OCP\AppFramework\Http\JSONResponse', $response);
+		$this->assertInstanceOf(JSONResponse::class, $response);
 		$this->assertSame($code, $response->getStatus());
 		$this->assertSame($expected, $response->getData());
 	}
