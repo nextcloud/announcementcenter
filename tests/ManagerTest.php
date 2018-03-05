@@ -31,6 +31,7 @@ use OCP\IGroupManager;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
+use OCP\IUser;
 
 /**
  * Class ManagerTest
@@ -64,18 +65,10 @@ class ManagerTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->config = $this->getMockBuilder('OCP\IConfig')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->commentsManager = $this->getMockBuilder('OCP\Comments\ICommentsManager')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->config = $this->createMock(IConfig::class);
+		$this->groupManager = $this->createMock(IGroupManager::class);
+		$this->notificationManager = $this->createMock(INotificationManager::class);
+		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 
@@ -126,9 +119,7 @@ class ManagerTest extends TestCase {
 	}
 
 	protected function getUserMock($uid) {
-		$user = $this->getMockBuilder('OCP\IUser')
-			->disableOriginalConstructor()
-			->getMock();
+		$user = $this->createMock(IUser::class);
 		$user->expects($this->any())
 			->method('getUID')
 			->willReturn($uid);

@@ -23,12 +23,17 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
+use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCP\Activity\IManager;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
+use OCP\IUser;
+use OCP\IGroup;
+use OCP\Activity\IEvent;
+use OCP\Notification\INotification;
 
 /**
  * Class PageController
@@ -53,29 +58,17 @@ class BackgroundJobTest extends TestCase {
 	protected function setUp() {
 		parent::setUp();
 
-		$this->userManager = $this->getMockBuilder('OCP\IUserManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->groupManager = $this->getMockBuilder('OCP\IGroupManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->activityManager = $this->getMockBuilder('OCP\Activity\IManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->urlGenerator = $this->getMockBuilder('OCP\IURLGenerator')
-			->disableOriginalConstructor()
-			->getMock();
-		$this->manager = $this->getMockBuilder('OCA\AnnouncementCenter\Manager')
-			->disableOriginalConstructor()
-			->getMock();
+		$this->userManager = $this->createMock(IUserManager::class);
+		$this->groupManager = $this->createMock(IGroupManager::class);
+		$this->activityManager = $this->createMock(IManager::class);
+		$this->notificationManager = $this->createMock(INotificationManager::class);
+		$this->urlGenerator = $this->createMock(IURLGenerator::class);
+		$this->manager = $this->createMock(Manager::class);
 	}
 
 	protected function getJob(array $methods = []) {
 		if (empty($methods)) {
-			return new \OCA\AnnouncementCenter\BackgroundJob(
+			return new BackgroundJob(
 				$this->userManager,
 				$this->groupManager,
 				$this->activityManager,
@@ -84,7 +77,7 @@ class BackgroundJobTest extends TestCase {
 				$this->manager
 			);
 		} else {
-			return $this->getMockBuilder('OCA\AnnouncementCenter\BackgroundJob')
+			return $this->getMockBuilder(BackgroundJob::class)
 				->setConstructorArgs([
 					$this->userManager,
 					$this->groupManager,
@@ -139,7 +132,7 @@ class BackgroundJobTest extends TestCase {
 				]);
 		}
 
-		$this->invokePrivate($job, 'run', [[
+		self::invokePrivate($job, 'run', [[
 			'id' => $id,
 			'activities' => $activities,
 			'notifications' => $notifications,
@@ -154,9 +147,7 @@ class BackgroundJobTest extends TestCase {
 	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_MockObject
 	 */
 	protected function getUserMock($uid, $displayName, $loggedIn = true) {
-		$user = $this->getMockBuilder('OCP\IUser')
-			->disableOriginalConstructor()
-			->getMock();
+		$user = $this->createMock(IUser::class);
 		$user->expects($this->any())
 			->method('getUID')
 			->willReturn($uid);
@@ -170,9 +161,7 @@ class BackgroundJobTest extends TestCase {
 	}
 
 	protected function getGroupMock($users) {
-		$group = $this->getMockBuilder('OCP\IGroup')
-			->disableOriginalConstructor()
-			->getMock();
+		$group = $this->createMock(IGroup::class);
 		$group->expects($this->any())
 			->method('getUsers')
 			->willReturn($users);
@@ -199,9 +188,7 @@ class BackgroundJobTest extends TestCase {
 	 * @param array $publicity
 	 */
 	public function testCreatePublicity(array $groups, $everyone, array $publicity) {
-		$event = $this->getMockBuilder('OCP\Activity\IEvent')
-			->disableOriginalConstructor()
-			->getMock();
+		$event = $this->createMock(IEvent::class);
 		$event->expects($this->once())
 			->method('setApp')
 			->with('announcementcenter')
@@ -231,9 +218,7 @@ class BackgroundJobTest extends TestCase {
 			->with('announcement', 10)
 			->willReturnSelf();
 
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 		$notification->expects($this->once())
 			->method('setApp')
 			->with('announcementcenter')
@@ -302,16 +287,12 @@ class BackgroundJobTest extends TestCase {
 	 * @param bool $notifications
 	 */
 	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications) {
-		$event = $this->getMockBuilder('OCP\Activity\IEvent')
-			->disableOriginalConstructor()
-			->getMock();
+		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? $this->exactly(5) : $this->never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 		$notification->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('setUser')
 			->willReturnSelf();
@@ -350,16 +331,12 @@ class BackgroundJobTest extends TestCase {
 	 * @param bool $notifications
 	 */
 	public function testCreatePublicityGroups(array $publicity, $activities, $notifications) {
-		$event = $this->getMockBuilder('OCP\Activity\IEvent')
-			->disableOriginalConstructor()
-			->getMock();
+		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? $this->exactly(4) : $this->never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
-		$notification = $this->getMockBuilder('OCP\Notification\INotification')
-			->disableOriginalConstructor()
-			->getMock();
+		$notification = $this->createMock(INotification::class);
 		$notification->expects($notifications ? $this->exactly(3) : $this->never())
 			->method('setUser')
 			->willReturnSelf();

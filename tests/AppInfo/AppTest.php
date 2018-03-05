@@ -29,24 +29,29 @@ namespace OCA\AnnouncementCenter\Tests;
  * @package OCA\AnnouncementCenter\Tests
  * @group DB
  */
+use OCA\AnnouncementCenter\Notification\Notifier;
+use OCP\IL10N;
+use OCP\L10N\IFactory;
+use OCP\Notification\IManager;
+
 class AppTest extends TestCase {
-	/** @var \OCP\IL10N|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
 	protected $language;
-	/** @var \OCP\L10N\IFactory|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IFactory|\PHPUnit_Framework_MockObject_MockObject */
 	protected $languageFactory;
-	/** @var \OCP\Notification\IManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $notificationManager;
 
 	protected function setUp() {
 		parent::setUp();
 
-		$this->languageFactory = $this->getMockBuilder('OCP\L10N\IFactory')
+		$this->languageFactory = $this->getMockBuilder(IFactory::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$this->notificationManager = $this->getMockBuilder('OCP\Notification\IManager')
+		$this->notificationManager = $this->getMockBuilder(IManager::class)
 			->disableOriginalConstructor()
 			->getMock();
-		$this->language = $this->getMockBuilder('OCP\IL10N')
+		$this->language = $this->getMockBuilder(IL10N::class)
 			->disableOriginalConstructor()
 			->getMock();
 		$this->language->expects($this->any())
@@ -75,10 +80,10 @@ class AppTest extends TestCase {
 		$this->notificationManager->expects($this->once())
 			->method('registerNotifier')
 			->willReturnCallback(function($closureNotifier, $closureInfo) {
-				$this->assertInstanceOf('\Closure', $closureNotifier);
+				$this->assertInstanceOf(\Closure::class, $closureNotifier);
 				$notifier = $closureNotifier();
-				$this->assertInstanceOf('\OCA\AnnouncementCenter\Notification\Notifier', $notifier);
-				$this->assertInstanceOf('\Closure', $closureInfo);
+				$this->assertInstanceOf(Notifier::class, $notifier);
+				$this->assertInstanceOf(\Closure::class, $closureInfo);
 				$info = $closureInfo();
 				$this->assertInternalType('array', $info);
 				$this->assertArrayHasKey('id', $info);
