@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<info>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
 	<id>announcementcenter</id>
 	<name>Announcement center</name>
 	<summary><![CDATA[This app allows admins to post announcements.]]></summary>
@@ -12,33 +13,26 @@
 👪 Group permissions
 
 🔔 Notifications (Requires the notifications app to be enabled)]]></description>
-	<licence>AGPL</licence>
-	<author>Joas Schilling</author>
 	<version>3.3.0</version>
+	<licence>agpl</licence>
+	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
-
-	<category>organization</category>
-	<screenshot>https://github.com/nextcloud/announcementcenter/raw/master/docs/AnnouncementCenterFrontpage.png</screenshot>
-
-	<website>https://github.com/nextcloud/announcementcenter</website>
-	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
-	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
-
-	<dependencies>
-		<nextcloud min-version="14" max-version="14" />
-	</dependencies>
 
 	<types>
 		<logging/>
 	</types>
 
-	<navigations>
-		<navigation>
-			<name>Announcements</name>
-			<route>announcementcenter.page.index</route>
-			<order>10</order>
-		</navigation>
-	</navigations>
+	<category>organization</category>
+
+	<website>https://github.com/nextcloud/announcementcenter</website>
+	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
+	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
+
+	<screenshot>https://github.com/nextcloud/announcementcenter/raw/master/docs/AnnouncementCenterFrontpage.png</screenshot>
+
+	<dependencies>
+		<nextcloud min-version="14" max-version="14" />
+	</dependencies>
 
 	<repair-steps>
 		<post-migration>
@@ -59,4 +53,12 @@
 			<provider>OCA\AnnouncementCenter\Activity\Provider</provider>
 		</providers>
 	</activity>
+
+	<navigations>
+		<navigation>
+			<name>Announcements</name>
+			<route>announcementcenter.page.index</route>
+			<order>10</order>
+		</navigation>
+	</navigations>
 </info>
