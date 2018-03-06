@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Fleiri ummæli...",
     "Save" : "Vista",
     "Allowed characters {count} of {max}" : "Leyfður stafafjöldi {count} af {max}",
-    "Error occurred while retrieving comment with id {id}" : "Villa kom upp við að reyna að ná í ummæli með auðkenninu {id}",
     "Error occurred while updating comment with id {id}" : "Villa kom upp við að reyna að uppfæra ummæli með auðkenninu {id}",
     "Error occurred while posting comment" : "Villa kom upp við að senda inn ummæli",
     "_%n comment_::_%n comments_" : ["%n ummæli","%n ummæli"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli"
+    "Allow comments" : "Leyfa ummæli",
+    "Error occurred while retrieving comment with id {id}" : "Villa kom upp við að reyna að ná í ummæli með auðkenninu {id}"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

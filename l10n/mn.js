@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Дараагийн сэтгэгдэлүүд",
     "Save" : "Хадгалах",
     "Allowed characters {count} of {max}" : "Зөвшөөрөгдсөн тэмдэгт {max}-аас {count} ",
-    "Error occurred while retrieving comment with id {id}" : "{id} дугаартай сэтгэгдлийг дуудахад алдаа гарлаа",
     "Error occurred while updating comment with id {id}" : "{id} дугаартай сэтгэгдлийг шинэчлэхэд алдаа гарлаа",
     "Error occurred while posting comment" : "Сэтгэгдлийг хадгалахад алдаа гарлаа",
     "_%n comment_::_%n comments_" : ["%n сэтгэгдэл","%n сэтгэгдэл"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Бусад сонголтууд",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
+    "Error occurred while retrieving comment with id {id}" : "{id} дугаартай сэтгэгдлийг дуудахад алдаа гарлаа"
 },
 "nplurals=2; plural=(n != 1);");

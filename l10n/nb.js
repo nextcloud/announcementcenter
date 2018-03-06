@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Flere kommentarer…",
     "Save" : "Lagre",
     "Allowed characters {count} of {max}" : "Antall tegn tillatt {count} av {max}",
-    "Error occurred while retrieving comment with id {id}" : "En feil oppstod under henting av kommentar med id {id}",
     "Error occurred while updating comment with id {id}" : "En feil oppstod under oppdatering av kommentar med id {id}",
     "Error occurred while posting comment" : "En feil oppstod under posting av kommentar",
     "_%n comment_::_%n comments_" : ["%n kommentar","%n kommentarer"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Avanserte alternativer",
     "Create activities" : "Opprett aktiviteter",
     "Create notifications" : "Opprett varsler",
-    "Allow comments" : "Tillatt kommentarer"
+    "Allow comments" : "Tillatt kommentarer",
+    "Error occurred while retrieving comment with id {id}" : "En feil oppstod under henting av kommentar med id {id}"
 },
 "nplurals=2; plural=(n != 1);");

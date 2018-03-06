@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Ещё комментарии...",
     "Save" : "Сохранить",
     "Allowed characters {count} of {max}" : "Допустимых символов: {count} из {max}",
-    "Error occurred while retrieving comment with id {id}" : "При получении комментария с id {id} произошла ошибка",
     "Error occurred while updating comment with id {id}" : "При обновлении комментария с id {id} произошла ошибка",
     "Error occurred while posting comment" : "При сохранении комментария произошла ошибка",
     "_%n comment_::_%n comments_" : ["%n комментарий","%n комментария","%n комментариев","%n комментариев"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Дополнительные настройки",
     "Create activities" : "Создать действия",
     "Create notifications" : "Создать уведомления",
-    "Allow comments" : "Разрешить комментарии"
+    "Allow comments" : "Разрешить комментарии",
+    "Error occurred while retrieving comment with id {id}" : "При получении комментария с id {id} произошла ошибка"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

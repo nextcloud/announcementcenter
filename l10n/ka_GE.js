@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "მეტი კომენტარი ...",
     "Save" : "შენახვა",
     "Allowed characters {count} of {max}" : "დაშვებული ნიშნები {count} სულ {max}-იდან",
-    "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა",
     "Error occurred while updating comment with id {id}" : "კომენტარის id-იდ {id}-ის ცვლილებისას წარმოიშვა შეცდომა",
     "Error occurred while posting comment" : "კომენტარის გამოქვეყნებისას წარმოიშვა შეცდომა",
     "_%n comment_::_%n comments_" : ["%n კომენტარი"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "დამატებითი ოპციონები",
     "Create activities" : "აქტივობების შექმნა",
     "Create notifications" : "შეტყობინებების შექმნა",
-    "Allow comments" : "კომენტარების დაშვება"
+    "Allow comments" : "კომენტარების დაშვება",
+    "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა"
 },
 "nplurals=1; plural=0;");

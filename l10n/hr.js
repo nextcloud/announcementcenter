@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Više napomena...",
     "Save" : "Spremi",
     "Allowed characters {count} of {max}" : "Dopuštenih znakova {count} od {max}",
-    "Error occurred while retrieving comment with id {id}" : "Došlo je do pogreške prilikom dohvaćanja napomene s oznakom {id}",
     "Error occurred while updating comment with id {id}" : "Došlo je do pogreške prilikom ispravljanja napomene s oznakom {id}",
     "Error occurred while posting comment" : "Došlo je do pogreške prilikom objavljivanja napomene",
     "_%n comment_::_%n comments_" : ["%n napomena","%n napomene","%n napomena"],
@@ -49,6 +48,7 @@ OC.L10N.register(
     "Advanced options" : "Napredne mogućnosti",
     "Create activities" : "Stvori radnje",
     "Create notifications" : "Stvori obavijesti",
-    "Allow comments" : "Dopusti napomene"
+    "Allow comments" : "Dopusti napomene",
+    "Error occurred while retrieving comment with id {id}" : "Došlo je do pogreške prilikom dohvaćanja napomene s oznakom {id}"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

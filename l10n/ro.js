@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Mai multe comentarii...",
     "Save" : "Salvează",
     "Allowed characters {count} of {max}" : "Caractere permise: {count} din {max}",
-    "Error occurred while retrieving comment with id {id}" : "Eroare la încărcarea comentariului cu id {id}",
     "Error occurred while updating comment with id {id}" : "Eroare la actualizarea comentariului cu id {id}",
     "Error occurred while posting comment" : "Eroare la postarea comentariului",
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarii","%n comentarii"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opțiuni avansate",
     "Create activities" : "Creează activități",
     "Create notifications" : "Crează notificări",
-    "Allow comments" : "Permite comentarii"
+    "Allow comments" : "Permite comentarii",
+    "Error occurred while retrieving comment with id {id}" : "Eroare la încărcarea comentariului cu id {id}"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");

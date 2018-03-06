@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Veel kommentaare ...",
     "Save" : "Salvesta",
     "Allowed characters {count} of {max}" : "Lubatud märkide arv {count}/{max}",
-    "Error occurred while retrieving comment with id {id}" : "Kommentaari {id} laadimisel tekkis tõrge",
     "Error occurred while updating comment with id {id}" : "Kommentaari {id} uuendamisel tekkis tõrge",
     "Error occurred while posting comment" : "Viga kommentaari postitamisel",
     "_%n comment_::_%n comments_" : ["%n kommentaar(i)","%n comments"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Täpsemad valikud",
     "Create activities" : "Loo toimingud",
     "Create notifications" : "Koosta teateid",
-    "Allow comments" : "Luba kommentaarid"
+    "Allow comments" : "Luba kommentaarid",
+    "Error occurred while retrieving comment with id {id}" : "Kommentaari {id} laadimisel tekkis tõrge"
 },
 "nplurals=2; plural=(n != 1);");
