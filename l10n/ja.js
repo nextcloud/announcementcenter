@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "その他のコメント...",
     "Save" : "保存",
     "Allowed characters {count} of {max}" : "入力文字数  {count} / {max}",
-    "Error occurred while retrieving comment with id {id}" : "コメントID {id} のコメントを取得する際にエラーが発生",
     "Error occurred while updating comment with id {id}" : "コメントID {id} のコメントをアップロードする際にエラーが発生",
     "Error occurred while posting comment" : "コメント投稿時にエラーが発生",
     "_%n comment_::_%n comments_" : ["%n のコメント"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "詳細オプション",
     "Create activities" : "アクティビティを作成",
     "Create notifications" : "通知を作成",
-    "Allow comments" : "コメントを許可"
+    "Allow comments" : "コメントを許可",
+    "Error occurred while retrieving comment with id {id}" : "コメントID {id} のコメントを取得する際にエラーが発生"
 },
 "nplurals=1; plural=0;");

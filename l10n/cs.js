@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Více komentářů ...",
     "Save" : "Uložit",
     "Allowed characters {count} of {max}" : "Povolených znaků {count} z {max}",
-    "Error occurred while retrieving comment with id {id}" : "Došlo k chybě při načítání komentáře s id {id}",
     "Error occurred while updating comment with id {id}" : "Došlo k chybě při aktualizování komentáře s id {id}",
     "Error occurred while posting comment" : "Došlo k chybě při zveřejňování komentáře",
     "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvořit aktivity",
     "Create notifications" : "Vytvořit upozornění",
-    "Allow comments" : "Povolit komentáře"
+    "Allow comments" : "Povolit komentáře",
+    "Error occurred while retrieving comment with id {id}" : "Došlo k chybě při načítání komentáře s id {id}"
 },
 "nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;");

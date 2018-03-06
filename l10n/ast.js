@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Más comentarios...",
     "Save" : "Guardar",
     "Allowed characters {count} of {max}" : "Caráuteres permitíos {count} of {max}",
-    "Error occurred while retrieving comment with id {id}" : "Asocedió un fallu entrín se recibía'l comentariu cola ID {id}",
     "Error occurred while updating comment with id {id}" : "Asocedió un fallu entrín s'anovaba'l comentariu cola ID {id}",
     "Error occurred while posting comment" : "Asocedieron fallos entrín s'espublizaba'l comentariu",
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarios"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opciones avanzaes",
     "Create activities" : "Crear actividaes",
     "Create notifications" : "Crear avisos",
-    "Allow comments" : "Permitir comentarios"
+    "Allow comments" : "Permitir comentarios",
+    "Error occurred while retrieving comment with id {id}" : "Asocedió un fallu entrín se recibía'l comentariu cola ID {id}"
 },
 "nplurals=2; plural=(n != 1);");

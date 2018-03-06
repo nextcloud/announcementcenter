@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "更多评论 ...",
     "Save" : "保存",
     "Allowed characters {count} of {max}" : "当前字数： {count}，最大允许：{max}",
-    "Error occurred while retrieving comment with id {id}" : "检索 id 为 {id} 的评论出错",
     "Error occurred while updating comment with id {id}" : "更新 id 为 {id} 的评论出错",
     "Error occurred while posting comment" : "发布评论出错",
     "_%n comment_::_%n comments_" : ["%n 评论"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "高级选项",
     "Create activities" : "创建活动",
     "Create notifications" : "创建提示",
-    "Allow comments" : "允许注释"
+    "Allow comments" : "允许注释",
+    "Error occurred while retrieving comment with id {id}" : "检索 id 为 {id} 的评论出错"
 },
 "nplurals=1; plural=0;");

@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Lisää kommentteja...",
     "Save" : "Tallenna",
     "Allowed characters {count} of {max}" : "Sallittujen merkkien määrä {count}/{max}",
-    "Error occurred while retrieving comment with id {id}" : "Virhe haettaessa kommenttia tunnisteella {id}",
     "Error occurred while updating comment with id {id}" : "Virhe päivittäessä kommenttia tunnisteella {id}",
     "Error occurred while posting comment" : "Virhe kommenttia lähettäessä",
     "_%n comment_::_%n comments_" : ["%n kommentti","%n kommenttia"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Lisäasetukset",
     "Create activities" : "Luo toimet",
     "Create notifications" : "Luo ilmoitukset",
-    "Allow comments" : "Salli kommentit"
+    "Allow comments" : "Salli kommentit",
+    "Error occurred while retrieving comment with id {id}" : "Virhe haettaessa kommenttia tunnisteella {id}"
 },
 "nplurals=2; plural=(n != 1);");

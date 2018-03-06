@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Plus commentarios ...",
     "Save" : "Salveguardar",
     "Allowed characters {count} of {max}" : "{count} characteres permittite de {max}",
-    "Error occurred while retrieving comment with id {id}" : "Un error occurreva durante le recuperation del commentario identificate per {id}",
     "Error occurred while updating comment with id {id}" : "Un error occurreva durante le actualisation del commentario identificate per {id}",
     "Error occurred while posting comment" : "Un error occurreva durante le publication del commentario",
     "_%n comment_::_%n comments_" : ["%n commentario","%n commentarios"],
@@ -49,6 +48,7 @@ OC.L10N.register(
     "Advanced options" : "Optiones avantiate",
     "Create activities" : "Crear activitates",
     "Create notifications" : "Crear notificationes",
-    "Allow comments" : "Permitter commentarios"
+    "Allow comments" : "Permitter commentarios",
+    "Error occurred while retrieving comment with id {id}" : "Un error occurreva durante le recuperation del commentario identificate per {id}"
 },
 "nplurals=2; plural=(n != 1);");

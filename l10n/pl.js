@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Więcej komentarzy...",
     "Save" : "Zapisz",
     "Allowed characters {count} of {max}" : "Dozwolone znaki: {count} z {max}",
-    "Error occurred while retrieving comment with id {id}" : "W trakcie otrzymywania komentarza o identyfikatorze {id} wystąpił błąd",
     "Error occurred while updating comment with id {id}" : "W trakcie aktualizacji komentarza o identyfikatorze {id} wystąpił błąd",
     "Error occurred while posting comment" : "Podczas wysyłania komentarza wystąpił błąd",
     "_%n comment_::_%n comments_" : ["%n komentarz","%n komentarzy","%n komentarzy","%n komentarzy"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opcje zaawansowane",
     "Create activities" : "Utwórz aktywności",
     "Create notifications" : "Utwórz powiadomienia",
-    "Allow comments" : "Zezwól na komentarze"
+    "Allow comments" : "Zezwól na komentarze",
+    "Error occurred while retrieving comment with id {id}" : "W trakcie otrzymywania komentarza o identyfikatorze {id} wystąpił błąd"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");
