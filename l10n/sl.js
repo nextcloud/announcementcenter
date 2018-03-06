@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Več komentarjev ....",
     "Save" : "Shrani",
     "Allowed characters {count} of {max}" : "Dovoljenih znakov {count} od {max}",
-    "Error occurred while retrieving comment with id {id}" : "Napaka pri branju komentarja z IDjem {id}",
     "Error occurred while updating comment with id {id}" : "Napaka pri posodabljanju komentarja z IDjem {id} {id}",
     "Error occurred while posting comment" : "Napaka pri objavi komentarja",
     "_%n comment_::_%n comments_" : ["%n komentar","%n komentarja","%n komentarji","%n komentarjev"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Napredne možnosti",
     "Create activities" : "Ustvari dejavnosti",
     "Create notifications" : "Ustvari obvestila",
-    "Allow comments" : "Dovoli komentarje"
+    "Allow comments" : "Dovoli komentarje",
+    "Error occurred while retrieving comment with id {id}" : "Napaka pri branju komentarja z IDjem {id}"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Περισσότερα σχόλια ...",
     "Save" : "Αποθήκευση",
     "Allowed characters {count} of {max}" : "Επιτρεπόμενοι χαρακτήρες {count} από {max}",
-    "Error occurred while retrieving comment with id {id}" : "Ένα σφάλμα προέκυψε κατά την λήψη σχολίου με αναγνωριστικό {id}",
     "Error occurred while updating comment with id {id}" : "Ένα σφάλμα προέκυψε κατά την ενημέρωση του σχολίου με το αναγνωριστικό {id}",
     "Error occurred while posting comment" : "Ένα σφάλμα παροέκυψε κατά την ανάρτηση σχολίου",
     "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Επιλογές για προχωρημένους",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
-    "Allow comments" : "Να επιτρέπονται σχόλια"
+    "Allow comments" : "Να επιτρέπονται σχόλια",
+    "Error occurred while retrieving comment with id {id}" : "Ένα σφάλμα προέκυψε κατά την λήψη σχολίου με αναγνωριστικό {id}"
 },
 "nplurals=2; plural=(n != 1);");

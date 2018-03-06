@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Diğer yorumlar ...",
     "Save" : "Kaydet",
     "Allowed characters {count} of {max}" : "Yazılabilecek karakter sayısı {count}/{max}",
-    "Error occurred while retrieving comment with id {id}" : "{id} kodlu yorum alınırken sorun çıktı",
     "Error occurred while updating comment with id {id}" : "{id} kodlu yorum güncellenirken sorun çıktı",
     "Error occurred while posting comment" : "Yorum gönderilirken sorun çıktı",
     "_%n comment_::_%n comments_" : ["%n yorum","%n yorum"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Gelişmiş ayarlar",
     "Create activities" : "Etkinlik oluştur",
     "Create notifications" : "Bildirim oluştur",
-    "Allow comments" : "Yorum yapılabilsin"
+    "Allow comments" : "Yorum yapılabilsin",
+    "Error occurred while retrieving comment with id {id}" : "{id} kodlu yorum alınırken sorun çıktı"
 },
 "nplurals=2; plural=(n > 1);");

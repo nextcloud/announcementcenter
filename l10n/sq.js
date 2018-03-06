@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Më shumë komente ...",
     "Save" : "Ruaj",
     "Allowed characters {count} of {max}" : "Karaktere të lejuara {count} e {max}",
-    "Error occurred while retrieving comment with id {id}" : "Ndodhi një gabim gjatë rimarrjes së komentit me id {id}",
     "Error occurred while updating comment with id {id}" : "Ndodhi një gabim gjatë përditësimit së komentit me id {id}",
     "Error occurred while posting comment" : "Ndodhi një gabim gjatë postimit të komentit",
     "_%n comment_::_%n comments_" : ["%n komente","%n komente "],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet"
+    "Allow comments" : "Lejo komentet",
+    "Error occurred while retrieving comment with id {id}" : "Ndodhi një gabim gjatë rimarrjes së komentit me id {id}"
 },
 "nplurals=2; plural=(n != 1);");

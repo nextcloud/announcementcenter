@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Vairāk komentāri...",
     "Save" : "Saglabāt",
     "Allowed characters {count} of {max}" : "Atļautās zīmes {count} no {max}",
-    "Error occurred while retrieving comment with id {id}" : "Notika kļūda saņemot komentāru ar id {id}",
     "Error occurred while updating comment with id {id}" : "Kļūda atjauninot komentāru ar id {id}",
     "Error occurred while posting comment" : "Radās kļūda, ievietojot komentāru",
     "_%n comment_::_%n comments_" : ["%n komentāri","%n komentāri","%n komentāri"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Papildu opcijas",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus"
+    "Allow comments" : "Atļaut komentārus",
+    "Error occurred while retrieving comment with id {id}" : "Notika kļūda saņemot komentāru ar id {id}"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

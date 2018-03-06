@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Mais comentários ...",
     "Save" : "Guardar",
     "Allowed characters {count} of {max}" : "Caracteres permitidos {count} de {max}",
-    "Error occurred while retrieving comment with id {id}" : "Ocorreu um erro ao tentar obter o comentário com o id {id}",
     "Error occurred while updating comment with id {id}" : "Ocorreu um erro ao tentar atualizar o comentário com o id {id}",
     "Error occurred while posting comment" : "Ocorreu um erro ao tentar publicar o comentário",
     "_%n comment_::_%n comments_" : ["%n comentários","%n comentários"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Opções avançadas",
     "Create activities" : "Criar actividades",
     "Create notifications" : "Criar notificações",
-    "Allow comments" : "Permitir comentários"
+    "Allow comments" : "Permitir comentários",
+    "Error occurred while retrieving comment with id {id}" : "Ocorreu um erro ao tentar obter o comentário com o id {id}"
 },
 "nplurals=2; plural=(n != 1);");

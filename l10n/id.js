@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Komentar lainnya ...",
     "Save" : "Simpan",
     "Allowed characters {count} of {max}" : "Karakter yang diizinkan {count} dari {max}",
-    "Error occurred while retrieving comment with id {id}" : "Terjadi kesalahan saat mendapatkan komentar dengan id {id}",
     "Error occurred while updating comment with id {id}" : "Terjadi kesalahan saat memperbarui komentar dengan id {id}",
     "Error occurred while posting comment" : "Terjadi kesalahan saat memosting komentar",
     "_%n comment_::_%n comments_" : ["%n komentar"],
@@ -49,6 +48,7 @@ OC.L10N.register(
     "Advanced options" : "Opsi lanjutan",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "izinkan komentar"
+    "Allow comments" : "izinkan komentar",
+    "Error occurred while retrieving comment with id {id}" : "Terjadi kesalahan saat mendapatkan komentar dengan id {id}"
 },
 "nplurals=1; plural=0;");

@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Több hozzászólás...",
     "Save" : "Mentés",
     "Allowed characters {count} of {max}" : "Engedélyezett karakterek: {count} / {max}",
-    "Error occurred while retrieving comment with id {id}" : "Hiba a következő azonosítójú hozzászólás letöltése közben: {id}",
     "Error occurred while updating comment with id {id}" : "Hiba a következő azonosítójú hozzászólás frissítése közben: {id}",
     "Error occurred while posting comment" : "Hiba történt a hozzászólás küldése közben",
     "_%n comment_::_%n comments_" : ["%n hozzászólás","%n hozzászólás"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Haladó beállítások",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
-    "Allow comments" : "Hozzászólások engedélyezése"
+    "Allow comments" : "Hozzászólások engedélyezése",
+    "Error occurred while retrieving comment with id {id}" : "Hiba a következő azonosítójú hozzászólás letöltése közben: {id}"
 },
 "nplurals=2; plural=(n != 1);");

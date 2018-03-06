@@ -10,7 +10,6 @@
     "More comments …" : "Daugiau komentarų…",
     "Save" : "Įrašyti",
     "Allowed characters {count} of {max}" : "Simbolis {count} iš {max}",
-    "Error occurred while retrieving comment with id {id}" : "Klaida parodant komentarą ({id})",
     "Error occurred while updating comment with id {id}" : "Klaida taisant komentarą ({id})",
     "Error occurred while posting comment" : "Klaida kuriant komentarą",
     "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų"],
@@ -48,6 +47,7 @@
     "Advanced options" : "Išplėstinės parinktys",
     "Create activities" : "Sukurti veiklas",
     "Create notifications" : "Sukurti pranešimus",
-    "Allow comments" : "Leisti komentuoti"
+    "Allow comments" : "Leisti komentuoti",
+    "Error occurred while retrieving comment with id {id}" : "Klaida parodant komentarą ({id})"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);"
 }

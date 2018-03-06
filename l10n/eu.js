@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Iruzkin gehiago...",
     "Save" : "Gorde",
     "Allowed characters {count} of {max}" : "Allowed characters {count} of {max}",
-    "Error occurred while retrieving comment with id {id}" : "Akats bat gertatu da {id} id duen iruzkina berreskuratzerakoan",
     "Error occurred while updating comment with id {id}" : "Akats bat gertatu da {id} id duen iruzkina aldatzerakoan",
     "Error occurred while posting comment" : "Akats bat gertatu da iruzkina bidaltzerakoan",
     "_%n comment_::_%n comments_" : ["iruzkin %n","%n iruzkin"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Ezarpen aurreratuak",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
-    "Allow comments" : "Baimendu iruzkinak"
+    "Allow comments" : "Baimendu iruzkinak",
+    "Error occurred while retrieving comment with id {id}" : "Akats bat gertatu da {id} id duen iruzkina berreskuratzerakoan"
 },
 "nplurals=2; plural=(n != 1);");

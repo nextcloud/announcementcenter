@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Xem tiếp các bình luận ...",
     "Save" : "Lưu",
     "Allowed characters {count} of {max}" : "Cho phép {count} ký tự trong {max}",
-    "Error occurred while retrieving comment with id {id}" : "Xảy ra lỗi trong khi truy xuất bình luận của id {id}",
     "Error occurred while updating comment with id {id}" : "Xảy ra lỗi khi cập nhật bình luận của id {id}",
     "Error occurred while posting comment" : "Xảy ra lỗi khi đăng bình luận",
     "_%n comment_::_%n comments_" : ["%n bình luận"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Tùy chọn nâng cao",
     "Create activities" : "Tạo hoạt động",
     "Create notifications" : "Tạo thông báo",
-    "Allow comments" : "Cho phép bình luận"
+    "Allow comments" : "Cho phép bình luận",
+    "Error occurred while retrieving comment with id {id}" : "Xảy ra lỗi trong khi truy xuất bình luận của id {id}"
 },
 "nplurals=1; plural=0;");

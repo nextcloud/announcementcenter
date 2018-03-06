@@ -12,7 +12,6 @@ OC.L10N.register(
     "More comments …" : "Още коментари...",
     "Save" : "Запази",
     "Allowed characters {count} of {max}" : "Позволени символи {count} от {max}",
-    "Error occurred while retrieving comment with id {id}" : "Възникна грешка по време на извличане на коментар с код {id}",
     "Error occurred while updating comment with id {id}" : "Възникна грешка по време на обновяване на коментар с код {id}",
     "Error occurred while posting comment" : "Възникна грешка по време на изпращане на коментар",
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара"],
@@ -50,6 +49,7 @@ OC.L10N.register(
     "Advanced options" : "Други опции",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
-    "Allow comments" : "Позволи коментари"
+    "Allow comments" : "Позволи коментари",
+    "Error occurred while retrieving comment with id {id}" : "Възникна грешка по време на извличане на коментар с код {id}"
 },
 "nplurals=2; plural=(n != 1);");
