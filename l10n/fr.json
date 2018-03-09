@@ -10,6 +10,7 @@
     "More comments …" : "Plus de commentaires ...",
     "Save" : "Enregistrer",
     "Allowed characters {count} of {max}" : "Caractères autorisés {count} sur {max}",
+    "Error occurred while retrieving comment with ID {id}" : "Une erreur est survenue lors de la récupération du commentaire avec l'ID {id}",
     "Error occurred while updating comment with id {id}" : "Une erreur est survenue lors de la mise à jour du commentaire avec l'id {id}",
     "Error occurred while posting comment" : "Une erreur est survenue lors de l'envoi du commentaire",
     "_%n comment_::_%n comments_" : ["%n commentaire","%n commentaires"],
