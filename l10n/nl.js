@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Meer reacties ...",
     "Save" : "Bewaren",
     "Allowed characters {count} of {max}" : "{count} van de {max} toegestane tekens",
+    "Error occurred while retrieving comment with ID {id}" : "Er trad een fout op bij het ophalen van reactie met ID {id}",
     "Error occurred while updating comment with id {id}" : "Er trad een fout op bij het bijwerken van reactie met id {id}",
     "Error occurred while posting comment" : "Er trad een fout op bij plaatsen reactie",
     "_%n comment_::_%n comments_" : ["%n reactie","%n reacties"],
