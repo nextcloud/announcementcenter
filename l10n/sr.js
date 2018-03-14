@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Још коментара …",
     "Save" : "Сачувај",
     "Allowed characters {count} of {max}" : "{count} од {max} дозвољених карактера",
+    "Error occurred while retrieving comment with ID {id}" : "Дошло је до грешке при прегледу коментара са идентификацијом {id}",
     "Error occurred while updating comment with id {id}" : "Грешка при ажурирању коментара {id}",
     "Error occurred while posting comment" : "Грешка приликом постављања коментара",
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара","%n коментара"],
