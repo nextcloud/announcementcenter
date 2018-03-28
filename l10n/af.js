@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Nog kommentare …",
     "Save" : "Bewaar",
     "Allowed characters {count} of {max}" : "Toegelate karakters {count} van {maks}",
+    "Error occurred while retrieving comment with ID {id}" : "’n Fout het voorgekom toe kommentaar met id {id} opgehaal is",
     "Error occurred while updating comment with id {id}" : "’n Fout het voorgekom toe kommentaar met id {id} bygewerk is",
     "Error occurred while posting comment" : "’n Fout het voorgekom toe kommentaar geplaas is",
     "_%n comment_::_%n comments_" : ["%n kommentaar","%n kommentare"],
