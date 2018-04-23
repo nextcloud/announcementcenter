@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Ďalšie komentáre ...",
     "Save" : "Uložiť",
     "Allowed characters {count} of {max}" : "Počet povolených znakov {count} z {max}",
+    "Error occurred while retrieving comment with ID {id}" : "Pri načítavaní komentára s ID {id} nastala chyba",
     "Error occurred while updating comment with id {id}" : "Pri aktualizovaní komentára s ID {id} nastala chyba",
     "Error occurred while posting comment" : "Pri odosielaní komentára nastala chyba",
     "_%n comment_::_%n comments_" : ["%n komentár","%n komentáre","%n komentárov"],
