@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "New comment …" : "Nou comentari...",
     "Delete comment" : "Esborra comentari",
-    "Post" : "Post",
+    "Post" : "Publica",
     "Cancel" : "Cancel·la",
     "Edit comment" : "Edita el comentari",
     "[Deleted user]" : "[Usuari eliminat]",
