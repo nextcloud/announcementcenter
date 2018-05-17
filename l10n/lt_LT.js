@@ -14,7 +14,7 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "Simbolis {count} iš {max}",
     "Error occurred while updating comment with id {id}" : "Klaida taisant komentarą ({id})",
     "Error occurred while posting comment" : "Klaida kuriant komentarą",
-    "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų"],
+    "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų","%n komentarų"],
     "Delete" : "Ištrinti",
     "Remove notifications" : "Šalinti pranešimus",
     "Announcing…" : "Skelbiama…",
@@ -52,4 +52,4 @@ OC.L10N.register(
     "Allow comments" : "Leisti komentuoti",
     "Error occurred while retrieving comment with id {id}" : "Klaida parodant komentarą ({id})"
 },
-"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);");
+"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 1 : (n%10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 3 : n % 1 != 0 ? 4);");
