@@ -13,7 +13,7 @@
     "Error occurred while retrieving comment with ID {id}" : "Pri načítavaní komentára s ID {id} nastala chyba",
     "Error occurred while updating comment with id {id}" : "Pri aktualizovaní komentára s ID {id} nastala chyba",
     "Error occurred while posting comment" : "Pri odosielaní komentára nastala chyba",
-    "_%n comment_::_%n comments_" : ["%n komentár","%n komentáre","%n komentárov"],
+    "_%n comment_::_%n comments_" : ["%n komentár","%n komentáre","%n komentárov","%n komentárov"],
     "Delete" : "Zmazať",
     "Remove notifications" : "Odstrániť hlásenia",
     "Announcing…" : "Oznamuje sa...",
@@ -50,5 +50,5 @@
     "Create notifications" : "Vytvoriť hlásenia",
     "Allow comments" : "Povoliť komentáre",
     "Error occurred while retrieving comment with id {id}" : "Pri načítavaní komentára s ID {id} nastala chyba"
-},"pluralForm" :"nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;"
+},"pluralForm" :"nplurals=4; plural=(n % 1 == 0 ? 4: n==1 ? 1: n % 1 == 0 && n>=2 && n<=4 ? 3);"
 }

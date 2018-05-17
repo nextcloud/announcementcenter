@@ -14,7 +14,7 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "დაშვებული ნიშნები {count} სულ {max}-იდან",
     "Error occurred while updating comment with id {id}" : "კომენტარის id-იდ {id}-ის ცვლილებისას წარმოიშვა შეცდომა",
     "Error occurred while posting comment" : "კომენტარის გამოქვეყნებისას წარმოიშვა შეცდომა",
-    "_%n comment_::_%n comments_" : ["%n კომენტარი"],
+    "_%n comment_::_%n comments_" : ["%n კომენტარი","%n კომენტარი"],
     "Delete" : "გაუქმება",
     "Remove notifications" : "შეტყობინებების წაშლა",
     "Announcing…" : "ცხადდება...",
@@ -52,4 +52,4 @@ OC.L10N.register(
     "Allow comments" : "კომენტარების დაშვება",
     "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა"
 },
-"nplurals=1; plural=0;");
+"nplurals=2; plural=(n==1);");
