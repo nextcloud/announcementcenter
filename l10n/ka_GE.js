@@ -52,4 +52,4 @@ OC.L10N.register(
     "Allow comments" : "კომენტარების დაშვება",
     "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა"
 },
-"nplurals=2; plural=(n==1);");
+"nplurals=2; plural=(n!=1);");
