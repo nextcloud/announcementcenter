@@ -49,5 +49,5 @@
     "Create notifications" : "შეტყობინებების შექმნა",
     "Allow comments" : "კომენტარების დაშვება",
     "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა"
-},"pluralForm" :"nplurals=2; plural=(n==1);"
+},"pluralForm" :"nplurals=2; plural=(n!=1);"
 }
