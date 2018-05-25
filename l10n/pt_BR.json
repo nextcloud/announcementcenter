@@ -33,6 +33,8 @@
     "{user} announced “{announcement}”" : "{user} anunciado \"{announcement}\"",
     "%1$s announced “%2$s”" : "%1$s anunciou “%2$s”",
     "Announcement center" : "Central de notificações",
+    "This app allows admins to post announcements." : "Este aplicativo permite aos administradores publicarem anúncios.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Este aplicativo permite aos administradores publicarem anúncios. Também suporta os seguintes recursos:\n\n⚡ Atividades (requer ativação do aplicativo de atividade)\n\n📑 Comentários\n\n👪 Permissões de grupo\n\n🔔 Notificações (requer ativação do aplicativo de notificações)",
     "These groups will be able to post announcements." : "Estes grupos poderão postar notificações.",
     "Create activities by default" : "Criar atividades por padrão",
     "Create notifications by default" : "Criar notificações por padrão",
