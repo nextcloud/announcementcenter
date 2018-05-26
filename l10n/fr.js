@@ -35,6 +35,8 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} annonce \"{announcement}\"",
     "%1$s announced “%2$s”" : "%1$s a annoncé \"%2$s\"",
     "Announcement center" : "Centre d'annonce",
+    "This app allows admins to post announcements." : "Cette application permet aux administrateurs de poster des annonces.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Cette application permet aux administrateurs de poster des annonces. Elle permet aussi les fonctionnalités suivantes :\n⚡ Activités (Nécessite que l'application d'activités soit activée)\n\n📑 Commentaires\n\n👪 Permissions de groupe\n\n🔔 Notifications (Nécessite que l'application de notifications soit activée)",
     "These groups will be able to post announcements." : "Ces groupes vont être autorisés à poster des annonces.",
     "Create activities by default" : "Créer des activités par défaut",
     "Create notifications by default" : "Créer des notifications par défaut",
