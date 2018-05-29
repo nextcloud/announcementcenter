@@ -35,6 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",
     "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt",
     "Announcement center" : "Benachrichtigungs-Zentrum",
+    "This app allows admins to post announcements." : "Mit dieser App können Administratoren Benachrichtigungen senden",
     "These groups will be able to post announcements." : "Diese Gruppen können Ankündigungen veröffentlichen.",
     "Create activities by default" : "Aktivitäten standardmäßig erstellen",
     "Create notifications by default" : "Benachrichtigungen standardmäßig erstellen",
