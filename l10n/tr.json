@@ -33,6 +33,8 @@
     "{user} announced “{announcement}”" : "{user}, “{announcement}” duyurusunu yaptı",
     "%1$s announced “%2$s”" : "%1$s, \"%2$s\" duyurusunu yaptı",
     "Announcement center" : "Duyuru merkezi",
+    "This app allows admins to post announcements." : "Bu uygulama yöneticilerin duyurular yapabilmesini sağlar.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Bu uygulama yöneticilerin duyurular yapabilmesini sağlar ve şu özellikleri vardır:\n\n⚡ Etkinlikler (Etkinlikler uygulamasının etkinleştirilmiş olması gerekir)\n\n📑 Notlar\n\n👪 Grup izinleri\n\n🔔 Bildirimler (Bildirimler uygulamasının etkinleştirilmiş olması gerekir)",
     "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
     "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
