@@ -44,7 +44,7 @@ OC.L10N.register(
     "Add announcement" : "Legg til kunngjøring",
     "Subject…" : "Emne…",
     "Your announcement…" : "Kunngjøringen din…",
-    "Groups…" : "Grupper…",
+    "Groups…" : "Grupper …",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse gruppene vil kunne se kunngjøringen, hvis ingen grupper er valgt vil alle brukerne kunne se den.",
     "Announce" : "Kunngjør",
     "Advanced options" : "Avanserte alternativer",
