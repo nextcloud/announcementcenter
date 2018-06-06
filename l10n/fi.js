@@ -35,6 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} tiedotti \"{announcement}\"",
     "%1$s announced “%2$s”" : "%1$s tiedotti “%2$s”",
     "Announcement center" : "Tiedotekeskus",
+    "This app allows admins to post announcements." : "Tämä sovellus mahdollistaa ylläpitäjien lähettää ilmoituksia.",
     "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
     "Create activities by default" : "Luo toimet oletuksena",
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
