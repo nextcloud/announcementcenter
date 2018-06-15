@@ -45,7 +45,7 @@ OC.L10N.register(
     "Subject…" : "件名...",
     "Your announcement…" : "あなたのアナウンス...",
     "Groups…" : "グループ...",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "これらのグループがこのアナウンスメントを見る事が可能です。グループが選ばれていない場合は全てのユーザから見ることが可能になります。",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "これらのグループがお知らせを見ることができます。グループが選択されていない場合は、すべてのユーザーが見ることができます。",
     "Announce" : "アナウンス",
     "Advanced options" : "詳細オプション",
     "Create activities" : "アクティビティを作成",
