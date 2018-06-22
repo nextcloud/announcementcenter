@@ -10,6 +10,7 @@
     "More comments …" : "Več komentarjev ....",
     "Save" : "Shrani",
     "Allowed characters {count} of {max}" : "Dovoljenih znakov {count} od {max}",
+    "Error occurred while retrieving comment with ID {id}" : "Prišlo je do napake med pridobivanjem opombe z ID {id}",
     "Error occurred while updating comment with id {id}" : "Napaka pri posodabljanju komentarja z IDjem {id} {id}",
     "Error occurred while posting comment" : "Napaka pri objavi komentarja",
     "_%n comment_::_%n comments_" : ["%n komentar","%n komentarja","%n komentarji","%n komentarjev"],
