@@ -36,6 +36,7 @@ OC.L10N.register(
     "%1$s announced “%2$s”" : "%1$s הכריזו “%2$s”",
     "Announcement center" : "מרכז ההכרזות",
     "This app allows admins to post announcements." : "יישומון זה מאפשר למנהלים לפרסם הכרזות.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "יישומון זה מאפשר למנהלים לפרסם הכרזות. לרבות תמיכה בתכונות הבאות:\n\n⚡ פעילויות (נדרשת הפעלה של יישומון הפעילות)\n\n📑 תגובות\n\n👪 הרשאות קבוצתיות\n\n🔔 התראות (יש להפעיל את יישומון ההתראות)",
     "These groups will be able to post announcements." : "קבוצות אלו יוכלו לפרסם הכרזות",
     "Create activities by default" : "יצירת פעילויות כבררת מחדל",
     "Create notifications by default" : "יצירת התרעות כבררת מחדל",
