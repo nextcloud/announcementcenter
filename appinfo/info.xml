@@ -61,4 +61,8 @@
 			<order>10</order>
 		</navigation>
 	</navigations>
+
+	<dashboard>
+		<widget>OCA\AnnouncementCenter\Widgets\AnnouncementWidget</widget>
+	</dashboard>
 </info>
