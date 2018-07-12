@@ -24,6 +24,7 @@
 namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Widgets\Service\DashboardService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
@@ -67,6 +68,8 @@ class PageController extends Controller {
 	/** @var IUserSession */
 	protected $userSession;
 
+	/** @var DashboardService */
+	protected $dashboardService;
 	/**
 	 * @param string $AppName
 	 * @param IRequest $request
@@ -78,6 +81,7 @@ class PageController extends Controller {
 	 * @param Manager $manager
 	 * @param IConfig $config
 	 * @param IUserSession $userSession
+	 * @param DashboardService $dashboardService
 	 */
 	public function __construct($AppName,
 								IRequest $request,
@@ -88,7 +92,8 @@ class PageController extends Controller {
 								IL10N $l,
 								Manager $manager,
 								IConfig $config,
-								IUserSession $userSession) {
+								IUserSession $userSession,
+								DashboardService $dashboardService) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
@@ -99,6 +104,7 @@ class PageController extends Controller {
 		$this->manager = $manager;
 		$this->config = $config;
 		$this->userSession = $userSession;
+		$this->dashboardService = $dashboardService;
 	}
 
 	/**
@@ -168,6 +174,8 @@ class PageController extends Controller {
 		$announcement['notifications'] = $notifications;
 		$announcement['author_id'] = $announcement['author'];
 		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
+
+		$this->dashboardService->dispatchDashboardEvent($announcement);
 
 		return new JSONResponse($announcement);
 	}
