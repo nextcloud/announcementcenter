@@ -89,8 +89,12 @@
 			},
 
 
-			push: function (result) {
-				console.log('push ' + JSON.stringify(result));
+			push: function (payload) {
+				if (payload.announcement === undefined) {
+					return;
+				}
+
+				announcement.getLastAnnouncement();
 			}
 		};
 
