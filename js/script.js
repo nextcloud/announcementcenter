@@ -36,7 +36,7 @@
 							'{{#if visibilityEveryone}}' +
 								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
 							'{{else}}' +
-								'<img src="' + OC.imagePath('core', 'places/contacts-dark') + '">' +
+								'<img src="' + OC.imagePath('core', 'places/contacts') + '">' +
 							'{{/if}}' +
 						'</span>' +
 					'{{/if}}' +
