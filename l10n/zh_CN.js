@@ -35,6 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user}公告了“{announcement}”",
     "%1$s announced “%2$s”" : "%1$s 已发布 “%2$s”",
     "Announcement center" : "通知中心",
+    "This app allows admins to post announcements." : "此应用允许管理员发布公告",
     "These groups will be able to post announcements." : "这些组可以发布公告",
     "Create activities by default" : " 默认创建活动",
     "Create notifications by default" : "默认创建提示",
