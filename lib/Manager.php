@@ -247,10 +247,10 @@ class Manager {
 	 */
 	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
 		$query = $this->connection->getQueryBuilder();
-		$query->select('a.*')
+		$query->select('a.announcement_id', 'a.announcement_time', 'a.announcement_user', 'a.announcement_subject', 'a.announcement_message', 'a.allow_comments')
 			->from('announcements', 'a')
 			->orderBy('a.announcement_time', 'DESC')
-			->groupBy('a.announcement_id')
+			->groupBy('a.announcement_id', 'a.announcement_time', 'a.announcement_user', 'a.announcement_subject', 'a.announcement_message', 'a.allow_comments')
 			->setMaxResults($limit);
 
 		$user = $this->userSession->getUser();
