@@ -32,21 +32,21 @@
 	margin-top: 50px !important;
 }
 
-.announcementcenter .visibility img,
-.announcementcenter .delete-link img,
-.announcementcenter .mute-link img {
+#app-content .visibility img,
+#app-content .delete-link img,
+#app-content .mute-link img {
 	width: 16px;
 	vertical-align: middle;
 	padding-bottom: 3px;
 }
 
-.announcementcenter .delete-link,
-.announcementcenter .mute-link {
+#app-content .delete-link,
+#app-content .mute-link {
 	display: none;
 }
 
-.announcementcenter .section:hover .delete-link,
-.announcementcenter .section:hover .mute-link {
+#app-content .section:hover .delete-link,
+#app-content .section:hover .mute-link {
 	display: inline;
 }
 
@@ -67,13 +67,13 @@
 	color: #878787;
 }
 
-.announcementcenter .avatar {
+#app-content .avatar {
 	vertical-align: middle;
 	display: inline-block;
 	margin: 0 5px 2px 3px;
 }
 
-.announcementcenter .avatar-name-wrapper {
+#app-content .avatar-name-wrapper {
 	position: relative;
 	cursor: pointer;
 	display: inline-block;
