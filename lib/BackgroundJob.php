@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -56,14 +57,6 @@ class BackgroundJob extends QueuedJob {
 	/** @var array */
 	protected $notifiedUsers = [];
 
-	/**
-	 * @param IUserManager $userManager
-	 * @param IGroupManager $groupManager
-	 * @param IManager $activityManager
-	 * @param INotificationManager $notificationManager
-	 * @param IURLGenerator $urlGenerator
-	 * @param Manager $manager
-	 */
 	public function __construct(
 		IUserManager $userManager,
 		IGroupManager $groupManager,
@@ -101,7 +94,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param string[] $groups
 	 * @param array $publicity
 	 */
-	protected function createPublicity($id, $authorId, $timeStamp, array $groups, array $publicity) {
+	protected function createPublicity(int $id, string $authorId, int $timeStamp, array $groups, array $publicity) {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
@@ -128,7 +121,7 @@ class BackgroundJob extends QueuedJob {
 			$notification->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 		}
 
-		if (in_array('everyone', $groups)) {
+		if (\in_array('everyone', $groups, true)) {
 			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
 		} else {
 			$this->createPublicityGroups($authorId, $event, $notification, $groups, $publicity);
@@ -141,7 +134,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param INotification $notification
 	 * @param array $publicity
 	 */
-	protected function createPublicityEveryone($authorId, IEvent $event, INotification $notification, array $publicity) {
+	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, array $publicity) {
 		$this->userManager->callForSeenUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
 			if (!empty($publicity['activities'])) {
 				$event->setAffectedUser($user->getUID());
@@ -181,7 +174,7 @@ class BackgroundJob extends QueuedJob {
 					$this->activityManager->publish($event);
 				}
 
-				if (!empty($publicity['notifications']) && $authorId !== $uid) {
+				if ($authorId !== $uid && !empty($publicity['notifications'])) {
 					$notification->setUser($uid);
 					$this->notificationManager->notify($notification);
 				}

@@ -231,6 +231,10 @@ class ManagerTest extends TestCase {
 		}
 		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
 
+		$this->commentsManager->expects($this->any())
+			->method('getNumberOfCommentsForObject')
+			->willReturn(0);
+
 		if ($canAccessBoth) {
 			if (is_array($groups) && in_array('admin', $groups, true)) {
 				$this->assertHasNotification(2);

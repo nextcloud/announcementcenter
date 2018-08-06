@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
@@ -32,9 +33,6 @@ class Admin implements ISettings {
 	/** @var IConfig */
 	protected $config;
 
-	/**
-	 * @param IConfig $config
-	 */
 	public function __construct(IConfig $config) {
 		$this->config = $config;
 	}
@@ -42,7 +40,7 @@ class Admin implements ISettings {
 	/**
 	 * @return TemplateResponse
 	 */
-	public function getForm() {
+	public function getForm(): TemplateResponse {
 		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
 		$adminGroups = implode('|', json_decode($adminGroups, true));
 		return new TemplateResponse('announcementcenter', 'admin', [
@@ -56,7 +54,7 @@ class Admin implements ISettings {
 	/**
 	 * @return string the section ID, e.g. 'sharing'
 	 */
-	public function getSection() {
+	public function getSection(): string {
 		return 'additional';
 	}
 
@@ -67,7 +65,7 @@ class Admin implements ISettings {
 	 *
 	 * E.g.: 70
 	 */
-	public function getPriority() {
+	public function getPriority(): int {
 		return 55;
 	}
 
