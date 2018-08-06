@@ -247,7 +247,7 @@ class Manager {
 	 */
 	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
 		$query = $this->connection->getQueryBuilder();
-		$query->select('a.*')
+		$query->select('a.announcement_id')
 			->from('announcements', 'a')
 			->orderBy('a.announcement_time', 'DESC')
 			->groupBy('a.announcement_id')
@@ -273,6 +273,22 @@ class Manager {
 			$query->andWhere($query->expr()->lt('a.announcement_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
 		}
 
+		$ids = [];
+		$result = $query->execute();
+		while ($row = $result->fetch()) {
+			$ids[] = (int) $row['announcement_id'];
+		}
+		$result->closeCursor();
+
+		if (empty($ids)) {
+			return [];
+		}
+
+		$query = $this->connection->getQueryBuilder();
+		$query->select('*')
+			->from('announcements')
+			->orderBy('announcement_time', 'DESC')
+			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 		$result = $query->execute();
 
 		$announcements = [];
