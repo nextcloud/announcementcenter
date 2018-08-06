@@ -64,7 +64,7 @@
 			'<hr />',
 
 		init: function() {
-			this.$container = $('#app-content-wrapper');
+			this.$container = $('#app-content');
 			this.$content = $('#app-content');
 			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
 
@@ -75,7 +75,7 @@
 			this.$content.on('scroll', _.bind(this.onScroll, this));
 
 			this.ignoreScroll = 1;
-			this.isAdmin = $('#app.announcementcenter').attr('data-is-admin') === '1';
+			this.isAdmin = $('#app-content').attr('data-is-admin') === '1';
 
 			OC.Util.History.addOnPopStateHandler(_.bind(this._onPopState, this));
 			var urlParams = OC.Util.History.parseUrlQuery();
@@ -148,7 +148,7 @@
 				setTimeout(function() {
 					$announcement.remove();
 
-					if ($('#app-content-wrapper .section').length == 1) {
+					if ($('#app-content .section').length == 1) {
 						$('#emptycontent').removeClass('hidden');
 					}
 				}, 750);
@@ -191,7 +191,7 @@
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
-				$('#app-content-wrapper .section:eq(0)').after($html);
+				$('#app-content .section:eq(0)').after($html);
 				$html.hide();
 				setTimeout(function() {
 					$html.slideDown();
@@ -220,7 +220,7 @@
 					_.each(response, function (announcement) {
 						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
-						$('#app-content-wrapper').append($html);
+						$('#app-content').append($html);
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
