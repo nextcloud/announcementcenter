@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
@@ -50,13 +51,6 @@ class Provider implements IProvider {
 	/** @var string[] */
 	protected $displayNames = [];
 
-	/**
-	 * @param IFactory $languageFactory
-	 * @param IURLGenerator $url
-	 * @param IManager $activityManager
-	 * @param IUserManager $userManager
-	 * @param Manager $manager
-	 */
 	public function __construct(IFactory $languageFactory, IURLGenerator $url, IManager $activityManager, IUserManager $userManager, Manager $manager) {
 		$this->languageFactory = $languageFactory;
 		$this->url = $url;
@@ -73,12 +67,12 @@ class Provider implements IProvider {
 	 * @throws \InvalidArgumentException
 	 * @since 11.0.0
 	 */
-	public function parse($language, IEvent $event, IEvent $previousEvent = null) {
+	public function parse($language, IEvent $event, IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
 			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
 		) {
-			throw new \InvalidArgumentException();
+			throw new \InvalidArgumentException('Unknown subject');
 		}
 
 		$l = $this->languageFactory->get('announcementcenter', $language);
@@ -118,12 +112,7 @@ class Provider implements IProvider {
 		return $event;
 	}
 
-	/**
-	 * @param IEvent $event
-	 * @param array $announcement
-	 * @return array
-	 */
-	protected function getParameters(IEvent $event, array $announcement) {
+	protected function getParameters(IEvent $event, array $announcement): array {
 		$parameters = $event->getSubjectParameters();
 
 		if (!empty($announcement)) {
@@ -131,19 +120,14 @@ class Provider implements IProvider {
 				'actor' => $this->generateUserParameter($parameters[0]),
 				'announcement' => $this->generateAnnouncementParameter($announcement),
 			];
-		} else {
-			return [
-				'actor' => $this->generateUserParameter($parameters[0]),
-			];
 		}
+
+		return [
+			'actor' => $this->generateUserParameter($parameters[0]),
+		];
 	}
 
-	/**
-	 * @param IEvent $event
-	 * @param string $subject
-	 * @param array $parameters
-	 */
-	protected function setSubjects(IEvent $event, $subject, array $parameters) {
+	protected function setSubjects(IEvent $event, string $subject, array $parameters) {
 		$placeholders = $replacements = [];
 		foreach ($parameters as $placeholder => $parameter) {
 			$placeholders[] = '{' . $placeholder . '}';
@@ -154,11 +138,7 @@ class Provider implements IProvider {
 			->setRichSubject($subject, $parameters);
 	}
 
-	/**
-	 * @param array $announcement
-	 * @return array
-	 */
-	protected function generateAnnouncementParameter(array $announcement) {
+	protected function generateAnnouncementParameter(array $announcement): array {
 		return [
 			'type' => 'announcement',
 			'id' => $announcement['id'],
@@ -169,11 +149,7 @@ class Provider implements IProvider {
 		];
 	}
 
-	/**
-	 * @param string $uid
-	 * @return array
-	 */
-	protected function generateUserParameter($uid) {
+	protected function generateUserParameter(string $uid): array {
 		if (!isset($this->displayNames[$uid])) {
 			$this->displayNames[$uid] = $this->getDisplayName($uid);
 		}
@@ -185,16 +161,11 @@ class Provider implements IProvider {
 		];
 	}
 
-	/**
-	 * @param string $uid
-	 * @return string
-	 */
-	protected function getDisplayName($uid) {
+	protected function getDisplayName(string $uid): string {
 		$user = $this->userManager->get($uid);
 		if ($user instanceof IUser) {
 			return $user->getDisplayName();
-		} else {
-			return $uid;
 		}
+		return $uid;
 	}
 }

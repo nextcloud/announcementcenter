@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -46,12 +47,6 @@ class Notifier implements INotifier {
 	/** @var IURLGenerator */
 	protected $urlGenerator;
 
-	/**
-	 * @param Manager $manager
-	 * @param IFactory $l10nFactory
-	 * @param IUserManager $userManager
-	 * @param IURLGenerator $urlGenerator
-	 */
 	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager, IURLGenerator $urlGenerator) {
 		$this->manager = $manager;
 		$this->l10nFactory = $l10nFactory;
@@ -65,57 +60,55 @@ class Notifier implements INotifier {
 	 * @return INotification
 	 * @throws \InvalidArgumentException When the notification was not prepared by a notifier
 	 */
-	public function prepare(INotification $notification, $languageCode) {
+	public function prepare(INotification $notification, $languageCode): INotification {
 		if ($notification->getApp() !== 'announcementcenter') {
 			// Not my app => throw
-			throw new \InvalidArgumentException();
+			throw new \InvalidArgumentException('Unknown app');
 		}
 
 		// Read the language from the notification
 		$l = $this->l10nFactory->get('announcementcenter', $languageCode);
 
-		switch ($notification->getSubject()) {
-			// Deal with known subjects
-			case 'announced':
-				$params = $notification->getSubjectParameters();
-				$user = $this->userManager->get($params[0]);
-				if ($user instanceof IUser) {
-					$displayName = $user->getDisplayName();
-				} else {
-					$displayName = $params[0];
-				}
-
-				$announcement = $this->manager->getAnnouncement((int) $notification->getObjectId(), false, false, false);
-				$subject = str_replace("\n", ' ', $announcement['subject']);
-				$parsedParameters = [$displayName, $subject];
-
-				$notification->setParsedMessage($announcement['message'])
-					->setRichSubject(
-						$l->t('{user} announced “{announcement}”'),
-						[
-							'user' => [
-								'type' => 'user',
-								'id' => $params[0],
-								'name' => $displayName,
-							],
-							'announcement' => [
-								'type' => 'announcement',
-								'id' => $notification->getObjectId(),
-								'name' => $subject,
-								'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
-										'announcement' => $notification->getObjectId(),
-									]),
-							],
-						]
-					)
-					->setParsedSubject(
-						(string) $l->t('%1$s announced “%2$s”', $parsedParameters)
-					);
-				return $notification;
-
-			default:
-				// Unknown subject => Unknown notification => throw
-				throw new \InvalidArgumentException();
+		$i = $notification->getSubject();
+		if ($i !== 'announced') {
+			// Unknown subject => Unknown notification => throw
+			throw new \InvalidArgumentException('Unknown subject');
 		}
+
+		$params = $notification->getSubjectParameters();
+		$user = $this->userManager->get($params[0]);
+		if ($user instanceof IUser) {
+			$displayName = $user->getDisplayName();
+		} else {
+			$displayName = $params[0];
+		}
+
+		$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId(), false, false, false);
+		$subject = str_replace("\n", ' ', $announcement['subject']);
+		$parsedParameters = [$displayName, $subject];
+
+		$notification->setParsedMessage($announcement['message'])
+			->setRichSubject(
+				$l->t('{user} announced “{announcement}”'),
+				[
+					'user' => [
+						'type' => 'user',
+						'id' => $params[0],
+						'name' => $displayName,
+					],
+					'announcement' => [
+						'type' => 'announcement',
+						'id' => $notification->getObjectId(),
+						'name' => $subject,
+						'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
+							'announcement' => $notification->getObjectId(),
+						]),
+					],
+				]
+			)
+			->setParsedSubject(
+				(string)$l->t('%1$s announced “%2$s”', $parsedParameters)
+			);
+		return $notification;
 	}
 }

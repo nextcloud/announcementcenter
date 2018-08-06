@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
@@ -34,9 +35,6 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	/** @var IDBConnection */
 	protected $connection;
 
-	/**
-	 * @param IDBConnection $connection
-	 */
 	public function __construct(IDBConnection $connection) {
 		$this->connection = $connection;
 	}
@@ -47,7 +45,7 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	 * @return string
 	 * @since 9.1.0
 	 */
-	public function getName() {
+	public function getName(): string {
 		return 'Add read permissions for existing announcements';
 	}
 

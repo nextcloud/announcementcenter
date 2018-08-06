@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
  *
@@ -41,7 +42,7 @@ class Setting implements ISetting {
 	 * @return string Lowercase a-z and underscore only identifier
 	 * @since 11.0.0
 	 */
-	public function getIdentifier() {
+	public function getIdentifier(): string {
 		return 'announcementcenter';
 	}
 
@@ -49,7 +50,7 @@ class Setting implements ISetting {
 	 * @return string A translated string
 	 * @since 11.0.0
 	 */
-	public function getName() {
+	public function getName(): string {
 		return $this->l->t('An <strong>announcement</strong> is posted by an administrator');
 	}
 
@@ -59,7 +60,7 @@ class Setting implements ISetting {
 	 * priority values. It is required to return a value between 0 and 100.
 	 * @since 11.0.0
 	 */
-	public function getPriority() {
+	public function getPriority(): int {
 		return 70;
 	}
 
@@ -67,7 +68,7 @@ class Setting implements ISetting {
 	 * @return bool True when the option can be changed for the stream
 	 * @since 11.0.0
 	 */
-	public function canChangeStream() {
+	public function canChangeStream(): bool {
 		return false;
 	}
 
@@ -75,7 +76,7 @@ class Setting implements ISetting {
 	 * @return bool True when the option can be changed for the stream
 	 * @since 11.0.0
 	 */
-	public function isDefaultEnabledStream() {
+	public function isDefaultEnabledStream(): bool {
 		return true;
 	}
 
@@ -83,7 +84,7 @@ class Setting implements ISetting {
 	 * @return bool True when the option can be changed for the mail
 	 * @since 11.0.0
 	 */
-	public function canChangeMail() {
+	public function canChangeMail(): bool {
 		return true;
 	}
 
@@ -91,7 +92,7 @@ class Setting implements ISetting {
 	 * @return bool True when the option can be changed for the stream
 	 * @since 11.0.0
 	 */
-	public function isDefaultEnabledMail() {
+	public function isDefaultEnabledMail(): bool {
 		return true;
 	}
 }

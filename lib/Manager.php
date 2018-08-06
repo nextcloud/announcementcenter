@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -56,15 +57,6 @@ class Manager {
 	/** @var IUserSession */
 	protected $userSession;
 
-	/**
-	 * @param IConfig $config
-	 * @param IDBConnection $connection
-	 * @param IGroupManager $groupManager
-	 * @param INotificationManager $notificationManager
-	 * @param ICommentsManager $commentsManager
-	 * @param IJobList $jobList
-	 * @param IUserSession $userSession
-	 */
 	public function __construct(IConfig $config,
 								IDBConnection $connection,
 								IGroupManager $groupManager,
@@ -91,7 +83,7 @@ class Manager {
 	 * @return array
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce($subject, $message, $user, $time, array $groups, $comments) {
+	public function announce(string $subject, string $message, string $user, int $time, array $groups, bool$comments): array {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -130,11 +122,7 @@ class Manager {
 		return $this->getAnnouncement($id, true, true);
 	}
 
-	/**
-	 * @param int $announcementId
-	 * @param string $group
-	 */
-	protected function addGroupLink($announcementId, $group) {
+	protected function addGroupLink(int $announcementId, string $group) {
 		$query = $this->connection->getQueryBuilder();
 		$query->insert('announcements_groups')
 			->values([
@@ -144,10 +132,7 @@ class Manager {
 		$query->execute();
 	}
 
-	/**
-	 * @param int $id
-	 */
-	public function delete($id) {
+	public function delete(int $id) {
 		// Delete notifications
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
@@ -176,7 +161,7 @@ class Manager {
 	 * @return array
 	 * @throws \InvalidArgumentException when the id is invalid
 	 */
-	public function getAnnouncement($id, $parseStrings = true, $ignorePermissions = false, $returnGroups = true) {
+	public function getAnnouncement(int $id, bool $parseStrings = true, bool $ignorePermissions = false, bool $returnGroups = true): array {
 		if (!$ignorePermissions) {
 			$user = $this->userSession->getUser();
 			if ($user instanceof IUser) {
@@ -239,13 +224,7 @@ class Manager {
 		return $announcement;
 	}
 
-	/**
-	 * @param int $limit
-	 * @param int $offset
-	 * @param bool $parseStrings
-	 * @return array
-	 */
-	public function getAnnouncements($limit = 15, $offset = 0, $parseStrings = true) {
+	public function getAnnouncements(int $limit = 15, int $offset = 0, bool $parseStrings = true): array {
 		$query = $this->connection->getQueryBuilder();
 		$query->select('a.announcement_id')
 			->from('announcements', 'a')
@@ -326,9 +305,9 @@ class Manager {
 	 * @param int|int[] $ids
 	 * @return string[]|array[]
 	 */
-	public function getGroups($ids) {
+	public function getGroups($ids): array {
 		$returnSingleResult = false;
-		if (is_int($ids)) {
+		if (\is_int($ids)) {
 			$ids = [$ids];
 			$returnSingleResult = true;
 		}
@@ -351,10 +330,7 @@ class Manager {
 		return $returnSingleResult ? (array) array_pop($groups) : $groups;
 	}
 
-	/**
-	 * @param int $id
-	 */
-	public function markNotificationRead($id) {
+	public function markNotificationRead(int $id) {
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
@@ -366,26 +342,18 @@ class Manager {
 		}
 	}
 
-	/**
-	 * @param int $id
-	 * @return int
-	 */
-	protected function getNumberOfComments($id) {
+	protected function getNumberOfComments(int $id): int {
 		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $id);
 	}
 
-	/**
-	 * @param int $id
-	 * @return bool
-	 */
-	protected function hasNotifications($id) {
-		$hasJob = $this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+	protected function hasNotifications(int $id): bool {
+		$hasJob = $this->jobList->has(BackgroundJob::class, [
 			'id' => $id,
 			'activities' => true,
 			'notifications' => true,
 		]);
 
-		$hasJob = $hasJob || $this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+		$hasJob = $hasJob || $this->jobList->has(BackgroundJob::class, [
 			'id' => $id,
 			'activities' => false,
 			'notifications' => true,
@@ -401,29 +369,26 @@ class Manager {
 		return $this->notificationManager->getCount($notification) > 0;
 	}
 
-	/**
-	 * @param int $id
-	 */
-	public function removeNotifications($id) {
-		if ($this->jobList->has('OCA\AnnouncementCenter\BackgroundJob', [
+	public function removeNotifications(int $id) {
+		if ($this->jobList->has(BackgroundJob::class, [
 			'id' => $id,
 			'activities' => true,
 			'notifications' => true,
 		])) {
 			// Delete the current background job and add a new one without notifications
-			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+			$this->jobList->remove(BackgroundJob::class, [
 				'id' => $id,
 				'activities' => true,
 				'notifications' => true,
 			]);
-			$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', [
+			$this->jobList->add(BackgroundJob::class, [
 				'id' => $id,
 				'activities' => true,
 				'notifications' => false,
 			]);
 
 		} else {
-			$this->jobList->remove('OCA\AnnouncementCenter\BackgroundJob', [
+			$this->jobList->remove(BackgroundJob::class, [
 				'id' => $id,
 				'activities' => false,
 				'notifications' => true,
@@ -436,27 +401,18 @@ class Manager {
 		$this->notificationManager->markProcessed($notification);
 	}
 
-	/**
-	 * @param string $message
-	 * @return string
-	 */
-	protected function parseMessage($message) {
-		return str_replace("\n", '<br />', str_replace(['<', '>'], ['&lt;', '&gt;'], $message));
+	protected function parseMessage(string $message): string {
+		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $message);
 	}
 
-	/**
-	 * @param string $subject
-	 * @return string
-	 */
-	protected function parseSubject($subject) {
-		return str_replace("\n", ' ', str_replace(['<', '>'], ['&lt;', '&gt;'], $subject));
+	protected function parseSubject(string $subject): string {
+		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', ' '], $subject);
 	}
 
 	/**
 	 * Check if the user is in the admin group
-	 * @return bool
 	 */
-	public function checkIsAdmin() {
+	public function checkIsAdmin(): bool {
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
@@ -471,7 +427,10 @@ class Manager {
 		return false;
 	}
 
-	protected function getAdminGroups() {
+	/**
+	 * @return string[]
+	 */
+	protected function getAdminGroups(): array {
 		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
 		$adminGroups = json_decode($adminGroups, true);
 		return $adminGroups;

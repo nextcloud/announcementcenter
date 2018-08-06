@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -38,6 +39,7 @@ use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use OCA\AnnouncementCenter\BackgroundJob;
 
 class PageController extends Controller {
 	/** @var int */
@@ -67,19 +69,7 @@ class PageController extends Controller {
 	/** @var IUserSession */
 	protected $userSession;
 
-	/**
-	 * @param string $AppName
-	 * @param IRequest $request
-	 * @param IDBConnection $connection
-	 * @param IGroupManager $groupManager
-	 * @param IUserManager $userManager
-	 * @param IJobList $jobList
-	 * @param IL10N $l
-	 * @param Manager $manager
-	 * @param IConfig $config
-	 * @param IUserSession $userSession
-	 */
-	public function __construct($AppName,
+	public function __construct(string $AppName,
 								IRequest $request,
 								IDBConnection $connection,
 								IGroupManager $groupManager,
@@ -108,7 +98,7 @@ class PageController extends Controller {
 	 * @param int $offset
 	 * @return JSONResponse
 	 */
-	public function get($offset = 0) {
+	public function get($offset = 0): JSONResponse {
 		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, $offset);
 
 		$announcements = [];
@@ -139,7 +129,7 @@ class PageController extends Controller {
 	 * @param bool $comments
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications, $comments) {
+	public function add($subject, $message, array $groups, $activities, $notifications, $comments):JSONResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -158,7 +148,7 @@ class PageController extends Controller {
 		}
 
 		if ($activities || $notifications) {
-			$this->jobList->add('OCA\AnnouncementCenter\BackgroundJob', [
+			$this->jobList->add(BackgroundJob::class, [
 				'id' => $announcement['id'],
 				'activities' => $activities,
 				'notifications' => $notifications,
@@ -178,7 +168,7 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @return Response
 	 */
-	public function delete($id) {
+	public function delete($id): Response {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -197,7 +187,7 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @return Response
 	 */
-	public function removeNotifications($id) {
+	public function removeNotifications($id): Response {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -217,7 +207,7 @@ class PageController extends Controller {
 	 * @param int $announcement
 	 * @return TemplateResponse
 	 */
-	public function index($announcement = 0) {
+	public function index($announcement = 0): TemplateResponse {
 		if ($announcement) {
 			$this->manager->markNotificationRead($announcement);
 		}
@@ -236,7 +226,7 @@ class PageController extends Controller {
 	 * @param string $pattern
 	 * @return JSONResponse
 	 */
-	public function searchGroups($pattern) {
+	public function searchGroups($pattern): JSONResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
