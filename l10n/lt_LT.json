@@ -33,6 +33,8 @@
     "{user} announced “{announcement}”" : "{user} paskelbė \"{announcement}\"",
     "%1$s announced “%2$s”" : "%1$s paskelbė \"%2$s\"",
     "Announcement center" : "Skelbimų centras",
+    "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ši programa leidžia administratoriams skelbti skelbimus ir palaiko sekančius funkcionalumus:\n⚡  Veiklos (Veiklų programa turi būtų įjungta)\n\n📑  Komentarai\n\n👪  Grupių teisės\n\n🔔 Pranešimai (pranešimų programa turi būtų įjungta)",
     "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
     "Create activities by default" : "Automatiškai sukurti veiklas",
     "Create notifications by default" : "Automatiškai kurti pranešimus",
