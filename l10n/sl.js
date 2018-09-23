@@ -8,7 +8,7 @@ OC.L10N.register(
     "Edit comment" : "Uredi komentar",
     "[Deleted user]" : "[Izbriši uporabnika]",
     "Comments" : "Komentarji",
-    "No comments yet, start the conversation!" : "Ni še odzivov, začnite s pogovorom!",
+    "No comments yet, start the conversation!" : "Ni še odzivov, bodite prvi!",
     "More comments …" : "Več komentarjev ....",
     "Save" : "Shrani",
     "Allowed characters {count} of {max}" : "Dovoljenih znakov {count} od {max}",
