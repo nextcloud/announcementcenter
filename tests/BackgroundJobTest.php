@@ -207,7 +207,7 @@ class BackgroundJobTest extends TestCase {
 			->willReturnSelf();
 		$event->expects($this->once())
 			->method('setSubject')
-			->with('announcementsubject', ['author'])
+			->with('announcementsubject', ['author' => 'author', 'announcement' => 10])
 			->willReturnSelf();
 		$event->expects($this->once())
 			->method('setMessage')
