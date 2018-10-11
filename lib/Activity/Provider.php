@@ -83,10 +83,12 @@ class Provider implements IProvider {
 			$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 		}
 
-		try {
-			$announcement = $this->manager->getAnnouncement($event->getObjectId(), true, false, false);
+		$parameters = $this->getParameters($event);
 
-			$parsedParameters = $this->getParameters($event, $announcement);
+		try {
+			$announcement = $this->manager->getAnnouncement($parameters['announcement'], true, false, false);
+
+			$parsedParameters = $this->getParsedParameters($parameters, $announcement);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
 				$subject = $l->t('You announced {announcement}');
 				unset($parsedParameters['actor']);
@@ -95,7 +97,7 @@ class Provider implements IProvider {
 			}
 			$event->setParsedMessage($announcement['message']);
 		} catch (\InvalidArgumentException $e) {
-			$parsedParameters = $this->getParameters($event, []);
+			$parsedParameters = $this->getParsedParameters($parameters, []);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
 				$subject = $l->t('You posted an announcement');
 				unset($parsedParameters['actor']);
@@ -112,18 +114,29 @@ class Provider implements IProvider {
 		return $event;
 	}
 
-	protected function getParameters(IEvent $event, array $announcement): array {
+	protected function getParameters(IEvent $event): array {
 		$parameters = $event->getSubjectParameters();
+		if (isset($parameters['announcement'])) {
+			return $parameters;
+		}
 
+		// Legacy fallback from before 3.4.0
+		return [
+			'author' => $parameters[0] ?? '',
+			'announcement' => (int) $event->getObjectId(),
+		];
+	}
+
+	protected function getParsedParameters(array $parameters, array $announcement): array {
 		if (!empty($announcement)) {
 			return [
-				'actor' => $this->generateUserParameter($parameters[0]),
+				'actor' => $this->generateUserParameter($parameters['author']),
 				'announcement' => $this->generateAnnouncementParameter($announcement),
 			];
 		}
 
 		return [
-			'actor' => $this->generateUserParameter($parameters[0]),
+			'actor' => $this->generateUserParameter($parameters['author']),
 		];
 	}
 
