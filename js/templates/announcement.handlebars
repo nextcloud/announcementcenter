@@ -1,0 +1,35 @@
+<div class="section" data-announcement-id="{{{announcementId}}}">
+	<h2>{{{subject}}}</h2>
+	<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span>
+	<span class="avatar-name-wrapper" data-user="{{authorId}}"><div class="avatar" data-user="{{authorId}}" data-user-display-name="{{author}}"></div><strong>{{author}}</strong></span>
+	{{#if isAdmin}}
+		<span class="visibility has-tooltip" title="{{{visibilityString}}}">
+			{{#if visibilityEveryone}}
+				<img src=" OC.imagePath('core', 'places/link') + '">
+			{{else}}
+				<img src=" OC.imagePath('core', 'places/contacts') + '">
+			{{/if}}
+		</span>
+	{{/if}}
+	{{#if comments}}
+		<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>
+	{{/if}}
+	{{#if isAdmin}}
+		<span class="delete-link has-tooltip" title="{{deleteTXT}}'">
+			<a href="#" data-announcement-id="{{{announcementId}}}">
+				<img class="svg" src=" OC.imagePath('core', 'actions/delete') + '" alt=""/>
+			</a>
+		</span>
+		{{#if hasNotifications}}
+			<span class="mute-link has-tooltip" title="{{removeNotificationTXT}}">
+				<a href="#" data-announcement-id="{{{announcementId}}}">
+					<img class="svg" src=" OC.imagePath('announcementcenter', 'notifications-off.svg') + '" alt=""/>
+				</a>
+			</span>
+		{{/if}}
+	{{/if}}
+	{{#if message}}
+		<br /><br /><p>{{{message}}}</p>
+	{{/if}}
+</div>
+<hr />

@@ -6,6 +6,7 @@
 \OCP\Util::addScript('oc-backbone-webdav');
 script('announcementcenter', [
 	'script',
+	'templates',
 	'commentmodel',
 	'commentcollection',
 	'commentsummarymodel',
