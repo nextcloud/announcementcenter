@@ -35,6 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} が “{announcement}” とアナウンスしました。",
     "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました",
     "Announcement center" : "アナウンスセンター",
+    "This app allows admins to post announcements." : "このアプリは、管理者がアナウンスを投稿できるようにします。",
     "These groups will be able to post announcements." : "これらのグループはアナウンスを投稿することが可能",
     "Create activities by default" : "デフォルトでアクティビティを作成する",
     "Create notifications by default" : "デフォルトで通知を作成する",
