@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.4.0 – 2018-11-16
+### Added
+- Support mentions and clickable links in comments
+  [#121](https://github.com/nextcloud/announcementcenter/pull/121)
+
+### Fixed
+- Compatibility with Nextcloud 15
+
 ## 3.3.1 – 2018-10-11
 ### Fixed
 - Add the announcement subject to the activity emails
