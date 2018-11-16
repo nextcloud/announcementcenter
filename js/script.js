@@ -30,8 +30,7 @@
 			this.$container = $('#app-content');
 			this.$content = $('#app-content');
 
-			this.commentsTabView = OCA.AnnouncementCenter.Comments.CommentsTabView;
-			this.commentsTabView.initialize();
+			this.commentsTabView = new OCA.AnnouncementCenter.Comments.CommentsTabView();
 
 			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
 			this.$content.on('scroll', _.bind(this.onScroll, this));
