@@ -11,53 +11,6 @@
 /* global Handlebars, escapeHTML */
 
 (function(OC, OCA) {
-	var TEMPLATE =
-		'<ul class="comments">' +
-		'</ul>' +
-		'<div class="emptycontent hidden"><div class="icon-comment"></div>' +
-		'<p>{{emptyResultLabel}}</p></div>' +
-		'<input type="button" class="showMore hidden" value="{{moreLabel}}"' +
-		' name="show-more" id="show-more" />' +
-		'<div class="loading hidden" style="height: 50px"></div>';
-
-	var EDIT_COMMENT_TEMPLATE =
-		'<div class="newCommentRow comment" data-id="{{id}}">' +
-		'    <div class="authorRow">' +
-		'        {{#if avatarEnabled}}' +
-		'        <div class="avatar" data-username="{{actorId}}"></div>' +
-		'        {{/if}}' +
-		'        <div class="author">{{actorDisplayName}}</div>' +
-		'{{#if isEditMode}}' +
-		'        <a href="#" class="action delete icon icon-delete has-tooltip" title="{{deleteTooltip}}"></a>' +
-		'{{/if}}' +
-		'    </div>' +
-		'    <form class="newCommentForm">' +
-		'        <textarea rows="1" class="message" placeholder="{{newMessagePlaceholder}}">{{message}}</textarea>' +
-		'        <input class="submit icon-confirm" type="submit" value="" />' +
-		'{{#if isEditMode}}' +
-		'        <input class="cancel pull-right" type="button" value="{{cancelText}}" />' +
-		'{{/if}}' +
-		'        <div class="submitLoading icon-loading-small hidden"></div>'+
-		'    </form>' +
-		'</div>';
-
-	var COMMENT_TEMPLATE =
-		'<li class="comment{{#if isUnread}} unread{{/if}}{{#if isLong}} collapsed{{/if}}" data-id="{{id}}">' +
-		'    <div class="authorRow">' +
-		'        {{#if avatarEnabled}}' +
-		'        <div class="avatar" {{#if actorId}}data-username="{{actorId}}"{{/if}}> </div>' +
-		'        {{/if}}' +
-		'        <div class="author">{{actorDisplayName}}</div>' +
-		'{{#if isUserAuthor}}' +
-		'        <a href="#" class="action edit icon icon-rename has-tooltip" title="{{editTooltip}}"></a>' +
-		'{{/if}}' +
-		'        <div class="date has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{altDate}}">{{date}}</div>' +
-		'    </div>' +
-		'    <div class="message">{{{formattedMessage}}}</div>' +
-		'{{#if isLong}}' +
-		'    <div class="message-overlay"></div>' +
-		'{{/if}}' +
-		'</li>';
 
 	/**
 	 * @memberof OCA.AnnouncementCenter.Comments
@@ -86,11 +39,8 @@
 		},
 
 		template: function(params) {
-			if (!this._template) {
-				this._template = Handlebars.compile(TEMPLATE);
-			}
 			var currentUser = OC.getCurrentUser();
-			return this._template(_.extend({
+			return OCA.AnnouncementCenter.Templates.commentsview(_.extend({
 				avatarEnabled: this._avatarsEnabled,
 				actorId: currentUser.uid,
 				actorDisplayName: currentUser.displayName
@@ -98,11 +48,8 @@
 		},
 
 		editCommentTemplate: function(params) {
-			if (!this._editCommentTemplate) {
-				this._editCommentTemplate = Handlebars.compile(EDIT_COMMENT_TEMPLATE);
-			}
 			var currentUser = OC.getCurrentUser();
-			var el = this._editCommentTemplate(_.extend({
+			var el = OCA.AnnouncementCenter.Templates.edit_comment(_.extend({
 				avatarEnabled: this._avatarsEnabled,
 				actorId: currentUser.uid,
 				actorDisplayName: currentUser.displayName,
@@ -121,10 +68,6 @@
 		},
 
 		commentTemplate: function(params) {
-			if (!this._commentTemplate) {
-				this._commentTemplate = Handlebars.compile(COMMENT_TEMPLATE);
-			}
-
 			params = _.extend({
 				avatarEnabled: this._avatarsEnabled,
 				editTooltip: t('comments', 'Edit comment'),
@@ -138,7 +81,7 @@
 				params.actorDisplayName = t('comments', '[Deleted user]');
 			}
 
-			return this._commentTemplate(params);
+			return OCA.AnnouncementCenter.Templates.comment(params);
 		},
 
 		getLabel: function() {

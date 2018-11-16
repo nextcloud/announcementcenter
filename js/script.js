@@ -26,47 +26,9 @@
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 		commentsTabView: null,
 
-		compiledTemplate: null,
-		handlebarTemplate: '<div class="section" data-announcement-id="{{{announcementId}}}">' +
-				'<h2>{{{subject}}}</h2>' +
-					'<span class="has-tooltip live-relative-timestamp" data-timestamp="{{timestamp}}" title="{{dateFormat}}">{{dateRelative}}</span>' +
-					'<span class="avatar-name-wrapper" data-user="{{authorId}}"><div class="avatar" data-user="{{authorId}}" data-user-display-name="{{author}}"></div><strong>{{author}}</strong></span>' +
-					'{{#if isAdmin}}' +
-						'<span class="visibility has-tooltip" title="{{{visibilityString}}}">' +
-							'{{#if visibilityEveryone}}' +
-								'<img src="' + OC.imagePath('core', 'places/link') + '">' +
-							'{{else}}' +
-								'<img src="' + OC.imagePath('core', 'places/contacts') + '">' +
-							'{{/if}}' +
-						'</span>' +
-					'{{/if}}' +
-					'{{#if comments}}' +
-						'<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>' +
-					'{{/if}}' +
-					'{{#if isAdmin}}' +
-						'<span class="delete-link has-tooltip" title="' + t('announcementcenter', 'Delete') + '">' +
-							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
-								'<img class="svg" src="' + OC.imagePath('core', 'actions/delete') + '" alt=""/>' +
-							'</a>' +
-						'</span>' +
-						'{{#if hasNotifications}}' +
-						'<span class="mute-link has-tooltip" title="' + t('announcementcenter', 'Remove notifications') + '">' +
-							'<a href="#" data-announcement-id="{{{announcementId}}}">' +
-								'<img class="svg" src="' + OC.imagePath('announcementcenter', 'notifications-off.svg') + '" alt=""/>' +
-							'</a>' +
-						'</span>' +
-						'{{/if}}' +
-					'{{/if}}' +
-				'{{#if message}}' +
-					'<br /><br /><p>{{{message}}}</p>' +
-				'{{/if}}' +
-			'</div>' +
-			'<hr />',
-
 		init: function() {
 			this.$container = $('#app-content');
 			this.$content = $('#app-content');
-			this.compiledTemplate = Handlebars.compile(this.handlebarTemplate);
 
 			this.commentsTabView = OCA.AnnouncementCenter.Comments.CommentsTabView;
 			this.commentsTabView.initialize();
@@ -253,7 +215,13 @@
 				visibilityEveryone: null,
 				visibilityString: null,
 				announcementId: announcement.id,
-				isAdmin: this.isAdmin
+				isAdmin: this.isAdmin,
+				deleteTXT: t('announcementcenter', 'Delete'),
+				removeNotificationTXT: t('announcementcenter', 'Remove notifications'),
+				notificationsOffIMG: OC.imagePath('announcementcenter', 'notifications-off.svg'),
+				deleteIMG: OC.imagePath('core', 'actions/delete.svg'),
+				placesLinkIMG: OC.imagePath('core', 'places/link.svg'),
+				placesContactsIMG: OC.imagePath('core', 'places/link.svg')
 			};
 
 			if (this.isAdmin) {
@@ -268,7 +236,7 @@
 				}
 			}
 
-			var $html = $(this.compiledTemplate(object));
+			var $html = $(OCA.AnnouncementCenter.Templates.announcement(object));
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 			$html.on('click', _.bind(this._onHighlightAnnouncement, this));

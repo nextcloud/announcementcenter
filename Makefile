@@ -23,6 +23,9 @@ clean:
 	rm -rf $(build_dir)
 	rm -rf node_modules
 
+js-templates:
+	handlebars -n OCA.AnnouncementCenter.Templates js/templates -f js/templates.js
+
 appstore: clean
 	mkdir -p $(sign_dir)
 	rsync -a \
