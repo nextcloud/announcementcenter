@@ -9,9 +9,17 @@ templates['announcement'] = template({"1":function(container,depth0,helpers,part
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.visibilityEveryone : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data})) != null ? stack1 : "")
     + "		</span>\n";
 },"2":function(container,depth0,helpers,partials,data) {
-    return "				<img src=\" OC.imagePath('core', 'places/link') + '\">\n";
+    var helper;
+
+  return "				<img src=\""
+    + container.escapeExpression(((helper = (helper = helpers.placesLinkIMG || (depth0 != null ? depth0.placesLinkIMG : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"placesLinkIMG","hash":{},"data":data}) : helper)))
+    + "\">\n";
 },"4":function(container,depth0,helpers,partials,data) {
-    return "				<img src=\" OC.imagePath('core', 'places/contacts') + '\">\n";
+    var helper;
+
+  return "				<img src=\""
+    + container.escapeExpression(((helper = (helper = helpers.placesContactsIMG || (depth0 != null ? depth0.placesContactsIMG : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"placesContactsIMG","hash":{},"data":data}) : helper)))
+    + "\">\n";
 },"6":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
@@ -21,22 +29,26 @@ templates['announcement'] = template({"1":function(container,depth0,helpers,part
     + alias4(((helper = (helper = helpers.comments || (depth0 != null ? depth0.comments : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"comments","hash":{},"data":data}) : helper)))
     + "</span>\n";
 },"8":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "		<span class=\"delete-link has-tooltip\" title=\""
-    + container.escapeExpression(((helper = (helper = helpers.deleteTXT || (depth0 != null ? depth0.deleteTXT : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"deleteTXT","hash":{},"data":data}) : helper)))
-    + "'\">\n			<a href=\"#\" data-announcement-id=\""
+    + alias4(((helper = (helper = helpers.deleteTXT || (depth0 != null ? depth0.deleteTXT : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"deleteTXT","hash":{},"data":data}) : helper)))
+    + "\">\n			<a href=\"#\" data-announcement-id=\""
     + ((stack1 = ((helper = (helper = helpers.announcementId || (depth0 != null ? depth0.announcementId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"announcementId","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\">\n				<img class=\"svg\" src=\" OC.imagePath('core', 'actions/delete') + '\" alt=\"\"/>\n			</a>\n		</span>\n"
+    + "\">\n				<img class=\"svg\" src=\""
+    + alias4(((helper = (helper = helpers.deleteIMG || (depth0 != null ? depth0.deleteIMG : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"deleteIMG","hash":{},"data":data}) : helper)))
+    + "\" alt=\"\"/>\n			</a>\n		</span>\n"
     + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.hasNotifications : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"9":function(container,depth0,helpers,partials,data) {
-    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function";
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "			<span class=\"mute-link has-tooltip\" title=\""
-    + container.escapeExpression(((helper = (helper = helpers.removeNotificationTXT || (depth0 != null ? depth0.removeNotificationTXT : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"removeNotificationTXT","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.removeNotificationTXT || (depth0 != null ? depth0.removeNotificationTXT : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"removeNotificationTXT","hash":{},"data":data}) : helper)))
     + "\">\n				<a href=\"#\" data-announcement-id=\""
     + ((stack1 = ((helper = (helper = helpers.announcementId || (depth0 != null ? depth0.announcementId : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"announcementId","hash":{},"data":data}) : helper))) != null ? stack1 : "")
-    + "\">\n					<img class=\"svg\" src=\" OC.imagePath('announcementcenter', 'notifications-off.svg') + '\" alt=\"\"/>\n				</a>\n			</span>\n";
+    + "\">\n					<img class=\"svg\" src=\""
+    + alias4(((helper = (helper = helpers.notificationsOffIMG || (depth0 != null ? depth0.notificationsOffIMG : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"notificationsOffIMG","hash":{},"data":data}) : helper)))
+    + "\" alt=\"\"/>\n				</a>\n			</span>\n";
 },"11":function(container,depth0,helpers,partials,data) {
     var stack1, helper;
 

@@ -5,9 +5,9 @@
 	{{#if isAdmin}}
 		<span class="visibility has-tooltip" title="{{{visibilityString}}}">
 			{{#if visibilityEveryone}}
-				<img src=" OC.imagePath('core', 'places/link') + '">
+				<img src="{{placesLinkIMG}}">
 			{{else}}
-				<img src=" OC.imagePath('core', 'places/contacts') + '">
+				<img src="{{placesContactsIMG}}">
 			{{/if}}
 		</span>
 	{{/if}}
@@ -15,15 +15,15 @@
 		<span class="comment-details" data-count="{{num_comments}}">{{comments}}</span>
 	{{/if}}
 	{{#if isAdmin}}
-		<span class="delete-link has-tooltip" title="{{deleteTXT}}'">
+		<span class="delete-link has-tooltip" title="{{deleteTXT}}">
 			<a href="#" data-announcement-id="{{{announcementId}}}">
-				<img class="svg" src=" OC.imagePath('core', 'actions/delete') + '" alt=""/>
+				<img class="svg" src="{{deleteIMG}}" alt=""/>
 			</a>
 		</span>
 		{{#if hasNotifications}}
 			<span class="mute-link has-tooltip" title="{{removeNotificationTXT}}">
 				<a href="#" data-announcement-id="{{{announcementId}}}">
-					<img class="svg" src=" OC.imagePath('announcementcenter', 'notifications-off.svg') + '" alt=""/>
+					<img class="svg" src="{{notificationsOffIMG}}" alt=""/>
 				</a>
 			</span>
 		{{/if}}

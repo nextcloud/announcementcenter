@@ -217,7 +217,11 @@
 				announcementId: announcement.id,
 				isAdmin: this.isAdmin,
 				deleteTXT: t('announcementcenter', 'Delete'),
-				removeNotificationTXT: t('announcementcenter', 'Remove notifications')
+				removeNotificationTXT: t('announcementcenter', 'Remove notifications'),
+				notificationsOffIMG: OC.imagePath('announcementcenter', 'notifications-off.svg'),
+				deleteIMG: OC.imagePath('core', 'actions/delete.svg'),
+				placesLinkIMG: OC.imagePath('core', 'places/link.svg'),
+				placesContactsIMG: OC.imagePath('core', 'places/link.svg')
 			};
 
 			if (this.isAdmin) {
