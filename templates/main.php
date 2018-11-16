@@ -5,9 +5,12 @@
  */
 \OCP\Util::addScript('oc-backbone-webdav');
 script('announcementcenter', [
+	'vendor/Caret.js/dist/jquery.caret.min',
+	'vendor/At.js/dist/js/jquery.atwho.min',
 	'script',
 	'templates',
 	'commentmodel',
+	'commentsmodifymenu',
 	'commentcollection',
 	'commentsummarymodel',
 	'commentstabview',
@@ -15,6 +18,7 @@ script('announcementcenter', [
 style('announcementcenter', [
 	'style',
 	'comments',
+	'autocomplete',
 ]);
 ?>
 

@@ -1,19 +1,16 @@
-<div class="newCommentRow comment" data-id="{{id}}">
+<{{tag}} class="newCommentRow comment" data-id="{{id}}">
 	<div class="authorRow">
-		{{#if avatarEnabled}}
-			<div class="avatar" data-username="{{actorId}}"></div>
-		{{/if}}
-		<div class="author">{{actorDisplayName}}</div>
+		<div class="avatar currentUser" data-username="{{actorId}}"></div>
+		<div class="author currentUser">{{actorDisplayName}}</div>
 		{{#if isEditMode}}
-			<a href="#" class="action delete icon icon-delete has-tooltip" title="{{deleteTooltip}}"></a>
+			<div class="action-container">
+				<a href="#" class="action cancel icon icon-close has-tooltip" title="{{cancelText}}"></a>
+			</div>
 		{{/if}}
-		</div>
-		 <form class="newCommentForm">
-			<textarea rows="1" class="message" placeholder="{{newMessagePlaceholder}}">{{message}}</textarea>
-			<input class="submit icon-confirm" type="submit" value="" />
-			{{#if isEditMode}}
-				<input class="cancel pull-right" type="button" value="{{cancelText}}" />
-			{{/if}}
+	</div>
+	<form class="newCommentForm">
+		<div contentEditable="true" class="message" data-placeholder="{{newMessagePlaceholder}}">{{message}}</div>
+		<input class="submit icon-confirm has-tooltip" type="submit" value="" title="{{submitText}}"/>
 		<div class="submitLoading icon-loading-small hidden"></div>
 	</form>
-</div>
+</{{tag}}>
