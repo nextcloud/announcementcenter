@@ -1,9 +1,9 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Delete" : "Forigi",
     "Announcing…" : "Anoncante...",
     "Announced!" : "Anoncinte!",
+    "Delete" : "Forigi",
     "Announcement does not exist anymore" : "Anonco ne plu ekzistas",
     "Announcements" : "Anoncoj",
     "The subject is too long or empty" : "La temo tro longas aŭ malplenas",

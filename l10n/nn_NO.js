@@ -1,11 +1,11 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "New comment …" : "Ny kommentar...",
+    "Edit comment" : "Rediger kommentar",
     "Delete comment" : "Slett kommentar",
+    "New comment …" : "Ny kommentar...",
     "Post" : "Publikasjon",
     "Cancel" : "Avbryt",
-    "Edit comment" : "Rediger kommentar",
     "[Deleted user]" : "[Sletta brukar]",
     "Comments" : "Kommentarar",
     "No comments yet, start the conversation!" : "Ingen kommentarar enno, start samtala!",
