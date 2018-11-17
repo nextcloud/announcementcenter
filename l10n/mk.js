@@ -1,9 +1,9 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Delete" : "Избриши",
     "Announcing…" : "Објавувам...",
     "Announced!" : "Објавено!",
+    "Delete" : "Избриши",
     "Announcement does not exist anymore" : "Објавата повеќе не постои",
     "Announcements" : "Објави",
     "The subject is too long or empty" : "Темата е премногу долга или ја нема",
