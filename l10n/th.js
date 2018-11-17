@@ -1,9 +1,9 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "Delete" : "ลบ",
     "Announcing…" : "กำลังประกาศ...",
     "Announced!" : "ประกาศแล้ว!",
+    "Delete" : "ลบ",
     "Announcement does not exist anymore" : "ไม่มีประกาศ",
     "Announcements" : "ประกาศ",
     "The subject is too long or empty" : "หัวข้อยาวเกินไปหรือยังไม่ได้เขียน",
