@@ -35,6 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} bejelentette: “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s közzétette: “%2$s”",
     "Announcement center" : "Közlemény központ",
+    "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy az adminok bejelentéseket küldjenek.",
     "These groups will be able to post announcements." : "Ezek a csoportok beküldhetnek majd bejelentéseket.",
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
