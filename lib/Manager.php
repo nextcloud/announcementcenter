@@ -402,7 +402,7 @@ class Manager {
 	}
 
 	protected function parseMessage(string $message): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $message);
+		return str_replace(['<'], ['&lt;'], $message);
 	}
 
 	protected function parseSubject(string $subject): string {

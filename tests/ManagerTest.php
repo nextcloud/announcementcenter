@@ -190,7 +190,7 @@ class ManagerTest extends TestCase {
 		$this->assertInternalType('int', $announcement['id']);
 		$this->assertGreaterThan(0, $announcement['id']);
 		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
-		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
+		$this->assertSame('message' . "\n&lt;html>", $announcement['message']);
 		$this->assertSame('author', $announcement['author']);
 		$this->assertSame($time, $announcement['time']);
 		$this->assertFalse($announcement['comments']);
