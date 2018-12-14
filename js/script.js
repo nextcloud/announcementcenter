@@ -197,6 +197,69 @@
 			});
 		},
 
+		markdownToHtml: function (message) {
+			var renderer = new window.marked.Renderer();
+			renderer.link = function (href, title, text) {
+				try {
+					var prot = decodeURIComponent(unescape(href))
+						.replace(/[^\w:]/g, '')
+						.toLowerCase();
+				} catch (e) {
+					return '';
+				}
+				if (prot.indexOf('http:') !== 0 && prot.indexOf('https:') !== 0) {
+					return '';
+				}
+				var out = '<a href="' + href + '" rel="noreferrer noopener"';
+				if (title) {
+					out += ' title="' + title + '"';
+				}
+				out += '>' + text + '</a>';
+				return out;
+			};
+
+			renderer.em = function (text) {
+				return '<i>' + text + '</i>'
+			};
+
+			renderer.image = function (href, title, text) {
+				var alt = escapeHTML(text ? text : title);
+				return '<img src="' + href + '" alt="' + alt + '" />';
+			};
+
+			return DOMPurify.sanitize(
+				window.marked(message.trim(), {
+					breaks: true,
+					gfm: true,
+					highlight: false,
+					pedantic: false,
+					renderer: renderer,
+					sanitize: true,
+					smartLists: true,
+					smartypants: false,
+					tables: false
+				}),
+				{
+					SAFE_FOR_JQUERY: true,
+					ALLOWED_TAGS: [
+						'a',
+						'blockquote',
+						'br',
+						'code',
+						'del',
+						'em',
+						'i',
+						'img',
+						'li',
+						'ol',
+						'p',
+						'strong',
+						'ul'
+					]
+				}
+			);
+		},
+
 		announcementToHtml: function (announcement) {
 			var timestamp = announcement.time * 1000;
 
@@ -207,7 +270,7 @@
 				author: announcement.author,
 				authorId: announcement.author_id,
 				subject: announcement.subject,
-				message: announcement.message,
+				message: this.markdownToHtml(announcement.message),
 				comments: (announcement.comments !== false) ? n('announcementcenter', '%n comment', '%n comments', announcement.comments) : false,
 				num_comments: (announcement.comments !== false) ? announcement.comments : false,
 				hasNotifications: announcement.notifications,
