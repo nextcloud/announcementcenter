@@ -4,6 +4,7 @@
  * @var \OCP\IL10N $l
  */
 \OCP\Util::addScript('oc-backbone-webdav');
+vendor_script('core', ['marked/marked.min']);
 script('announcementcenter', [
 	'vendor/Caret.js/dist/jquery.caret.min',
 	'vendor/At.js/dist/js/jquery.atwho.min',
