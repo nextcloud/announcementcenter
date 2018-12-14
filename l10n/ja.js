@@ -36,6 +36,7 @@ OC.L10N.register(
     "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました",
     "Announcement center" : "アナウンスセンター",
     "This app allows admins to post announcements." : "このアプリは、管理者がアナウンスを投稿できるようにします。",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "このアプリは、管理者がアナウンスを投稿できるようにします。 以下の機能もサポートしています：\n\n⚡アクティビティ（アクティビティアプリを有効にする必要があります）\n\n📑コメント\n\n👪グループのアクセス許可\n\n🔔通知（通知アプリを有効にする必要があります）",
     "These groups will be able to post announcements." : "これらのグループはアナウンスを投稿することが可能",
     "Create activities by default" : "デフォルトでアクティビティを作成する",
     "Create notifications by default" : "デフォルトで通知を作成する",
