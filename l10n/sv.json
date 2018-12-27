@@ -33,6 +33,7 @@
     "{user} announced “{announcement}”" : "{user} meddelade “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s meddelade “%2$s”",
     "Announcement center" : "Meddelandecentralen",
+    "This app allows admins to post announcements." : "Denna app tillåter administratörer att publicera meddelanden.",
     "These groups will be able to post announcements." : "Dessa grupper kan posta meddelanden",
     "Create activities by default" : "Få rättigheter att skapa aktiviteter",
     "Create notifications by default" : "Skapa notifikationer som standard",
