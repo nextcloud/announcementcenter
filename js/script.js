@@ -211,16 +211,16 @@
 				if (prot.indexOf('http:') !== 0 && prot.indexOf('https:') !== 0) {
 					return '';
 				}
-				var out = '<a href="' + href + '" rel="noreferrer noopener"';
+				var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
 				if (title) {
 					out += ' title="' + title + '"';
 				}
-				out += '>' + text + '</a>';
+				out += '>' + text + ' ↗</a>';
 				return out;
 			};
 
 			renderer.em = function (text) {
-				return '<i>' + text + '</i>'
+				return '<i>' + text + '</i>';
 			};
 
 			renderer.image = function (href, title, text) {
