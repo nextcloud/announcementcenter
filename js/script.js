@@ -198,6 +198,7 @@
 		},
 
 		markdownToHtml: function (message) {
+			message = message.replace(/<br \/>/g, "\n").replace(/&gt;/g, '>');
 			var renderer = new window.marked.Renderer();
 			renderer.link = function (href, title, text) {
 				try {
