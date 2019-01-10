@@ -83,7 +83,7 @@ class Notifier implements INotifier {
 			$displayName = $params[0];
 		}
 
-		$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId(), false, false, false);
+		$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId(), true, false, false);
 		$subject = str_replace("\n", ' ', $announcement['subject']);
 		$parsedParameters = [$displayName, $subject];
 

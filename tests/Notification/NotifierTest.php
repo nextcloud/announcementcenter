@@ -156,7 +156,7 @@ class NotifierTest extends TestCase {
 
 		$this->manager->expects($this->once())
 			->method('getAnnouncement')
-			->with($objectId, false)
+			->with($objectId, true, false, false)
 			->willReturn([
 				'subject' => $subject,
 				'message' => $message,
