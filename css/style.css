@@ -67,6 +67,27 @@
 	color: #878787;
 }
 
+.section > blockquote {
+	padding: 5px 10px;
+	border-left: 1px solid #ddd;
+}
+
+ul, ol {
+	padding-inline-start: 40px;
+}
+
+.section > ul {
+	list-style-type: disc;
+}
+
+.section > ul ul {
+	list-style-type: circle;
+}
+
+.section > ul ul ul {
+	list-style-type: square;
+}
+
 #app-content .avatar {
 	vertical-align: middle;
 	display: inline-block;

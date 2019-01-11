@@ -6,7 +6,8 @@
 \OCP\Util::addScript('oc-backbone-webdav');
 script('announcementcenter', [
 	'vendor/Caret.js/dist/jquery.caret.min',
-	'vendor/At.js/dist/js/jquery.atwho.min',
+	'vendor/At.js/dist/jquery.atwho.min',
+	'vendor/Marked.js/dist/marked',
 	'script',
 	'templates',
 	'commentmodel',
