@@ -14,7 +14,7 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "当前字数： {count}，最大允许：{max}",
     "Error occurred while retrieving comment with ID {id}" : "取回 ID {id} 的评论时发生错误",
     "Error occurred while updating comment with id {id}" : "更新 id 为 {id} 的评论出错",
-    "Error occurred while posting comment" : "发布评论出错",
+    "Error occurred while posting comment" : "发布评论时出错",
     "_%n comment_::_%n comments_" : ["%n 评论"],
     "Announcing…" : "发布公告...",
     "Announced!" : "已发布公告！",
