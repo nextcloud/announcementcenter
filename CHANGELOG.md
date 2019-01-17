@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.4.1 – 2019-01-17
+### Added
+- Markdown support for announcements
+  [#132](https://github.com/nextcloud/announcementcenter/pull/132)
+
+### Fixed
+- Correctly reset the group selection after sending an announcement
+  [#137](https://github.com/nextcloud/announcementcenter/pull/137)
+- Better support for dark-theme
+  [#134](https://github.com/nextcloud/announcementcenter/pull/134)
+  [#138](https://github.com/nextcloud/announcementcenter/pull/138)
+- Prevent HTML rendering in notifications
+  [#131](https://github.com/nextcloud/announcementcenter/pull/131)
+
 ## 3.4.0 – 2018-11-16
 ### Added
 - Support mentions and clickable links in comments
