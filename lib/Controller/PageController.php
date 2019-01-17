@@ -126,10 +126,11 @@ class PageController extends Controller {
 	 * @param string[] $groups,
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $emails
 	 * @param bool $comments
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications, $comments):JSONResponse {
+	public function add($subject, $message, array $groups, $activities, $notifications, $emails, $comments):JSONResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -147,11 +148,12 @@ class PageController extends Controller {
 			);
 		}
 
-		if ($activities || $notifications) {
+		if ($activities || $notifications || $emails) {
 			$this->jobList->add(BackgroundJob::class, [
 				'id' => $announcement['id'],
 				'activities' => $activities,
 				'notifications' => $notifications,
+				'emails' => $emails,
 			]);
 		}
 
@@ -216,6 +218,7 @@ class PageController extends Controller {
 			'isAdmin'	=> $this->manager->checkIsAdmin(),
 			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
 			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
+			'sendEmails' => $this->config->getAppValue('announcementcenter', 'send_emails', 'yes') === 'yes',
 			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
 		]);
 	}

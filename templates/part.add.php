@@ -42,6 +42,13 @@ script('settings', 'settings');
 		</p>
 
 		<p>
+			<input id="send_emails" name="send_emails"
+				   type="checkbox" class="checkbox" value="1"
+				<?php if ($_['sendEmails']) print_unescaped('checked="checked"'); ?> />
+			<label for="send_emails"><?php p($l->t('Send emails'));?></label><br/>
+		</p>
+
+		<p>
 			<input id="allow_comments" name="allow_comments"
 				   type="checkbox" class="checkbox" value="1"
 				<?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />

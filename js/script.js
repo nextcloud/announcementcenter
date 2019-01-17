@@ -145,6 +145,7 @@
 					groups: $('#groups').val().split('|'),
 					activities: $('#create_activities').attr('checked') === 'checked',
 					notifications: $('#create_notifications').attr('checked') === 'checked',
+					emails: $('#send_emails').attr('checked') === 'checked',
 					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
 			}).done(function(announcement) {

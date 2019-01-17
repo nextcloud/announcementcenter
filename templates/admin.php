@@ -51,6 +51,13 @@ script('announcementcenter', 'admin');
 	</p>
 
 	<p>
+		<input id="announcementcenter_send_emails" name="send_emails"
+			   type="checkbox" class="checkbox" value="1"
+			   <?php if ($_['sendEmails']) print_unescaped('checked="checked"'); ?> />
+		<label for="announcementcenter_send_emails"><?php p($l->t('Send emails by default'));?></label><br/>
+	</p>
+
+	<p>
 		<input id="announcementcenter_allow_comments" name="allow_comments"
 			   type="checkbox" class="checkbox" value="1"
 			   <?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />

@@ -32,12 +32,18 @@ use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
+use OCP\Mail\IEMailTemplate;
+use OCP\Mail\IMailer;
+use OCP\Mail\IMessage;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 
 class BackgroundJob extends QueuedJob {
 	/** @var INotificationManager */
 	protected $notificationManager;
+
+	/** @var IMailer */
+	protected $mailer;
 
 	/** @var IUserManager */
 	private $userManager;
@@ -62,12 +68,14 @@ class BackgroundJob extends QueuedJob {
 		IGroupManager $groupManager,
 		IManager $activityManager,
 		INotificationManager $notificationManager,
+		IMailer $mailer,
 		IURLGenerator $urlGenerator,
 		Manager $manager) {
 		$this->userManager = $userManager;
 		$this->groupManager = $groupManager;
 		$this->activityManager = $activityManager;
 		$this->notificationManager = $notificationManager;
+		$this->mailer = $mailer;
 		$this->urlGenerator = $urlGenerator;
 		$this->manager = $manager;
 	}
@@ -84,36 +92,33 @@ class BackgroundJob extends QueuedJob {
 			return;
 		}
 
-		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time'], $announcement['groups'], $arguments);
+		$this->createPublicity($announcement, $arguments);
 	}
 
 	/**
-	 * @param int $id
-	 * @param string $authorId
-	 * @param int $timeStamp
-	 * @param string[] $groups
+	 * @param array $announcement
 	 * @param array $publicity
 	 */
-	protected function createPublicity(int $id, string $authorId, int $timeStamp, array $groups, array $publicity) {
+	protected function createPublicity(array $announcement, array $publicity) {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
-			->setAuthor($authorId)
-			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject', ['author' => $authorId, 'announcement' => $id])
+			->setAuthor($announcement['author'])
+			->setTimestamp($announcement['time'])
+			->setSubject('announcementsubject', ['author' => $announcement['author'], 'announcement' => $announcement['id']])
 			->setMessage('announcementmessage')
-			->setObject('announcement', $id);
+			->setObject('announcement', $announcement['id']);
 
 		$dateTime = new \DateTime();
-		$dateTime->setTimestamp($timeStamp);
+		$dateTime->setTimestamp($announcement['time']);
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
 			->setDateTime($dateTime)
-			->setObject('announcement', $id)
-			->setSubject('announced', [$authorId])
+			->setObject('announcement', $announcement['id'])
+			->setSubject('announced', [$announcement['author']])
 			->setLink($this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
-				'announcement' => $id,
+				'announcement' => $announcement['id'],
 			]));
 
 		// Nextcloud 11+
@@ -121,21 +126,41 @@ class BackgroundJob extends QueuedJob {
 			$notification->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 		}
 
-		if (\in_array('everyone', $groups, true)) {
-			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
+		$template = $this->mailer->createEMailTemplate('announcementcenter::sendEmail');
+		$template->setSubject($announcement['subject']);
+		$template->addHeader();
+		$template->addHeading($announcement['subject']);
+		$template->addBodyText($announcement['message']);
+//		$this->setMessageBody($template, $announcement['message']);
+		$template->addFooter();
+		$email = $this->mailer->createMessage();
+		$email->useTemplate($template);
+
+		if (\in_array('everyone', $announcement['groups'], true)) {
+			$this->createPublicityEveryone($announcement['author'], $event, $notification, $email, $publicity);
 		} else {
-			$this->createPublicityGroups($authorId, $event, $notification, $groups, $publicity);
+			$this->createPublicityGroups($announcement['author'], $event, $notification, $email, $announcement['groups'], $publicity);
 		}
 	}
 
-	/**
-	 * @param string $authorId
-	 * @param IEvent $event
-	 * @param INotification $notification
-	 * @param array $publicity
-	 */
-	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, array $publicity) {
-		$this->userManager->callForSeenUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
+	protected function setMessageBody(IEMailTemplate $template, string $message) {
+		$lines = explode("\n", $message);
+
+		foreach ($lines as $line) {
+			if (trim($line) === '') {
+				continue;
+			}
+
+			if (strpos(trim($line), '* ') === 0) {
+				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)));
+			} else {
+				$template->addBodyText($line);
+			}
+		}
+	}
+
+	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, IMessage $email, array $publicity) {
+		$this->userManager->callForSeenUsers(function(IUser $user) use ($authorId, $event, $notification, $email, $publicity) {
 			if (!empty($publicity['activities'])) {
 				$event->setAffectedUser($user->getUID());
 				$this->activityManager->publish($event);
@@ -145,17 +170,19 @@ class BackgroundJob extends QueuedJob {
 				$notification->setUser($user->getUID());
 				$this->notificationManager->notify($notification);
 			}
+
+			if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress()) {
+				$email->setTo([$user->getEMailAddress()]);
+				try {
+					$this->mailer->send($email);
+				} catch (\Exception $e) {
+					\OC::$server->getLogger()->logException($e);
+				}
+			}
 		});
 	}
 
-	/**
-	 * @param string $authorId
-	 * @param IEvent $event
-	 * @param INotification $notification
-	 * @param string[] $groups
-	 * @param array $publicity
-	 */
-	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, array $groups, array $publicity) {
+	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, IMessage $email, array $groups, array $publicity) {
 		foreach ($groups as $gid) {
 			$group = $this->groupManager->get($gid);
 			if (!($group instanceof IGroup)) {
@@ -174,9 +201,18 @@ class BackgroundJob extends QueuedJob {
 					$this->activityManager->publish($event);
 				}
 
-				if ($authorId !== $uid && !empty($publicity['notifications'])) {
+				if (!empty($publicity['notifications']) && $authorId !== $uid) {
 					$notification->setUser($uid);
 					$this->notificationManager->notify($notification);
+				}
+
+				if (!empty($publicity['email']) && $authorId !== $uid && $user->getEMailAddress()) {
+					$email->setTo([$user->getEMailAddress()]);
+					try {
+						$this->mailer->send($email);
+					} catch (\Exception $e) {
+						\OC::$server->getLogger()->logException($e);
+					}
 				}
 
 				$this->notifiedUsers[$uid] = true;
