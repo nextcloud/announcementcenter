@@ -23,8 +23,10 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Activity;
 
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\Activity\IEvent;
-use OCP\Activity\IManager;
+use OCP\Activity\IManager as IActivityManager;
 use OCP\Activity\IProvider;
 use OCP\IURLGenerator;
 use OCP\IUser;
@@ -39,7 +41,7 @@ class Provider implements IProvider {
 	/** @var IURLGenerator */
 	protected $url;
 
-	/** @var IManager */
+	/** @var IActivityManager */
 	protected $activityManager;
 
 	/** @var IUserManager */
@@ -51,7 +53,13 @@ class Provider implements IProvider {
 	/** @var string[] */
 	protected $displayNames = [];
 
-	public function __construct(IFactory $languageFactory, IURLGenerator $url, IManager $activityManager, IUserManager $userManager, Manager $manager) {
+	public function __construct(
+		IFactory $languageFactory,
+		IURLGenerator $url,
+		IActivityManager $activityManager,
+		IUserManager $userManager,
+		Manager $manager
+	) {
 		$this->languageFactory = $languageFactory;
 		$this->url = $url;
 		$this->activityManager = $activityManager;
@@ -86,18 +94,18 @@ class Provider implements IProvider {
 		$parameters = $this->getParameters($event);
 
 		try {
-			$announcement = $this->manager->getAnnouncement($parameters['announcement'], true, false, false);
+			$announcement = $this->manager->getAnnouncement($parameters['announcement']);
 
 			$parsedParameters = $this->getParsedParameters($parameters, $announcement);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
-				$subject = $l->t('You announced {announcement}');
+				$subject = $l->t('You announced “{announcement}”');
 				unset($parsedParameters['actor']);
 			} else {
-				$subject = $l->t('{actor} announced {announcement}');
+				$subject = $l->t('{actor} announced “{announcement}”');
 			}
-			$event->setParsedMessage($announcement['message']);
-		} catch (\InvalidArgumentException $e) {
-			$parsedParameters = $this->getParsedParameters($parameters, []);
+			$event->setParsedMessage($announcement->getParsedMessage());
+		} catch (AnnouncementDoesNotExistException $e) {
+			$parsedParameters = $this->getParsedParameters($parameters);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
 				$subject = $l->t('You posted an announcement');
 				unset($parsedParameters['actor']);
@@ -105,7 +113,7 @@ class Provider implements IProvider {
 				$subject = $l->t('{actor} posted an announcement');
 			}
 
-			$event->setParsedMessage($l->t('Announcement does not exist anymore'));
+			$event->setParsedMessage($l->t('The announcement does not exist anymore'));
 		}
 
 
@@ -123,20 +131,7 @@ class Provider implements IProvider {
 		// Legacy fallback from before 3.4.0
 		return [
 			'author' => $parameters[0] ?? '',
-			'announcement' => (int) $event->getObjectId(),
-		];
-	}
-
-	protected function getParsedParameters(array $parameters, array $announcement): array {
-		if (!empty($announcement)) {
-			return [
-				'actor' => $this->generateUserParameter($parameters['author']),
-				'announcement' => $this->generateAnnouncementParameter($announcement),
-			];
-		}
-
-		return [
-			'actor' => $this->generateUserParameter($parameters['author']),
+			'announcement' => $event->getObjectId(),
 		];
 	}
 
@@ -151,13 +146,26 @@ class Provider implements IProvider {
 			->setRichSubject($subject, $parameters);
 	}
 
-	protected function generateAnnouncementParameter(array $announcement): array {
+	protected function getParsedParameters(array $parameters, Announcement $announcement = null): array {
+		if ($announcement !== null) {
+			return [
+				'actor' => $this->generateUserParameter($parameters['author']),
+				'announcement' => $this->generateAnnouncementParameter($announcement),
+			];
+		}
+
+		return [
+			'actor' => $this->generateUserParameter($parameters['author']),
+		];
+	}
+
+	protected function generateAnnouncementParameter(Announcement $announcement): array {
 		return [
 			'type' => 'announcement',
-			'id' => $announcement['id'],
-			'name' => $announcement['subject'],
+			'id' => $announcement->getId(),
+			'name' => $announcement->getSubject(),
 			'link' => $this->url->linkToRouteAbsolute('announcementcenter.page.index', [
-				'announcement' => $announcement['id'],
+				'announcement' => $announcement->getId(),
 			]),
 		];
 	}

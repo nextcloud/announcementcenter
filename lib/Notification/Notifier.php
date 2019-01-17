@@ -26,20 +26,25 @@ namespace OCA\AnnouncementCenter\Notification;
 
 
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
+use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
 
 class Notifier implements INotifier {
 
+	/** @var Manager */
+	protected $manager;
+
 	/** @var IFactory */
 	protected $l10nFactory;
 
-	/** @var Manager */
-	protected $manager;
+	/** @var INotificationManager */
+	protected $notificationManager;
 
 	/** @var IUserManager */
 	protected $userManager;
@@ -47,9 +52,14 @@ class Notifier implements INotifier {
 	/** @var IURLGenerator */
 	protected $urlGenerator;
 
-	public function __construct(Manager $manager, IFactory $l10nFactory, IUserManager $userManager, IURLGenerator $urlGenerator) {
+	public function __construct(Manager $manager,
+								IFactory $l10nFactory,
+								INotificationManager $notificationManager,
+								IUserManager $userManager,
+								IURLGenerator $urlGenerator) {
 		$this->manager = $manager;
 		$this->l10nFactory = $l10nFactory;
+		$this->notificationManager = $notificationManager;
 		$this->userManager = $userManager;
 		$this->urlGenerator = $urlGenerator;
 	}
@@ -83,15 +93,18 @@ class Notifier implements INotifier {
 			$displayName = $params[0];
 		}
 
-		$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId(), true, false, false);
-		$subject = str_replace("\n", ' ', $announcement['subject']);
-		$parsedParameters = [$displayName, $subject];
+		try {
+			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
+		} catch (AnnouncementDoesNotExistException $e) {
+			$this->notificationManager->markProcessed($notification);
+			throw new \InvalidArgumentException('Announcement was deleted');
+		}
 
 		$link = $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
 			'announcement' => $notification->getObjectId(),
 		]);
 
-		$notification->setParsedMessage($announcement['message'])
+		$notification->setParsedMessage($announcement->getParsedMessage())
 			->setRichSubject(
 				$l->t('{user} announced “{announcement}”'),
 				[
@@ -103,16 +116,22 @@ class Notifier implements INotifier {
 					'announcement' => [
 						'type' => 'announcement',
 						'id' => $notification->getObjectId(),
-						'name' => $subject,
+						'name' => $announcement->getSubject(),
 						'link' => $link,
 					],
 				]
 			)
-			->setParsedSubject(
-				$l->t('%1$s announced “%2$s”', $parsedParameters)
-			)
 			->setLink($link)
 			->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
+
+		$placeholders = $replacements = [];
+		foreach ($notification->getRichSubjectParameters() as $placeholder => $parameter) {
+			$placeholders[] = '{' . $placeholder . '}';
+			$replacements[] = $parameter['name'];
+		}
+
+		$notification->setParsedSubject(str_replace($placeholders, $replacements, $notification->getRichSubject()));
+
 		return $notification;
 	}
 }
