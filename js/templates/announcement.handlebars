@@ -5,9 +5,9 @@
 	{{#if isAdmin}}
 		<span class="visibility has-tooltip" title="{{{visibilityString}}}">
 			{{#if visibilityEveryone}}
-				<img src="{{placesLinkIMG}}">
+				<span class="icon icon-link"></span>
 			{{else}}
-				<img src="{{placesContactsIMG}}">
+				<span class="icon icon-contacts-dark"></span>
 			{{/if}}
 		</span>
 	{{/if}}
@@ -17,13 +17,13 @@
 	{{#if isAdmin}}
 		<span class="delete-link has-tooltip" title="{{deleteTXT}}">
 			<a href="#" data-announcement-id="{{{announcementId}}}">
-				<img class="svg" src="{{deleteIMG}}" alt=""/>
+				<span class="icon icon-delete"></span>
 			</a>
 		</span>
 		{{#if hasNotifications}}
 			<span class="mute-link has-tooltip" title="{{removeNotificationTXT}}">
 				<a href="#" data-announcement-id="{{{announcementId}}}">
-					<img class="svg" src="{{notificationsOffIMG}}" alt=""/>
+					<span class="icon icon-notifications-off"></span>
 				</a>
 			</span>
 		{{/if}}
