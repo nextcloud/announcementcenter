@@ -32,12 +32,14 @@
 	margin-top: 50px !important;
 }
 
-#app-content .visibility img,
-#app-content .delete-link img,
-#app-content .mute-link img {
+#app-content .visibility .icon,
+#app-content .delete-link .icon,
+#app-content .mute-link .icon {
 	width: 16px;
 	vertical-align: middle;
 	padding-bottom: 3px;
+	display: inline-block;
+	width: 16px;
 }
 
 #app-content .delete-link,
@@ -59,6 +61,7 @@
 }
 
 @include icon-black-white('announcementcenter-dark', 'announcementcenter', 1);
+@include icon-black-white('notifications-off', 'announcementcenter', 1);
 
 .section > span {
 	padding-right: 7px;
