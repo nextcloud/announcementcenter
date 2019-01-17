@@ -11,7 +11,7 @@
 #app-content hr {
 	width: 85%;
 	border: none;
-	border-bottom: solid 1px #ddd;
+	border-bottom: solid 1px var(--color-border-dark);
 }
 
 #announcement_submit_msg.success {
@@ -58,9 +58,7 @@
 	box-sizing: content-box;
 }
 
-.icon-announcement {
-	background-image: url('../img/announcementcenter-dark.svg');
-}
+@include icon-black-white('announcementcenter-dark', 'announcementcenter', 1);
 
 .section > span {
 	padding-right: 7px;
@@ -69,7 +67,7 @@
 
 .section > blockquote {
 	padding: 5px 10px;
-	border-left: 1px solid #ddd;
+	border-left: 1px solid var(--color-border-dark);
 }
 
 ul, ol {
