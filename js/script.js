@@ -200,7 +200,7 @@
 
 				$('#subject').val('');
 				$('#message').val('');
-				$('#groups').val('');
+				$('#groups').val('').trigger('change');
 			}).fail(function (response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
