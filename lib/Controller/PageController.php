@@ -120,7 +120,7 @@ class PageController extends Controller {
 	 * @param bool $comments
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications, $comments):JSONResponse {
+	public function add($subject, $message, array $groups, $activities, $notifications, $comments): JSONResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],

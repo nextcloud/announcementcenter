@@ -31,6 +31,10 @@ use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\Group;
+use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
@@ -38,6 +42,8 @@ use OCP\Activity\IProvider;
 use OCP\Activity\ISetting;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\QBMapper;
 use OCP\BackgroundJob\IJob;
 use OCP\Migration\IRepairStep;
 use OCP\Notification\INotifier;
@@ -67,7 +73,7 @@ class ApplicationTest extends TestCase {
 		$this->assertEquals('announcementcenter', $this->container->getAppName());
 	}
 
-	public function dataContainerQuery() {
+	public function dataContainerQuery(): array {
 		return [
 			[Setting::class, ISetting::class],
 			[Provider::class, IProvider::class],
@@ -79,6 +85,10 @@ class ApplicationTest extends TestCase {
 			[Admin::class, ISettings::class],
 			[BackgroundJob::class, IJob::class],
 			[Manager::class, Manager::class],
+			[Announcement::class, Entity::class],
+			[AnnouncementMapper::class, QBMapper::class],
+			[Group::class, Entity::class],
+			[GroupMapper::class, QBMapper::class],
 		];
 	}
 
@@ -87,7 +97,7 @@ class ApplicationTest extends TestCase {
 	 * @param string $service
 	 * @param string $expected
 	 */
-	public function testContainerQuery($service, $expected) {
-		$this->assertTrue($this->container->query($service) instanceof $expected);
+	public function testContainerQuery(string $service, string $expected) {
+		$this->assertInstanceOf($expected, $this->container->query($service));
 	}
 }
