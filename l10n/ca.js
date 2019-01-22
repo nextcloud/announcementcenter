@@ -10,7 +10,7 @@ OC.L10N.register(
     "Comments" : "Comentaris",
     "No comments yet, start the conversation!" : "No s\\'han enregistrat comentaris encara, comença la conversació!",
     "More comments …" : "Més comentaris...",
-    "Save" : "Guardar",
+    "Save" : "Desa",
     "Allowed characters {count} of {max}" : "{count} caràcters permesos de {max}",
     "Error occurred while retrieving comment with ID {id}" : "Hi ha hagut un error en llegir el comentari amb id {id}",
     "Error occurred while updating comment with id {id}" : "Hi ha hagut un error en actualitzar el comentari amb id {id}",
