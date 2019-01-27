@@ -93,7 +93,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param Announcement $announcement
 	 * @param array $publicity
 	 */
-	protected function createPublicity(Announcement $announcement, array $publicity) {
+	protected function createPublicity(Announcement $announcement, array $publicity): void {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')

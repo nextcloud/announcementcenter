@@ -25,7 +25,9 @@ namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
-use OCP\Activity\IManager;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCP\Activity\IManager as IActivityManager;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
@@ -34,25 +36,23 @@ use OCP\IUser;
 use OCP\IGroup;
 use OCP\Activity\IEvent;
 use OCP\Notification\INotification;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
- * Class PageController
- *
- * @package OCA\AnnouncementCenter\Tests\Controller
  * @group DB
  */
 class BackgroundJobTest extends TestCase {
-	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IUserManager|MockObject */
 	protected $userManager;
-	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IGroupManager|MockObject */
 	protected $groupManager;
-	/** @var IManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IActivityManager|MockObject */
 	protected $activityManager;
-	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var INotificationManager|MockObject */
 	protected $notificationManager;
-	/** @var IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IURLGenerator|MockObject */
 	protected $urlGenerator;
-	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var Manager|MockObject */
 	protected $manager;
 
 	protected function setUp() {
@@ -60,7 +60,7 @@ class BackgroundJobTest extends TestCase {
 
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
-		$this->activityManager = $this->createMock(IManager::class);
+		$this->activityManager = $this->createMock(IActivityManager::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
 		$this->urlGenerator = $this->createMock(IURLGenerator::class);
 		$this->manager = $this->createMock(Manager::class);
@@ -76,26 +76,45 @@ class BackgroundJobTest extends TestCase {
 				$this->urlGenerator,
 				$this->manager
 			);
-		} else {
-			return $this->getMockBuilder(BackgroundJob::class)
-				->setConstructorArgs([
-					$this->userManager,
-					$this->groupManager,
-					$this->activityManager,
-					$this->notificationManager,
-					$this->urlGenerator,
-					$this->manager,
-				])
-				->setMethods($methods)
-				->getMock();
 		}
+
+		return $this->getMockBuilder(BackgroundJob::class)
+			->setConstructorArgs([
+				$this->userManager,
+				$this->groupManager,
+				$this->activityManager,
+				$this->notificationManager,
+				$this->urlGenerator,
+				$this->manager,
+			])
+			->setMethods($methods)
+			->getMock();
 	}
 
-	public function dataRun() {
+	public function testRunThrows(): void {
+		$job = $this->getJob(['createPublicity']);
+
+		$this->manager->expects($this->once())
+			->method('getAnnouncement')
+			->with(23, true)
+			->willThrowException(new AnnouncementDoesNotExistException());
+
+		$job->expects($this->never())
+			->method('createPublicity');
+
+		self::invokePrivate($job, 'run', [[
+			'id' => 23,
+			'activities' => true,
+			'notifications' => true,
+		]]);
+
+	}
+
+	public function dataRun(): array {
 		return [
-			[23, true, true, new \InvalidArgumentException()],
-			[42, true, false, ['id' => 42, 'author' => 'user', 'time' => 123456789, 'groups' => ['gid1', 'gid2']]],
-			[42, false, true, ['id' => 42, 'author' => 'user', 'time' => 123456789, 'groups' => ['everyone']]],
+			[23, true, false],
+			[42, false, true],
+			[72, true, true],
 		];
 	}
 
@@ -104,33 +123,24 @@ class BackgroundJobTest extends TestCase {
 	 * @param int $id
 	 * @param bool $activities
 	 * @param bool $notifications
-	 * @param \Exception|array|null $getResult
 	 */
-	public function testRun($id, $activities, $notifications, $getResult) {
+	public function testRun(int $id, bool $activities, bool $notifications): void {
 		$job = $this->getJob(['createPublicity']);
 
-		if ($getResult instanceof \Exception) {
-			$this->manager->expects($this->once())
-				->method('getAnnouncement')
-				->with($id, false)
-				->willThrowException($getResult);
+		$announcement = $this->createMock(Announcement::class);
 
-			$job->expects($this->never())
-				->method('createPublicity');
-		} else {
-			$this->manager->expects($this->once())
-				->method('getAnnouncement')
-				->with($id, false)
-				->willReturn($getResult);
+		$this->manager->expects($this->once())
+			->method('getAnnouncement')
+			->with($id, true)
+			->willReturn($announcement);
 
-			$job->expects($this->once())
-				->method('createPublicity')
-				->with($getResult['id'], $getResult['author'], $getResult['time'], $getResult['groups'], [
-					'id' => $id,
-					'activities' => $activities,
-					'notifications' => $notifications,
-				]);
-		}
+		$job->expects($this->once())
+			->method('createPublicity')
+			->with($announcement, [
+				'id' => $id,
+				'activities' => $activities,
+				'notifications' => $notifications,
+			]);
 
 		self::invokePrivate($job, 'run', [[
 			'id' => $id,
@@ -144,7 +154,7 @@ class BackgroundJobTest extends TestCase {
 	 * @param string $uid
 	 * @param string $displayName
 	 * @param bool $loggedIn
-	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_MockObject
+	 * @return IUser|MockObject
 	 */
 	protected function getUserMock($uid, $displayName, $loggedIn = true) {
 		$user = $this->createMock(IUser::class);
@@ -160,7 +170,11 @@ class BackgroundJobTest extends TestCase {
 		return $user;
 	}
 
-	protected function getGroupMock($users) {
+	/**
+	 * @param IUser[] $users
+	 * @return MockObject
+	 */
+	protected function getGroupMock(array $users) {
 		$group = $this->createMock(IGroup::class);
 		$group->expects($this->any())
 			->method('getUsers')
@@ -168,7 +182,7 @@ class BackgroundJobTest extends TestCase {
 		return $group;
 	}
 
-	public function dataCreatePublicity() {
+	public function dataCreatePublicity(): array {
 		return [
 			[['everyone'], true, [
 				'activities' => true,
@@ -187,7 +201,7 @@ class BackgroundJobTest extends TestCase {
 	 * @param bool $everyone
 	 * @param array $publicity
 	 */
-	public function testCreatePublicity(array $groups, $everyone, array $publicity) {
+	public function testCreatePublicity(array $groups, bool $everyone, array $publicity): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($this->once())
 			->method('setApp')
@@ -260,7 +274,17 @@ class BackgroundJobTest extends TestCase {
 			->method('createNotification')
 			->willReturn($notification);
 
-		$this->invokePrivate($job, 'createPublicity', [10, 'author', 1337, $groups, $publicity]);
+		$announcement = Announcement::fromParams([
+			'id' => 10,
+			'user' => 'author',
+			'time' => 1337,
+		]);
+
+		$this->manager->expects($this->once())
+			->method('getGroups')
+			->willReturn($groups);
+
+		self::invokePrivate($job, 'createPublicity', [$announcement, $publicity]);
 	}
 
 	public function dataCreatePublicityEveryoneAndGroup() {
@@ -283,7 +307,7 @@ class BackgroundJobTest extends TestCase {
 	 * @param bool $activities
 	 * @param bool $notifications
 	 */
-	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications) {
+	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? $this->exactly(5) : $this->never())
 			->method('setAffectedUser')
@@ -317,7 +341,7 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($notifications ? $this->exactly(4) : $this->never())
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $publicity]);
+		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $publicity]);
 	}
 
 	/**
@@ -327,7 +351,7 @@ class BackgroundJobTest extends TestCase {
 	 * @param bool $activities
 	 * @param bool $notifications
 	 */
-	public function testCreatePublicityGroups(array $publicity, $activities, $notifications) {
+	public function testCreatePublicityGroups(array $publicity, $activities, $notifications): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? $this->exactly(4) : $this->never())
 			->method('setAffectedUser')
@@ -361,6 +385,6 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($notifications ? $this->exactly(3) : $this->never())
 			->method('notify');
 
-		$this->invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
+		self::invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
 	}
 }
