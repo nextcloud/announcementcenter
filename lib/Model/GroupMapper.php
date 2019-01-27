@@ -43,6 +43,17 @@ class GroupMapper extends QBMapper {
 	}
 
 	/**
+	 * @param Announcement $announcement
+	 */
+	public function deleteGroupsForAnnouncement(Announcement $announcement): void {
+		$groups = $this->getGroupsForAnnouncement($announcement);
+
+		foreach ($groups as $group) {
+			$this->delete($group);
+		}
+	}
+
+	/**
 	 * @param Announcement[] $announcements
 	 * @return array
 	 */

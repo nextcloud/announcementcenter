@@ -44,9 +44,6 @@ class Manager {
 	/** @var IConfig */
 	protected $config;
 
-	/** @var IDBConnection */
-	protected $connection;
-
 	/** @var AnnouncementMapper */
 	protected $announcementMapper;
 
@@ -69,7 +66,6 @@ class Manager {
 	protected $userSession;
 
 	public function __construct(IConfig $config,
-								IDBConnection $connection,
 								AnnouncementMapper $announcementMapper,
 								GroupMapper $groupMapper,
 								IGroupManager $groupManager,
@@ -78,7 +74,6 @@ class Manager {
 								IJobList $jobList,
 								IUserSession $userSession) {
 		$this->config = $config;
-		$this->connection = $connection;
 		$this->announcementMapper = $announcementMapper;
 		$this->groupMapper = $groupMapper;
 		$this->groupManager = $groupManager;
@@ -149,15 +144,9 @@ class Manager {
 		// Delete comments
 		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
 
-		$query = $this->connection->getQueryBuilder();
-		$query->delete('announcements')
-			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
-		$query->execute();
-
-		$query = $this->connection->getQueryBuilder();
-		$query->delete('announcements_groups')
-			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
-		$query->execute();
+		$announcement = $this->announcementMapper->getById($id);
+		$this->announcementMapper->delete($announcement);
+		$this->groupMapper->deleteGroupsForAnnouncement($announcement);
 	}
 
 	/**
@@ -170,7 +159,7 @@ class Manager {
 		try {
 			$announcement = $this->announcementMapper->getById($id);
 		} catch (DoesNotExistException $e) {
-			throw new AnnouncementDoesNotExistException('Announcement does not exist');
+			throw new AnnouncementDoesNotExistException();
 		}
 
 		if ($ignorePermissions) {
@@ -187,7 +176,7 @@ class Manager {
 		$memberOfGroups = array_intersect($groups, $userGroups);
 
 		if (empty($memberOfGroups)) {
-			throw new AnnouncementDoesNotExistException('Announcement does not exist');
+			throw new AnnouncementDoesNotExistException();
 		}
 
 		return $announcement;
@@ -230,7 +219,7 @@ class Manager {
 		return $announcements;
 	}
 
-	public function markNotificationRead(int $id) {
+	public function markNotificationRead(int $id): void {
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
@@ -269,7 +258,7 @@ class Manager {
 		return $this->notificationManager->getCount($notification) > 0;
 	}
 
-	public function removeNotifications(int $id) {
+	public function removeNotifications(int $id): void {
 		if ($this->jobList->has(BackgroundJob::class, [
 			'id' => $id,
 			'activities' => true,
@@ -299,14 +288,6 @@ class Manager {
 		$notification->setApp('announcementcenter')
 			->setObject('announcement', $id);
 		$this->notificationManager->markProcessed($notification);
-	}
-
-	protected function parseMessage(string $message): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $message);
-	}
-
-	protected function parseSubject(string $subject): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', ' '], $subject);
 	}
 
 	/**

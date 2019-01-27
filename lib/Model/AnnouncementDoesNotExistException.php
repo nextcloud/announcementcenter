@@ -27,4 +27,8 @@ use OCP\AppFramework\Db\DoesNotExistException;
 
 class AnnouncementDoesNotExistException extends DoesNotExistException {
 
+	public function __construct() {
+		parent::__construct('Announcement does not exist');
+	}
+
 }

@@ -24,6 +24,11 @@
 namespace OCA\AnnouncementCenter\Tests;
 
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
@@ -32,6 +37,7 @@ use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\IUser;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class ManagerTest
@@ -46,6 +52,12 @@ class ManagerTest extends TestCase {
 
 	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
 	protected $config;
+
+	/** @var AnnouncementMapper|MockObject */
+	protected $announcementMapper;
+
+	/** @var GroupMapper|MockObject */
+	protected $groupMapper;
 
 	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $groupManager;
@@ -66,6 +78,8 @@ class ManagerTest extends TestCase {
 		parent::setUp();
 
 		$this->config = $this->createMock(IConfig::class);
+		$this->announcementMapper = $this->createMock(AnnouncementMapper::class);
+		$this->groupMapper = $this->createMock(GroupMapper::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
@@ -74,7 +88,8 @@ class ManagerTest extends TestCase {
 
 		$this->manager = new Manager(
 			$this->config,
-			\OC::$server->getDatabaseConnection(),
+			$this->announcementMapper,
+			$this->groupMapper,
 			$this->groupManager,
 			$this->notificationManager,
 			$this->commentsManager,
@@ -88,16 +103,15 @@ class ManagerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
+	 * @expectedException \OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException
 	 * @expectedMessage Invalid ID
 	 */
-	public function testGetAnnouncementNotExist() {
-		$this->config->expects($this->atLeastOnce())
-			->method('getAppValue')
-			->with('announcementcenter', 'admin_groups', '["admin"]')
-			->willReturn('["admin"]');
-
-		$this->manager->getAnnouncement(0);
+	public function testGetAnnouncementNotExist(): void {
+		$this->announcementMapper->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willThrowException(new DoesNotExistException('Entity does not exist'));
+		$this->manager->getAnnouncement(42);
 	}
 
 	/**
@@ -105,7 +119,7 @@ class ManagerTest extends TestCase {
 	 * @expectedMessage Invalid subject
 	 * @expectedCode 2
 	 */
-	public function testAnnounceNoSubject() {
+	public function testAnnounceNoSubject(): void {
 		$this->manager->announce('', '', '', 0, [], false);
 	}
 
@@ -114,8 +128,45 @@ class ManagerTest extends TestCase {
 	 * @expectedMessage Invalid subject
 	 * @expectedCode 1
 	 */
-	public function testAnnounceSubjectTooLong() {
+	public function testAnnounceSubjectTooLong(): void {
 		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
+	}
+
+	public function testDelete(): void {
+		$notification = $this->createMock(INotification::class);
+		$notification->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setObject')
+			->with('announcement', 23)
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->once())
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->once())
+			->method('markProcessed')
+			->with($notification);
+
+		$this->commentsManager->expects($this->once())
+			->method('deleteCommentsAtObject')
+			->with('announcement', $this->identicalTo('23'));
+
+		$announcement = $this->createMock(Announcement::class);
+		$this->announcementMapper->expects($this->once())
+			->method('getById')
+			->with(23)
+			->willReturn($announcement);
+		$this->announcementMapper->expects($this->once())
+			->method('delete')
+			->with($announcement);
+		$this->groupMapper->expects($this->once())
+			->method('deleteGroupsForAnnouncement')
+			->with($announcement);
+
+		$this->manager->delete(23);
 	}
 
 	protected function getUserMock($uid) {
@@ -157,7 +208,7 @@ class ManagerTest extends TestCase {
 	 * @param bool $noGroupsSet
 	 * @param bool $canAccessBoth
 	 */
-	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
+	public function te2stIntegrationTest($groups, $noGroupsSet, $canAccessBoth) {
 		$this->config->expects($this->atLeastOnce())
 			->method('getAppValue')
 			->with('announcementcenter', 'admin_groups', '["admin"]')
@@ -182,19 +233,14 @@ class ManagerTest extends TestCase {
 		$announcement = $this->manager->announce($subject, $message, $author, $time, [], false);
 		$this->assertHasNotification();
 		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2'], true);
-		if ($noGroupsSet) {
-			$announcement['groups'] = null;
-			$announcement2['groups'] = null;
-		}
 
-		$this->assertInternalType('int', $announcement['id']);
-		$this->assertGreaterThan(0, $announcement['id']);
-		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
-		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
-		$this->assertSame('author', $announcement['author']);
-		$this->assertSame($time, $announcement['time']);
-		$this->assertFalse($announcement['comments']);
-		$this->assertFalse($announcement['notifications']);
+
+		$this->assertGreaterThan(0, $announcement->getId());
+		$this->assertSame('subject <html>', $announcement->getSubject());
+		$this->assertSame("message\n<html>", $announcement->getMessage());
+		$this->assertSame('author', $announcement->getUser());
+		$this->assertSame($time, $announcement->getTime());
+		$this->assertSame(0, $announcement->getAllowComments());
 
 		if (!is_array($groups) || !in_array('admin', $groups, true)) {
 			unset($announcement['notifications']);
@@ -273,7 +319,7 @@ class ManagerTest extends TestCase {
 		}
 	}
 
-	public function testAnnouncementGroups() {
+	public function te2stAnnouncementGroups() {
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
 		$author = 'author';
@@ -295,7 +341,7 @@ class ManagerTest extends TestCase {
 		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
 	}
 
-	public function testAnnouncementGroupsAllInvalid() {
+	public function te2stAnnouncementGroupsAllInvalid() {
 		$subject = 'subject' . "\n<html>";
 		$message = 'message' . "\n<html>";
 		$author = 'author';
