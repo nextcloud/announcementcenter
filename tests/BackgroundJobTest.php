@@ -237,9 +237,6 @@ class BackgroundJobTest extends TestCase {
 			->method('setObject')
 			->with('announcement', 10)
 			->willReturnSelf();
-		$notification->expects($this->once())
-			->method('setLink')
-			->willReturnSelf();
 
 		$job = $this->getJob([
 			'createPublicityEveryone',

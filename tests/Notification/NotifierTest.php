@@ -178,6 +178,12 @@ class NotifierTest extends TestCase {
 			->method('setParsedSubject')
 			->with($expectedSubject)
 			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setLink')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setIcon')
+			->willReturnSelf();
 
 		$return = $this->notifier->prepare($notification, 'en');
 
