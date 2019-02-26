@@ -87,6 +87,10 @@ class Notifier implements INotifier {
 		$subject = str_replace("\n", ' ', $announcement['subject']);
 		$parsedParameters = [$displayName, $subject];
 
+		$link = $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
+			'announcement' => $notification->getObjectId(),
+		]);
+
 		$notification->setParsedMessage($announcement['message'])
 			->setRichSubject(
 				$l->t('{user} announced “{announcement}”'),
@@ -100,15 +104,15 @@ class Notifier implements INotifier {
 						'type' => 'announcement',
 						'id' => $notification->getObjectId(),
 						'name' => $subject,
-						'link' => $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
-							'announcement' => $notification->getObjectId(),
-						]),
+						'link' => $link,
 					],
 				]
 			)
 			->setParsedSubject(
-				(string)$l->t('%1$s announced “%2$s”', $parsedParameters)
-			);
+				$l->t('%1$s announced “%2$s”', $parsedParameters)
+			)
+			->setLink($link)
+			->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 		return $notification;
 	}
 }

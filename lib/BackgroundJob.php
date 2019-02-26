@@ -111,15 +111,7 @@ class BackgroundJob extends QueuedJob {
 		$notification->setApp('announcementcenter')
 			->setDateTime($dateTime)
 			->setObject('announcement', $id)
-			->setSubject('announced', [$authorId])
-			->setLink($this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
-				'announcement' => $id,
-			]));
-
-		// Nextcloud 11+
-		if (method_exists($notification, 'setIcon')) {
-			$notification->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
-		}
+			->setSubject('announced', [$authorId]);
 
 		if (\in_array('everyone', $groups, true)) {
 			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
