@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "ඉහල විකල්ප",
     "Create activities" : "ක්රියාකාරකම් සාදන්න",
     "Create notifications" : "දැනුම්දීම් සාදන්න",
-    "Allow comments" : "අදහස්වලට ඉඩ දෙන්න",
-    "Error occurred while retrieving comment with id {id}" : "id {id} සමඟ අදහස් විමසීමේදී දෝෂයක් ඇතිවිය"
+    "Allow comments" : "අදහස්වලට ඉඩ දෙන්න"
 },
 "nplurals=2; plural=(n != 1);");

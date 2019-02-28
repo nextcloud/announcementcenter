@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Detalaj agordoj",
     "Create activities" : "Krei aktivaĵojn",
     "Create notifications" : "Krei sciigojn",
-    "Allow comments" : "Permesi komentojn",
-    "Error occurred while retrieving comment with id {id}" : "Eraro dum ricevo de komento kun identigilo {id}"
+    "Allow comments" : "Permesi komentojn"
 },
 "nplurals=2; plural=(n != 1);");

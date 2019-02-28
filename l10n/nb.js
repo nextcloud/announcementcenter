@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Avanserte alternativer",
     "Create activities" : "Opprett aktiviteter",
     "Create notifications" : "Opprett varsler",
-    "Allow comments" : "Tillatt kommentarer",
-    "Error occurred while retrieving comment with id {id}" : "En feil oppstod under henting av kommentar med id {id}"
+    "Allow comments" : "Tillatt kommentarer"
 },
 "nplurals=2; plural=(n != 1);");

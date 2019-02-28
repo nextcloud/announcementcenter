@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli",
-    "Error occurred while retrieving comment with id {id}" : "Villa kom upp við að reyna að ná í ummæli með auðkenninu {id}"
+    "Allow comments" : "Leyfa ummæli"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

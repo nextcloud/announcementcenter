@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Tùy chọn nâng cao",
     "Create activities" : "Tạo hoạt động",
     "Create notifications" : "Tạo thông báo",
-    "Allow comments" : "Cho phép bình luận",
-    "Error occurred while retrieving comment with id {id}" : "Xảy ra lỗi trong khi truy xuất bình luận của id {id}"
+    "Allow comments" : "Cho phép bình luận"
 },
 "nplurals=1; plural=0;");

@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Επιλογές για προχωρημένους",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
-    "Allow comments" : "Να επιτρέπονται σχόλια",
-    "Error occurred while retrieving comment with id {id}" : "Ένα σφάλμα προέκυψε κατά την λήψη σχολίου με αναγνωριστικό {id}"
+    "Allow comments" : "Να επιτρέπονται σχόλια"
 },
 "nplurals=2; plural=(n != 1);");

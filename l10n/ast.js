@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Opciones avanzaes",
     "Create activities" : "Crear actividaes",
     "Create notifications" : "Crear avisos",
-    "Allow comments" : "Permitir comentarios",
-    "Error occurred while retrieving comment with id {id}" : "Asocedió un fallu entrín se recibía'l comentariu cola ID {id}"
+    "Allow comments" : "Permitir comentarios"
 },
 "nplurals=2; plural=(n != 1);");

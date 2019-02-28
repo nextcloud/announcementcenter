@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvoriť aktivity",
     "Create notifications" : "Vytvoriť hlásenia",
-    "Allow comments" : "Povoliť komentáre",
-    "Error occurred while retrieving comment with id {id}" : "Pri načítavaní komentára s ID {id} nastala chyba"
+    "Allow comments" : "Povoliť komentáre"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

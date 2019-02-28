@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "დამატებითი ოპციონები",
     "Create activities" : "აქტივობების შექმნა",
     "Create notifications" : "შეტყობინებების შექმნა",
-    "Allow comments" : "კომენტარების დაშვება",
-    "Error occurred while retrieving comment with id {id}" : "კომენტარის id-ით  {id}-ის მიღებისას წარმოიშვა შეცდომა"
+    "Allow comments" : "კომენტარების დაშვება"
 },
 "nplurals=2; plural=(n!=1);");
