@@ -51,7 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Haladó beállítások",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
-    "Allow comments" : "Hozzászólások engedélyezése",
-    "Error occurred while retrieving comment with id {id}" : "Hiba a következő azonosítójú hozzászólás letöltése közben: {id}"
+    "Allow comments" : "Hozzászólások engedélyezése"
 },
 "nplurals=2; plural=(n != 1);");

@@ -51,7 +51,6 @@ OC.L10N.register(
     "Advanced options" : "進階選項",
     "Create activities" : "建立活動",
     "Create notifications" : "建立通知",
-    "Allow comments" : "允許留言",
-    "Error occurred while retrieving comment with id {id}" : "取得留言 {id} 發生錯誤"
+    "Allow comments" : "允許留言"
 },
 "nplurals=1; plural=0;");

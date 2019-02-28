@@ -50,7 +50,6 @@
     "Advanced options" : "Дополнительные настройки",
     "Create activities" : "Создать действия",
     "Create notifications" : "Создать уведомления",
-    "Allow comments" : "Разрешить комментарии",
-    "Error occurred while retrieving comment with id {id}" : "При получении комментария с id {id} произошла ошибка"
+    "Allow comments" : "Разрешить комментарии"
 },"pluralForm" :"nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);"
 }

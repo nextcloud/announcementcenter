@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Напредне опције",
     "Create activities" : "Направи активности",
     "Create notifications" : "Направи обавештења",
-    "Allow comments" : "Дозволи коментаре",
-    "Error occurred while retrieving comment with id {id}" : "Грешка при добављању коментара {id}"
+    "Allow comments" : "Дозволи коментаре"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

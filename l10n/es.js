@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Configuración avanzada",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
-    "Allow comments" : "Permitir comentarios",
-    "Error occurred while retrieving comment with id {id}" : "Se ha producido un error al recuperar el comentario con ID {id}"
+    "Allow comments" : "Permitir comentarios"
 },
 "nplurals=2; plural=(n != 1);");

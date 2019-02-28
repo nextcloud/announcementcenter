@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "詳細オプション",
     "Create activities" : "アクティビティを作成",
     "Create notifications" : "通知を作成",
-    "Allow comments" : "コメントを許可",
-    "Error occurred while retrieving comment with id {id}" : "ID {id} のコメント取得中にエラーが発生しました"
+    "Allow comments" : "コメントを許可"
 },
 "nplurals=1; plural=0;");

@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Бусад сонголтууд",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
-    "Error occurred while retrieving comment with id {id}" : "{id} дугаартай сэтгэгдлийг дуудахад алдаа гарлаа"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
 },
 "nplurals=2; plural=(n != 1);");

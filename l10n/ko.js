@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "고급 설정",
     "Create activities" : "활동 만들기",
     "Create notifications" : "알림 만들기",
-    "Allow comments" : "댓글 허용",
-    "Error occurred while retrieving comment with id {id}" : "댓글 ID {id}을(를) 가져오는 중 오류가 발생했습니다"
+    "Allow comments" : "댓글 허용"
 },
 "nplurals=1; plural=0;");

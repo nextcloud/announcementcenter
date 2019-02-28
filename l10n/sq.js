@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet",
-    "Error occurred while retrieving comment with id {id}" : "Ndodhi një gabim gjatë rimarrjes së komentit me id {id}"
+    "Allow comments" : "Lejo komentet"
 },
 "nplurals=2; plural=(n != 1);");

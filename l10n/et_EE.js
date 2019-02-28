@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Täpsemad valikud",
     "Create activities" : "Loo toimingud",
     "Create notifications" : "Koosta teateid",
-    "Allow comments" : "Luba kommentaarid",
-    "Error occurred while retrieving comment with id {id}" : "Kommentaari {id} laadimisel tekkis tõrge"
+    "Allow comments" : "Luba kommentaarid"
 },
 "nplurals=2; plural=(n != 1);");

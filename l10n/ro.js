@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Opțiuni avansate",
     "Create activities" : "Creează activități",
     "Create notifications" : "Crează notificări",
-    "Allow comments" : "Permite comentarii",
-    "Error occurred while retrieving comment with id {id}" : "Eroare la încărcarea comentariului cu id {id}"
+    "Allow comments" : "Permite comentarii"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");
