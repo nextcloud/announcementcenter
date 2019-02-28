@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Gelişmiş ayarlar",
     "Create activities" : "İşlem oluştur",
     "Create notifications" : "Bildirim oluştur",
-    "Allow comments" : "Yorum yapılabilsin",
-    "Error occurred while retrieving comment with id {id}" : "{id} kodlu yorum alınırken sorun çıktı"
+    "Allow comments" : "Yorum yapılabilsin"
 },
 "nplurals=2; plural=(n > 1);");

@@ -50,7 +50,6 @@
     "Advanced options" : "高级选项",
     "Create activities" : "创建活动",
     "Create notifications" : "创建提示",
-    "Allow comments" : "允许注释",
-    "Error occurred while retrieving comment with id {id}" : "检索 id 为 {id} 的评论出错"
+    "Allow comments" : "允许注释"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

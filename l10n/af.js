@@ -50,7 +50,6 @@ OC.L10N.register(
     "Advanced options" : "Gevorderde opsies",
     "Create activities" : "Skep aktiwiteite",
     "Create notifications" : "Skep kennisgewings",
-    "Allow comments" : "Staan kommentare toe",
-    "Error occurred while retrieving comment with id {id}" : "’n Fout het voorgekom toe kommentaar met id {id} opgehaal is"
+    "Allow comments" : "Staan kommentare toe"
 },
 "nplurals=2; plural=(n != 1);");

@@ -51,7 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Lisäasetukset",
     "Create activities" : "Luo toimet",
     "Create notifications" : "Luo ilmoitukset",
-    "Allow comments" : "Salli kommentit",
-    "Error occurred while retrieving comment with id {id}" : "Virhe haettaessa kommenttia tunnisteella {id}"
+    "Allow comments" : "Salli kommentit"
 },
 "nplurals=2; plural=(n != 1);");

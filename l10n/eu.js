@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Ezarpen aurreratuak",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
-    "Allow comments" : "Baimendu iruzkinak",
-    "Error occurred while retrieving comment with id {id}" : "Akats bat gertatu da {id} id duen iruzkina berreskuratzerakoan"
+    "Allow comments" : "Baimendu iruzkinak"
 },
 "nplurals=2; plural=(n != 1);");

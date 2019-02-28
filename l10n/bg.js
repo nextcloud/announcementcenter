@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Допълнителни опции",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
-    "Allow comments" : "Позволи коментари",
-    "Error occurred while retrieving comment with id {id}" : "Възникна грешка по време на извличане на коментар с код {id}"
+    "Allow comments" : "Позволи коментари"
 },
 "nplurals=2; plural=(n != 1);");

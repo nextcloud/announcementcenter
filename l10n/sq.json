@@ -50,7 +50,6 @@
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet",
-    "Error occurred while retrieving comment with id {id}" : "Ndodhi një gabim gjatë rimarrjes së komentit me id {id}"
+    "Allow comments" : "Lejo komentet"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

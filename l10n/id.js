@@ -48,7 +48,6 @@ OC.L10N.register(
     "Advanced options" : "Opsi lanjutan",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "izinkan komentar",
-    "Error occurred while retrieving comment with id {id}" : "Terjadi kesalahan saat mendapatkan komentar dengan id {id}"
+    "Allow comments" : "izinkan komentar"
 },
 "nplurals=1; plural=0;");

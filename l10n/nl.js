@@ -52,7 +52,6 @@ OC.L10N.register(
     "Advanced options" : "Geavanceerde opties",
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
-    "Allow comments" : "Reageren toestaan",
-    "Error occurred while retrieving comment with id {id}" : "Er trad een fout op bij het ophalen van reactie met id {id}"
+    "Allow comments" : "Reageren toestaan"
 },
 "nplurals=2; plural=(n != 1);");

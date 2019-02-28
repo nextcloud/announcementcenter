@@ -48,7 +48,6 @@ OC.L10N.register(
     "Advanced options" : "Optiones avantiate",
     "Create activities" : "Crear activitates",
     "Create notifications" : "Crear notificationes",
-    "Allow comments" : "Permitter commentarios",
-    "Error occurred while retrieving comment with id {id}" : "Un error occurreva durante le recuperation del commentario identificate per {id}"
+    "Allow comments" : "Permitter commentarios"
 },
 "nplurals=2; plural=(n != 1);");

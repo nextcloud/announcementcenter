@@ -49,7 +49,6 @@ OC.L10N.register(
     "Advanced options" : "Papildu opcijas",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus",
-    "Error occurred while retrieving comment with id {id}" : "Notika kļūda saņemot komentāru ar id {id}"
+    "Allow comments" : "Atļaut komentārus"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
