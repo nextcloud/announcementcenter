@@ -35,7 +35,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} kunngjorde “{announcement}”",
     "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”",
     "Announcement center" : "Kunngjøringssenter",
-    "This app allows admins to post announcements." : "Denne applikasjonen tillater administratorer å legge inn kunngjøringer.",
+    "This app allows admins to post announcements." : "Denne appen tillater administratorer å legge inn kunngjøringer.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Denne appen tillater administrator å legge ut annonseringer. Støtter følgende funksjoner:\n\n⚡ Aktiviteter (Aktivitetsapp må være aktivitert)\n\n📑 Kommentar\n\n👪 Gruppe tillatelser\n\n🔔 Notifiseringer (notifiseringsapp må være aktivert)",
     "These groups will be able to post announcements." : "Disse gruppene vil kunne poste kunngjøringer",
     "Create activities by default" : "Opprett aktiviteter som standard",
