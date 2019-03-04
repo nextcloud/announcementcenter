@@ -22,7 +22,7 @@
 		<logging/>
 	</types>
 
-	<category>organization</category>
+	<category>tools</category>
 
 	<website>https://github.com/nextcloud/announcementcenter</website>
 	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
