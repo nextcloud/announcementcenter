@@ -36,6 +36,7 @@ OC.L10N.register(
     "%1$s announced “%2$s”" : "%1$s 님이 \"%2$s\"을(를) 공지함",
     "Announcement center" : "공지 센터",
     "This app allows admins to post announcements." : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다. 또 이 앱은 다음 기능을 지원합니다:\n\n⚡ 액티비티 (액티비티 애플리케이션이 활성화되어야 합니다)\n\n📑 댓글\n\n👪 그룹 권한\n\n🔔 알림(알림 애플리케이션이 활성화되어야 합니다)",
     "These groups will be able to post announcements." : "다음 그룹에 속한 사용자는 공지 사항을 게시할 수 있습니다.",
     "Create activities by default" : "기본적으로 활동 만들기",
     "Create notifications by default" : "기본적으로 알림 만들기",
