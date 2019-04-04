@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.5.0 – 2019-04-04
+### Fixed
+- Compatibility with Nextcloud 16
+
 ## 3.4.1 – 2019-01-17
 ### Added
 - Markdown support for announcements
