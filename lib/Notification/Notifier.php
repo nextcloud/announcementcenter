@@ -85,13 +85,6 @@ class Notifier implements INotifier {
 			throw new \InvalidArgumentException('Unknown subject');
 		}
 
-		try {
-			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
-		} catch (AnnouncementDoesNotExistException $e) {
-			$this->notificationManager->markProcessed($notification);
-			throw new \InvalidArgumentException('Announcement was deleted');
-		}
-
 		$params = $notification->getSubjectParameters();
 		$user = $this->userManager->get($params[0]);
 		if ($user instanceof IUser) {
