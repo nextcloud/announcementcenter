@@ -26,6 +26,7 @@ namespace OCA\AnnouncementCenter\AppInfo;
 
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCP\AppFramework\App;
 use OCP\Comments\CommentsEntityEvent;
@@ -51,10 +52,10 @@ class Application extends App {
 				$manager = $this->getContainer()->query(Manager::class);
 				try {
 					$announcement = $manager->getAnnouncement((int) $name);
-				} catch (\InvalidArgumentException $e) {
+				} catch (AnnouncementDoesNotExistException $e) {
 					return false;
 				}
-				return $announcement['comments'] !== false;
+				return (bool) $announcement->getAllowComments();
 			});
 		});
 	}

@@ -25,11 +25,13 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IDBConnection;
@@ -42,8 +44,6 @@ use OCP\IUserSession;
 use OCA\AnnouncementCenter\BackgroundJob;
 
 class PageController extends Controller {
-	/** @var int */
-	const PAGE_LIMIT = 5;
 
 	/** @var IJobList */
 	protected $jobList;
@@ -66,6 +66,9 @@ class PageController extends Controller {
 	/** @var IConfig */
 	protected $config;
 
+	/** @var ITimeFactory */
+	protected $timeFactory;
+
 	/** @var IUserSession */
 	protected $userSession;
 
@@ -78,6 +81,7 @@ class PageController extends Controller {
 								IL10N $l,
 								Manager $manager,
 								IConfig $config,
+								ITimeFactory $timeFactory,
 								IUserSession $userSession) {
 		parent::__construct($AppName, $request);
 
@@ -88,6 +92,7 @@ class PageController extends Controller {
 		$this->l = $l;
 		$this->manager = $manager;
 		$this->config = $config;
+		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
 	}
 
@@ -99,23 +104,9 @@ class PageController extends Controller {
 	 * @return JSONResponse
 	 */
 	public function get($offset = 0): JSONResponse {
-		$rows = $this->manager->getAnnouncements(self::PAGE_LIMIT, $offset);
-
-		$announcements = [];
-		foreach ($rows as $row) {
-			$displayName = $row['author'];
-			$user = $this->userManager->get($displayName);
-			if ($user instanceof IUser) {
-				$displayName = $user->getDisplayName();
-			}
-
-			$row['author_id'] = $row['author'];
-			$row['author'] = $displayName;
-
-			$announcements[] = $row;
-		}
-
-		return new JSONResponse($announcements);
+		$announcements = $this->manager->getAnnouncements($offset);
+		$data = array_map([$this, 'renderAnnouncement'], $announcements);
+		return new JSONResponse($data);
 	}
 
 	/**
@@ -129,37 +120,60 @@ class PageController extends Controller {
 	 * @param bool $comments
 	 * @return JSONResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications, $comments):JSONResponse {
+	public function add($subject, $message, array $groups, $activities, $notifications, $comments): JSONResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new JSONResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
 			);
 		}
+		$user = $this->userSession->getUser();
+		$userId = $user instanceof IUser ? $user->getUID() : '';
 
-		$timeStamp = time();
 		try {
-			$announcement = $this->manager->announce($subject, $message, $this->userSession->getUser()->getUID(), $timeStamp, $groups, $comments);
+			$announcement = $this->manager->announce($subject, $message, $userId, $this->timeFactory->getTime(), $groups, $comments);
 		} catch (\InvalidArgumentException $e) {
 			return new JSONResponse(
-				['error' => (string)$this->l->t('The subject is too long or empty')],
+				['error' => $this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
 			);
 		}
 
 		if ($activities || $notifications) {
 			$this->jobList->add(BackgroundJob::class, [
-				'id' => $announcement['id'],
+				'id' => $announcement->getId(),
 				'activities' => $activities,
 				'notifications' => $notifications,
 			]);
 		}
 
-		$announcement['notifications'] = $notifications;
-		$announcement['author_id'] = $announcement['author'];
-		$announcement['author'] = $this->userManager->get($announcement['author_id'])->getDisplayName();
+		return new JSONResponse($this->renderAnnouncement($announcement));
+	}
 
-		return new JSONResponse($announcement);
+	protected function renderAnnouncement(Announcement $announcement): array {
+		$displayName = $announcement->getUser();
+		$user = $this->userManager->get($announcement->getUser());
+		if ($user instanceof IUser) {
+			$displayName = $user->getDisplayName();
+		}
+
+		$result = [
+			'id'		=> $announcement->getId(),
+			'author_id'	=> $announcement->getUser(),
+			'author'	=> $displayName,
+			'time'		=> $announcement->getTime(),
+			'subject'	=> $announcement->getSubject(),
+			'message'	=> $announcement->getParsedMessage(),
+			'groups'	=> null,
+			'comments'	=> $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
+		];
+
+		if ($this->manager->checkIsAdmin()) {
+			$result['groups'] = $this->manager->getGroups($announcement);
+			$result['notifications'] = $this->manager->hasNotifications($announcement);
+		}
+
+		return $result;
 	}
 
 	/**

@@ -25,8 +25,10 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter;
 
 use OC\BackgroundJob\QueuedJob;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\Activity\IEvent;
-use OCP\Activity\IManager;
+use OCP\Activity\IManager as IActivityManager;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
@@ -51,7 +53,7 @@ class BackgroundJob extends QueuedJob {
 	/** @var Manager */
 	private $manager;
 
-	/** @var IManager */
+	/** @var IActivityManager */
 	private $activityManager;
 
 	/** @var array */
@@ -60,7 +62,7 @@ class BackgroundJob extends QueuedJob {
 	public function __construct(
 		IUserManager $userManager,
 		IGroupManager $groupManager,
-		IManager $activityManager,
+		IActivityManager $activityManager,
 		INotificationManager $notificationManager,
 		IURLGenerator $urlGenerator,
 		Manager $manager) {
@@ -77,46 +79,44 @@ class BackgroundJob extends QueuedJob {
 	 */
 	public function run($arguments) {
 		try {
-			$announcement = $this->manager->getAnnouncement($arguments['id'], false, true);
-		} catch (\InvalidArgumentException $e) {
+			$announcement = $this->manager->getAnnouncement($arguments['id'], true);
+		} catch (AnnouncementDoesNotExistException $e) {
 			// Announcement was deleted in the meantime, so no need to announce it anymore
 			// So we die silently
 			return;
 		}
 
-		$this->createPublicity($announcement['id'], $announcement['author'], $announcement['time'], $announcement['groups'], $arguments);
+		$this->createPublicity($announcement, $arguments);
 	}
 
 	/**
-	 * @param int $id
-	 * @param string $authorId
-	 * @param int $timeStamp
-	 * @param string[] $groups
+	 * @param Announcement $announcement
 	 * @param array $publicity
 	 */
-	protected function createPublicity(int $id, string $authorId, int $timeStamp, array $groups, array $publicity) {
+	protected function createPublicity(Announcement $announcement, array $publicity): void {
 		$event = $this->activityManager->generateEvent();
 		$event->setApp('announcementcenter')
 			->setType('announcementcenter')
-			->setAuthor($authorId)
-			->setTimestamp($timeStamp)
-			->setSubject('announcementsubject', ['author' => $authorId, 'announcement' => $id])
+			->setAuthor($announcement->getUser())
+			->setTimestamp($announcement->getTime())
+			->setSubject('announcementsubject', ['author' => $announcement->getUser(), 'announcement' => $announcement->getId()])
 			->setMessage('announcementmessage')
-			->setObject('announcement', $id);
+			->setObject('announcement', $announcement->getId());
 
 		$dateTime = new \DateTime();
-		$dateTime->setTimestamp($timeStamp);
+		$dateTime->setTimestamp($announcement->getTime());
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
 			->setDateTime($dateTime)
-			->setObject('announcement', $id)
-			->setSubject('announced', [$authorId]);
+			->setObject('announcement', $announcement->getId())
+			->setSubject('announced', [$announcement->getUser()]);
 
+		$groups = $this->manager->getGroups($announcement);
 		if (\in_array('everyone', $groups, true)) {
-			$this->createPublicityEveryone($authorId, $event, $notification, $publicity);
+			$this->createPublicityEveryone($announcement->getUser(), $event, $notification, $publicity);
 		} else {
-			$this->createPublicityGroups($authorId, $event, $notification, $groups, $publicity);
+			$this->createPublicityGroups($announcement->getUser(), $event, $notification, $groups, $publicity);
 		}
 	}
 

@@ -25,8 +25,10 @@ namespace OCA\AnnouncementCenter\Tests\Controller;
 
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IGroupManager;
@@ -39,6 +41,8 @@ use OCP\AppFramework\Http\JSONResponse;
 use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IGroup;
+use PHPUnit\Framework\MockObject\MockBuilder;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class PageController
@@ -61,6 +65,8 @@ class PageControllerTest extends TestCase {
 	protected $manager;
 	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
 	protected $config;
+	/** @var ITimeFactory|MockObject */
+	protected $timeFactory;
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
 
@@ -74,6 +80,7 @@ class PageControllerTest extends TestCase {
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->manager = $this->createMock(Manager::class);
 		$this->config = $this->createMock(IConfig::class);
+		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 
 		$this->l->expects($this->any())
@@ -83,7 +90,7 @@ class PageControllerTest extends TestCase {
 			});
 	}
 
-	protected function getController(array $methods = []) {
+	protected function getController(array $methods = []): PageController {
 		if (empty($methods)) {
 			return new PageController(
 				'announcementcenter',
@@ -95,11 +102,14 @@ class PageControllerTest extends TestCase {
 				$this->l,
 				$this->manager,
 				$this->config,
+				$this->timeFactory,
 				$this->userSession
 			);
 		}
-		return $this->getMockBuilder(PageController::class)
-			->setConstructorArgs([
+
+		/** @var PageController|MockBuilder $mock */
+		$mock = $this->getMockBuilder(PageController::class);
+		return $mock->setConstructorArgs([
 				'announcementcenter',
 				$this->request,
 				\OC::$server->getDatabaseConnection(),
@@ -109,13 +119,15 @@ class PageControllerTest extends TestCase {
 				$this->l,
 				$this->manager,
 				$this->config,
+				$this->timeFactory,
 				$this->userSession,
 			])
 			->setMethods($methods)
 			->getMock();
 	}
 
-	protected function getUserMock($uid, $displayName) {
+	protected function getUserMock(string $uid, string $displayName): IUser {
+		/** @var IUser|MockObject $user */
 		$user = $this->createMock(IUser::class);
 		$user->expects($this->any())
 			->method('getUID')
@@ -126,7 +138,7 @@ class PageControllerTest extends TestCase {
 		return $user;
 	}
 
-	public function dataGet() {
+	public function dataGet(): array {
 		return [
 			[0, [], [], []],
 			[1, [], [], []],
@@ -155,11 +167,11 @@ class PageControllerTest extends TestCase {
 			[
 				1,
 				[
-					['id' => 42, 'author' => 'author1', 'subject' => "Subject &lt;html&gt;#1&lt;/html&gt;", 'message' => "Message<br />&lt;html&gt;#1&lt;/html&gt;", 'time' => 1440672792, 'groups' => null, 'comments' => true],
+					['id' => 42, 'author' => 'author1', 'subject' => "Subject\n<html>#1</html>", 'message' => "Message\n<html>#1</html>", 'time' => 1440672792, 'groups' => null, 'comments' => 31],
 				],
 				[],
 				[
-					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject &lt;html&gt;#1&lt;/html&gt;', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null, 'comments' => true],
+					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject <html>#1</html>', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
 				],
 			],
 		];
@@ -172,24 +184,45 @@ class PageControllerTest extends TestCase {
 	 * @param array $userMap
 	 * @param array $expected
 	 */
-	public function testGet($offset, $announcements, $userMap, $expected) {
+	public function legacyTestGet($offset, $announcements, $userMap, $expected) {
 		$this->userManager->expects($this->any())
 			->method('get')
 			->willReturnMap($userMap);
 
+		$comments = [];
+		$announcements = array_map(function(array $data) use (&$comments) {
+
+			$announcement = new Announcement();
+			$announcement->setId($data['id']);
+			$announcement->setUser($data['author']);
+			$announcement->setSubject($data['subject']);
+			$announcement->setMessage($data['message']);
+			$announcement->setTime($data['time']);
+			$announcement->setAllowComments($data['comments'] === false ? 0 : 1);
+
+			if ($data['comments'] !== false) {
+				$comments[] = [$announcement, $data['comments']];
+			}
+
+			return $announcement;
+		}, $announcements);
+
 		$this->manager->expects($this->any())
 			->method('getAnnouncements')
-			->with(5, $offset)
+			->with($offset)
 			->willReturn($announcements);
+
+		$this->manager->expects($this->exactly(count($comments)))
+			->method('getNumberOfComments')
+			->willReturnMap($comments);
 
 		$controller = $this->getController();
 		$jsonResponse = $controller->get($offset);
 
-		$this->assertInstanceOf(JSONResponse::class, $jsonResponse);
 		$this->assertEquals($expected, $jsonResponse->getData());
 	}
 
-	public function dataDelete() {
+	public function dataDelete(): array {
 		return [
 			[42, true, Http::STATUS_OK],
 			[1337, false, Http::STATUS_FORBIDDEN],
@@ -219,7 +252,6 @@ class PageControllerTest extends TestCase {
 		$controller = $this->getController();
 		$response = $controller->delete($id);
 
-		$this->assertInstanceOf(Response::class, $response);
 		$this->assertEquals($statusCode, $response->getStatus());
 	}
 
@@ -298,7 +330,7 @@ class PageControllerTest extends TestCase {
 	 * @param bool $notifications
 	 * @param bool $comments
 	 */
-	public function testAdd($subject, $message, array $groups, $activities, $notifications, $comments) {
+	public function legacyTestAdd($subject, $message, array $groups, $activities, $notifications, $comments) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -349,7 +381,7 @@ class PageControllerTest extends TestCase {
 		], $data);
 	}
 
-	public function dataIndex() {
+	public function dataIndex(): array {
 		return [
 			[true, 'yes', true, 'no', false, 'no', false],
 			[false, 'no', false, 'yes', true, 'yes', true],
@@ -367,7 +399,7 @@ class PageControllerTest extends TestCase {
 	 * @param string $allowCommentsConfig
 	 * @param bool $allowComments
 	 */
-	public function testIndex($isAdmin, $createActivitiesConfig, $createActivities, $createNotificationsConfig, $createNotifications, $allowCommentsConfig, $allowComments) {
+	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $allowCommentsConfig, bool $allowComments) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
@@ -381,7 +413,6 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 		$response = $controller->index();
-		$this->assertInstanceOf(TemplateResponse::class, $response);
 
 		$this->assertSame(
 			[
@@ -394,7 +425,8 @@ class PageControllerTest extends TestCase {
 		);
 	}
 
-	protected function getGroupMock($gid) {
+	protected function getGroupMock(string $gid): IGroup {
+		/** @var IGroup|MockObject $group */
 		$group = $this->createMock(IGroup::class);
 
 		$group->expects($this->any())
@@ -404,7 +436,7 @@ class PageControllerTest extends TestCase {
 		return $group;
 	}
 
-	public function dataSearchGroup() {
+	public function dataSearchGroup(): array {
 		return [
 			[true, 'gid', [], [], Http::STATUS_OK],
 			[true, 'gid', [$this->getGroupMock('gid1'), $this->getGroupMock('gid2')], ['gid1', 'gid2'], Http::STATUS_OK],
@@ -420,7 +452,7 @@ class PageControllerTest extends TestCase {
 	 * @param string $expected
 	 * @param int $code
 	 */
-	public function testSearchGroup($isAdmin, $pattern, $groupSearch, $expected, $code) {
+	public function testSearchGroup(bool $isAdmin, string $pattern, $groupSearch, array $expected, int $code) {
 		$this->manager->expects($this->once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
@@ -436,7 +468,6 @@ class PageControllerTest extends TestCase {
 
 		$controller = $this->getController();
 		$response = $controller->searchGroups($pattern);
-		$this->assertInstanceOf(JSONResponse::class, $response);
 		$this->assertSame($code, $response->getStatus());
 		$this->assertSame($expected, $response->getData());
 	}

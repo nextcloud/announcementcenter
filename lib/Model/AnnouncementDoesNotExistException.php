@@ -1,8 +1,7 @@
 <?php
+declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
- *
- * @author Joas Schilling <coding@schilljs.com>
+ * @copyright Copyright (c) 2019 Joas Schilling <coding@schilljs.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,15 +20,15 @@
  *
  */
 
-namespace OCA\AnnouncementCenter\Tests;
+namespace OCA\AnnouncementCenter\Model;
 
-class RoutesTest extends TestCase {
-	public function testRoutes() {
-		$routes = include __DIR__ . '/../../appinfo/routes.php';
-		$this->assertInternalType('array', $routes);
-		$this->assertCount(1, $routes);
-		$this->assertArrayHasKey('routes', $routes);
-		$this->assertInternalType('array', $routes['routes']);
-		$this->assertGreaterThanOrEqual(1, \count($routes['routes']));
+
+use OCP\AppFramework\Db\DoesNotExistException;
+
+class AnnouncementDoesNotExistException extends DoesNotExistException {
+
+	public function __construct() {
+		parent::__construct('Announcement does not exist');
 	}
+
 }

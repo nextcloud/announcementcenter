@@ -23,7 +23,13 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
+use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
@@ -32,6 +38,7 @@ use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\IUser;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class ManagerTest
@@ -46,6 +53,12 @@ class ManagerTest extends TestCase {
 
 	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
 	protected $config;
+
+	/** @var AnnouncementMapper|MockObject */
+	protected $announcementMapper;
+
+	/** @var GroupMapper|MockObject */
+	protected $groupMapper;
 
 	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
 	protected $groupManager;
@@ -66,6 +79,8 @@ class ManagerTest extends TestCase {
 		parent::setUp();
 
 		$this->config = $this->createMock(IConfig::class);
+		$this->announcementMapper = $this->createMock(AnnouncementMapper::class);
+		$this->groupMapper = $this->createMock(GroupMapper::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
@@ -74,7 +89,8 @@ class ManagerTest extends TestCase {
 
 		$this->manager = new Manager(
 			$this->config,
-			\OC::$server->getDatabaseConnection(),
+			$this->announcementMapper,
+			$this->groupMapper,
 			$this->groupManager,
 			$this->notificationManager,
 			$this->commentsManager,
@@ -88,16 +104,15 @@ class ManagerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
+	 * @expectedException \OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException
 	 * @expectedMessage Invalid ID
 	 */
-	public function testGetAnnouncementNotExist() {
-		$this->config->expects($this->atLeastOnce())
-			->method('getAppValue')
-			->with('announcementcenter', 'admin_groups', '["admin"]')
-			->willReturn('["admin"]');
-
-		$this->manager->getAnnouncement(0);
+	public function testGetAnnouncementNotExist(): void {
+		$this->announcementMapper->expects($this->once())
+			->method('getById')
+			->with(42)
+			->willThrowException(new DoesNotExistException('Entity does not exist'));
+		$this->manager->getAnnouncement(42);
 	}
 
 	/**
@@ -105,7 +120,7 @@ class ManagerTest extends TestCase {
 	 * @expectedMessage Invalid subject
 	 * @expectedCode 2
 	 */
-	public function testAnnounceNoSubject() {
+	public function testAnnounceNoSubject(): void {
 		$this->manager->announce('', '', '', 0, [], false);
 	}
 
@@ -114,8 +129,45 @@ class ManagerTest extends TestCase {
 	 * @expectedMessage Invalid subject
 	 * @expectedCode 1
 	 */
-	public function testAnnounceSubjectTooLong() {
+	public function testAnnounceSubjectTooLong(): void {
 		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
+	}
+
+	public function testDelete(): void {
+		$notification = $this->createMock(INotification::class);
+		$notification->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setObject')
+			->with('announcement', 23)
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->once())
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->once())
+			->method('markProcessed')
+			->with($notification);
+
+		$this->commentsManager->expects($this->once())
+			->method('deleteCommentsAtObject')
+			->with('announcement', $this->identicalTo('23'));
+
+		$announcement = $this->createMock(Announcement::class);
+		$this->announcementMapper->expects($this->once())
+			->method('getById')
+			->with(23)
+			->willReturn($announcement);
+		$this->announcementMapper->expects($this->once())
+			->method('delete')
+			->with($announcement);
+		$this->groupMapper->expects($this->once())
+			->method('deleteGroupsForAnnouncement')
+			->with($announcement);
+
+		$this->manager->delete(23);
 	}
 
 	protected function getUserMock($uid) {
@@ -143,176 +195,157 @@ class ManagerTest extends TestCase {
 		}
 	}
 
-	public function dataAnnouncement() {
+	public function dataAnnouncementGroups() {
 		return [
-			[null, true, false],
-			[['gid1', 'gid2'], true, true],
-			[['admin'], false, true],
+			[['everyone']],
+			[['gid1', 'gid2']],
 		];
 	}
 
 	/**
-	 * @dataProvider dataAnnouncement
-	 * @param string[] $groups
-	 * @param bool $noGroupsSet
-	 * @param bool $canAccessBoth
+	 * @dataProvider dataAnnouncementGroups
+	 * @param array $groups
 	 */
-	public function testAnnouncement($groups, $noGroupsSet, $canAccessBoth) {
-		$this->config->expects($this->atLeastOnce())
-			->method('getAppValue')
-			->with('announcementcenter', 'admin_groups', '["admin"]')
-			->willReturn('["admin"]');
+	public function testAnnouncementGroups(array $groups) {
+		/** @var Announcement $announcement */
+		$announcement = Announcement::fromParams([]);
 
-		$subject = 'subject' . "\n<html>";
-		$message = 'message' . "\n<html>";
-		$author = 'author';
-		$time = time() - 10;
+		$this->groupMapper->expects($this->once())
+			->method('getGroupsForAnnouncement')
+			->willReturn($groups);
 
-		$this->groupManager->expects($this->exactly(2))
-			->method('groupExists')
-			->willReturnMap([
-				['gid1', true],
-				['gid2', true],
-			]);
-		$this->setUserGroups($groups);
-
-		$this->assertEquals([], $this->manager->getAnnouncements());
-
-		$this->assertHasNotification();
-		$announcement = $this->manager->announce($subject, $message, $author, $time, [], false);
-		$this->assertHasNotification();
-		$announcement2 = $this->manager->announce($subject, $message, $author, $time + 2, ['gid1', 'gid2'], true);
-		if ($noGroupsSet) {
-			$announcement['groups'] = null;
-			$announcement2['groups'] = null;
-		}
-
-		$this->assertInternalType('int', $announcement['id']);
-		$this->assertGreaterThan(0, $announcement['id']);
-		$this->assertSame('subject &lt;html&gt;', $announcement['subject']);
-		$this->assertSame('message<br />&lt;html&gt;', $announcement['message']);
-		$this->assertSame('author', $announcement['author']);
-		$this->assertSame($time, $announcement['time']);
-		$this->assertFalse($announcement['comments']);
-		$this->assertFalse($announcement['notifications']);
-
-		if (!is_array($groups) || !in_array('admin', $groups, true)) {
-			unset($announcement['notifications']);
-			if (is_array($groups)) {
-				unset($announcement2['notifications']);
-			}
-		} else {
-			$this->assertHasNotification();
-		}
-
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-		if ($canAccessBoth) {
-			if (is_array($groups) && in_array('admin', $groups, true)) {
-				$this->assertHasNotification();
-			}
-			$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
-		} else {
-			try {
-				$this->assertEquals($announcement2, $this->manager->getAnnouncement($announcement2['id']));
-				$this->fail('Failed to check permissions for the announcement');
-			} catch (\InvalidArgumentException $e) {
-				$this->assertInstanceOf('InvalidArgumentException', $e);
-			}
-			$this->assertHasNotification();
-			$this->assertEquals(
-				array_merge($announcement2, ['groups' => ['gid1', 'gid2']]),
-				$this->manager->getAnnouncement($announcement2['id'], true, true)
-			);
-			$this->assertSame(0, $announcement2['comments']);
-		}
-
-		if (is_array($groups) && in_array('admin', $groups, true)) {
-			$this->assertHasNotification();
-		}
-		$this->assertEquals($announcement, $this->manager->getAnnouncement($announcement['id']));
-
-		$this->commentsManager->expects($this->any())
-			->method('getNumberOfCommentsForObject')
-			->willReturn(0);
-
-		if ($canAccessBoth) {
-			if (is_array($groups) && in_array('admin', $groups, true)) {
-				$this->assertHasNotification(2);
-			}
-			$this->assertEquals([$announcement2['id'] => $announcement2, $announcement['id'] => $announcement], $this->manager->getAnnouncements());
-			if (is_array($groups) && in_array('admin', $groups, true)) {
-				$this->assertHasNotification();
-			}
-			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
-			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
-		} else {
-			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements());
-			$this->assertEquals([$announcement['id'] => $announcement], $this->manager->getAnnouncements(15, $announcement2['id']));
-			$this->assertEquals([], $this->manager->getAnnouncements(15, $announcement['id']));
-		}
-
-		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteMetaData($announcement['id']);
-		$this->manager->delete($announcement['id']);
-		$this->assertDeleteMetaData($announcement2['id']);
-		$this->manager->delete($announcement2['id']);
-		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
-
-		try {
-			$this->manager->getAnnouncement($announcement['id']);
-			$this->fail('Failed to delete the announcement');
-		} catch (\InvalidArgumentException $e) {
-			$this->assertInstanceOf('InvalidArgumentException', $e);
-		}
-
-		try {
-			$this->manager->getAnnouncement($announcement2['id'], true, true);
-			$this->fail('Failed to delete the announcement');
-		} catch (\InvalidArgumentException $e) {
-			$this->assertInstanceOf('InvalidArgumentException', $e);
-		}
+		$this->assertSame($groups, $this->manager->getGroups($announcement));
 	}
 
-	public function testAnnouncementGroups() {
-		$subject = 'subject' . "\n<html>";
-		$message = 'message' . "\n<html>";
-		$author = 'author';
-		$time = time() - 10;
-
-		$this->groupManager->expects($this->exactly(3))
-			->method('groupExists')
-			->willReturnMap([
-				['gid0', false],
-				['gid1', true],
-				['gid2', true],
-			]);
-
-		$this->assertHasNotification();
-		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0', 'gid1', 'gid2'], true);
-		$this->assertEquals(['gid1', 'gid2'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteMetaData($announcement['id']);
-		$this->manager->delete($announcement['id']);
-		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
+	public function dataHasNotifications(): array {
+		return [
+			[23, false, true, 0, true],
+			[42, true, true, 0, true],
+			[72, false, false, 0, false],
+			[128, false, false, 55, true],
+		];
 	}
 
-	public function testAnnouncementGroupsAllInvalid() {
-		$subject = 'subject' . "\n<html>";
-		$message = 'message' . "\n<html>";
-		$author = 'author';
-		$time = time() - 10;
-
-		$this->groupManager->expects($this->exactly(1))
-			->method('groupExists')
+	/**
+	 * @dataProvider dataHasNotifications
+	 * @param int $id
+	 * @param bool $hasActivityJob
+	 * @param bool $hasNotificationJob
+	 * @param int $numNotifications
+	 */
+	public function testHasNotifications(int $id, bool $hasActivityJob, bool $hasNotificationJob, int $numNotifications): void {
+		$this->jobList->expects($hasActivityJob ? $this->once() : $this->exactly(2))
+			->method('has')
 			->willReturnMap([
-				['gid0', false],
+				[BackgroundJob::class, [
+					'id' => $id,
+					'activities' => true,
+					'notifications' => true,
+				], $hasActivityJob && $hasNotificationJob],
+				[BackgroundJob::class, [
+					'id' => $id,
+					'activities' => false,
+					'notifications' => true,
+				], $hasNotificationJob],
 			]);
 
-		$this->assertHasNotification();
-		$announcement = $this->manager->announce($subject, $message, $author, $time, ['gid0'], true);
-		$this->assertEquals(['everyone'], $this->manager->getGroups($announcement['id']));
-		$this->assertDeleteMetaData($announcement['id']);
-		$this->manager->delete($announcement['id']);
-		$this->assertEquals([], $this->manager->getGroups($announcement['id']));
+		if (!$hasNotificationJob) {
+			$notification = $this->createMock(INotification::class);
+			$notification->expects($this->once())
+				->method('setApp')
+				->with('announcementcenter')
+				->willReturnSelf();
+			$notification->expects($this->once())
+				->method('setObject')
+				->with('announcement', $id)
+				->willReturnSelf();
+
+			$this->notificationManager->expects($this->once())
+				->method('createNotification')
+				->willReturn($notification);
+			$this->notificationManager->expects($this->once())
+				->method('getCount')
+				->with($notification)
+				->willReturn($numNotifications);
+		} else {
+			$this->notificationManager->expects($this->never())
+				->method('createNotification');
+			$this->notificationManager->expects($this->never())
+				->method('getCount');
+		}
+
+		/** @var Announcement $announcement */
+		$announcement = Announcement::fromParams([
+			'id' => $id,
+		]);
+		$this->manager->hasNotifications($announcement);
+	}
+
+	public function dataRemoveNotifications(): array {
+		return [
+			[23, false],
+			[42, true],
+		];
+	}
+
+	/**
+	 * @dataProvider dataRemoveNotifications
+	 * @param int $id
+	 * @param bool $hasActivity
+	 */
+	public function testRemoveNotifications(int $id, bool $hasActivity): void {
+		$this->jobList->expects($this->once())
+			->method('has')
+			->with(BackgroundJob::class, [
+				'id' => $id,
+				'activities' => true,
+				'notifications' => true,
+			])
+			->willReturn($hasActivity);
+
+		if ($hasActivity) {
+			$this->jobList->expects($this->once())
+				->method('remove')
+				->with(BackgroundJob::class, [
+					'id' => $id,
+					'activities' => true,
+					'notifications' => true,
+				]);
+			$this->jobList->expects($this->once())
+				->method('add')
+				->with(BackgroundJob::class, [
+					'id' => $id,
+					'activities' => true,
+					'notifications' => false,
+				]);
+		} else {
+			$this->jobList->expects($this->once())
+				->method('remove')
+				->with(BackgroundJob::class, [
+					'id' => $id,
+					'activities' => false,
+					'notifications' => true,
+				]);
+		}
+
+		$notification = $this->createMock(INotification::class);
+		$notification->expects($this->once())
+			->method('setApp')
+			->with('announcementcenter')
+			->willReturnSelf();
+		$notification->expects($this->once())
+			->method('setObject')
+			->with('announcement', $id)
+			->willReturnSelf();
+
+		$this->notificationManager->expects($this->once())
+			->method('createNotification')
+			->willReturn($notification);
+		$this->notificationManager->expects($this->once())
+			->method('markProcessed')
+			->with($notification);
+
+		$this->manager->removeNotifications($id);
 	}
 
 	public function dataCheckIsAdmin() {

@@ -24,9 +24,14 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter;
 
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\Group;
+use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
-use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
@@ -39,8 +44,11 @@ class Manager {
 	/** @var IConfig */
 	protected $config;
 
-	/** @var IDBConnection */
-	protected $connection;
+	/** @var AnnouncementMapper */
+	protected $announcementMapper;
+
+	/** @var GroupMapper */
+	protected $groupMapper;
 
 	/** @var IGroupManager */
 	protected $groupManager;
@@ -58,14 +66,16 @@ class Manager {
 	protected $userSession;
 
 	public function __construct(IConfig $config,
-								IDBConnection $connection,
+								AnnouncementMapper $announcementMapper,
+								GroupMapper $groupMapper,
 								IGroupManager $groupManager,
 								INotificationManager $notificationManager,
 								ICommentsManager $commentsManager,
 								IJobList $jobList,
 								IUserSession $userSession) {
 		$this->config = $config;
-		$this->connection = $connection;
+		$this->announcementMapper = $announcementMapper;
+		$this->groupMapper = $groupMapper;
 		$this->groupManager = $groupManager;
 		$this->notificationManager = $notificationManager;
 		$this->commentsManager = $commentsManager;
@@ -80,10 +90,10 @@ class Manager {
 	 * @param int $time
 	 * @param string[] $groups
 	 * @param bool $comments
-	 * @return array
+	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $user, int $time, array $groups, bool$comments): array {
+	public function announce(string $subject, string $message, string $user, int $time, array $groups, bool $comments): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		if (isset($subject[512])) {
@@ -94,42 +104,34 @@ class Manager {
 			throw new \InvalidArgumentException('Invalid subject', 2);
 		}
 
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$queryBuilder->insert('announcements')
-			->values([
-				'announcement_time' => $queryBuilder->createNamedParameter($time),
-				'announcement_user' => $queryBuilder->createNamedParameter($user),
-				'announcement_subject' => $queryBuilder->createNamedParameter($subject),
-				'announcement_message' => $queryBuilder->createNamedParameter($message),
-				'allow_comments' => $queryBuilder->createNamedParameter((int) $comments),
-			]);
-		$queryBuilder->execute();
-
-		$id = $queryBuilder->getLastInsertId();
+		$announcement = new Announcement();
+		$announcement->setSubject($subject);
+		$announcement->setMessage($message);
+		$announcement->setUser($user);
+		$announcement->setTime($time);
+		$announcement->setAllowComments((int) $comments);
+		$this->announcementMapper->insert($announcement);
 
 		$addedGroups = 0;
 		foreach ($groups as $group) {
 			if ($this->groupManager->groupExists($group)) {
-				$this->addGroupLink((int) $id, $group);
+				$this->addGroupLink($announcement, $group);
 				$addedGroups++;
 			}
 		}
 
 		if ($addedGroups === 0) {
-			$this->addGroupLink((int) $id, 'everyone');
+			$this->addGroupLink($announcement, 'everyone');
 		}
 
-		return $this->getAnnouncement($id, true, true);
+		return $announcement;
 	}
 
-	protected function addGroupLink(int $announcementId, string $group) {
-		$query = $this->connection->getQueryBuilder();
-		$query->insert('announcements_groups')
-			->values([
-				'announcement_id' => $query->createNamedParameter($announcementId),
-				'gid' => $query->createNamedParameter($group),
-			]);
-		$query->execute();
+	protected function addGroupLink(Announcement $announcement, string $gid) {
+		$group = new Group();
+		$group->setId($announcement->getId());
+		$group->setGroup($gid);
+		$this->groupMapper->insert($group);
 	}
 
 	public function delete(int $id) {
@@ -142,96 +144,45 @@ class Manager {
 		// Delete comments
 		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
 
-		$query = $this->connection->getQueryBuilder();
-		$query->delete('announcements')
-			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
-		$query->execute();
-
-		$query = $this->connection->getQueryBuilder();
-		$query->delete('announcements_groups')
-			->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)));
-		$query->execute();
+		$announcement = $this->announcementMapper->getById($id);
+		$this->announcementMapper->delete($announcement);
+		$this->groupMapper->deleteGroupsForAnnouncement($announcement);
 	}
 
 	/**
 	 * @param int $id
-	 * @param bool $parseStrings
-	 * @param bool $ignorePermissions
-	 * @param bool $returnGroups
-	 * @return array
-	 * @throws \InvalidArgumentException when the id is invalid
+	 * @param bool $ignorePermissions Permissions are ignored e.g. in background jobs to generate activities etc.
+	 * @return Announcement
+	 * @throws AnnouncementDoesNotExistException
 	 */
-	public function getAnnouncement(int $id, bool $parseStrings = true, bool $ignorePermissions = false, bool $returnGroups = true): array {
-		if (!$ignorePermissions) {
-			$user = $this->userSession->getUser();
-			if ($user instanceof IUser) {
-				$userGroups = $this->groupManager->getUserGroupIds($user);
-				$userGroups[] = 'everyone';
-			} else {
-				$userGroups = ['everyone'];
-			}
-			$isInAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
-
-			if (empty($isInAdminGroups)) {
-				$query = $this->connection->getQueryBuilder();
-				$query->select('*')
-					->from('announcements_groups')
-					->where($query->expr()->eq('announcement_id', $query->createNamedParameter((int) $id)))
-					->andWhere($query->expr()->in('gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)))
-					->setMaxResults(1);
-				$result = $query->execute();
-				$entry = $result->fetch();
-				$result->closeCursor();
-
-				if (!$entry) {
-					throw new \InvalidArgumentException('Invalid ID');
-				}
-			}
+	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement {
+		try {
+			$announcement = $this->announcementMapper->getById($id);
+		} catch (DoesNotExistException $e) {
+			throw new AnnouncementDoesNotExistException();
 		}
 
-		$queryBuilder = $this->connection->getQueryBuilder();
-		$query = $queryBuilder->select('*')
-			->from('announcements')
-			->where($queryBuilder->expr()->eq('announcement_id', $queryBuilder->createParameter('id')))
-			->setParameter('id', (int) $id);
-		$result = $query->execute();
-		$row = $result->fetch();
-		$result->closeCursor();
-
-		if ($row === false) {
-			throw new \InvalidArgumentException('Invalid ID');
+		if ($ignorePermissions) {
+			return $announcement;
 		}
 
-		$groups = null;
-		if ($returnGroups && ($ignorePermissions || !empty($isInAdminGroups))) {
-			$groups = $this->getGroups((int) $id);
+		$userGroups = $this->getUserGroups();
+		$memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		if (!empty($memberOfAdminGroups)) {
+			return $announcement;
 		}
 
-		$announcement = [
-			'id'		=> (int) $row['announcement_id'],
-			'author'	=> $row['announcement_user'],
-			'time'		=> (int) $row['announcement_time'],
-			'subject'	=> $parseStrings ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
-			'message'	=> $parseStrings ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
-			'groups'	=> $groups,
-			'comments'	=> $row['allow_comments'] ? 0 : false,
-		];
+		$groups = $this->groupMapper->getGroupsForAnnouncement($announcement);
+		$memberOfGroups = array_intersect($groups, $userGroups);
 
-		if ($ignorePermissions || !empty($isInAdminGroups)) {
-			$announcement['notifications'] = $this->hasNotifications((int) $id);
+		if (empty($memberOfGroups)) {
+			throw new AnnouncementDoesNotExistException();
 		}
 
 		return $announcement;
 	}
 
-	public function getAnnouncements(int $limit = 15, int $offset = 0, bool $parseStrings = true): array {
-		$query = $this->connection->getQueryBuilder();
-		$query->select('a.announcement_id')
-			->from('announcements', 'a')
-			->orderBy('a.announcement_time', 'DESC')
-			->groupBy('a.announcement_id')
-			->setMaxResults($limit);
-
+	protected function getUserGroups(): array {
 		$user = $this->userSession->getUser();
 		if ($user instanceof IUser) {
 			$userGroups = $this->groupManager->getUserGroupIds($user);
@@ -240,97 +191,35 @@ class Manager {
 			$userGroups = ['everyone'];
 		}
 
-		$isInAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
-		if (empty($isInAdminGroups)) {
-			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
-					'a.announcement_id', 'ag.announcement_id'
-				))
-				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
+		return $userGroups;
+	}
+
+	/**
+	 * @param Announcement $announcement
+	 * @return string[]
+	 */
+	public function getGroups(Announcement $announcement): array {
+		return $this->groupMapper->getGroupsForAnnouncement($announcement);
+	}
+
+	/**
+	 * @param int $offsetId
+	 * @return Announcement[]
+	 */
+	public function getAnnouncements(int $offsetId = 0): array {
+
+		$userGroups = $this->getUserGroups();
+		$memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		if (!empty($memberOfAdminGroups)) {
+			$userGroups = [];
 		}
 
-		if ($offset > 0) {
-			$query->andWhere($query->expr()->lt('a.announcement_id', $query->createNamedParameter($offset, IQueryBuilder::PARAM_INT)));
-		}
-
-		$ids = [];
-		$result = $query->execute();
-		while ($row = $result->fetch()) {
-			$ids[] = (int) $row['announcement_id'];
-		}
-		$result->closeCursor();
-
-		if (empty($ids)) {
-			return [];
-		}
-
-		$query = $this->connection->getQueryBuilder();
-		$query->select('*')
-			->from('announcements')
-			->orderBy('announcement_time', 'DESC')
-			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
-		$result = $query->execute();
-
-		$announcements = [];
-		while ($row = $result->fetch()) {
-			$id = (int) $row['announcement_id'];
-			$announcements[$id] = [
-				'id'		=> $id,
-				'author'	=> $row['announcement_user'],
-				'time'		=> (int) $row['announcement_time'],
-				'subject'	=> $parseStrings ? $this->parseSubject($row['announcement_subject']) : $row['announcement_subject'],
-				'message'	=> $parseStrings ? $this->parseMessage($row['announcement_message']) : $row['announcement_message'],
-				'groups'	=> null,
-				'comments'	=> $row['allow_comments'] ? $this->getNumberOfComments($id) : false,
-			];
-
-			if (!empty($isInAdminGroups)) {
-				$announcements[$id]['notifications'] = $this->hasNotifications($id);
-			}
-		}
-		$result->closeCursor();
-
-		if (!empty($isInAdminGroups)) {
-			$allGroups = $this->getGroups(array_keys($announcements));
-			foreach ($allGroups as $id => $groups) {
-				$announcements[$id]['groups'] = $groups;
-			}
-		}
+		$announcements = $this->announcementMapper->getAnnouncements($userGroups, $offsetId);
 
 		return $announcements;
 	}
 
-	/**
-	 * Return the groups (or string everyone) which have access to the announcement(s)
-	 *
-	 * @param int|int[] $ids
-	 * @return string[]|array[]
-	 */
-	public function getGroups($ids): array {
-		$returnSingleResult = false;
-		if (\is_int($ids)) {
-			$ids = [$ids];
-			$returnSingleResult = true;
-		}
-
-		$query = $this->connection->getQueryBuilder();
-		$query->select('*')
-			->from('announcements_groups')
-			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
-		$result = $query->execute();
-
-		$groups = [];
-		while ($row = $result->fetch()) {
-			if (!isset($groups[(int) $row['announcement_id']])) {
-				$groups[(int) $row['announcement_id']] = [];
-			}
-			$groups[(int) $row['announcement_id']][] = $row['gid'];
-		}
-		$result->closeCursor();
-
-		return $returnSingleResult ? (array) array_pop($groups) : $groups;
-	}
-
-	public function markNotificationRead(int $id) {
+	public function markNotificationRead(int $id): void {
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
@@ -342,19 +231,19 @@ class Manager {
 		}
 	}
 
-	protected function getNumberOfComments(int $id): int {
-		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $id);
+	public function getNumberOfComments(Announcement $announcement): int {
+		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $announcement->getId());
 	}
 
-	protected function hasNotifications(int $id): bool {
+	public function hasNotifications(Announcement $announcement): bool {
 		$hasJob = $this->jobList->has(BackgroundJob::class, [
-			'id' => $id,
+			'id' => $announcement->getId(),
 			'activities' => true,
 			'notifications' => true,
 		]);
 
 		$hasJob = $hasJob || $this->jobList->has(BackgroundJob::class, [
-			'id' => $id,
+			'id' => $announcement->getId(),
 			'activities' => false,
 			'notifications' => true,
 		]);
@@ -365,11 +254,11 @@ class Manager {
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
-			->setObject('announcement', $id);
+			->setObject('announcement', $announcement->getId());
 		return $this->notificationManager->getCount($notification) > 0;
 	}
 
-	public function removeNotifications(int $id) {
+	public function removeNotifications(int $id): void {
 		if ($this->jobList->has(BackgroundJob::class, [
 			'id' => $id,
 			'activities' => true,
@@ -399,14 +288,6 @@ class Manager {
 		$notification->setApp('announcementcenter')
 			->setObject('announcement', $id);
 		$this->notificationManager->markProcessed($notification);
-	}
-
-	protected function parseMessage(string $message): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $message);
-	}
-
-	protected function parseSubject(string $subject): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', ' '], $subject);
 	}
 
 	/**

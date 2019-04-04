@@ -23,6 +23,8 @@
 
 namespace OCA\AnnouncementCenter\Tests\Notification;
 
+use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
@@ -30,28 +32,33 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
+use OCP\Notification\IManager;
 use OCP\Notification\INotification;
 use OCP\IUser;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class NotifierTest extends TestCase {
 	/** @var Notifier */
 	protected $notifier;
 
-	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var Manager|MockObject */
 	protected $manager;
-	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IManager|MockObject */
+	protected $notificationManager;
+	/** @var IUserManager|MockObject */
 	protected $userManager;
-	/** @var IFactory|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IFactory|MockObject */
 	protected $factory;
-	/** @var IURLGenerator|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IURLGenerator|MockObject */
 	protected $urlGenerator;
-	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IL10N|MockObject */
 	protected $l;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->manager = $this->createMock(Manager::class);
+		$this->notificationManager = $this->createMock(IManager::class);
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->urlGenerator = $this->createMock(IURLGenerator::class);
 		$this->l = $this->createMock(IL10N::class);
@@ -68,6 +75,7 @@ class NotifierTest extends TestCase {
 		$this->notifier = new Notifier(
 			$this->manager,
 			$this->factory,
+			$this->notificationManager,
 			$this->userManager,
 			$this->urlGenerator
 		);
@@ -75,9 +83,10 @@ class NotifierTest extends TestCase {
 
 	/**
 	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Unknown app
 	 */
-	public function testPrepareWrongApp() {
-		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
+	public function testPrepareWrongApp(): void {
+		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
@@ -91,9 +100,10 @@ class NotifierTest extends TestCase {
 
 	/**
 	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Unknown subject
 	 */
-	public function testPrepareWrongSubject() {
-		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
+	public function testPrepareWrongSubject(): void {
+		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
@@ -107,17 +117,47 @@ class NotifierTest extends TestCase {
 	}
 
 	/**
-	 * @return \OCP\IUser|\PHPUnit_Framework_MockObject_MockObject
+	 * @expectedException \InvalidArgumentException
+	 * @expectedExceptionMessage Announcement was deleted
+	 */
+	public function testPrepareDoesNotExist(): void {
+		/** @var INotification|MockObject $notification */
+		$notification = $this->createMock(INotification::class);
+
+		$notification->expects($this->once())
+			->method('getApp')
+			->willReturn('announcementcenter');
+		$notification->expects($this->once())
+			->method('getSubject')
+			->willReturn('announced');
+		$notification->expects($this->once())
+			->method('getObjectId')
+			->willReturn(42);
+
+		$this->manager->expects($this->once())
+			->method('getAnnouncement')
+			->with(42, false)
+			->willThrowException(new AnnouncementDoesNotExistException());
+
+		$this->notificationManager->expects($this->once())
+			->method('markProcessed')
+			->with($notification);
+
+		$this->notifier->prepare($notification, 'en');
+	}
+
+	/**
+	 * @return IUser|MockObject
 	 */
 	protected function getUserMock() {
 		$user = $this->createMock(IUser::class);
-		$user->expects($this->once())
+		$user->expects($this->exactly(2))
 			->method('getDisplayName')
 			->willReturn('Author');
 		return $user;
 	}
 
-	public function dataPrepare() {
+	public function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		return [
 			['author', 'subject', 'message', 42, null, 'author announced “subject”', 'message'],
@@ -137,8 +177,8 @@ class NotifierTest extends TestCase {
 	 * @param string $expectedSubject
 	 * @param string $expectedMessage
 	 */
-	public function testPrepare($author, $subject, $message, $objectId, $userObject, $expectedSubject, $expectedMessage) {
-		/** @var \OCP\Notification\INotification|\PHPUnit_Framework_MockObject_MockObject $notification */
+	public function testPrepare($author, $subject, $message, $objectId, $userObject, $expectedSubject, $expectedMessage): void {
+		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects($this->once())
@@ -154,13 +194,15 @@ class NotifierTest extends TestCase {
 			->method('getObjectId')
 			->willReturn($objectId);
 
+		$announcement = Announcement::fromParams([
+			'subject' => $subject,
+			'message' => $message,
+		]);
+
 		$this->manager->expects($this->once())
 			->method('getAnnouncement')
-			->with($objectId, true, false, false)
-			->willReturn([
-				'subject' => $subject,
-				'message' => $message,
-			]);
+			->with($objectId, false)
+			->willReturn($announcement);
 		$this->userManager->expects($this->once())
 			->method('get')
 			->with($author)
@@ -174,6 +216,25 @@ class NotifierTest extends TestCase {
 			->method('setRichSubject')
 			->with('{user} announced “{announcement}”', $this->anything())
 			->willReturnSelf();
+
+		$notification->expects($this->once())
+			->method('getRichSubject')
+			->willReturn('{user} announced “{announcement}”');
+		$notification->expects($this->once())
+			->method('getRichSubjectParameters')
+			->willReturn([
+				'user' => [
+					'type' => 'user',
+					'id' => 'author',
+					'name' => $userObject instanceof IUser ? $userObject->getDisplayName() : $author,
+				],
+				'announcement' => [
+					'type' => 'announcement',
+					'id' => $objectId,
+					'name' => $announcement->getSubject(),
+				],
+			]);
+
 		$notification->expects($this->once())
 			->method('setParsedSubject')
 			->with($expectedSubject)
