@@ -22,16 +22,12 @@
     ", " : ", ",
     "Visible for groups: {groups}" : "Буде відображатися для груп: {groups}",
     "Groups" : "Групи",
-    "You announced {announcement}" : "Ви розмістили {announcement}",
-    "{actor} announced {announcement}" : "{actor} розмістив {announcement}",
     "You posted an announcement" : "Ви розмістили оголошення",
     "{actor} posted an announcement" : "{actor} розмістив оголошення",
-    "Announcement does not exist anymore" : "Оголошення більше не існує",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>announcement</strong> розміщено адміністратором",
     "Announcements" : "Оголошення",
     "The subject is too long or empty" : "Тема занадто довга або порожня",
     "{user} announced “{announcement}”" : "{user} розмістив “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s оголосив “%2$s”",
     "Announcement center" : "Центр оголошень",
     "This app allows admins to post announcements." : "Цей додаток дозволяє адміністраторам розміщувати оголошення.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Цей додаток дозволяє адміністраторам розміщувати оголошення. Також підтримуються наступні можливості:\n\n⚡ Дії (Потребує включення дії в додатку)\n\n📑 Коментарі\n\n👪 Дозволи для груп\n\n🔔 Оповіщення (Потребує включення оповіщень в додатку)",
@@ -50,6 +46,10 @@
     "Advanced options" : "Розширені налаштування",
     "Create activities" : "Створити події",
     "Create notifications" : "Створити повідомлення",
-    "Allow comments" : "Дозволити коментарі"
+    "Allow comments" : "Дозволити коментарі",
+    "You announced {announcement}" : "Ви розмістили {announcement}",
+    "{actor} announced {announcement}" : "{actor} розмістив {announcement}",
+    "Announcement does not exist anymore" : "Оголошення більше не існує",
+    "%1$s announced “%2$s”" : "%1$s оголосив “%2$s”"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"
 }

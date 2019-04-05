@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Харах бүлгээд: {groups}",
     "Groups" : "Бүлгүүд",
-    "You announced {announcement}" : "Та {announcement}-г мэдээлсэн",
-    "{actor} announced {announcement}" : "{actor} {announcement}-г мэдээлсэн",
     "You posted an announcement" : "Таны зарласан мэдээлэл",
     "{actor} posted an announcement" : "{actor}-ын зарласан мэдээлэл",
-    "Announcement does not exist anymore" : "Өөр мэдээллүүд байхгүй байна",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Мэдээлэл</strong> нь administrator-аар зарлагдсан",
     "Announcements" : "Мэдээллүүд",
     "The subject is too long or empty" : "Гарчиг нь хэтэрхий урт эсвэл хоосон байна",
     "{user} announced “{announcement}”" : "{user} “{announcement}”-г зарласан",
-    "%1$s announced “%2$s”" : "%1$s “%2$s”-г зарласан",
     "Announcement center" : "Мэдээллийн төв",
     "These groups will be able to post announcements." : "Эдгээр бүлгүүд мэдээлэл зарлах боломжтой.",
     "Create activities by default" : "Анхнаасаа үйл явдал үүсгэх",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Бусад сонголтууд",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
+    "You announced {announcement}" : "Та {announcement}-г мэдээлсэн",
+    "{actor} announced {announcement}" : "{actor} {announcement}-г мэдээлсэн",
+    "Announcement does not exist anymore" : "Өөр мэдээллүүд байхгүй байна",
+    "%1$s announced “%2$s”" : "%1$s “%2$s”-г зарласан"
 },
 "nplurals=2; plural=(n != 1);");

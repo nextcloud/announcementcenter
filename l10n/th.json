@@ -14,15 +14,15 @@
     "Delete" : "ลบ",
     "Remove notifications" : "ลบการแจ้งเตือน",
     "Groups" : "กลุ่ม",
-    "Announcement does not exist anymore" : "ไม่มีประกาศ",
     "Announcements" : "ประกาศ",
     "The subject is too long or empty" : "หัวข้อยาวเกินไปหรือยังไม่ได้เขียน",
-    "%1$s announced “%2$s”" : "%1$s ได้ประกาศว่า “%2$s”",
     "No Announcements" : "ไม่มีประกาศ",
     "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ...",
     "Add announcement" : "เพิ่มประกาศ",
     "Subject…" : "หัวข้อ...",
     "Your announcement…" : "ประกาศของคุณ...",
-    "Announce" : "ประกาศ"
+    "Announce" : "ประกาศ",
+    "Announcement does not exist anymore" : "ไม่มีประกาศ",
+    "%1$s announced “%2$s”" : "%1$s ได้ประกาศว่า “%2$s”"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

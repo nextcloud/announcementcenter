@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Vidljivo ovim skupinama: {groups}",
     "Groups" : "Skupine",
-    "You announced {announcement}" : "Oglasili ste {announcement}",
-    "{actor} announced {announcement}" : "{actor} je oglasio {announcement}",
     "You posted an announcement" : "Postavili ste oglas",
     "{actor} posted an announcement" : "{actor} je postavio oglas",
-    "Announcement does not exist anymore" : "Oglas više ne postoji",
     "An <strong>announcement</strong> is posted by an administrator" : "Administrator je postavio <strong>oglas</strong>",
     "Announcements" : "Oglasi",
     "The subject is too long or empty" : "Predmet je predugačak ili nedostaje",
     "{user} announced “{announcement}”" : "{user} je oglasio „{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s je oglasio „%2$s”",
     "These groups will be able to post announcements." : "Ove će skupine moći postavljati oglase",
     "Create activities by default" : "Automatski stvaraj radnje",
     "Create notifications by default" : "Automatski stvaraj obavijesti",
@@ -48,6 +44,10 @@ OC.L10N.register(
     "Advanced options" : "Napredne mogućnosti",
     "Create activities" : "Stvori radnje",
     "Create notifications" : "Stvori obavijesti",
-    "Allow comments" : "Dopusti napomene"
+    "Allow comments" : "Dopusti napomene",
+    "You announced {announcement}" : "Oglasili ste {announcement}",
+    "{actor} announced {announcement}" : "{actor} je oglasio {announcement}",
+    "Announcement does not exist anymore" : "Oglas više ne postoji",
+    "%1$s announced “%2$s”" : "%1$s je oglasio „%2$s”"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

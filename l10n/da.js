@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Synlig for gruppe: {groups}",
     "Groups" : "Grupper",
-    "You announced {announcement}" : "Din annoncering {announcement}",
-    "{actor} announced {announcement}" : "{actor} annoncerede {announcement}",
     "You posted an announcement" : "Du har annonceret en meddelse",
     "{actor} posted an announcement" : "{actor} annoncerede  en meddelse",
-    "Announcement does not exist anymore" : "Meddelelsen findes ikke mere",
     "An <strong>announcement</strong> is posted by an administrator" : "En <strong>meddelse</strong> er afsendt af en administrator",
     "Announcements" : "Meddelelser",
     "The subject is too long or empty" : "Emnet er for langt, eller ikke udfyldt",
     "{user} announced “{announcement}”" : "{user} annoncerede “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s bekendtgjorde“%2$s”",
     "Announcement center" : "Meddelses center",
     "This app allows admins to post announcements." : "Denne app giver administrator mulighed for at annoncere meddelelser.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Denne app giver administratorer mulighed for at udsende meddelelser. Følgende funktioner er også understøttet:\n\n⚡ Aktiviteter (kræver at appen Aktiviteter er aktiveret)\n\n📑 Kommentarer\n\n👪 Gruppetilladelser\n\n🔔 Underretninger (kræver at appen Underretninger er aktiveret)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Avancerede indstillinger",
     "Create activities" : "Opret aktiviteter",
     "Create notifications" : "Opret notifikationer",
-    "Allow comments" : "Tillad kommentarer"
+    "Allow comments" : "Tillad kommentarer",
+    "You announced {announcement}" : "Din annoncering {announcement}",
+    "{actor} announced {announcement}" : "{actor} annoncerede {announcement}",
+    "Announcement does not exist anymore" : "Meddelelsen findes ikke mere",
+    "%1$s announced “%2$s”" : "%1$s bekendtgjorde“%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

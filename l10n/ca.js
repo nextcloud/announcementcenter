@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Visible per als grups: {groups}",
     "Groups" : "Grups",
-    "You announced {announcement}" : "Has anunciat {announcement}",
-    "{actor} announced {announcement}" : "{actor} ha anunciat {announcement}",
     "You posted an announcement" : "Heu publicat un anunci",
     "{actor} posted an announcement" : "{actor} ha publicat un anunci",
-    "Announcement does not exist anymore" : "L'anunci ja no existeix",
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador ha publicat un <strong>anunci</strong>",
     "Announcements" : "Anuncis",
     "The subject is too long or empty" : "L'assumpte és massa llarg o és buit",
     "{user} announced “{announcement}”" : "{user} anuncia {announcement}",
-    "%1$s announced “%2$s”" : "%1$s ha anunciat “%2$s”",
     "Announcement center" : "Centre d'anuncis",
     "This app allows admins to post announcements." : "Aquesta aplicació permet que els administradors publiquin anuncis.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Aquesta aplicació permet als administradors fer anuncis. També permet fer les següents funcions:\n\nActivitats (cal tenir l'aplicació d'activitats activada)\n\nComentaris\n\nPermisos de grup\n\nNotificacions (cal tenir l'aplicació de notificacions activada)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Paràmetres avançats",
     "Create activities" : "Crea activitats",
     "Create notifications" : "Crea notificacions",
-    "Allow comments" : "Permet comentaris"
+    "Allow comments" : "Permet comentaris",
+    "You announced {announcement}" : "Has anunciat {announcement}",
+    "{actor} announced {announcement}" : "{actor} ha anunciat {announcement}",
+    "Announcement does not exist anymore" : "L'anunci ja no existeix",
+    "%1$s announced “%2$s”" : "%1$s ha anunciat “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

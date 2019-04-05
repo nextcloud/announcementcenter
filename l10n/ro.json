@@ -21,16 +21,12 @@
     ", " : ",",
     "Visible for groups: {groups}" : "Vizibil pentru grupurile: {groups}",
     "Groups" : "Grupuri",
-    "You announced {announcement}" : "Ai anunțat {announcement}",
-    "{actor} announced {announcement}" : "{actor} a anunțat {announcement}",
     "You posted an announcement" : "Ai postat un anunț",
     "{actor} posted an announcement" : "{actor} a postat un anunț",
-    "Announcement does not exist anymore" : "Anunțul nu mai există",
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anunț</strong> a fost postat de administrator",
     "Announcements" : "Anunțuri",
     "The subject is too long or empty" : "Subiectul este gol sau prea lung",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s a anunțat “%2$s”",
     "Announcement center" : "Centru anunturi",
     "These groups will be able to post announcements." : "Aceste grupuri vor putea posta anunțuri.",
     "Create activities by default" : "Crează activități în mod implicit",
@@ -47,6 +43,10 @@
     "Advanced options" : "Opțiuni avansate",
     "Create activities" : "Creează activități",
     "Create notifications" : "Crează notificări",
-    "Allow comments" : "Permite comentarii"
+    "Allow comments" : "Permite comentarii",
+    "You announced {announcement}" : "Ai anunțat {announcement}",
+    "{actor} announced {announcement}" : "{actor} a anunțat {announcement}",
+    "Announcement does not exist anymore" : "Anunțul nu mai există",
+    "%1$s announced “%2$s”" : "%1$s a anunțat “%2$s”"
 },"pluralForm" :"nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));"
 }

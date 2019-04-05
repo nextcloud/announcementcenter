@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : "n",
     "Visible for groups: {groups}" : "Terlihat untuk grup: {groups}",
     "Groups" : "Grup",
-    "You announced {announcement}" : "Anda mengumumkan {announcement}",
-    "{actor} announced {announcement}" : "{actor} mengumumkan {announcement}",
     "You posted an announcement" : "Anda memposting pengumuman",
     "{actor} posted an announcement" : "{actor} memposting pengumuman",
-    "Announcement does not exist anymore" : "Pengumuman tidak ada lagi",
     "An <strong>announcement</strong> is posted by an administrator" : "Sebuah <strong>pengumuman</strong> diposting oleh administrator",
     "Announcements" : "Pengumuman",
     "The subject is too long or empty" : "Subjek terlalu panjang atau kosong",
     "{user} announced “{announcement}”" : "{user} mengumumkan \"{announcement}\"",
-    "%1$s announced “%2$s”" : "%1$s mengumumkan “%2$s”",
     "These groups will be able to post announcements." : "Grup-grup ini akan bisa membuat pengumuman.",
     "Create activities by default" : "Buat aktivitas sebagai bawaan",
     "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
@@ -48,6 +44,10 @@ OC.L10N.register(
     "Advanced options" : "Opsi lanjutan",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "izinkan komentar"
+    "Allow comments" : "izinkan komentar",
+    "You announced {announcement}" : "Anda mengumumkan {announcement}",
+    "{actor} announced {announcement}" : "{actor} mengumumkan {announcement}",
+    "Announcement does not exist anymore" : "Pengumuman tidak ada lagi",
+    "%1$s announced “%2$s”" : "%1$s mengumumkan “%2$s”"
 },
 "nplurals=1; plural=0;");

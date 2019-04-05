@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Synlig för grupper: {groups}",
     "Groups" : "Grupper",
-    "You announced {announcement}" : "Du meddelade {announcement}",
-    "{actor} announced {announcement}" : "{actor} meddelade {announcement}",
     "You posted an announcement" : "Du postade ett meddelande",
     "{actor} posted an announcement" : "{actor} postade ett meddelande",
-    "Announcement does not exist anymore" : "Meddelandet existerar inte mer",
     "An <strong>announcement</strong> is posted by an administrator" : "Ett <strong>meddelande</strong> är utsänt av en administratör ",
     "Announcements" : "Meddelanden",
     "The subject is too long or empty" : "Ämnet är för långt eller tomt",
     "{user} announced “{announcement}”" : "{user} meddelade “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s meddelade “%2$s”",
     "Announcement center" : "Meddelandecentralen",
     "This app allows admins to post announcements." : "Denna app tillåter administratörer att publicera meddelanden.",
     "These groups will be able to post announcements." : "Dessa grupper kan posta meddelanden",
@@ -51,6 +47,10 @@ OC.L10N.register(
     "Advanced options" : "Avancerade inställningar",
     "Create activities" : "Skapa aktiviteter",
     "Create notifications" : "Skapa notifikationer",
-    "Allow comments" : "Tillåt kommentarer"
+    "Allow comments" : "Tillåt kommentarer",
+    "You announced {announcement}" : "Du meddelade {announcement}",
+    "{actor} announced {announcement}" : "{actor} meddelade {announcement}",
+    "Announcement does not exist anymore" : "Meddelandet existerar inte mer",
+    "%1$s announced “%2$s”" : "%1$s meddelade “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

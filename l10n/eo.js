@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Videbla de groupuj: {groups}",
     "Groups" : "Grupoj",
-    "You announced {announcement}" : "Vi anoncis {announcement}",
-    "{actor} announced {announcement}" : "{actor} anoncis {announcement}",
     "You posted an announcement" : "Vi afiŝis anoncon",
     "{actor} posted an announcement" : "{actor} afiŝis anoncon",
-    "Announcement does not exist anymore" : "Anonco ne plu ekzistas",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Anonco</strong> estis sendita de administranto",
     "Announcements" : "Anoncoj",
     "The subject is too long or empty" : "La temo tro longas aŭ malplenas",
     "{user} announced “{announcement}”" : "{user} anoncis „{announcement}“",
-    "%1$s announced “%2$s”" : "%1$s anoncis „%2$s“",
     "Announcement center" : "Anoncejo",
     "This app allows admins to post announcements." : "Tiu aplikaĵo ebligas al administranto afiŝi anoncoj.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Tiu aplikaĵo ebligas al administranto afiŝi anoncoj. Ankaŭ povas:\n\n⚡ Activaĵoj (nedeviga, bezonas la aplikaĵon „Aktiveco“)\n\n📑 Komentoj\n\n👪 Grupaj permesoj\n\n🔔 Sciigoj (nedeviga, bezonas la aplikaĵon „Sciigoj“)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Detalaj agordoj",
     "Create activities" : "Krei aktivaĵojn",
     "Create notifications" : "Krei sciigojn",
-    "Allow comments" : "Permesi komentojn"
+    "Allow comments" : "Permesi komentojn",
+    "You announced {announcement}" : "Vi anoncis {announcement}",
+    "{actor} announced {announcement}" : "{actor} anoncis {announcement}",
+    "Announcement does not exist anymore" : "Anonco ne plu ekzistas",
+    "%1$s announced “%2$s”" : "%1$s anoncis „%2$s“"
 },
 "nplurals=2; plural=(n != 1);");

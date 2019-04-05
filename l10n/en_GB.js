@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Visible for groups: {groups}",
     "Groups" : "Groups",
-    "You announced {announcement}" : "You announced {announcement}",
-    "{actor} announced {announcement}" : "{actor} announced {announcement}",
     "You posted an announcement" : "You posted an announcement",
     "{actor} posted an announcement" : "{actor} posted an announcement",
-    "Announcement does not exist anymore" : "Announcement does not exist anymore",
     "An <strong>announcement</strong> is posted by an administrator" : "An <strong>announcement</strong> is posted by an administrator",
     "Announcements" : "Announcements",
     "The subject is too long or empty" : "The subject is too long or empty",
     "{user} announced “{announcement}”" : "{user} announced “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s announced “%2$s”",
     "Announcement center" : "Announcement centre",
     "This app allows admins to post announcements." : "This app allows admins to post announcements.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Advanced options",
     "Create activities" : "Create activities",
     "Create notifications" : "Create notifications",
-    "Allow comments" : "Allow comments"
+    "Allow comments" : "Allow comments",
+    "You announced {announcement}" : "You announced {announcement}",
+    "{actor} announced {announcement}" : "{actor} announced {announcement}",
+    "Announcement does not exist anymore" : "Announcement does not exist anymore",
+    "%1$s announced “%2$s”" : "%1$s announced “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

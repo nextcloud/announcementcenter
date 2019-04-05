@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Synlig for grupper: {groups}",
     "Groups" : "Grupper",
-    "You announced {announcement}" : "Din kunngjøring {announcement}",
-    "{actor} announced {announcement}" : "{actor} kunngjorde {announcement}",
     "You posted an announcement" : "Du postet en kunngjøring",
     "{actor} posted an announcement" : "{actor} postet en kunngjøring",
-    "Announcement does not exist anymore" : "Kunngjøring finnes ikke lenger",
     "An <strong>announcement</strong> is posted by an administrator" : "En <strong>kunngjøring</strong> er postet av en administrator",
     "Announcements" : "Kunngjøringer",
     "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "{user} announced “{announcement}”" : "{user} kunngjorde “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”",
     "Announcement center" : "Kunngjøringssenter",
     "This app allows admins to post announcements." : "Denne appen tillater administratorer å legge inn kunngjøringer.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Denne appen tillater administrator å legge ut annonseringer. Støtter følgende funksjoner:\n\n⚡ Aktiviteter (Aktivitetsapp må være aktivitert)\n\n📑 Kommentar\n\n👪 Gruppe tillatelser\n\n🔔 Notifiseringer (notifiseringsapp må være aktivert)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Avanserte alternativer",
     "Create activities" : "Opprett aktiviteter",
     "Create notifications" : "Opprett varsler",
-    "Allow comments" : "Tillatt kommentarer"
+    "Allow comments" : "Tillatt kommentarer",
+    "You announced {announcement}" : "Din kunngjøring {announcement}",
+    "{actor} announced {announcement}" : "{actor} kunngjorde {announcement}",
+    "Announcement does not exist anymore" : "Kunngjøring finnes ikke lenger",
+    "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

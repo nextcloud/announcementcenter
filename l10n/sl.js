@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Vidno skupinam: {groups}",
     "Groups" : "Skupine",
-    "You announced {announcement}" : "Objavljeno je obvestilo {announcement}",
-    "{actor} announced {announcement}" : "{actor} objavi obvestilo {announcement}",
     "You posted an announcement" : "Objavljeno je obvestilo",
     "{actor} posted an announcement" : "{actor} objavi obvestilo",
-    "Announcement does not exist anymore" : "Obvestilo ne obstaja več",
     "An <strong>announcement</strong> is posted by an administrator" : "Skrbnik objavi <strong>obvestilo</strong>",
     "Announcements" : "Obvestila",
     "The subject is too long or empty" : "Vpis zadeve je predolg, ali pa ga ni.",
     "{user} announced “{announcement}”" : "{user} objavi obvestilo »{announcement}«",
-    "%1$s announced “%2$s”" : "%1$s objavi sporočilo »%2$s«",
     "Announcement center" : "Središče za obveščanje",
     "This app allows admins to post announcements." : "Program omogoča skrbnikom objavljanje obvestil.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Program omogoča skrbnikom objavljanje obvestil, podpira pa tudi:\n\n⚡ beleženje objave med dejavnosti (zahteva omogočen program)\n\n📑 objavljanje komentarjev na objavo\n\n👪 prilagajanje obvestil za posamezne skupine\n\n🔔 objavljanje obvestil kot pojavna sporočila (zahteva omogočen program)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Napredne možnosti",
     "Create activities" : "Ustvari zapis dejavnosti",
     "Create notifications" : "Ustvari obvestila",
-    "Allow comments" : "Dovoli komentiranje obvestil"
+    "Allow comments" : "Dovoli komentiranje obvestil",
+    "You announced {announcement}" : "Objavljeno je obvestilo {announcement}",
+    "{actor} announced {announcement}" : "{actor} objavi obvestilo {announcement}",
+    "Announcement does not exist anymore" : "Obvestilo ne obstaja več",
+    "%1$s announced “%2$s”" : "%1$s objavi sporočilo »%2$s«"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");
