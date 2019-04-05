@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : "、",
     "Visible for groups: {groups}" : "次のグループと共有: {groups}",
     "Groups" : "グループ",
-    "You announced {announcement}" : " {announcement}とアナウンスしました。",
-    "{actor} announced {announcement}" : "{actor} が {announcement} とアナウンスしました。",
     "You posted an announcement" : "アナウンスを投稿しました。",
     "{actor} posted an announcement" : "{actor} がアナウンスを投稿しました。",
-    "Announcement does not exist anymore" : "アナウンスはもう存在しません",
     "An <strong>announcement</strong> is posted by an administrator" : "管理者から<strong>アナウンス</strong>が投稿されました。",
     "Announcements" : "アナウンス",
     "The subject is too long or empty" : "件名が長すぎるか空です",
     "{user} announced “{announcement}”" : "{user} が “{announcement}” とアナウンスしました。",
-    "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました",
     "Announcement center" : "アナウンスセンター",
     "This app allows admins to post announcements." : "このアプリは、管理者がアナウンスを投稿できるようにします。",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "このアプリは、管理者がアナウンスを投稿できるようにします。 以下の機能もサポートしています：\n\n⚡アクティビティ（アクティビティアプリを有効にする必要があります）\n\n📑コメント\n\n👪グループのアクセス許可\n\n🔔通知（通知アプリを有効にする必要があります）",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "詳細オプション",
     "Create activities" : "アクティビティを作成",
     "Create notifications" : "通知を作成",
-    "Allow comments" : "コメントを許可"
+    "Allow comments" : "コメントを許可",
+    "You announced {announcement}" : " {announcement}とアナウンスしました。",
+    "{actor} announced {announcement}" : "{actor} が {announcement} とアナウンスしました。",
+    "Announcement does not exist anymore" : "アナウンスはもう存在しません",
+    "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました"
 },
 "nplurals=1; plural=0;");

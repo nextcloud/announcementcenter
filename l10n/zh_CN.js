@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : "，",
     "Visible for groups: {groups}" : "对 {groups} 组可见",
     "Groups" : "组",
-    "You announced {announcement}" : "您的公告{announcement}",
-    "{actor} announced {announcement}" : "{actor} 公告了 {announcement}",
     "You posted an announcement" : "您发布一个公告",
     "{actor} posted an announcement" : "{actor}发布一个公告",
-    "Announcement does not exist anymore" : "公告已经不存在了",
     "An <strong>announcement</strong> is posted by an administrator" : "管理员发布了一个<strong>公告</strong>",
     "Announcements" : "公告",
     "The subject is too long or empty" : "标题太长或为空",
     "{user} announced “{announcement}”" : "{user} 公告了“{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s 已发布 “%2$s”",
     "Announcement center" : "通知中心",
     "This app allows admins to post announcements." : "此应用允许管理员发布公告",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "此应用允许管理员发布通知，还支持以下功能：\n\n⚡ 动态（需要开启活动应用）\n\n📑 评论\n\n👪 组权限\n\n🔔 通知（需要开启通知应用）",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "高级选项",
     "Create activities" : "创建活动",
     "Create notifications" : "创建提示",
-    "Allow comments" : "允许注释"
+    "Allow comments" : "允许注释",
+    "You announced {announcement}" : "您的公告{announcement}",
+    "{actor} announced {announcement}" : "{actor} 公告了 {announcement}",
+    "Announcement does not exist anymore" : "公告已经不存在了",
+    "%1$s announced “%2$s”" : "%1$s 已发布 “%2$s”"
 },
 "nplurals=1; plural=0;");

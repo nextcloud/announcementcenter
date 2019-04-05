@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : "，",
     "Visible for groups: {groups}" : "那些群組可看見: {groups}",
     "Groups" : "群組",
-    "You announced {announcement}" : "您的公告內容 {announcement}",
-    "{actor} announced {announcement}" : "{actor} 公告 {announcement}",
     "You posted an announcement" : "您發表了公告",
     "{actor} posted an announcement" : "{actor} 發表了一篇公告",
-    "Announcement does not exist anymore" : "此公告已不存在",
     "An <strong>announcement</strong> is posted by an administrator" : "管理者公告了一個 <strong>announcement</strong>",
     "Announcements" : "公告",
     "The subject is too long or empty" : "主旨太長或是空白",
     "{user} announced “{announcement}”" : "{user} 公告了「{announcement}」",
-    "%1$s announced “%2$s”" : "%1$s 公告了「%2$s」",
     "Announcement center" : "公告中心",
     "This app allows admins to post announcements." : "這個應用程式允許管理員張貼公告事項",
     "These groups will be able to post announcements." : "這些群組可以發表公告",
@@ -51,6 +47,10 @@ OC.L10N.register(
     "Advanced options" : "進階選項",
     "Create activities" : "建立活動",
     "Create notifications" : "建立通知",
-    "Allow comments" : "允許留言"
+    "Allow comments" : "允許留言",
+    "You announced {announcement}" : "您的公告內容 {announcement}",
+    "{actor} announced {announcement}" : "{actor} 公告 {announcement}",
+    "Announcement does not exist anymore" : "此公告已不存在",
+    "%1$s announced “%2$s”" : "%1$s 公告了「%2$s」"
 },
 "nplurals=1; plural=0;");

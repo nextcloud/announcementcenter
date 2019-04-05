@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "E dukshme për grupet: {groups}",
     "Groups" : "Grupet",
-    "You announced {announcement}" : "Ju njoftuat {announcement}",
-    "{actor} announced {announcement}" : "{actor} njoftoi {announcement}",
     "You posted an announcement" : "Ju postuat në njoftim",
     "{actor} posted an announcement" : "{actor} postoi një njoftim",
-    "Announcement does not exist anymore" : "Lajmërimi s’ekziston më",
     "An <strong>announcement</strong> is posted by an administrator" : "Një <strong> njoftim </strong> është postuar nga administratori",
     "Announcements" : "Lajmërime",
     "The subject is too long or empty" : "Subjekti është shumë i gjatë ose i zbrazët",
     "{user} announced “{announcement}”" : "{user} njoftoi “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s lajmëroi “%2$s”",
     "Announcement center" : "Qendra e njoftimeve",
     "This app allows admins to post announcements." : "Ky grup lejon administratorët të postojnë njoftimet.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ky grup lejon administratorët të postojnë njoftimet. Gjithashtu lejon karakteristikat e mëposhtme:\n\n⚡ Aktivitetet (Kërkon aktivizim të aplikacionit të aktivitetit)\n\n📑 Komentet\n\n👪 Autorizimet e grupit\n\n🔔 Njoftimet (Kërkon aktivizim të aplikacionit të njoftimeve)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet"
+    "Allow comments" : "Lejo komentet",
+    "You announced {announcement}" : "Ju njoftuat {announcement}",
+    "{actor} announced {announcement}" : "{actor} njoftoi {announcement}",
+    "Announcement does not exist anymore" : "Lajmërimi s’ekziston më",
+    "%1$s announced “%2$s”" : "%1$s lajmëroi “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

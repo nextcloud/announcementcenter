@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Nähtav gruppidele: {groups}",
     "Groups" : "Grupid",
-    "You announced {announcement}" : "Te teatasite {announcement}",
-    "{actor} announced {announcement}" : "{actor} teatas {announcement}",
     "You posted an announcement" : "Te postitasite teate",
     "{actor} posted an announcement" : "{actor} postitas teate",
-    "Announcement does not exist anymore" : "Teadaannet pole enam olemas",
     "An <strong>announcement</strong> is posted by an administrator" : " <strong>teade</strong> postitati administraatori poolt",
     "Announcements" : "Teadaanded",
     "The subject is too long or empty" : "Pealkiri on liiga pikk või tühi",
     "{user} announced “{announcement}”" : "{user} teatas “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s andis teada “%2$s”",
     "Announcement center" : "Teadete keskus",
     "These groups will be able to post announcements." : "Need grupid saavad edastada teateid",
     "Create activities by default" : "Koosta toimingud vaikimisi",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Täpsemad valikud",
     "Create activities" : "Loo toimingud",
     "Create notifications" : "Koosta teateid",
-    "Allow comments" : "Luba kommentaarid"
+    "Allow comments" : "Luba kommentaarid",
+    "You announced {announcement}" : "Te teatasite {announcement}",
+    "{actor} announced {announcement}" : "{actor} teatas {announcement}",
+    "Announcement does not exist anymore" : "Teadaannet pole enam olemas",
+    "%1$s announced “%2$s”" : "%1$s andis teada “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

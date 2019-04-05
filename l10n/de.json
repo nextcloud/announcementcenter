@@ -22,16 +22,12 @@
     ", " : ",",
     "Visible for groups: {groups}" : "Sichtbar für folgende Gruppen: {groups}",
     "Groups" : "Gruppen",
-    "You announced {announcement}" : "Du hast {announcement} angekündigt",
-    "{actor} announced {announcement}" : "{actor} hat {announcement} angekündigt",
     "You posted an announcement" : "Du hast eine Ankündigung geschrieben",
     "{actor} posted an announcement" : "{actor} hat eine Ankündigung geschrieben",
-    "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
     "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator versendet",
     "Announcements" : "Ankündigungen",
     "The subject is too long or empty" : "Der Betreff ist zu lang oder leer",
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",
-    "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt",
     "Announcement center" : "Ankündigungen",
     "This app allows admins to post announcements." : "Mit dieser App können Administratoren Ankündigungen schreiben",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Diese App ermöglicht es Administratoren Ankündigungen zu schreiben. Folgende Funktionen werden ebenfalls unterstützt:\n\n⚡ Aktivitäten (Die Aktivitäten-App muss aktiviert sein)\n\n📑Kommentare\n\n👪 Gruppenberechtigung\n\n🔔 Benachrichtigungen (Die Benachrichtigungen-App muss aktiviert sein)",
@@ -50,6 +46,10 @@
     "Advanced options" : "Erweiterte Optionen",
     "Create activities" : "Aktivitäten erstellen",
     "Create notifications" : "Benachrichtigungen erstellen",
-    "Allow comments" : "Kommentare erlauben"
+    "Allow comments" : "Kommentare erlauben",
+    "You announced {announcement}" : "Du hast {announcement} angekündigt",
+    "{actor} announced {announcement}" : "{actor} hat {announcement} angekündigt",
+    "Announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
+    "%1$s announced “%2$s”" : "%1$s hat “%2$s” angekündigt"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

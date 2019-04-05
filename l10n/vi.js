@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Hiển thị cho các nhóm: {groups}",
     "Groups" : "Nhóm",
-    "You announced {announcement}" : "Thông báo của bạn {announcement}",
-    "{actor} announced {announcement}" : "{actor} thông báo {announcement}",
     "You posted an announcement" : "Bạn đã đăng một thông báo",
     "{actor} posted an announcement" : "{actor} đã đăng một thông báo",
-    "Announcement does not exist anymore" : "Thông báo không còn tồn tại nữa",
     "An <strong>announcement</strong> is posted by an administrator" : "Một thông báo <strong>announcement</strong> được đăng bởi một quản trị viên",
     "Announcements" : "Các thông báo",
     "The subject is too long or empty" : "Tiêu đề quá dài hoặc để trống",
     "{user} announced “{announcement}”" : "{user} thông báo “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s đã thông báo “%2$s”",
     "Announcement center" : "Trung tâm thông báo",
     "These groups will be able to post announcements." : "Các nhóm này  sẽ được phép đăng các thông báo",
     "Create activities by default" : "Tạo các hoạt động mặc định",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Tùy chọn nâng cao",
     "Create activities" : "Tạo hoạt động",
     "Create notifications" : "Tạo thông báo",
-    "Allow comments" : "Cho phép bình luận"
+    "Allow comments" : "Cho phép bình luận",
+    "You announced {announcement}" : "Thông báo của bạn {announcement}",
+    "{actor} announced {announcement}" : "{actor} thông báo {announcement}",
+    "Announcement does not exist anymore" : "Thông báo không còn tồn tại nữa",
+    "%1$s announced “%2$s”" : "%1$s đã thông báo “%2$s”"
 },
 "nplurals=1; plural=0;");

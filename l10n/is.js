@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Sýnilegt hópunum: {groups}",
     "Groups" : "Hópar",
-    "You announced {announcement}" : "Þú tilkynntir {announcement}",
-    "{actor} announced {announcement}" : "{actor} tilkynnti {announcement}",
     "You posted an announcement" : "Þú sendir inn tilkynningu",
     "{actor} posted an announcement" : "{actor} sendi inn tilkynningu",
-    "Announcement does not exist anymore" : "Tilkynningin er ekki lengur til",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Tilkynning</strong> er send inn af kerfisstjóra",
     "Announcements" : "Tilkynningar",
     "The subject is too long or empty" : "Efnislínan er of löng eða er tóm",
     "{user} announced “{announcement}”" : "{user} tilkynnti “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”",
     "Announcement center" : "Tilkynningamiðstöð",
     "This app allows admins to post announcements." : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar. Styður einnig eftirfarandi eiginleika:\n\n⚡ Virkni (activities - krefst þess að virkniforritið sé virkt)\n\n📑 Athugasemdir\n\n👪 Heimildir hópa\n\n🔔 Tilkynningar (krefst þess að tilkynningaforritið sé virkt)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli"
+    "Allow comments" : "Leyfa ummæli",
+    "You announced {announcement}" : "Þú tilkynntir {announcement}",
+    "{actor} announced {announcement}" : "{actor} tilkynnti {announcement}",
+    "Announcement does not exist anymore" : "Tilkynningin er ekki lengur til",
+    "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

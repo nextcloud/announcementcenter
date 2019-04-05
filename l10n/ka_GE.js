@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "ხილულია ჯგუფებისთვის: {groups}",
     "Groups" : "ჯგუფები",
-    "You announced {announcement}" : "თქვენ განაცხადეთ {announcement}",
-    "{actor} announced {announcement}" : "{actor} მოხმარებელმა განაცხადა {announcement}",
     "You posted an announcement" : "თქვენ გამოაქყვეყნეთ განცხადება",
     "{actor} posted an announcement" : "{actor} მომხმარებლმა გამოაქვეყნა განცხადება",
-    "Announcement does not exist anymore" : "განცხადება აღარ არსებობს",
     "An <strong>announcement</strong> is posted by an administrator" : "ადმინისტრატორის მიერ გამოქვეყნებულია <strong>განცხადება</strong>",
     "Announcements" : "განცხადებები",
     "The subject is too long or empty" : "სათაური ზედმეტად გრძელია ან ცარიელია",
     "{user} announced “{announcement}”" : "{user} მომხმარებელმა განაცხადა “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s მომხმარებელმა განაცხადა “%2$s”",
     "Announcement center" : "განცხადებების ცენტრი",
     "These groups will be able to post announcements." : "ეს ჯგუფები განცხადებების გამოსაქვეყნებლად დაიშვება.",
     "Create activities by default" : "საწყისად ქმნის აქტივობებს",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "დამატებითი ოპციონები",
     "Create activities" : "აქტივობების შექმნა",
     "Create notifications" : "შეტყობინებების შექმნა",
-    "Allow comments" : "კომენტარების დაშვება"
+    "Allow comments" : "კომენტარების დაშვება",
+    "You announced {announcement}" : "თქვენ განაცხადეთ {announcement}",
+    "{actor} announced {announcement}" : "{actor} მოხმარებელმა განაცხადა {announcement}",
+    "Announcement does not exist anymore" : "განცხადება აღარ არსებობს",
+    "%1$s announced “%2$s”" : "%1$s მომხმარებელმა განაცხადა “%2$s”"
 },
 "nplurals=2; plural=(n!=1);");

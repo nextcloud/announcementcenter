@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Redzams grupām: {groups}",
     "Groups" : "Grupas",
-    "You announced {announcement}" : "Jūs paziņojāt {announcement}",
-    "{actor} announced {announcement}" : "{actor} paziņots {announcement}",
     "You posted an announcement" : "Tu izliki paziņojumu",
     "{actor} posted an announcement" : "{actor} izlika paziņojumu",
-    "Announcement does not exist anymore" : "Paziņojums vairs neeksistē",
     "An <strong>announcement</strong> is posted by an administrator" : "Šis <strong>paziņojums</strong> ir no administratora",
     "Announcements" : "Paziņojumi",
     "The subject is too long or empty" : "Temats ir par garu vai arī tukšs",
     "{user} announced “{announcement}”" : "{user} paziņots “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s paziņoja “%2$s”",
     "Announcement center" : "Paziņojumu centrs",
     "These groups will be able to post announcements." : "Šīs grupas varēs ievietot paziņojumus.",
     "Create activities by default" : "Izveidot darbības pēc noklusējuma",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Papildu opcijas",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus"
+    "Allow comments" : "Atļaut komentārus",
+    "You announced {announcement}" : "Jūs paziņojāt {announcement}",
+    "{actor} announced {announcement}" : "{actor} paziņots {announcement}",
+    "Announcement does not exist anymore" : "Paziņojums vairs neeksistē",
+    "%1$s announced “%2$s”" : "%1$s paziņoja “%2$s”"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

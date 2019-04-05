@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Visible pa los grupos: {groups}",
     "Groups" : "Grupos",
-    "You announced {announcement}" : "Anunciesti {announcement}",
-    "{actor} announced {announcement}" : "{actor} anunció {announcement}",
     "You posted an announcement" : "Espublicesti un anunciu",
     "{actor} posted an announcement" : "{actor} espublizó un anunciu",
-    "Announcement does not exist anymore" : "L'anunciu yá nun esiste",
     "An <strong>announcement</strong> is posted by an administrator" : "Un alministrador espublizó un <strong>anunciu</strong>",
     "Announcements" : "Anuncios",
     "The subject is too long or empty" : "L'asuntu ye perllargu o baleru",
     "{user} announced “{announcement}”" : "{user} anunció «{announcement}»",
-    "%1$s announced “%2$s”" : "%1$s anunció «%2$s»",
     "Announcement center" : "Centru d'anuncios",
     "These groups will be able to post announcements." : "Estos grupos sedrán a espublizar anuncios.",
     "Create activities by default" : "Crear actividaes por defeutu",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Opciones avanzaes",
     "Create activities" : "Crear actividaes",
     "Create notifications" : "Crear avisos",
-    "Allow comments" : "Permitir comentarios"
+    "Allow comments" : "Permitir comentarios",
+    "You announced {announcement}" : "Anunciesti {announcement}",
+    "{actor} announced {announcement}" : "{actor} anunció {announcement}",
+    "Announcement does not exist anymore" : "L'anunciu yá nun esiste",
+    "%1$s announced “%2$s”" : "%1$s anunció «%2$s»"
 },
 "nplurals=2; plural=(n != 1);");

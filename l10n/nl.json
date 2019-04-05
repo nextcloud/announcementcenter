@@ -22,16 +22,12 @@
     ", " : ", ",
     "Visible for groups: {groups}" : "Zichtbaar voor groepen: {groups}",
     "Groups" : "Groepen",
-    "You announced {announcement}" : "Je kondigde aan {announcement}",
-    "{actor} announced {announcement}" : "{actor} kondigde aan {announcement}",
     "You posted an announcement" : "Je plaatste een aankondiging",
     "{actor} posted an announcement" : "{actor} plaatste een aankondiging",
-    "Announcement does not exist anymore" : "Aankondiging bestaat niet meer",
     "An <strong>announcement</strong> is posted by an administrator" : "Er is een <strong>aankondiging</strong> geplaatst door de beheerder",
     "Announcements" : "Aankondigingen",
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "{user} announced “{announcement}”" : "{user} kondigde “{announcement}” aan",
-    "%1$s announced “%2$s”" : "%1$s meldde “%2$s”",
     "Announcement center" : "Meldingencentrum",
     "This app allows admins to post announcements." : "Deze app laat beheerders meldingen plaatsen.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Deze app laat beheerders meldingen plaatsen:\n\n⚡ Activiteiten (Vereist een ingeschakelde Activiteiten app)\n\n📑 Reacties\n\n👪 Groepspermissies\n\n🔔 Meldingen (Vereist een ingeschakelde Meldingen app)",
@@ -50,6 +46,10 @@
     "Advanced options" : "Geavanceerde opties",
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
-    "Allow comments" : "Reageren toestaan"
+    "Allow comments" : "Reageren toestaan",
+    "You announced {announcement}" : "Je kondigde aan {announcement}",
+    "{actor} announced {announcement}" : "{actor} kondigde aan {announcement}",
+    "Announcement does not exist anymore" : "Aankondiging bestaat niet meer",
+    "%1$s announced “%2$s”" : "%1$s meldde “%2$s”"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
