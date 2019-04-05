@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Látható a csoportoknak: {groups}",
     "Groups" : "Csoportok",
-    "You announced {announcement}" : "Bejelentetted: {announcement}",
-    "{actor} announced {announcement}" : "{actor} bejelentette: {announcement}",
     "You posted an announcement" : "Közzétettél egy bejelentést",
     "{actor} posted an announcement" : "{actor} közzétett egy bejelentést",
-    "Announcement does not exist anymore" : "A közlemény többé nem létezik",
     "An <strong>announcement</strong> is posted by an administrator" : "A rendszergazda közzétett egy <strong>bejelentést</strong>",
     "Announcements" : "Közlemények",
     "The subject is too long or empty" : "A tárgy túl hosszú vagy üres!",
     "{user} announced “{announcement}”" : "{user} bejelentette: “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s közzétette: “%2$s”",
     "Announcement center" : "Közlemény központ",
     "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy az adminok bejelentéseket küldjenek.",
     "These groups will be able to post announcements." : "Ezek a csoportok beküldhetnek majd bejelentéseket.",
@@ -51,6 +47,10 @@ OC.L10N.register(
     "Advanced options" : "Haladó beállítások",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
-    "Allow comments" : "Hozzászólások engedélyezése"
+    "Allow comments" : "Hozzászólások engedélyezése",
+    "You announced {announcement}" : "Bejelentetted: {announcement}",
+    "{actor} announced {announcement}" : "{actor} bejelentette: {announcement}",
+    "Announcement does not exist anymore" : "A közlemény többé nem létezik",
+    "%1$s announced “%2$s”" : "%1$s közzétette: “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

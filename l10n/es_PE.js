@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Visible para los grupos: {groups}",
     "Groups" : "Grupos",
-    "You announced {announcement}" : "Anunciaste {announcement}",
-    "{actor} announced {announcement}" : "{actor} anunció {announcement}",
     "You posted an announcement" : "Publicaste un anuncio",
     "{actor} posted an announcement" : "{actor} publicó un anuncio",
-    "Announcement does not exist anymore" : "El aununcio ya no existe",
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anuncio</strong> ha sido publicado por un administrador",
     "Announcements" : "Anuncios",
     "The subject is too long or empty" : "El asunto es muy largo o está vacío",
     "{user} announced “{announcement}”" : "{user} anunció “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s anunció “%2$s”",
     "Announcement center" : "Centro de anuncios",
     "These groups will be able to post announcements." : "Estos grupos podrán publicar anuncios.",
     "Create activities by default" : "Crear actividades predeterminadas",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Opciones avanzadas",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
-    "Allow comments" : "Permitir comentarios"
+    "Allow comments" : "Permitir comentarios",
+    "You announced {announcement}" : "Anunciaste {announcement}",
+    "{actor} announced {announcement}" : "{actor} anunció {announcement}",
+    "Announcement does not exist anymore" : "El aununcio ya no existe",
+    "%1$s announced “%2$s”" : "%1$s anunció “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Widoczne dla grup: {groups}",
     "Groups" : "Grupy",
-    "You announced {announcement}" : "Ogłosiłeś/-aś {announcement}",
-    "{actor} announced {announcement}" : "{actor} ogłosił/-a {announcement}",
     "You posted an announcement" : "Napisałeś ogłoszenie",
     "{actor} posted an announcement" : "{actor} dodał/-a ogłoszenie",
-    "Announcement does not exist anymore" : "Ogłoszenie już nie istnieje",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Ogłoszenie</strong> zostało dodane przez administratora",
     "Announcements" : "Ogłoszenia",
     "The subject is too long or empty" : "Temat jest pusty lub zbyt długi",
     "{user} announced “{announcement}”" : "{user} ogłosił/-a “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s ogłosił/-a “%2$s”",
     "Announcement center" : "Centrum ogłoszeń",
     "This app allows admins to post announcements." : "Aplikacja pozwala administratorom publikować ogłoszenia.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Aplikacja pozwala administratorom publikować ogłoszenia. Wspiera ona ponadto:\n\n⚡ Aktywności (wymaga włączonej aplikacji activity)\n\n📑 Komentarze\n\n👪 Uprawnienia grupowe\n\n🔔 Powiadomienia (wymaga włączonej aplikacji notifications)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Opcje zaawansowane",
     "Create activities" : "Utwórz aktywności",
     "Create notifications" : "Utwórz powiadomienia",
-    "Allow comments" : "Zezwól na komentarze"
+    "Allow comments" : "Zezwól na komentarze",
+    "You announced {announcement}" : "Ogłosiłeś/-aś {announcement}",
+    "{actor} announced {announcement}" : "{actor} ogłosił/-a {announcement}",
+    "Announcement does not exist anymore" : "Ogłoszenie już nie istnieje",
+    "%1$s announced “%2$s”" : "%1$s ogłosił/-a “%2$s”"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");

@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Видим за групи: {groups}",
     "Groups" : "Групи",
-    "You announced {announcement}" : "Ти заяви {announcement}",
-    "{actor} announced {announcement}" : "{actor} заяви {announcement}",
     "You posted an announcement" : "Изпратихте заявление",
     "{actor} posted an announcement" : "{actor} изпрати заявление",
-    "Announcement does not exist anymore" : "Съобщенията вече не съществуват",
     "An <strong>announcement</strong> is posted by an administrator" : "Администратор изпрати <strong>заявление</strong>",
     "Announcements" : "Уведомления",
     "The subject is too long or empty" : "Темата е твърде дълга или празна",
     "{user} announced “{announcement}”" : "{user} заяви “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s уведомени “%2$s” ",
     "Announcement center" : "Център за съобщения",
     "These groups will be able to post announcements." : "Следните групи ще могат да изпращат заявления.",
     "Create activities by default" : "Създава активности по подразбиране",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Допълнителни опции",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
-    "Allow comments" : "Позволи коментари"
+    "Allow comments" : "Позволи коментари",
+    "You announced {announcement}" : "Ти заяви {announcement}",
+    "{actor} announced {announcement}" : "{actor} заяви {announcement}",
+    "Announcement does not exist anymore" : "Съобщенията вече не съществуват",
+    "%1$s announced “%2$s”" : "%1$s уведомени “%2$s” "
 },
 "nplurals=2; plural=(n != 1);");

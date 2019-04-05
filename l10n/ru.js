@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Видимое для групп: {groups}",
     "Groups" : "Группы",
-    "You announced {announcement}" : "Вы уведомили {announcement}",
-    "{actor} announced {announcement}" : "{actor} уведомляет {announcement}",
     "You posted an announcement" : "Вы опубликовали уведомление",
     "{actor} posted an announcement" : "{actor} опубликовал уведомление",
-    "Announcement does not exist anymore" : "Уведомление больше не существует",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Уведомление</strong> опубликовано администратором",
     "Announcements" : "Уведомления",
     "The subject is too long or empty" : "Тема слишком короткая или отсутствует",
     "{user} announced “{announcement}”" : "{user} уведомил “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s уведомил «%2$s»",
     "Announcement center" : "Центр уведомлений",
     "This app allows admins to post announcements." : "Это приложение позволяет администраторам публиковать объявления.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Это приложение позволяет администраторам публиковать объявления. Также поддерживает следующие функции: ⚡ Действия (требуется, чтобы приложение активности было включено) 📑 Комментарии👪 Групповые разрешения🔔 Уведомления (требуется, чтобы приложение уведомлений было включено)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Дополнительные настройки",
     "Create activities" : "Создать действия",
     "Create notifications" : "Создать уведомления",
-    "Allow comments" : "Разрешить комментарии"
+    "Allow comments" : "Разрешить комментарии",
+    "You announced {announcement}" : "Вы уведомили {announcement}",
+    "{actor} announced {announcement}" : "{actor} уведомляет {announcement}",
+    "Announcement does not exist anymore" : "Уведомление больше не существует",
+    "%1$s announced “%2$s”" : "%1$s уведомил «%2$s»"
 },
 "nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);");

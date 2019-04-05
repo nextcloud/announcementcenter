@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Sigbaar vir groepe: {groups}",
     "Groups" : "Groepe",
-    "You announced {announcement}" : "U aankondiging is {announcement}",
-    "{actor} announced {announcement}" : "{actor} se aankondiging is {announcement}",
     "You posted an announcement" : "U het ’n aankondiging gemaak",
     "{actor} posted an announcement" : "{actor} het ’n aankondiging gemaak",
-    "Announcement does not exist anymore" : "Aankondiging bestaan nie meer nie",
     "An <strong>announcement</strong> is posted by an administrator" : "’n <strong>Aankondiging</strong> is deur ’n administrateur gemaak",
     "Announcements" : "Aankondigings",
     "The subject is too long or empty" : "Die onderwerp is leeg of te lank",
     "{user} announced “{announcement}”" : "{user} se aankondiging is “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s se aankondiging is “%2$s”",
     "Announcement center" : "Aankondigingsentrum",
     "These groups will be able to post announcements." : "Hierdie groepe sal aankondigings kan maak.",
     "Create activities by default" : "Skep by verstek aktiwiteite",
@@ -50,6 +46,10 @@ OC.L10N.register(
     "Advanced options" : "Gevorderde opsies",
     "Create activities" : "Skep aktiwiteite",
     "Create notifications" : "Skep kennisgewings",
-    "Allow comments" : "Staan kommentare toe"
+    "Allow comments" : "Staan kommentare toe",
+    "You announced {announcement}" : "U aankondiging is {announcement}",
+    "{actor} announced {announcement}" : "{actor} se aankondiging is {announcement}",
+    "Announcement does not exist anymore" : "Aankondiging bestaan nie meer nie",
+    "%1$s announced “%2$s”" : "%1$s se aankondiging is “%2$s”"
 },
 "nplurals=2; plural=(n != 1);");

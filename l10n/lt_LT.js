@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Matoma šioms grupėms: {groups}",
     "Groups" : "Grupės",
-    "You announced {announcement}" : "Jūs paskelbėte {announcement}",
-    "{actor} announced {announcement}" : "{actor} paskelbė {announcement}",
     "You posted an announcement" : "Jūs paskelbėte skelbimą",
     "{actor} posted an announcement" : "{actor} paskelbė skelbimą",
-    "Announcement does not exist anymore" : "Skelbimo daugiau nebėra",
     "An <strong>announcement</strong> is posted by an administrator" : "Administratorius paskelbė <strong>skelbimą</strong>",
     "Announcements" : "Skelbimai",
     "The subject is too long or empty" : "Antraštė per ilga arba per trumpa",
     "{user} announced “{announcement}”" : "{user} paskelbė \"{announcement}\"",
-    "%1$s announced “%2$s”" : "%1$s paskelbė \"%2$s\"",
     "Announcement center" : "Skelbimų centras",
     "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ši programa leidžia administratoriams skelbti skelbimus ir palaiko sekančius funkcionalumus:\n⚡  Veiklos (Veiklų programa turi būtų įjungta)\n\n📑  Komentarai\n\n👪  Grupių teisės\n\n🔔 Pranešimai (pranešimų programa turi būtų įjungta)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Išplėstinės parinktys",
     "Create activities" : "Sukurti veiklas",
     "Create notifications" : "Sukurti pranešimus",
-    "Allow comments" : "Leisti komentuoti"
+    "Allow comments" : "Leisti komentuoti",
+    "You announced {announcement}" : "Jūs paskelbėte {announcement}",
+    "{actor} announced {announcement}" : "{actor} paskelbė {announcement}",
+    "Announcement does not exist anymore" : "Skelbimo daugiau nebėra",
+    "%1$s announced “%2$s”" : "%1$s paskelbė \"%2$s\""
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

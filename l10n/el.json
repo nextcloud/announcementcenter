@@ -21,16 +21,12 @@
     ", " : ", ",
     "Visible for groups: {groups}" : "Ορατό για τις ομάδες: {groups}",
     "Groups" : "Ομάδες",
-    "You announced {announcement}" : "Ανακοινώσατε {announcement}",
-    "{actor} announced {announcement}" : "Ο {actor} ανακοίνωσε {announcement}",
     "You posted an announcement" : "Δημοσιεύσατε μια ανακοίνωση",
     "{actor} posted an announcement" : "Ο {actor} δημοσίευσε μια ανακοίνωση",
-    "Announcement does not exist anymore" : "Η ανακοίνωση δεν υπάρχει πλέον",
     "An <strong>announcement</strong> is posted by an administrator" : "Μια <strong>ανακοίνωση</strong> δημοσιεύτηκε από έναν διαχειριστή",
     "Announcements" : "Ανακοινώσεις",
     "The subject is too long or empty" : "Το θέμα είναι πολύ μακροσκελές ή κενό",
     "{user} announced “{announcement}”" : "Ο {user} ανακοίνωσε “{announcement}”",
-    "%1$s announced “%2$s”" : "%1$s ανακοίνωσε “%2$s”",
     "Announcement center" : "Κέντρο ανακοινώσεων",
     "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
     "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
@@ -47,6 +43,10 @@
     "Advanced options" : "Επιλογές για προχωρημένους",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
-    "Allow comments" : "Να επιτρέπονται σχόλια"
+    "Allow comments" : "Να επιτρέπονται σχόλια",
+    "You announced {announcement}" : "Ανακοινώσατε {announcement}",
+    "{actor} announced {announcement}" : "Ο {actor} ανακοίνωσε {announcement}",
+    "Announcement does not exist anymore" : "Η ανακοίνωση δεν υπάρχει πλέον",
+    "%1$s announced “%2$s”" : "%1$s ανακοίνωσε “%2$s”"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

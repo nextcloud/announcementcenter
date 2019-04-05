@@ -23,16 +23,12 @@ OC.L10N.register(
     ", " : ",",
     "Visible for groups: {groups}" : "Taldeentzat ikusgai: {groups}",
     "Groups" : "Taldeak",
-    "You announced {announcement}" : "Zuk esandako {announcement}",
-    "{actor} announced {announcement}" : "{actor}-ek esandako {announcement}",
     "You posted an announcement" : "Ohar bat argitaratu duzu",
     "{actor} posted an announcement" : "{actor}-ek ohar bat argitaratu du",
-    "Announcement does not exist anymore" : "Oharra ez dago jada",
     "An <strong>announcement</strong> is posted by an administrator" : "Administratzaileak <strong>ohar bat</strong> argitaratu du",
     "Announcements" : "Oharrak",
     "The subject is too long or empty" : "Gaia luzeegia da edo hutsik dago",
     "{user} announced “{announcement}”" : "{user}-ek “{announcement}” esan du",
-    "%1$s announced “%2$s”" : "%1$s-ek “%2$s” esan du",
     "Announcement center" : "Iragarpen-zentroa",
     "These groups will be able to post announcements." : "Talde hauek oharrak argitaratzeko baimena dute",
     "Create activities by default" : "Sortu jarduerak lehenespenez",
@@ -49,6 +45,10 @@ OC.L10N.register(
     "Advanced options" : "Ezarpen aurreratuak",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
-    "Allow comments" : "Baimendu iruzkinak"
+    "Allow comments" : "Baimendu iruzkinak",
+    "You announced {announcement}" : "Zuk esandako {announcement}",
+    "{actor} announced {announcement}" : "{actor}-ek esandako {announcement}",
+    "Announcement does not exist anymore" : "Oharra ez dago jada",
+    "%1$s announced “%2$s”" : "%1$s-ek “%2$s” esan du"
 },
 "nplurals=2; plural=(n != 1);");

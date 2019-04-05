@@ -22,16 +22,12 @@
     ", " : ",",
     "Visible for groups: {groups}" : "Viditelné pro skupiny: {groups}",
     "Groups" : "Skupiny",
-    "You announced {announcement}" : "Oznámili jste {announcement}",
-    "{actor} announced {announcement}" : "{actor} oznámil {announcement}",
     "You posted an announcement" : "Odeslal(a) jste oznámení",
     "{actor} posted an announcement" : "{actor} publikoval oznámení",
-    "Announcement does not exist anymore" : "Oznámení již neexistuje",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Oznámení</strong> je odesláno správcem",
     "Announcements" : "Oznámení",
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo prázdný",
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",
-    "%1$s announced “%2$s”" : "%1$s oznámil(a) „%2$s“",
     "Announcement center" : "Centrum oznámení",
     "This app allows admins to post announcements." : "Tato aplikace umožní správcům odesílat oznámení.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Tato aplikace umožní administrátorům odesílat oznámení. Mimo jiné podporuje tyto vlastnosti:\n\n⚡ Aktivity (Je potřeba mít zapnutou aplikaci Aktivita)\n\n📑 Komentáře\n\n👪 Skupinová oprávnění\n\n🔔 Notifikace (Je potřeba mít zapnutou aplikaci Notifikace)",
@@ -50,6 +46,10 @@
     "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvořit aktivity",
     "Create notifications" : "Vytvořit upozornění",
-    "Allow comments" : "Povolit komentáře"
+    "Allow comments" : "Povolit komentáře",
+    "You announced {announcement}" : "Oznámili jste {announcement}",
+    "{actor} announced {announcement}" : "{actor} oznámil {announcement}",
+    "Announcement does not exist anymore" : "Oznámení již neexistuje",
+    "%1$s announced “%2$s”" : "%1$s oznámil(a) „%2$s“"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

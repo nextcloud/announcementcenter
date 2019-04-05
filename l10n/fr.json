@@ -22,16 +22,12 @@
     ", " : ",",
     "Visible for groups: {groups}" : "Visible pour les groupes: {groups}",
     "Groups" : "Groupes",
-    "You announced {announcement}" : "Vous avez annoncé {announcement}",
-    "{actor} announced {announcement}" : "{actor} a annoncé {announcement}",
     "You posted an announcement" : "Vous avez posté une annonce",
     "{actor} posted an announcement" : "{actor} a posté une annonce",
-    "Announcement does not exist anymore" : "L'annonce n'existe plus",
     "An <strong>announcement</strong> is posted by an administrator" : "Une <strong>annonce</strong> a été posté par un administrateur",
     "Announcements" : "Annonces",
     "The subject is too long or empty" : "Le sujet est trop long ou vide",
     "{user} announced “{announcement}”" : "{user} annonce \"{announcement}\"",
-    "%1$s announced “%2$s”" : "%1$s a annoncé \"%2$s\"",
     "Announcement center" : "Centre d'annonce",
     "This app allows admins to post announcements." : "Cette application permet aux administrateurs de poster des annonces.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Cette application permet aux administrateurs de poster des annonces. Elle permet aussi les fonctionnalités suivantes :\n⚡ Activités (Nécessite que l'application d'activités soit activée)\n\n📑 Commentaires\n\n👪 Permissions de groupe\n\n🔔 Notifications (Nécessite que l'application de notifications soit activée)",
@@ -50,6 +46,10 @@
     "Advanced options" : "Options avancés",
     "Create activities" : "Créer des activités",
     "Create notifications" : "Créer des notifications",
-    "Allow comments" : "Autoriser les commentaires"
+    "Allow comments" : "Autoriser les commentaires",
+    "You announced {announcement}" : "Vous avez annoncé {announcement}",
+    "{actor} announced {announcement}" : "{actor} a annoncé {announcement}",
+    "Announcement does not exist anymore" : "L'annonce n'existe plus",
+    "%1$s announced “%2$s”" : "%1$s a annoncé \"%2$s\""
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

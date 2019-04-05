@@ -24,16 +24,12 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Visíbel para grupos: {groups}",
     "Groups" : "Grupos",
-    "You announced {announcement}" : "Vostede anunciou {announcement}",
-    "{actor} announced {announcement}" : "{actor} anunciou {announcement}",
     "You posted an announcement" : "Vostede publicou un anuncio {announcement}",
     "{actor} posted an announcement" : "{actor} publicou un anuncio",
-    "Announcement does not exist anymore" : "O anuncio xa non existe",
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador publicou un <strong>anuncio<strong>",
     "Announcements" : "Anuncios",
     "The subject is too long or empty" : "O asunto é longo de máis ou está baleiro",
     "{user} announced “{announcement}”" : "{user} anunciou «{announcement}»",
-    "%1$s announced “%2$s”" : "%1$s anunciou «%2$s»",
     "Announcement center" : "Centro de anuncios",
     "This app allows admins to post announcements." : "Este aplicativo permítelle aos administradores publicar anuncios.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Este aplicativo permítelle aos administradores publicar anuncios. Admite tamén as seguintes características:\n\n⚡ Actividades (require que o aplicativo de actividade estea activado)\n\n📑Comentarios\n\n👪 Permisos de grupo\n\n🔔 Notificacións (require que o aplicativo de notificacións estea activado)",
@@ -52,6 +48,10 @@ OC.L10N.register(
     "Advanced options" : "Opcións avanzadas",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificacións",
-    "Allow comments" : "Permitir comentarios"
+    "Allow comments" : "Permitir comentarios",
+    "You announced {announcement}" : "Vostede anunciou {announcement}",
+    "{actor} announced {announcement}" : "{actor} anunciou {announcement}",
+    "Announcement does not exist anymore" : "O anuncio xa non existe",
+    "%1$s announced “%2$s”" : "%1$s anunciou «%2$s»"
 },
 "nplurals=2; plural=(n != 1);");
