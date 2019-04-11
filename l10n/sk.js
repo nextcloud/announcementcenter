@@ -6,7 +6,7 @@ OC.L10N.register(
     "New comment …" : "Nový komentár …",
     "Post" : "Uverejniť",
     "Cancel" : "Zrušiť",
-    "[Deleted user]" : "[Zmazaný užívateľ]",
+    "[Deleted user]" : "[Zmazaný používateľ]",
     "Comments" : "Komentáre",
     "No comments yet, start the conversation!" : "Žiadne komentáre, začnite konverzáciu!",
     "More comments …" : "Ďalšie komentáre ...",
