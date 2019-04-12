@@ -15,6 +15,10 @@
     "Delete" : "حذف",
     "Remove notifications" : "حذف الإشعارات",
     ", " : "،",
-    "You posted an announcement" : "لقد قمت بنشر إعلان"
+    "You posted an announcement" : "لقد قمت بنشر إعلان",
+    "Subject…" : "الموضوع…",
+    "Groups…" : "الفِرَق…",
+    "Advanced options" : "الخيارات المتقدمة",
+    "Allow comments" : "السماح بنشر تعليقات"
 },"pluralForm" :"nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;"
 }
