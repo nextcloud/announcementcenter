@@ -32,6 +32,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} bejelentette: “{announcement}”",
     "Announcement center" : "Közlemény központ",
     "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy az adminok bejelentéseket küldjenek.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ezzel az alkalmazással az adminok közleményeket tudnak posztolni. Továbbá támogatja a következő funkciókat:\n\n⚡ Tevékenységek (Szükséges hozzá a tevékenyésgek appot engedélyezni)\n\n📑 Kommentek\n\n👪 Csoport jogosultságok\n\n🔔 Értesítések (Szükséges hozzá az értesítések appot engedélyezni)",
     "These groups will be able to post announcements." : "Ezek a csoportok beküldhetnek majd bejelentéseket.",
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
