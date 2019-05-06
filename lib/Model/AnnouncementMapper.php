@@ -24,6 +24,7 @@ namespace OCA\AnnouncementCenter\Model;
 
 
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
@@ -49,6 +50,23 @@ class AnnouncementMapper extends QBMapper {
 			);
 
 		return $this->findEntity($query);
+	}
+
+	/**
+	 * Deletes an entity from the table
+	 * @param Entity $entity the entity that should be deleted
+	 * @return Entity the deleted entity
+	 * @since 14.0.0
+	 */
+	public function delete(Entity $entity): Entity {
+		$qb = $this->db->getQueryBuilder();
+
+		$qb->delete($this->tableName)
+			->where(
+				$qb->expr()->eq('announcement_id', $qb->createNamedParameter($entity->getId()))
+			);
+		$qb->execute();
+		return $entity;
 	}
 
 	/**
