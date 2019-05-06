@@ -46,11 +46,10 @@ class GroupMapper extends QBMapper {
 	 * @param Announcement $announcement
 	 */
 	public function deleteGroupsForAnnouncement(Announcement $announcement): void {
-		$groups = $this->getGroupsForAnnouncement($announcement);
-
-		foreach ($groups as $group) {
-			$this->delete($group);
-		}
+		$query = $this->db->getQueryBuilder();
+		$query->delete('announcements_groups')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($announcement->getId())));
+		$query->execute();
 	}
 
 	/**
