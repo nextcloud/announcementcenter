@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.5.1 – 2019-05-07
+### Fixed
+- Fix deleting announcements
+  [#150](https://github.com/nextcloud/announcementcenter/pull/150)
+
 ## 3.5.0 – 2019-04-04
 ### Fixed
 - Compatibility with Nextcloud 16
