@@ -22,15 +22,18 @@
     ", " : ",",
     "Visible for groups: {groups}" : "다음 그룹만 볼 수 있음: {groups}",
     "Groups" : "그룹",
+    "You announced “{announcement}”" : "“{announcement}” 공지를 올림",
+    "{actor} announced “{announcement}”" : "{actor} 님이 “{announcement}” 공지를 올림",
     "You posted an announcement" : "공지 사항을 게시했습니다",
     "{actor} posted an announcement" : "{actor} 님이 공지 사항을 게시했습니다",
+    "The announcement does not exist anymore" : "공지가 더 이상 존재하지 않음",
     "An <strong>announcement</strong> is posted by an administrator" : "관리자가 <strong>공지 사항</strong>을 게시했습니다",
     "Announcements" : "공지",
     "The subject is too long or empty" : "제목이 너무 길거나 비어 있습니다",
-    "{user} announced “{announcement}”" : "{user} 님이 “{announcement}”을(를) 공지함",
+    "{user} announced “{announcement}”" : "{user} 님이 “{announcement}” 공지를 올림",
     "Announcement center" : "공지 센터",
     "This app allows admins to post announcements." : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다.",
-    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다. 또 이 앱은 다음 기능을 지원합니다:\n\n⚡ 액티비티 (액티비티 애플리케이션이 활성화되어야 합니다)\n\n📑 댓글\n\n👪 그룹 권한\n\n🔔 알림(알림 애플리케이션이 활성화되어야 합니다)",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "이 앱은 관리자가 공지사항을 게시할 수 있게 합니다. 또한 이 앱은 다음 기능을 지원합니다:\n\n⚡ 액티비티 (액티비티 앱이이 활성화되어야 합니다)\n\n📑 댓글\n\n👪 그룹 권한\n\n🔔 알림(알림 앱이 활성화되어야 합니다)",
     "These groups will be able to post announcements." : "다음 그룹에 속한 사용자는 공지 사항을 게시할 수 있습니다.",
     "Create activities by default" : "기본적으로 활동 만들기",
     "Create notifications by default" : "기본적으로 알림 만들기",
@@ -47,9 +50,9 @@
     "Create activities" : "활동 만들기",
     "Create notifications" : "알림 만들기",
     "Allow comments" : "댓글 허용",
-    "You announced {announcement}" : "{announcement}을(를) 공지했습니다",
-    "{actor} announced {announcement}" : "{actor} 님이 {announcement}을(를) 공지했습니다",
+    "You announced {announcement}" : "{announcement} 공지를 올렸습니다",
+    "{actor} announced {announcement}" : "{actor} 님이 {announcement} 공지를 올렸습니다",
     "Announcement does not exist anymore" : "공지가 더 이상 존재하지 않습니다",
-    "%1$s announced “%2$s”" : "%1$s 님이 \"%2$s\"을(를) 공지함"
+    "%1$s announced “%2$s”" : "%1$s 님이 “%2$s” 공지를 올림"
 },"pluralForm" :"nplurals=1; plural=0;"
 }
