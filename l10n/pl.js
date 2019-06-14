@@ -25,7 +25,7 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Widoczne dla grup: {groups}",
     "Groups" : "Grupy",
     "You announced “{announcement}”" : "Ogłosiłeś “{announcement}”",
-    "{actor} announced “{announcement}”" : "{actor} ogłosił „{announcement}”",
+    "{actor} announced “{announcement}”" : "{actor} ogłosił “{announcement}”",
     "You posted an announcement" : "Napisałeś ogłoszenie",
     "{actor} posted an announcement" : "{actor} dodał/-a ogłoszenie",
     "The announcement does not exist anymore" : "Ogłoszenie już nie istnieje",
