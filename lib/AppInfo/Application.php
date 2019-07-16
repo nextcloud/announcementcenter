@@ -61,14 +61,6 @@ class Application extends App {
 	}
 
 	protected function registerNotificationNotifier() {
-		$this->getContainer()->getServer()->getNotificationManager()->registerNotifier(function() {
-			return $this->getContainer()->query(Notifier::class);
-		}, function() {
-			$l = $this->getContainer()->getServer()->getL10NFactory()->get('announcementcenter');
-			return [
-				'id' => 'announcementcenter',
-				'name' => $l->t('Announcements'),
-			];
-		});
+		$this->getContainer()->getServer()->getNotificationManager()->registerNotifierService(Notifier::class);
 	}
 }
