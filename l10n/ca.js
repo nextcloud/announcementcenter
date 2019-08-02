@@ -6,7 +6,7 @@ OC.L10N.register(
     "New comment …" : "Nou comentari...",
     "Post" : "Publica",
     "Cancel" : "Cancel·la",
-    "[Deleted user]" : "[Usuari eliminat]",
+    "[Deleted user]" : "[Usuari suprimit]",
     "Comments" : "Comentaris",
     "No comments yet, start the conversation!" : "Encara no hi ha comentaris, enceteu la conversa!",
     "More comments …" : "Més comentaris...",
