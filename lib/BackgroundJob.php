@@ -109,7 +109,7 @@ class BackgroundJob extends QueuedJob {
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
 			->setDateTime($dateTime)
-			->setObject('announcement', $announcement->getId())
+			->setObject('announcement', (string)$announcement->getId())
 			->setSubject('announced', [$announcement->getUser()]);
 
 		$groups = $this->manager->getGroups($announcement);
