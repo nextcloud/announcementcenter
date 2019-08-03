@@ -10,7 +10,7 @@ OC.L10N.register(
     "Comments" : "ความคิดเห็น",
     "More comments …" : "ความคิดเห็นอื่นๆ...",
     "Save" : "บันทึก",
-    "_%n comment_::_%n comments_" : ["1 %n ความคิดเห็น"],
+    "_%n comment_::_%n comments_" : ["%n ความคิดเห็น"],
     "Announcing…" : "กำลังประกาศ...",
     "Announced!" : "ประกาศแล้ว!",
     "Delete" : "ลบ",
