@@ -65,12 +65,32 @@ class Notifier implements INotifier {
 	}
 
 	/**
+	 * Identifier of the notifier, only use [a-z0-9_]
+	 *
+	 * @return string
+	 * @since 17.0.0
+	 */
+	public function getID(): string {
+		return 'announcementcenter';
+	}
+
+	/**
+	 * Human readable name describing the notifier
+	 *
+	 * @return string
+	 * @since 17.0.0
+	 */
+	public function getName(): string {
+		return $this->l10nFactory->get('announcementcenter')->t('Announcements');
+	}
+
+	/**
 	 * @param INotification $notification
 	 * @param string $languageCode The code of the language that should be used to prepare the notification
 	 * @return INotification
 	 * @throws \InvalidArgumentException When the notification was not prepared by a notifier
 	 */
-	public function prepare(INotification $notification, $languageCode): INotification {
+	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() !== 'announcementcenter') {
 			// Not my app => throw
 			throw new \InvalidArgumentException('Unknown app');
@@ -85,19 +105,19 @@ class Notifier implements INotifier {
 			throw new \InvalidArgumentException('Unknown subject');
 		}
 
+		try {
+			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
+		} catch (AnnouncementDoesNotExistException $e) {
+			$this->notificationManager->markProcessed($notification);
+			throw new \InvalidArgumentException('Announcement was deleted');
+		}
+
 		$params = $notification->getSubjectParameters();
 		$user = $this->userManager->get($params[0]);
 		if ($user instanceof IUser) {
 			$displayName = $user->getDisplayName();
 		} else {
 			$displayName = $params[0];
-		}
-
-		try {
-			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
-		} catch (AnnouncementDoesNotExistException $e) {
-			$this->notificationManager->markProcessed($notification);
-			throw new \InvalidArgumentException('Announcement was deleted');
 		}
 
 		$link = $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [

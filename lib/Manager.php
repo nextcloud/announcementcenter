@@ -138,7 +138,7 @@ class Manager {
 		// Delete notifications
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
-			->setObject('announcement', $id);
+			->setObject('announcement', (string)$id);
 		$this->notificationManager->markProcessed($notification);
 
 		// Delete comments
@@ -226,7 +226,7 @@ class Manager {
 			$notification = $this->notificationManager->createNotification();
 			$notification->setApp('announcementcenter')
 				->setUser($user->getUID())
-				->setObject('announcement', $id);
+				->setObject('announcement', (string)$id);
 			$this->notificationManager->markProcessed($notification);
 		}
 	}
@@ -254,7 +254,7 @@ class Manager {
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
-			->setObject('announcement', $announcement->getId());
+			->setObject('announcement', (string)$announcement->getId());
 		return $this->notificationManager->getCount($notification) > 0;
 	}
 
@@ -286,7 +286,7 @@ class Manager {
 
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
-			->setObject('announcement', $id);
+			->setObject('announcement', (string)$id);
 		$this->notificationManager->markProcessed($notification);
 	}
 
