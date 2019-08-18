@@ -1,6 +1,8 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "New comment …" : "Нов коментар ...",
+    "No comments yet, start the conversation!" : "Сеуште нема коментари, започнете разговор!",
     "Announcing…" : "Објавувам...",
     "Announced!" : "Објавено!",
     "Delete" : "Избриши",
