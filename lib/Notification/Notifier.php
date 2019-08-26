@@ -31,6 +31,7 @@ use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
+use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
@@ -108,8 +109,7 @@ class Notifier implements INotifier {
 		try {
 			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
 		} catch (AnnouncementDoesNotExistException $e) {
-			$this->notificationManager->markProcessed($notification);
-			throw new \InvalidArgumentException('Announcement was deleted');
+			throw new AlreadyProcessedException();
 		}
 
 		$params = $notification->getSubjectParameters();
