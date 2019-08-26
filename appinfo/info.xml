@@ -26,7 +26,7 @@
 
 	<website>https://github.com/nextcloud/announcementcenter</website>
 	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
-	<repository type="git">https://github.com/nextcloud/announcementcenter.git</repository>
+	<repository>https://github.com/nextcloud/announcementcenter.git</repository>
 
 	<screenshot>https://github.com/nextcloud/announcementcenter/raw/master/docs/AnnouncementCenterFrontpage.png</screenshot>
 
