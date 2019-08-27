@@ -117,8 +117,7 @@ class NotifierTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Announcement was deleted
+	 * @expectedException \OCP\Notification\AlreadyProcessedException
 	 */
 	public function testPrepareDoesNotExist(): void {
 		/** @var INotification|MockObject $notification */
@@ -138,10 +137,6 @@ class NotifierTest extends TestCase {
 			->method('getAnnouncement')
 			->with(42, false)
 			->willThrowException(new AnnouncementDoesNotExistException());
-
-		$this->notificationManager->expects($this->once())
-			->method('markProcessed')
-			->with($notification);
 
 		$this->notifier->prepare($notification, 'en');
 	}
