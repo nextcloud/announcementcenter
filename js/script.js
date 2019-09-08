@@ -199,6 +199,7 @@
 
 		markdownToHtml: function (message) {
 			message = message.replace(/<br \/>/g, "\n").replace(/&gt;/g, '>');
+			message = message.replace(/&lt;/g, '<');
 			var renderer = new window.marked.Renderer();
 			renderer.link = function (href, title, text) {
 				try {
@@ -215,7 +216,7 @@
 				if (title) {
 					out += ' title="' + title + '"';
 				}
-				out += '>' + text + ' ↗</a>';
+				out += '>' + text + ' </a>';
 				return out;
 			};
 
@@ -244,9 +245,12 @@
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
 						'a',
+						'h3',
+						'h4',
 						'blockquote',
 						'br',
 						'code',
+						'pre',
 						'del',
 						'em',
 						'i',
