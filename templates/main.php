@@ -3,7 +3,6 @@
  * @var array $_
  * @var \OCP\IL10N $l
  */
-\OCP\Util::addScript('oc-backbone-webdav');
 script('announcementcenter', [
 	'vendor/Caret.js/dist/jquery.caret.min',
 	'vendor/At.js/dist/jquery.atwho.min',

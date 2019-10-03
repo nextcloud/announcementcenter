@@ -3,8 +3,6 @@
  * @var \OCP\IL10N $l
  * @var array $_
  */
-vendor_script('select2/select2');
-vendor_style('select2/select2');
 script('settings', 'settings');
 ?>
 <form id="announce" class="section">
