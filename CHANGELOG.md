@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.6.1 – 2019-10-04
+### Fixed
+- Remove JS warnings for loading all libraries
+  [#169](https://github.com/nextcloud/announcementcenter/pull/169)
+
 ## 3.6.0 – 2019-08-26
 ### Fixed
 - Compatibility with Nextcloud 17
