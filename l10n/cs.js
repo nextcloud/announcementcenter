@@ -15,7 +15,7 @@ OC.L10N.register(
     "Error occurred while retrieving comment with ID {id}" : "Došlo k chybě při načítání komentáře s ID {id}",
     "Error occurred while updating comment with id {id}" : "Došlo k chybě při aktualizování komentáře s id {id}",
     "Error occurred while posting comment" : "Došlo k chybě při zveřejňování komentáře",
-    "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů","%n komentářů"],
+    "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů","%n komentáře"],
     "Announcing…" : "Oznamování…",
     "Announced!" : "Oznámeno!",
     "Delete" : "Smazat",
