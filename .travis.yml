@@ -2,7 +2,7 @@ language: php
 php:
   - 7.2
   - 7.3
-  - 7.4
+  - 7.4snapshot
 services:
   - mysql
   - postgresql
@@ -21,6 +21,7 @@ branches:
     - /^prep-release-\d+(\.\d+)?$/
 
 before_install:
+  - php --version
   - wget https://raw.githubusercontent.com/nextcloud/travis_ci/master/before_install.sh
   - . ./before_install.sh $APP_NAME $CORE_BRANCH $DB
 
