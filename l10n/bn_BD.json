@@ -1,0 +1,8 @@
+{ "translations": {
+    "Cancel" : "বাতির",
+    "Save" : "সংরক্ষণ",
+    "Delete" : "মুছে",
+    ", " : ", ",
+    "Groups" : "গোষ্ঠীসমূহ"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}

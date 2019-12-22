@@ -1,0 +1,11 @@
+{ "translations": {
+    "Delete comment" : "Kommentar läschen",
+    "Cancel" : "Ofbriechen",
+    "Comments" : "Kommentarer",
+    "Save" : "Späicheren",
+    "Delete" : "Läschen",
+    ", " : ", ",
+    "Groups" : "Gruppen",
+    "Advanced options" : "Erweidert Astellungen"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
