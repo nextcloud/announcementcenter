@@ -1,0 +1,8 @@
+{ "translations": {
+    "Cancel" : "Dayandır",
+    "Save" : "Saxla",
+    "Delete" : "Sil",
+    ", " : ",",
+    "Groups" : "Qruplar"
+},"pluralForm" :"nplurals=2; plural=(n != 1);"
+}
