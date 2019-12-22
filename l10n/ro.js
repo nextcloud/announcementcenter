@@ -12,6 +12,7 @@ OC.L10N.register(
     "More comments …" : "Mai multe comentarii...",
     "Save" : "Salvează",
     "Allowed characters {count} of {max}" : "Caractere permise: {count} din {max}",
+    "Error occurred while retrieving comment with ID {id}" : "Eroare la încărcarea comentariului cu ID-ul {id}",
     "Error occurred while updating comment with id {id}" : "Eroare la actualizarea comentariului cu id {id}",
     "Error occurred while posting comment" : "Eroare la postarea comentariului",
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarii","%n comentarii"],

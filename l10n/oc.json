@@ -1,0 +1,7 @@
+{ "translations": {
+    "Cancel" : "Anullar",
+    "Save" : "Salvar",
+    "Delete" : "Suprimir",
+    "Groups" : "Gropes"
+},"pluralForm" :"nplurals=2; plural=(n > 1);"
+}
