@@ -55,7 +55,7 @@ class BackgroundJobTest extends TestCase {
 	/** @var Manager|MockObject */
 	protected $manager;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->userManager = $this->createMock(IUserManager::class);
