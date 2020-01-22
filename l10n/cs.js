@@ -34,7 +34,7 @@ OC.L10N.register(
     "Announcements" : "Oznámení",
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",
     "Announcement center" : "Centrum oznámení",
-    "This app allows admins to post announcements." : "Tato aplikace umožní správcům odesílat oznámení.",
+    "This app allows admins to post announcements." : "Tato aplikace umožňuje správcům vystavovat oznámení.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Tato aplikace umožňuje správcům zobrazovat oznámení. Mimo jiné podporuje následující funkce:\n\n⚡ Aktivity (Je potřeba mít zapnutou aplikaci Aktivita)\n\n📑 Komentáře\n\n👪 Skupinová oprávnění\n\n🔔 Oznamování (Je potřeba mít zapnutou aplikaci Oznamování)",
     "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
     "Create activities by default" : "Vytvářet aktivity už ve výchozím stavu",
