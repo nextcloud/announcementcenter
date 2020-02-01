@@ -53,6 +53,7 @@ OC.L10N.register(
     "Allow comments" : "اجازه ارسال نظر",
     "You announced {announcement}" : "شما اعلام کردید {اطلاعیه}",
     "{actor} announced {announcement}" : "{بازیگر} اعلام کرد {اطلاعیه}",
-    "Announcement does not exist anymore" : "اعلامیه دیگر وجود ندارد"
+    "Announcement does not exist anymore" : "اعلامیه دیگر وجود ندارد",
+    "%1$s announced “%2$s”" : "%1$s اعلام کرد“%2$s”"
 },
 "nplurals=2; plural=(n > 1);");
