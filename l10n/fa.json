@@ -13,6 +13,7 @@
     "Error occurred while retrieving comment with ID {id}" : "هنگام بازیابی نظر با ID {id Er خطایی رخ داد",
     "Error occurred while updating comment with id {id}" : "هنگام به روزرسانی نظر با شناسه شناسه Er خطایی روی داد",
     "Error occurred while posting comment" : "هنگام ارسال نظر خطایی روی داد",
+    "_%n comment_::_%n comments_" : ["%n نظر","%n نظرات"],
     "Announcing…" : "در حال اعلام ...",
     "Announced!" : "اعلام کرد!",
     "Delete" : "حذف",
