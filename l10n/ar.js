@@ -29,7 +29,13 @@ OC.L10N.register(
     "You posted an announcement" : "لقد قمت بنشر إعلان",
     "{actor} posted an announcement" : "{actor} قام بنشر إعلان",
     "The announcement does not exist anymore" : "الإعلان لم يعد موجودا",
+    "An <strong>announcement</strong> is posted by an administrator" : "قام مدير بنشر <strong>announcement</strong> ",
+    "The subject is too long or empty" : "الموضوع طويل جدا أو فارغ",
     "Announcements" : "الإعلانات",
+    "{user} announced “{announcement}”" : "{user} أعلن ”{announcement}“",
+    "Announcement center" : "مركز الإعلانات",
+    "This app allows admins to post announcements." : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات. كما يدعم الميزات التالية:\n\n⚡ النشاطات (تحتاج تطبيق النشاطات لتفعيلها)\n\n📑 التعليقات\n\n👪 صلاحيات المجموعات\n\n🔔 الإشعارات (تحتاج تطبيق الإشعارات لتفعيلها)",
     "Subject…" : "الموضوع…",
     "Groups…" : "الفِرَق…",
     "Advanced options" : "الخيارات المتقدمة",
