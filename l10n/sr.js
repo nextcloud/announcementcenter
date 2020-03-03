@@ -25,7 +25,7 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Видљиво групама: {groups}",
     "Groups" : "Групе",
     "You announced “{announcement}”" : "Објавили сте „{announcement}“",
-    "{actor} announced “{announcement}”" : "{actor} је објавио „{announcement}“",
+    "{actor} announced “{announcement}”" : "{actor} објави „{announcement}“",
     "You posted an announcement" : "Поставили сте објаву",
     "{actor} posted an announcement" : "{actor} постави објаву",
     "The announcement does not exist anymore" : "Објава не постоји више",
