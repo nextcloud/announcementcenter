@@ -46,7 +46,7 @@ OC.L10N.register(
     "Subject…" : "Betreff…",
     "Your announcement…" : "Deine Ankündigung…",
     "Groups…" : "Gruppen…",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen können die Ankündigungen sehen. Wenn keine Gruppe ausgewählt ist, können alle Nutzer sie sehen.",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen können die Ankündigungen sehen. Wenn keine Gruppe ausgewählt ist, können alle Benutzer sie sehen.",
     "Announce" : "Ankündigen",
     "Advanced options" : "Erweiterte Optionen",
     "Create activities" : "Aktivitäten erstellen",
