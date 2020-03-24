@@ -3,6 +3,7 @@ OC.L10N.register(
     {
     "Cancel" : "Sefsex",
     "Save" : "Sekles",
+    "Delete" : "Kkes",
     ", " : ", ",
     "Announcements" : "Ilɣa"
 },
