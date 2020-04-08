@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.8.0 – 2020-04-08
+### Fixed
+- Compatibility with Nextcloud 19
+
+## 3.7.0 – 2020-01-17
+### Fixed
+- Compatibility with Nextcloud 18
+
 ## 3.6.1 – 2019-10-04
 ### Fixed
 - Remove JS warnings for loading all libraries
