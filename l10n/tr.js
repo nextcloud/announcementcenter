@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Gelişmiş ayarlar",
     "Create activities" : "İşlem oluştur",
     "Create notifications" : "Bildirim oluştur",
-    "Allow comments" : "Yorum yapılabilsin",
-    "You announced {announcement}" : "{announcement} duyurusunu yaptınız",
-    "{actor} announced {announcement}" : "{actor}, {announcement} duyurusunu yaptı",
-    "Announcement does not exist anymore" : "Duyuru artık yok",
-    "%1$s announced “%2$s”" : "%1$s, \"%2$s\" duyurusunu yaptı"
+    "Allow comments" : "Yorum yapılabilsin"
 },
 "nplurals=2; plural=(n > 1);");

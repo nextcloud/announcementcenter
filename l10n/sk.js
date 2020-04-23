@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvoriť aktivity",
     "Create notifications" : "Vytvoriť hlásenia",
-    "Allow comments" : "Povoliť komentáre",
-    "You announced {announcement}" : "Oznámili ste {announcement}",
-    "{actor} announced {announcement}" : "{actor} oznámil {announcement}",
-    "Announcement does not exist anymore" : "Oznámenie už neexistuje",
-    "%1$s announced “%2$s”" : "%1$s oznámil(a) “%2$s”"
+    "Allow comments" : "Povoliť komentáre"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

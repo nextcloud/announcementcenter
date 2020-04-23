@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Išplėstinės parinktys",
     "Create activities" : "Sukurti veiklas",
     "Create notifications" : "Sukurti pranešimus",
-    "Allow comments" : "Leisti komentuoti",
-    "You announced {announcement}" : "Jūs paskelbėte {announcement}",
-    "{actor} announced {announcement}" : "{actor} paskelbė {announcement}",
-    "Announcement does not exist anymore" : "Skelbimo daugiau nebėra",
-    "%1$s announced “%2$s”" : "%1$s paskelbė \"%2$s\""
+    "Allow comments" : "Leisti komentuoti"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

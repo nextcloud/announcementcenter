@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Tùy chọn nâng cao",
     "Create activities" : "Tạo hoạt động",
     "Create notifications" : "Tạo thông báo",
-    "Allow comments" : "Cho phép bình luận",
-    "You announced {announcement}" : "Thông báo của bạn {announcement}",
-    "{actor} announced {announcement}" : "{actor} thông báo {announcement}",
-    "Announcement does not exist anymore" : "Thông báo không còn tồn tại nữa",
-    "%1$s announced “%2$s”" : "%1$s đã thông báo “%2$s”"
+    "Allow comments" : "Cho phép bình luận"
 },
 "nplurals=1; plural=0;");

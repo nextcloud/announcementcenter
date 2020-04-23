@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "高级选项",
     "Create activities" : "创建活动",
     "Create notifications" : "创建提示",
-    "Allow comments" : "允许注释",
-    "You announced {announcement}" : "您的公告{announcement}",
-    "{actor} announced {announcement}" : "{actor} 公告了 {announcement}",
-    "Announcement does not exist anymore" : "公告已经不存在了",
-    "%1$s announced “%2$s”" : "%1$s 已发布 “%2$s”"
+    "Allow comments" : "允许注释"
 },
 "nplurals=1; plural=0;");

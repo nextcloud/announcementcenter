@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Напредне опције",
     "Create activities" : "Направи активности",
     "Create notifications" : "Направи обавештења",
-    "Allow comments" : "Дозволи коментаре",
-    "You announced {announcement}" : "Објавили сте {announcement}",
-    "{actor} announced {announcement}" : "{actor} објави {announcement}",
-    "Announcement does not exist anymore" : "Објава више не постоји",
-    "%1$s announced “%2$s”" : "%1$s објави „%2$s“"
+    "Allow comments" : "Дозволи коментаре"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
