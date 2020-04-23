@@ -45,10 +45,6 @@ OC.L10N.register(
     "Advanced options" : "დამატებითი ოპციონები",
     "Create activities" : "აქტივობების შექმნა",
     "Create notifications" : "შეტყობინებების შექმნა",
-    "Allow comments" : "კომენტარების დაშვება",
-    "You announced {announcement}" : "თქვენ განაცხადეთ {announcement}",
-    "{actor} announced {announcement}" : "{actor} მოხმარებელმა განაცხადა {announcement}",
-    "Announcement does not exist anymore" : "განცხადება აღარ არსებობს",
-    "%1$s announced “%2$s”" : "%1$s მომხმარებელმა განაცხადა “%2$s”"
+    "Allow comments" : "კომენტარების დაშვება"
 },
 "nplurals=2; plural=(n!=1);");

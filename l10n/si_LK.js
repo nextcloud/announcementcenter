@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "ඉහල විකල්ප",
     "Create activities" : "ක්රියාකාරකම් සාදන්න",
     "Create notifications" : "දැනුම්දීම් සාදන්න",
-    "Allow comments" : "අදහස්වලට ඉඩ දෙන්න",
-    "You announced {announcement}" : "{announcement} ඔබ නිවේදනය කලේය",
-    "{actor} announced {announcement}" : "{actor} {announcement} නිවේදනය කරයි",
-    "Announcement does not exist anymore" : "නිවේදනය තවදුරටත් පවතින්නේ නැත",
-    "%1$s announced “%2$s”" : "%1$s නිවේදනය කරයි “%2$s”"
+    "Allow comments" : "අදහස්වලට ඉඩ දෙන්න"
 },
 "nplurals=2; plural=(n != 1);");

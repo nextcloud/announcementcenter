@@ -49,10 +49,6 @@
     "Advanced options" : "고급 설정",
     "Create activities" : "활동 만들기",
     "Create notifications" : "알림 만들기",
-    "Allow comments" : "댓글 허용",
-    "You announced {announcement}" : "{announcement} 공지를 올렸습니다",
-    "{actor} announced {announcement}" : "{actor} 님이 {announcement} 공지를 올렸습니다",
-    "Announcement does not exist anymore" : "공지가 더 이상 존재하지 않습니다",
-    "%1$s announced “%2$s”" : "%1$s 님이 “%2$s” 공지를 올림"
+    "Allow comments" : "댓글 허용"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Avancerade inställningar",
     "Create activities" : "Skapa aktiviteter",
     "Create notifications" : "Skapa aviseringar",
-    "Allow comments" : "Tillåt kommentarer",
-    "You announced {announcement}" : "Du meddelade {announcement}",
-    "{actor} announced {announcement}" : "{actor} meddelade {announcement}",
-    "Announcement does not exist anymore" : "Meddelandet existerar inte mer",
-    "%1$s announced “%2$s”" : "%1$s meddelade “%2$s”"
+    "Allow comments" : "Tillåt kommentarer"
 },
 "nplurals=2; plural=(n != 1);");

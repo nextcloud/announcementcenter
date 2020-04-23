@@ -45,10 +45,6 @@ OC.L10N.register(
     "Advanced options" : "Бусад сонголтууд",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
-    "You announced {announcement}" : "Та {announcement}-г мэдээлсэн",
-    "{actor} announced {announcement}" : "{actor} {announcement}-г мэдээлсэн",
-    "Announcement does not exist anymore" : "Өөр мэдээллүүд байхгүй байна",
-    "%1$s announced “%2$s”" : "%1$s “%2$s”-г зарласан"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
 },
 "nplurals=2; plural=(n != 1);");

@@ -40,8 +40,6 @@ OC.L10N.register(
     "Advanced options" : "نور اختيارات",
     "Create activities" : "کړنې جوړې کړئ",
     "Create notifications" : "خبرتيا جوړه کړئ",
-    "Allow comments" : "تبصرو ته اجازه ورکړئ",
-    "You announced {announcement}" : "تاسې دغه اعلان وکړ  {announcement} ",
-    "Announcement does not exist anymore" : "دغه اعلان نور شتون نلري"
+    "Allow comments" : "تبصرو ته اجازه ورکړئ"
 },
 "nplurals=2; plural=(n != 1);");

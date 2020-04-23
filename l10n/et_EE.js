@@ -45,10 +45,6 @@ OC.L10N.register(
     "Advanced options" : "Täpsemad valikud",
     "Create activities" : "Loo toimingud",
     "Create notifications" : "Koosta teateid",
-    "Allow comments" : "Luba kommentaarid",
-    "You announced {announcement}" : "Te teatasite {announcement}",
-    "{actor} announced {announcement}" : "{actor} teatas {announcement}",
-    "Announcement does not exist anymore" : "Teadaannet pole enam olemas",
-    "%1$s announced “%2$s”" : "%1$s andis teada “%2$s”"
+    "Allow comments" : "Luba kommentaarid"
 },
 "nplurals=2; plural=(n != 1);");

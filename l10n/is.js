@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Ítarlegir valkostir",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli",
-    "You announced {announcement}" : "Þú tilkynntir {announcement}",
-    "{actor} announced {announcement}" : "{actor} tilkynnti {announcement}",
-    "Announcement does not exist anymore" : "Tilkynningin er ekki lengur til",
-    "%1$s announced “%2$s”" : "%1$s tilkynnti “%2$s”"
+    "Allow comments" : "Leyfa ummæli"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

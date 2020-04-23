@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Geavanceerde opties",
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
-    "Allow comments" : "Reageren toestaan",
-    "You announced {announcement}" : "Je kondigde aan {announcement}",
-    "{actor} announced {announcement}" : "{actor} kondigde aan {announcement}",
-    "Announcement does not exist anymore" : "Aankondiging bestaat niet meer",
-    "%1$s announced “%2$s”" : "%1$s meldde “%2$s”"
+    "Allow comments" : "Reageren toestaan"
 },
 "nplurals=2; plural=(n != 1);");

@@ -44,10 +44,6 @@ OC.L10N.register(
     "Advanced options" : "Opsi lanjutan",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "izinkan komentar",
-    "You announced {announcement}" : "Anda mengumumkan {announcement}",
-    "{actor} announced {announcement}" : "{actor} mengumumkan {announcement}",
-    "Announcement does not exist anymore" : "Pengumuman tidak ada lagi",
-    "%1$s announced “%2$s”" : "%1$s mengumumkan “%2$s”"
+    "Allow comments" : "izinkan komentar"
 },
 "nplurals=1; plural=0;");

@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Options avancés",
     "Create activities" : "Créer des activités",
     "Create notifications" : "Créer des notifications",
-    "Allow comments" : "Autoriser les commentaires",
-    "You announced {announcement}" : "Vous avez annoncé {announcement}",
-    "{actor} announced {announcement}" : "{actor} a annoncé {announcement}",
-    "Announcement does not exist anymore" : "L'annonce n'existe plus",
-    "%1$s announced “%2$s”" : "%1$s a annoncé \"%2$s\""
+    "Allow comments" : "Autoriser les commentaires"
 },
 "nplurals=2; plural=(n > 1);");

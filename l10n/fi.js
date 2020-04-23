@@ -50,10 +50,6 @@ OC.L10N.register(
     "Advanced options" : "Lisäasetukset",
     "Create activities" : "Luo toimet",
     "Create notifications" : "Luo ilmoitukset",
-    "Allow comments" : "Salli kommentit",
-    "You announced {announcement}" : "Tiedotit {announcement}",
-    "{actor} announced {announcement}" : "{actor} tiedotti {announcement}",
-    "Announcement does not exist anymore" : "Tiedotetta ei ole enää olemassa",
-    "%1$s announced “%2$s”" : "%1$s tiedotti “%2$s”"
+    "Allow comments" : "Salli kommentit"
 },
 "nplurals=2; plural=(n != 1);");

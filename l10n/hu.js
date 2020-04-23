@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Speciális beállítások",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
-    "Allow comments" : "Hozzászólások engedélyezése",
-    "You announced {announcement}" : "Bejelentette: {announcement}",
-    "{actor} announced {announcement}" : "{actor} bejelentette: {announcement}",
-    "Announcement does not exist anymore" : "A bejelentés már nem létezik",
-    "%1$s announced “%2$s”" : "%1$s közzétette: „%2$s”"
+    "Allow comments" : "Hozzászólások engedélyezése"
 },
 "nplurals=2; plural=(n != 1);");
