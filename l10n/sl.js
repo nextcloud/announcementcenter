@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Napredne možnosti",
     "Create activities" : "Ustvari zapis dejavnosti",
     "Create notifications" : "Ustvari obvestila",
-    "Allow comments" : "Dovoli komentiranje obvestil",
-    "You announced {announcement}" : "Objavite obvestilo {announcement}",
-    "{actor} announced {announcement}" : "Uporabnik {actor} objavi obvestilo {announcement}",
-    "Announcement does not exist anymore" : "Obvestilo ne obstaja več",
-    "%1$s announced “%2$s”" : "Uporabnik %1$s objavi sporočilo »%2$s«"
+    "Allow comments" : "Dovoli komentiranje obvestil"
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

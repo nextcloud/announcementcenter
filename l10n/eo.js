@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Detalaj agordoj",
     "Create activities" : "Krei aktivaĵojn",
     "Create notifications" : "Krei sciigojn",
-    "Allow comments" : "Permesi komentojn",
-    "You announced {announcement}" : "Vi anoncis {announcement}",
-    "{actor} announced {announcement}" : "{actor} anoncis {announcement}",
-    "Announcement does not exist anymore" : "Anonco ne plu ekzistas",
-    "%1$s announced “%2$s”" : "%1$s anoncis „%2$s“"
+    "Allow comments" : "Permesi komentojn"
 },
 "nplurals=2; plural=(n != 1);");

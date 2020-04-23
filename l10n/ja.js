@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "詳細オプション",
     "Create activities" : "アクティビティを作成",
     "Create notifications" : "通知を作成",
-    "Allow comments" : "コメントを許可",
-    "You announced {announcement}" : " {announcement}とアナウンスしました。",
-    "{actor} announced {announcement}" : "{actor} が {announcement} とアナウンスしました。",
-    "Announcement does not exist anymore" : "アナウンスはもう存在しません",
-    "%1$s announced “%2$s”" : "%1$s が “%2$s” をアナウンスしました"
+    "Allow comments" : "コメントを許可"
 },
 "nplurals=1; plural=0;");

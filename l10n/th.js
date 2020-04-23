@@ -28,8 +28,6 @@ OC.L10N.register(
     "Add announcement" : "เพิ่มประกาศ",
     "Subject…" : "หัวข้อ...",
     "Your announcement…" : "ประกาศของคุณ...",
-    "Announce" : "ประกาศ",
-    "Announcement does not exist anymore" : "ไม่มีประกาศ",
-    "%1$s announced “%2$s”" : "%1$s ได้ประกาศว่า “%2$s”"
+    "Announce" : "ประกาศ"
 },
 "nplurals=1; plural=0;");

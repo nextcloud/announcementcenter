@@ -34,11 +34,11 @@ OC.L10N.register(
     "Announcements" : "Oznámení",
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",
     "Announcement center" : "Centrum oznámení",
-    "This app allows admins to post announcements." : "Tato aplikace umožní správcům odesílat oznámení.",
-    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Tato aplikace umožňuje správcům zobrazovat oznámení. Mimo jiné podporuje následující funkce:\n\n⚡ Aktivity (Je potřeba mít zapnutou aplikaci Aktivita)\n\n📑 Komentáře\n\n👪 Skupinová oprávnění\n\n🔔 Oznamování (Je potřeba mít zapnutou aplikaci Oznamování)",
+    "This app allows admins to post announcements." : "Tato aplikace umožňuje správcům vystavovat oznámení.",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Tato aplikace umožňuje správcům zobrazovat oznámení. Mimo jiné podporuje následující funkce:\n\n⚡ Aktivity (Je potřeba mít zapnutou aplikaci Aktivita)\n\n📑 Komentáře\n\n👪 Oprávnění skupin\n\n🔔 Upozorňování (Je potřeba mít zapnutou aplikaci Upozorňování)",
     "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
     "Create activities by default" : "Vytvářet aktivity už ve výchozím stavu",
-    "Create notifications by default" : "Ve výchozím stavu vytvářet upozornění",
+    "Create notifications by default" : "Jako výchozí stav vytvářet upozornění",
     "Allow comments by default" : "Ve výchozím nastavení umožnit komentáře",
     "No Announcements" : "Žádná oznámení",
     "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…",
@@ -50,11 +50,7 @@ OC.L10N.register(
     "Announce" : "Oznámit",
     "Advanced options" : "Pokročilé možnosti",
     "Create activities" : "Vytvořit aktivity",
-    "Create notifications" : "Vytvořit upozornění",
-    "Allow comments" : "Povolit komentáře",
-    "You announced {announcement}" : "Oznámili jste {announcement}",
-    "{actor} announced {announcement}" : "{actor} oznámil(a) {announcement}",
-    "Announcement does not exist anymore" : "Oznámení už neexistuje",
-    "%1$s announced “%2$s”" : "%1$s oznámil(a) „%2$s“"
+    "Create notifications" : "Vytvářet upozornění",
+    "Allow comments" : "Povolit komentáře"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;");

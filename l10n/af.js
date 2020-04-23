@@ -46,10 +46,6 @@ OC.L10N.register(
     "Advanced options" : "Gevorderde opsies",
     "Create activities" : "Skep aktiwiteite",
     "Create notifications" : "Skep kennisgewings",
-    "Allow comments" : "Staan kommentare toe",
-    "You announced {announcement}" : "U aankondiging is {announcement}",
-    "{actor} announced {announcement}" : "{actor} se aankondiging is {announcement}",
-    "Announcement does not exist anymore" : "Aankondiging bestaan nie meer nie",
-    "%1$s announced “%2$s”" : "%1$s se aankondiging is “%2$s”"
+    "Allow comments" : "Staan kommentare toe"
 },
 "nplurals=2; plural=(n != 1);");

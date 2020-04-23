@@ -43,10 +43,6 @@
     "Advanced options" : "Papildu opcijas",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus",
-    "You announced {announcement}" : "Jūs paziņojāt {announcement}",
-    "{actor} announced {announcement}" : "{actor} paziņots {announcement}",
-    "Announcement does not exist anymore" : "Paziņojums vairs neeksistē",
-    "%1$s announced “%2$s”" : "%1$s paziņoja “%2$s”"
+    "Allow comments" : "Atļaut komentārus"
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);"
 }

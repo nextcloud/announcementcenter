@@ -24,8 +24,11 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "גלוי לקבוצות: {groups}",
     "Groups" : "קבוצות",
+    "You announced “{announcement}”" : "הכרזת על „{announcement}”",
+    "{actor} announced “{announcement}”" : "ההכרזה „{announcement}” פורסמה על ידי {actor}",
     "You posted an announcement" : "פרסמת הכרזה",
     "{actor} posted an announcement" : "פורסמה הכרזה מאת {actor}",
+    "The announcement does not exist anymore" : "ההכרזה אינה קיימת עוד",
     "An <strong>announcement</strong> is posted by an administrator" : "פורסמה <strong>הכרזה</strong> על ידי מנהל",
     "The subject is too long or empty" : "הנושא ארוך מדי או ריק",
     "Announcements" : "הכרזות",
@@ -48,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "אפשרויות מתקדמות",
     "Create activities" : "יצירת פעילויות",
     "Create notifications" : "יצירת התרעות",
-    "Allow comments" : "לאפשר תגובות",
-    "You announced {announcement}" : "הכרזת על {announcement}",
-    "{actor} announced {announcement}" : "ההכרזה {announcement} פורסמה מאת {actor}",
-    "Announcement does not exist anymore" : "הכרזה לא קיימת יותר",
-    "%1$s announced “%2$s”" : "%1$s הכריזו “%2$s”"
+    "Allow comments" : "לאפשר תגובות"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

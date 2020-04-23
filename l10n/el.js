@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Επιλογές για προχωρημένους",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
-    "Allow comments" : "Να επιτρέπονται σχόλια",
-    "You announced {announcement}" : "Ανακοινώσατε {announcement}",
-    "{actor} announced {announcement}" : "Ο {actor} ανακοίνωσε {announcement}",
-    "Announcement does not exist anymore" : "Η ανακοίνωση δεν υπάρχει πλέον",
-    "%1$s announced “%2$s”" : "%1$s ανακοίνωσε “%2$s”"
+    "Allow comments" : "Να επιτρέπονται σχόλια"
 },
 "nplurals=2; plural=(n != 1);");

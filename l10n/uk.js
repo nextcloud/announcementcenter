@@ -24,8 +24,11 @@ OC.L10N.register(
     ", " : ", ",
     "Visible for groups: {groups}" : "Буде відображатися для груп: {groups}",
     "Groups" : "Групи",
+    "You announced “{announcement}”" : "Ви анонсували “{announcement}”",
+    "{actor} announced “{announcement}”" : "{actor} анонсував “{announcement}”",
     "You posted an announcement" : "Ви розмістили оголошення",
     "{actor} posted an announcement" : "{actor} розмістив оголошення",
+    "The announcement does not exist anymore" : "Анонс більше не існує",
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>announcement</strong> розміщено адміністратором",
     "The subject is too long or empty" : "Тема занадто довга або порожня",
     "Announcements" : "Оголошення",
@@ -48,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Розширені налаштування",
     "Create activities" : "Створити події",
     "Create notifications" : "Створити повідомлення",
-    "Allow comments" : "Дозволити коментарі",
-    "You announced {announcement}" : "Ви розмістили {announcement}",
-    "{actor} announced {announcement}" : "{actor} розмістив {announcement}",
-    "Announcement does not exist anymore" : "Оголошення більше не існує",
-    "%1$s announced “%2$s”" : "%1$s оголосив “%2$s”"
+    "Allow comments" : "Дозволити коментарі"
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");
