@@ -46,10 +46,6 @@ OC.L10N.register(
     "Advanced options" : "Opțiuni avansate",
     "Create activities" : "Creează activități",
     "Create notifications" : "Crează notificări",
-    "Allow comments" : "Permite comentarii",
-    "You announced {announcement}" : "Ai anunțat {announcement}",
-    "{actor} announced {announcement}" : "{actor} a anunțat {announcement}",
-    "Announcement does not exist anymore" : "Anunțul nu mai există",
-    "%1$s announced “%2$s”" : "%1$s a anunțat “%2$s”"
+    "Allow comments" : "Permite comentarii"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");

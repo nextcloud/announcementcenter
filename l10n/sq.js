@@ -48,10 +48,6 @@ OC.L10N.register(
     "Advanced options" : "Opsione të avancuara",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet",
-    "You announced {announcement}" : "Ju njoftuat {announcement}",
-    "{actor} announced {announcement}" : "{actor} njoftoi {announcement}",
-    "Announcement does not exist anymore" : "Lajmërimi s’ekziston më",
-    "%1$s announced “%2$s”" : "%1$s lajmëroi “%2$s”"
+    "Allow comments" : "Lejo komentet"
 },
 "nplurals=2; plural=(n != 1);");

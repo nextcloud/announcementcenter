@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Ezarpen aurreratuak",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
-    "Allow comments" : "Baimendu iruzkinak",
-    "You announced {announcement}" : "Zuk {announcement} iragarri duzu",
-    "{actor} announced {announcement}" : "{actor} erabiltzaileak {announcement} iragarri du",
-    "Announcement does not exist anymore" : "Iragarpena ez dago jada",
-    "%1$s announced “%2$s”" : "%1$s erabiltzaileak “%2$s” iragarri du"
+    "Allow comments" : "Baimendu iruzkinak"
 },
 "nplurals=2; plural=(n != 1);");

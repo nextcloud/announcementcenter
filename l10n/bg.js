@@ -45,10 +45,6 @@ OC.L10N.register(
     "Advanced options" : "Допълнителни опции",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
-    "Allow comments" : "Позволи коментари",
-    "You announced {announcement}" : "Ти заяви {announcement}",
-    "{actor} announced {announcement}" : "{actor} заяви {announcement}",
-    "Announcement does not exist anymore" : "Съобщенията вече не съществуват",
-    "%1$s announced “%2$s”" : "%1$s уведомени “%2$s” "
+    "Allow comments" : "Позволи коментари"
 },
 "nplurals=2; plural=(n != 1);");

@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "گزینه های پیشرفته",
     "Create activities" : "فعالیتهایی ایجاد کنید",
     "Create notifications" : "ایجاد اعلان ها",
-    "Allow comments" : "اجازه ارسال نظر",
-    "You announced {announcement}" : "شما اعلام کردید {اطلاعیه}",
-    "{actor} announced {announcement}" : "{بازیگر} اعلام کرد {اطلاعیه}",
-    "Announcement does not exist anymore" : "اعلامیه دیگر وجود ندارد",
-    "%1$s announced “%2$s”" : "%1$s اعلام کرد“%2$s”"
+    "Allow comments" : "اجازه ارسال نظر"
 },
 "nplurals=2; plural=(n > 1);");

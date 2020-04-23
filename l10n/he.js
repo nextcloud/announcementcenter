@@ -51,10 +51,6 @@ OC.L10N.register(
     "Advanced options" : "אפשרויות מתקדמות",
     "Create activities" : "יצירת פעילויות",
     "Create notifications" : "יצירת התרעות",
-    "Allow comments" : "לאפשר תגובות",
-    "You announced {announcement}" : "הכרזת על {announcement}",
-    "{actor} announced {announcement}" : "ההכרזה {announcement} פורסמה מאת {actor}",
-    "Announcement does not exist anymore" : "הכרזה לא קיימת יותר",
-    "%1$s announced “%2$s”" : "%1$s הכריזו “%2$s”"
+    "Allow comments" : "לאפשר תגובות"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

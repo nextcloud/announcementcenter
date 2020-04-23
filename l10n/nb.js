@@ -48,10 +48,6 @@ OC.L10N.register(
     "Advanced options" : "Avanserte alternativer",
     "Create activities" : "Opprett aktiviteter",
     "Create notifications" : "Opprett varsler",
-    "Allow comments" : "Tillatt kommentarer",
-    "You announced {announcement}" : "Din kunngjøring {announcement}",
-    "{actor} announced {announcement}" : "{actor} kunngjorde {announcement}",
-    "Announcement does not exist anymore" : "Kunngjøring finnes ikke lenger",
-    "%1$s announced “%2$s”" : "%1$s kunngjorde “%2$s”"
+    "Allow comments" : "Tillatt kommentarer"
 },
 "nplurals=2; plural=(n != 1);");
