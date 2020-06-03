@@ -13,7 +13,7 @@
 👪 Group permissions
 
 🔔 Notifications (Requires the notifications app to be enabled)]]></description>
-	<version>3.8.0</version>
+	<version>3.8.1</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
