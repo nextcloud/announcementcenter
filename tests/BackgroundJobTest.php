@@ -28,6 +28,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\Activity\IManager as IActivityManager;
+use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
@@ -42,6 +43,8 @@ use PHPUnit\Framework\MockObject\MockObject;
  * @group DB
  */
 class BackgroundJobTest extends TestCase {
+	/** @var IConfig|MockObject */
+	protected $config;
 	/** @var IUserManager|MockObject */
 	protected $userManager;
 	/** @var IGroupManager|MockObject */
@@ -50,41 +53,39 @@ class BackgroundJobTest extends TestCase {
 	protected $activityManager;
 	/** @var INotificationManager|MockObject */
 	protected $notificationManager;
-	/** @var IURLGenerator|MockObject */
-	protected $urlGenerator;
 	/** @var Manager|MockObject */
 	protected $manager;
 
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->config = $this->createMock(IConfig::class);
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->activityManager = $this->createMock(IActivityManager::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
-		$this->urlGenerator = $this->createMock(IURLGenerator::class);
 		$this->manager = $this->createMock(Manager::class);
 	}
 
 	protected function getJob(array $methods = []) {
 		if (empty($methods)) {
 			return new BackgroundJob(
+				$this->config,
 				$this->userManager,
 				$this->groupManager,
 				$this->activityManager,
 				$this->notificationManager,
-				$this->urlGenerator,
 				$this->manager
 			);
 		}
 
 		return $this->getMockBuilder(BackgroundJob::class)
 			->setConstructorArgs([
+				$this->config,
 				$this->userManager,
 				$this->groupManager,
 				$this->activityManager,
 				$this->notificationManager,
-				$this->urlGenerator,
 				$this->manager,
 			])
 			->setMethods($methods)
