@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.8.1 – 2020-06-03
+### Fixed
+- Don't send notifications and activities to users unable to read the announcement
+
 ## 3.8.0 – 2020-04-08
 ### Fixed
 - Compatibility with Nextcloud 19
