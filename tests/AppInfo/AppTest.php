@@ -60,12 +60,12 @@ class AppTest extends TestCase {
 				return vsprintf($string, $args);
 			});
 
-		$this->overwriteService('NotificationManager', $this->notificationManager);
+		$this->overwriteService(IManager::class, $this->notificationManager);
 		$this->overwriteService('L10NFactory', $this->languageFactory);
 	}
 
 	protected function tearDown(): void {
-		$this->restoreService('NotificationManager');
+		$this->restoreService(IManager::class);
 		$this->restoreService('L10NFactory');
 
 		parent::tearDown();
