@@ -90,7 +90,7 @@ class BackgroundJob extends QueuedJob {
 		}
 
 		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist', null);
-		$this->enabledForGuestsUsers = $guestsWhiteList !== null && strpos($guestsWhiteList, 'announcementcenter');
+		$this->enabledForGuestsUsers = $guestsWhiteList !== null && strpos($guestsWhiteList, 'announcementcenter') !== false;
 
 		$this->createPublicity($announcement, $arguments);
 	}
