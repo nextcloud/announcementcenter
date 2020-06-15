@@ -39,7 +39,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Te grupy będą mogły zamieszczać ogłoszenia.",
     "Create activities by default" : "Utwórz aktywności domyślnie",
     "Create notifications by default" : "Utwórz powiadomienia domyślnie",
-    "Allow comments by default" : "Pozwól na komentarze domyślnie",
+    "Allow comments by default" : "Zezwalaj na komentarze domyślnie",
     "No Announcements" : "Brak ogłoszeń",
     "There are currently no announcements…" : "W chwili obecnej nie ma żadnych ogłoszeń",
     "Add announcement" : "Dodaj ogłoszenie",
@@ -51,6 +51,6 @@ OC.L10N.register(
     "Advanced options" : "Opcje zaawansowane",
     "Create activities" : "Utwórz aktywności",
     "Create notifications" : "Utwórz powiadomienia",
-    "Allow comments" : "Zezwól na komentarze"
+    "Allow comments" : "Zezwalaj na komentarze"
 },
 "nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);");
