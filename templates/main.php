@@ -35,5 +35,9 @@ style('announcementcenter', [
 </div>
 
 <div id="app-sidebar" class="disappear detailsView scroll-container">
+	<div id="commentsTabView_header">
+		<p><?php p($l->t('Comments')); ?></p>
+		<input type="button" id="commentsTabView_close_button" value="X" name="close" />
+	</div>
 	<div id="commentsTabView" class="tab"></div>
 </div>
