@@ -100,3 +100,17 @@
 	cursor: pointer;
 	display: inline-block;
 }
+
+#commentsTabView_header > p {
+	margin: 10px;
+	font-size: 22px;
+	font-weight: bold;
+	color: var(--color-text-light);
+	display: inline-block;
+}
+
+#commentsTabView_close_button {
+	margin: 5px;
+	position: absolute;
+	right: 0;
+}
