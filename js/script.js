@@ -82,7 +82,6 @@
 			OC.Util.History.pushState({
 				announcement: announcementId
 			});
-
 			this.highlightAnnouncement(announcementId);
 		},
 
@@ -166,11 +165,11 @@
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
-				$('#announcement_list .collapsible:eq(0)').before($html);
+				$('#announcement_list').prepend($html);
+				$('#emptycontent').addClass('hidden');
 				$html.hide();
 				setTimeout(function () {
 					$html.slideDown(500);
-					$('#emptycontent').addClass('hidden');
 				}, 0);
 
 				$('#subject').val('');
@@ -338,7 +337,7 @@
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});
-
+			console.log($html);
 			return $html;
 		},
 
