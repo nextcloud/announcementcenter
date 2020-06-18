@@ -337,7 +337,6 @@
 			$html.find('.has-tooltip').tooltip({
 				placement: 'bottom'
 			});
-			console.log($html);
 			return $html;
 		},
 
