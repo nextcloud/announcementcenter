@@ -14,7 +14,7 @@ script('settings', 'settings');
 	<br />
 
 	<p>
-		<input type="hidden" name="groups" id="groups" placeholder="<?php p($l->t('Groups…')); ?>" style="width: 400px;" />
+		<input type="hidden" name="groups" id="groups" placeholder="<?php p($l->t('Groups…')); ?>" />
 		<br />
 		<em><?php p($l->t('These groups will be able to see the announcement. If no group is selected, all users can see it.')); ?></em>
 		<br />

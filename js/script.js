@@ -8,7 +8,7 @@
  * @copyright Joas Schilling 2015
  */
 
-(function() {
+(function () {
 	if (!OCA.AnnouncementCenter) {
 		/**
 		 * @namespace
@@ -26,7 +26,7 @@
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 		commentsTabView: null,
 
-		init: function() {
+		init: function () {
 			this.$container = $('#app-content');
 			this.$content = $('#app-content');
 
@@ -47,7 +47,7 @@
 			$('#commentsTabView_close_button').on('click', function () {
 				self.commentsTabView.setObjectId(0);
 			});
-			$('#announcement_options_button').on('click', function() {
+			$('#announcement_options_button').on('click', function () {
 				$('#announcement_options').toggleClass('hidden');
 			});
 			$('#groups').each(function (index, element) {
@@ -55,18 +55,29 @@
 			});
 		},
 
-		_onPopState: function(params) {
+		_onPopState: function (params) {
 			params = _.extend({
 				announcement: 0
 			}, params);
 
-			console.log('_onPopState' + params.announcement);
 			this.highlightAnnouncement(params.announcement);
 		},
 
-		_onHighlightAnnouncement: function(event) {
+		_onHighlightAnnouncement: function (event) {
 			var $element = $(event.currentTarget),
-				announcementId = $element.data('announcement-id');
+				announcementId = $($element).hasClass("active") ? 0 : $element.data('announcement-id'),
+				$content = $element.next();
+
+			$('.collapsible').each(function () {
+				$(this).removeClass('active').next().css('display', 'none');
+			})
+
+			var urlParams = OC.Util.History.parseUrlQuery();
+
+			if ($element.data('announcement-id') !== parseInt(urlParams.announcement, 10)) {
+				$($element).toggleClass("active");
+				$content.css('display', 'block');
+			}
 
 			OC.Util.History.pushState({
 				announcement: announcementId
@@ -75,23 +86,23 @@
 			this.highlightAnnouncement(announcementId);
 		},
 
-		highlightAnnouncement: function(announcementId) {
-			if (this.announcements[announcementId]['comments'] !== false) {
+		highlightAnnouncement: function (announcementId) {
+			if (announcementId !== 0 && this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
+
+				var $appContent = $('#app-content'),
+					currentOffset = $appContent.scrollTop();
+
+				$appContent.animate({
+					// Scrolling to the top of the new element
+					scrollTop: currentOffset + $('div.collapsible[data-announcement-id=' + announcementId + ']').offset().top - 50
+				}, 500);
 			} else {
 				this.commentsTabView.setObjectId(0);
 			}
-
-			var $appContent = $('#app-content'),
-				currentOffset = $appContent.scrollTop();
-
-			$appContent.animate({
-				// Scrolling to the top of the new element
-				scrollTop: currentOffset + $('div.section[data-announcement-id=' + announcementId + ']').offset().top - 50
-			}, 500);
 		},
 
-		deleteAnnouncement: function(event) {
+		deleteAnnouncement: function (event) {
 			var self = this;
 			event.stopPropagation();
 
@@ -109,10 +120,10 @@
 				// Remove the hr
 				$announcement.next().remove();
 
-				setTimeout(function() {
+				setTimeout(function () {
 					$announcement.remove();
 
-					if ($('#app-content .section').length == 1) {
+					if ($('#announcement_list .section').length == 1) {
 						$('#emptycontent').removeClass('hidden');
 					}
 				}, 750);
@@ -120,7 +131,7 @@
 			});
 		},
 
-		removeNotifications: function(event) {
+		removeNotifications: function (event) {
 			event.stopPropagation();
 
 			var $element = $(event.currentTarget),
@@ -135,7 +146,7 @@
 			});
 		},
 
-		postAnnouncement: function() {
+		postAnnouncement: function () {
 			var self = this;
 			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
 
@@ -150,17 +161,17 @@
 					notifications: $('#create_notifications').attr('checked') === 'checked',
 					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
-			}).done(function(announcement) {
+			}).done(function (announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
-				$('#app-content .section:eq(0)').after($html);
+				$('#announcement_list .collapsible:eq(0)').before($html);
 				$html.hide();
-				setTimeout(function() {
-					$html.slideDown();
+				setTimeout(function () {
+					$html.slideDown(500);
 					$('#emptycontent').addClass('hidden');
-				}, 750);
+				}, 0);
 
 				$('#subject').val('');
 				$('#message').val('');
@@ -170,7 +181,7 @@
 			});
 		},
 
-		loadAnnouncements: function() {
+		loadAnnouncements: function () {
 			var self = this,
 				offset = self.lastLoadedAnnouncement;
 			$.ajax({
@@ -184,7 +195,7 @@
 					_.each(response, function (announcement) {
 						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
-						$('#app-content').append($html);
+						$('#announcement_list').append($html);
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
@@ -193,6 +204,7 @@
 							self.highlightAnnouncement(announcement.id);
 						}
 					});
+
 					self.ignoreScroll = 0;
 				} else if (offset === 0) {
 					$('#emptycontent').removeClass('hidden');
@@ -242,8 +254,7 @@
 					smartLists: true,
 					smartypants: false,
 					tables: false
-				}),
-				{
+				}), {
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
 						'a',
@@ -305,9 +316,9 @@
 			var $html = $(OCA.AnnouncementCenter.Templates.announcement(object));
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
-			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
+			$html.on('click', '.collapsible', _.bind(this._onHighlightAnnouncement, this));
 
-			$html.find('.avatar').each(function() {
+			$html.find('.avatar').each(function () {
 				var element = $(this);
 				if (element.data('user-display-name')) {
 					element.avatar(element.data('user'), 21, undefined, false, undefined, element.data('user-display-name'));
@@ -316,7 +327,7 @@
 				}
 			});
 
-			$html.find('.avatar-name-wrapper').each(function() {
+			$html.find('.avatar-name-wrapper').each(function () {
 				var element = $(this),
 					avatar = element.find('.avatar'),
 					label = element.find('strong');
@@ -348,7 +359,7 @@
 		 *
 		 * @param $elements jQuery element (hidden input) to setup select2 on
 		 */
-		setupGroupsSelect: function($elements) {
+		setupGroupsSelect: function ($elements) {
 			if ($elements.length > 0) {
 				// note: settings are saved through a "change" event registered
 				// on all input fields
@@ -357,7 +368,7 @@
 					allowClear: true,
 					multiple: true,
 					separator: '|',
-					query: _.debounce(function(query) {
+					query: _.debounce(function (query) {
 						var queryData = {};
 						if (query.term !== '') {
 							queryData = {
@@ -368,15 +379,17 @@
 							url: OC.generateUrl('/apps/announcementcenter/groups'),
 							data: queryData,
 							dataType: 'json',
-							success: function(data) {
-								query.callback({results: data});
+							success: function (data) {
+								query.callback({
+									results: data
+								});
 							}
 						});
 					}, 100, true),
-					id: function(element) {
+					id: function (element) {
 						return element;
 					},
-					initSelection: function(element, callback) {
+					initSelection: function (element, callback) {
 						var selection = ($(element).val() || []).split('|').sort();
 						callback(selection);
 					},
@@ -386,7 +399,7 @@
 					formatSelection: function (group) {
 						return escapeHTML(group);
 					},
-					escapeMarkup: function(m) {
+					escapeMarkup: function (m) {
 						// prevent double markup escape
 						return m;
 					}
@@ -397,6 +410,6 @@
 
 })();
 
-$(document).ready(function() {
+$(document).ready(function () {
 	OCA.AnnouncementCenter.App.init();
 });
