@@ -32,6 +32,7 @@ style('announcementcenter', [
 		<h2><?php p($l->t('No Announcements')); ?></h2>
 		<p><?php p($l->t('There are currently no announcements…')); ?></p>
 	</div>
+	<div id="announcement_list"  class="section"></div>
 </div>
 
 <div id="app-sidebar" class="disappear detailsView scroll-container">
