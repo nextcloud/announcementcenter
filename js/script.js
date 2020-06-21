@@ -217,20 +217,23 @@
 			renderer.link = function (href, title, text) {
 				try {
 					var prot = decodeURIComponent(unescape(href))
-						.replace(/[^\w:]/g, '')
+						.replace(/[^\w:.]/g, '')
 						.toLowerCase();
 				} catch (e) {
 					return '';
 				}
-				if (prot.indexOf('http:') !== 0 && prot.indexOf('https:') !== 0) {
+				if (prot.indexOf('http:') > -1 && prot.indexOf('https:') > -1) {
+					var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
+					if (title) {
+						out += ' title="' + title + '"';
+					}
+					out += '>' + text + ' ↗</a>';
+					return out;
+				} else if (prot.indexOf('mailto:') > -1) {
+					return '<a href="' + prot + '">' + href.replace('mailto:', '') + '</a>';
+				} else {
 					return '';
 				}
-				var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
-				if (title) {
-					out += ' title="' + title + '"';
-				}
-				out += '>' + text + ' ↗</a>';
-				return out;
 			};
 
 			renderer.em = function (text) {
@@ -249,7 +252,7 @@
 					highlight: false,
 					pedantic: false,
 					renderer: renderer,
-					sanitize: true,
+					sanitize: false, //recommended by MarkedJS author
 					smartLists: true,
 					smartypants: false,
 					tables: false
