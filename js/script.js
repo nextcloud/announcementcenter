@@ -117,16 +117,15 @@
 				self.commentsTabView.setObjectId(0);
 
 				$announcement.slideUp();
-				// Remove the hr
-				$announcement.next().remove();
+				$announcement.next('hr').remove();
 
 				setTimeout(function () {
 					$announcement.remove();
 
-					if ($('#announcement_list .announcement').length == 1) {
+					if ($('#announcement_list .announcement').length === 0) {
 						$('#emptycontent').removeClass('hidden');
 					}
-				}, 100);
+				}, 750);
 
 			});
 		},
