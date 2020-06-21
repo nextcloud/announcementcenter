@@ -76,7 +76,6 @@
 
 			if ($element.data('announcement-id') !== parseInt(urlParams.announcement, 10)) {
 				$($element).toggleClass("active");
-				$content.css('display', 'block');
 			}
 
 			OC.Util.History.pushState({
@@ -88,6 +87,8 @@
 		highlightAnnouncement: function (announcementId) {
 			if (announcementId !== 0 && this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
+
+				$('.collapsible[data-announcement-id="' + announcementId + '"]').addClass('active').next().css('display', 'block');
 
 				var $appContent = $('#app-content'),
 					currentOffset = $appContent.scrollTop();
