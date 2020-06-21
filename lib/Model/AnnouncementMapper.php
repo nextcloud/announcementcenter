@@ -81,7 +81,7 @@ class AnnouncementMapper extends QBMapper {
 			->from($this->getTableName(), 'a')
 			->orderBy('a.announcement_time', 'DESC')
 			->groupBy('a.announcement_id')
-			->setMaxResults(5);
+			->setMaxResults(25);
 
 		if (!empty($userGroups)) {
 			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
