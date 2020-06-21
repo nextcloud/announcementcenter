@@ -111,7 +111,7 @@
 				type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId)
 			}).done(function () {
-				var $announcement = $element.parents('.section').first();
+				var $announcement = $element.parents('.announcement').first();
 				delete self.announcements[announcementId];
 				self.commentsTabView.setObjectId(0);
 
@@ -122,10 +122,10 @@
 				setTimeout(function () {
 					$announcement.remove();
 
-					if ($('#announcement_list .section').length == 1) {
+					if ($('#announcement_list .announcement').length == 1) {
 						$('#emptycontent').removeClass('hidden');
 					}
-				}, 750);
+				}, 100);
 
 			});
 		},
