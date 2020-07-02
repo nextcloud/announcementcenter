@@ -53,6 +53,9 @@ function escapeHTML(text) {
 			this.loadAnnouncements();
 
 			var self = this;
+			$('#commentsTabView_close_button').on('click', function () {
+				self.commentsTabView.setObjectId(0);
+			});
 			$('#announcement_options_button').on('click', function() {
 				$('#announcement_options').toggleClass('hidden');
 			});
