@@ -74,16 +74,28 @@ function escapeHTML(text) {
 
 		_onHighlightAnnouncement: function (event) {
 			var $element = $(event.currentTarget),
+<<<<<<< HEAD
 				announcementId = $($element).parents('.announcement').hasClass("active") ? 0 : $element.data('announcement-id');
 
 			$('.announcement_header').each(function () {
 				$(this).parents('.announcement').removeClass('active');
+=======
+				announcementId = $($element).hasClass("active") ? 0 : $element.data('announcement-id'),
+				$content = $element.next();
+
+			$('.collapsible').each(function () {
+				$(this).removeClass('active').next().css('display', 'none');
+>>>>>>> Styling update and add responsive design
 			})
 
 			var urlParams = OC.Util.History.parseUrlQuery();
 
 			if ($element.data('announcement-id') !== parseInt(urlParams.announcement, 10)) {
+<<<<<<< HEAD
 				$($element).parents('.announcement').toggleClass("active");
+=======
+				$($element).toggleClass("active");
+>>>>>>> Styling update and add responsive design
 			}
 
 			OC.Util.History.pushState({
@@ -97,14 +109,22 @@ function escapeHTML(text) {
 			if (announcementId !== 0 && this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
 
+<<<<<<< HEAD
 				$('.announcement_header[data-announcement-id="' + announcementId + '"]').parents('.announcement').addClass('active');
+=======
+				$('.collapsible[data-announcement-id="' + announcementId + '"]').addClass('active').next().css('display', 'block');
+>>>>>>> Styling update and add responsive design
 
 				var $appContent = $('#app-content'),
 					currentOffset = $appContent.scrollTop();
 
 				$appContent.animate({
 					// Scrolling to the top of the new element
+<<<<<<< HEAD
 					scrollTop: currentOffset + $('div.announcement_header[data-announcement-id=' + announcementId + ']').offset().top - 50
+=======
+					scrollTop: currentOffset + $('div.collapsible[data-announcement-id=' + announcementId + ']').offset().top - 50
+>>>>>>> Styling update and add responsive design
 				}, 500);
 			} else {
 				this.commentsTabView.setObjectId(0);
@@ -323,7 +343,11 @@ function escapeHTML(text) {
 			var $html = $(OCA.AnnouncementCenter.Templates.announcement(object));
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
+<<<<<<< HEAD
 			$html.on('click', '.announcement_header', _.bind(this._onHighlightAnnouncement, this));
+=======
+			$html.on('click', '.collapsible', _.bind(this._onHighlightAnnouncement, this));
+>>>>>>> Styling update and add responsive design
 
 			$html.find('.avatar').each(function () {
 				var element = $(this);
