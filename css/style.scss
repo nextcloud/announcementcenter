@@ -1,11 +1,19 @@
+.section {
+	margin: 0;
+}
+
 #subject {
-	width: 706px;
+	width: 50%;
 	font-size: 20px;
 }
 
 #message {
-	width: 720px;
-	height: 350px;
+	width: 50%;
+	height: 200px;
+}
+
+.select2-container {
+	width: 50%;
 }
 
 #app-content hr {
@@ -17,13 +25,14 @@
 #announcement_submit_msg.success {
 	color: #fff;
 	background-color: #47a447;
-	border-radius: 3px;
+	border-radius: 5px;
 	padding: 3px;
 }
+
 #announcement_submit_msg.error {
 	color: #fff;
 	background-color: #d2322d;
-	border-radius: 3px;
+	border-radius: 5px;
 	padding: 3px;
 }
 
@@ -42,14 +51,8 @@
 	width: 16px;
 }
 
-#app-content .delete-link,
-#app-content .mute-link {
-	display: none;
-}
-
-#app-content .section:hover .delete-link,
-#app-content .section:hover .mute-link {
-	display: inline;
+#app-sidebar {
+	border-bottom: 1px solid var(--color-border);
 }
 
 #app-sidebar .tab {
@@ -63,30 +66,35 @@
 @include icon-black-white('announcementcenter-dark', 'announcementcenter', 1);
 @include icon-black-white('notifications-off', 'announcementcenter', 1);
 
-.section > span {
+.section>span {
 	padding-right: 7px;
 	color: #878787;
 }
 
-.section > blockquote {
+.section>blockquote {
 	padding: 5px 10px;
 	border-left: 1px solid var(--color-border-dark);
 }
 
-.section > ul, ol {
+.section>ul,
+ol {
 	padding-inline-start: 40px;
 }
 
-.section > ul {
+.section>ul {
 	list-style-type: disc;
 }
 
-.section > ul ul {
+.section>ul ul {
 	list-style-type: circle;
 }
 
-.section > ul ul ul {
+.section>ul ul ul {
 	list-style-type: square;
+}
+
+.right-align {
+	text-align: right;
 }
 
 #app-content .avatar {
@@ -101,12 +109,68 @@
 	display: inline-block;
 }
 
-#commentsTabView_header > p {
+#commentsTabView_header>p {
 	margin: 10px;
 	font-size: 22px;
 	font-weight: bold;
 	color: var(--color-text-light);
 	display: inline-block;
+}
+
+.collapsible {
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+	border-radius: 5px;
+}
+
+.collapsible * {
+	cursor: pointer;
+}
+
+.active,
+.collapsible:hover,
+.collapsible:hover * {
+	background-color: #aaa;
+	color: black;
+}
+
+.content {
+	padding: 15px;
+	display: none;
+	overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+
+	#subject,
+	#message,
+	.collapsible,
+	.select2-container,
+	form#announce>input {
+		width: 100%;
+	}
+
+	#app-sidebar {
+		border-radius: 5px;
+	}
+
+	#app-sidebar {
+		height: 50vh;
+	}
+
+	.section {
+		padding: 20px;
+	}
+
+	.collapsible {
+		padding-left: 0;
+		padding-right: 0;
+	}
 }
 
 #commentsTabView_close_button {
