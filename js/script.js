@@ -17,7 +17,7 @@ function escapeHTML(text) {
 		.split('\'').join('&#039;')
 }
 
-(function() {
+(function () {
 	if (!OCA.AnnouncementCenter) {
 		/**
 		 * @namespace
@@ -35,7 +35,7 @@ function escapeHTML(text) {
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 		commentsTabView: null,
 
-		init: function() {
+		init: function () {
 			this.$container = $('#app-content');
 			this.$content = $('#app-content');
 
@@ -56,7 +56,7 @@ function escapeHTML(text) {
 			$('#commentsTabView_close_button').on('click', function () {
 				self.commentsTabView.setObjectId(0);
 			});
-			$('#announcement_options_button').on('click', function() {
+			$('#announcement_options_button').on('click', function () {
 				$('#announcement_options').toggleClass('hidden');
 			});
 			$('#groups').each(function (index, element) {
@@ -64,7 +64,7 @@ function escapeHTML(text) {
 			});
 		},
 
-		_onPopState: function(params) {
+		_onPopState: function (params) {
 			params = _.extend({
 				announcement: 0
 			}, params);
@@ -73,7 +73,7 @@ function escapeHTML(text) {
 			this.highlightAnnouncement(params.announcement);
 		},
 
-		_onHighlightAnnouncement: function(event) {
+		_onHighlightAnnouncement: function (event) {
 			var $element = $(event.currentTarget),
 				announcementId = $element.data('announcement-id');
 
@@ -84,7 +84,7 @@ function escapeHTML(text) {
 			this.highlightAnnouncement(announcementId);
 		},
 
-		highlightAnnouncement: function(announcementId) {
+		highlightAnnouncement: function (announcementId) {
 			if (this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
 			} else {
@@ -100,7 +100,7 @@ function escapeHTML(text) {
 			}, 500);
 		},
 
-		deleteAnnouncement: function(event) {
+		deleteAnnouncement: function (event) {
 			var self = this;
 			event.stopPropagation();
 
@@ -118,7 +118,7 @@ function escapeHTML(text) {
 				// Remove the hr
 				$announcement.next().remove();
 
-				setTimeout(function() {
+				setTimeout(function () {
 					$announcement.remove();
 
 					if ($('#app-content .section').length == 1) {
@@ -129,7 +129,7 @@ function escapeHTML(text) {
 			});
 		},
 
-		removeNotifications: function(event) {
+		removeNotifications: function (event) {
 			event.stopPropagation();
 
 			var $element = $(event.currentTarget),
@@ -144,7 +144,7 @@ function escapeHTML(text) {
 			});
 		},
 
-		postAnnouncement: function() {
+		postAnnouncement: function () {
 			var self = this;
 			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
 
@@ -159,14 +159,14 @@ function escapeHTML(text) {
 					notifications: $('#create_notifications').attr('checked') === 'checked',
 					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
-			}).done(function(announcement) {
+			}).done(function (announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
 				$('#app-content .section:eq(0)').after($html);
 				$html.hide();
-				setTimeout(function() {
+				setTimeout(function () {
 					$html.slideDown();
 					$('#emptycontent').addClass('hidden');
 				}, 750);
@@ -179,7 +179,7 @@ function escapeHTML(text) {
 			});
 		},
 
-		loadAnnouncements: function() {
+		loadAnnouncements: function () {
 			var self = this,
 				offset = self.lastLoadedAnnouncement;
 			$.ajax({
@@ -215,20 +215,23 @@ function escapeHTML(text) {
 			renderer.link = function (href, title, text) {
 				try {
 					var prot = decodeURIComponent(unescape(href))
-						.replace(/[^\w:]/g, '')
+						.replace(/[^\w:.]/g, '')
 						.toLowerCase();
 				} catch (e) {
 					return '';
 				}
-				if (prot.indexOf('http:') !== 0 && prot.indexOf('https:') !== 0) {
+				if (prot.indexOf('http:') > -1 && prot.indexOf('https:') > -1) {
+					var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
+					if (title) {
+						out += ' title="' + title + '"';
+					}
+					out += '>' + text + ' ↗</a>';
+					return out;
+				} else if (prot.indexOf('mailto:') > -1) {
+					return '<a href="' + prot + '">' + href.replace('mailto:', '') + '</a>';
+				} else {
 					return '';
 				}
-				var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
-				if (title) {
-					out += ' title="' + title + '"';
-				}
-				out += '>' + text + ' ↗</a>';
-				return out;
 			};
 
 			renderer.em = function (text) {
@@ -247,12 +250,11 @@ function escapeHTML(text) {
 					highlight: false,
 					pedantic: false,
 					renderer: renderer,
-					sanitize: true,
+					sanitize: false, //recommended by MarkedJS author, otherwise grm is ignored
 					smartLists: true,
 					smartypants: false,
 					tables: false
-				}),
-				{
+				}), {
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
 						'a',
@@ -316,7 +318,7 @@ function escapeHTML(text) {
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
 
-			$html.find('.avatar').each(function() {
+			$html.find('.avatar').each(function () {
 				var element = $(this);
 				if (element.data('user-display-name')) {
 					element.avatar(element.data('user'), 21, undefined, false, undefined, element.data('user-display-name'));
@@ -325,7 +327,7 @@ function escapeHTML(text) {
 				}
 			});
 
-			$html.find('.avatar-name-wrapper').each(function() {
+			$html.find('.avatar-name-wrapper').each(function () {
 				var element = $(this),
 					avatar = element.find('.avatar'),
 					label = element.find('strong');
@@ -357,7 +359,7 @@ function escapeHTML(text) {
 		 *
 		 * @param $elements jQuery element (hidden input) to setup select2 on
 		 */
-		setupGroupsSelect: function($elements) {
+		setupGroupsSelect: function ($elements) {
 			if ($elements.length > 0) {
 				// note: settings are saved through a "change" event registered
 				// on all input fields
@@ -366,7 +368,7 @@ function escapeHTML(text) {
 					allowClear: true,
 					multiple: true,
 					separator: '|',
-					query: _.debounce(function(query) {
+					query: _.debounce(function (query) {
 						var queryData = {};
 						if (query.term !== '') {
 							queryData = {
@@ -377,15 +379,17 @@ function escapeHTML(text) {
 							url: OC.generateUrl('/apps/announcementcenter/groups'),
 							data: queryData,
 							dataType: 'json',
-							success: function(data) {
-								query.callback({results: data});
+							success: function (data) {
+								query.callback({
+									results: data
+								});
 							}
 						});
 					}, 100, true),
-					id: function(element) {
+					id: function (element) {
 						return element;
 					},
-					initSelection: function(element, callback) {
+					initSelection: function (element, callback) {
 						var selection = ($(element).val() || []).split('|').sort();
 						callback(selection);
 					},
@@ -395,7 +399,7 @@ function escapeHTML(text) {
 					formatSelection: function (group) {
 						return escapeHTML(group);
 					},
-					escapeMarkup: function(m) {
+					escapeMarkup: function (m) {
 						// prevent double markup escape
 						return m;
 					}
@@ -406,6 +410,6 @@ function escapeHTML(text) {
 
 })();
 
-$(document).ready(function() {
+$(document).ready(function () {
 	OCA.AnnouncementCenter.App.init();
 });
