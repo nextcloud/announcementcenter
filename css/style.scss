@@ -135,7 +135,7 @@ ol {
 .active,
 .collapsible:hover,
 .collapsible:hover * {
-	background-color: #aaa;
+	background-color: var(--color-background-hover);
 	color: black;
 }
 
