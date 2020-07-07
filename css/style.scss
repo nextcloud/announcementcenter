@@ -149,7 +149,7 @@ ol {
 .active,
 .collapsible:hover,
 .collapsible:hover * {
-	background-color: #aaa;
+	background-color: var(--color-background-hover);
 	color: black;
 >>>>>>> Styling update and add responsive design
 }
