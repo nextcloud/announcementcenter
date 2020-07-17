@@ -117,11 +117,7 @@ ol {
 	display: inline-block;
 }
 
-<<<<<<< HEAD
 .announcement_header {
-=======
-.collapsible {
->>>>>>> Styling update and add responsive design
 	cursor: pointer;
 	padding: 18px;
 	width: 100%;
@@ -132,7 +128,6 @@ ol {
 	border-radius: 5px;
 }
 
-<<<<<<< HEAD
 .announcement_header * {
 	cursor: pointer;
 }
@@ -141,25 +136,10 @@ ol {
 .announcement:hover {
 	border: 1px solid var(--color-border-dark);
 	border-radius: 5px;
-=======
-.collapsible * {
-	cursor: pointer;
-}
-
-.active,
-.collapsible:hover,
-.collapsible:hover * {
-	background-color: var(--color-background-hover);
-	color: black;
->>>>>>> Styling update and add responsive design
 }
 
 .content {
 	padding: 15px;
-<<<<<<< HEAD
-=======
-	display: none;
->>>>>>> Styling update and add responsive design
 	overflow: hidden;
 }
 
@@ -167,11 +147,7 @@ ol {
 
 	#subject,
 	#message,
-<<<<<<< HEAD
 	.announcement_header,
-=======
-	.collapsible,
->>>>>>> Styling update and add responsive design
 	.select2-container,
 	form#announce>input {
 		width: 100%;
@@ -189,11 +165,7 @@ ol {
 		padding: 20px;
 	}
 
-<<<<<<< HEAD
 	.announcement_header {
-=======
-	.collapsible {
->>>>>>> Styling update and add responsive design
 		padding-left: 0;
 		padding-right: 0;
 	}

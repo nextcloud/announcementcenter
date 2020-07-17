@@ -111,10 +111,14 @@
         alias4 = container.escapeExpression;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       return "<div class=\"announcement\">\n	<div class=\"announcement_header\" data-announcement-id=\"" +
 =======
       return "<div class=\"announcement\">\n	<div class=\"collapsible\" data-announcement-id=\"" +
 >>>>>>> Styling update and add responsive design
+=======
+      return "<div class=\"announcement\">\n	<div class=\"announcement_header\" data-announcement-id=\"" +
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
         ((stack1 = ((helper = (helper = helpers.announcementId || (depth0 != null ? depth0.announcementId : depth0)) != null ? helper : alias2), (typeof helper === alias3 ? helper.call(alias1, {
           "name": "announcementId",
           "hash": {},

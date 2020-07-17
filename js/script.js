@@ -75,10 +75,14 @@ function escapeHTML(text) {
 		_onHighlightAnnouncement: function (event) {
 			var $element = $(event.currentTarget),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 				announcementId = $($element).parents('.announcement').hasClass("active") ? 0 : $element.data('announcement-id');
 
 			$('.announcement_header').each(function () {
 				$(this).parents('.announcement').removeClass('active');
+<<<<<<< HEAD
 =======
 				announcementId = $($element).hasClass("active") ? 0 : $element.data('announcement-id'),
 				$content = $element.next();
@@ -86,16 +90,22 @@ function escapeHTML(text) {
 			$('.collapsible').each(function () {
 				$(this).removeClass('active').next().css('display', 'none');
 >>>>>>> Styling update and add responsive design
+=======
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 			})
 
 			var urlParams = OC.Util.History.parseUrlQuery();
 
 			if ($element.data('announcement-id') !== parseInt(urlParams.announcement, 10)) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$($element).parents('.announcement').toggleClass("active");
 =======
 				$($element).toggleClass("active");
 >>>>>>> Styling update and add responsive design
+=======
+				$($element).parents('.announcement').toggleClass("active");
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 			}
 
 			OC.Util.History.pushState({
@@ -110,10 +120,14 @@ function escapeHTML(text) {
 				this.commentsTabView.setObjectId(announcementId);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 				$('.announcement_header[data-announcement-id="' + announcementId + '"]').parents('.announcement').addClass('active');
 =======
 				$('.collapsible[data-announcement-id="' + announcementId + '"]').addClass('active').next().css('display', 'block');
 >>>>>>> Styling update and add responsive design
+=======
+				$('.announcement_header[data-announcement-id="' + announcementId + '"]').parents('.announcement').addClass('active');
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 
 				var $appContent = $('#app-content'),
 					currentOffset = $appContent.scrollTop();
@@ -121,10 +135,14 @@ function escapeHTML(text) {
 				$appContent.animate({
 					// Scrolling to the top of the new element
 <<<<<<< HEAD
+<<<<<<< HEAD
 					scrollTop: currentOffset + $('div.announcement_header[data-announcement-id=' + announcementId + ']').offset().top - 50
 =======
 					scrollTop: currentOffset + $('div.collapsible[data-announcement-id=' + announcementId + ']').offset().top - 50
 >>>>>>> Styling update and add responsive design
+=======
+					scrollTop: currentOffset + $('div.announcement_header[data-announcement-id=' + announcementId + ']').offset().top - 50
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 				}, 500);
 			} else {
 				this.commentsTabView.setObjectId(0);
@@ -344,10 +362,14 @@ function escapeHTML(text) {
 			$html.find('span.delete-link a').on('click', _.bind(this.deleteAnnouncement, this));
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 <<<<<<< HEAD
+<<<<<<< HEAD
 			$html.on('click', '.announcement_header', _.bind(this._onHighlightAnnouncement, this));
 =======
 			$html.on('click', '.collapsible', _.bind(this._onHighlightAnnouncement, this));
 >>>>>>> Styling update and add responsive design
+=======
+			$html.on('click', '.announcement_header', _.bind(this._onHighlightAnnouncement, this));
+>>>>>>> 94a229ff0627a82d8cd678e1943582b9fc65d6ea
 
 			$html.find('.avatar').each(function () {
 				var element = $(this);
