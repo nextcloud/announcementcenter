@@ -17,9 +17,9 @@
 }
 
 #app-content hr {
-	width: 85%;
+	width: 90%;
 	border: none;
-	border-bottom: solid 1px var(--color-border-dark);
+	border-bottom: solid 2px var(--color-border-dark);
 }
 
 #announcement_submit_msg.success {
@@ -117,7 +117,7 @@ ol {
 	display: inline-block;
 }
 
-.collapsible {
+.announcement_header {
 	cursor: pointer;
 	padding: 18px;
 	width: 100%;
@@ -128,20 +128,18 @@ ol {
 	border-radius: 5px;
 }
 
-.collapsible * {
+.announcement_header * {
 	cursor: pointer;
 }
 
-.active,
-.collapsible:hover,
-.collapsible:hover * {
-	background-color: #aaa;
-	color: black;
+.announcement.active,
+.announcement:hover {
+	border: 1px solid var(--color-border-dark);
+	border-radius: 5px;
 }
 
 .content {
 	padding: 15px;
-	display: none;
 	overflow: hidden;
 }
 
@@ -149,7 +147,7 @@ ol {
 
 	#subject,
 	#message,
-	.collapsible,
+	.announcement_header,
 	.select2-container,
 	form#announce>input {
 		width: 100%;
@@ -167,7 +165,7 @@ ol {
 		padding: 20px;
 	}
 
-	.collapsible {
+	.announcement_header {
 		padding-left: 0;
 		padding-right: 0;
 	}
