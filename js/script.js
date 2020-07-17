@@ -17,7 +17,7 @@ function escapeHTML(text) {
 		.split('\'').join('&#039;')
 }
 
-(function () {
+(function() {
 	if (!OCA.AnnouncementCenter) {
 		/**
 		 * @namespace
@@ -35,7 +35,7 @@ function escapeHTML(text) {
 		sevenDaysMilliseconds: 7 * 24 * 3600 * 1000,
 		commentsTabView: null,
 
-		init: function () {
+		init: function() {
 			this.$container = $('#content');
 			this.$content = $('#app-content');
 
@@ -53,19 +53,19 @@ function escapeHTML(text) {
 			this.loadAnnouncements();
 
 			var self = this;
-			$('#commentsTabView_close_button').on('click', function () {
+			$('#commentsTabView_close_button').on('click', function() {
 				self.commentsTabView.setObjectId(0);
 			});
 
-			$('#announcement_options_button').on('click', function () {
+			$('#announcement_options_button').on('click', function() {
 				$('#announcement_options').toggleClass('hidden');
 			});
-			$('#groups').each(function (index, element) {
+			$('#groups').each(function(index, element) {
 				self.setupGroupsSelect($(element));
 			});
 		},
 
-		_onPopState: function (params) {
+		_onPopState: function(params) {
 			params = _.extend({
 				announcement: 0
 			}, params);
@@ -73,7 +73,7 @@ function escapeHTML(text) {
 			this.highlightAnnouncement(params.announcement);
 		},
 
-		_onHighlightAnnouncement: function (event) {
+		_onHighlightAnnouncement: function(event) {
 			var $element = $(event.currentTarget),
 				announcementId = $element.data('announcement-id');
 
@@ -84,7 +84,7 @@ function escapeHTML(text) {
 			this.highlightAnnouncement(announcementId);
 		},
 
-		highlightAnnouncement: function (announcementId) {
+		highlightAnnouncement: function(announcementId) {
 			if (this.announcements[announcementId]['comments'] !== false) {
 				this.commentsTabView.setObjectId(announcementId);
 			} else {
@@ -100,7 +100,7 @@ function escapeHTML(text) {
 			}, 500);
 		},
 
-		deleteAnnouncement: function (event) {
+		deleteAnnouncement: function(event) {
 			var self = this;
 			event.stopPropagation();
 
@@ -109,7 +109,7 @@ function escapeHTML(text) {
 			$.ajax({
 				type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId)
-			}).done(function () {
+			}).done(function() {
 				var $announcement = $element.parents('.section').first();
 				delete self.announcements[announcementId];
 				self.commentsTabView.setObjectId(0);
@@ -118,7 +118,7 @@ function escapeHTML(text) {
 				// Remove the hr
 				$announcement.next().remove();
 
-				setTimeout(function () {
+				setTimeout(function() {
 					$announcement.remove();
 
 					if ($('#app-content .section').length == 1) {
@@ -129,7 +129,7 @@ function escapeHTML(text) {
 			});
 		},
 
-		removeNotifications: function (event) {
+		removeNotifications: function(event) {
 			event.stopPropagation();
 
 			var $element = $(event.currentTarget),
@@ -137,14 +137,14 @@ function escapeHTML(text) {
 			$.ajax({
 				type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId + '/notifications')
-			}).done(function () {
+			}).done(function() {
 				var $link = $element.parents('.mute-link').first();
 				$link.tooltip('hide');
 				$link.remove();
 			});
 		},
 
-		postAnnouncement: function () {
+		postAnnouncement: function() {
 			var self = this;
 			OC.msg.startAction('#announcement_submit_msg', t('announcementcenter', 'Announcing…'));
 
@@ -159,14 +159,14 @@ function escapeHTML(text) {
 					notifications: $('#create_notifications').attr('checked') === 'checked',
 					comments: $('#allow_comments').attr('checked') === 'checked'
 				}
-			}).done(function (announcement) {
+			}).done(function(announcement) {
 				OC.msg.finishedSuccess('#announcement_submit_msg', t('announcementcenter', 'Announced!'));
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
 				$('#app-content #emptycontent').after($html);
 				$html.hide();
-				setTimeout(function () {
+				setTimeout(function() {
 					$html.slideDown();
 					$('#emptycontent').addClass('hidden');
 				}, 750);
@@ -174,12 +174,12 @@ function escapeHTML(text) {
 				$('#subject').val('');
 				$('#message').val('');
 				$('#groups').val('').trigger('change');
-			}).fail(function (response) {
+			}).fail(function(response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
 		},
 
-		loadAnnouncements: function () {
+		loadAnnouncements: function() {
 			var self = this,
 				offset = self.lastLoadedAnnouncement;
 
@@ -191,9 +191,9 @@ function escapeHTML(text) {
 				data: {
 					offset: offset
 				}
-			}).done(function (response) {
+			}).done(function(response) {
 				if (response.length > 0) {
-					_.each(response, function (announcement) {
+					_.each(response, function(announcement) {
 						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
 						$('#lazyload').before($html);
@@ -213,10 +213,10 @@ function escapeHTML(text) {
 			});
 		},
 
-		markdownToHtml: function (message) {
+		markdownToHtml: function(message) {
 			message = message.replace(/<br \/>/g, "\n").replace(/&gt;/g, '>');
 			var renderer = new window.marked.Renderer();
-			renderer.link = function (href, title, text) {
+			renderer.link = function(href, title, text) {
 				try {
 					var prot = decodeURIComponent(unescape(href))
 						.replace(/[^\w:]/g, '')
@@ -235,11 +235,11 @@ function escapeHTML(text) {
 				return out;
 			};
 
-			renderer.em = function (text) {
+			renderer.em = function(text) {
 				return '<i>' + text + '</i>';
 			};
 
-			renderer.image = function (href, title, text) {
+			renderer.image = function(href, title, text) {
 				var alt = escapeHTML(text ? text : title);
 				return '<img src="' + href + '" alt="' + alt + '" />';
 			};
@@ -255,7 +255,8 @@ function escapeHTML(text) {
 					smartLists: true,
 					smartypants: false,
 					tables: false
-				}), {
+				}), 
+				{
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
 						'a',
@@ -276,7 +277,7 @@ function escapeHTML(text) {
 			);
 		},
 
-		announcementToHtml: function (announcement) {
+		announcementToHtml: function(announcement) {
 			var timestamp = announcement.time * 1000;
 
 			var object = {
@@ -319,7 +320,7 @@ function escapeHTML(text) {
 			$html.find('span.mute-link a').on('click', _.bind(this.removeNotifications, this));
 			$html.on('click', _.bind(this._onHighlightAnnouncement, this));
 
-			$html.find('.avatar').each(function () {
+			$html.find('.avatar').each(function() {
 				var element = $(this);
 				if (element.data('user-display-name')) {
 					element.avatar(element.data('user'), 21, undefined, false, undefined, element.data('user-display-name'));
@@ -328,7 +329,7 @@ function escapeHTML(text) {
 				}
 			});
 
-			$html.find('.avatar-name-wrapper').each(function () {
+			$html.find('.avatar-name-wrapper').each(function() {
 				var element = $(this),
 					avatar = element.find('.avatar'),
 					label = element.find('strong');
@@ -343,7 +344,7 @@ function escapeHTML(text) {
 			return $html;
 		},
 
-		onScroll: function () {
+		onScroll: function() {
 			if (this.ignoreScroll <= 0 && $(document).scrollTop() +
 				window.innerHeight > this.$content.height() - 100) {
 				this.ignoreScroll = 1;
@@ -360,7 +361,7 @@ function escapeHTML(text) {
 		 *
 		 * @param $elements jQuery element (hidden input) to setup select2 on
 		 */
-		setupGroupsSelect: function ($elements) {
+		setupGroupsSelect: function($elements) {
 			if ($elements.length > 0) {
 				// note: settings are saved through a "change" event registered
 				// on all input fields
@@ -369,7 +370,7 @@ function escapeHTML(text) {
 					allowClear: true,
 					multiple: true,
 					separator: '|',
-					query: _.debounce(function (query) {
+					query: _.debounce(function(query) {
 						var queryData = {};
 						if (query.term !== '') {
 							queryData = {
@@ -380,27 +381,27 @@ function escapeHTML(text) {
 							url: OC.generateUrl('/apps/announcementcenter/groups'),
 							data: queryData,
 							dataType: 'json',
-							success: function (data) {
+							success: function(data) {
 								query.callback({
 									results: data
 								});
 							}
 						});
 					}, 100, true),
-					id: function (element) {
+					id: function(element) {
 						return element;
 					},
-					initSelection: function (element, callback) {
+					initSelection: function(element, callback) {
 						var selection = ($(element).val() || []).split('|').sort();
 						callback(selection);
 					},
-					formatResult: function (group) {
+					formatResult: function(group) {
 						return escapeHTML(group);
 					},
-					formatSelection: function (group) {
+					formatSelection: function(group) {
 						return escapeHTML(group);
 					},
-					escapeMarkup: function (m) {
+					escapeMarkup: function(m) {
 						// prevent double markup escape
 						return m;
 					}
@@ -411,6 +412,6 @@ function escapeHTML(text) {
 
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
 	OCA.AnnouncementCenter.App.init();
 });

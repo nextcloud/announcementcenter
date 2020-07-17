@@ -69,30 +69,30 @@
 @include icon-black-white('announcementcenter-dark', 'announcementcenter', 1);
 @include icon-black-white('notifications-off', 'announcementcenter', 1);
 
-.section>span {
+.section > span {
 	padding-right: 7px;
 	color: #878787;
 }
 
-.section>blockquote {
+.section > blockquote {
 	padding: 5px 10px;
 	border-left: 1px solid var(--color-border-dark);
 }
 
-.section>ul,
+.section > ul,
 ol {
 	padding-inline-start: 40px;
 }
 
-.section>ul {
+.section > ul {
 	list-style-type: disc;
 }
 
-.section>ul ul {
+.section > ul ul {
 	list-style-type: circle;
 }
 
-.section>ul ul ul {
+.section > ul ul ul {
 	list-style-type: square;
 }
 
@@ -108,7 +108,7 @@ ol {
 	display: inline-block;
 }
 
-#commentsTabView_header>p {
+#commentsTabView_header > p {
 	margin: 10px;
 	font-size: 22px;
 	font-weight: bold;
