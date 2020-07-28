@@ -34,7 +34,7 @@ style('announcementcenter', [
 	</div>
 	
 	<div id="lazyload" class="hidden">
-		<input type="button" id="lazyload_button" value="<?php p($l->t('Loading More Announcements...')); ?>" name="lazyload" />
+		<input type="button" id="lazyload_button" value="<?php p($l->t('Loading More Announcements …')); ?>" name="lazyload" />
 	</div>
 </div>
 
