@@ -32,6 +32,10 @@ style('announcementcenter', [
 		<h2><?php p($l->t('No Announcements')); ?></h2>
 		<p><?php p($l->t('There are currently no announcements…')); ?></p>
 	</div>
+	
+	<div id="lazyload" class="hidden">
+		<input type="button" id="lazyload_button" value="<?php p($l->t('Loading More Announcements …')); ?>" name="lazyload" />
+	</div>
 </div>
 
 <div id="app-sidebar" class="disappear detailsView scroll-container">

@@ -20,6 +20,7 @@
 	border-radius: 3px;
 	padding: 3px;
 }
+
 #announcement_submit_msg.error {
 	color: #fff;
 	background-color: #d2322d;
@@ -30,6 +31,11 @@
 .emptycontent-admin {
 	position: inherit !important;
 	margin-top: 50px !important;
+}
+
+#lazyload {
+	text-align: center;
+	padding: 50px;
 }
 
 #app-content .visibility .icon,
@@ -73,7 +79,8 @@
 	border-left: 1px solid var(--color-border-dark);
 }
 
-.section > ul, ol {
+.section > ul,
+ol {
 	padding-inline-start: 40px;
 }
 

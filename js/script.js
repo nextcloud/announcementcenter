@@ -36,13 +36,13 @@ function escapeHTML(text) {
 		commentsTabView: null,
 
 		init: function() {
-			this.$container = $('#app-content');
+			this.$container = $('#content');
 			this.$content = $('#app-content');
 
 			this.commentsTabView = new OCA.AnnouncementCenter.Comments.CommentsTabView();
 
 			$('#submit_announcement').on('click', _.bind(this.postAnnouncement, this));
-			this.$content.on('scroll', _.bind(this.onScroll, this));
+			$(document).bind('scroll', _.bind(this.onScroll, this));
 
 			this.ignoreScroll = 1;
 			this.isAdmin = $('#app-content').attr('data-is-admin') === '1';
@@ -53,13 +53,14 @@ function escapeHTML(text) {
 			this.loadAnnouncements();
 
 			var self = this;
-			$('#commentsTabView_close_button').on('click', function () {
+			$('#commentsTabView_close_button').on('click', function() {
 				self.commentsTabView.setObjectId(0);
 			});
+
 			$('#announcement_options_button').on('click', function() {
 				$('#announcement_options').toggleClass('hidden');
 			});
-			$('#groups').each(function (index, element) {
+			$('#groups').each(function(index, element) {
 				self.setupGroupsSelect($(element));
 			});
 		},
@@ -69,7 +70,6 @@ function escapeHTML(text) {
 				announcement: 0
 			}, params);
 
-			console.log('_onPopState' + params.announcement);
 			this.highlightAnnouncement(params.announcement);
 		},
 
@@ -109,7 +109,7 @@ function escapeHTML(text) {
 			$.ajax({
 				type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId)
-			}).done(function () {
+			}).done(function() {
 				var $announcement = $element.parents('.section').first();
 				delete self.announcements[announcementId];
 				self.commentsTabView.setObjectId(0);
@@ -137,7 +137,7 @@ function escapeHTML(text) {
 			$.ajax({
 				type: 'DELETE',
 				url: OC.generateUrl('/apps/announcementcenter/announcement/' + announcementId + '/notifications')
-			}).done(function () {
+			}).done(function() {
 				var $link = $element.parents('.mute-link').first();
 				$link.tooltip('hide');
 				$link.remove();
@@ -164,7 +164,7 @@ function escapeHTML(text) {
 
 				self.announcements[announcement.id] = announcement;
 				var $html = self.announcementToHtml(announcement);
-				$('#app-content .section:eq(0)').after($html);
+				$('#app-content #emptycontent').after($html);
 				$html.hide();
 				setTimeout(function() {
 					$html.slideDown();
@@ -174,7 +174,7 @@ function escapeHTML(text) {
 				$('#subject').val('');
 				$('#message').val('');
 				$('#groups').val('').trigger('change');
-			}).fail(function (response) {
+			}).fail(function(response) {
 				OC.msg.finishedError('#announcement_submit_msg', response.responseJSON.error);
 			});
 		},
@@ -182,22 +182,24 @@ function escapeHTML(text) {
 		loadAnnouncements: function() {
 			var self = this,
 				offset = self.lastLoadedAnnouncement;
+
+			$('#lazyload').removeClass('hidden');
+
 			$.ajax({
 				type: 'GET',
 				url: OC.generateUrl('/apps/announcementcenter/announcement'),
 				data: {
 					offset: offset
 				}
-			}).done(function (response) {
+			}).done(function(response) {
 				if (response.length > 0) {
-					_.each(response, function (announcement) {
+					_.each(response, function(announcement) {
 						self.announcements[announcement.id] = announcement;
 						var $html = self.announcementToHtml(announcement);
-						$('#app-content').append($html);
+						$('#lazyload').before($html);
 						if (announcement.id < self.lastLoadedAnnouncement || self.lastLoadedAnnouncement === 0) {
 							self.lastLoadedAnnouncement = announcement.id;
 						}
-
 						if (self.announcement === announcement.id) {
 							self.highlightAnnouncement(announcement.id);
 						}
@@ -206,13 +208,15 @@ function escapeHTML(text) {
 				} else if (offset === 0) {
 					$('#emptycontent').removeClass('hidden');
 				}
+
+				$('#lazyload').addClass('hidden');
 			});
 		},
 
-		markdownToHtml: function (message) {
+		markdownToHtml: function(message) {
 			message = message.replace(/<br \/>/g, "\n").replace(/&gt;/g, '>');
 			var renderer = new window.marked.Renderer();
-			renderer.link = function (href, title, text) {
+			renderer.link = function(href, title, text) {
 				try {
 					var prot = decodeURIComponent(unescape(href))
 						.replace(/[^\w:]/g, '')
@@ -231,11 +235,11 @@ function escapeHTML(text) {
 				return out;
 			};
 
-			renderer.em = function (text) {
+			renderer.em = function(text) {
 				return '<i>' + text + '</i>';
 			};
 
-			renderer.image = function (href, title, text) {
+			renderer.image = function(href, title, text) {
 				var alt = escapeHTML(text ? text : title);
 				return '<img src="' + href + '" alt="' + alt + '" />';
 			};
@@ -251,7 +255,7 @@ function escapeHTML(text) {
 					smartLists: true,
 					smartypants: false,
 					tables: false
-				}),
+				}), 
 				{
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
@@ -273,7 +277,7 @@ function escapeHTML(text) {
 			);
 		},
 
-		announcementToHtml: function (announcement) {
+		announcementToHtml: function(announcement) {
 			var timestamp = announcement.time * 1000;
 
 			var object = {
@@ -340,9 +344,9 @@ function escapeHTML(text) {
 			return $html;
 		},
 
-		onScroll: function () {
-			if (this.ignoreScroll <= 0 && this.$content.scrollTop() +
-				this.$content.height() > this.$container.height() - 100) {
+		onScroll: function() {
+			if (this.ignoreScroll <= 0 && $(document).scrollTop() +
+				window.innerHeight > this.$content.height() - 100) {
 				this.ignoreScroll = 1;
 				this.loadAnnouncements();
 			}
@@ -378,7 +382,9 @@ function escapeHTML(text) {
 							data: queryData,
 							dataType: 'json',
 							success: function(data) {
-								query.callback({results: data});
+								query.callback({
+									results: data
+								});
 							}
 						});
 					}, 100, true),
@@ -389,10 +395,10 @@ function escapeHTML(text) {
 						var selection = ($(element).val() || []).split('|').sort();
 						callback(selection);
 					},
-					formatResult: function (group) {
+					formatResult: function(group) {
 						return escapeHTML(group);
 					},
-					formatSelection: function (group) {
+					formatSelection: function(group) {
 						return escapeHTML(group);
 					},
 					escapeMarkup: function(m) {
