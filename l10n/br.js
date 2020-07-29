@@ -2,7 +2,7 @@ OC.L10N.register(
     "announcementcenter",
     {
     "Cancel" : "Arrest",
-    "Save" : "Entilañ",
+    "Save" : "Enrollañ",
     "Delete" : "Dilemel",
     "Groups" : "Strolladoù"
 },
