@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
     "No Announcements" : "Duyuru Yok",
     "There are currently no announcements…" : "Şu anda herhangi bir duyuru yok …",
+    "Loading More Announcements …" : "Diğer Duyurular Yükleniyor…",
     "Add announcement" : "Duyuru ekle",
     "Subject…" : "Konu …",
     "Your announcement…" : "Duyurularınız …",
