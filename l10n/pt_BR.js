@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Permitir comentários por padrão",
     "No Announcements" : "Não há nenhum anúncio",
     "There are currently no announcements…" : "Atualmente não há notificações...",
+    "Loading More Announcements …" : "Carregando mais notificações...",
     "Add announcement" : "Adicionar anúncio",
     "Subject…" : "Assunto...",
     "Your announcement…" : "Seu anúncio... ",
