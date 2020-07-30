@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Ve výchozím nastavení umožnit komentáře",
     "No Announcements" : "Žádná oznámení",
     "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…",
+    "Loading More Announcements …" : "Načítání dalších oznámení…",
     "Add announcement" : "Přidat oznámení",
     "Subject…" : "Předmět…",
     "Your announcement…" : "Vaše oznámení…",
