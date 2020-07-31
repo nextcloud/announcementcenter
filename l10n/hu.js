@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten",
     "No Announcements" : "Nincsenek bejelentések",
     "There are currently no announcements…" : "Jelenleg egyetlen bejelentés sincs…",
+    "Loading More Announcements …" : "További bejelentések betöltése …",
     "Add announcement" : "Bejelentés hozzáadása",
     "Subject…" : "Tárgy…",
     "Your announcement…" : "A bejelentése…",
