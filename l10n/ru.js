@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "По умолчанию комментарии будут разрешены",
     "No Announcements" : "Нет уведомлений",
     "There are currently no announcements…" : "На данный момент уведомления отсутствуют…",
+    "Loading More Announcements …" : "Загрузка объявлений...",
     "Add announcement" : "Добавить уведомление",
     "Subject…" : "Тема…",
     "Your announcement…" : "Ваше уведомление…",
