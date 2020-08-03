@@ -42,7 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Kommentare standardmäßig erlauben",
     "No Announcements" : "Keine Ankündigungen",
     "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
-    "Loading More Announcements …" : "Lade weitere Ankündigungen",
+    "Loading More Announcements …" : "Lade weitere Ankündigungen…",
     "Add announcement" : "Ankündigung schreiben",
     "Subject…" : "Betreff…",
     "Your announcement…" : "Ihre Ankündigung…",
