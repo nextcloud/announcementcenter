@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Подразумевано је да су дозвољени коментари",
     "No Announcements" : "Нема објава",
     "There are currently no announcements…" : "Тренутно нема објава…",
+    "Loading More Announcements …" : "Учитавам још објава…",
     "Add announcement" : "Додај објаву",
     "Subject…" : "Тема…",
     "Your announcement…" : "Ваша објава…",
