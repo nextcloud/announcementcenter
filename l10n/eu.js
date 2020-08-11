@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Baimendu iruzkinak lehenespenez",
     "No Announcements" : "Ez dago iragarpenik",
     "There are currently no announcements…" : "Une honetan ez dago iragarpenik...",
+    "Loading More Announcements …" : "Iragarpen gehiago kargatzen ...",
     "Add announcement" : "Gehitu iragarpena",
     "Subject…" : "Gaia...",
     "Your announcement…" : "Zure iragarpena...",
