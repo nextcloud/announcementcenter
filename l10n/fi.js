@@ -41,6 +41,7 @@ OC.L10N.register(
     "Allow comments by default" : "Salli kommentit oletuksena",
     "No Announcements" : "Ei tiedotteita",
     "There are currently no announcements…" : "Ei tiedotteita juuri nyt…",
+    "Loading More Announcements …" : "Ladataan lisää tiedotteita…",
     "Add announcement" : "Lisää tiedote",
     "Subject…" : "Aihe…",
     "Your announcement…" : "Tiedotteesi…",
