@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Reageren standaard toestaan",
     "No Announcements" : "Geen aankondigingen",
     "There are currently no announcements…" : "Er zijn nu geen aankondigingen...",
+    "Loading More Announcements …" : "Meer aankondigingen laden ...",
     "Add announcement" : "Melding toevoegen",
     "Subject…" : "Onderwerp...",
     "Your announcement…" : "Je aankondiging...",
