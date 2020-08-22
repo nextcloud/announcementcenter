@@ -2,6 +2,7 @@ OC.L10N.register(
     "announcementcenter",
     {
     "Cancel" : "Arrest",
+    "Comments" : "Displegadennoù",
     "Save" : "Enrollañ",
     "Delete" : "Dilemel",
     ", " : "'",
