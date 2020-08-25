@@ -1,6 +1,8 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Edit comment" : "Embann an displegadenn",
+    "Delete comment" : "Lemel an displegadenn",
     "Cancel" : "Arrest",
     "Comments" : "Displegadennoù",
     "Save" : "Enrollañ",
