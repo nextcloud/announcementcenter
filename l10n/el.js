@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
     "No Announcements" : "Καμία ανακοίνωση",
     "There are currently no announcements…" : "Δεν υπάρχουν ακόμη ανακοινώσεις...",
+    "Loading More Announcements …" : "Φόρτωση περισσότερων ανακοινώσεων ...",
     "Add announcement" : "Προσθήκη ανακοίνωσης",
     "Subject…" : "Θέμα...",
     "Your announcement…" : "Η ανακοίνωσή σας...",
