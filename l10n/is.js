@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Sjálfgefið leyfa ummæli",
     "No Announcements" : "Engar tilkynningar",
     "There are currently no announcements…" : "Það eru engar tilkynningar í gangi...",
+    "Loading More Announcements …" : "Hleð inn fleiri tilkynningum …",
     "Add announcement" : "Bæta við tilkynningu",
     "Subject…" : "Efni…",
     "Your announcement…" : "Tilkynningin þín...",
