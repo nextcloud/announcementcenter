@@ -224,15 +224,17 @@ function escapeHTML(text) {
 				} catch (e) {
 					return '';
 				}
-				if (prot.indexOf('http:') !== 0 && prot.indexOf('https:') !== 0) {
-					return '';
+				if (prot.indexOf('http:') === 0 || prot.indexOf('https:') === 0) {
+					var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
+					if (title) {
+						out += ' title="' + title + '"';
+					}
+					out += '>' + text + ' ↗</a>';
+					return out;
+				} else if (prot.indexOf('mailto:') === 0) {
+					return '<a href="' + href + '" class="external">' + text + '</a>';
 				}
-				var out = '<a href="' + href + '" target="_blank" rel="noreferrer noopener" class="external"';
-				if (title) {
-					out += ' title="' + title + '"';
-				}
-				out += '>' + text + ' ↗</a>';
-				return out;
+				return '';
 			};
 
 			renderer.em = function(text) {
@@ -255,7 +257,7 @@ function escapeHTML(text) {
 					smartLists: true,
 					smartypants: false,
 					tables: false
-				}), 
+				}),
 				{
 					SAFE_FOR_JQUERY: true,
 					ALLOWED_TAGS: [
