@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 3.9.1 – 2020-04-08
+### Added
+- Make emails clickable
+  [#206](https://github.com/nextcloud/announcementcenter/pull/206)
+  
+### Fixed
+- Compatibility with Nextcloud 20
+
 ## 3.8.1 – 2020-06-03
 ### Fixed
 - Don't send notifications and activities to users unable to read the announcement
