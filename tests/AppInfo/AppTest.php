@@ -56,7 +56,7 @@ class AppTest extends TestCase {
 			->getMock();
 		$this->language->expects($this->any())
 			->method('t')
-			->willReturnCallback(function($string, $args) {
+			->willReturnCallback(function ($string, $args) {
 				return vsprintf($string, $args);
 			});
 

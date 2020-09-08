@@ -23,7 +23,6 @@
 
 namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
-
 use OCA\AnnouncementCenter\Activity\Provider;
 use OCA\AnnouncementCenter\Activity\Setting;
 use OCA\AnnouncementCenter\AppInfo\Application;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
@@ -35,7 +36,6 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\Comments\CommentsEntityEvent;
 
 class Application extends App implements IBootstrap {
-
 	public const APP_ID = 'announcementcenter';
 
 	public function __construct() {
@@ -52,8 +52,8 @@ class Application extends App implements IBootstrap {
 	}
 
 	protected function registerCommentsEntity() {
-		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function(CommentsEntityEvent $event) {
-			$event->addEntityCollection('announcement', function($name) {
+		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function (CommentsEntityEvent $event) {
+			$event->addEntityCollection('announcement', function ($name) {
 				/** @var Manager $manager */
 				$manager = $this->getContainer()->query(Manager::class);
 				try {

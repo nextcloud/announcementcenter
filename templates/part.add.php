@@ -28,21 +28,27 @@ script('settings', 'settings');
 		<p>
 			<input id="create_activities" name="create_activities"
 				   type="checkbox" class="checkbox" value="1"
-				<?php if ($_['createActivities']) print_unescaped('checked="checked"'); ?> />
+				<?php if ($_['createActivities']) {
+	print_unescaped('checked="checked"');
+} ?> />
 			<label for="create_activities"><?php p($l->t('Create activities'));?></label><br/>
 		</p>
 
 		<p>
 			<input id="create_notifications" name="create_notifications"
 				   type="checkbox" class="checkbox" value="1"
-				<?php if ($_['createNotifications']) print_unescaped('checked="checked"'); ?> />
+				<?php if ($_['createNotifications']) {
+	print_unescaped('checked="checked"');
+} ?> />
 			<label for="create_notifications"><?php p($l->t('Create notifications'));?></label><br/>
 		</p>
 
 		<p>
 			<input id="allow_comments" name="allow_comments"
 				   type="checkbox" class="checkbox" value="1"
-				<?php if ($_['allowComments']) print_unescaped('checked="checked"'); ?> />
+				<?php if ($_['allowComments']) {
+	print_unescaped('checked="checked"');
+} ?> />
 			<label for="allow_comments"><?php p($l->t('Allow comments'));?></label><br/>
 		</p>
 	</div>

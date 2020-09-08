@@ -102,7 +102,7 @@ class Widget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function load(): void {
-		$this->initialState->provideLazyInitialState(Application::APP_ID, Application::APP_ID . '_dashboard', function() {
+		$this->initialState->provideLazyInitialState(Application::APP_ID, Application::APP_ID . '_dashboard', function () {
 			$announcements = $this->manager->getAnnouncements(0);
 			return array_map([$this, 'renderAnnouncement'], $announcements);
 		});

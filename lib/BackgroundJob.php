@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
@@ -133,7 +134,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param array $publicity
 	 */
 	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, array $publicity) {
-		$this->userManager->callForSeenUsers(function(IUser $user) use ($authorId, $event, $notification, $publicity) {
+		$this->userManager->callForSeenUsers(function (IUser $user) use ($authorId, $event, $notification, $publicity) {
 			if (!$this->enabledForGuestsUsers && $user->getBackend() instanceof UserBackend) {
 				return;
 			}

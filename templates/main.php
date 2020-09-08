@@ -24,8 +24,8 @@ style('announcementcenter', [
 
 <div id="app-content" data-is-admin="<?php p(!empty($_['isAdmin']) ? 1 : 0); ?>">
 	<?php if ($_['isAdmin']) {
-		print_unescaped($this->inc('part.add'));
-	} ?>
+	print_unescaped($this->inc('part.add'));
+} ?>
 
 	<div id="emptycontent" class="<?php if ($_['isAdmin']): ?>emptycontent-admin <?php endif; ?>hidden">
 		<div class="icon-announcementcenter-dark"></div>

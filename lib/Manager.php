@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
@@ -33,7 +34,6 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
-use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\IUser;
@@ -207,7 +207,6 @@ class Manager {
 	 * @return Announcement[]
 	 */
 	public function getAnnouncements(int $offsetId = 0): array {
-
 		$userGroups = $this->getUserGroups();
 		$memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
 		if (!empty($memberOfAdminGroups)) {
@@ -275,7 +274,6 @@ class Manager {
 				'activities' => true,
 				'notifications' => false,
 			]);
-
 		} else {
 			$this->jobList->remove(BackgroundJob::class, [
 				'id' => $id,

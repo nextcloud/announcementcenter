@@ -26,7 +26,6 @@ namespace OCA\AnnouncementCenter\Tests;
 use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
-use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
