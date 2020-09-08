@@ -13,6 +13,39 @@ version+=master
 
 all: appstore
 
+# Dev env management
+dev-setup: clean npm-init
+
+npm-init:
+	npm ci
+
+npm-update:
+	npm update
+
+# Building
+build-js:
+	npm run dev
+
+build-js-production:
+	npm run build
+
+watch-js:
+	npm run watch
+
+# Linting
+lint:
+	npm run lint
+
+lint-fix:
+	npm run lint:fix
+
+# Style linting
+stylelint:
+	npm run stylelint
+
+stylelint-fix:
+	npm run stylelint:fix
+
 release: appstore create-tag
 
 create-tag:
@@ -22,11 +55,13 @@ create-tag:
 clean:
 	rm -rf $(build_dir)
 	rm -rf node_modules
+	rm -f js/announcementcenter-dashboard.js
+	rm -f js/announcementcenter-dashboard.js.map
 
 js-templates:
 	handlebars -n OCA.AnnouncementCenter.Templates js/templates -f js/templates.js
 
-appstore: clean
+appstore: dev-setup build-js-production
 	mkdir -p $(sign_dir)
 	rsync -a \
 	--exclude=/build \

@@ -24,23 +24,29 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-use OCA\AnnouncementCenter\Controller\PageController;
+use OCA\AnnouncementCenter\Dashboard\Widget;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\Comments\CommentsEntityEvent;
 
-class Application extends App {
+class Application extends App implements IBootstrap {
+
+	public const APP_ID = 'announcementcenter';
 
 	public function __construct() {
-		parent::__construct('announcementcenter');
-		$container = $this->getContainer();
-
-		$container->registerAlias('PageController', PageController::class);
+		parent::__construct(self::APP_ID);
 	}
 
-	public function register() {
+	public function register(IRegistrationContext $context): void {
+		$context->registerDashboardWidget(Widget::class);
+	}
+
+	public function boot(IBootContext $context): void {
 		$this->registerNotificationNotifier();
 		$this->registerCommentsEntity();
 	}

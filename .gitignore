@@ -52,6 +52,9 @@ nbproject
 
 # Tests - auto-generated files
 /build
+/js/announcementcenter-dashboard.js
+/js/announcementcenter-dashboard.js.map
+/node_modules
 /tests/coverage*
 /tests/clover.xml
 /tests/js/node_modules
