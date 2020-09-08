@@ -23,32 +23,13 @@
 	<DashboardWidget
 		id="announcementcenter_panel"
 		:items="items"
-		:loading="loading">
-		<template v-slot:default="{ item }">
-			<DashboardWidgetItem :item="item">
-				<template v-slot:avatar>
-					<Avatar
-						:user="item.authorUserId"
-						:display-name="item.authorUsername"
-						:size="44"
-						:show-user-status="false" />
-				</template>
-			</DashboardWidgetItem>
-		</template>
-		<template v-slot:empty-content>
-			<EmptyContent
-				id="announcementcenter-widget-empty-content"
-				icon="icon-announcementcenter">
-				{{ t('announcementcenter', 'No announcements') }}
-			</EmptyContent>
-		</template>
-	</DashboardWidget>
+		:loading="loading"
+		empty-content-icon="icon-announcementcenter"
+		:empty-content-message="t('announcementcenter', 'No announcements')" />
 </template>
 
 <script>
-import { DashboardWidget, DashboardWidgetItem } from '@nextcloud/vue-dashboard'
-import Avatar from '@nextcloud/vue/dist/Components/Avatar'
-import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
+import { DashboardWidget } from '@nextcloud/vue-dashboard'
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl, imagePath } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
@@ -56,10 +37,7 @@ import moment from '@nextcloud/moment'
 export default {
 	name: 'Dashboard',
 	components: {
-		Avatar,
 		DashboardWidget,
-		DashboardWidgetItem,
-		EmptyContent,
 	},
 	data() {
 		return {
@@ -72,8 +50,7 @@ export default {
 			return this.announcements.map((item) => {
 				return {
 					mainText: item.subject,
-					authorUserId: item.author_id,
-					authorUsername: item.author,
+					avatarUsername: item.author_id,
 					targetUrl: generateUrl('/apps/announcementcenter') + '?announcement=' + item.id,
 					overlayIconUrl: imagePath('announcementcenter', 'announcementcenter.svg'),
 					subText: t('announcementcenter', '{author}, {timestamp}', {
@@ -94,19 +71,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss" scoped>
-::v-deep .item-list__entry {
-	position: relative;
-}
-
-.empty-content {
-	text-align: center;
-	margin-top: 5vh;
-
-	&.half-screen {
-		margin-top: 0;
-		margin-bottom: 2vh;
-	}
-}
-</style>
