@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "デフォルトでコメントを許可する",
     "No Announcements" : "アナウンスがありません",
     "There are currently no announcements…" : "いまのところアナウンスはありません...",
+    "Loading More Announcements …" : "他のアナウンスを読み込んでいます...",
     "Add announcement" : "アナウンスを追加",
     "Subject…" : "件名...",
     "Your announcement…" : "あなたのアナウンス...",
