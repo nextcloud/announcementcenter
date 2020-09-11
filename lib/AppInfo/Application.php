@@ -34,6 +34,8 @@ use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\Comments\CommentsEntityEvent;
+use OCP\Notification\IManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Application extends App implements IBootstrap {
 	public const APP_ID = 'announcementcenter';
@@ -47,15 +49,13 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function boot(IBootContext $context): void {
-		$this->registerNotificationNotifier();
-		$this->registerCommentsEntity();
+		$context->injectFn([$this, 'registerNotificationNotifier']);
+		$context->injectFn([$this, 'registerCommentsEntity']);
 	}
 
-	protected function registerCommentsEntity() {
-		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function (CommentsEntityEvent $event) {
-			$event->addEntityCollection('announcement', function ($name) {
-				/** @var Manager $manager */
-				$manager = $this->getContainer()->query(Manager::class);
+	protected function registerCommentsEntity(EventDispatcherInterface $eventDispatcher, Manager $manager): void {
+		$eventDispatcher->addListener(CommentsEntityEvent::EVENT_ENTITY, static function (CommentsEntityEvent $event) use ($manager) {
+			$event->addEntityCollection('announcement', static function ($name) use ($manager) {
 				try {
 					$announcement = $manager->getAnnouncement((int) $name);
 				} catch (AnnouncementDoesNotExistException $e) {
@@ -66,7 +66,7 @@ class Application extends App implements IBootstrap {
 		});
 	}
 
-	protected function registerNotificationNotifier() {
-		$this->getContainer()->getServer()->getNotificationManager()->registerNotifierService(Notifier::class);
+	protected function registerNotificationNotifier(IManager $notificationManager): void {
+		$notificationManager->registerNotifierService(Notifier::class);
 	}
 }
