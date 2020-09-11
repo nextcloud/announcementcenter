@@ -26,7 +26,6 @@ use OCP\Activity\ISetting;
 use Test\TestCase;
 
 class SettingTest extends TestCase {
-
 	public function dataSettings() {
 		return [
 			[Setting::class],
@@ -49,7 +48,7 @@ class SettingTest extends TestCase {
 	public function testGetIdentifier($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('string', $setting->getIdentifier());
+		$this->assertIsString($setting->getIdentifier());
 	}
 
 	/**
@@ -59,7 +58,7 @@ class SettingTest extends TestCase {
 	public function testGetName($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('string', $setting->getName());
+		$this->assertIsString($setting->getName());
 	}
 
 	/**
@@ -70,7 +69,7 @@ class SettingTest extends TestCase {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
 		$priority = $setting->getPriority();
-		$this->assertInternalType('int', $setting->getPriority());
+		$this->assertIsInt($setting->getPriority());
 		$this->assertGreaterThanOrEqual(0, $priority);
 		$this->assertLessThanOrEqual(100, $priority);
 	}
@@ -82,7 +81,7 @@ class SettingTest extends TestCase {
 	public function testCanChangeStream($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('bool', $setting->canChangeStream());
+		$this->assertIsBool($setting->canChangeStream());
 	}
 
 	/**
@@ -92,7 +91,7 @@ class SettingTest extends TestCase {
 	public function testIsDefaultEnabledStream($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('bool', $setting->isDefaultEnabledStream());
+		$this->assertIsBool($setting->isDefaultEnabledStream());
 	}
 
 	/**
@@ -102,7 +101,7 @@ class SettingTest extends TestCase {
 	public function testCanChangeMail($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('bool', $setting->canChangeMail());
+		$this->assertIsBool($setting->canChangeMail());
 	}
 
 	/**
@@ -112,6 +111,6 @@ class SettingTest extends TestCase {
 	public function testIsDefaultEnabledMail($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInternalType('bool', $setting->isDefaultEnabledMail());
+		$this->assertIsBool($setting->isDefaultEnabledMail());
 	}
 }

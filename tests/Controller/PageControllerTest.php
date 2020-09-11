@@ -38,8 +38,6 @@ use OCP\IUserManager;
 use OCP\IUserSession;
 use OCP\IUser;
 use OCP\AppFramework\Http\JSONResponse;
-use OCP\AppFramework\Http\Response;
-use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IGroup;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -85,7 +83,7 @@ class PageControllerTest extends TestCase {
 
 		$this->l->expects($this->any())
 			->method('t')
-			->willReturnCallback(function($string, $args) {
+			->willReturnCallback(function ($string, $args) {
 				return vsprintf($string, $args);
 			});
 	}
@@ -110,18 +108,18 @@ class PageControllerTest extends TestCase {
 		/** @var PageController|MockBuilder $mock */
 		$mock = $this->getMockBuilder(PageController::class);
 		return $mock->setConstructorArgs([
-				'announcementcenter',
-				$this->request,
-				\OC::$server->getDatabaseConnection(),
-				$this->groupManager,
-				$this->userManager,
-				$this->jobList,
-				$this->l,
-				$this->manager,
-				$this->config,
-				$this->timeFactory,
-				$this->userSession,
-			])
+			'announcementcenter',
+			$this->request,
+			\OC::$server->getDatabaseConnection(),
+			$this->groupManager,
+			$this->userManager,
+			$this->jobList,
+			$this->l,
+			$this->manager,
+			$this->config,
+			$this->timeFactory,
+			$this->userSession,
+		])
 			->setMethods($methods)
 			->getMock();
 	}
@@ -190,8 +188,7 @@ class PageControllerTest extends TestCase {
 			->willReturnMap($userMap);
 
 		$comments = [];
-		$announcements = array_map(function(array $data) use (&$comments) {
-
+		$announcements = array_map(function (array $data) use (&$comments) {
 			$announcement = new Announcement();
 			$announcement->setId($data['id']);
 			$announcement->setUser($data['author']);

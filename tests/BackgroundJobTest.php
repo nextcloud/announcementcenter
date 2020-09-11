@@ -30,7 +30,6 @@ use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\IConfig;
 use OCP\IGroupManager;
-use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\IUser;
@@ -108,7 +107,6 @@ class BackgroundJobTest extends TestCase {
 			'activities' => true,
 			'notifications' => true,
 		]]);
-
 	}
 
 	public function dataRun(): array {
@@ -148,7 +146,6 @@ class BackgroundJobTest extends TestCase {
 			'activities' => $activities,
 			'notifications' => $notifications,
 		]]);
-
 	}
 
 	/**
@@ -323,7 +320,7 @@ class BackgroundJobTest extends TestCase {
 		$this->userManager->expects($this->once())
 			->method('callForSeenUsers')
 			->with($this->anything())
-			->willReturnCallback(function($callback) {
+			->willReturnCallback(function ($callback) {
 				$users = [
 					$this->getUserMock('author', 'User One'),
 					$this->getUserMock('u2', 'User Two'),

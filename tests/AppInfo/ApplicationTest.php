@@ -23,7 +23,6 @@
 
 namespace OCA\AnnouncementCenter\Tests\AppInfo;
 
-
 use OCA\AnnouncementCenter\Activity\Provider;
 use OCA\AnnouncementCenter\Activity\Setting;
 use OCA\AnnouncementCenter\AppInfo\Application;
@@ -78,7 +77,6 @@ class ApplicationTest extends TestCase {
 			[Setting::class, ISetting::class],
 			[Provider::class, IProvider::class],
 			[Application::class, App::class],
-			['PageController', PageController::class],
 			[PageController::class, Controller::class],
 			[AnnouncementsGroupsLinks::class, IRepairStep::class],
 			[Notifier::class, INotifier::class],

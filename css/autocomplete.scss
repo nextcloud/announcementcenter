@@ -45,17 +45,21 @@
 	background: var(--color-primary);
 	color: var(--color-primary-text);
 }
+
 .atwho-view .cur small {
 	color: var(--color-primary-text);
 }
+
 .atwho-view strong {
 	color: var(--color-main-text);
 	font-weight: normal;
 }
+
 .atwho-view .cur strong {
 	color: var(--color-primary-text);
 	font-weight: normal;
 }
+
 .atwho-view ul {
 	/* width: 100px; */
 	list-style:none;
@@ -64,12 +68,14 @@
 	max-height: 200px;
 	overflow-y: auto;
 }
+
 .atwho-view ul li {
 	display: block;
 	padding: 5px 10px;
 	border-bottom: 1px solid var(--color-border);
 	cursor: pointer;
 }
+
 .atwho-view small {
 	font-size: smaller;
 	color: var(--color-main-text);

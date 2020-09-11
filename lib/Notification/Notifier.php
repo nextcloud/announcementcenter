@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
@@ -23,7 +24,6 @@ declare(strict_types=1);
  */
 
 namespace OCA\AnnouncementCenter\Notification;
-
 
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;

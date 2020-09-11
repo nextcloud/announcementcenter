@@ -103,33 +103,27 @@ class ManagerTest extends TestCase {
 		$query->delete('announcements_groups')->execute();
 	}
 
-	/**
-	 * @expectedException \OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException
-	 * @expectedMessage Invalid ID
-	 */
 	public function testGetAnnouncementNotExist(): void {
 		$this->announcementMapper->expects($this->once())
 			->method('getById')
 			->with(42)
 			->willThrowException(new DoesNotExistException('Entity does not exist'));
+		$this->expectException(AnnouncementDoesNotExistException::class);
+		$this->expectExceptionMessage('Announcement does not exist');
 		$this->manager->getAnnouncement(42);
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedMessage Invalid subject
-	 * @expectedCode 2
-	 */
 	public function testAnnounceNoSubject(): void {
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid subject');
+		$this->expectExceptionCode(2);
 		$this->manager->announce('', '', '', 0, [], false);
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedMessage Invalid subject
-	 * @expectedCode 1
-	 */
 	public function testAnnounceSubjectTooLong(): void {
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Invalid subject');
+		$this->expectExceptionCode(1);
 		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
 	}
 

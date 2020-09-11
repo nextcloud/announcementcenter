@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 3.9.1 – 2020-04-08
+## 4.0.0 – 2020-08-31
+### Added
+- Add a dashboard widget
+  [#209](https://github.com/nextcloud/announcementcenter/pull/209)
+
+## 3.9.1 – 2020-08-31
 ### Added
 - Make emails clickable
   [#206](https://github.com/nextcloud/announcementcenter/pull/206)

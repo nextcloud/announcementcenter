@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
@@ -24,32 +25,37 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\AppInfo;
 
-use OCA\AnnouncementCenter\Controller\PageController;
+use OCA\AnnouncementCenter\Dashboard\Widget;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
 use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\Comments\CommentsEntityEvent;
+use OCP\Notification\IManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class Application extends App {
+class Application extends App implements IBootstrap {
+	public const APP_ID = 'announcementcenter';
 
 	public function __construct() {
-		parent::__construct('announcementcenter');
-		$container = $this->getContainer();
-
-		$container->registerAlias('PageController', PageController::class);
+		parent::__construct(self::APP_ID);
 	}
 
-	public function register() {
-		$this->registerNotificationNotifier();
-		$this->registerCommentsEntity();
+	public function register(IRegistrationContext $context): void {
+		$context->registerDashboardWidget(Widget::class);
 	}
 
-	protected function registerCommentsEntity() {
-		$this->getContainer()->getServer()->getEventDispatcher()->addListener(CommentsEntityEvent::EVENT_ENTITY, function(CommentsEntityEvent $event) {
-			$event->addEntityCollection('announcement', function($name) {
-				/** @var Manager $manager */
-				$manager = $this->getContainer()->query(Manager::class);
+	public function boot(IBootContext $context): void {
+		$context->injectFn([$this, 'registerNotificationNotifier']);
+		$context->injectFn([$this, 'registerCommentsEntity']);
+	}
+
+	public function registerCommentsEntity(EventDispatcherInterface $eventDispatcher, Manager $manager): void {
+		$eventDispatcher->addListener(CommentsEntityEvent::EVENT_ENTITY, static function (CommentsEntityEvent $event) use ($manager) {
+			$event->addEntityCollection('announcement', static function ($name) use ($manager) {
 				try {
 					$announcement = $manager->getAnnouncement((int) $name);
 				} catch (AnnouncementDoesNotExistException $e) {
@@ -60,7 +66,7 @@ class Application extends App {
 		});
 	}
 
-	protected function registerNotificationNotifier() {
-		$this->getContainer()->getServer()->getNotificationManager()->registerNotifierService(Notifier::class);
+	public function registerNotificationNotifier(IManager $notificationManager): void {
+		$notificationManager->registerNotifierService(Notifier::class);
 	}
 }

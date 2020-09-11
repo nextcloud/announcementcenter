@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2016 Joas Schilling <coding@schilljs.com>
@@ -68,5 +69,4 @@ class Admin implements ISettings {
 	public function getPriority(): int {
 		return 55;
 	}
-
 }
