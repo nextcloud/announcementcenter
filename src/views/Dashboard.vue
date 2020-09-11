@@ -52,7 +52,7 @@ export default {
 					mainText: item.subject,
 					avatarUsername: item.author_id,
 					targetUrl: generateUrl('/apps/announcementcenter') + '?announcement=' + item.id,
-					overlayIconUrl: imagePath('announcementcenter', 'announcementcenter.svg'),
+					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
 					subText: t('announcementcenter', '{author}, {timestamp}', {
 						author: item.author,
 						timestamp: moment(item.time, 'X').fromNow(),
