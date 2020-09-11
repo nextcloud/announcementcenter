@@ -69,7 +69,7 @@ class SettingTest extends TestCase {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
 		$priority = $setting->getPriority();
-		$this->assertIsInt( $setting->getPriority());
+		$this->assertIsInt($setting->getPriority());
 		$this->assertGreaterThanOrEqual(0, $priority);
 		$this->assertLessThanOrEqual(100, $priority);
 	}
