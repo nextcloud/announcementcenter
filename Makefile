@@ -81,22 +81,28 @@ js-templates:
 appstore: dev-setup build-js-production
 	mkdir -p $(sign_dir)
 	rsync -a \
-	--exclude=/build \
-	--exclude=/docs \
-	--exclude=/translationfiles \
-	--exclude=/.tx \
-	--exclude=/tests \
 	--exclude=/.git \
 	--exclude=/.github \
+	--exclude=/.tx \
+	--exclude=/build \
+	--exclude=/docs \
 	--exclude=/l10n/l10n.pl \
-	--exclude=/CONTRIBUTING.md \
-	--exclude=/issue_template.md \
-	--exclude=/README.md \
+	--exclude=/node_modules \
+	--exclude=/src \
+	--exclude=/tests \
+	--exclude=/vendor \
+	--exclude=/.eslintrc.js \
+	--exclude=/.php_cs.cache \
+	--exclude=/.php_cs.dist \
 	--exclude=/.gitattributes \
 	--exclude=/.gitignore \
 	--exclude=/.scrutinizer.yml \
 	--exclude=/.travis.yml \
+	--exclude=/babel.config.js \
 	--exclude=/Makefile \
+	--exclude=/README.md \
+	--exclude=/stylelint.config.js \
+	--exclude=/webpack.js \
 	$(project_dir)/ $(sign_dir)/$(app_name)
 	@if [ -f $(cert_dir)/$(app_name).key ]; then \
 		echo "Signing app files…"; \
