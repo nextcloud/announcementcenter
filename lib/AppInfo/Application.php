@@ -53,7 +53,7 @@ class Application extends App implements IBootstrap {
 		$context->injectFn([$this, 'registerCommentsEntity']);
 	}
 
-	protected function registerCommentsEntity(EventDispatcherInterface $eventDispatcher, Manager $manager): void {
+	public function registerCommentsEntity(EventDispatcherInterface $eventDispatcher, Manager $manager): void {
 		$eventDispatcher->addListener(CommentsEntityEvent::EVENT_ENTITY, static function (CommentsEntityEvent $event) use ($manager) {
 			$event->addEntityCollection('announcement', static function ($name) use ($manager) {
 				try {
@@ -66,7 +66,7 @@ class Application extends App implements IBootstrap {
 		});
 	}
 
-	protected function registerNotificationNotifier(IManager $notificationManager): void {
+	public function registerNotificationNotifier(IManager $notificationManager): void {
 		$notificationManager->registerNotifierService(Notifier::class);
 	}
 }
