@@ -32,6 +32,7 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
+use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\IManager;
 use OCP\Notification\INotification;
 use OCP\IUser;
@@ -81,10 +82,6 @@ class NotifierTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Unknown app
-	 */
 	public function testPrepareWrongApp(): void {
 		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
@@ -95,13 +92,11 @@ class NotifierTest extends TestCase {
 		$notification->expects($this->never())
 			->method('getSubject');
 
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Unknown app');
 		$this->notifier->prepare($notification, 'en');
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Unknown subject
-	 */
 	public function testPrepareWrongSubject(): void {
 		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
@@ -113,12 +108,11 @@ class NotifierTest extends TestCase {
 			->method('getSubject')
 			->willReturn('wrong subject');
 
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('Unknown subject');
 		$this->notifier->prepare($notification, 'en');
 	}
 
-	/**
-	 * @expectedException \OCP\Notification\AlreadyProcessedException
-	 */
 	public function testPrepareDoesNotExist(): void {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
@@ -131,13 +125,14 @@ class NotifierTest extends TestCase {
 			->willReturn('announced');
 		$notification->expects($this->once())
 			->method('getObjectId')
-			->willReturn(42);
+			->willReturn('42');
 
 		$this->manager->expects($this->once())
 			->method('getAnnouncement')
 			->with(42, false)
 			->willThrowException(new AnnouncementDoesNotExistException());
 
+		$this->expectException(AlreadyProcessedException::class);
 		$this->notifier->prepare($notification, 'en');
 	}
 
@@ -155,9 +150,9 @@ class NotifierTest extends TestCase {
 	public function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		return [
-			['author', 'subject', 'message', 42, null, 'author announced “subject”', 'message'],
-			['author1', 'subject', 'message', 42, $this->getUserMock(), 'Author announced “subject”', 'message'],
-			['author2', "subject\nsubject", $message, 21, null, 'author2 announced “subject subject”', $message],
+			['author', 'subject', 'message', '42', null, 'author announced “subject”', 'message'],
+			['author1', 'subject', 'message', '42', $this->getUserMock(), 'Author announced “subject”', 'message'],
+			['author2', "subject\nsubject", $message, '21', null, 'author2 announced “subject subject”', $message],
 		];
 	}
 
