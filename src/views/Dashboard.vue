@@ -24,7 +24,7 @@
 		id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
-		empty-content-icon="icon-announcementcenter"
+		empty-content-icon="icon-announcementcenter-dark"
 		:empty-content-message="t('announcementcenter', 'No announcements')" />
 </template>
 

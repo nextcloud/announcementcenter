@@ -88,7 +88,7 @@ class Widget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function getIconClass(): string {
-		return 'icon-announcementcenter';
+		return 'icon-announcementcenter-dark';
 	}
 
 	/**
