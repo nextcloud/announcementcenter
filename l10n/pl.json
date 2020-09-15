@@ -34,6 +34,8 @@
     "Announcement center" : "Centrum ogłoszeń",
     "This app allows admins to post announcements." : "Ta aplikacja pozwala administratorom publikować ogłoszenia.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ta aplikacja pozwala administratorom publikować ogłoszenia. Obsługuje również następujące funkcje:\n\n⚡ Aktywność (wymaga włączenia aplikacji do aktywności)\n\n📑 Komentarze\n\n👪 Uprawnienia grupowe\n\n🔔 Powiadomienia (wymaga włączenia aplikacji do powiadomień)",
+    "No announcements" : "Brak ogłoszeń",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Te grupy będą mogły zamieszczać ogłoszenia.",
     "Create activities by default" : "Utwórz aktywności domyślnie",
     "Create notifications by default" : "Utwórz powiadomienia domyślnie",
