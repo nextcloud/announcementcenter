@@ -36,6 +36,8 @@ OC.L10N.register(
     "Announcement center" : "Centre d'anuncis",
     "This app allows admins to post announcements." : "Aquesta aplicació permet que els administradors publiquin anuncis.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Aquesta aplicació permet als administradors publicar anuncis. També ofereix les característiques següents:\n\n⚡ Activitats (cal tenir l'aplicació Activitats activada)\n\n📑 Comentaris\n\n👪 Permisos de grup\n\n🔔 Notificacions (cal tenir l'aplicació Notificacions activada)",
+    "No announcements" : "No hi ha anuncis",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Aquests grups podran publicar anuncis.",
     "Create activities by default" : "Crea activitats per defecte",
     "Create notifications by default" : "Crea notificacions per defecte",
