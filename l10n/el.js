@@ -36,6 +36,8 @@ OC.L10N.register(
     "Announcement center" : "Κέντρο ανακοινώσεων",
     "This app allows admins to post announcements." : "Η εφαρμογή επιτρέπει στους διαχειριστές να δημοσιεύουν ανακοινώσεις.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Αυτή η εφαρμογή επιτρέπει στους διαχειριστές να δημοσιεύουν ανακοινώσεις. Υποστηρίζει επίσης τις ακόλουθες λειτουργίες: \\ n\n\\ n\n⚡ Δραστηριότητες (Απαιτείται ενεργοποίηση της εφαρμογής δραστηριότητας) \\ n\n\\ n\n📑 Σχόλια \\ n\n\\ n\n👪 Άδεια ομάδας \\ n\n\\ n\n🔔 Ειδοποιήσεις (Απαιτείται η ενεργοποίηση της εφαρμογής ειδοποιήσεων)",
+    "No announcements" : "Καμία ανακοίνωση",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
     "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
     "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
