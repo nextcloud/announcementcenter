@@ -42,6 +42,7 @@ OC.L10N.register(
     "Allow comments by default" : "Unaprijed dopusti napomene",
     "No Announcements" : "Nema oglasa",
     "There are currently no announcements…" : "U ovom trenutku nema postavljenih oglasa.",
+    "Loading More Announcements …" : "Učitavanje više obavijesti…",
     "Add announcement" : "Postavi oglas",
     "Subject…" : "Predmet...",
     "Your announcement…" : "Sadržaj vašeg oglasa...",
