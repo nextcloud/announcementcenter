@@ -54,6 +54,8 @@ nbproject
 /build
 /js/announcementcenter-dashboard.js
 /js/announcementcenter-dashboard.js.map
+/js/announcementcenter-main.js
+/js/announcementcenter-main.js.map
 /node_modules
 /.php_cs.cache
 /tests/coverage*

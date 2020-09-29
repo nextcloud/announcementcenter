@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\Controller;
 
+use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Http;
@@ -37,6 +38,7 @@ use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
+use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUser;
@@ -73,6 +75,9 @@ class PageController extends Controller {
 	/** @var IUserSession */
 	protected $userSession;
 
+	/** @var IInitialStateService */
+	protected $initialState;
+
 	public function __construct(string $AppName,
 								IRequest $request,
 								IDBConnection $connection,
@@ -83,7 +88,8 @@ class PageController extends Controller {
 								Manager $manager,
 								IConfig $config,
 								ITimeFactory $timeFactory,
-								IUserSession $userSession) {
+								IUserSession $userSession,
+								IInitialStateService $initialState) {
 		parent::__construct($AppName, $request);
 
 		$this->connection = $connection;
@@ -95,6 +101,7 @@ class PageController extends Controller {
 		$this->config = $config;
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
+		$this->initialState = $initialState;
 	}
 
 	/**
@@ -227,12 +234,28 @@ class PageController extends Controller {
 			$this->manager->markNotificationRead($announcement);
 		}
 
-		return new TemplateResponse('announcementcenter', 'main', [
-			'isAdmin'	=> $this->manager->checkIsAdmin(),
-			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
-			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
-			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
-		]);
+		$this->initialState->provideInitialState(
+			Application::APP_ID,
+			'isAdmin',
+			$this->manager->checkIsAdmin()
+		);
+		$this->initialState->provideInitialState(
+			Application::APP_ID,
+			'createActivities',
+			$this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes'
+		);
+		$this->initialState->provideInitialState(
+			Application::APP_ID,
+			'createNotifications',
+			$this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes'
+		);
+		$this->initialState->provideInitialState(
+			Application::APP_ID,
+			'allowComments',
+			$this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes'
+		);
+
+		return new TemplateResponse('announcementcenter', 'main');
 	}
 
 	/**
