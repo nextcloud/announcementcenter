@@ -17,3 +17,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+import axios from '@nextcloud/axios'
+import { generateOcsUrl } from '@nextcloud/router'
+
+/**
+ * Gets the announcements
+ *
+ * @param {int} [offset] The last announcement id loaded
+ * @returns {Object} The axios response
+ */
+const getAnnouncements = async function(offset) {
+	return axios.get(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements', {
+		offset: offset || 0,
+	})
+}
+
+export {
+	getAnnouncements,
+}

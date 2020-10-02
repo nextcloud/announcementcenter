@@ -27,7 +27,7 @@ const state = {
 }
 
 const getters = {
-	announcements: state => state.announcements,
+	announcements: state => Object.values(state.announcements),
 	announcement: state => id => state.announcements[id],
 }
 
@@ -39,7 +39,7 @@ const mutations = {
 	 * @param {object} announcement the announcement
 	 */
 	addAnnouncement(state, announcement) {
-		Vue.set(state.conversations, announcement.id, announcement)
+		Vue.set(state.announcements, announcement.id, announcement)
 	},
 
 	/**

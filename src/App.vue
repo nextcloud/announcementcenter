@@ -24,6 +24,12 @@
 		<AppContent>
 			<NewForm v-if="isAdmin" />
 
+			<Announcement v-for="announcement in announcements"
+				:key="announcement.id"
+				:is-admin="isAdmin"
+				:author-id="announcement.author_id"
+				v-bind="announcement" />
+
 			<EmptyContent
 				v-if="!announcements.length"
 				icon="icon-announcementcenter-dark">
@@ -40,13 +46,16 @@
 import AppContent from '@nextcloud/vue/dist/Components/AppContent'
 import Content from '@nextcloud/vue/dist/Components/Content'
 import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
-import NewForm from './Components/NewForm'
 import { loadState } from '@nextcloud/initial-state'
+import Announcement from './Components/Announcement'
+import NewForm from './Components/NewForm'
+import { getAnnouncements } from './services/announcementsService'
 
 export default {
 	name: 'App',
 
 	components: {
+		Announcement,
 		AppContent,
 		Content,
 		EmptyContent,
@@ -61,7 +70,10 @@ export default {
 
 	computed: {
 		announcements() {
-			return this.$store.getters.announcements
+			const announcements = this.$store.getters.announcements
+			return announcements.sort((a1, a2) => {
+				return a2.time - a1.time
+			})
 		},
 	},
 
@@ -72,9 +84,18 @@ export default {
 	},
 
 	mounted() {
+		this.loadAnnouncements()
 	},
 
 	methods: {
+		async loadAnnouncements() {
+			const response = await getAnnouncements()
+			const announcements = response.data?.ocs?.data || []
+
+			announcements.forEach(announcement => {
+				this.$store.dispatch('addAnnouncement', announcement)
+			})
+		},
 	},
 }
 </script>
