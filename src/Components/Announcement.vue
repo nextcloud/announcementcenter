@@ -63,7 +63,20 @@
 			</div>
 		</div>
 
-		<p v-if="message" v-html="message" />
+		<div
+			v-if="message"
+			class="announcement__message">
+			<p
+				:class="{'announcement__message--folded': isMessageFolded}"
+				@click="onClickFoldedMessage"
+				v-html="message" />
+
+			<div
+				v-if="isMessageFolded"
+				@click="onClickFoldedMessage"
+				class="announcement__message__overlay">
+			</div>
+		</div>
 
 		<div
 			v-if="comments !== false"
@@ -138,7 +151,7 @@ export default {
 
 	data() {
 		return {
-			isSubjectFolded: true, // TODO shall we do this?
+			isMessageFolded: true,
 		}
 	},
 
@@ -171,12 +184,19 @@ export default {
 			return n('announcementcenter', '%n comment', '%n comments', this.comments)
 		},
 	},
+
 	mounted() {
+		if (this.message.length <= 200) {
+			this.isMessageFolded = false
+		}
 	},
 
 	methods: {
 		onClickCommentCount() {
 			// TODO open sidebar
+		},
+		onClickFoldedMessage() {
+			this.isMessageFolded = false
 		},
 		async onRemoveNotifications() {
 			try {
@@ -212,14 +232,6 @@ export default {
 			padding: 20px;
 			margin: -20px;
 
-			&__subject {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-			}
-
 			&__details {
 				display: flex;
 
@@ -234,6 +246,31 @@ export default {
 					flex: 0 0 44px;
 					position: relative;
 				}
+			}
+		}
+
+		&__message {
+			position: relative;
+
+			&--folded {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 7;
+				-webkit-box-orient: vertical;
+				cursor: pointer;
+			}
+
+			&__overlay {
+				position: absolute;
+				bottom: 0;
+				height: 3.2em;
+				width: 100%;
+				cursor: pointer;
+				background: linear-gradient(
+					rgba(255, 255, 255, 0),
+					var(--color-main-background)
+				);
 			}
 		}
 
