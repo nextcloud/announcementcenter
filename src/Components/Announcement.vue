@@ -159,7 +159,7 @@ export default {
 			return document.querySelector(this.$el)
 		},
 		timestamp() {
-			return (this.time + 2400) * 1000
+			return this.time * 1000
 		},
 		dateFormat() {
 			return moment(this.timestamp).format('LLL')
@@ -202,6 +202,7 @@ export default {
 				await removeNotifications(this.id)
 				this.$store.dispatch('removeNotifications', this.id)
 			} catch (e) {
+				console.error(e)
 				showError(t('announcementcenter', 'An error occurred while removing the notifications of the announcement'))
 			}
 		},
@@ -210,6 +211,7 @@ export default {
 				await deleteAnnouncement(this.id)
 				this.$store.dispatch('deleteAnnouncement', this.id)
 			} catch (e) {
+				console.error(e)
 				showError(t('announcementcenter', 'An error occurred while deleting the announcement'))
 			}
 		},
@@ -251,6 +253,7 @@ export default {
 
 		&__message {
 			position: relative;
+			margin-top: 20px;
 
 			&--folded {
 				overflow: hidden;

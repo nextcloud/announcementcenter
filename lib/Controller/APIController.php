@@ -223,10 +223,10 @@ class APIController extends OCSController {
 	/**
 	 * @NoAdminRequired
 	 *
-	 * @param string $pattern
+	 * @param string $search
 	 * @return DataResponse
 	 */
-	public function searchGroups(string $pattern): DataResponse {
+	public function searchGroups(string $search): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -234,12 +234,15 @@ class APIController extends OCSController {
 			);
 		}
 
-		$groups = $this->groupManager->search($pattern, 10);
-		$gids = [];
+		$groups = $this->groupManager->search($search, 25);
+		$results = [];
 		foreach ($groups as $group) {
-			$gids[] = $group->getGID();
+			$results[] = [
+				'id' => $group->getGID(),
+				'label' => $group->getDisplayName(),
+			];
 		}
 
-		return new DataResponse($gids);
+		return new DataResponse($results);
 	}
 }

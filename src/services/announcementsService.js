@@ -29,7 +29,45 @@ import { generateOcsUrl } from '@nextcloud/router'
  */
 const getAnnouncements = async function(offset) {
 	return axios.get(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements', {
-		offset: offset || 0,
+		params: {
+			offset: offset || 0,
+		},
+	})
+}
+
+/**
+ * Get the groups for posting an announcement
+ *
+ * @param {string} [search] Search term to autocomplete a group
+ * @returns {Object} The axios response
+ */
+const searchGroups = async function(search) {
+	return axios.get(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/groups', {
+		params: {
+			search: search || '',
+		},
+	})
+}
+
+/**
+ * Post an announcement
+ *
+ * @param {string} subject Short title of the announcement
+ * @param {string} message Markdown body of the announcement
+ * @param {string[]} groups List of groups that can read the announcement
+ * @param {boolean} activities Should activities be generated
+ * @param {boolean} notifications Should notifications be generated
+ * @param {boolean} comments Are comments allowed
+ * @returns {Object} The axios response
+ */
+const postAnnouncement = async function(subject, message, groups, activities, notifications, comments) {
+	return axios.post(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements', {
+		subject,
+		message,
+		groups,
+		activities,
+		notifications,
+		comments,
 	})
 }
 
@@ -55,6 +93,8 @@ const removeNotifications = async function(id) {
 
 export {
 	getAnnouncements,
+	searchGroups,
+	postAnnouncement,
 	deleteAnnouncement,
 	removeNotifications,
 }

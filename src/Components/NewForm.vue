@@ -20,35 +20,38 @@
 -->
 
 <template>
-	<div class="section">
-		<input class="subject"
+	<div class="announcement__form">
+		<input
+			v-model="subject"
+			class="announcement__form__subject"
 			type="text"
 			name="subject"
 			:placeholder="t('announcementcenter', 'New announcement subject')">
 
 		<textarea
-			class="message"
+			v-model="message"
+			class="announcement__form__message"
 			name="message"
 			rows="4"
-			:placeholder="t('announcementcenter', 'Your announcement…')" />
+			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
-		<p>
-			<input
-				id="groups"
-				type="hidden"
-				name="groups"
-				:placeholder="t('announcementcenter', 'Groups …')"
-				style="width: 400px;">
-			<em>
-				{{ t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.') }}
-			</em>
-		</p>
-
-		<div class="buttons">
+		<div class="announcement__form__buttons">
 			<button
-				class="button primary">
+				class="button primary"
+				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
 			</button>
+
+			<Multiselect
+				v-model="groups"
+				:options="groupOptions"
+				label="label"
+				track-by="id"
+				:multiple="true"
+				:placeholder="t('announcementcenter', 'Everyone')"
+				:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
+				@search-change="onSearchChanged" />
+
 			<Actions>
 				<ActionCheckbox
 					value="1"
@@ -73,7 +76,14 @@
 <script>
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox'
+import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
+import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
+import {
+	postAnnouncement,
+	searchGroups,
+} from '../services/announcementsService'
+import { showError } from '@nextcloud/dialogs'
 
 export default {
 	name: 'NewForm',
@@ -81,38 +91,79 @@ export default {
 	components: {
 		Actions,
 		ActionCheckbox,
+		Multiselect,
 	},
 
 	data() {
 		return {
+			subject: '',
+			message: '',
 			createActivities: loadState('announcementcenter', 'createActivities'),
 			createNotifications: loadState('announcementcenter', 'createNotifications'),
 			allowComments: loadState('announcementcenter', 'allowComments'),
+			groups: [],
+			groupOptions: [],
 		}
+	},
+
+	mounted() {
+		this.searchGroups('')
+	},
+
+	methods: {
+		onSearchChanged: debounce(function(search) {
+			this.searchGroups(search)
+		}, 300),
+
+		async searchGroups(search) {
+			const response = await searchGroups(search)
+			this.groupOptions = response.data.ocs.data
+		},
+
+		async onAnnounce() {
+			const groups = this.groups.map(group => {
+				return group.id
+			})
+
+			try {
+				const response = await postAnnouncement(
+					this.subject,
+					this.message,
+					groups,
+					this.createActivities,
+					this.createNotifications,
+					this.allowComments
+				)
+				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
+			} catch (e) {
+				console.error(e)
+				showError(t('announcementcenter', 'An error occurred while posting the announcement'))
+			}
+		},
 	},
 }
 </script>
 
 <style lang="scss" scoped>
-.section {
-	width: 670px;
-	margin: 70px auto 0;
+.announcement__form {
+	max-width: 690px;
+	padding: 0 10px;
+	margin: 70px auto 35px;
 	font-size: 15px;
 
-	.subject {
+	&__subject {
 		width: 100%;
 		font-size: 20px;
 		font-weight: bold;
 	}
 
-	.message {
+	&__message {
 		width: 100%;
 		font-size: 15px;
 	}
 
-	.buttons {
-		display: flex;
-		align-content: center;
+	&__buttons {
+		text-align: right;
 
 		.button {
 			height: 44px;
