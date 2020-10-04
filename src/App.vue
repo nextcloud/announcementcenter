@@ -24,11 +24,13 @@
 		<AppContent>
 			<NewForm v-if="isAdmin" />
 
-			<Announcement v-for="announcement in announcements"
-				:key="announcement.id"
-				:is-admin="isAdmin"
-				:author-id="announcement.author_id"
-				v-bind="announcement" />
+			<transition-group name="fade-collapse" tag="li">
+				<Announcement v-for="announcement in announcements"
+					:key="announcement.id"
+					:is-admin="isAdmin"
+					:author-id="announcement.author_id"
+					v-bind="announcement" />
+			</transition-group>
 
 			<EmptyContent
 				v-if="!announcements.length"
@@ -100,5 +102,22 @@ export default {
 }
 </script>
 
-<!--<style lang="scss" scoped>-->
-<!--</style>-->
+<style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active,
+.fade-collapse-enter-active,
+.fade-collapse-leave-active {
+	transition: opacity var(--animation-quick), max-height var(--animation-quick);
+}
+
+.fade-collapse-enter,
+.fade-collapse-leave-to {
+	opacity: 0;
+	max-height: 0;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+</style>
