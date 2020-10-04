@@ -26,6 +26,8 @@
 			class="announcement__form__subject"
 			type="text"
 			name="subject"
+			minlength="1"
+			maxlength="512"
 			:placeholder="t('announcementcenter', 'New announcement subject')">
 
 		<textarea
@@ -38,6 +40,7 @@
 		<div class="announcement__form__buttons">
 			<button
 				class="button primary"
+				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
 			</button>
