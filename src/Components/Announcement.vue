@@ -53,7 +53,7 @@
 						v-if="notifications"
 						icon="icon-notifications-off"
 						:close-after-click="true"
-						:title="t('announcementcenter', 'Remove notifications')"
+						:title="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications" />
 					<ActionButton
 						icon="icon-delete"
@@ -65,15 +65,14 @@
 
 		<div
 			v-if="message"
-			class="announcement__message">
+			class="announcement__message"
+			@click="onClickFoldedMessage">
 			<p
 				:class="{'announcement__message--folded': isMessageFolded}"
-				@click="onClickFoldedMessage"
 				v-html="message" />
 
 			<div
 				v-if="isMessageFolded"
-				@click="onClickFoldedMessage"
 				class="announcement__message__overlay">
 			</div>
 		</div>
@@ -231,6 +230,7 @@ export default {
 			background-color: var(--color-main-background);
 			padding: 20px;
 			margin: -20px;
+			z-index: 3;
 
 			&__details {
 				display: flex;
