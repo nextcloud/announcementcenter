@@ -48,7 +48,20 @@ const mutations = {
 	 * @param {int} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(state, id) {
-		Vue.delete(state.announcement, id)
+		Vue.delete(state.announcements, id)
+	},
+
+	/**
+	 * Remove the notifications of an announcement
+	 * @param {object} state current store state
+	 * @param {int} id the id of the announcement to remove the notifications of
+	 */
+	removeNotifications(state, id) {
+		if (!state.announcements[id]) {
+			return
+		}
+
+		Vue.set(state.announcements[id], 'notifications', false)
 	},
 }
 
@@ -67,10 +80,20 @@ const actions = {
 	 * Delete an announcement
 	 *
 	 * @param {object} context default store context
-	 * @param {object} announcement the announcement to be deleted
+	 * @param {int} id the id of the announcement to delete
 	 */
-	deleteAnnouncement(context, announcement) {
-		context.commit('deleteAnnouncement', announcement.id)
+	deleteAnnouncement(context, id) {
+		context.commit('deleteAnnouncement', id)
+	},
+
+	/**
+	 * Remove the notifications of an announcement
+	 *
+	 * @param {object} context default store context
+	 * @param {int} id the id of the announcement to remove the notifications of
+	 */
+	removeNotifications(context, id) {
+		context.commit('removeNotifications', id)
 	},
 }
 

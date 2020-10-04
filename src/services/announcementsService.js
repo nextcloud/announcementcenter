@@ -33,6 +33,28 @@ const getAnnouncements = async function(offset) {
 	})
 }
 
+/**
+ * Delete an announcement
+ *
+ * @param {int} id The announcement id to delete
+ * @returns {Object} The axios response
+ */
+const deleteAnnouncement = async function(id) {
+	return axios.delete(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements/' + id)
+}
+
+/**
+ * Remove notifications for an announcement
+ *
+ * @param {int} id The announcement id to delete
+ * @returns {Object} The axios response
+ */
+const removeNotifications = async function(id) {
+	return axios.delete(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements/' + id + '/notifications')
+}
+
 export {
 	getAnnouncements,
+	deleteAnnouncement,
+	removeNotifications,
 }

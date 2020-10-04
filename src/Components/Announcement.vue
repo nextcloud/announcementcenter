@@ -78,6 +78,13 @@ import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import Avatar from '@nextcloud/vue/dist/Components/Avatar'
 import moment from '@nextcloud/moment'
+import {
+	showError,
+} from '@nextcloud/dialogs'
+import {
+	deleteAnnouncement,
+	removeNotifications,
+} from '../services/announcementsService'
 
 export default {
 	name: 'Announcement',
@@ -171,11 +178,21 @@ export default {
 		onClickCommentCount() {
 			// TODO open sidebar
 		},
-		onRemoveNotifications() {
-			// TODO open sidebar
+		async onRemoveNotifications() {
+			try {
+				await removeNotifications(this.id)
+				this.$store.dispatch('removeNotifications', this.id)
+			} catch (e) {
+				showError(t('announcementcenter', 'An error occurred while removing the notifications of the announcement'))
+			}
 		},
-		onDeleteAnnouncement() {
-			// TODO open sidebar
+		async onDeleteAnnouncement() {
+			try {
+				await deleteAnnouncement(this.id)
+				this.$store.dispatch('deleteAnnouncement', this.id)
+			} catch (e) {
+				showError(t('announcementcenter', 'An error occurred while deleting the announcement'))
+			}
 		},
 	},
 }
