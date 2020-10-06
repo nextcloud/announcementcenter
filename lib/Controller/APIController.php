@@ -35,6 +35,7 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IInitialStateService;
 use OCP\IL10N;
@@ -175,7 +176,27 @@ class APIController extends OCSController {
 		];
 
 		if ($this->manager->checkIsAdmin()) {
-			$result['groups'] = $this->manager->getGroups($announcement);
+			$groupIds = $this->manager->getGroups($announcement);
+			$groups = [];
+			foreach ($groupIds as $groupId) {
+				if ($groupId === 'everyone') {
+					$groups[] = [
+						'id' => 'everyone',
+						'name' => 'everyone',
+					];
+					continue;
+				}
+				$group = $this->groupManager->get($groupId);
+				if (!$group instanceof IGroup) {
+					continue;
+				}
+
+				$groups[] = [
+					'id' => $group->getGID(),
+					'name' => $group->getDisplayName(),
+				];
+			}
+			$result['groups'] = $groups;
 			$result['notifications'] = $this->manager->hasNotifications($announcement);
 		}
 

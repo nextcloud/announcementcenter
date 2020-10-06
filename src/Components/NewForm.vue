@@ -45,16 +45,6 @@
 				{{ t('announcementcenter', 'Announce') }}
 			</button>
 
-			<Multiselect
-				v-model="groups"
-				:options="groupOptions"
-				label="label"
-				track-by="id"
-				:multiple="true"
-				:placeholder="t('announcementcenter', 'Everyone')"
-				:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
-				@search-change="onSearchChanged" />
-
 			<Actions>
 				<ActionCheckbox
 					value="1"
@@ -71,6 +61,19 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</ActionCheckbox>
+				<ActionInput
+					v-model="groups"
+					icon="icon-group"
+					type="multiselect"
+					:options="groupOptions"
+					label="label"
+					track-by="id"
+					:multiple="true"
+					:placeholder="t('announcementcenter', 'Everyone')"
+					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
+					@search-change="onSearchChanged">
+					{{ t('announcementcenter', 'Everyone') }}
+				</ActionInput>
 			</Actions>
 		</div>
 	</div>
@@ -79,7 +82,7 @@
 <script>
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox'
-import Multiselect from '@nextcloud/vue/dist/Components/Multiselect'
+import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -94,7 +97,7 @@ export default {
 	components: {
 		Actions,
 		ActionCheckbox,
-		Multiselect,
+		ActionInput,
 	},
 
 	data() {
@@ -114,6 +117,15 @@ export default {
 	},
 
 	methods: {
+		resetForm() {
+			this.subject = ''
+			this.message = ''
+			this.createActivities = loadState('announcementcenter', 'createActivities')
+			this.createNotifications = loadState('announcementcenter', 'createNotifications')
+			this.allowComments = loadState('announcementcenter', 'allowComments')
+			this.groups = []
+		},
+
 		onSearchChanged: debounce(function(search) {
 			this.searchGroups(search)
 		}, 300),
@@ -138,6 +150,8 @@ export default {
 					this.allowComments
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
+
+				this.resetForm()
 			} catch (e) {
 				console.error(e)
 				showError(t('announcementcenter', 'An error occurred while posting the announcement'))

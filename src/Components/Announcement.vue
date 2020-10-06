@@ -36,13 +36,22 @@
 						:size="16"
 						:show-user-status="false" />
 					{{ author }}
-
+					·
 					<span
 						class="live-relative-timestamp"
 						:data-timestamp="timestamp"
 						:title="dateFormat">{{ dateRelative }}</span>
 
-					{{ visibility }}
+					<template v-if="isAdmin">
+						·
+						<template v-if="isVisibleToEveryone">
+							{{ visibilityLabel }}
+						</template>
+						<span v-else
+							:title="visibilityTitle">
+							{{ visibilityLabel }}
+						</span>
+					</template>
 				</div>
 
 				<Actions
@@ -172,11 +181,44 @@ export default {
 			return moment(this.timestamp).fromNow()
 		},
 
-		visibility() {
-			if (this.groups.indexOf('everyone') !== -1) {
+		isVisibleToEveryone() {
+			return this.groups.length === 0
+				|| this.groups.filter(({ id }) => {
+					return id === 'everyone'
+				}).length === 1
+		},
+
+		visibilityLabel() {
+			if (this.isVisibleToEveryone) {
 				return t('announcementcenter', 'visible to everyone')
 			}
-			return t('announcementcenter', 'visible to …') // TODO
+
+			if (this.groups.length === 1) {
+				return t('announcementcenter', 'visible to group {name}', this.groups[0])
+			}
+			if (this.groups.length === 2) {
+				return t('announcementcenter', 'visible to groups {name1} and {name2}', {
+					name1: this.groups[0].name,
+					name2: this.groups[1].name,
+				})
+			}
+			return n(
+				'announcementcenter',
+				'visible to group {name} and %n more',
+				'visible to group {name} and %n more',
+				this.groups.length - 1,
+				this.groups[0]
+			)
+		},
+
+		visibilityTitle() {
+			if (this.isVisibleToEveryone) {
+				return ''
+			}
+
+			return this.groups.map(({ name }) => {
+				return name
+			}).join(t('announcementcenter', ', '))
 		},
 
 		commentsCount() {
