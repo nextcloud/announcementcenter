@@ -269,13 +269,6 @@ export default {
 		font-size: 15px;
 
 		&__header {
-			position: sticky;
-			top: 40px;
-			background-color: var(--color-main-background);
-			padding: 20px;
-			margin: -20px;
-			z-index: 3;
-
 			&__details {
 				display: flex;
 
