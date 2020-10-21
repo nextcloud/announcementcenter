@@ -36,6 +36,8 @@ OC.L10N.register(
     "Announcement center" : "Središče za obveščanje",
     "This app allows admins to post announcements." : "Program omogoča skrbnikom objavljanje obvestil.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Program omogoča skrbnikom objavljanje obvestil, podpira pa tudi:\n\n⚡ beleženje objave med dejavnosti (zahteva omogočen program)\n📑 objavljanje komentarjev na objavo\n👪 prilagajanje obvestil za posamezne skupine\n🔔 objavljanje obvestil kot pojavna sporočila (zahteva omogočen program)",
+    "No announcements" : "Ni obvestil",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Navedene skupine imajo dovoljenje za objavljanje obvestil.",
     "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
     "Create notifications by default" : "Dovoli ustvarjanje obvestil",
