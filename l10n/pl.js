@@ -43,7 +43,7 @@ OC.L10N.register(
     "Create notifications by default" : "Utwórz powiadomienia domyślnie",
     "Allow comments by default" : "Zezwalaj na komentarze domyślnie",
     "No Announcements" : "Brak ogłoszeń",
-    "There are currently no announcements…" : "W chwili obecnej nie ma żadnych ogłoszeń",
+    "There are currently no announcements…" : "Obecnie nie ma żadnych ogłoszeń…",
     "Loading More Announcements …" : "Wczytywanie więcej ogłoszeń…",
     "Add announcement" : "Dodaj ogłoszenie",
     "Subject…" : "Temat…",
