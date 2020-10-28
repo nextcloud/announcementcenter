@@ -9,7 +9,7 @@ OC.L10N.register(
     "[Deleted user]" : "[Izbriši uporabnika]",
     "Comments" : "Komentarji",
     "No comments yet, start the conversation!" : "Ni še odzivov, bodite prvi!",
-    "More comments …" : "Več komentarjev ....",
+    "More comments …" : "Več opomb ...",
     "Save" : "Shrani",
     "Allowed characters {count} of {max}" : "{count} od {max} znakov",
     "Error occurred while retrieving comment with ID {id}" : "Prišlo je do napake med pridobivanjem komentarja z ID {id}",
