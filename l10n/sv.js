@@ -2,7 +2,7 @@ OC.L10N.register(
     "announcementcenter",
     {
     "Edit comment" : "Redigera kommentar",
-    "Delete comment" : "Radera kommentar",
+    "Delete comment" : "Ta bort kommentar",
     "New comment …" : "Ny kommentar ...",
     "Post" : "Skicka",
     "Cancel" : "Avbryt",
@@ -18,7 +18,7 @@ OC.L10N.register(
     "_%n comment_::_%n comments_" : ["%n kommentar","%n kommentarer"],
     "Announcing…" : "Meddelar...",
     "Announced!" : "Meddelandet skickat!",
-    "Delete" : "Radera",
+    "Delete" : "Ta bort",
     "Remove notifications" : "Ta bort aviseringar",
     "Visible for everyone" : "Synlig för alla",
     ", " : ", ",
