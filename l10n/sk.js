@@ -36,6 +36,8 @@ OC.L10N.register(
     "Announcement center" : "Centrum oznámení",
     "This app allows admins to post announcements." : "Táto apka umožňuje administrátorom posielať oznámenia.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Táto apka umožňuje administrátorom posielať oznámenia. Taktiež podporuje nasledujúce funkcie:\n\n⚡ Aktivity (musí byť povolená apka Aktivity)\n\n📑 Komentáre\n\n👪 Skupinové oprávnenia\n\n🔔 Hlásenia (musí byť povolená apka Hlásenia)",
+    "No announcements" : "Žiadne oznámenia",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Tieto skupiny budú môcť zverejňovať oznámenia.",
     "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
