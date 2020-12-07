@@ -41,7 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Tyto skupiny budou moci zveřejnit oznámení.",
     "Create activities by default" : "Vytvářet aktivity už ve výchozím stavu",
     "Create notifications by default" : "Jako výchozí stav vytvářet upozornění",
-    "Allow comments by default" : "Ve výchozím nastavení umožnit komentáře",
+    "Allow comments by default" : "Ve výchozím nastavení povolit komentáře",
     "No Announcements" : "Žádná oznámení",
     "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…",
     "Loading More Announcements …" : "Načítání dalších oznámení…",
