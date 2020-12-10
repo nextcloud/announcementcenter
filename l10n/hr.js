@@ -36,6 +36,8 @@ OC.L10N.register(
     "Announcement center" : "Centar za obavijesti",
     "This app allows admins to post announcements." : "Ova aplikacija omogućuje administratorima objavljivanje obavijesti.",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ova aplikacija omogućuje administratorima objavljivanje obavijesti. Također podržava sljedeće značajke:\n\n⚡ Aktivnosti (zahtijeva omogućavanje aplikacije za aktivnosti)\n\n📑 Komentari\n\n👪 Grupna dopuštenja\n\n🔔 Obavijesti (zahtijeva omogućavanje aplikacije za obavijesti)",
+    "No announcements" : "Nema obavijesti",
+    "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Ove će skupine moći postavljati oglase",
     "Create activities by default" : "Automatski stvaraj radnje",
     "Create notifications by default" : "Automatski stvaraj obavijesti",
