@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 5.0.0-alpha.1 – 2020-12-15
+### Added
+- Rewrite the frontend in Vue.JS after a design review
+  [#218](https://github.com/nextcloud/announcementcenter/pull/218)
+
+### Fixed
+- Compatibility with Nextcloud 21
+
 ## 4.0.0 – 2020-08-31
 ### Added
 - Add a dashboard widget
