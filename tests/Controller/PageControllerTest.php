@@ -86,7 +86,7 @@ class PageControllerTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->initialStateService = $this->createMock(IInitialStateService::class);
 
-		$this->l->expects($this->any())
+		$this->l
 			->method('t')
 			->willReturnCallback(function ($string, $args) {
 				return vsprintf($string, $args);
@@ -134,10 +134,10 @@ class PageControllerTest extends TestCase {
 	protected function getUserMock(string $uid, string $displayName): IUser {
 		/** @var IUser|MockObject $user */
 		$user = $this->createMock(IUser::class);
-		$user->expects($this->any())
+		$user
 			->method('getUID')
 			->willReturn($uid);
-		$user->expects($this->any())
+		$user
 			->method('getDisplayName')
 			->willReturn($displayName);
 		return $user;
@@ -190,7 +190,7 @@ class PageControllerTest extends TestCase {
 	 * @param array $expected
 	 */
 	public function legacyTestGet($offset, $announcements, $userMap, $expected) {
-		$this->userManager->expects($this->any())
+		$this->userManager
 			->method('get')
 			->willReturnMap($userMap);
 
@@ -211,19 +211,19 @@ class PageControllerTest extends TestCase {
 			return $announcement;
 		}, $announcements);
 
-		$this->manager->expects($this->any())
+		$this->manager
 			->method('getAnnouncements')
 			->with($offset)
 			->willReturn($announcements);
 
-		$this->manager->expects($this->exactly(count($comments)))
+		$this->manager->expects(self::exactly(count($comments)))
 			->method('getNumberOfComments')
 			->willReturnMap($comments);
 
 		$controller = $this->getController();
 		$jsonResponse = $controller->get($offset);
 
-		$this->assertEquals($expected, $jsonResponse->getData());
+		self::assertEquals($expected, $jsonResponse->getData());
 	}
 
 	public function dataDelete(): array {
@@ -240,23 +240,23 @@ class PageControllerTest extends TestCase {
 	 * @param int $statusCode
 	 */
 	public function testDelete($id, $isAdmin, $statusCode) {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
 
 		if ($isAdmin) {
-			$this->manager->expects($this->once())
+			$this->manager->expects(self::once())
 				->method('delete')
 				->with($id);
 		} else {
-			$this->manager->expects($this->never())
+			$this->manager->expects(self::never())
 				->method('delete');
 		}
 
 		$controller = $this->getController();
 		$response = $controller->delete($id);
 
-		$this->assertEquals($statusCode, $response->getStatus());
+		self::assertEquals($statusCode, $response->getStatus());
 	}
 
 	public function dataAddThrows() {
@@ -272,46 +272,46 @@ class PageControllerTest extends TestCase {
 	 * @param array $expectedData
 	 */
 	public function testAddThrows($subject, array $expectedData) {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
-		$this->userSession->expects($this->once())
+		$this->userSession->expects(self::once())
 			->method('getUser')
 			->willReturn($this->getUserMock('author', 'author'));
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('announce')
-			->with($subject, '', 'author', $this->anything())
+			->with($subject, '', 'author', self::anything())
 			->willThrowException(new \InvalidArgumentException());
 
 		$controller = $this->getController(['createPublicity']);
-		$controller->expects($this->never())
+		$controller->expects(self::never())
 			->method('createPublicity');
 
 		$response = $controller->add($subject, '', [], true, true, true);
 
-		$this->assertInstanceOf(JSONResponse::class, $response);
-		$this->assertSame($expectedData, $response->getData());
+		self::assertInstanceOf(JSONResponse::class, $response);
+		self::assertSame($expectedData, $response->getData());
 	}
 
 	public function testAddNoAdmin() {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(false);
 
-		$this->manager->expects($this->never())
+		$this->manager->expects(self::never())
 			->method('announce');
-		$this->jobList->expects($this->never())
+		$this->jobList->expects(self::never())
 			->method('add');
 
 		$controller = $this->getController(['createPublicity']);
-		$controller->expects($this->never())
+		$controller->expects(self::never())
 			->method('createPublicity');
 
 		$response = $controller->add('subject', '', [], true, true, true);
 
-		$this->assertInstanceOf(JSONResponse::class, $response);
-		$this->assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
+		self::assertInstanceOf(JSONResponse::class, $response);
+		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
 	}
 
 	public function dataAdd() {
@@ -335,16 +335,16 @@ class PageControllerTest extends TestCase {
 	 * @param bool $comments
 	 */
 	public function legacyTestAdd($subject, $message, array $groups, $activities, $notifications, $comments) {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
-		$this->userSession->expects($this->once())
+		$this->userSession->expects(self::once())
 			->method('getUser')
 			->willReturn($this->getUserMock('author', 'author'));
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('announce')
-			->with($subject, $message, 'author', $this->anything(), $groups, $comments)
+			->with($subject, $message, 'author', self::anything(), $groups, $comments)
 			->willReturn([
 				'author' => 'author',
 				'subject' => $subject,
@@ -353,11 +353,11 @@ class PageControllerTest extends TestCase {
 				'id' => 10,
 				'comments' => $comments,
 			]);
-		$this->userManager->expects($this->once())
+		$this->userManager->expects(self::once())
 			->method('get')
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
-		$this->jobList->expects(($activities || $notifications) ? $this->once() : $this->never())
+		$this->jobList->expects(($activities || $notifications) ? self::once() : self::never())
 			->method('add')
 			->with('OCA\AnnouncementCenter\BackgroundJob', [
 				'id' => 10,
@@ -369,12 +369,12 @@ class PageControllerTest extends TestCase {
 
 		$response = $controller->add($subject, $message, $groups, $activities, $notifications, $comments);
 
-		$this->assertInstanceOf(JSONResponse::class, $response);
+		self::assertInstanceOf(JSONResponse::class, $response);
 		$data = $response->getData();
-		$this->assertArrayHasKey('time', $data);
-		$this->assertInternalType('int', $data['time']);
+		self::assertArrayHasKey('time', $data);
+		self::assertInternalType('int', $data['time']);
 		unset($data['time']);
-		$this->assertEquals([
+		self::assertEquals([
 			'author' => 'Author',
 			'author_id' => 'author',
 			'subject' => $subject,
@@ -404,10 +404,10 @@ class PageControllerTest extends TestCase {
 	 * @param bool $allowComments
 	 */
 	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $allowCommentsConfig, bool $allowComments) {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
-		$this->config->expects($this->exactly(3))
+		$this->config->expects(self::exactly(3))
 			->method('getAppValue')
 			->willReturnMap([
 				['announcementcenter', 'create_activities', 'yes', $createActivitiesConfig],
@@ -426,15 +426,15 @@ class PageControllerTest extends TestCase {
 		$controller = $this->getController();
 		$response = $controller->index();
 
-		$this->assertSame('user', $response->getRenderAs());
-		$this->assertSame('main', $response->getTemplateName());
+		self::assertSame('user', $response->getRenderAs());
+		self::assertSame('main', $response->getTemplateName());
 	}
 
 	protected function getGroupMock(string $gid): IGroup {
 		/** @var IGroup|MockObject $group */
 		$group = $this->createMock(IGroup::class);
 
-		$group->expects($this->any())
+		$group
 			->method('getGID')
 			->willReturn($gid);
 
@@ -458,22 +458,22 @@ class PageControllerTest extends TestCase {
 	 * @param int $code
 	 */
 	public function testSearchGroup(bool $isAdmin, string $pattern, $groupSearch, array $expected, int $code) {
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
 
 		if ($groupSearch !== null) {
-			$this->groupManager->expects($this->once())
+			$this->groupManager->expects(self::once())
 				->method('search')
 				->willReturn($groupSearch);
 		} else {
-			$this->groupManager->expects($this->never())
+			$this->groupManager->expects(self::never())
 				->method('search');
 		}
 
 		$controller = $this->getController();
 		$response = $controller->searchGroups($pattern);
-		$this->assertSame($code, $response->getStatus());
-		$this->assertSame($expected, $response->getData());
+		self::assertSame($code, $response->getStatus());
+		self::assertSame($expected, $response->getData());
 	}
 }

@@ -104,7 +104,7 @@ class ManagerTest extends TestCase {
 	}
 
 	public function testGetAnnouncementNotExist(): void {
-		$this->announcementMapper->expects($this->once())
+		$this->announcementMapper->expects(self::once())
 			->method('getById')
 			->with(42)
 			->willThrowException(new DoesNotExistException('Entity does not exist'));
@@ -129,35 +129,35 @@ class ManagerTest extends TestCase {
 
 	public function testDelete(): void {
 		$notification = $this->createMock(INotification::class);
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setApp')
 			->with('announcementcenter')
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setObject')
 			->with('announcement', 23)
 			->willReturnSelf();
 
-		$this->notificationManager->expects($this->once())
+		$this->notificationManager->expects(self::once())
 			->method('createNotification')
 			->willReturn($notification);
-		$this->notificationManager->expects($this->once())
+		$this->notificationManager->expects(self::once())
 			->method('markProcessed')
 			->with($notification);
 
-		$this->commentsManager->expects($this->once())
+		$this->commentsManager->expects(self::once())
 			->method('deleteCommentsAtObject')
 			->with('announcement', $this->identicalTo('23'));
 
 		$announcement = $this->createMock(Announcement::class);
-		$this->announcementMapper->expects($this->once())
+		$this->announcementMapper->expects(self::once())
 			->method('getById')
 			->with(23)
 			->willReturn($announcement);
-		$this->announcementMapper->expects($this->once())
+		$this->announcementMapper->expects(self::once())
 			->method('delete')
 			->with($announcement);
-		$this->groupMapper->expects($this->once())
+		$this->groupMapper->expects(self::once())
 			->method('deleteGroupsForAnnouncement')
 			->with($announcement);
 
@@ -166,7 +166,7 @@ class ManagerTest extends TestCase {
 
 	protected function getUserMock($uid) {
 		$user = $this->createMock(IUser::class);
-		$user->expects($this->any())
+		$user
 			->method('getUID')
 			->willReturn($uid);
 		return $user;
@@ -174,15 +174,15 @@ class ManagerTest extends TestCase {
 
 	protected function setUserGroups($groups) {
 		if ($groups === null) {
-			$this->userSession->expects($this->any())
+			$this->userSession
 				->method('getUser')
 				->willReturn(null);
 		} else {
 			$user = $this->getUserMock('uid');
-			$this->userSession->expects($this->any())
+			$this->userSession
 				->method('getUser')
 				->willReturn($user);
-			$this->groupManager->expects($this->any())
+			$this->groupManager
 				->method('getUserGroupIds')
 				->with($user)
 				->willReturn($groups);
@@ -204,11 +204,11 @@ class ManagerTest extends TestCase {
 		/** @var Announcement $announcement */
 		$announcement = Announcement::fromParams([]);
 
-		$this->groupMapper->expects($this->once())
+		$this->groupMapper->expects(self::once())
 			->method('getGroupsForAnnouncement')
 			->willReturn($groups);
 
-		$this->assertSame($groups, $this->manager->getGroups($announcement));
+		self::assertSame($groups, $this->manager->getGroups($announcement));
 	}
 
 	public function dataHasNotifications(): array {
@@ -228,7 +228,7 @@ class ManagerTest extends TestCase {
 	 * @param int $numNotifications
 	 */
 	public function testHasNotifications(int $id, bool $hasActivityJob, bool $hasNotificationJob, int $numNotifications): void {
-		$this->jobList->expects($hasActivityJob ? $this->once() : $this->exactly(2))
+		$this->jobList->expects($hasActivityJob ? self::once() : self::exactly(2))
 			->method('has')
 			->willReturnMap([
 				[BackgroundJob::class, [
@@ -245,26 +245,26 @@ class ManagerTest extends TestCase {
 
 		if (!$hasNotificationJob) {
 			$notification = $this->createMock(INotification::class);
-			$notification->expects($this->once())
+			$notification->expects(self::once())
 				->method('setApp')
 				->with('announcementcenter')
 				->willReturnSelf();
-			$notification->expects($this->once())
+			$notification->expects(self::once())
 				->method('setObject')
 				->with('announcement', $id)
 				->willReturnSelf();
 
-			$this->notificationManager->expects($this->once())
+			$this->notificationManager->expects(self::once())
 				->method('createNotification')
 				->willReturn($notification);
-			$this->notificationManager->expects($this->once())
+			$this->notificationManager->expects(self::once())
 				->method('getCount')
 				->with($notification)
 				->willReturn($numNotifications);
 		} else {
-			$this->notificationManager->expects($this->never())
+			$this->notificationManager->expects(self::never())
 				->method('createNotification');
-			$this->notificationManager->expects($this->never())
+			$this->notificationManager->expects(self::never())
 				->method('getCount');
 		}
 
@@ -288,7 +288,7 @@ class ManagerTest extends TestCase {
 	 * @param bool $hasActivity
 	 */
 	public function testRemoveNotifications(int $id, bool $hasActivity): void {
-		$this->jobList->expects($this->once())
+		$this->jobList->expects(self::once())
 			->method('has')
 			->with(BackgroundJob::class, [
 				'id' => $id,
@@ -298,14 +298,14 @@ class ManagerTest extends TestCase {
 			->willReturn($hasActivity);
 
 		if ($hasActivity) {
-			$this->jobList->expects($this->once())
+			$this->jobList->expects(self::once())
 				->method('remove')
 				->with(BackgroundJob::class, [
 					'id' => $id,
 					'activities' => true,
 					'notifications' => true,
 				]);
-			$this->jobList->expects($this->once())
+			$this->jobList->expects(self::once())
 				->method('add')
 				->with(BackgroundJob::class, [
 					'id' => $id,
@@ -313,7 +313,7 @@ class ManagerTest extends TestCase {
 					'notifications' => false,
 				]);
 		} else {
-			$this->jobList->expects($this->once())
+			$this->jobList->expects(self::once())
 				->method('remove')
 				->with(BackgroundJob::class, [
 					'id' => $id,
@@ -323,19 +323,19 @@ class ManagerTest extends TestCase {
 		}
 
 		$notification = $this->createMock(INotification::class);
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setApp')
 			->with('announcementcenter')
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setObject')
 			->with('announcement', $id)
 			->willReturnSelf();
 
-		$this->notificationManager->expects($this->once())
+		$this->notificationManager->expects(self::once())
 			->method('createNotification')
 			->willReturn($notification);
-		$this->notificationManager->expects($this->once())
+		$this->notificationManager->expects(self::once())
 			->method('markProcessed')
 			->with($notification);
 
@@ -391,32 +391,32 @@ class ManagerTest extends TestCase {
 	 * @param bool $expected
 	 */
 	public function testCheckIsAdmin($adminGroups, $inGroupMap, $expected) {
-		$this->config->expects($this->any())
+		$this->config
 			->method('getAppValue')
 			->with('announcementcenter', 'admin_groups', '["admin"]')
 			->willReturn(json_encode($adminGroups));
 
 		$user = $this->getUserMock('uid');
-		$this->userSession->expects($this->any())
+		$this->userSession
 			->method('getUser')
 			->willReturn($user);
 
-		$this->groupManager->expects($this->exactly(sizeof($inGroupMap)))
+		$this->groupManager->expects(self::exactly(sizeof($inGroupMap)))
 			->method('isInGroup')
 			->willReturnMap($inGroupMap);
 
-		$this->assertEquals($expected, $this->manager->checkIsAdmin());
+		self::assertEquals($expected, $this->manager->checkIsAdmin());
 	}
 
 	public function testCheckIsAdminNoUser() {
-		$this->userSession->expects($this->any())
+		$this->userSession
 			->method('getUser')
 			->willReturn(null);
 
-		$this->groupManager->expects($this->never())
+		$this->groupManager->expects(self::never())
 			->method('isInGroup');
 
-		$this->assertEquals(false, $this->manager->checkIsAdmin());
+		self::assertEquals(false, $this->manager->checkIsAdmin());
 	}
 
 	protected function assertDeleteMetaData($id) {
@@ -457,7 +457,7 @@ class ManagerTest extends TestCase {
 			->willReturnSelf();
 		$notification->expects($this->at(1))
 			->method('setObject')
-			->with('announcement', $this->anything())
+			->with('announcement', self::anything())
 			->willReturnSelf();
 
 		$this->notificationManager->expects($this->at($offset + 0))
@@ -469,7 +469,7 @@ class ManagerTest extends TestCase {
 			->willReturn(0);
 
 		if ($calls > 1) {
-			$this->assertHasNotification($calls - 1, $offset + 2);
+			self::assertHasNotification($calls - 1, $offset + 2);
 		}
 	}
 }

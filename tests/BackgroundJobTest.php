@@ -94,12 +94,12 @@ class BackgroundJobTest extends TestCase {
 	public function testRunThrows(): void {
 		$job = $this->getJob(['createPublicity']);
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('getAnnouncement')
 			->with(23, true)
 			->willThrowException(new AnnouncementDoesNotExistException());
 
-		$job->expects($this->never())
+		$job->expects(self::never())
 			->method('createPublicity');
 
 		self::invokePrivate($job, 'run', [[
@@ -128,12 +128,12 @@ class BackgroundJobTest extends TestCase {
 
 		$announcement = $this->createMock(Announcement::class);
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('getAnnouncement')
 			->with($id, true)
 			->willReturn($announcement);
 
-		$job->expects($this->once())
+		$job->expects(self::once())
 			->method('createPublicity')
 			->with($announcement, [
 				'id' => $id,
@@ -156,13 +156,13 @@ class BackgroundJobTest extends TestCase {
 	 */
 	protected function getUserMock($uid, $displayName, $loggedIn = true) {
 		$user = $this->createMock(IUser::class);
-		$user->expects($this->any())
+		$user
 			->method('getUID')
 			->willReturn($uid);
-		$user->expects($this->any())
+		$user
 			->method('getDisplayName')
 			->willReturn($displayName);
-		$user->expects($this->any())
+		$user
 			->method('getLastLogin')
 			->willReturn($loggedIn ? 1234 : 0);
 		return $user;
@@ -174,7 +174,7 @@ class BackgroundJobTest extends TestCase {
 	 */
 	protected function getGroupMock(array $users) {
 		$group = $this->createMock(IGroup::class);
-		$group->expects($this->any())
+		$group
 			->method('getUsers')
 			->willReturn($users);
 		return $group;
@@ -201,51 +201,51 @@ class BackgroundJobTest extends TestCase {
 	 */
 	public function testCreatePublicity(array $groups, bool $everyone, array $publicity): void {
 		$event = $this->createMock(IEvent::class);
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setApp')
 			->with('announcementcenter')
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setType')
 			->with('announcementcenter')
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setAuthor')
 			->with('author')
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setTimestamp')
 			->with(1337)
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setSubject')
 			->with('announcementsubject', ['author' => 'author', 'announcement' => 10])
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setMessage')
 			->with('announcementmessage', [])
 			->willReturnSelf();
-		$event->expects($this->once())
+		$event->expects(self::once())
 			->method('setObject')
 			->with('announcement', 10)
 			->willReturnSelf();
 
 		$notification = $this->createMock(INotification::class);
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setApp')
 			->with('announcementcenter')
 			->willReturnSelf();
 		$dateTime = new \DateTime();
 		$dateTime->setTimestamp(1337);
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setDateTime')
 			->with($dateTime)
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setSubject')
 			->with('announced', ['author'])
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setObject')
 			->with('announcement', 10)
 			->willReturnSelf();
@@ -256,19 +256,19 @@ class BackgroundJobTest extends TestCase {
 		]);
 
 		if ($everyone) {
-			$job->expects($this->once())
+			$job->expects(self::once())
 				->method('createPublicityEveryone')
 				->with('author', $event, $notification, $publicity);
 		} else {
-			$job->expects($this->once())
+			$job->expects(self::once())
 				->method('createPublicityGroups')
 				->with('author', $event, $notification, $groups, $publicity);
 		}
 
-		$this->activityManager->expects($this->once())
+		$this->activityManager->expects(self::once())
 			->method('generateEvent')
 			->willReturn($event);
-		$this->notificationManager->expects($this->once())
+		$this->notificationManager->expects(self::once())
 			->method('createNotification')
 			->willReturn($notification);
 
@@ -278,7 +278,7 @@ class BackgroundJobTest extends TestCase {
 			'time' => 1337,
 		]);
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('getGroups')
 			->willReturn($groups);
 
@@ -307,19 +307,19 @@ class BackgroundJobTest extends TestCase {
 	 */
 	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications): void {
 		$event = $this->createMock(IEvent::class);
-		$event->expects($activities ? $this->exactly(5) : $this->never())
+		$event->expects($activities ? self::exactly(5) : self::never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
 		$notification = $this->createMock(INotification::class);
-		$notification->expects($notifications ? $this->exactly(4) : $this->never())
+		$notification->expects($notifications ? self::exactly(4) : self::never())
 			->method('setUser')
 			->willReturnSelf();
 
 		$job = $this->getJob();
-		$this->userManager->expects($this->once())
+		$this->userManager->expects(self::once())
 			->method('callForSeenUsers')
-			->with($this->anything())
+			->with(self::anything())
 			->willReturnCallback(function ($callback) {
 				$users = [
 					$this->getUserMock('author', 'User One'),
@@ -334,9 +334,9 @@ class BackgroundJobTest extends TestCase {
 			})
 		;
 
-		$this->activityManager->expects($activities ? $this->exactly(5) : $this->never())
+		$this->activityManager->expects($activities ? self::exactly(5) : self::never())
 			->method('publish');
-		$this->notificationManager->expects($notifications ? $this->exactly(4) : $this->never())
+		$this->notificationManager->expects($notifications ? self::exactly(4) : self::never())
 			->method('notify');
 
 		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $publicity]);
@@ -351,17 +351,17 @@ class BackgroundJobTest extends TestCase {
 	 */
 	public function testCreatePublicityGroups(array $publicity, $activities, $notifications): void {
 		$event = $this->createMock(IEvent::class);
-		$event->expects($activities ? $this->exactly(4) : $this->never())
+		$event->expects($activities ? self::exactly(4) : self::never())
 			->method('setAffectedUser')
 			->willReturnSelf();
 
 		$notification = $this->createMock(INotification::class);
-		$notification->expects($notifications ? $this->exactly(3) : $this->never())
+		$notification->expects($notifications ? self::exactly(3) : self::never())
 			->method('setUser')
 			->willReturnSelf();
 
 		$job = $this->getJob();
-		$this->groupManager->expects($this->exactly(4))
+		$this->groupManager->expects(self::exactly(4))
 			->method('get')
 			->willReturnMap([
 				['gid0', null],
@@ -378,9 +378,9 @@ class BackgroundJobTest extends TestCase {
 				])],
 			]);
 
-		$this->activityManager->expects($activities ? $this->exactly(4) : $this->never())
+		$this->activityManager->expects($activities ? self::exactly(4) : self::never())
 			->method('publish');
-		$this->notificationManager->expects($notifications ? $this->exactly(3) : $this->never())
+		$this->notificationManager->expects($notifications ? self::exactly(3) : self::never())
 			->method('notify');
 
 		self::invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);

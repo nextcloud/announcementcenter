@@ -69,7 +69,7 @@ class ApplicationTest extends TestCase {
 
 	public function testContainerAppName() {
 		$this->app = new Application();
-		$this->assertEquals('announcementcenter', $this->container->getAppName());
+		self::assertEquals('announcementcenter', $this->container->getAppName());
 	}
 
 	public function dataContainerQuery(): array {
@@ -96,6 +96,6 @@ class ApplicationTest extends TestCase {
 	 * @param string $expected
 	 */
 	public function testContainerQuery(string $service, string $expected) {
-		$this->assertInstanceOf($expected, $this->container->query($service));
+		self::assertInstanceOf($expected, $this->container->query($service));
 	}
 }
