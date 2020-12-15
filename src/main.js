@@ -28,6 +28,9 @@ import store from './store'
 import App from './App'
 import Vuex from 'vuex'
 
+// Styles
+import '@nextcloud/dialogs/styles/toast.scss'
+
 // eslint-disable-next-line
 __webpack_nonce__ = btoa(getRequestToken())
 
