@@ -23,6 +23,7 @@
 
 namespace OCA\AnnouncementCenter\Tests\Controller;
 
+use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
@@ -32,6 +33,7 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IGroupManager;
+use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUserManager;
@@ -67,6 +69,8 @@ class PageControllerTest extends TestCase {
 	protected $timeFactory;
 	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
 	protected $userSession;
+	/** @var IInitialStateService|\PHPUnit_Framework_MockObject_MockObject */
+	protected $initialStateService;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -80,6 +84,7 @@ class PageControllerTest extends TestCase {
 		$this->config = $this->createMock(IConfig::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->initialStateService = $this->createMock(IInitialStateService::class);
 
 		$this->l->expects($this->any())
 			->method('t')
@@ -101,7 +106,8 @@ class PageControllerTest extends TestCase {
 				$this->manager,
 				$this->config,
 				$this->timeFactory,
-				$this->userSession
+				$this->userSession,
+				$this->initialStateService
 			);
 		}
 
@@ -119,6 +125,7 @@ class PageControllerTest extends TestCase {
 			$this->config,
 			$this->timeFactory,
 			$this->userSession,
+			$this->initialStateService,
 		])
 			->setMethods($methods)
 			->getMock();
@@ -408,18 +415,19 @@ class PageControllerTest extends TestCase {
 				['announcementcenter', 'allow_comments', 'yes', $allowCommentsConfig],
 			]);
 
+		$this->initialStateService->method('provideInitialState')
+			->withConsecutive(
+				[Application::APP_ID, 'isAdmin', $isAdmin],
+				[Application::APP_ID, 'createActivities', $createActivities],
+				[Application::APP_ID, 'createNotifications', $createNotifications],
+				[Application::APP_ID, 'allowComments', $allowComments]
+			);
+
 		$controller = $this->getController();
 		$response = $controller->index();
 
-		$this->assertSame(
-			[
-				'isAdmin' => $isAdmin,
-				'createActivities' => $createActivities,
-				'createNotifications' => $createNotifications,
-				'allowComments' => $allowComments,
-			],
-			$response->getParams()
-		);
+		$this->assertSame('user', $response->getRenderAs());
+		$this->assertSame('main', $response->getTemplateName());
 	}
 
 	protected function getGroupMock(string $gid): IGroup {

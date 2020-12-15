@@ -204,12 +204,9 @@ class NotifierTest extends TestCase {
 			->willReturnSelf();
 		$notification->expects($this->once())
 			->method('setRichSubject')
-			->with('{user} announced “{announcement}”', $this->anything())
+			->with('{user} announced {announcement}', $this->anything())
 			->willReturnSelf();
 
-		$notification->expects($this->once())
-			->method('getRichSubject')
-			->willReturn('{user} announced “{announcement}”');
 		$notification->expects($this->once())
 			->method('getRichSubjectParameters')
 			->willReturn([

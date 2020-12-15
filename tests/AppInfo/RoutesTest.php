@@ -27,9 +27,12 @@ class RoutesTest extends TestCase {
 	public function testRoutes() {
 		$routes = include __DIR__ . '/../../appinfo/routes.php';
 		$this->assertIsArray($routes);
-		$this->assertCount(1, $routes);
+		$this->assertCount(2, $routes);
 		$this->assertArrayHasKey('routes', $routes);
 		$this->assertIsArray($routes['routes']);
 		$this->assertGreaterThanOrEqual(1, \count($routes['routes']));
+		$this->assertArrayHasKey('ocs', $routes);
+		$this->assertIsArray($routes['ocs']);
+		$this->assertGreaterThanOrEqual(1, \count($routes['ocs']));
 	}
 }
