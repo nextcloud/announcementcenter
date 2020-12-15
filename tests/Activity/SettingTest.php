@@ -38,7 +38,7 @@ class SettingTest extends TestCase {
 	 */
 	public function testImplementsInterface($settingClass) {
 		$setting = \OC::$server->query($settingClass);
-		$this->assertInstanceOf(ISetting::class, $setting);
+		self::assertInstanceOf(ISetting::class, $setting);
 	}
 
 	/**
@@ -48,7 +48,7 @@ class SettingTest extends TestCase {
 	public function testGetIdentifier($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsString($setting->getIdentifier());
+		self::assertIsString($setting->getIdentifier());
 	}
 
 	/**
@@ -58,7 +58,7 @@ class SettingTest extends TestCase {
 	public function testGetName($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsString($setting->getName());
+		self::assertIsString($setting->getName());
 	}
 
 	/**
@@ -69,9 +69,9 @@ class SettingTest extends TestCase {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
 		$priority = $setting->getPriority();
-		$this->assertIsInt($setting->getPriority());
-		$this->assertGreaterThanOrEqual(0, $priority);
-		$this->assertLessThanOrEqual(100, $priority);
+		self::assertIsInt($setting->getPriority());
+		self::assertGreaterThanOrEqual(0, $priority);
+		self::assertLessThanOrEqual(100, $priority);
 	}
 
 	/**
@@ -81,7 +81,7 @@ class SettingTest extends TestCase {
 	public function testCanChangeStream($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsBool($setting->canChangeStream());
+		self::assertIsBool($setting->canChangeStream());
 	}
 
 	/**
@@ -91,7 +91,7 @@ class SettingTest extends TestCase {
 	public function testIsDefaultEnabledStream($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsBool($setting->isDefaultEnabledStream());
+		self::assertIsBool($setting->isDefaultEnabledStream());
 	}
 
 	/**
@@ -101,7 +101,7 @@ class SettingTest extends TestCase {
 	public function testCanChangeMail($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsBool($setting->canChangeMail());
+		self::assertIsBool($setting->canChangeMail());
 	}
 
 	/**
@@ -111,6 +111,6 @@ class SettingTest extends TestCase {
 	public function testIsDefaultEnabledMail($settingClass) {
 		/** @var ISetting $setting */
 		$setting = \OC::$server->query($settingClass);
-		$this->assertIsBool($setting->isDefaultEnabledMail());
+		self::assertIsBool($setting->isDefaultEnabledMail());
 	}
 }

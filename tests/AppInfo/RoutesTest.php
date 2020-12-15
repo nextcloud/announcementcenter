@@ -26,10 +26,13 @@ namespace OCA\AnnouncementCenter\Tests;
 class RoutesTest extends TestCase {
 	public function testRoutes() {
 		$routes = include __DIR__ . '/../../appinfo/routes.php';
-		$this->assertIsArray($routes);
-		$this->assertCount(1, $routes);
-		$this->assertArrayHasKey('routes', $routes);
-		$this->assertIsArray($routes['routes']);
-		$this->assertGreaterThanOrEqual(1, \count($routes['routes']));
+		self::assertIsArray($routes);
+		self::assertCount(2, $routes);
+		self::assertArrayHasKey('routes', $routes);
+		self::assertIsArray($routes['routes']);
+		self::assertGreaterThanOrEqual(1, \count($routes['routes']));
+		self::assertArrayHasKey('ocs', $routes);
+		self::assertIsArray($routes['ocs']);
+		self::assertGreaterThanOrEqual(1, \count($routes['ocs']));
 	}
 }

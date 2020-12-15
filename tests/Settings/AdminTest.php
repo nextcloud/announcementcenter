@@ -26,13 +26,14 @@ namespace OCA\AnnouncementCenter\Tests\Settings;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class AdminTest extends TestCase {
 	/** @var Admin */
 	private $admin;
 
-	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IConfig|MockObject */
 	protected $config;
 
 	protected function setUp(): void {
@@ -100,7 +101,7 @@ class AdminTest extends TestCase {
 	 * @param bool $allowComments
 	 */
 	public function testGetForm(array $configMap, $adminGroups, $createActivities, $createNotifications, $allowComments) {
-		$this->config->expects($this->exactly(4))
+		$this->config->expects(self::exactly(4))
 			->method('getAppValue')
 			->willReturnMap($configMap);
 
@@ -110,14 +111,14 @@ class AdminTest extends TestCase {
 			'createNotifications' => $createNotifications,
 			'allowComments' => $allowComments,
 		], 'blank');
-		$this->assertEquals($expected, $this->admin->getForm());
+		self::assertEquals($expected, $this->admin->getForm());
 	}
 
 	public function testGetSection() {
-		$this->assertSame('additional', $this->admin->getSection());
+		self::assertSame('additional', $this->admin->getSection());
 	}
 
 	public function testGetPriority() {
-		$this->assertSame(55, $this->admin->getPriority());
+		self::assertSame(55, $this->admin->getPriority());
 	}
 }

@@ -63,13 +63,13 @@ class NotifierTest extends TestCase {
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->urlGenerator = $this->createMock(IURLGenerator::class);
 		$this->l = $this->createMock(IL10N::class);
-		$this->l->expects($this->any())
+		$this->l
 			->method('t')
 			->willReturnCallback(function ($string, $args) {
 				return vsprintf($string, $args);
 			});
 		$this->factory = $this->createMock(IFactory::class);
-		$this->factory->expects($this->any())
+		$this->factory
 			->method('get')
 			->willReturn($this->l);
 
@@ -86,10 +86,10 @@ class NotifierTest extends TestCase {
 		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getApp')
 			->willReturn('notifications');
-		$notification->expects($this->never())
+		$notification->expects(self::never())
 			->method('getSubject');
 
 		$this->expectException(\InvalidArgumentException::class);
@@ -101,10 +101,10 @@ class NotifierTest extends TestCase {
 		/** @var \OCP\Notification\INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getApp')
 			->willReturn('announcementcenter');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getSubject')
 			->willReturn('wrong subject');
 
@@ -117,17 +117,17 @@ class NotifierTest extends TestCase {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getApp')
 			->willReturn('announcementcenter');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getSubject')
 			->willReturn('announced');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getObjectId')
 			->willReturn('42');
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('getAnnouncement')
 			->with(42, false)
 			->willThrowException(new AnnouncementDoesNotExistException());
@@ -141,7 +141,7 @@ class NotifierTest extends TestCase {
 	 */
 	protected function getUserMock() {
 		$user = $this->createMock(IUser::class);
-		$user->expects($this->exactly(2))
+		$user->expects(self::exactly(2))
 			->method('getDisplayName')
 			->willReturn('Author');
 		return $user;
@@ -171,16 +171,16 @@ class NotifierTest extends TestCase {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getApp')
 			->willReturn('announcementcenter');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getSubject')
 			->willReturn('announced');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getSubjectParameters')
 			->willReturn([$author]);
-		$notification->expects($this->exactly(3))
+		$notification->expects(self::exactly(3))
 			->method('getObjectId')
 			->willReturn($objectId);
 
@@ -189,28 +189,25 @@ class NotifierTest extends TestCase {
 			'message' => $message,
 		]);
 
-		$this->manager->expects($this->once())
+		$this->manager->expects(self::once())
 			->method('getAnnouncement')
 			->with($objectId, false)
 			->willReturn($announcement);
-		$this->userManager->expects($this->once())
+		$this->userManager->expects(self::once())
 			->method('get')
 			->with($author)
 			->willReturn($userObject);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setParsedMessage')
 			->with($expectedMessage)
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setRichSubject')
-			->with('{user} announced “{announcement}”', $this->anything())
+			->with('{user} announced {announcement}', self::anything())
 			->willReturnSelf();
 
-		$notification->expects($this->once())
-			->method('getRichSubject')
-			->willReturn('{user} announced “{announcement}”');
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('getRichSubjectParameters')
 			->willReturn([
 				'user' => [
@@ -225,19 +222,19 @@ class NotifierTest extends TestCase {
 				],
 			]);
 
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setParsedSubject')
 			->with($expectedSubject)
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setLink')
 			->willReturnSelf();
-		$notification->expects($this->once())
+		$notification->expects(self::once())
 			->method('setIcon')
 			->willReturnSelf();
 
 		$return = $this->notifier->prepare($notification, 'en');
 
-		$this->assertEquals($notification, $return);
+		self::assertEquals($notification, $return);
 	}
 }
