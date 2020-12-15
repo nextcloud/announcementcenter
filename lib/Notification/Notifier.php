@@ -128,7 +128,7 @@ class Notifier implements INotifier {
 			$notification->setParsedMessage($announcement->getMessage());
 		}
 		$notification->setRichSubject(
-				$l->t('{user} announced “{announcement}”'),
+				$l->t('{user} announced {announcement}'),
 				[
 					'user' => [
 						'type' => 'user',
@@ -152,7 +152,11 @@ class Notifier implements INotifier {
 			$replacements[] = $parameter['name'];
 		}
 
-		$notification->setParsedSubject(str_replace($placeholders, $replacements, $notification->getRichSubject()));
+		$notification->setParsedSubject(str_replace(
+			$placeholders,
+			$replacements,
+			$l->t('{user} announced “{announcement}”')
+		));
 
 		return $notification;
 	}
