@@ -25,18 +25,17 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\Controller;
 
-use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Http;
-use OCP\AppFramework\Http\JSONResponse;
-use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Http\Response;
-use OCP\AppFramework\Controller;
+use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IDBConnection;
+use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IInitialStateService;
 use OCP\IL10N;
@@ -46,7 +45,7 @@ use OCP\IUserManager;
 use OCP\IUserSession;
 use OCA\AnnouncementCenter\BackgroundJob;
 
-class PageController extends Controller {
+class APIController extends OCSController {
 
 	/** @var IJobList */
 	protected $jobList;
@@ -78,7 +77,7 @@ class PageController extends Controller {
 	/** @var IInitialStateService */
 	protected $initialState;
 
-	public function __construct(string $AppName,
+	public function __construct(string $appName,
 								IRequest $request,
 								IDBConnection $connection,
 								IGroupManager $groupManager,
@@ -90,7 +89,7 @@ class PageController extends Controller {
 								ITimeFactory $timeFactory,
 								IUserSession $userSession,
 								IInitialStateService $initialState) {
-		parent::__construct($AppName, $request);
+		parent::__construct($appName, $request);
 
 		$this->connection = $connection;
 		$this->groupManager = $groupManager;
@@ -109,12 +108,12 @@ class PageController extends Controller {
 	 * @NoCSRFRequired
 	 *
 	 * @param int $offset
-	 * @return JSONResponse
+	 * @return DataResponse
 	 */
-	public function get($offset = 0): JSONResponse {
+	public function get(int $offset = 0): DataResponse {
 		$announcements = $this->manager->getAnnouncements($offset);
 		$data = array_map([$this, 'renderAnnouncement'], $announcements);
-		return new JSONResponse($data);
+		return new DataResponse($data);
 	}
 
 	/**
@@ -126,11 +125,11 @@ class PageController extends Controller {
 	 * @param bool $activities
 	 * @param bool $notifications
 	 * @param bool $comments
-	 * @return JSONResponse
+	 * @return DataResponse
 	 */
-	public function add($subject, $message, array $groups, $activities, $notifications, $comments): JSONResponse {
+	public function add(string $subject, string $message, array $groups, bool $activities, bool $notifications, bool $comments): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
-			return new JSONResponse(
+			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
 			);
@@ -141,7 +140,7 @@ class PageController extends Controller {
 		try {
 			$announcement = $this->manager->announce($subject, $message, $userId, $this->timeFactory->getTime(), $groups, $comments);
 		} catch (\InvalidArgumentException $e) {
-			return new JSONResponse(
+			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
 			);
@@ -155,7 +154,7 @@ class PageController extends Controller {
 			]);
 		}
 
-		return new JSONResponse($this->renderAnnouncement($announcement));
+		return new DataResponse($this->renderAnnouncement($announcement));
 	}
 
 	protected function renderAnnouncement(Announcement $announcement): array {
@@ -177,7 +176,27 @@ class PageController extends Controller {
 		];
 
 		if ($this->manager->checkIsAdmin()) {
-			$result['groups'] = $this->manager->getGroups($announcement);
+			$groupIds = $this->manager->getGroups($announcement);
+			$groups = [];
+			foreach ($groupIds as $groupId) {
+				if ($groupId === 'everyone') {
+					$groups[] = [
+						'id' => 'everyone',
+						'name' => 'everyone',
+					];
+					continue;
+				}
+				$group = $this->groupManager->get($groupId);
+				if (!$group instanceof IGroup) {
+					continue;
+				}
+
+				$groups[] = [
+					'id' => $group->getGID(),
+					'name' => $group->getDisplayName(),
+				];
+			}
+			$result['groups'] = $groups;
 			$result['notifications'] = $this->manager->hasNotifications($announcement);
 		}
 
@@ -188,11 +207,11 @@ class PageController extends Controller {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id
-	 * @return Response
+	 * @return DataResponse
 	 */
-	public function delete($id): Response {
+	public function delete(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
-			return new JSONResponse(
+			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
 			);
@@ -200,7 +219,7 @@ class PageController extends Controller {
 
 		$this->manager->delete($id);
 
-		return new Response();
+		return new DataResponse();
 	}
 
 	/**
@@ -209,9 +228,9 @@ class PageController extends Controller {
 	 * @param int $id
 	 * @return Response
 	 */
-	public function removeNotifications($id): Response {
+	public function removeNotifications(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
-			return new JSONResponse(
+			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
 			);
@@ -219,65 +238,32 @@ class PageController extends Controller {
 
 		$this->manager->removeNotifications($id);
 
-		return new Response();
-	}
-
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param int $announcement
-	 * @return TemplateResponse
-	 */
-	public function index($announcement = 0): TemplateResponse {
-		if ($announcement) {
-			$this->manager->markNotificationRead($announcement);
-		}
-
-		$this->initialState->provideInitialState(
-			Application::APP_ID,
-			'isAdmin',
-			$this->manager->checkIsAdmin()
-		);
-		$this->initialState->provideInitialState(
-			Application::APP_ID,
-			'createActivities',
-			$this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes'
-		);
-		$this->initialState->provideInitialState(
-			Application::APP_ID,
-			'createNotifications',
-			$this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes'
-		);
-		$this->initialState->provideInitialState(
-			Application::APP_ID,
-			'allowComments',
-			$this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes'
-		);
-
-		return new TemplateResponse('announcementcenter', 'main');
+		return new DataResponse();
 	}
 
 	/**
 	 * @NoAdminRequired
 	 *
-	 * @param string $pattern
-	 * @return JSONResponse
+	 * @param string $search
+	 * @return DataResponse
 	 */
-	public function searchGroups($pattern): JSONResponse {
+	public function searchGroups(string $search): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
-			return new JSONResponse(
+			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
 			);
 		}
 
-		$groups = $this->groupManager->search($pattern, 10);
-		$gids = [];
+		$groups = $this->groupManager->search($search, 25);
+		$results = [];
 		foreach ($groups as $group) {
-			$gids[] = $group->getGID();
+			$results[] = [
+				'id' => $group->getGID(),
+				'label' => $group->getDisplayName(),
+			];
 		}
 
-		return new JSONResponse($gids);
+		return new DataResponse($results);
 	}
 }

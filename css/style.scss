@@ -1,29 +1,39 @@
+#announce,
+div.section {
+	width: 670px;
+	margin: 0 auto;
+}
+
+#announce {
+	margin-top: 70px;
+}
+
 #subject {
-	width: 706px;
+	width: 100%;
 	font-size: 20px;
+	font-weight: bold;
 }
 
 #message {
-	width: 720px;
-	height: 350px;
+	width: 100%;
 }
 
 #app-content hr {
-	width: 85%;
+	width: 670px;
 	border: none;
 	border-bottom: solid 1px var(--color-border-dark);
 }
 
 #announcement_submit_msg.success {
 	color: #fff;
-	background-color: #47a447;
+	background-color: var(--color-success);
 	border-radius: 3px;
 	padding: 3px;
 }
 
 #announcement_submit_msg.error {
 	color: #fff;
-	background-color: #d2322d;
+	background-color: var(--color-error);
 	border-radius: 3px;
 	padding: 3px;
 }

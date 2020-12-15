@@ -26,6 +26,7 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\AppInfo;
 
 use OCA\AnnouncementCenter\Dashboard\Widget;
+use OCA\AnnouncementCenter\Listener\BeforeTemplateRenderedListener;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
@@ -33,7 +34,9 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
+use OCP\Comments\ICommentsManager;
 use OCP\Notification\IManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -46,6 +49,7 @@ class Application extends App implements IBootstrap {
 
 	public function register(IRegistrationContext $context): void {
 		$context->registerDashboardWidget(Widget::class);
+		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
 	}
 
 	public function boot(IBootContext $context): void {
@@ -53,7 +57,12 @@ class Application extends App implements IBootstrap {
 		$context->injectFn([$this, 'registerCommentsEntity']);
 	}
 
-	public function registerCommentsEntity(EventDispatcherInterface $eventDispatcher, Manager $manager): void {
+	public function registerCommentsEntity(
+		EventDispatcherInterface $eventDispatcher,
+		ICommentsManager $commentsManager,
+		Manager $manager): void {
+		$commentsManager->load();
+
 		$eventDispatcher->addListener(CommentsEntityEvent::EVENT_ENTITY, static function (CommentsEntityEvent $event) use ($manager) {
 			$event->addEntityCollection('announcement', static function ($name) use ($manager) {
 				try {

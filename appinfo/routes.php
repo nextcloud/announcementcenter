@@ -29,5 +29,12 @@ return [
 		['name' => 'page#delete', 'url' => '/announcement/{id}', 'verb' => 'DELETE'],
 		['name' => 'page#removeNotifications', 'url' => '/announcement/{id}/notifications', 'verb' => 'DELETE'],
 		['name' => 'page#searchGroups', 'url' => '/groups', 'verb' => 'GET'],
+	],
+	'ocs' => [
+		['name' => 'API#get', 'url' => '/api/v1/announcements', 'verb' => 'GET'],
+		['name' => 'API#add', 'url' => '/api/v1/announcements', 'verb' => 'POST'],
+		['name' => 'API#delete', 'url' => '/api/v1/announcements/{id}', 'verb' => 'DELETE'],
+		['name' => 'API#removeNotifications', 'url' => '/api/v1/announcements/{id}/notifications', 'verb' => 'DELETE'],
+		['name' => 'API#searchGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
 	]
 ];
