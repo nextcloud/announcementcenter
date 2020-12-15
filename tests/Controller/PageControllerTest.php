@@ -51,25 +51,25 @@ use PHPUnit\Framework\MockObject\MockObject;
  * @group DB
  */
 class PageControllerTest extends TestCase {
-	/** @var IRequest|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IRequest|MockObject */
 	protected $request;
-	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IGroupManager|MockObject */
 	protected $groupManager;
-	/** @var IUserManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IUserManager|MockObject */
 	protected $userManager;
-	/** @var IJobList|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IJobList|MockObject */
 	protected $jobList;
-	/** @var IL10N|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IL10N|MockObject */
 	protected $l;
-	/** @var Manager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var Manager|MockObject */
 	protected $manager;
-	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IConfig|MockObject */
 	protected $config;
 	/** @var ITimeFactory|MockObject */
 	protected $timeFactory;
-	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IUserSession|MockObject */
 	protected $userSession;
-	/** @var IInitialStateService|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IInitialStateService|MockObject */
 	protected $initialStateService;
 
 	protected function setUp(): void {

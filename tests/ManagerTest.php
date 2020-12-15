@@ -51,7 +51,7 @@ class ManagerTest extends TestCase {
 	/** @var Manager */
 	protected $manager;
 
-	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IConfig|MockObject */
 	protected $config;
 
 	/** @var AnnouncementMapper|MockObject */
@@ -60,19 +60,19 @@ class ManagerTest extends TestCase {
 	/** @var GroupMapper|MockObject */
 	protected $groupMapper;
 
-	/** @var IGroupManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IGroupManager|MockObject */
 	protected $groupManager;
 
-	/** @var INotificationManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var INotificationManager|MockObject */
 	protected $notificationManager;
 
-	/** @var ICommentsManager|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var ICommentsManager|MockObject */
 	protected $commentsManager;
 
-	/** @var IJobList|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IJobList|MockObject */
 	protected $jobList;
 
-	/** @var IUserSession|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IUserSession|MockObject */
 	protected $userSession;
 
 	protected function setUp(): void {

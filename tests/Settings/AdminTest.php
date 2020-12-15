@@ -26,13 +26,14 @@ namespace OCA\AnnouncementCenter\Tests\Settings;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IConfig;
+use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
 
 class AdminTest extends TestCase {
 	/** @var Admin */
 	private $admin;
 
-	/** @var IConfig|\PHPUnit_Framework_MockObject_MockObject */
+	/** @var IConfig|MockObject */
 	protected $config;
 
 	protected function setUp(): void {
