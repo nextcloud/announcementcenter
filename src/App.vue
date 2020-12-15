@@ -29,7 +29,8 @@
 					:key="announcement.id"
 					:is-admin="isAdmin"
 					:author-id="announcement.author_id"
-					v-bind="announcement" />
+					v-bind="announcement"
+					@click="onClickAnnouncement" />
 			</transition-group>
 
 			<EmptyContent
@@ -41,11 +42,20 @@
 				</template>
 			</EmptyContent>
 		</AppContent>
+		<AppSidebar
+			v-if="activeId !== 0"
+			:title="activeAnnouncementTitle"
+			@close="onClickAnnouncement(0)">
+			<div
+				ref="sidebar"
+				class="comments" />
+		</AppSidebar>
 	</Content>
 </template>
 
 <script>
 import AppContent from '@nextcloud/vue/dist/Components/AppContent'
+import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
 import Content from '@nextcloud/vue/dist/Components/Content'
 import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
 import { loadState } from '@nextcloud/initial-state'
@@ -59,6 +69,7 @@ export default {
 	components: {
 		Announcement,
 		AppContent,
+		AppSidebar,
 		Content,
 		EmptyContent,
 		NewForm,
@@ -67,6 +78,8 @@ export default {
 	data() {
 		return {
 			isAdmin: loadState('announcementcenter', 'isAdmin'),
+			commentsView: null,
+			activeId: 0,
 		}
 	},
 
@@ -77,12 +90,17 @@ export default {
 				return a2.time - a1.time
 			})
 		},
-	},
 
-	beforeDestroy() {
-	},
+		activeAnnouncement() {
+			return this.$store.getters.announcement(this.activeId)
+		},
 
-	beforeMount() {
+		activeAnnouncementTitle() {
+			if (this.activeId === 0) {
+				return ''
+			}
+			return this.activeAnnouncement?.subject
+		},
 	},
 
 	mounted() {
@@ -98,11 +116,41 @@ export default {
 				this.$store.dispatch('addAnnouncement', announcement)
 			})
 		},
+
+		/**
+		 * Load the comments of the announcements
+		 * @param {number} id the announcement
+		 */
+		async onClickAnnouncement(id) {
+			if (id === this.activeId) {
+				return
+			}
+
+			this.activeId = id
+
+			if (id === 0) {
+				// Destroy the comments view as the sidebar is destroyed
+				this.commentsView = null
+				return
+			}
+
+			if (!this.commentsView) {
+				// Create a new comments view when there is none
+				this.commentsView = new OCA.Comments.View('announcement')
+			}
+
+			await this.commentsView.update(id)
+			this.commentsView.$mount(this.$refs.sidebar)
+		},
 	},
 }
 </script>
 
 <style lang="scss" scoped>
+::v-deep .comments {
+	margin: 10px;
+}
+
 .fade-enter-active,
 .fade-leave-active,
 .fade-collapse-enter-active,

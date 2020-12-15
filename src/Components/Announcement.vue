@@ -88,7 +88,8 @@
 
 		<div
 			v-if="comments !== false"
-			class="announcement__comments">
+			class="announcement__comments"
+			@click="onClickCommentCount">
 			{{ commentsCount }}
 		</div>
 	</div>
@@ -234,10 +235,11 @@ export default {
 
 	methods: {
 		onClickCommentCount() {
-			// TODO open sidebar
+			this.$emit('click', this.id)
 		},
 		onClickFoldedMessage() {
 			this.isMessageFolded = false
+			this.$emit('click', this.id)
 		},
 		async onRemoveNotifications() {
 			try {
