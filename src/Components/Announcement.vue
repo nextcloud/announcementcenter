@@ -82,8 +82,7 @@
 
 			<div
 				v-if="isMessageFolded"
-				class="announcement__message__overlay">
-			</div>
+				class="announcement__message__overlay" />
 		</div>
 
 		<div
