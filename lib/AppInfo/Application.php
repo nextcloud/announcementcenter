@@ -61,7 +61,6 @@ class Application extends App implements IBootstrap {
 		EventDispatcherInterface $eventDispatcher,
 		ICommentsManager $commentsManager,
 		Manager $manager): void {
-
 		$commentsManager->load();
 
 		$eventDispatcher->addListener(CommentsEntityEvent::EVENT_ENTITY, static function (CommentsEntityEvent $event) use ($manager) {

@@ -30,7 +30,6 @@ use OCP\EventDispatcher\IEventListener;
 use OCP\Util;
 
 class BeforeTemplateRenderedListener implements IEventListener {
-
 	public function handle(Event $event): void {
 		if (!$event instanceof BeforeTemplateRenderedEvent) {
 			return;
