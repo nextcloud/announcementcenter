@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    ", " : ", ",
     "Edit comment" : "Rediger kommentar",
     "Delete comment" : "Slett kommentar",
     "New comment …" : "Ny kommentar...",
@@ -14,7 +15,6 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "Tillate tegnmengde {count} av {max}",
     "Delete" : "Slett",
     "Remove notifications" : "Fjern alle notifikasjonar",
-    ", " : ", ",
     "Groups" : "Grupper"
 },
 "nplurals=2; plural=(n != 1);");
