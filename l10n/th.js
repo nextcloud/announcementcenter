@@ -1,6 +1,12 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "The subject is too long or empty" : "หัวข้อยาวเกินไปหรือยังไม่ได้เขียน",
+    "Announcements" : "ประกาศ",
+    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ...",
+    ", " : "หรือ",
+    "_%n comment_::_%n comments_" : ["%n ความคิดเห็น"],
+    "Announce" : "ประกาศ",
     "Edit comment" : "แก้ไขความคิดเห็น",
     "Delete comment" : "ลบความคิดเห็น",
     "New comment …" : "ความคิดเห็นใหม่...",
@@ -14,20 +20,14 @@ OC.L10N.register(
     "Allowed characters {count} of {max}" : "อนุญาตให้ใช้ {count} จากทั้งหมด {max} ตัวอักษร",
     "Error occurred while updating comment with id {id}" : "เกิดข้อผิดพลาดขณะปรับปรุงความเห็น {id}",
     "Error occurred while posting comment" : "เกิดข้อผิดพลาดขณะส่งความเห็น {id}",
-    "_%n comment_::_%n comments_" : ["%n ความคิดเห็น"],
     "Announcing…" : "กำลังประกาศ...",
     "Announced!" : "ประกาศแล้ว!",
     "Delete" : "ลบ",
     "Remove notifications" : "ลบการแจ้งเตือน",
-    ", " : "หรือ",
     "Groups" : "กลุ่ม",
-    "The subject is too long or empty" : "หัวข้อยาวเกินไปหรือยังไม่ได้เขียน",
-    "Announcements" : "ประกาศ",
     "No Announcements" : "ไม่มีประกาศ",
-    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ...",
     "Add announcement" : "เพิ่มประกาศ",
     "Subject…" : "หัวข้อ...",
-    "Your announcement…" : "ประกาศของคุณ...",
-    "Announce" : "ประกาศ"
+    "Your announcement…" : "ประกาศของคุณ..."
 },
 "nplurals=1; plural=0;");

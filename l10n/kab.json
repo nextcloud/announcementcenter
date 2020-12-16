@@ -1,8 +1,8 @@
 { "translations": {
+    "Announcements" : "Ilɣa",
+    ", " : ", ",
     "Cancel" : "Sefsex",
     "Save" : "Sekles",
-    "Delete" : "Kkes",
-    ", " : ", ",
-    "Announcements" : "Ilɣa"
+    "Delete" : "Kkes"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
