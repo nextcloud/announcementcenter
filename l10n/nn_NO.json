@@ -1,4 +1,5 @@
 { "translations": {
+    ", " : ", ",
     "Edit comment" : "Rediger kommentar",
     "Delete comment" : "Slett kommentar",
     "New comment …" : "Ny kommentar...",
@@ -12,7 +13,6 @@
     "Allowed characters {count} of {max}" : "Tillate tegnmengde {count} av {max}",
     "Delete" : "Slett",
     "Remove notifications" : "Fjern alle notifikasjonar",
-    ", " : ", ",
     "Groups" : "Grupper"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
