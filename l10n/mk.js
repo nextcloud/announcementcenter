@@ -1,6 +1,11 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "The subject is too long or empty" : "Темата е премногу долга или ја нема",
+    "Announcements" : "Објави",
+    "There are currently no announcements…" : "Во моментов нема објави...",
+    ", " : ", ",
+    "Announce" : "Објави",
     "Edit comment" : "Измени го коментарот",
     "Delete comment" : "Избриши коментар",
     "New comment …" : "Нов коментар ...",
@@ -18,16 +23,11 @@ OC.L10N.register(
     "Announcing…" : "Објавувам...",
     "Announced!" : "Објавено!",
     "Delete" : "Избриши",
-    ", " : ", ",
     "Groups" : "Групи",
-    "The subject is too long or empty" : "Темата е премногу долга или ја нема",
-    "Announcements" : "Објави",
     "No Announcements" : "Нема објави",
-    "There are currently no announcements…" : "Во моментов нема објави...",
     "Add announcement" : "Додади објава",
     "Subject…" : "Тема...",
     "Your announcement…" : "Ваша објава...",
-    "Announce" : "Објави",
     "Advanced options" : "Напредни опции"
 },
 "nplurals=2; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : 1;");
