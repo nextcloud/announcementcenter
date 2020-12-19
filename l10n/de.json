@@ -24,6 +24,7 @@
     "An error occurred while removing the notifications of the announcement" : "Ein Fehler ist aufgetreten beim entfernen der Benachrichtigung von der Ankündigung",
     "An error occurred while deleting the announcement" : "Ein Fehler ist aufgetreten beim Löschen der Ankündigung",
     "_%n comment_::_%n comments_" : ["%n Kommentar","%n Kommentare"],
+    "Write announcement text, Markdown can be used …" : "Schreibe den Ankünigungstext, Markdown kann verwendet werden …",
     "Announce" : "Ankündigen",
     "Create activities" : "Aktivitäten erstellen",
     "Create notifications" : "Benachrichtigungen erstellen",
