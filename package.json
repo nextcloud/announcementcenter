@@ -25,7 +25,7 @@
 		"@nextcloud/vue-dashboard": "^1.0.1",
 		"debounce": "^1.2.0",
 		"vue": "^2.6.12",
-		"vuex": "^3.5.1"
+		"vuex": "^3.6.0"
 	},
 	"browserslist": [
 		"extends @nextcloud/browserslist-config"
