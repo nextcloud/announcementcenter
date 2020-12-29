@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create activities" : "Creëren activiteiten",
     "Create notifications" : "Creëren meldingen",
     "Allow comments" : "Reageren toestaan",
+    "Everyone" : "Iedereen",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Deze groepen zullen de aankondiging kunnen zien. Als er geen groep is geseleceerd, kunnen alle gebruikers het zien.",
     "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
