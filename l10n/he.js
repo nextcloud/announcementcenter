@@ -18,6 +18,7 @@ OC.L10N.register(
     "There are currently no announcements…" : "ברגע זה אין הכרזות...",
     "Clear notifications" : "לפנות את כל ההתראות",
     "Delete announcement" : "למחוק הכרזה",
+    "seconds ago" : "לפני מספר שניות",
     "visible to everyone" : "גלוי לכולם",
     "visible to group {name}" : "גלוי לקבוצה {name}",
     "visible to groups {name1} and {name2}" : "גלוי לקבוצות {name1} וגם {name2}",
