@@ -61,7 +61,7 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</ActionCheckbox>
-				<!-- ActionInput
+				<ActionInput
 					v-model="groups"
 					icon="icon-group"
 					type="multiselect"
@@ -73,7 +73,7 @@
 					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
 					@search-change="onSearchChanged">
 					{{ t('announcementcenter', 'Everyone') }}
-				</ActionInput -->
+				</ActionInput>
 			</Actions>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 <script>
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox'
-// import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
+import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -97,7 +97,7 @@ export default {
 	components: {
 		Actions,
 		ActionCheckbox,
-		// ActionInput,
+		ActionInput,
 	},
 
 	data() {

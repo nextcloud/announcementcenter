@@ -24,7 +24,7 @@
 		<AppContent>
 			<NewForm v-if="isAdmin" />
 
-			<transition-group name="fade-collapse" tag="li">
+			<transition-group name="fade-collapse" tag="div">
 				<Announcement v-for="announcement in announcements"
 					:key="announcement.id"
 					:is-admin="isAdmin"
