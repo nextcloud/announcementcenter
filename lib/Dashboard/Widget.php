@@ -118,14 +118,14 @@ class Widget implements IWidget {
 		}
 
 		$result = [
-			'id'		=> $announcement->getId(),
-			'author_id'	=> $announcement->getUser(),
-			'author'	=> $displayName,
-			'time'		=> $announcement->getTime(),
-			'subject'	=> $announcement->getSubject(),
-			'message'	=> $announcement->getParsedMessage(),
-			'groups'	=> null,
-			'comments'	=> $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
+			'id' => $announcement->getId(),
+			'author_id' => $announcement->getUser(),
+			'author' => $displayName,
+			'time' => $announcement->getTime(),
+			'subject' => $announcement->getSubject(),
+			'message' => $announcement->getParsedMessage(),
+			'groups' => null,
+			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
 
 		if ($this->manager->checkIsAdmin()) {
