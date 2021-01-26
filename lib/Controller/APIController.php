@@ -170,7 +170,7 @@ class APIController extends OCSController {
 			'author' => $displayName,
 			'time' => $announcement->getTime(),
 			'subject' => $announcement->getSubject(),
-			'message' => $announcement->getParsedMessage(),
+			'message' => $announcement->getMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
