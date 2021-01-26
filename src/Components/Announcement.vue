@@ -76,9 +76,12 @@
 			v-if="message"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<p
-				:class="{'announcement__message--folded': isMessageFolded}"
-				v-html="message" />
+			<RichText
+				:text="message"
+				:arguments="[]"
+				:autolink="true"
+				:use-markdown="true"
+				:class="{'announcement__message--folded': isMessageFolded}" />
 
 			<div
 				v-if="isMessageFolded"
@@ -95,6 +98,7 @@
 </template>
 
 <script>
+import RichText from '@juliushaertl/vue-richtext'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import Avatar from '@nextcloud/vue/dist/Components/Avatar'
@@ -113,6 +117,7 @@ export default {
 		Actions,
 		ActionButton,
 		Avatar,
+		RichText,
 	},
 	props: {
 		isAdmin: {
