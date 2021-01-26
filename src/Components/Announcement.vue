@@ -269,6 +269,10 @@ export default {
 		margin: 0 auto 3em;
 		font-size: 15px;
 
+		&:nth-child(1) {
+			margin-top: 70px;
+		}
+
 		&__header {
 			&__details {
 				display: flex;
