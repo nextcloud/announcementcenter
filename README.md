@@ -1,6 +1,6 @@
 # Announcement center
 
-![Frontpage of the announcement center app with teh admin form](docs/AnnouncementCenterFrontpage.png)
+![](docs/AnnouncementCenterFrontpage.png)
 
 Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅
 
