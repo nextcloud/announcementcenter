@@ -30,7 +30,7 @@ import Dashboard from './views/Dashboard'
 __webpack_nonce__ = btoa(getRequestToken())
 
 // eslint-disable-next-line
-__webpack_public_path__ = generateFilePath('user_status', '', 'js/')
+__webpack_public_path__ = generateFilePath('announcementcenter', '', 'js/')
 
 Vue.prototype.t = translate
 Vue.prototype.n = translatePlural
