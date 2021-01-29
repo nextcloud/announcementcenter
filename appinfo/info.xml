@@ -4,15 +4,19 @@
 	<id>announcementcenter</id>
 	<name>Announcement center</name>
 	<summary><![CDATA[This app allows admins to post announcements.]]></summary>
-	<description><![CDATA[This app allows admins to post announcements. Also supports the following features:
+	<description><![CDATA[Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅
 
-⚡ Activities (Requires the activity app to be enabled)
+🖌️ Markdown support
 
-📑 Comments
+📑 Comments including @-mentions
 
 👪 Group permissions
 
-🔔 Notifications (Requires the notifications app to be enabled)]]></description>
+⭕ Dashboard integration
+
+⚡ Activities integration
+
+🔔 Notifications integration]]></description>
 	<version>5.0.0-alpha.1</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
