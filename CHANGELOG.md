@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.0.1 – 2021-01-29
+### Fixed
+- Fix dashboard when user_status app is disabled
+  [#279](https://github.com/nextcloud/announcementcenter/pull/279)
+
 ## 4.0.0 – 2020-08-31
 ### Added
 - Add a dashboard widget
