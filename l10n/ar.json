@@ -10,7 +10,6 @@
     "{user} announced “{announcement}”" : "{user} أعلن ”{announcement}“",
     "Announcement center" : "مركز الإعلانات",
     "This app allows admins to post announcements." : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات.",
-    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات. كما يدعم الميزات التالية:\n\n⚡ النشاطات (تحتاج تطبيق النشاطات لتفعيلها)\n\n📑 التعليقات\n\n👪 صلاحيات المجموعات\n\n🔔 الإشعارات (تحتاج تطبيق الإشعارات لتفعيلها)",
     "There are currently no announcements…" : "لا يوجد حالياً اعلانات..",
     ", " : "،",
     "_%n comment_::_%n comments_" : ["لا يوجد تعليقات","تعليق %n","تعليقين %n","%n تعليقات","%n تعليقات","%n تعليقات "],
@@ -44,6 +43,7 @@
     "Visible for everyone" : "مرئي للجميع",
     "Visible for groups: {groups}" : "مرئي للمجموعات: {groups}",
     "Groups" : "المجموعات",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات. كما يدعم الميزات التالية:\n\n⚡ النشاطات (تحتاج تطبيق النشاطات لتفعيلها)\n\n📑 التعليقات\n\n👪 صلاحيات المجموعات\n\n🔔 الإشعارات (تحتاج تطبيق الإشعارات لتفعيلها)",
     "No Announcements" : "لا اعلانات",
     "Add announcement" : "أضف اعلان",
     "Subject…" : "الموضوع…",
