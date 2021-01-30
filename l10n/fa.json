@@ -10,7 +10,6 @@
     "{user} announced “{announcement}”" : "{user} اعلام کرد {announcement}",
     "Announcement center" : "مرکز اعلامیه",
     "This app allows admins to post announcements." : "این برنامه به سرورها امکان ارسال اعلان ها را می دهد.",
-    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "این برنامه به سرورها امکان ارسال اعلان ها را می دهد. همچنین از ویژگی های زیر پشتیبانی می کند: ⚡ فعالیت ها (به برنامه فعالیت نیاز دارد)) 📑 نظرات\n مجوزهای گروهی 🔔 اطلاعیه ها (به برنامه نوتیفیکیشن نیاز دارد)",
     "There are currently no announcements…" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد ...",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n نظر","%n نظرات"],
@@ -44,6 +43,7 @@
     "Visible for everyone" : "قابل مشاهده برای همه",
     "Visible for groups: {groups}" : "قابل مشاهده برای گروه ها: {گروه}",
     "Groups" : "گروه ها",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "این برنامه به سرورها امکان ارسال اعلان ها را می دهد. همچنین از ویژگی های زیر پشتیبانی می کند: ⚡ فعالیت ها (به برنامه فعالیت نیاز دارد)) 📑 نظرات\n مجوزهای گروهی 🔔 اطلاعیه ها (به برنامه نوتیفیکیشن نیاز دارد)",
     "No Announcements" : "بدون اطلاعیه",
     "Add announcement" : "اعلان را اضافه کنید",
     "Subject…" : "موضوع…",
