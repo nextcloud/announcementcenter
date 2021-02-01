@@ -25,19 +25,16 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\Controller;
 
+use InvalidArgumentException;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Http\Response;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
-use OCP\IConfig;
-use OCP\IDBConnection;
 use OCP\IGroup;
 use OCP\IGroupManager;
-use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IRequest;
 use OCP\IUser;
@@ -49,9 +46,6 @@ class APIController extends OCSController {
 
 	/** @var IJobList */
 	protected $jobList;
-
-	/** @var IDBConnection */
-	protected $connection;
 
 	/** @var IGroupManager */
 	protected $groupManager;
@@ -65,42 +59,30 @@ class APIController extends OCSController {
 	/** @var Manager */
 	protected $manager;
 
-	/** @var IConfig */
-	protected $config;
-
 	/** @var ITimeFactory */
 	protected $timeFactory;
 
 	/** @var IUserSession */
 	protected $userSession;
 
-	/** @var IInitialStateService */
-	protected $initialState;
-
 	public function __construct(string $appName,
 								IRequest $request,
-								IDBConnection $connection,
 								IGroupManager $groupManager,
 								IUserManager $userManager,
 								IJobList $jobList,
 								IL10N $l,
 								Manager $manager,
-								IConfig $config,
 								ITimeFactory $timeFactory,
-								IUserSession $userSession,
-								IInitialStateService $initialState) {
+								IUserSession $userSession) {
 		parent::__construct($appName, $request);
 
-		$this->connection = $connection;
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
 		$this->jobList = $jobList;
 		$this->l = $l;
 		$this->manager = $manager;
-		$this->config = $config;
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
-		$this->initialState = $initialState;
 	}
 
 	/**
@@ -139,7 +121,7 @@ class APIController extends OCSController {
 
 		try {
 			$announcement = $this->manager->announce($subject, $message, $userId, $this->timeFactory->getTime(), $groups, $comments);
-		} catch (\InvalidArgumentException $e) {
+		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
@@ -170,7 +152,7 @@ class APIController extends OCSController {
 			'author' => $displayName,
 			'time' => $announcement->getTime(),
 			'subject' => $announcement->getSubject(),
-			'message' => $announcement->getParsedMessage(),
+			'message' => $announcement->getMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
@@ -226,7 +208,7 @@ class APIController extends OCSController {
 	 * @NoAdminRequired
 	 *
 	 * @param int $id
-	 * @return Response
+	 * @return DataResponse
 	 */
 	public function removeNotifications(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
