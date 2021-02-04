@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "Ο {user} ανακοίνωσε “{announcement}”",
     "Announcement center" : "Κέντρο ανακοινώσεων",
     "This app allows admins to post announcements." : "Η εφαρμογή επιτρέπει στους διαχειριστές να δημοσιεύουν ανακοινώσεις.",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Ανακοινώστε το χρονικό διάστημα συντήρησης 🎛️, συστήστε έναν νέο συνάδελφο 👤 ή βεβαιωθείτε ότι όλοι γνωρίζουν για το μεγάλο γεγονός του επόμενου μήνα 📅\n\n🖌️ Υποστήριξη markdown\n\n📑 Σχόλια συμπεριλαμβανομένων των @-mentions\n\n👪 Δικαιώματα ομάδας\n\n⭕ Ενσωμάτωση ταμπλό\n\n⚡ Ενσωμάτωση δραστηριοτήτων\n\n🔔 Ενσωμάτωση ειδοποιήσεων",
     "No announcements" : "Καμία ανακοίνωση",
     "There are currently no announcements…" : "Δεν υπάρχουν ακόμη ανακοινώσεις...",
     "Clear notifications" : "Διαγραφή ειδοποιήσεων",
