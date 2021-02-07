@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",
     "Announcement center" : "Centrum oznámení",
     "This app allows admins to post announcements." : "Tato aplikace umožňuje správcům vystavovat oznámení.",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Oznamte údržbu serveru 🎛️, představte nového kolegu 👤 nebo se ujistěte, že každý bude vědět o velké události příští měsic 📅\n\n🖌️ Podpora Markdown\n\n📑 Komentáře se @-zmíňkami\n\n👪 Oznámení skupinám\n\n⭕ Integrace s nástěnkou\n\n⚡ Zobrazení v aktivitách\n\n🔔 Zobrazení v notifikacích",
     "No announcements" : "Žádná oznámení",
     "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…",
     "Clear notifications" : "Smazat oznámení",
