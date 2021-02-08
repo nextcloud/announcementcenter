@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} erabiltzaileak “{announcement}” iragarri du",
     "Announcement center" : "Iragarpen-zentroa",
     "This app allows admins to post announcements." : "Aplikazio honek administratzaileei iragarpenak argitaratzea ahalbidetzen die.",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Mantentze leihoa iragarri 🎛️, lankide berria aurkeztu 👤 edo ziurtatu denek jakitea hurrengo hilabeteko gertaera handiaz 📅\n\n🖌️ Markdown zerbitzua\n\n📑 Iruzkinak @-aipamenak barne\n\n👪 Talde baimenak\n\n⭕ Aginte-panelaren integrazioa\n\n⚡Jardueren integrazioa\n\n🔔 Jakinarazpen integrazioa ",
     "No announcements" : "Ez dago iragarpenik",
     "There are currently no announcements…" : "Une honetan ez dago iragarpenik...",
     "Clear notifications" : "Garbitu jakinarazpenak",
