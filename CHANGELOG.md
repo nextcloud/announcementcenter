@@ -1,12 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 5.0.0-alpha.1 – 2020-12-15
+## 5.0.0 – 2021-02-23
 ### Added
 - Rewrite the frontend in Vue.JS after a design review
   [#218](https://github.com/nextcloud/announcementcenter/pull/218)
 
 ### Fixed
+- Make the database schema compatible with clusters by adding a primary key
+  [#293](https://github.com/nextcloud/announcementcenter/pull/293)
 - Compatibility with Nextcloud 21
 
 ## 4.0.1 – 2021-01-29
