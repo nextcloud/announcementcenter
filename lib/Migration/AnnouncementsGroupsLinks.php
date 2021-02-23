@@ -59,7 +59,7 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	 */
 	public function run(IOutput $output) {
 		$queryInsert = $this->connection->getQueryBuilder();
-		$queryInsert->insert('announcements_groups')
+		$queryInsert->insert('announcements_map')
 			->values([
 				'announcement_id' => $queryInsert->createParameter('aid'),
 				'gid' => $queryInsert->createNamedParameter('everyone'),
@@ -68,7 +68,7 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 		$query = $this->connection->getQueryBuilder();
 		$query->select(['a.announcement_id', 'a.announcement_subject'])
 			->from('announcements', 'a')
-			->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
+			->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
 				'a.announcement_id', 'ag.announcement_id'
 			))
 			->where($query->expr()->isNull('ag.gid'));
