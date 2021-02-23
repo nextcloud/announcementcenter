@@ -29,7 +29,7 @@ use OCP\IDBConnection;
 
 class GroupMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'announcements_groups', Group::class);
+		parent::__construct($db, 'announcements_map', Group::class);
 	}
 
 	/**
@@ -46,7 +46,7 @@ class GroupMapper extends QBMapper {
 	 */
 	public function deleteGroupsForAnnouncement(Announcement $announcement): void {
 		$query = $this->db->getQueryBuilder();
-		$query->delete('announcements_groups')
+		$query->delete('announcements_map')
 			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($announcement->getId())));
 		$query->execute();
 	}
@@ -62,7 +62,7 @@ class GroupMapper extends QBMapper {
 
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
-			->from('announcements_groups')
+			->from('announcements_map')
 			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 
 		/** @var Group[] $results */

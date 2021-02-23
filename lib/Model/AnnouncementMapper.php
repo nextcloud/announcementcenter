@@ -83,7 +83,7 @@ class AnnouncementMapper extends QBMapper {
 			->setMaxResults(7);
 
 		if (!empty($userGroups)) {
-			$query->leftJoin('a', 'announcements_groups', 'ag', $query->expr()->eq(
+			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
 				'a.announcement_id', 'ag.announcement_id'
 			))
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));

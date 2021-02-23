@@ -100,7 +100,7 @@ class ManagerTest extends TestCase {
 
 		$query = \OC::$server->getDatabaseConnection()->getQueryBuilder();
 		$query->delete('announcements')->execute();
-		$query->delete('announcements_groups')->execute();
+		$query->delete('announcements_map')->execute();
 	}
 
 	public function testGetAnnouncementNotExist(): void {
