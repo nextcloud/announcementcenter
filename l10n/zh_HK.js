@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} 公告了「{announcement}」",
     "Announcement center" : "公告中心",
     "This app allows admins to post announcements." : "這個應用程式允許管理員發布公告。",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "宣布您的維護時段🎛️，介紹新同事👤或確保每個人都知道下個月的大事件📅\n\n🖌️ 支持 Mark️Markdown\n\n📑評論，包括 @-mentions\n\n👪群組權限\n\n⭕儀錶盤整合\n\n⚡活動整合\n\n🔔通知整合",
     "No announcements" : "無公告",
     "There are currently no announcements…" : "目前沒有任何公告…",
     "Clear notifications" : "清除通知",
