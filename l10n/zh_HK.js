@@ -46,7 +46,7 @@ OC.L10N.register(
     "New comment …" : "新增留言…",
     "Post" : "張貼",
     "Cancel" : "取消",
-    "[Deleted user]" : "[已刪除的使用者]",
+    "[Deleted user]" : "[已刪除的用戶]",
     "Comments" : "留言",
     "No comments yet, start the conversation!" : "尚無留言，開始對話！",
     "More comments …" : "其他留言…",
