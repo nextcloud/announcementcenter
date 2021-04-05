@@ -67,7 +67,7 @@ OC.L10N.register(
     "Add announcement" : "新增公告",
     "Subject…" : "主旨…",
     "Your announcement…" : "您的公告內容…",
-    "Groups…" : "群組。。。",
+    "Groups…" : "群組...",
     "Advanced options" : "進階選項",
     "Loading More Announcements …" : "正在載入更多公告……"
 },
