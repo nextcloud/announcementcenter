@@ -50,7 +50,7 @@ OC.L10N.register(
     "Comments" : "Cummentos",
     "No comments yet, start the conversation!" : "Perunu cummentu ancora, cumintza sa tzarrada!",
     "More comments …" : "Àteros cummentos ...",
-    "Save" : "Sarba",
+    "Save" : "Sarva",
     "Allowed characters {count} of {max}" : "Caràteres perimitidos {count} de {max}",
     "Error occurred while retrieving comment with ID {id}" : "Ddoe at àpidu un'errore recuperende su cummentu cun ID {id}",
     "Error occurred while updating comment with id {id}" : "Ddoe at àpidu un'errore agiornende unu cummentu cun id {id}",
