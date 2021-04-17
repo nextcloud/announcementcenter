@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "Uporabnik {user} objavi obvestilo »{announcement}«",
     "Announcement center" : "Središče za obveščanje",
     "This app allows admins to post announcements." : "Program omogoča skrbnikom objavljanje obvestil.",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Objavite urnik skrbniškega urejanja strežnika 🎛️, predstavite nove člane 👤, ali pa zagotovite, da so vsi seznanjeni z izvedbo pomembnega dogodka naslednji mesec 📅\n\n🖌️ Podprt je oblikovan zapis Markdown\n\n📑 Omogočeno je komentiranje z uporabo @-mentions\n\n👪 Dodeliti je mogoče skupinska dovoljenja\n\n⭕ Program je mogoče dodati na Nadzorno ploščo\n\n⚡ Dejavnosti se beležijo med Dejanji\n\n🔔 Sistem omogoča obveščanje prek vseh podprtih načinov",
     "No announcements" : "Ni obvestil",
     "There are currently no announcements…" : "Trenutno še nihče ni objavil ...",
     "Clear notifications" : "Počisti obvestila",
