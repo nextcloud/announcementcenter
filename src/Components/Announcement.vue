@@ -78,7 +78,7 @@
 			@click="onClickFoldedMessage">
 			<RichText
 				:text="message"
-				:arguments="[]"
+				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
 				:class="{'announcement__message--folded': isMessageFolded}" />

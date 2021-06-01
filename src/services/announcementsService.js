@@ -28,7 +28,7 @@ import { generateOcsUrl } from '@nextcloud/router'
  * @returns {Object} The axios response
  */
 const getAnnouncements = async function(offset) {
-	return axios.get(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements', {
+	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		params: {
 			offset: offset || 0,
 		},
@@ -42,7 +42,7 @@ const getAnnouncements = async function(offset) {
  * @returns {Object} The axios response
  */
 const searchGroups = async function(search) {
-	return axios.get(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/groups', {
+	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/groups'), {
 		params: {
 			search: search || '',
 		},
@@ -61,7 +61,7 @@ const searchGroups = async function(search) {
  * @returns {Object} The axios response
  */
 const postAnnouncement = async function(subject, message, groups, activities, notifications, comments) {
-	return axios.post(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements', {
+	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
 		groups,
@@ -78,7 +78,7 @@ const postAnnouncement = async function(subject, message, groups, activities, no
  * @returns {Object} The axios response
  */
 const deleteAnnouncement = async function(id) {
-	return axios.delete(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements/' + id)
+	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}', { id }))
 }
 
 /**
@@ -88,7 +88,7 @@ const deleteAnnouncement = async function(id) {
  * @returns {Object} The axios response
  */
 const removeNotifications = async function(id) {
-	return axios.delete(generateOcsUrl('apps/announcementcenter', 2) + 'api/v1/announcements/' + id + '/notifications')
+	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}/notifications', { id }))
 }
 
 export {
