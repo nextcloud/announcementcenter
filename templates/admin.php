@@ -21,7 +21,7 @@
  *
  */
 
-script('announcementcenter', 'admin');
+script('announcementcenter', 'announcementcenter-admin');
 
 /** @var array $_ */
 /** @var \OCP\IL10N $l */
