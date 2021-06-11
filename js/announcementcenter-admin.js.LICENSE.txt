@@ -19,19 +19,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
-$(document).ready(function() {
-	var $announcementCenter = $('#announcementcenter'),
-		$adminGroup = $announcementCenter.find('.admin_groups');
-
-	OC.Settings.setupGroupsSelect($adminGroup);
-	$adminGroup.change(function(event) {
-		var groups = event.val || ['admin'];
-		groups = JSON.stringify(groups);
-		OCP.AppConfig.setValue('announcementcenter', 'admin_groups', groups);
-	});
-
-	$announcementCenter.find('.checkbox').change(function() {
-		OCP.AppConfig.setValue('announcementcenter', $(this).attr('name'), (this.checked ? 'yes' : 'no'));
-	});
-});
