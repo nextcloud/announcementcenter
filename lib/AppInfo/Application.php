@@ -37,7 +37,6 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
 use OCP\Comments\ICommentsManager;
-use OCP\Notification\IManager;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class Application extends App implements IBootstrap {
@@ -50,10 +49,10 @@ class Application extends App implements IBootstrap {
 	public function register(IRegistrationContext $context): void {
 		$context->registerDashboardWidget(Widget::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
+		$context->registerNotifierService(Notifier::class);
 	}
 
 	public function boot(IBootContext $context): void {
-		$context->injectFn([$this, 'registerNotificationNotifier']);
 		$context->injectFn([$this, 'registerCommentsEntity']);
 	}
 
@@ -73,9 +72,5 @@ class Application extends App implements IBootstrap {
 				return (bool) $announcement->getAllowComments();
 			});
 		});
-	}
-
-	public function registerNotificationNotifier(IManager $notificationManager): void {
-		$notificationManager->registerNotifierService(Notifier::class);
 	}
 }

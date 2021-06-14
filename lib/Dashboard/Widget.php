@@ -28,8 +28,8 @@ namespace OCA\AnnouncementCenter\Dashboard;
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\Dashboard\IWidget;
-use OCP\IInitialStateService;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUser;
@@ -44,7 +44,7 @@ class Widget implements IWidget {
 	private $userManager;
 	/** @var IURLGenerator */
 	private $url;
-	/** @var IInitialStateService */
+	/** @var IInitialState */
 	private $initialState;
 	/** @var IL10N */
 	private $l10n;
@@ -53,7 +53,7 @@ class Widget implements IWidget {
 		Manager $manager,
 		IUserManager $userManager,
 		IURLGenerator $url,
-		IInitialStateService $initialState,
+		IInitialState $initialState,
 		IL10N $l10n
 	) {
 		$this->manager = $manager;
@@ -102,7 +102,7 @@ class Widget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function load(): void {
-		$this->initialState->provideLazyInitialState(Application::APP_ID, Application::APP_ID . '_dashboard', function () {
+		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
 			$announcements = $this->manager->getAnnouncements(0);
 			return array_map([$this, 'renderAnnouncement'], $announcements);
 		});
