@@ -19,7 +19,7 @@
 	"autoload-dev": {
 		"psr-4": {
 			"OCP\\": "vendor/christophwurst/nextcloud/OCP",
-			"OCA\\Notifications\\": "lib/"
+			"OCA\\AnnouncementCenter\\": "lib/"
 		}
 	},
 	"config": {

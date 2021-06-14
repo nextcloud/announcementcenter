@@ -34,7 +34,7 @@ class GroupMapper extends QBMapper {
 
 	/**
 	 * @param Announcement $announcement
-	 * @return Group[]
+	 * @return string[]
 	 */
 	public function getGroupsForAnnouncement(Announcement $announcement): array {
 		$result = $this->getGroupsForAnnouncements([$announcement]);

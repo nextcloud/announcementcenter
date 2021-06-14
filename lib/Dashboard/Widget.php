@@ -103,7 +103,7 @@ class Widget implements IWidget {
 	 */
 	public function load(): void {
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
-			$announcements = $this->manager->getAnnouncements(0);
+			$announcements = $this->manager->getAnnouncements();
 			return array_map([$this, 'renderAnnouncement'], $announcements);
 		});
 		Util::addStyle(Application::APP_ID, 'dashboard');

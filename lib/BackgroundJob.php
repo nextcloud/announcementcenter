@@ -25,12 +25,13 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter;
 
-use OC\BackgroundJob\QueuedJob;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\Guests\UserBackend;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
+use OCP\AppFramework\Utility\ITimeFactory;
+use OCP\BackgroundJob\QueuedJob;
 use OCP\IConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
@@ -42,6 +43,7 @@ use OCP\Notification\INotification;
 class BackgroundJob extends QueuedJob {
 	/** @var IConfig */
 	protected $config;
+
 	/** @var INotificationManager */
 	protected $notificationManager;
 
@@ -65,11 +67,13 @@ class BackgroundJob extends QueuedJob {
 
 	public function __construct(
 		IConfig $config,
+		ITimeFactory $time,
 		IUserManager $userManager,
 		IGroupManager $groupManager,
 		IActivityManager $activityManager,
 		INotificationManager $notificationManager,
 		Manager $manager) {
+		parent::__construct($time);
 		$this->config = $config;
 		$this->userManager = $userManager;
 		$this->groupManager = $groupManager;
@@ -79,11 +83,11 @@ class BackgroundJob extends QueuedJob {
 	}
 
 	/**
-	 * @param array $arguments
+	 * @param array $argument
 	 */
-	public function run($arguments) {
+	public function run($argument): void {
 		try {
-			$announcement = $this->manager->getAnnouncement($arguments['id'], true);
+			$announcement = $this->manager->getAnnouncement($argument['id'], true);
 		} catch (AnnouncementDoesNotExistException $e) {
 			// Announcement was deleted in the meantime, so no need to announce it anymore
 			// So we die silently
@@ -93,7 +97,7 @@ class BackgroundJob extends QueuedJob {
 		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist', null);
 		$this->enabledForGuestsUsers = $guestsWhiteList !== null && strpos($guestsWhiteList, 'announcementcenter') !== false;
 
-		$this->createPublicity($announcement, $arguments);
+		$this->createPublicity($announcement, $argument);
 	}
 
 	/**
@@ -110,7 +114,7 @@ class BackgroundJob extends QueuedJob {
 			->setMessage('announcementmessage')
 			->setObject('announcement', $announcement->getId());
 
-		$dateTime = new \DateTime();
+		$dateTime = $this->time->getDateTime();
 		$dateTime->setTimestamp($announcement->getTime());
 
 		$notification = $this->notificationManager->createNotification();
@@ -133,7 +137,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param INotification $notification
 	 * @param array $publicity
 	 */
-	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, array $publicity) {
+	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, array $publicity): void {
 		$this->userManager->callForSeenUsers(function (IUser $user) use ($authorId, $event, $notification, $publicity) {
 			if (!$this->enabledForGuestsUsers && $user->getBackend() instanceof UserBackend) {
 				return;
@@ -158,7 +162,7 @@ class BackgroundJob extends QueuedJob {
 	 * @param string[] $groups
 	 * @param array $publicity
 	 */
-	protected function createPublicityGroups($authorId, IEvent $event, INotification $notification, array $groups, array $publicity) {
+	protected function createPublicityGroups(string $authorId, IEvent $event, INotification $notification, array $groups, array $publicity): void {
 		foreach ($groups as $gid) {
 			$group = $this->groupManager->get($gid);
 			if (!($group instanceof IGroup)) {

@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="4.7.3@38c452ae584467e939d55377aaf83b5a26f19dd1">
   <file src="lib/BackgroundJob.php">
-    <UndefinedClass occurrences="1">
-      <code>QueuedJob</code>
-    </UndefinedClass>
-  </file>
-  <file src="lib/Controller/APIController.php">
-    <MissingDependency occurrences="1">
-      <code>BackgroundJob</code>
-    </MissingDependency>
+    <NullArgument occurrences="1">
+      <code>null</code>
+    </NullArgument>
   </file>
   <file src="lib/Dashboard/Widget.php">
     <InvalidArgument occurrences="1"/>
-  </file>
-  <file src="lib/Manager.php">
-    <InvalidReturnStatement occurrences="1">
-      <code>$this-&gt;groupMapper-&gt;getGroupsForAnnouncement($announcement)</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>string[]</code>
-    </InvalidReturnType>
-    <MissingDependency occurrences="6">
-      <code>BackgroundJob</code>
-      <code>BackgroundJob</code>
-      <code>BackgroundJob</code>
-      <code>BackgroundJob</code>
-      <code>BackgroundJob</code>
-      <code>BackgroundJob</code>
-    </MissingDependency>
   </file>
   <file src="lib/Model/Announcement.php">
     <UndefinedMethod occurrences="2">

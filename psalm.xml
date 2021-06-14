@@ -21,8 +21,9 @@
 	<issueHandlers>
 		<UndefinedClass>
 			<errorLevel type="suppress">
-				<referencedClass name="OC" />
 				<referencedClass name="Doctrine\DBAL\Types\Types" />
+				<referencedClass name="OC" />
+				<referencedClass name="OCA\Guests\UserBackend" />
 			</errorLevel>
 		</UndefinedClass>
 		<UndefinedDocblockClass>
