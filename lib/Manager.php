@@ -127,14 +127,14 @@ class Manager {
 		return $announcement;
 	}
 
-	protected function addGroupLink(Announcement $announcement, string $gid) {
+	protected function addGroupLink(Announcement $announcement, string $gid): void {
 		$group = new Group();
 		$group->setId($announcement->getId());
 		$group->setGroup($gid);
 		$this->groupMapper->insert($group);
 	}
 
-	public function delete(int $id) {
+	public function delete(int $id): void {
 		// Delete notifications
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')

@@ -28,6 +28,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\Activity\IManager as IActivityManager;
+use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserManager;
@@ -44,6 +45,8 @@ use PHPUnit\Framework\MockObject\MockObject;
 class BackgroundJobTest extends TestCase {
 	/** @var IConfig|MockObject */
 	protected $config;
+	/** @var ITimeFactory|MockObject */
+	protected $time;
 	/** @var IUserManager|MockObject */
 	protected $userManager;
 	/** @var IGroupManager|MockObject */
@@ -59,6 +62,7 @@ class BackgroundJobTest extends TestCase {
 		parent::setUp();
 
 		$this->config = $this->createMock(IConfig::class);
+		$this->time = $this->createMock(ITimeFactory::class);
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->activityManager = $this->createMock(IActivityManager::class);
@@ -70,6 +74,7 @@ class BackgroundJobTest extends TestCase {
 		if (empty($methods)) {
 			return new BackgroundJob(
 				$this->config,
+				$this->time,
 				$this->userManager,
 				$this->groupManager,
 				$this->activityManager,
@@ -81,6 +86,7 @@ class BackgroundJobTest extends TestCase {
 		return $this->getMockBuilder(BackgroundJob::class)
 			->setConstructorArgs([
 				$this->config,
+				$this->time,
 				$this->userManager,
 				$this->groupManager,
 				$this->activityManager,
@@ -271,6 +277,8 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects(self::once())
 			->method('createNotification')
 			->willReturn($notification);
+		$this->time->method('getDateTime')
+			->willReturn(new \DateTime());
 
 		$announcement = Announcement::fromParams([
 			'id' => 10,

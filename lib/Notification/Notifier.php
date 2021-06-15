@@ -138,7 +138,7 @@ class Notifier implements INotifier {
 					'announcement' => [
 						'type' => 'announcement',
 						'id' => $notification->getObjectId(),
-						'name' => $announcement->getSubject(),
+						'name' => $announcement->getParsedSubject(),
 						'link' => $link,
 					],
 				]

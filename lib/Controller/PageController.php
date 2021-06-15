@@ -64,7 +64,7 @@ class PageController extends Controller {
 	 * @param int $announcement
 	 * @return TemplateResponse
 	 */
-	public function index($announcement = 0): TemplateResponse {
+	public function index(int $announcement = 0): TemplateResponse {
 		if ($announcement) {
 			$this->manager->markNotificationRead($announcement);
 		}
