@@ -122,7 +122,7 @@ class Widget implements IWidget {
 			'author_id' => $announcement->getUser(),
 			'author' => $displayName,
 			'time' => $announcement->getTime(),
-			'subject' => $announcement->getSubject(),
+			'subject' => $announcement->getParsedSubject(),
 			'message' => $announcement->getParsedMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,

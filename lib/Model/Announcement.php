@@ -31,6 +31,7 @@ use OCP\AppFramework\Db\Entity;
  * @method void setUser(string $user)
  * @method string getUser()
  * @method void setSubject(string $subject)
+ * @method string getSubject()
  * @method void setMessage(string $message)
  * @method string getMessage()
  * @method void setAllowComments(int $allowComments)
@@ -61,12 +62,12 @@ class Announcement extends Entity {
 		$this->addType('allowComments', 'int');
 	}
 
-	public function getSubject(): string {
-		return trim(str_replace("\n", ' ', parent::getSubject()));
+	public function getParsedSubject(): string {
+		return trim(str_replace("\n", ' ', $this->getSubject()));
 	}
 
 	public function getParsedMessage(): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], parent::getMessage());
+		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $this->getMessage());
 	}
 
 	/**

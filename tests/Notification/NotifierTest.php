@@ -218,7 +218,7 @@ class NotifierTest extends TestCase {
 				'announcement' => [
 					'type' => 'announcement',
 					'id' => $objectId,
-					'name' => $announcement->getSubject(),
+					'name' => $announcement->getParsedSubject(),
 				],
 			]);
 

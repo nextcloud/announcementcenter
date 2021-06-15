@@ -8,10 +8,4 @@
   <file src="lib/Dashboard/Widget.php">
     <InvalidArgument occurrences="1"/>
   </file>
-  <file src="lib/Model/Announcement.php">
-    <UndefinedMethod occurrences="2">
-      <code>parent::getMessage()</code>
-      <code>parent::getSubject()</code>
-    </UndefinedMethod>
-  </file>
 </files>
