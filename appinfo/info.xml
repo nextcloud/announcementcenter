@@ -17,7 +17,7 @@
 ⚡ Activities integration
 
 🔔 Notifications integration]]></description>
-	<version>6.0.0-dev.1</version>
+	<version>6.0.0-alpha.1</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>

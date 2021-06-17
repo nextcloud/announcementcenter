@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.0.0-alpha.1 – 2021-06-17
+### Fixed
+- Compatibility with Nextcloud 22
+
 ## 5.0.0 – 2021-02-23
 ### Added
 - Rewrite the frontend in Vue.JS after a design review

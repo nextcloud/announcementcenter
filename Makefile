@@ -92,6 +92,7 @@ appstore: dev-setup build-js-production
 	--exclude=/tests \
 	--exclude=/vendor \
 	--exclude=/.eslintrc.js \
+	--exclude=/.l10nignore \
 	--exclude=/.php_cs.cache \
 	--exclude=/.php_cs.dist \
 	--exclude=/.gitattributes \
@@ -99,7 +100,12 @@ appstore: dev-setup build-js-production
 	--exclude=/.scrutinizer.yml \
 	--exclude=/.travis.yml \
 	--exclude=/babel.config.js \
+	--exclude=/composer.json \
+	--exclude=/composer.lock \
 	--exclude=/Makefile \
+	--exclude=/package.json \
+	--exclude=/package-lock.json \
+	--exclude=/psalm.xml \
 	--exclude=/README.md \
 	--exclude=/stylelint.config.js \
 	--exclude=/webpack.js \
