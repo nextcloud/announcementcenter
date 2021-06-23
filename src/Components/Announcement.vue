@@ -243,7 +243,9 @@ export default {
 		},
 		onClickFoldedMessage() {
 			this.isMessageFolded = false
-			this.$emit('click', this.id)
+			if (this.comments !== false) {
+				this.$emit('click', this.id)
+			}
 		},
 		async onRemoveNotifications() {
 			try {
