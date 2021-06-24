@@ -10,7 +10,7 @@ OC.L10N.register(
     "Announcement center" : "Paziņojumu centrs",
     "There are currently no announcements…" : "Šobrīd nav paziņojumu...",
     ", " : ",",
-    "_%n comment_::_%n comments_" : ["%n komentāri","%n komentāri","%n komentāri"],
+    "_%n comment_::_%n comments_" : ["%n komentāri","%n komentāri"],
     "Announce" : "Paziņot",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
