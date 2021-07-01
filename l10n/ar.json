@@ -12,7 +12,7 @@
     "This app allows admins to post announcements." : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات.",
     "There are currently no announcements…" : "لا يوجد حالياً اعلانات..",
     ", " : "،",
-    "_%n comment_::_%n comments_" : ["تعليق %n","تعليقين %n","%n تعليقات","%n تعليقات","%n تعليقات "],
+    "_%n comment_::_%n comments_" : ["لا يوجد تعليقات","تعليق %n","تعليقين %n","%n تعليقات","%n تعليقات","%n تعليقات "],
     "Announce" : "أعلن",
     "Create activities" : "انشئ نشاطات",
     "Create notifications" : "انشئ اشعارات",
