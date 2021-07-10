@@ -18,7 +18,7 @@
     "seconds ago" : "pred niekoľkými sekundami",
     "visible to everyone" : "viditeľné pre všetkých",
     "visible to group {name}" : "viditeľné pre skupinu {name}",
-    "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} and {name2}",
+    "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} a {name2}",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Nastala chyba pri odstraňovaní notifikácie oznámenia",
     "An error occurred while deleting the announcement" : "Chyba pri vymazávaní oznámenia",
