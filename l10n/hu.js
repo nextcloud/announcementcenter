@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Csoportok",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ezzel az alkalmazással a rendszergazdák bejelentéseket tehetnek közzé. Továbbá támogatja a következő funkciókat:\n\n⚡ Tevékenységek (Szükséges hozzá a tevékenységek alkalmazás engedélyezése)\n\n📑 Hozzászólások\n\n👪 Csoportjogosultságok\n\n🔔 Értesítések (Szükséges hozzá az értesítések alkalmazás engedélyezése)",
     "No Announcements" : "Nincsenek bejelentések",
+    "Loading More Announcements …" : "További bejelentések betöltése …",
     "Add announcement" : "Bejelentés hozzáadása",
     "Subject…" : "Tárgy…",
     "Your announcement…" : "A bejelentése…",
     "Groups…" : "Csoportok…",
-    "Advanced options" : "Speciális beállítások",
-    "Loading More Announcements …" : "További bejelentések betöltése …"
+    "Advanced options" : "Speciális beállítások"
 },
 "nplurals=2; plural=(n != 1);");

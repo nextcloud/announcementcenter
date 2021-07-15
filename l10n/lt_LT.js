@@ -57,11 +57,11 @@ OC.L10N.register(
     "Groups" : "Grupės",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ši programa leidžia administratoriams skelbti skelbimus ir palaiko sekančius funkcionalumus:\n⚡  Veiklos (Veiklų programa turi būtų įjungta)\n\n📑  Komentarai\n\n👪  Grupių teisės\n\n🔔 Pranešimai (pranešimų programa turi būtų įjungta)",
     "No Announcements" : "Nėra skelbimų",
+    "Loading More Announcements …" : "Įkeliama daugiau skelbimų…",
     "Add announcement" : "Pridėti skelbimą",
     "Subject…" : "Tema…",
     "Your announcement…" : "Jūsų skelbimas…",
     "Groups…" : "Grupės…",
-    "Advanced options" : "Išplėstinės parinktys",
-    "Loading More Announcements …" : "Įkeliama daugiau skelbimų…"
+    "Advanced options" : "Išplėstinės parinktys"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

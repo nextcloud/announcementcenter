@@ -62,13 +62,13 @@ OC.L10N.register(
     "Visible for everyone" : "所有人均可看見",
     "Visible for groups: {groups}" : "可見群組：{groups}",
     "Groups" : "群組",
-    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "這個 App 允許管理員發佈公告。也支援以下功能：\n\n⚡ 活動紀錄（需要啟用 Activity App)\n\n📑 留言\n\n👪 群組權限\n\n🔔 通告（需要啟用 Notifications App)",
+    "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "這個 App 允許管理員發佈公告。也支援以下功能：\n\n⚡ 活動紀錄（需要啟用 Activity App）\n\n📑 留言\n\n👪 群組權限\n\n🔔 通告（需要啟用 Notifications App）",
     "No Announcements" : "沒有公告",
+    "Loading More Announcements …" : "正在載入更多公告……",
     "Add announcement" : "新增公告",
     "Subject…" : "主旨…",
     "Your announcement…" : "您的公告內容…",
     "Groups…" : "群組...",
-    "Advanced options" : "進階選項",
-    "Loading More Announcements …" : "正在載入更多公告……"
+    "Advanced options" : "進階選項"
 },
 "nplurals=1; plural=0;");

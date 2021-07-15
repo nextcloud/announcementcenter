@@ -20,7 +20,7 @@ OC.L10N.register(
     "seconds ago" : "pred niekoľkými sekundami",
     "visible to everyone" : "viditeľné pre všetkých",
     "visible to group {name}" : "viditeľné pre skupinu {name}",
-    "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} and {name2}",
+    "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} a {name2}",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Nastala chyba pri odstraňovaní notifikácie oznámenia",
     "An error occurred while deleting the announcement" : "Chyba pri vymazávaní oznámenia",
@@ -62,11 +62,11 @@ OC.L10N.register(
     "Groups" : "Skupiny",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Táto apka umožňuje administrátorom posielať oznámenia. Taktiež podporuje nasledujúce funkcie:\n\n⚡ Aktivity (musí byť povolená apka Aktivity)\n\n📑 Komentáre\n\n👪 Skupinové oprávnenia\n\n🔔 Hlásenia (musí byť povolená apka Hlásenia)",
     "No Announcements" : "Žiadne oznámenia",
+    "Loading More Announcements …" : "Načítavajú sa ďalšie oznámenia…",
     "Add announcement" : "Pridať oznámenie",
     "Subject…" : "Predmet...",
     "Your announcement…" : "Vaše oznámenie...",
     "Groups…" : "Skupiny...",
-    "Advanced options" : "Pokročilé možnosti",
-    "Loading More Announcements …" : "Načítavajú sa ďalšie oznámenia…"
+    "Advanced options" : "Pokročilé možnosti"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");

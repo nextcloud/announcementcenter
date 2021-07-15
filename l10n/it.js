@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Gruppi",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Questa applicazione consente agli amministratori di pubblicare annunci. Supporta inoltre le seguenti funzionalità:\n\n⚡ Attività (richiede che l'applicazione delle attività sia abilitata)\n\n📑 Commenti\n\n👪 Permessi di gruppo\n\n🔔 Notifiche (richiede che l'applicazione delle notifiche sia abilitata)",
     "No Announcements" : "Nessun annuncio",
+    "Loading More Announcements …" : "Caricamento di più annunci...",
     "Add announcement" : "Aggiungi annuncio",
     "Subject…" : "Oggetto...",
     "Your announcement…" : "Il tuo annuncio...",
     "Groups…" : "Gruppi...",
-    "Advanced options" : "Opzioni avanzate",
-    "Loading More Announcements …" : "Caricamento di più annunci..."
+    "Advanced options" : "Opzioni avanzate"
 },
 "nplurals=2; plural=(n != 1);");
