@@ -47,11 +47,11 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Näkyy ryhmille: {groups}",
     "Groups" : "Ryhmät",
     "No Announcements" : "Ei tiedotteita",
+    "Loading More Announcements …" : "Ladataan lisää tiedotteita…",
     "Add announcement" : "Lisää tiedote",
     "Subject…" : "Aihe…",
     "Your announcement…" : "Tiedotteesi…",
     "Groups…" : "Ryhmät...",
-    "Advanced options" : "Lisäasetukset",
-    "Loading More Announcements …" : "Ladataan lisää tiedotteita…"
+    "Advanced options" : "Lisäasetukset"
 },
 "nplurals=2; plural=(n != 1);");

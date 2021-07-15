@@ -60,11 +60,11 @@
     "Groups" : "Skupiny",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Táto apka umožňuje administrátorom posielať oznámenia. Taktiež podporuje nasledujúce funkcie:\n\n⚡ Aktivity (musí byť povolená apka Aktivity)\n\n📑 Komentáre\n\n👪 Skupinové oprávnenia\n\n🔔 Hlásenia (musí byť povolená apka Hlásenia)",
     "No Announcements" : "Žiadne oznámenia",
+    "Loading More Announcements …" : "Načítavajú sa ďalšie oznámenia…",
     "Add announcement" : "Pridať oznámenie",
     "Subject…" : "Predmet...",
     "Your announcement…" : "Vaše oznámenie...",
     "Groups…" : "Skupiny...",
-    "Advanced options" : "Pokročilé možnosti",
-    "Loading More Announcements …" : "Načítavajú sa ďalšie oznámenia…"
+    "Advanced options" : "Pokročilé možnosti"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

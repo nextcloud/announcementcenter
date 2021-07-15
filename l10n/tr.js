@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Gruplar",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Bu uygulama yöneticilerin duyurular yapabilmesini sağlar ve şu özellikleri vardır:\n\n⚡ İşlemler (İşlemler uygulamasının etkinleştirilmiş olması gerekir)\n\n📑 Notlar\n\n👪 Grup izinleri\n\n🔔 Bildirimler (Bildirimler uygulamasının etkinleştirilmiş olması gerekir)",
     "No Announcements" : "Herhangi bir duyuru yok",
+    "Loading More Announcements …" : "Diğer duyurular yükleniyor …",
     "Add announcement" : "Duyuru ekle",
     "Subject…" : "Konu …",
     "Your announcement…" : "Duyurularınız …",
     "Groups…" : "Gruplar …",
-    "Advanced options" : "Gelişmiş ayarlar",
-    "Loading More Announcements …" : "Diğer duyurular yükleniyor …"
+    "Advanced options" : "Gelişmiş ayarlar"
 },
 "nplurals=2; plural=(n > 1);");

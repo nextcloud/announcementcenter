@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Taldeak",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Aplikazio honek administratzaileei iragarpenak argitaratzea ahalbidetzen die. Ezaugari hauek ere ditu:\n\n⚡ Jarduerak (Jardueren aplikazioa aktibatuta badago)\n\n📑 Iruzkinak\n\n👪 Talde-baimenak\n\n🔔 Jakinarazpenak (Jakinarzpenen aplikazioa aktibatuta badago)",
     "No Announcements" : "Ez dago iragarpenik",
+    "Loading More Announcements …" : "Iragarpen gehiago kargatzen ...",
     "Add announcement" : "Gehitu iragarpena",
     "Subject…" : "Gaia...",
     "Your announcement…" : "Zure iragarpena...",
     "Groups…" : "Taldeak...",
-    "Advanced options" : "Ezarpen aurreratuak",
-    "Loading More Announcements …" : "Iragarpen gehiago kargatzen ..."
+    "Advanced options" : "Ezarpen aurreratuak"
 },
 "nplurals=2; plural=(n != 1);");

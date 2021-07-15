@@ -47,11 +47,11 @@ OC.L10N.register(
     "Groups" : "Hópar",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar. Styður einnig eftirfarandi eiginleika:\n\n⚡ Virkni (activities - krefst þess að virkniforritið sé virkt)\n\n📑 Athugasemdir\n\n👪 Heimildir hópa\n\n🔔 Tilkynningar (krefst þess að tilkynningaforritið sé virkt)",
     "No Announcements" : "Engar tilkynningar",
+    "Loading More Announcements …" : "Hleð inn fleiri tilkynningum …",
     "Add announcement" : "Bæta við tilkynningu",
     "Subject…" : "Efni…",
     "Your announcement…" : "Tilkynningin þín...",
     "Groups…" : "Hópar…",
-    "Advanced options" : "Ítarlegir valkostir",
-    "Loading More Announcements …" : "Hleð inn fleiri tilkynningum …"
+    "Advanced options" : "Ítarlegir valkostir"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

@@ -62,11 +62,11 @@
     "Groups" : "グループ",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "このアプリは、管理者たちがお知らせを投稿できるようにします。 以下の機能に対応しています：\n\n⚡アクティビティ（アクティビティアプリを有効にする必要があります）\n\n📑コメント\n\n👪グループの権限\n\n🔔通知（通知アプリを有効にする必要があります）",
     "No Announcements" : "お知らせがありません",
+    "Loading More Announcements …" : "他のお知らせを読み込んでいます...",
     "Add announcement" : "お知らせを追加",
     "Subject…" : "件名...",
     "Your announcement…" : "あなたのお知らせ...",
     "Groups…" : "グループ...",
-    "Advanced options" : "詳細オプション",
-    "Loading More Announcements …" : "他のお知らせを読み込んでいます..."
+    "Advanced options" : "詳細オプション"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

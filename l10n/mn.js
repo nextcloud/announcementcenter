@@ -45,11 +45,11 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "Харах бүлгээд: {groups}",
     "Groups" : "Бүлгүүд",
     "No Announcements" : "Мэдээлэл байхгүй",
+    "Loading More Announcements …" : "Зарлалуудыг уншиж байна",
     "Add announcement" : "Мэдээлэл нэмэх",
     "Subject…" : "Гарчиг...",
     "Your announcement…" : "Таны мэдээлэл...",
     "Groups…" : "Бүлгүүд...",
-    "Advanced options" : "Бусад сонголтууд",
-    "Loading More Announcements …" : "Зарлалуудыг уншиж байна"
+    "Advanced options" : "Бусад сонголтууд"
 },
 "nplurals=2; plural=(n != 1);");

@@ -49,11 +49,11 @@ OC.L10N.register(
     "Groups" : "Grupper",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Denne app giver administratorer mulighed for at udsende meddelelser. Følgende funktioner er også understøttet:\n\n⚡ Aktiviteter (kræver at appen Aktiviteter er aktiveret)\n\n📑 Kommentarer\n\n👪 Gruppetilladelser\n\n🔔 Underretninger (kræver at appen Underretninger er aktiveret)",
     "No Announcements" : "Ingen meddelelser",
+    "Loading More Announcements …" : "Henter flere meddelelser...",
     "Add announcement" : "Tilføj meddelse",
     "Subject…" : "Emne...",
     "Your announcement…" : "Din meddelelse...",
     "Groups…" : "Grupper...",
-    "Advanced options" : "Avancerede indstillinger",
-    "Loading More Announcements …" : "Henter flere meddelelser..."
+    "Advanced options" : "Avancerede indstillinger"
 },
 "nplurals=2; plural=(n != 1);");
