@@ -59,11 +59,11 @@
     "Groups" : "Grupper",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Denne appen tillater administrator å legge ut annonseringer. Støtter følgende funksjoner:\n\n⚡ Aktiviteter (Aktivitetsapp må være aktivitert)\n\n📑 Kommentar\n\n👪 Gruppe tillatelser\n\n🔔 Notifiseringer (notifiseringsapp må være aktivert)",
     "No Announcements" : "Ingen kunngjøringer",
+    "Loading More Announcements …" : "Laster flere kunngjøringer ...",
     "Add announcement" : "Legg til kunngjøring",
     "Subject…" : "Emne…",
     "Your announcement…" : "Kunngjøringen din…",
     "Groups…" : "Grupper …",
-    "Advanced options" : "Avanserte alternativer",
-    "Loading More Announcements …" : "Laster flere kunngjøringer ..."
+    "Advanced options" : "Avanserte alternativer"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

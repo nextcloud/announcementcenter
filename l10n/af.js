@@ -56,11 +56,11 @@ OC.L10N.register(
     "Groups" : "Groepe",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Hierdie toep laat admins toe om aankondigings te plaas. Die volgende word ook ondersteun:\n\n⚡ Aktiwiteite (die aktiwiteit-toep moet geaktiveer wees)\n\n📑 Kommentaar\n\n👪 Groeptoestemmings\n\n🔔 Kennisgewings (kennisgewing-toep moet geaktiveer wees)",
     "No Announcements" : "Geen Aankondigings",
+    "Loading More Announcements …" : "Laai nog aankondigings …",
     "Add announcement" : "Voeg aankondiging toe",
     "Subject…" : "Onderwerp…",
     "Your announcement…" : "U aankondiging…",
     "Groups…" : "Groepe…",
-    "Advanced options" : "Gevorderde opsies",
-    "Loading More Announcements …" : "Laai nog aankondigings …"
+    "Advanced options" : "Gevorderde opsies"
 },
 "nplurals=2; plural=(n != 1);");

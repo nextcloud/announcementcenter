@@ -62,11 +62,11 @@
     "Groups" : "Grupos",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Custa aplicatzione permitet a is amministradores de publicare comunicatziones. Disponet puru de custas funtzionalidades:\n\n⚡ Atividades (Rechedet de ativare s'aplicatzione de atividades)\n\n📑 Cummentos\n\n👪 Permissos de is grupos\n\n🔔 Notìficas (Rechedet de ativare s'aplicatzione de notìficas)",
     "No Announcements" : "Peruna comunicatzione",
+    "Loading More Announcements …" : "Carrighende àteras comunicatziones ...",
     "Add announcement" : "Agiunghe comunicatzione",
     "Subject…" : "Ogetu...",
     "Your announcement…" : "Is comunicatzione tua...",
     "Groups…" : "Grupos...",
-    "Advanced options" : "Optziones avantzadas",
-    "Loading More Announcements …" : "Carrighende àteras comunicatziones ..."
+    "Advanced options" : "Optziones avantzadas"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
