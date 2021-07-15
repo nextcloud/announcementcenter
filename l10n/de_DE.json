@@ -62,11 +62,11 @@
     "Groups" : "Gruppen",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Diese App ermöglicht es Admins Ankündigungen zu schreiben. Folgende Funktionen werden ebenfalls unterstützt:\n\n⚡ Aktivitäten (Die Aktivitäten-App muss aktiviert sein)\n\n📑Kommentare \n\n👪 Gruppenberechtigungen\n\n🔔 Benachrichtigungen (Die Benachrichtigungen-App muss aktiviert sein)",
     "No Announcements" : "Keine Ankündigungen",
+    "Loading More Announcements …" : "Lade weitere Ankündigungen …",
     "Add announcement" : "Ankündigung schreiben",
     "Subject…" : "Betreff…",
     "Your announcement…" : "Ihre Ankündigung…",
     "Groups…" : "Gruppen…",
-    "Advanced options" : "Erweiterte Optionen",
-    "Loading More Announcements …" : "Lade weitere Ankündigungen …"
+    "Advanced options" : "Erweiterte Optionen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

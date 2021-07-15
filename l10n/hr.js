@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Skupine",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Ova aplikacija omogućuje administratorima objavljivanje obavijesti. Također podržava sljedeće značajke:\n\n⚡ Aktivnosti (zahtijeva omogućavanje aplikacije za aktivnosti)\n\n📑 Komentari\n\n👪 Grupna dopuštenja\n\n🔔 Obavijesti (zahtijeva omogućavanje aplikacije za obavijesti)",
     "No Announcements" : "Nema oglasa",
+    "Loading More Announcements …" : "Učitavanje više obavijesti…",
     "Add announcement" : "Postavi oglas",
     "Subject…" : "Predmet...",
     "Your announcement…" : "Sadržaj vašeg oglasa...",
     "Groups…" : "Skupine...",
-    "Advanced options" : "Napredne mogućnosti",
-    "Loading More Announcements …" : "Učitavanje više obavijesti…"
+    "Advanced options" : "Napredne mogućnosti"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

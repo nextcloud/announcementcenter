@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "群組",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "此應用程式允許管理員發布公告。也支援以下功能：\n\n⚡ 活動（必須啟用活動應用程式）\n\n📑 留言\n\n👪 群組權限\n\n🔔 通知（必須啟用通知應用程式）",
     "No Announcements" : "沒有公告",
+    "Loading More Announcements …" : "正在載入更多公告……",
     "Add announcement" : "新增公告",
     "Subject…" : "主旨……",
     "Your announcement…" : "您的公告內容……",
     "Groups…" : "群組……",
-    "Advanced options" : "進階選項",
-    "Loading More Announcements …" : "正在載入更多公告……"
+    "Advanced options" : "進階選項"
 },
 "nplurals=1; plural=0;");

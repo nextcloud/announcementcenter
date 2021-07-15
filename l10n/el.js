@@ -64,11 +64,11 @@ OC.L10N.register(
     "Groups" : "Ομάδες",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "Αυτή η εφαρμογή επιτρέπει στους διαχειριστές να δημοσιεύουν ανακοινώσεις. Υποστηρίζει επίσης τις ακόλουθες λειτουργίες: \\ n\n\\ n\n⚡ Δραστηριότητες (Απαιτείται ενεργοποίηση της εφαρμογής δραστηριότητας) \\ n\n\\ n\n📑 Σχόλια \\ n\n\\ n\n👪 Άδεια ομάδας \\ n\n\\ n\n🔔 Ειδοποιήσεις (Απαιτείται η ενεργοποίηση της εφαρμογής ειδοποιήσεων)",
     "No Announcements" : "Καμία ανακοίνωση",
+    "Loading More Announcements …" : "Φόρτωση περισσότερων ανακοινώσεων ...",
     "Add announcement" : "Προσθήκη ανακοίνωσης",
     "Subject…" : "Θέμα...",
     "Your announcement…" : "Η ανακοίνωσή σας...",
     "Groups…" : "Ομάδες...",
-    "Advanced options" : "Επιλογές για προχωρημένους",
-    "Loading More Announcements …" : "Φόρτωση περισσότερων ανακοινώσεων ..."
+    "Advanced options" : "Επιλογές για προχωρημένους"
 },
 "nplurals=2; plural=(n != 1);");
