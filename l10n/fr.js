@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} annonce \"{announcement}\"",
     "Announcement center" : "Centre d'annonce",
     "This app allows admins to post announcements." : "Cette application permet aux administrateurs de poster des annonces.",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Annoncez votre fenêtre de maintenance 🎛️, présentez un nouveau collègue 👤 ou assurez-vous que tout le monde est au courant du grand événement du mois prochain 📅.\n\n🖌️ Support du format Markdown\n\n📑 Commentaires incluant les @-mentions\n\n👪 Autorisations de groupe\n\n⭕ Intégration du tableau de bord\n\n⚡ Intégration des activités\n\n🔔 Intégration des notifications",
     "No announcements" : "Aucune annonce",
     "There are currently no announcements…" : "Il n'y a pas d'annonce pour le moment...",
     "Clear notifications" : "Effacer les notifications",
