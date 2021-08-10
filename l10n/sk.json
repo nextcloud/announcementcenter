@@ -23,6 +23,7 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Nastala chyba pri odstraňovaní notifikácie oznámenia",
     "An error occurred while deleting the announcement" : "Chyba pri vymazávaní oznámenia",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["viditeľné pre skupinu {name} a %n ďalšiu","viditeľné pre skupinu {name} a %n ďalších","viditeľné pre skupinu {name} a %n ďalších","viditeľné pre skupinu {name} a %n ďalších"],
     "_%n comment_::_%n comments_" : ["%n komentár","%n komentáre","%n komentárov","%n komentárov"],
     "New announcement subject" : "Nový predmet oznámenia",
     "Write announcement text, Markdown can be used …" : "Zadajte text oznámenia, Markdown môže byť použitý ...",
