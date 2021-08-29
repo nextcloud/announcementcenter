@@ -23,7 +23,7 @@ OC.L10N.register(
     "visible to group {name}" : "sichtbar für Gruppe {name}",
     "visible to groups {name1} and {name2}" : "sichtbar für Gruppe {name1} und {name2}",
     ", " : ",",
-    "An error occurred while removing the notifications of the announcement" : "Ein Fehler ist aufgetreten beim entfernen der Benachrichtigung von der Ankündigung",
+    "An error occurred while removing the notifications of the announcement" : "Ein Fehler ist aufgetreten beim Entfernen der Benachrichtigung von der Ankündigung",
     "An error occurred while deleting the announcement" : "Ein Fehler ist aufgetreten beim Löschen der Ankündigung",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["Sichtbar für Gruppe {name} und %n mehr","Sichtbar für Gruppe {name} und %n mehr"],
     "_%n comment_::_%n comments_" : ["%n Kommentar","%n Kommentare"],
