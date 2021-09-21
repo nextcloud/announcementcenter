@@ -119,6 +119,7 @@ export default {
 
 		/**
 		 * Load the comments of the announcements
+		 *
 		 * @param {number} id the announcement
 		 */
 		async onClickAnnouncement(id) {

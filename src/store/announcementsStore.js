@@ -3,7 +3,7 @@
  *
  * @author Marco Ambrosini <marcoambrosini@pm.me>
  *
- * @license GNU AGPL version 3 or any later version
+ * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -44,8 +44,9 @@ const mutations = {
 
 	/**
 	 * Deletes an announcement from the store
+	 *
 	 * @param {object} state current store state
-	 * @param {int} id the id of the announcement to delete
+	 * @param {number} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(state, id) {
 		Vue.delete(state.announcements, id)
@@ -53,8 +54,9 @@ const mutations = {
 
 	/**
 	 * Remove the notifications of an announcement
+	 *
 	 * @param {object} state current store state
-	 * @param {int} id the id of the announcement to remove the notifications of
+	 * @param {number} id the id of the announcement to remove the notifications of
 	 */
 	removeNotifications(state, id) {
 		if (!state.announcements[id]) {
@@ -80,7 +82,7 @@ const actions = {
 	 * Delete an announcement
 	 *
 	 * @param {object} context default store context
-	 * @param {int} id the id of the announcement to delete
+	 * @param {number} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(context, id) {
 		context.commit('deleteAnnouncement', id)
@@ -90,7 +92,7 @@ const actions = {
 	 * Remove the notifications of an announcement
 	 *
 	 * @param {object} context default store context
-	 * @param {int} id the id of the announcement to remove the notifications of
+	 * @param {number} id the id of the announcement to remove the notifications of
 	 */
 	removeNotifications(context, id) {
 		context.commit('removeNotifications', id)
