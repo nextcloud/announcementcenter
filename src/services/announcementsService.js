@@ -1,7 +1,7 @@
 /**
  * @copyright Copyright (c) 2020 Joas Schilling <coding@schilljs.com>
  *
- * @license GNU AGPL version 3 or any later version
+ * @license AGPL-3.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,8 +24,8 @@ import { generateOcsUrl } from '@nextcloud/router'
 /**
  * Gets the announcements
  *
- * @param {int} [offset] The last announcement id loaded
- * @returns {Object} The axios response
+ * @param {number} [offset] The last announcement id loaded
+ * @return {object} The axios response
  */
 const getAnnouncements = async function(offset) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
@@ -39,7 +39,7 @@ const getAnnouncements = async function(offset) {
  * Get the groups for posting an announcement
  *
  * @param {string} [search] Search term to autocomplete a group
- * @returns {Object} The axios response
+ * @return {object} The axios response
  */
 const searchGroups = async function(search) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/groups'), {
@@ -58,7 +58,7 @@ const searchGroups = async function(search) {
  * @param {boolean} activities Should activities be generated
  * @param {boolean} notifications Should notifications be generated
  * @param {boolean} comments Are comments allowed
- * @returns {Object} The axios response
+ * @return {object} The axios response
  */
 const postAnnouncement = async function(subject, message, groups, activities, notifications, comments) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
@@ -74,8 +74,8 @@ const postAnnouncement = async function(subject, message, groups, activities, no
 /**
  * Delete an announcement
  *
- * @param {int} id The announcement id to delete
- * @returns {Object} The axios response
+ * @param {number} id The announcement id to delete
+ * @return {object} The axios response
  */
 const deleteAnnouncement = async function(id) {
 	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}', { id }))
@@ -84,8 +84,8 @@ const deleteAnnouncement = async function(id) {
 /**
  * Remove notifications for an announcement
  *
- * @param {int} id The announcement id to delete
- * @returns {Object} The axios response
+ * @param {number} id The announcement id to delete
+ * @return {object} The axios response
  */
 const removeNotifications = async function(id) {
 	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}/notifications', { id }))
