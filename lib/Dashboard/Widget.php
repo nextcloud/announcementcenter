@@ -95,7 +95,7 @@ class Widget implements IWidget {
 	 * @inheritDoc
 	 */
 	public function getUrl(): ?string {
-		return $this->url->linkToRouteAbsolute('announcementcenter.Page.index');
+		return $this->url->linkToRouteAbsolute('announcementcenter.page.index');
 	}
 
 	/**
