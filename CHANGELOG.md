@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 4.0.2 – 2021-09-22
+### Fixed
+- Fix missing notifications when posting multiple restricted notifications in a short time
+  [#397](https://github.com/nextcloud/announcementcenter/pull/397)
+
 ## 4.0.1 – 2021-01-29
 ### Fixed
 - Fix dashboard when user_status app is disabled
