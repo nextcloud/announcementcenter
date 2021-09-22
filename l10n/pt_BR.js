@@ -46,7 +46,7 @@ OC.L10N.register(
     "New comment …" : "Novo comentário...",
     "Post" : "Postar",
     "Cancel" : "Cancelar",
-    "[Deleted user]" : "[Usuário excluído]",
+    "[Deleted user]" : "[Usuário removido]",
     "Comments" : "Comentários",
     "No comments yet, start the conversation!" : "Sem comentários ainda, inicie uma conversa!",
     "More comments …" : "Mais comentários...",
