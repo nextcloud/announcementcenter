@@ -1,9 +1,25 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 6.0.0-alpha.1 – 2021-06-17
+## 6.0.0 – 2021-09-22
 ### Fixed
+- Fix missing notifications when posting multiple restricted notifications in a short time
+  [#395](https://github.com/nextcloud/announcementcenter/pull/395)
+- Fix "Route does not exist" log spam when accessing the dashboard
+  [#392](https://github.com/nextcloud/announcementcenter/pull/392)
 - Compatibility with Nextcloud 22
+
+## 5.0.1 – 2021-09-22
+### Fixed
+- Fix missing notifications when posting multiple restricted notifications in a short time
+  [#396](https://github.com/nextcloud/announcementcenter/pull/396)
+- Fix "Route does not exist" log spam when accessing the dashboard
+  [#393](https://github.com/nextcloud/announcementcenter/pull/393)
+
+## 4.0.2 – 2021-09-22
+### Fixed
+- Fix missing notifications when posting multiple restricted notifications in a short time
+  [#397](https://github.com/nextcloud/announcementcenter/pull/397)
 
 ## 5.0.0 – 2021-02-23
 ### Added
