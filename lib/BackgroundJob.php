@@ -127,6 +127,7 @@ class BackgroundJob extends QueuedJob {
 		if (\in_array('everyone', $groups, true)) {
 			$this->createPublicityEveryone($announcement->getUser(), $event, $notification, $publicity);
 		} else {
+			$this->notifiedUsers = [];
 			$this->createPublicityGroups($announcement->getUser(), $event, $notification, $groups, $publicity);
 		}
 	}
