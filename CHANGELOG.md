@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.1.0 – 2021-11-09
+### Fixed
+- Compatibility with Nextcloud 23
+
 ## 6.0.0 – 2021-09-22
 ### Fixed
 - Fix missing notifications when posting multiple restricted notifications in a short time
