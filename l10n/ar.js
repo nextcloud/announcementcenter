@@ -9,20 +9,37 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "قام مدير بنشر <strong>announcement</strong> ",
     "The subject is too long or empty" : "الموضوع طويل جدا أو فارغ",
     "Announcements" : "الإعلانات",
+    "{user} announced {announcement}" : "{user} أعلن {announcement}",
     "{user} announced “{announcement}”" : "{user} أعلن ”{announcement}“",
     "Announcement center" : "مركز الإعلانات",
     "This app allows admins to post announcements." : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات.",
-    "There are currently no announcements…" : "لا يوجد حالياً اعلانات..",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "أعلن عن نافذة الصيانة الخاصة بك 🎛️، أو تقديم زميل جديد 👤 أو تأكد من أن الجميع على دراية بالحدث الكبير الشهر المقبل 📅\n\n🖌️ دعم \"Markdown\"\n\n📑 التعليقات بما في ذلك الإشارات \"@\"\n\n👪 أذونات المجموعة\n\n⭕ تكامل لوحة القيادة\n\n⚡ تكامل الأنشطة\n\n🔔 تكامل الإخطارات",
+    "No announcements" : "لا توجد اعلانات",
+    "There are currently no announcements…" : "لا يوجد حالياً اعلانات...",
+    "Clear notifications" : "مسح الإخطارات",
+    "Delete announcement" : "حذف الاعلانات",
+    "seconds ago" : "منذ ثوان مضت",
+    "visible to everyone" : "مرئي للجميع",
+    "visible to group {name}" : "مرئي لمجموعة \"{name}\"",
+    "visible to groups {name1} and {name2}" : "مرئي لمجموعتي \"{name1}\" و \"{name2}\"",
     ", " : "،",
+    "An error occurred while removing the notifications of the announcement" : "حدث خطأ أثناء إزالة إخطارات الإعلان",
+    "An error occurred while deleting the announcement" : "حدث خطأ أثناء حذف الإعلان",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["مرئي لمجموعة \"{name}\"","مرئي لمجموعة \"{name}\" و واحدة أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى"],
     "_%n comment_::_%n comments_" : ["لا يوجد تعليقات","تعليق %n","تعليقين %n","%n تعليقات","%n تعليقات","%n تعليقات "],
+    "New announcement subject" : "موضوع إعلان جديد",
+    "Write announcement text, Markdown can be used …" : "اكتب نص إعلان، يمكنكم استخدام \"Markdown\" ...",
     "Announce" : "أعلن",
     "Create activities" : "انشئ نشاطات",
     "Create notifications" : "انشئ اشعارات",
     "Allow comments" : "السماح بنشر تعليقات",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "هذه المجاميع سترى الاعلانات. اذا لم يوجد مجموعة محددة، جميع المستخدين سيرونها",
-    "These groups will be able to post announcements." : "هذه المجموعات ستملك الصلاحية لنشر الاعلان",
-    "Create activities by default" : "انشاء النشاطات افتراضياً",
-    "Create notifications by default" : "انشئ اشعارات افتراضياً",
+    "Everyone" : "الجميع",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "هذه المجموعات سترى الاعلانات. اذا لم يتم اختيار مجموعة محددة فإن جميع المستخدين سيرونها.",
+    "An error occurred while posting the announcement" : "حدث خطأ أثناء نشر الإعلان",
+    "{author}, {timestamp}" : "{author}، {timestamp}",
+    "These groups will be able to post announcements." : "هذه المجموعات ستملك الصلاحية لنشر الاعلانات",
+    "Create activities by default" : "انشئ النشاطات افتراضياً",
+    "Create notifications by default" : "انشئ الاشعارات افتراضياً",
     "Allow comments by default" : "اسمح بالتعليقات افتراضياً",
     "Edit comment" : "تعديل التعليق",
     "Delete comment" : "حذف التعليق",
@@ -31,7 +48,7 @@ OC.L10N.register(
     "Cancel" : "إلغاء",
     "[Deleted user]" : "[مستخدم محذوف]",
     "Comments" : "تعليقات",
-    "No comments yet, start the conversation!" : "لا يوجد تعليقات, ابدأ النقاش الآن!",
+    "No comments yet, start the conversation!" : "لا يوجد تعليقات، ابدأ النقاش الآن!",
     "More comments …" : "مزيد من التعليقات...",
     "Save" : "حفظ",
     "Allowed characters {count} of {max}" : "عدد الأحرف المسموح بها {count} من {max}",
@@ -46,7 +63,8 @@ OC.L10N.register(
     "Visible for groups: {groups}" : "مرئي للمجموعات: {groups}",
     "Groups" : "المجموعات",
     "This app allows admins to post announcements. Also supports the following features:\n\n⚡ Activities (Requires the activity app to be enabled)\n\n📑 Comments\n\n👪 Group permissions\n\n🔔 Notifications (Requires the notifications app to be enabled)" : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات. كما يدعم الميزات التالية:\n\n⚡ النشاطات (تحتاج تطبيق النشاطات لتفعيلها)\n\n📑 التعليقات\n\n👪 صلاحيات المجموعات\n\n🔔 الإشعارات (تحتاج تطبيق الإشعارات لتفعيلها)",
-    "No Announcements" : "لا اعلانات",
+    "No Announcements" : "لا توجد اعلانات",
+    "Loading More Announcements …" : "جارٍ تحميل المزيد من الإعلانات ...",
     "Add announcement" : "أضف اعلان",
     "Subject…" : "الموضوع…",
     "Your announcement…" : "اعلانك ..",
