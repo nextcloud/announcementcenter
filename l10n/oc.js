@@ -27,13 +27,6 @@ OC.L10N.register(
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
     "Everyone" : "Tot lo monde",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "Cancel" : "Anullar",
-    "Save" : "Salvar",
-    "Delete" : "Suprimir",
-    "Groups" : "Gropes",
-    "Loading More Announcements …" : "Cargament de mai d’anóncias…",
-    "Subject…" : "Subjècte…",
-    "Advanced options" : "Opcions avançadas"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n > 1);");
