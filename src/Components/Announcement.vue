@@ -47,7 +47,8 @@
 						<template v-if="isVisibleToEveryone">
 							{{ visibilityLabel }}
 						</template>
-						<span v-else
+						<span
+							v-else
 							:title="visibilityTitle">
 							{{ visibilityLabel }}
 						</span>
@@ -113,6 +114,7 @@ import {
 
 export default {
 	name: 'Announcement',
+
 	components: {
 		Actions,
 		ActionButton,

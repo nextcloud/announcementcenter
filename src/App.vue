@@ -25,7 +25,8 @@
 			<NewForm v-if="isAdmin" />
 
 			<transition-group name="fade-collapse" tag="div">
-				<Announcement v-for="announcement in announcements"
+				<Announcement
+					v-for="announcement in announcements"
 					:key="announcement.id"
 					:is-admin="isAdmin"
 					:author-id="announcement.author_id"
