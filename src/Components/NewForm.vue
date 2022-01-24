@@ -21,8 +21,7 @@
 
 <template>
 	<div class="announcement__form">
-		<input
-			v-model="subject"
+		<input v-model="subject"
 			class="announcement__form__subject"
 			type="text"
 			name="subject"
@@ -30,39 +29,33 @@
 			maxlength="512"
 			:placeholder="t('announcementcenter', 'New announcement subject')">
 
-		<textarea
-			v-model="message"
+		<textarea v-model="message"
 			class="announcement__form__message"
 			name="message"
 			rows="4"
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__buttons">
-			<button
-				class="button primary"
+			<button class="button primary"
 				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
 			</button>
 
 			<Actions>
-				<ActionCheckbox
-					value="1"
+				<ActionCheckbox value="1"
 					:checked.sync="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
 				</ActionCheckbox>
-				<ActionCheckbox
-					value="1"
+				<ActionCheckbox value="1"
 					:checked.sync="createNotifications">
 					{{ t('announcementcenter', 'Create notifications') }}
 				</ActionCheckbox>
-				<ActionCheckbox
-					value="1"
+				<ActionCheckbox value="1"
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</ActionCheckbox>
-				<ActionInput
-					v-model="groups"
+				<ActionInput v-model="groups"
 					icon="icon-group"
 					type="multiselect"
 					:options="groupOptions"
