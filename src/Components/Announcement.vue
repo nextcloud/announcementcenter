@@ -22,23 +22,20 @@
 <template>
 	<div class="announcement">
 		<div class="announcement__header">
-			<h2
-				class="announcement__header__subject"
+			<h2 class="announcement__header__subject"
 				:title="subject">
 				{{ subject }}
 			</h2>
 
 			<div class="announcement__header__details">
 				<div class="announcement__header__details__info">
-					<Avatar
-						:user="authorId"
+					<Avatar :user="authorId"
 						:display-name="author"
 						:size="16"
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span
-						class="live-relative-timestamp"
+					<span class="live-relative-timestamp"
 						:data-timestamp="timestamp"
 						:title="dateFormat">{{ dateRelative }}</span>
 
@@ -54,42 +51,35 @@
 					</template>
 				</div>
 
-				<Actions
-					v-if="isAdmin"
+				<Actions v-if="isAdmin"
 					:force-menu="true"
 					:boundaries-element="boundariesElement">
-					<ActionButton
-						v-if="notifications"
+					<ActionButton v-if="notifications"
 						icon="icon-notifications-off"
 						:close-after-click="true"
 						:title="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications" />
-					<ActionButton
-						icon="icon-delete"
+					<ActionButton icon="icon-delete"
 						:title="t('announcementcenter', 'Delete announcement')"
 						@click="onDeleteAnnouncement" />
 				</Actions>
 			</div>
 		</div>
 
-		<div
-			v-if="message"
+		<div v-if="message"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<RichText
-				:text="message"
+			<RichText :text="message"
 				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
 				:class="{'announcement__message--folded': isMessageFolded}" />
 
-			<div
-				v-if="isMessageFolded"
+			<div v-if="isMessageFolded"
 				class="announcement__message__overlay" />
 		</div>
 
-		<div
-			v-if="comments !== false"
+		<div v-if="comments !== false"
 			class="announcement__comments"
 			@click="onClickCommentCount">
 			{{ commentsCount }}

@@ -33,8 +33,7 @@
 					@click="onClickAnnouncement" />
 			</transition-group>
 
-			<EmptyContent
-				v-if="!announcements.length"
+			<EmptyContent v-if="!announcements.length"
 				icon="icon-announcementcenter-dark">
 				{{ t('announcementcenter', 'No announcements') }}
 				<template #desc>
@@ -42,12 +41,10 @@
 				</template>
 			</EmptyContent>
 		</AppContent>
-		<AppSidebar
-			v-if="activeId !== 0"
+		<AppSidebar v-if="activeId !== 0"
 			:title="activeAnnouncementTitle"
 			@close="onClickAnnouncement(0)">
-			<div
-				ref="sidebar"
+			<div ref="sidebar"
 				class="comments" />
 		</AppSidebar>
 	</Content>

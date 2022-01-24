@@ -20,8 +20,7 @@
   -->
 
 <template>
-	<DashboardWidget
-		id="announcementcenter_panel"
+	<DashboardWidget id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
 		empty-content-icon="icon-announcementcenter-dark"
