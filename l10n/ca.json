@@ -5,7 +5,7 @@
     "{actor} posted an announcement" : "{actor} ha publicat un anunci",
     "The announcement does not exist anymore" : "L’anunci ja no existeix",
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador ha publicat un <strong>anunci</strong>",
-    "The subject is too long or empty" : "L'assumpte és massa llarg o és buit",
+    "The subject is too long or empty" : "L'assumpte és massa llarg o està buit",
     "Announcements" : "Anuncis",
     "{user} announced {announcement}" : "{user} ha publicat l'anunci {announcement}",
     "{user} announced “{announcement}”" : "{user} ha publicat l'anunci «{announcement}»",
