@@ -36,11 +36,11 @@
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__buttons">
-			<button class="button primary"
+			<Button type="primary"
 				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
-			</button>
+			</Button>
 
 			<Actions>
 				<ActionCheckbox value="1"
@@ -76,6 +76,7 @@
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox'
 import ActionInput from '@nextcloud/vue/dist/Components/ActionInput'
+import Button from '@nextcloud/vue/dist/Components/Button'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -91,6 +92,7 @@ export default {
 		Actions,
 		ActionCheckbox,
 		ActionInput,
+		Button,
 	},
 
 	data() {
@@ -173,13 +175,11 @@ export default {
 	}
 
 	&__buttons {
-		text-align: right;
+		display: flex;
+		justify-content: right;
 
-		.button {
-			height: 44px;
-			font-size: 15px;
-			padding: 6px 18px;
-			margin: 0 3px;
+		::v-deep .button-vue {
+			margin-right: 10px;
 		}
 	}
 }

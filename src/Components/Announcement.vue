@@ -79,11 +79,12 @@
 				class="announcement__message__overlay" />
 		</div>
 
-		<div v-if="comments !== false"
+		<Button v-if="comments !== false"
+			type="tertiary"
 			class="announcement__comments"
 			@click="onClickCommentCount">
 			{{ commentsCount }}
-		</div>
+		</Button>
 	</div>
 </template>
 
@@ -92,6 +93,7 @@ import RichText from '@juliushaertl/vue-richtext'
 import Actions from '@nextcloud/vue/dist/Components/Actions'
 import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
 import Avatar from '@nextcloud/vue/dist/Components/Avatar'
+import Button from '@nextcloud/vue/dist/Components/Button'
 import moment from '@nextcloud/moment'
 import {
 	showError,
@@ -107,6 +109,7 @@ export default {
 		Actions,
 		ActionButton,
 		Avatar,
+		Button,
 		RichText,
 	},
 	props: {
@@ -277,7 +280,17 @@ export default {
 				&__info {
 					color: var(--color-text-maxcontrast);
 					flex: 1 1 auto;
-					margin: auto;
+					display: flex;
+					align-items: center;
+
+					::v-deep .avatardiv {
+						margin-right: 4px;
+					}
+
+					span {
+						margin-left: 4px;
+						margin-right: 4px;
+					}
 				}
 
 				.action-item {
@@ -315,11 +328,7 @@ export default {
 		}
 
 		&__comments {
-			color: var(--color-text-maxcontrast);
-			cursor: pointer;
-			padding: 0.5em;
-			margin: 1em -0.5em -0.5em;
-			display: inline-block;
+			margin-left: -16px;
 		}
 	}
 </style>
