@@ -39,5 +39,5 @@
     "Create activities by default" : "Créer des activités par défaut",
     "Create notifications by default" : "Créer des notifications par défaut",
     "Allow comments by default" : "Autoriser les commentaires par défaut"
-},"pluralForm" :"nplurals=2; plural=(n > 1);"
+},"pluralForm" :"nplurals=3; plural=(n==0 || n==1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
