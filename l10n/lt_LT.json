@@ -25,6 +25,7 @@
     "Create activities" : "Sukurti veiklas",
     "Create notifications" : "Sukurti pranešimus",
     "Allow comments" : "Leisti komentuoti",
+    "Everyone" : "Visi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šios grupės galės matyti skelbimą. Jeigu nebus pasirinkta jokia grupė, tuomet skelbimą galės matyti visi naudotojai.",
     "An error occurred while posting the announcement" : "Paskelbiant skelbimą, įvyko klaida",
     "{author}, {timestamp}" : "{author}, {timestamp}",
