@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 6.2.0 – 2022-03-31
+## 6.2.0 – 2022-04-27
 ### Fixed
 - Compatibility with Nextcloud 24
 
