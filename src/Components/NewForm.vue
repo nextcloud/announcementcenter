@@ -82,7 +82,7 @@ import { loadState } from '@nextcloud/initial-state'
 import {
 	postAnnouncement,
 	searchGroups,
-} from '../services/announcementsService'
+} from '../services/announcementsService.js'
 import { showError } from '@nextcloud/dialogs'
 
 export default {
