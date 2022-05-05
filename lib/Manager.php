@@ -238,17 +238,18 @@ class Manager {
 	}
 
 	public function hasNotifications(Announcement $announcement): bool {
-		$hasJob = $this->jobList->has(BackgroundJob::class, [
-			'id' => $announcement->getId(),
-			'activities' => true,
-			'notifications' => true,
-		]);
+		$jobMatrix = [
+			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => true],
+			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => false],
+			['id' => $announcement->getId(), 'activities' => false, 'notifications' => true, 'emails' => true],
+			['id' => $announcement->getId(), 'activities' => false, 'notifications' => true, 'emails' => false],
+		];
 
-		$hasJob = $hasJob || $this->jobList->has(BackgroundJob::class, [
-			'id' => $announcement->getId(),
-			'activities' => false,
-			'notifications' => true,
-		]);
+		foreach ($jobMatrix as $jobArguments) {
+			if ($hasJob = $this->jobList->has(BackgroundJob::class, $jobArguments)) {
+				break;
+			}
+		}
 
 		if ($hasJob) {
 			return true;
@@ -261,28 +262,26 @@ class Manager {
 	}
 
 	public function removeNotifications(int $id): void {
-		if ($this->jobList->has(BackgroundJob::class, [
-			'id' => $id,
-			'activities' => true,
-			'notifications' => true,
-		])) {
-			// Delete the current background job and add a new one without notifications
-			$this->jobList->remove(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => true,
-				'notifications' => true,
-			]);
-			$this->jobList->add(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => true,
-				'notifications' => false,
-			]);
+		$jobMatrix = [
+			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true],
+			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false],
+			['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true],
+		];
+
+		$jobArguments = ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false];
+		if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+			// Delete the current background job as it was only for notifications
+			$this->jobList->remove(BackgroundJob::class, $jobArguments);
 		} else {
-			$this->jobList->remove(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => false,
-				'notifications' => true,
-			]);
+			foreach ($jobMatrix as $jobArguments) {
+				if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+					// Delete the current background job and add a new one without notifications
+					$this->jobList->remove(BackgroundJob::class, $jobArguments);
+					$jobArguments['notifications'] = false;
+					$this->jobList->add(BackgroundJob::class, $jobArguments);
+					break;
+				}
+			}
 		}
 
 		$notification = $this->notificationManager->createNotification();
