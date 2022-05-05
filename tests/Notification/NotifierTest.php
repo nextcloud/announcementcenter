@@ -150,9 +150,9 @@ class NotifierTest extends TestCase {
 	public function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		return [
-			['author', 'subject', 'message', '42', null, 'author announced “subject”', 'message'],
-			['author1', 'subject', 'message', '42', $this->getUserMock(), 'Author announced “subject”', 'message'],
-			['author2', "subject\nsubject", $message, '21', null, 'author2 announced “subject subject”', $message],
+			['author', 'subject', 'message', 'message', '42', null, 'author announced “subject”', 'message'],
+			['author1', 'subject', 'message', 'message', '42', $this->getUserMock(), 'Author announced “subject”', 'message'],
+			['author2', "subject\nsubject", $message, $message, '21', null, 'author2 announced “subject subject”', $message],
 		];
 	}
 
@@ -162,12 +162,13 @@ class NotifierTest extends TestCase {
 	 * @param string $author
 	 * @param string $subject
 	 * @param string $message
+	 * @param string $plainMessage
 	 * @param int $objectId
 	 * @param \OCP\IUser $userObject
 	 * @param string $expectedSubject
 	 * @param string $expectedMessage
 	 */
-	public function testPrepare($author, $subject, $message, $objectId, $userObject, $expectedSubject, $expectedMessage): void {
+	public function testPrepare($author, $subject, $message, $plainMessage, $objectId, $userObject, $expectedSubject, $expectedMessage): void {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
@@ -187,6 +188,7 @@ class NotifierTest extends TestCase {
 		$announcement = Announcement::fromParams([
 			'subject' => $subject,
 			'message' => $message,
+			'plainMessage' => $plainMessage,
 		]);
 
 		$this->manager->expects(self::once())

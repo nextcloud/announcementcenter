@@ -86,6 +86,7 @@ class Manager {
 	/**
 	 * @param string $subject
 	 * @param string $message
+	 * @param string $plainMessage
 	 * @param string $user
 	 * @param int $time
 	 * @param string[] $groups
@@ -93,9 +94,10 @@ class Manager {
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $user, int $time, array $groups, bool $comments): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
+		$plainMessage = trim($plainMessage);
 		if (isset($subject[512])) {
 			throw new \InvalidArgumentException('Invalid subject', 1);
 		}
@@ -107,6 +109,7 @@ class Manager {
 		$announcement = new Announcement();
 		$announcement->setSubject($subject);
 		$announcement->setMessage($message);
+		$announcement->setPlainMessage($plainMessage);
 		$announcement->setUser($user);
 		$announcement->setTime($time);
 		$announcement->setAllowComments((int) $comments);

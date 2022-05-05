@@ -32,12 +32,16 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUserManager;
+use OCP\Mail\IEMailTemplate;
+use OCP\Mail\IMailer;
+use OCP\Mail\IMessage;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\IUser;
 use OCP\IGroup;
 use OCP\Activity\IEvent;
 use OCP\Notification\INotification;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 /**
  * @group DB
@@ -55,6 +59,8 @@ class BackgroundJobTest extends TestCase {
 	protected $activityManager;
 	/** @var INotificationManager|MockObject */
 	protected $notificationManager;
+	/** @var IMailer|MockObject */
+	protected $mailer;
 	/** @var Manager|MockObject */
 	protected $manager;
 
@@ -67,6 +73,8 @@ class BackgroundJobTest extends TestCase {
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->activityManager = $this->createMock(IActivityManager::class);
 		$this->notificationManager = $this->createMock(INotificationManager::class);
+		$this->mailer = $this->createMock(IMailer::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->manager = $this->createMock(Manager::class);
 	}
 
@@ -79,6 +87,8 @@ class BackgroundJobTest extends TestCase {
 				$this->groupManager,
 				$this->activityManager,
 				$this->notificationManager,
+				$this->mailer,
+				$this->logger,
 				$this->manager
 			);
 		}
@@ -91,6 +101,8 @@ class BackgroundJobTest extends TestCase {
 				$this->groupManager,
 				$this->activityManager,
 				$this->notificationManager,
+				$this->mailer,
+				$this->logger,
 				$this->manager,
 			])
 			->setMethods($methods)
@@ -171,6 +183,9 @@ class BackgroundJobTest extends TestCase {
 		$user
 			->method('getLastLogin')
 			->willReturn($loggedIn ? 1234 : 0);
+		$user
+			->method('getEMailAddress')
+			->willReturn($uid . '@example.org');
 		return $user;
 	}
 
@@ -191,10 +206,12 @@ class BackgroundJobTest extends TestCase {
 			[['everyone'], true, [
 				'activities' => true,
 				'notifications' => false,
+				'emails' => true,
 			]],
 			[['gid1', 'gid2'], false, [
 				'activities' => false,
 				'notifications' => true,
+				'emails' => false,
 			]],
 		];
 	}
@@ -256,6 +273,32 @@ class BackgroundJobTest extends TestCase {
 			->with('announcement', 10)
 			->willReturnSelf();
 
+		$template = $this->createMock(IEMailTemplate::class);
+		$template->expects(self::once())
+			->method('setSubject')
+			->with('subject')
+			->willReturnSelf();
+		$template->expects(self::once())
+			->method('addHeader')
+			->willReturnSelf();
+		$template->expects(self::once())
+			->method('addHeading')
+			->with('subject')
+			->willReturnSelf();
+		$template
+			->method('addBodyText')
+			->with('message')
+			->willReturnSelf();
+		$template->expects(self::once())
+			->method('addFooter')
+			->willReturnSelf();
+
+		$email = $this->createMock(IMessage::class);
+		$email->expects(self::once())
+			->method('useTemplate')
+			->with($template)
+			->willReturnSelf();
+
 		$job = $this->getJob([
 			'createPublicityEveryone',
 			'createPublicityGroups',
@@ -264,11 +307,11 @@ class BackgroundJobTest extends TestCase {
 		if ($everyone) {
 			$job->expects(self::once())
 				->method('createPublicityEveryone')
-				->with('author', $event, $notification, $publicity);
+				->with('author', $event, $notification, $email, $publicity);
 		} else {
 			$job->expects(self::once())
 				->method('createPublicityGroups')
-				->with('author', $event, $notification, $groups, $publicity);
+				->with('author', $event, $notification, $email, $groups, $publicity);
 		}
 
 		$this->activityManager->expects(self::once())
@@ -277,6 +320,12 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects(self::once())
 			->method('createNotification')
 			->willReturn($notification);
+		$this->mailer->expects(self::once())
+			->method('createEMailTemplate')
+			->willReturn($template);
+		$this->mailer->expects(self::once())
+			->method('createMessage')
+			->willReturn($email);
 		$this->time->method('getDateTime')
 			->willReturn(new \DateTime());
 
@@ -284,13 +333,16 @@ class BackgroundJobTest extends TestCase {
 			'id' => 10,
 			'user' => 'author',
 			'time' => 1337,
+			'subject' => 'subject',
+			'message' => 'message',
+			'plainMessage' => 'message',
 		]);
 
 		$this->manager->expects(self::once())
 			->method('getGroups')
 			->willReturn($groups);
 
-		self::invokePrivate($job, 'createPublicity', [$announcement, $publicity]);
+		self::invokePrivate($job, 'createPublicity', [$announcement, $publicity, $email]);
 	}
 
 	public function dataCreatePublicityEveryoneAndGroup() {
@@ -298,11 +350,13 @@ class BackgroundJobTest extends TestCase {
 			[[
 				'activities' => true,
 				'notifications' => false,
-			], true, false],
+				'emails' => true,
+			], true, false, true],
 			[[
 				'activities' => false,
 				'notifications' => true,
-			], false, true],
+				'emails' => false,
+			], false, true, false],
 		];
 	}
 
@@ -312,8 +366,9 @@ class BackgroundJobTest extends TestCase {
 	 * @param array $publicity
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $emails
 	 */
-	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications): void {
+	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications, $emails): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? self::exactly(5) : self::never())
 			->method('setAffectedUser')
@@ -322,6 +377,11 @@ class BackgroundJobTest extends TestCase {
 		$notification = $this->createMock(INotification::class);
 		$notification->expects($notifications ? self::exactly(4) : self::never())
 			->method('setUser')
+			->willReturnSelf();
+
+		$email = $this->createMock(IMessage::class);
+		$email->expects($emails ? self::exactly(4) : self::never())
+			->method('setTo')
 			->willReturnSelf();
 
 		$job = $this->getJob();
@@ -347,7 +407,7 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($notifications ? self::exactly(4) : self::never())
 			->method('notify');
 
-		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $publicity]);
+		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $email, $publicity]);
 	}
 
 	/**
@@ -356,8 +416,9 @@ class BackgroundJobTest extends TestCase {
 	 * @param array $publicity
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $emails
 	 */
-	public function testCreatePublicityGroups(array $publicity, $activities, $notifications): void {
+	public function testCreatePublicityGroups(array $publicity, $activities, $notifications, $emails): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? self::exactly(4) : self::never())
 			->method('setAffectedUser')
@@ -366,6 +427,11 @@ class BackgroundJobTest extends TestCase {
 		$notification = $this->createMock(INotification::class);
 		$notification->expects($notifications ? self::exactly(3) : self::never())
 			->method('setUser')
+			->willReturnSelf();
+
+		$email = $this->createMock(IMessage::class);
+		$email->expects($emails ? self::exactly(3) : self::never())
+			->method('setTo')
 			->willReturnSelf();
 
 		$job = $this->getJob();
@@ -391,6 +457,6 @@ class BackgroundJobTest extends TestCase {
 		$this->notificationManager->expects($notifications ? self::exactly(3) : self::never())
 			->method('notify');
 
-		self::invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
+		self::invokePrivate($job, 'createPublicityGroups', ['author', $event, $notification, $email, ['gid0', 'gid1', 'gid2', 'gid3'], $publicity]);
 	}
 }

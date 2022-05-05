@@ -117,14 +117,14 @@ class ManagerTest extends TestCase {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(2);
-		$this->manager->announce('', '', '', 0, [], false);
+		$this->manager->announce('', '', '', '', 0, [], false);
 	}
 
 	public function testAnnounceSubjectTooLong(): void {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(1);
-		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
+		$this->manager->announce(str_repeat('a', 513), '', '', '', 0, [], false);
 	}
 
 	public function testDelete(): void {

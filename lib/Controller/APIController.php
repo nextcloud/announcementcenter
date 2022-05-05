@@ -103,13 +103,15 @@ class APIController extends OCSController {
 	 *
 	 * @param string $subject
 	 * @param string $message
+	 * @param string $plainMessage
 	 * @param string[] $groups,
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $emails
 	 * @param bool $comments
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, array $groups, bool $activities, bool $notifications, bool $comments): DataResponse {
+	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -120,7 +122,7 @@ class APIController extends OCSController {
 		$userId = $user instanceof IUser ? $user->getUID() : '';
 
 		try {
-			$announcement = $this->manager->announce($subject, $message, $userId, $this->timeFactory->getTime(), $groups, $comments);
+			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
@@ -128,11 +130,12 @@ class APIController extends OCSController {
 			);
 		}
 
-		if ($activities || $notifications) {
+		if ($activities || $notifications || $emails) {
 			$this->jobList->add(BackgroundJob::class, [
 				'id' => $announcement->getId(),
 				'activities' => $activities,
 				'notifications' => $notifications,
+				'emails' => $emails,
 			]);
 		}
 

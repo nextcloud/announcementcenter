@@ -52,6 +52,10 @@
 					{{ t('announcementcenter', 'Create notifications') }}
 				</ActionCheckbox>
 				<ActionCheckbox value="1"
+					:checked.sync="sendEmails">
+					{{ t('announcementcenter', 'Send emails') }}
+				</ActionCheckbox>
+				<ActionCheckbox value="1"
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</ActionCheckbox>
@@ -84,6 +88,8 @@ import {
 	searchGroups,
 } from '../services/announcementsService.js'
 import { showError } from '@nextcloud/dialogs'
+import { remark } from 'remark'
+import strip from 'strip-markdown'
 
 export default {
 	name: 'NewForm',
@@ -101,6 +107,7 @@ export default {
 			message: '',
 			createActivities: loadState('announcementcenter', 'createActivities'),
 			createNotifications: loadState('announcementcenter', 'createNotifications'),
+			sendEmails: loadState('announcementcenter', 'sendEmails'),
 			allowComments: loadState('announcementcenter', 'allowComments'),
 			groups: [],
 			groupOptions: [],
@@ -117,6 +124,7 @@ export default {
 			this.message = ''
 			this.createActivities = loadState('announcementcenter', 'createActivities')
 			this.createNotifications = loadState('announcementcenter', 'createNotifications')
+			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
 			this.groups = []
 		},
@@ -135,13 +143,21 @@ export default {
 				return group.id
 			})
 
+			const plainMessage = await remark()
+				.use(strip, {
+					keep: ['blockquote', 'listItem'],
+				})
+				.process(this.message)
+
 			try {
 				const response = await postAnnouncement(
 					this.subject,
 					this.message,
+					plainMessage.value,
 					groups,
 					this.createActivities,
 					this.createNotifications,
+					this.sendEmails,
 					this.allowComments
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
