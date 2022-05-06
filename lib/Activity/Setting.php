@@ -85,7 +85,7 @@ class Setting implements ISetting {
 	 * @since 11.0.0
 	 */
 	public function canChangeMail(): bool {
-		return true;
+		return false;
 	}
 
 	/**
@@ -93,6 +93,6 @@ class Setting implements ISetting {
 	 * @since 11.0.0
 	 */
 	public function isDefaultEnabledMail(): bool {
-		return true;
+		return false;
 	}
 }
