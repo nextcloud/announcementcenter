@@ -172,7 +172,7 @@ class BackgroundJob extends QueuedJob {
 			}
 
 			if (strpos(trim($line), '* ') === 0) {
-				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)));
+				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)), '', '', '', false);
 			} else {
 				$template->addBodyText($line);
 			}
