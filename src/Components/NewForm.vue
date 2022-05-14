@@ -145,7 +145,7 @@ export default {
 
 			const plainMessage = await remark()
 				.use(strip, {
-					keep: ['blockquote', 'listItem'],
+					keep: ['blockquote', 'link', 'listItem'],
 				})
 				.process(this.message)
 
