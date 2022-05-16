@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.3.0 – 2022-05-16
+### Added
+- Add option to directly send emails for announcements (by [mejo-](https://github.com/mejo-))
+  [#467](https://github.com/nextcloud/announcementcenter/pull/467)
+
 ## 6.2.0 – 2022-04-27
 ### Fixed
 - Compatibility with Nextcloud 24
