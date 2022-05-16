@@ -86,6 +86,7 @@ class Manager {
 	/**
 	 * @param string $subject
 	 * @param string $message
+	 * @param string $plainMessage
 	 * @param string $user
 	 * @param int $time
 	 * @param string[] $groups
@@ -93,9 +94,10 @@ class Manager {
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $user, int $time, array $groups, bool $comments): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
+		$plainMessage = trim($plainMessage);
 		if (isset($subject[512])) {
 			throw new \InvalidArgumentException('Invalid subject', 1);
 		}
@@ -107,6 +109,7 @@ class Manager {
 		$announcement = new Announcement();
 		$announcement->setSubject($subject);
 		$announcement->setMessage($message);
+		$announcement->setPlainMessage($plainMessage);
 		$announcement->setUser($user);
 		$announcement->setTime($time);
 		$announcement->setAllowComments((int) $comments);
@@ -235,17 +238,18 @@ class Manager {
 	}
 
 	public function hasNotifications(Announcement $announcement): bool {
-		$hasJob = $this->jobList->has(BackgroundJob::class, [
-			'id' => $announcement->getId(),
-			'activities' => true,
-			'notifications' => true,
-		]);
+		$jobMatrix = [
+			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => true],
+			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => false],
+			['id' => $announcement->getId(), 'activities' => false, 'notifications' => true, 'emails' => true],
+			['id' => $announcement->getId(), 'activities' => false, 'notifications' => true, 'emails' => false],
+		];
 
-		$hasJob = $hasJob || $this->jobList->has(BackgroundJob::class, [
-			'id' => $announcement->getId(),
-			'activities' => false,
-			'notifications' => true,
-		]);
+		foreach ($jobMatrix as $jobArguments) {
+			if ($hasJob = $this->jobList->has(BackgroundJob::class, $jobArguments)) {
+				break;
+			}
+		}
 
 		if ($hasJob) {
 			return true;
@@ -258,28 +262,26 @@ class Manager {
 	}
 
 	public function removeNotifications(int $id): void {
-		if ($this->jobList->has(BackgroundJob::class, [
-			'id' => $id,
-			'activities' => true,
-			'notifications' => true,
-		])) {
-			// Delete the current background job and add a new one without notifications
-			$this->jobList->remove(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => true,
-				'notifications' => true,
-			]);
-			$this->jobList->add(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => true,
-				'notifications' => false,
-			]);
+		$jobMatrix = [
+			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true],
+			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false],
+			['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true],
+		];
+
+		$jobArguments = ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false];
+		if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+			// Delete the current background job as it was only for notifications
+			$this->jobList->remove(BackgroundJob::class, $jobArguments);
 		} else {
-			$this->jobList->remove(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => false,
-				'notifications' => true,
-			]);
+			foreach ($jobMatrix as $jobArguments) {
+				if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+					// Delete the current background job and add a new one without notifications
+					$this->jobList->remove(BackgroundJob::class, $jobArguments);
+					$jobArguments['notifications'] = false;
+					$this->jobList->add(BackgroundJob::class, $jobArguments);
+					break;
+				}
+			}
 		}
 
 		$notification = $this->notificationManager->createNotification();

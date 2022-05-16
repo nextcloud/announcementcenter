@@ -48,60 +48,77 @@ class AdminTest extends TestCase {
 				[
 					['announcementcenter', 'create_activities', 'yes', 'yes'],
 					['announcementcenter', 'create_notifications', 'yes', 'yes'],
+					['announcementcenter', 'send_emails', 'yes', 'yes'],
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, true, true,
+				'admin', true, true, true, true,
 			],
 			[
 				[
 					['announcementcenter', 'create_activities', 'yes', 'no'],
 					['announcementcenter', 'create_notifications', 'yes', 'yes'],
+					['announcementcenter', 'send_emails', 'yes', 'yes'],
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', false, true, true,
+				'admin', false, true, true, true,
 			],
 			[
 				[
 					['announcementcenter', 'create_activities', 'yes', 'yes'],
 					['announcementcenter', 'create_notifications', 'yes', 'no'],
+					['announcementcenter', 'send_emails', 'yes', 'yes'],
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, false, true,
+				'admin', true, false, true, true,
 			],
 			[
 				[
 					['announcementcenter', 'create_activities', 'yes', 'yes'],
 					['announcementcenter', 'create_notifications', 'yes', 'yes'],
+					['announcementcenter', 'send_emails', 'yes', 'no'],
+					['announcementcenter', 'allow_comments', 'yes', 'yes'],
+					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+				],
+				'admin', true, true, false, true,
+			],
+			[
+				[
+					['announcementcenter', 'create_activities', 'yes', 'yes'],
+					['announcementcenter', 'create_notifications', 'yes', 'yes'],
+					['announcementcenter', 'send_emails', 'yes', 'yes'],
 					['announcementcenter', 'allow_comments', 'yes', 'no'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, true, false,
+				'admin', true, true, true, false,
 			],
 			[
 				[
 					['announcementcenter', 'create_activities', 'yes', 'no'],
 					['announcementcenter', 'create_notifications', 'yes', 'no'],
+					['announcementcenter', 'send_emails', 'yes', 'no'],
 					['announcementcenter', 'allow_comments', 'yes', 'no'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin', 'group2'])],
 				],
-				'admin|group2', false, false, false,
+				'admin|group2', false, false, false, false,
 			],
 		];
 	}
 
 	/**
 	 * @dataProvider dataGetForm
+	 *
 	 * @param array $configMap
 	 * @param string $adminGroups
 	 * @param bool $createActivities
 	 * @param bool $createNotifications
+	 * @param bool $sendEmails
 	 * @param bool $allowComments
 	 */
-	public function testGetForm(array $configMap, $adminGroups, $createActivities, $createNotifications, $allowComments) {
-		$this->config->expects(self::exactly(4))
+	public function testGetForm(array $configMap, $adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments) {
+		$this->config->expects(self::exactly(5))
 			->method('getAppValue')
 			->willReturnMap($configMap);
 
@@ -109,6 +126,7 @@ class AdminTest extends TestCase {
 			'adminGroups' => $adminGroups,
 			'createActivities' => $createActivities,
 			'createNotifications' => $createNotifications,
+			'sendEmails' => $sendEmails,
 			'allowComments' => $allowComments,
 		], 'blank');
 		self::assertEquals($expected, $this->admin->getForm());

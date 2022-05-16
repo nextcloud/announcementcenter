@@ -56,9 +56,9 @@ import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
 import Content from '@nextcloud/vue/dist/Components/Content'
 import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
 import { loadState } from '@nextcloud/initial-state'
-import Announcement from './Components/Announcement'
-import NewForm from './Components/NewForm'
-import { getAnnouncements } from './services/announcementsService'
+import Announcement from './Components/Announcement.vue'
+import NewForm from './Components/NewForm.vue'
+import { getAnnouncements } from './services/announcementsService.js'
 
 export default {
 	name: 'App',

@@ -82,6 +82,10 @@ class PageController extends Controller {
 			$this->config->getAppValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
+			'sendEmails',
+			$this->config->getAppValue(Application::APP_ID, 'send_emails', 'yes') === 'yes'
+		);
+		$this->initialState->provideInitialState(
 			'allowComments',
 			$this->config->getAppValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
 		);

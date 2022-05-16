@@ -139,32 +139,32 @@ class APIControllerTest extends TestCase {
 			[
 				1,
 				[
-					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
+					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				], [],
 				[
-					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
+					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
+					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 				[
 					['author1', $this->getUserMock('author1', 'Author One')],
 				],
 				[
-					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
+					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
 				],
 			],
 			[
 				1,
 				[
-					['id' => 42, 'author' => 'author1', 'subject' => "Subject\n<html>#1</html>", 'message' => "Message\n<html>#1</html>", 'time' => 1440672792, 'groups' => null, 'comments' => 31],
+					['id' => 42, 'author' => 'author1', 'subject' => "Subject\n<html>#1</html>", 'message' => "Message\n<html>#1</html>", 'plainMessage' => 'Message\n#1', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
 				],
 				[],
 				[
-					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject <html>#1</html>', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
+					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject <html>#1</html>', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'plainMessage' => 'Message\n#1', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
 				],
 			],
 		];
@@ -189,6 +189,7 @@ class APIControllerTest extends TestCase {
 			$announcement->setUser($data['author']);
 			$announcement->setSubject($data['subject']);
 			$announcement->setMessage($data['message']);
+			$announcement->setPlainMessage($data['plainMessage']);
 			$announcement->setTime($data['time']);
 			$announcement->setAllowComments($data['comments'] === false ? 0 : 1);
 
@@ -269,14 +270,14 @@ class APIControllerTest extends TestCase {
 
 		$this->manager->expects(self::once())
 			->method('announce')
-			->with($subject, '', 'author', self::anything())
+			->with($subject, '', '', 'author', self::anything())
 			->willThrowException(new \InvalidArgumentException());
 
 		$controller = $this->getController(['createPublicity']);
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '', [], true, true, true);
+		$response = $controller->add($subject, '', '', [], true, true, true, true);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame($expectedData, $response->getData());
@@ -296,7 +297,7 @@ class APIControllerTest extends TestCase {
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add('subject', '', [], true, true, true);
+		$response = $controller->add('subject', '', '', [], true, true, true, true);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
@@ -304,11 +305,11 @@ class APIControllerTest extends TestCase {
 
 	public function dataAdd() {
 		return [
-			['subject1', 'message1', ['gid1'], true, true, false],
-			['subject2', 'message2', ['gid2'], true, false, false],
-			['subject3', 'message3', ['gid3'], false, true, false],
-			['subject4', 'message4', ['gid4'], false, false, false],
-			['subject4', 'message4', ['gid4'], false, false, true],
+			['subject1', 'message1', 'message1', ['gid1'], true, true, true, false],
+			['subject2', 'message2', 'message2', ['gid2'], true, false, true, false],
+			['subject3', 'message3', 'message3', ['gid3'], false, true, true, false],
+			['subject4', 'message4', 'message4', ['gid4'], false, false, true, false],
+			['subject4', 'message4', 'message5', ['gid4'], false, false, true, true],
 		];
 	}
 
@@ -317,12 +318,14 @@ class APIControllerTest extends TestCase {
 	 *
 	 * @param string $subject
 	 * @param string $message
+	 * @param string $plainMessage
 	 * @param array $groups
 	 * @param bool $activities
 	 * @param bool $notifications
+	 * @param bool $emails
 	 * @param bool $comments
 	 */
-	public function legacyTestAdd($subject, $message, array $groups, $activities, $notifications, $comments) {
+	public function legacyTestAdd($subject, $message, $plainMessage, array $groups, $activities, $notifications, $emails, $comments) {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -337,6 +340,7 @@ class APIControllerTest extends TestCase {
 				'author' => 'author',
 				'subject' => $subject,
 				'message' => $message,
+				'plainMessage' => $plainMessage,
 				'time' => time(),
 				'id' => 10,
 				'comments' => $comments,
@@ -345,17 +349,18 @@ class APIControllerTest extends TestCase {
 			->method('get')
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
-		$this->jobList->expects(($activities || $notifications) ? self::once() : self::never())
+		$this->jobList->expects(($activities || $notifications || $emails) ? self::once() : self::never())
 			->method('add')
 			->with('OCA\AnnouncementCenter\BackgroundJob', [
 				'id' => 10,
 				'activities' => $activities,
 				'notifications' => $notifications,
+				'emails' => $emails,
 			]);
 
 		$controller = $this->getController();
 
-		$response = $controller->add($subject, $message, $groups, $activities, $notifications, $comments);
+		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		$data = $response->getData();
@@ -367,9 +372,11 @@ class APIControllerTest extends TestCase {
 			'author_id' => 'author',
 			'subject' => $subject,
 			'message' => $message,
+			'plainMessage' => $plainMessage,
 			'id' => 10,
 			'comments' => $comments,
 			'notifications' => $notifications,
+			'emails' => $emails,
 		], $data);
 	}
 

@@ -117,14 +117,14 @@ class ManagerTest extends TestCase {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(2);
-		$this->manager->announce('', '', '', 0, [], false);
+		$this->manager->announce('', '', '', '', 0, [], false);
 	}
 
 	public function testAnnounceSubjectTooLong(): void {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(1);
-		$this->manager->announce(str_repeat('a', 513), '', '', 0, [], false);
+		$this->manager->announce(str_repeat('a', 513), '', '', '', 0, [], false);
 	}
 
 	public function testDelete(): void {
@@ -213,10 +213,10 @@ class ManagerTest extends TestCase {
 
 	public function dataHasNotifications(): array {
 		return [
-			[23, false, true, 0, true],
-			[42, true, true, 0, true],
-			[72, false, false, 0, false],
-			[128, false, false, 55, true],
+			[23, false, true, false, 0],
+			[42, true, true, true, 0],
+			[72, false, false, false, 0],
+			[128, false, false, false, 55],
 		];
 	}
 
@@ -225,22 +225,15 @@ class ManagerTest extends TestCase {
 	 * @param int $id
 	 * @param bool $hasActivityJob
 	 * @param bool $hasNotificationJob
+	 * @param bool $hasEmailJob
 	 * @param int $numNotifications
 	 */
-	public function testHasNotifications(int $id, bool $hasActivityJob, bool $hasNotificationJob, int $numNotifications): void {
-		$this->jobList->expects($hasActivityJob ? self::once() : self::exactly(2))
+	public function testHasNotifications(int $id, bool $hasActivityJob, bool $hasNotificationJob, bool $hasEmailJob, int $numNotifications): void {
+		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, [
-					'id' => $id,
-					'activities' => true,
-					'notifications' => true,
-				], $hasActivityJob && $hasNotificationJob],
-				[BackgroundJob::class, [
-					'id' => $id,
-					'activities' => false,
-					'notifications' => true,
-				], $hasNotificationJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], $hasNotificationJob],
 			]);
 
 		if (!$hasNotificationJob) {
@@ -277,8 +270,8 @@ class ManagerTest extends TestCase {
 
 	public function dataRemoveNotifications(): array {
 		return [
-			[23, false],
-			[42, true],
+			[23, false, false],
+			[42, true, true],
 		];
 	}
 
@@ -286,39 +279,41 @@ class ManagerTest extends TestCase {
 	 * @dataProvider dataRemoveNotifications
 	 * @param int $id
 	 * @param bool $hasActivity
+	 * @param bool $hasEmail
 	 */
-	public function testRemoveNotifications(int $id, bool $hasActivity): void {
-		$this->jobList->expects(self::once())
+	public function testRemoveNotifications(int $id, bool $hasActivity, bool $hasEmail): void {
+		$this->jobList
 			->method('has')
-			->with(BackgroundJob::class, [
-				'id' => $id,
-				'activities' => true,
-				'notifications' => true,
-			])
-			->willReturn($hasActivity);
+			->willReturnMap([
+				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivity],
+				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivity],
+			]);
 
 		if ($hasActivity) {
 			$this->jobList->expects(self::once())
 				->method('remove')
 				->with(BackgroundJob::class, [
 					'id' => $id,
-					'activities' => true,
+					'activities' => $hasActivity,
 					'notifications' => true,
+					'emails' => $hasEmail,
 				]);
 			$this->jobList->expects(self::once())
 				->method('add')
 				->with(BackgroundJob::class, [
 					'id' => $id,
-					'activities' => true,
+					'activities' => $hasActivity,
 					'notifications' => false,
+					'emails' => $hasEmail,
 				]);
 		} else {
 			$this->jobList->expects(self::once())
 				->method('remove')
 				->with(BackgroundJob::class, [
 					'id' => $id,
-					'activities' => false,
+					'activities' => $hasActivity,
 					'notifications' => true,
+					'emails' => $hasEmail,
 				]);
 		}
 

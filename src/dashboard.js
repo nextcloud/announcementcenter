@@ -24,7 +24,7 @@ import Vue from 'vue'
 import { generateFilePath } from '@nextcloud/router'
 import { getRequestToken } from '@nextcloud/auth'
 import { translate, translatePlural } from '@nextcloud/l10n'
-import Dashboard from './views/Dashboard'
+import Dashboard from './views/Dashboard.vue'
 
 // eslint-disable-next-line
 __webpack_nonce__ = btoa(getRequestToken())

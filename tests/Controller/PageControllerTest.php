@@ -65,29 +65,33 @@ class PageControllerTest extends TestCase {
 
 	public function dataIndex(): array {
 		return [
-			[true, 'yes', true, 'no', false, 'no', false],
-			[false, 'no', false, 'yes', true, 'yes', true],
-			[false, 'no', false, 'no', false, 'yes', true],
+			[true, 'yes', true, 'no', false, 'no', false, 'no', false],
+			[false, 'no', false, 'yes', true, 'yes', true, 'yes', true],
+			[false, 'no', false, 'no', false, 'yes', true, 'yes', true],
 		];
 	}
 
 	/**
 	 * @dataProvider dataIndex
+	 *
 	 * @param bool $isAdmin
 	 * @param string $createActivitiesConfig
 	 * @param bool $createActivities
 	 * @param string $createNotificationsConfig
 	 * @param bool $createNotifications
+	 * @param string $sendEmailsConfig
+	 * @param bool $sendEmails
 	 * @param string $allowCommentsConfig
 	 * @param bool $allowComments
 	 */
-	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $allowCommentsConfig, bool $allowComments) {
+	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $sendEmailsConfig, bool $sendEmails, string $allowCommentsConfig, bool $allowComments) {
 		$this->manager->method('checkIsAdmin')
 			->willReturn($isAdmin);
 		$this->config->method('getAppValue')
 			->willReturnMap([
 				['announcementcenter', 'create_activities', 'yes', $createActivitiesConfig],
 				['announcementcenter', 'create_notifications', 'yes', $createNotificationsConfig],
+				['announcementcenter', 'send_emails', 'yes', $sendEmailsConfig],
 				['announcementcenter', 'allow_comments', 'yes', $allowCommentsConfig],
 			]);
 
@@ -96,6 +100,7 @@ class PageControllerTest extends TestCase {
 				['isAdmin', $isAdmin],
 				['createActivities', $createActivities],
 				['createNotifications', $createNotifications],
+				['sendEmails', $sendEmails],
 				['allowComments', $allowComments]
 			);
 

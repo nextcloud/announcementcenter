@@ -34,6 +34,8 @@ use OCP\AppFramework\Db\Entity;
  * @method string getSubject()
  * @method void setMessage(string $message)
  * @method string getMessage()
+ * @method void setPlainMessage(string $plainMessage)
+ * @method string getPlainMessage()
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
  */
@@ -51,6 +53,9 @@ class Announcement extends Entity {
 	/** @var string */
 	protected $message;
 
+	/** @var string */
+	protected $plainMessage;
+
 	/** @var int */
 	protected $allowComments;
 
@@ -59,6 +64,7 @@ class Announcement extends Entity {
 		$this->addType('user', 'string');
 		$this->addType('subject', 'string');
 		$this->addType('message', 'string');
+		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
 	}
 

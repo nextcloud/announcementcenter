@@ -101,7 +101,7 @@ import {
 import {
 	deleteAnnouncement,
 	removeNotifications,
-} from '../services/announcementsService'
+} from '../services/announcementsService.js'
 
 export default {
 	name: 'Announcement',

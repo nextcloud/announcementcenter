@@ -24,8 +24,8 @@ import Vue from 'vue'
 import { generateFilePath } from '@nextcloud/router'
 import { getRequestToken } from '@nextcloud/auth'
 import { translate, translatePlural } from '@nextcloud/l10n'
-import store from './store'
-import App from './App'
+import store from './store/index.js'
+import App from './App.vue'
 import Vuex from 'vuex'
 
 // Styles

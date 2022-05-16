@@ -22,7 +22,7 @@
 
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
-import announcementsStore from './announcementsStore'
+import announcementsStore from './announcementsStore.js'
 
 Vue.use(Vuex)
 
