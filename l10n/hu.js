@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Bejelentés",
     "Create activities" : "Tevékenységek létrehozása",
     "Create notifications" : "Értesítések létrehozása",
+    "Send emails" : "E-mailek küldése",
     "Allow comments" : "Hozzászólások engedélyezése",
     "Everyone" : "Mindenki",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ezek a csoportok fogják látni a bejelentést. Ha nincs csoport kiválasztva, akkor minden felhasználó láthatja.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Ezek a csoportok fognak tudni bejelentéseket beküldeni.",
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
+    "Send emails by default" : "E-mailek küldése alapértelmezetten",
     "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten"
 },
 "nplurals=2; plural=(n != 1);");

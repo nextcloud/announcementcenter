@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Ankündigen",
     "Create activities" : "Aktivitäten erstellen",
     "Create notifications" : "Benachrichtigungen erstellen",
+    "Send emails" : "E-Mails senden",
     "Allow comments" : "Kommentare erlauben",
     "Everyone" : "Jeder",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Diese Gruppen können die Ankündigungen sehen. Wenn keine Gruppe ausgewählt ist, können alle Benutzer sie sehen.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Diese Gruppen können Ankündigungen schreiben.",
     "Create activities by default" : "Aktivitäten standardmäßig erstellen",
     "Create notifications by default" : "Benachrichtigungen standardmäßig erstellen",
+    "Send emails by default" : "Standardmäßig E-Mails senden",
     "Allow comments by default" : "Kommentare standardmäßig erlauben"
 },
 "nplurals=2; plural=(n != 1);");

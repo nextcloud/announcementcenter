@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "發佈",
     "Create activities" : "建立活動",
     "Create notifications" : "建立通知",
+    "Send emails" : "寄送電子郵件",
     "Allow comments" : "允許留言",
     "Everyone" : "所有人",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "這些群組可以看見公告。如果未選擇群組，則所有人均可看見。",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "這些群組可以發表公告",
     "Create activities by default" : "依預設建立活動",
     "Create notifications by default" : "依預設建立通知",
+    "Send emails by default" : "預設寄送電子郵件",
     "Allow comments by default" : "預設允許留言"
 },
 "nplurals=1; plural=0;");

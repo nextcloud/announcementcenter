@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Duyur",
     "Create activities" : "İşlem oluştur",
     "Create notifications" : "Bildirim oluştur",
+    "Send emails" : "E-postalar gönderilsin",
     "Allow comments" : "Yorum yapılabilsin",
     "Everyone" : "Herkes",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Bu gruplar duyuruları görebilir. Herhangi bir grup seçilmezse duyuruları tüm kullanıcılar görebilir.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
     "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
+    "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
     "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin"
 },
 "nplurals=2; plural=(n > 1);");
