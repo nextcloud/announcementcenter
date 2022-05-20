@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Iragarri",
     "Create activities" : "Sortu jarduerak",
     "Create notifications" : "Sortu jakinarazpenak",
+    "Send emails" : "Bidali e-postak",
     "Allow comments" : "Baimendu iruzkinak",
     "Everyone" : "Edonor",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Talde hauek iragarpenak ikusteko baimena dute. Talderik ez ba da aukeratzen, erabiltzaile guztiek ikusteko baimena izango dute.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Talde hauek iragarpenak argitaratzeko baimena dute",
     "Create activities by default" : "Sortu jarduerak lehenespenez",
     "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
+    "Send emails by default" : "Bidali e-postak modu lehenetsian",
     "Allow comments by default" : "Baimendu iruzkinak lehenespenez"
 },
 "nplurals=2; plural=(n != 1);");
