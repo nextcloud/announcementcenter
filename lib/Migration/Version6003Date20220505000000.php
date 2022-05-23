@@ -32,9 +32,9 @@ use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 /**
- * Drop the old table without a primary key
+ * Add plain message column
  */
-class Version6030Date20220505000000 extends SimpleMigrationStep {
+class Version6003Date20220505000000 extends SimpleMigrationStep {
 	/**
 	 * @param IOutput $output
 	 * @param Closure $schemaClosure

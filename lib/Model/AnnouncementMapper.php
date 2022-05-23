@@ -60,7 +60,7 @@ class AnnouncementMapper extends QBMapper {
 	public function delete(Entity $entity): Entity {
 		$qb = $this->db->getQueryBuilder();
 
-		$qb->delete($this->tableName)
+		$qb->delete($this->getTableName())
 			->where(
 				$qb->expr()->eq('announcement_id', $qb->createNamedParameter($entity->getId()))
 			);
@@ -106,7 +106,7 @@ class AnnouncementMapper extends QBMapper {
 
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
-			->from('announcements')
+			->from($this->getTableName())
 			->orderBy('announcement_time', 'DESC')
 			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 
