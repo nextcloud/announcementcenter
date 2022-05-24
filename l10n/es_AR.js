@@ -11,7 +11,7 @@ OC.L10N.register(
     "There are currently no announcements…" : "Actualmente no hay anuncios...",
     "seconds ago" : "segundos",
     ", " : ",",
-    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios"],
+    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "Announce" : "Anunciar",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
@@ -23,4 +23,4 @@ OC.L10N.register(
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada"
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

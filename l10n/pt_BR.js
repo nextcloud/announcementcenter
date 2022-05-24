@@ -25,8 +25,8 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Ocorreu um erro ao remover as notificações do anúncio",
     "An error occurred while deleting the announcement" : "Ocorreu um erro ao excluir o anúncio",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visíveis para os grupos {name} e %n mais","visível para o grupo {name} e %n mais"],
-    "_%n comment_::_%n comments_" : ["%n comentário","%n comentários"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visíveis para os grupos {name} e %n mais","visível para o grupo {name} e %n mais","visível para o grupo {name} e %n mais"],
+    "_%n comment_::_%n comments_" : ["%n comentário","%n comentários","%n comentários"],
     "New announcement subject" : "Novo assunto de anúncio",
     "Write announcement text, Markdown can be used …" : "Escreva o texto do anúncio, o Markdown pode ser usado ...",
     "Announce" : "Anunciar",
@@ -42,4 +42,4 @@ OC.L10N.register(
     "Create notifications by default" : "Criar notificações por padrão",
     "Allow comments by default" : "Permitir comentários por padrão"
 },
-"nplurals=2; plural=(n > 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

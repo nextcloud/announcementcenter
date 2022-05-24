@@ -16,7 +16,7 @@ OC.L10N.register(
     "Delete announcement" : "Remover anúncio",
     "seconds ago" : "segundos atrás",
     ", " : ", ",
-    "_%n comment_::_%n comments_" : ["%n comentário","%n comentários"],
+    "_%n comment_::_%n comments_" : ["%n comentário","%n comentários","%n comentários"],
     "Announce" : "Anunciar",
     "Create activities" : "Criar atividades",
     "Create notifications" : "Criar notificações",
@@ -28,4 +28,4 @@ OC.L10N.register(
     "Create notifications by default" : "Criar notificações por predefinição",
     "Allow comments by default" : "Permitir comentários por predefinição"
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -23,8 +23,8 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Si è verificato un errore durante la rimozione delle notifiche dell'annuncio",
     "An error occurred while deleting the announcement" : "Si è verificato un errore durante l'eliminazione dell'annuncio",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visibile al gruppo {name} e a %n altro","visibile al gruppo {name} e a %n altri"],
-    "_%n comment_::_%n comments_" : ["%n commento","%n commenti"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visibile al gruppo {name} e a %n altro","visibile al gruppo {name} e a %n altri","visibile al gruppo {name} e a %n altri"],
+    "_%n comment_::_%n comments_" : ["%n commento","%n commenti","%n commenti"],
     "New announcement subject" : "Nuovo oggetto dell'annuncio",
     "Write announcement text, Markdown can be used …" : "Scrivi il testo dell'annuncio, può essere utilizzato Markdown…",
     "Announce" : "Annuncio",
@@ -39,5 +39,5 @@
     "Create activities by default" : "Creare attività per impostazione predefinita",
     "Create notifications by default" : "Creare notifiche per impostazione predefinita",
     "Allow comments by default" : "Consenti i commenti in modo predefinito"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+},"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

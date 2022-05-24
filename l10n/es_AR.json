@@ -9,7 +9,7 @@
     "There are currently no announcements…" : "Actualmente no hay anuncios...",
     "seconds ago" : "segundos",
     ", " : ",",
-    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios"],
+    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "Announce" : "Anunciar",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
@@ -20,5 +20,5 @@
     "Create activities by default" : "Crear actividades predeterminadas",
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada"
-},"pluralForm" :"nplurals=2; plural=(n != 1);"
+},"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

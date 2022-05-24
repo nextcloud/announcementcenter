@@ -25,13 +25,14 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Ha ocurrido un error al eliminar las notificaciones del anuncio",
     "An error occurred while deleting the announcement" : "Ha ocurrido un error al eliminar el anuncio",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible para el grupo {name} y %n más","visible para el grupo {name} y %n más"],
-    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible para el grupo {name} y %n más","visible para el grupo {name} y %n más","visible para el grupo {name} y %n más"],
+    "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "New announcement subject" : "Tema del nuevo anuncio",
     "Write announcement text, Markdown can be used …" : "Escribe el texto del anuncio, puedes usar Markdown",
     "Announce" : "Anuncio",
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
+    "Send emails" : "Enviar emails",
     "Allow comments" : "Permitir comentarios",
     "Everyone" : "Todo el mundo",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estos grupos podrán ver el anuncio. Si no se selecciona ningún grupo, todos los usuarios podrán verlo.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Estos grupos podrán poner anuncios.",
     "Create activities by default" : "Crear actividades por defecto.",
     "Create notifications by default" : "Crear notificaciones por defecto.",
+    "Send emails by default" : "Enviar emails por defecto",
     "Allow comments by default" : "Permitir comentarios por defecto"
 },
-"nplurals=2; plural=(n != 1);");
+"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
