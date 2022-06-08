@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "お知らせします",
     "Create activities" : "アクティビティを作成",
     "Create notifications" : "通知を作成",
+    "Send emails" : "メールを送信",
     "Allow comments" : "コメントを許可",
     "Everyone" : "皆さん",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "これらのグループがお知らせを見ることができます。グループが選択されていない場合は、すべてのユーザーが見ることができます。",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "これらのグループはお知らせを投稿することができます。",
     "Create activities by default" : "デフォルトでアクティビティを作成する",
     "Create notifications by default" : "デフォルトで通知を作成する",
+    "Send emails by default" : "デフォルトでメールを送信",
     "Allow comments by default" : "デフォルトでコメントを許可する"
 },
 "nplurals=1; plural=0;");
