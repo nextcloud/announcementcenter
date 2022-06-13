@@ -201,7 +201,7 @@ class BackgroundJob extends QueuedJob {
 				$this->notificationManager->notify($notification);
 			}
 
-			if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress()) {
+			if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress() && $user->isEnabled()) {
 				$email->setTo([$user->getEMailAddress()]);
 				try {
 					$this->mailer->send($email);
@@ -247,7 +247,7 @@ class BackgroundJob extends QueuedJob {
 					$this->notificationManager->notify($notification);
 				}
 
-				if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress()) {
+				if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress() && $user->isEnabled()) {
 					$email->setTo([$user->getEMailAddress()]);
 					try {
 						$this->mailer->send($email);
