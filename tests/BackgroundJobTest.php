@@ -186,6 +186,9 @@ class BackgroundJobTest extends TestCase {
 		$user
 			->method('getEMailAddress')
 			->willReturn($uid . '@example.org');
+		$user
+			->method('isEnabled')
+			->willReturn(strpos($uid, 'disabled-') !== 0);
 		return $user;
 	}
 
@@ -380,7 +383,7 @@ class BackgroundJobTest extends TestCase {
 			->willReturnSelf();
 
 		$email = $this->createMock(IMessage::class);
-		$email->expects($emails ? self::exactly(4) : self::never())
+		$email->expects($emails ? self::exactly(3) : self::never())
 			->method('setTo')
 			->willReturnSelf();
 
@@ -392,7 +395,7 @@ class BackgroundJobTest extends TestCase {
 				$users = [
 					$this->getUserMock('author', 'User One'),
 					$this->getUserMock('u2', 'User Two'),
-					$this->getUserMock('u3', 'User Three'),
+					$this->getUserMock('disabled-u3', 'User Three (disabled)'),
 					$this->getUserMock('u4', 'User Four'),
 					$this->getUserMock('u5', 'User Five'),
 				];
@@ -406,6 +409,8 @@ class BackgroundJobTest extends TestCase {
 			->method('publish');
 		$this->notificationManager->expects($notifications ? self::exactly(4) : self::never())
 			->method('notify');
+		$this->mailer->expects($emails ? self::exactly(3) : self::never())
+			->method('send');
 
 		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $email, $publicity]);
 	}
