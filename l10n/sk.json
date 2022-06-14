@@ -30,6 +30,7 @@
     "Announce" : "Oznámiť",
     "Create activities" : "Vytvoriť aktivity",
     "Create notifications" : "Vytvoriť hlásenia",
+    "Send emails" : "Odoslať emaily",
     "Allow comments" : "Povoliť komentáre",
     "Everyone" : "Všetci",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tieto skupiny budú môcť vidieť oznámenie. Ak nie je vybraná žiadna skupina, všetci používatelia ho môžu vidieť.",
@@ -38,6 +39,7 @@
     "These groups will be able to post announcements." : "Tieto skupiny budú môcť zverejňovať oznámenia.",
     "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
+    "Send emails by default" : "Odoslať emaily ako predvolené",
     "Allow comments by default" : "V predvolenom nastavení povoliť komentáre"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }
