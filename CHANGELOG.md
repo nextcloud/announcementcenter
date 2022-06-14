@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.3.1 – 2022-06-14
+### Fixed
+- Don't send emails to disabled users
+  [#480](https://github.com/nextcloud/announcementcenter/pull/480)
+
 ## 6.3.0 – 2022-05-16
 ### Added
 - Add option to directly send emails for announcements (by [mejo-](https://github.com/mejo-))
