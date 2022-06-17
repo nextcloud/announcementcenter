@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Meddel",
     "Create activities" : "Opret aktiviteter",
     "Create notifications" : "Opret notifikationer",
+    "Send emails" : "Send e-mails",
     "Allow comments" : "Tillad kommentarer",
     "Everyone" : "Alle",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse grupper er i stand til at se meddelelsen. Hvis ingen grupper er valgt, så kan alle brugere se den.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Disse grupper er i stand til at annoncere meddelelser.",
     "Create activities by default" : "Opret aktiviteter som standard",
     "Create notifications by default" : "Opret notifikationer som standard",
+    "Send emails by default" : "Send e-mails som standard",
     "Allow comments by default" : "Tillad kommentarer som standard"
 },
 "nplurals=2; plural=(n != 1);");
