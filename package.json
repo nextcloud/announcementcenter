@@ -34,7 +34,7 @@
 		"debounce": "^1.2.1",
 		"remark": "^14.0.2",
 		"strip-markdown": "^5.0.0",
-		"vue": "^2.6.14",
+		"vue": "^2.7.0",
 		"vuex": "^3.6.2"
 	},
 	"devDependencies": {
