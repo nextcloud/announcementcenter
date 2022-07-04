@@ -32,6 +32,7 @@ OC.L10N.register(
     "Announce" : "Уведомление",
     "Create activities" : "Създай активности",
     "Create notifications" : "Създай известия",
+    "Send emails" : "Изпращане на имейли",
     "Allow comments" : "Позволи коментари",
     "Everyone" : "Всеки",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Следните групи ще могат да виждат заявленията. Ако няма избрана група, всички потребители ще ги виждат.",
@@ -40,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Следните групи ще могат да изпращат заявления.",
     "Create activities by default" : "Създава активности по подразбиране",
     "Create notifications by default" : "Създава известия по подразбиране",
+    "Send emails by default" : "Изпращане на имейли по подразбиране",
     "Allow comments by default" : "Позволи коментари по подразбиране"
 },
 "nplurals=2; plural=(n != 1);");
