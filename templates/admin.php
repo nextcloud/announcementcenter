@@ -40,8 +40,8 @@ script('announcementcenter', 'announcementcenter-admin');
 		<input id="announcementcenter_create_activities" name="create_activities"
 			   type="checkbox" class="checkbox" value="1"
 			   <?php if ($_['createActivities']) {
-	print_unescaped('checked="checked"');
-} ?> />
+			   	print_unescaped('checked="checked"');
+			   } ?> />
 		<label for="announcementcenter_create_activities"><?php p($l->t('Create activities by default'));?></label><br/>
 	</p>
 
@@ -49,8 +49,8 @@ script('announcementcenter', 'announcementcenter-admin');
 		<input id="announcementcenter_create_notifications" name="create_notifications"
 			   type="checkbox" class="checkbox" value="1"
 			   <?php if ($_['createNotifications']) {
-	print_unescaped('checked="checked"');
-} ?> />
+			   	print_unescaped('checked="checked"');
+			   } ?> />
 		<label for="announcementcenter_create_notifications"><?php p($l->t('Create notifications by default'));?></label><br/>
 	</p>
 
@@ -58,8 +58,8 @@ script('announcementcenter', 'announcementcenter-admin');
 		<input id="announcementcenter_send_emails" name="send_emails"
 			   type="checkbox" class="checkbox" value="1"
 			   <?php if ($_['sendEmails']) {
-	print_unescaped('checked="checked"');
-} ?> />
+			   	print_unescaped('checked="checked"');
+			   } ?> />
 		<label for="announcementcenter_send_emails"><?php p($l->t('Send emails by default'));?></label><br/>
 	</p>
 
@@ -67,8 +67,8 @@ script('announcementcenter', 'announcementcenter-admin');
 		<input id="announcementcenter_allow_comments" name="allow_comments"
 			   type="checkbox" class="checkbox" value="1"
 			   <?php if ($_['allowComments']) {
-	print_unescaped('checked="checked"');
-} ?> />
+			   	print_unescaped('checked="checked"');
+			   } ?> />
 		<label for="announcementcenter_allow_comments"><?php p($l->t('Allow comments by default'));?></label><br/>
 	</p>
 </div>
