@@ -232,8 +232,10 @@ class ManagerTest extends TestCase {
 		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], $hasNotificationJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], !$hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false], $hasActivityJob && $hasNotificationJob && !$hasEmailJob],
+				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivityJob && $hasNotificationJob && !$hasEmailJob],
 			]);
 
 		if (!$hasNotificationJob) {
