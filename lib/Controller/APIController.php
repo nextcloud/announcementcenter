@@ -66,14 +66,14 @@ class APIController extends OCSController {
 	protected $userSession;
 
 	public function __construct(string $appName,
-								IRequest $request,
-								IGroupManager $groupManager,
-								IUserManager $userManager,
-								IJobList $jobList,
-								IL10N $l,
-								Manager $manager,
-								ITimeFactory $timeFactory,
-								IUserSession $userSession) {
+		IRequest $request,
+		IGroupManager $groupManager,
+		IUserManager $userManager,
+		IJobList $jobList,
+		IL10N $l,
+		Manager $manager,
+		ITimeFactory $timeFactory,
+		IUserSession $userSession) {
 		parent::__construct($appName, $request);
 
 		$this->groupManager = $groupManager;

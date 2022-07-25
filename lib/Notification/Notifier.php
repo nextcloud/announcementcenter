@@ -54,10 +54,10 @@ class Notifier implements INotifier {
 	protected $urlGenerator;
 
 	public function __construct(Manager $manager,
-								IFactory $l10nFactory,
-								INotificationManager $notificationManager,
-								IUserManager $userManager,
-								IURLGenerator $urlGenerator) {
+		IFactory $l10nFactory,
+		INotificationManager $notificationManager,
+		IUserManager $userManager,
+		IURLGenerator $urlGenerator) {
 		$this->manager = $manager;
 		$this->l10nFactory = $l10nFactory;
 		$this->notificationManager = $notificationManager;
@@ -128,21 +128,21 @@ class Notifier implements INotifier {
 			$notification->setParsedMessage($announcement->getMessage());
 		}
 		$notification->setRichSubject(
-				$l->t('{user} announced {announcement}'),
-				[
-					'user' => [
-						'type' => 'user',
-						'id' => $params[0],
-						'name' => $displayName,
-					],
-					'announcement' => [
-						'type' => 'announcement',
-						'id' => $notification->getObjectId(),
-						'name' => $announcement->getParsedSubject(),
-						'link' => $link,
-					],
-				]
-			)
+			$l->t('{user} announced {announcement}'),
+			[
+				'user' => [
+					'type' => 'user',
+					'id' => $params[0],
+					'name' => $displayName,
+				],
+				'announcement' => [
+					'type' => 'announcement',
+					'id' => $notification->getObjectId(),
+					'name' => $announcement->getParsedSubject(),
+					'link' => $link,
+				],
+			]
+		)
 			->setLink($link)
 			->setIcon($this->urlGenerator->getAbsoluteURL($this->urlGenerator->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
 

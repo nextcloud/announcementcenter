@@ -66,13 +66,13 @@ class Manager {
 	protected $userSession;
 
 	public function __construct(IConfig $config,
-								AnnouncementMapper $announcementMapper,
-								GroupMapper $groupMapper,
-								IGroupManager $groupManager,
-								INotificationManager $notificationManager,
-								ICommentsManager $commentsManager,
-								IJobList $jobList,
-								IUserSession $userSession) {
+		AnnouncementMapper $announcementMapper,
+		GroupMapper $groupMapper,
+		IGroupManager $groupManager,
+		INotificationManager $notificationManager,
+		ICommentsManager $commentsManager,
+		IJobList $jobList,
+		IUserSession $userSession) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
 		$this->groupMapper = $groupMapper;

@@ -46,10 +46,10 @@ class PageController extends Controller {
 	protected $initialState;
 
 	public function __construct(string $AppName,
-								IRequest $request,
-								Manager $manager,
-								IConfig $config,
-								IInitialState $initialState) {
+		IRequest $request,
+		Manager $manager,
+		IConfig $config,
+		IInitialState $initialState) {
 		parent::__construct($AppName, $request);
 
 		$this->manager = $manager;
