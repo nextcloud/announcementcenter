@@ -102,6 +102,11 @@ export default {
 
 	mounted() {
 		this.loadAnnouncements()
+
+		const activeId = loadState('announcementcenter', 'activeId', 0)
+		if (activeId !== 0) {
+			this.onClickAnnouncement(activeId)
+		}
 	},
 
 	methods: {

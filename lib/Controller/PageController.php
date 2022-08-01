@@ -89,6 +89,10 @@ class PageController extends Controller {
 			'allowComments',
 			$this->config->getAppValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
 		);
+		$this->initialState->provideInitialState(
+			'activeId',
+			$announcement
+		);
 
 		return new TemplateResponse(Application::APP_ID, 'main', [
 			'app' => Application::APP_ID,
