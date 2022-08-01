@@ -42,7 +42,7 @@
 			</EmptyContent>
 		</AppContent>
 		<AppSidebar v-if="activeId !== 0"
-			:title="activeAnnouncementTitle"
+			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
