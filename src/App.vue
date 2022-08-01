@@ -42,7 +42,7 @@
 			</EmptyContent>
 		</AppContent>
 		<AppSidebar v-if="activeId !== 0"
-			:title="activeAnnouncementTitle"
+			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
@@ -102,6 +102,11 @@ export default {
 
 	mounted() {
 		this.loadAnnouncements()
+
+		const activeId = loadState('announcementcenter', 'activeId', 0)
+		if (activeId !== 0) {
+			this.onClickAnnouncement(activeId)
+		}
 	},
 
 	methods: {
