@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Comments" : "Displegadennoù",
     "seconds ago" : "eilenn zo",
     ", " : "'",
     "Create notifications" : "Krouiñ ur gemenadenn",

@@ -16,6 +16,7 @@ OC.L10N.register(
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie su ventana de mantenimiento 🎛️, introduzca a un nuevo colega 👤 o asegúrese de que todo el mundo conoce el gran evento del próximo mes 📅\n\n🖌️ Soporte Markdown\n\n📑 Comentarios incluyendo @-menciones\n\n👪 Permisos de Grupo\n\n⭕ Integración en Dashboard\n\n⚡ Integración en Actividades\n\n🔔 Integración con Notificaciones",
     "No announcements" : "Sin anuncios",
     "There are currently no announcements…" : "Actualmente no hay anuncios…",
+    "Comments" : "Comentarios",
     "Clear notifications" : "Limpiar las notificaciones",
     "Delete announcement" : "Borrar anuncio",
     "seconds ago" : "hace segundos",

@@ -13,6 +13,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} se aankondiging is “{announcement}”",
     "Announcement center" : "Aankondigingsentrum",
     "There are currently no announcements…" : "Daar is tans geen aankondigings…",
+    "Comments" : "Kommentare",
     "Clear notifications" : "Wis kennisgewings",
     "Delete announcement" : "Skrap aankondiging",
     "seconds ago" : "sekondes gelede",

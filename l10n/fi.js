@@ -15,6 +15,7 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "Tämä sovellus mahdollistaa ylläpitäjien lähettää ilmoituksia.",
     "No announcements" : "Ei tiedotteita",
     "There are currently no announcements…" : "Ei tiedotteita juuri nyt…",
+    "Comments" : "Kommentit",
     "Clear notifications" : "Tyhjennä ilmoitukset",
     "Delete announcement" : "Poista tiedote",
     "seconds ago" : "sekunteja sitten",

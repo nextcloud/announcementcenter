@@ -15,6 +15,7 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다.",
     "No announcements" : "공지 없음",
     "There are currently no announcements…" : "현재 공지 사항이 없습니다…",
+    "Comments" : "댓글",
     "Clear notifications" : "알림 지우기",
     "Delete announcement" : "공지 삭제",
     "seconds ago" : "몇 초 전",

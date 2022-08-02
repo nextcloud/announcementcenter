@@ -9,6 +9,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} anunció “{announcement}”",
     "Announcement center" : "Centro de anuncios",
     "There are currently no announcements…" : "Actualmente no hay anuncios...",
+    "Comments" : "Comentarios",
     "seconds ago" : "segundos",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],

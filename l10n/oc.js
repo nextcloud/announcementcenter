@@ -14,6 +14,7 @@ OC.L10N.register(
     "Announcement center" : "Centre d’anóncia",
     "No announcements" : "Cap d’anóncia",
     "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…",
+    "Comments" : "Comentaris",
     "Clear notifications" : "Escafar las anóncias",
     "Delete announcement" : "Suprimir l’anóncia",
     "seconds ago" : "fa qualques segondas",

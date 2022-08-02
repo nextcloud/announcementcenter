@@ -7,6 +7,7 @@ OC.L10N.register(
     "The announcement does not exist anymore" : "دغه اعلان نور شتون نلري",
     "An <strong>announcement</strong> is posted by an administrator" : "يو اعلان {announcement} د اډمين لخوا پوسټ شو",
     "Announcements" : "اعلانونه",
+    "Comments" : "تبصرې",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%nتبصره","%nتبصرې"],
     "Announce" : "اعلان وکړئ",

@@ -13,6 +13,7 @@ OC.L10N.register(
     "Announcement center" : "Anoncejo",
     "This app allows admins to post announcements." : "Tiu aplikaĵo ebligas al administranto afiŝi anoncoj.",
     "There are currently no announcements…" : "Estas neniu anonco nun...",
+    "Comments" : "Komentoj",
     "Delete announcement" : "Forigi anoncon",
     "seconds ago" : "antaŭ kelkaj sekundoj",
     ", " : ", ",

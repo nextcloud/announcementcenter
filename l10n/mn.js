@@ -12,6 +12,7 @@ OC.L10N.register(
     "Announcement center" : "Мэдээллийн төв",
     "No announcements" : "Зарлал байхгүй",
     "There are currently no announcements…" : "Энд одоогоор мэдээлэл байхгүй байна...",
+    "Comments" : "Сэтгэгдлүүд",
     "seconds ago" : "хоёрдахь өмнө",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n сэтгэгдэл","%n сэтгэгдэл"],

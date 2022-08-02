@@ -8,6 +8,7 @@ OC.L10N.register(
     "Announcements" : "Annucios",
     "{user} announced “{announcement}”" : "{user} annunciava “{announcement}”",
     "There are currently no announcements…" : "Actualmente il ha nulle annuncios...",
+    "Comments" : "Commentarios",
     "seconds ago" : "secundas passate",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n commentario","%n commentarios"],

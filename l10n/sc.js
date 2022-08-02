@@ -16,6 +16,7 @@ OC.L10N.register(
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Dae comunicatzione de sa bentana de mantenidura 🎛️, presenta unu collega 👤 segura·ti chi totus l'iscant de s'eventu de su mese chi intrat 📅\n\n🖌️ Agiudu Markdown \n\n📑 Commentos chi includent mentziones @\n👪 Permissos de su grupu\n\n⭕ Integratziones de su pannellu de controllu\n\n⚡ Integratzione atividades\n\n🔔 Integratzione Notìficas",
     "No announcements" : "Peruna comunicatzione",
     "There are currently no announcements…" : "Pro immoe non ddoe at comunicatziones…",
+    "Comments" : "Cummentos",
     "Clear notifications" : "Lìmpia is notìficas",
     "Delete announcement" : "Cantzella comunicatzione",
     "seconds ago" : "segundos a immoe",

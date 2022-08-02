@@ -13,6 +13,7 @@ OC.L10N.register(
     "Announcement center" : "Tilkynningamiðstöð",
     "This app allows admins to post announcements." : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar.",
     "There are currently no announcements…" : "Það eru engar tilkynningar í gangi...",
+    "Comments" : "Athugasemdir",
     "Delete announcement" : "Eyða tilkynningu",
     "seconds ago" : "sekúndum síðan",
     ", " : ", ",

@@ -11,6 +11,7 @@
     "Announcement center" : "Центр оголошень",
     "This app allows admins to post announcements." : "Цей застосунок дозволяє адміністраторам розміщувати оголошення.",
     "There are currently no announcements…" : "На даний час оголошення відсутні...",
+    "Comments" : "Коментарі",
     "seconds ago" : "секунд тому",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n коментар","%nкоментарів","%nкоментарів","%n коментарів"],
