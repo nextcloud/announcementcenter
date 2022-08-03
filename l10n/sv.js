@@ -16,6 +16,7 @@ OC.L10N.register(
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Meddela ditt serviceintervall 🎛️, introducera en ny kollega 👤 eller se till att alla vet om det stora evenemanget nästa månad 📅\n\n🖌️ Markdown-stöd\n\n📑 Kommentarer inklusive @-mentions\n\n👪 Gruppbehörigheter\n\n⭕ Dashboardintegration\n\n⚡ Integration med aktiviteter\n\n🔔 Integration med notifikationer",
     "No announcements" : "Inga meddelanden",
     "There are currently no announcements…" : "Det finns inga meddelanden just nu...",
+    "Comments" : "Kommentarer",
     "Clear notifications" : "Rensa notifikationer",
     "Delete announcement" : "Ta bort meddelande",
     "seconds ago" : "sekunder sedan",
