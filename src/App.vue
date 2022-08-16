@@ -20,7 +20,7 @@
 -->
 
 <template>
-	<Content app-name="announcementcenter">
+	<ContentVue app-name="announcementcenter">
 		<AppContent>
 			<NewForm v-if="isAdmin" />
 
@@ -47,14 +47,14 @@
 			<div ref="sidebar"
 				class="comments" />
 		</AppSidebar>
-	</Content>
+	</ContentVue>
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/AppContent'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar'
-import Content from '@nextcloud/vue/dist/Components/Content'
-import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent'
+import AppContent from '@nextcloud/vue/dist/Components/AppContent.js'
+import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
+import ContentVue from '@nextcloud/vue/dist/Components/Content.js'
+import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent.js'
 import { loadState } from '@nextcloud/initial-state'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
@@ -67,7 +67,7 @@ export default {
 		Announcement,
 		AppContent,
 		AppSidebar,
-		Content,
+		ContentVue,
 		EmptyContent,
 		NewForm,
 	},

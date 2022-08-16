@@ -79,21 +79,21 @@
 				class="announcement__message__overlay" />
 		</div>
 
-		<Button v-if="comments !== false"
+		<ButtonVue v-if="comments !== false"
 			type="tertiary"
 			class="announcement__comments"
 			@click="onClickCommentCount">
 			{{ commentsCount }}
-		</Button>
+		</ButtonVue>
 	</div>
 </template>
 
 <script>
 import RichText from '@juliushaertl/vue-richtext'
-import Actions from '@nextcloud/vue/dist/Components/Actions'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton'
-import Avatar from '@nextcloud/vue/dist/Components/Avatar'
-import Button from '@nextcloud/vue/dist/Components/Button'
+import Actions from '@nextcloud/vue/dist/Components/Actions.js'
+import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
+import Avatar from '@nextcloud/vue/dist/Components/Avatar.js'
+import ButtonVue from '@nextcloud/vue/dist/Components/Button.js'
 import moment from '@nextcloud/moment'
 import {
 	showError,
@@ -109,7 +109,7 @@ export default {
 		Actions,
 		ActionButton,
 		Avatar,
-		Button,
+		ButtonVue,
 		RichText,
 	},
 	props: {
