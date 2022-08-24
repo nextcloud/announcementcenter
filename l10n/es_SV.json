@@ -22,5 +22,5 @@
     "Create activities by default" : "Crear actividades predeterminadas",
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada"
-},"pluralForm" :"nplurals=2; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
+},"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
