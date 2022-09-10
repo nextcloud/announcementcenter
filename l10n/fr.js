@@ -22,11 +22,11 @@ OC.L10N.register(
     "seconds ago" : "à l'instant",
     "visible to everyone" : "visible pour tout le monde",
     "visible to group {name}" : "visible pour le groupe : {name}",
-    "visible to groups {name1} and {name2}" : "visible aux groupes {name1} et {name2}",
+    "visible to groups {name1} and {name2}" : "visible pour les groupes {name1} et {name2}",
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Une erreur s’est produite lors de la suppression des notifications de l’annonce",
     "An error occurred while deleting the announcement" : "Une erreur s’est produite lors de la suppression de l’annonce",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible au groupe {name} et %n en plus","visible au groupe {name} et %n en plus","visible au groupe {name} et %n en plus"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible au groupe {name} et %n en plus","visible au groupe {name} et %n en plus","visible pour le groupe {name} et %n en plus"],
     "_%n comment_::_%n comments_" : ["%n commentaire","%n commentaires","%n commentaires"],
     "New announcement subject" : "Nouveau sujet d’annonce",
     "Write announcement text, Markdown can be used …" : "Rédiger un texte d’annonce, Markdown peut être utilisé…",
@@ -40,9 +40,9 @@ OC.L10N.register(
     "An error occurred while posting the announcement" : "Une erreur s’est produite lors de l’affichage de l’annonce",
     "{author}, {timestamp}" : "{author}, {timestamp}",
     "These groups will be able to post announcements." : "Ces groupes vont être autorisés à poster des annonces.",
-    "Create activities by default" : "Créer des activités par défaut",
-    "Create notifications by default" : "Créer des notifications par défaut",
-    "Send emails by default" : "Envoyer des emails par défaut",
-    "Allow comments by default" : "Autoriser les commentaires par défaut"
+    "Create activities by default" : "Créer par défaut des activités",
+    "Create notifications by default" : "Créer par défaut des notifications",
+    "Send emails by default" : "Envoyer par défaut des emails",
+    "Allow comments by default" : "Autoriser par défaut les commentaires"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");
