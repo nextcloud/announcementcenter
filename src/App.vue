@@ -20,8 +20,8 @@
 -->
 
 <template>
-	<ContentVue app-name="announcementcenter">
-		<AppContent>
+	<NcContent app-name="announcementcenter">
+		<NcAppContent>
 			<NewForm v-if="isAdmin" />
 
 			<transition-group name="fade-collapse" tag="div">
@@ -33,28 +33,28 @@
 					@click="onClickAnnouncement" />
 			</transition-group>
 
-			<EmptyContent v-if="!announcements.length"
-				icon="icon-announcementcenter-dark">
-				{{ t('announcementcenter', 'No announcements') }}
-				<template #desc>
-					{{ t('announcementcenter', 'There are currently no announcements…') }}
+			<NcEmptyContent v-if="!announcements.length"
+				:title="t('announcementcenter', 'No announcements')"
+				:description="t('announcementcenter', 'There are currently no announcements …')">
+				<template #icon>
+					<span class="icon-announcementcenter-dark"></span>
 				</template>
-			</EmptyContent>
-		</AppContent>
-		<AppSidebar v-if="activeId !== 0"
+			</NcEmptyContent>
+		</NcAppContent>
+		<NcAppSidebar v-if="activeId !== 0"
 			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
-		</AppSidebar>
-	</ContentVue>
+		</NcAppSidebar>
+	</NcContent>
 </template>
 
 <script>
-import AppContent from '@nextcloud/vue/dist/Components/AppContent.js'
-import AppSidebar from '@nextcloud/vue/dist/Components/AppSidebar.js'
-import ContentVue from '@nextcloud/vue/dist/Components/Content.js'
-import EmptyContent from '@nextcloud/vue/dist/Components/EmptyContent.js'
+import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
+import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
+import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
+import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 import { loadState } from '@nextcloud/initial-state'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
@@ -65,10 +65,10 @@ export default {
 
 	components: {
 		Announcement,
-		AppContent,
-		AppSidebar,
-		ContentVue,
-		EmptyContent,
+		NcAppContent,
+		NcAppSidebar,
+		NcContent,
+		NcEmptyContent,
 		NewForm,
 	},
 
@@ -152,6 +152,11 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .comments {
 	margin: 10px;
+}
+::v-deep .empty-content__icon span {
+	width: 64px;
+	height: 64px;
+	background-size: 64px;
 }
 
 .fade-enter-active,

@@ -28,7 +28,6 @@ namespace OCA\AnnouncementCenter\Notification;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\IURLGenerator;
-use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Notification\AlreadyProcessedException;
@@ -113,12 +112,7 @@ class Notifier implements INotifier {
 		}
 
 		$params = $notification->getSubjectParameters();
-		$user = $this->userManager->get($params[0]);
-		if ($user instanceof IUser) {
-			$displayName = $user->getDisplayName();
-		} else {
-			$displayName = $params[0];
-		}
+		$displayName = $this->userManager->getDisplayName($params[0]) ?? $params[0];
 
 		$link = $this->urlGenerator->linkToRouteAbsolute('announcementcenter.page.index', [
 			'announcement' => $notification->getObjectId(),

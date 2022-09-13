@@ -75,9 +75,6 @@ clean:
 	rm -f js/announcementcenter-dashboard.js
 	rm -f js/announcementcenter-dashboard.js.map
 
-js-templates:
-	handlebars -n OCA.AnnouncementCenter.Templates js/templates -f js/templates.js
-
 appstore: dev-setup build-js-production
 	mkdir -p $(sign_dir)
 	rsync -a \

@@ -29,7 +29,7 @@
 
 			<div class="announcement__header__details">
 				<div class="announcement__header__details__info">
-					<Avatar :user="authorId"
+					<NcAvatar :user="authorId"
 						:display-name="author"
 						:size="16"
 						:show-user-status="false" />
@@ -51,18 +51,18 @@
 					</template>
 				</div>
 
-				<Actions v-if="isAdmin"
+				<NcActions v-if="isAdmin"
 					:force-menu="true"
 					:boundaries-element="boundariesElement">
-					<ActionButton v-if="notifications"
+					<NcActionButton v-if="notifications"
 						icon="icon-notifications-off"
 						:close-after-click="true"
 						:title="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications" />
-					<ActionButton icon="icon-delete"
+					<NcActionButton icon="icon-delete"
 						:title="t('announcementcenter', 'Delete announcement')"
 						@click="onDeleteAnnouncement" />
-				</Actions>
+				</NcActions>
 			</div>
 		</div>
 
@@ -79,21 +79,21 @@
 				class="announcement__message__overlay" />
 		</div>
 
-		<ButtonVue v-if="comments !== false"
+		<NcButton v-if="comments !== false"
 			type="tertiary"
 			class="announcement__comments"
 			@click="onClickCommentCount">
 			{{ commentsCount }}
-		</ButtonVue>
+		</NcButton>
 	</div>
 </template>
 
 <script>
 import RichText from '@juliushaertl/vue-richtext'
-import Actions from '@nextcloud/vue/dist/Components/Actions.js'
-import ActionButton from '@nextcloud/vue/dist/Components/ActionButton.js'
-import Avatar from '@nextcloud/vue/dist/Components/Avatar.js'
-import ButtonVue from '@nextcloud/vue/dist/Components/Button.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
+import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import moment from '@nextcloud/moment'
 import {
 	showError,
@@ -106,10 +106,10 @@ import {
 export default {
 	name: 'Announcement',
 	components: {
-		Actions,
-		ActionButton,
-		Avatar,
-		ButtonVue,
+		NcActions,
+		NcActionButton,
+		NcAvatar,
+		NcButton,
 		RichText,
 	},
 	props: {

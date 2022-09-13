@@ -35,7 +35,6 @@ use OCP\L10N\IFactory;
 use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\IManager;
 use OCP\Notification\INotification;
-use OCP\IUser;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class NotifierTest extends TestCase {
@@ -136,22 +135,11 @@ class NotifierTest extends TestCase {
 		$this->notifier->prepare($notification, 'en');
 	}
 
-	/**
-	 * @return IUser|MockObject
-	 */
-	protected function getUserMock() {
-		$user = $this->createMock(IUser::class);
-		$user->expects(self::exactly(2))
-			->method('getDisplayName')
-			->willReturn('Author');
-		return $user;
-	}
-
 	public function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		return [
 			['author', 'subject', 'message', 'message', '42', null, 'author announced “subject”', 'message'],
-			['author1', 'subject', 'message', 'message', '42', $this->getUserMock(), 'Author announced “subject”', 'message'],
+			['author1', 'subject', 'message', 'message', '42', 'Author', 'Author announced “subject”', 'message'],
 			['author2', "subject\nsubject", $message, $message, '21', null, 'author2 announced “subject subject”', $message],
 		];
 	}
@@ -164,11 +152,11 @@ class NotifierTest extends TestCase {
 	 * @param string $message
 	 * @param string $plainMessage
 	 * @param int $objectId
-	 * @param \OCP\IUser $userObject
+	 * @param ?string $userDisplayName
 	 * @param string $expectedSubject
 	 * @param string $expectedMessage
 	 */
-	public function testPrepare($author, $subject, $message, $plainMessage, $objectId, $userObject, $expectedSubject, $expectedMessage): void {
+	public function testPrepare($author, $subject, $message, $plainMessage, $objectId, $userDisplayName, $expectedSubject, $expectedMessage): void {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
@@ -196,9 +184,9 @@ class NotifierTest extends TestCase {
 			->with($objectId, false)
 			->willReturn($announcement);
 		$this->userManager->expects(self::once())
-			->method('get')
+			->method('getDisplayName')
 			->with($author)
-			->willReturn($userObject);
+			->willReturn($userDisplayName);
 
 		$notification->expects(self::once())
 			->method('setParsedMessage')
@@ -215,7 +203,7 @@ class NotifierTest extends TestCase {
 				'user' => [
 					'type' => 'user',
 					'id' => 'author',
-					'name' => $userObject instanceof IUser ? $userObject->getDisplayName() : $author,
+					'name' => $userDisplayName ?? $author,
 				],
 				'announcement' => [
 					'type' => 'announcement',
