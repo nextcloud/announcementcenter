@@ -36,30 +36,30 @@
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__buttons">
-			<ButtonVue type="primary"
+			<NcButton type="primary"
 				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
-			</ButtonVue>
+			</NcButton>
 
-			<Actions>
-				<ActionCheckbox value="1"
+			<NcActions>
+				<NcActionCheckbox value="1"
 					:checked.sync="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
-				</ActionCheckbox>
-				<ActionCheckbox value="1"
+				</NcActionCheckbox>
+				<NcActionCheckbox value="1"
 					:checked.sync="createNotifications">
 					{{ t('announcementcenter', 'Create notifications') }}
-				</ActionCheckbox>
-				<ActionCheckbox value="1"
+				</NcActionCheckbox>
+				<NcActionCheckbox value="1"
 					:checked.sync="sendEmails">
 					{{ t('announcementcenter', 'Send emails') }}
-				</ActionCheckbox>
-				<ActionCheckbox value="1"
+				</NcActionCheckbox>
+				<NcActionCheckbox value="1"
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
-				</ActionCheckbox>
-				<ActionInput v-model="groups"
+				</NcActionCheckbox>
+				<NcActionInput v-model="groups"
 					icon="icon-group"
 					type="multiselect"
 					:options="groupOptions"
@@ -70,17 +70,17 @@
 					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
 					@search-change="onSearchChanged">
 					{{ t('announcementcenter', 'Everyone') }}
-				</ActionInput>
-			</Actions>
+				</NcActionInput>
+			</NcActions>
 		</div>
 	</div>
 </template>
 
 <script>
-import Actions from '@nextcloud/vue/dist/Components/Actions.js'
-import ActionCheckbox from '@nextcloud/vue/dist/Components/ActionCheckbox.js'
-import ActionInput from '@nextcloud/vue/dist/Components/ActionInput.js'
-import ButtonVue from '@nextcloud/vue/dist/Components/Button.js'
+import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
+import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
+import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -95,10 +95,10 @@ export default {
 	name: 'NewForm',
 
 	components: {
-		Actions,
-		ActionCheckbox,
-		ActionInput,
-		ButtonVue,
+		NcActions,
+		NcActionCheckbox,
+		NcActionInput,
+		NcButton,
 	},
 
 	data() {
