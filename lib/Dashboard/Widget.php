@@ -29,37 +29,35 @@ use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\Dashboard\IWidget;
+use OCP\Dashboard\IAPIWidget;
+use OCP\Dashboard\Model\WidgetItem;
+use OCP\IDateTimeFormatter;
 use OCP\IL10N;
 use OCP\IURLGenerator;
-use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Util;
 
-class Widget implements IWidget {
-
-	/** @var Manager */
-	private $manager;
-	/** @var IUserManager */
-	private $userManager;
-	/** @var IURLGenerator */
-	private $url;
-	/** @var IInitialState */
-	private $initialState;
-	/** @var IL10N */
-	private $l10n;
+class Widget implements IAPIWidget {
+	private Manager $manager;
+	private IUserManager $userManager;
+	private IURLGenerator $url;
+	private IInitialState $initialState;
+	private IDateTimeFormatter $dateTimeFormatter;
+	private IL10N $l10n;
 
 	public function __construct(
 		Manager $manager,
 		IUserManager $userManager,
 		IURLGenerator $url,
 		IInitialState $initialState,
+		IDateTimeFormatter $dateTimeFormatter,
 		IL10N $l10n
 	) {
 		$this->manager = $manager;
 		$this->userManager = $userManager;
 		$this->url = $url;
 		$this->initialState = $initialState;
+		$this->dateTimeFormatter = $dateTimeFormatter;
 		$this->l10n = $l10n;
 	}
 
@@ -124,11 +122,31 @@ class Widget implements IWidget {
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
 
-		if ($this->manager->checkIsAdmin()) {
-			$result['groups'] = $this->manager->getGroups($announcement);
-			$result['notifications'] = $this->manager->hasNotifications($announcement);
-		}
-
 		return $result;
+	}
+
+	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
+		$announcements = $this->manager->getAnnouncements((int) $since);
+		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);
+		return $data;
+	}
+
+	protected function renderAnnouncementAPI(Announcement $announcement): WidgetItem {
+		$data = $this->renderAnnouncement($announcement);
+
+		return new WidgetItem(
+			$data['subject'],
+			str_replace(
+				['{author}', '{time}'],
+				[$data['author'], $this->dateTimeFormatter->formatDateTimeRelativeDay($data['time'])],
+				$this->l10n->t('{author}, {time}')
+			),
+			$this->getUrl() . '?announcement=' . $data['id'],
+			$this->url->linkToRouteAbsolute('core.avatar.getAvatar', [
+				'userId' => $data['author_id'],
+				'size' => 64,
+			]),
+			(string) $data['id']
+		);
 	}
 }
