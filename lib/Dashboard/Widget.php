@@ -111,11 +111,7 @@ class Widget implements IWidget {
 	}
 
 	protected function renderAnnouncement(Announcement $announcement): array {
-		$displayName = $announcement->getUser();
-		$user = $this->userManager->get($announcement->getUser());
-		if ($user instanceof IUser) {
-			$displayName = $user->getDisplayName();
-		}
+		$displayName = $this->userManager->getDisplayName($announcement->getUser()) ?? $announcement->getUser();
 
 		$result = [
 			'id' => $announcement->getId(),

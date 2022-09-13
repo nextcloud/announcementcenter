@@ -30,7 +30,6 @@ use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\Activity\IProvider;
 use OCP\IURLGenerator;
-use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 
@@ -173,7 +172,7 @@ class Provider implements IProvider {
 
 	protected function generateUserParameter(string $uid): array {
 		if (!isset($this->displayNames[$uid])) {
-			$this->displayNames[$uid] = $this->getDisplayName($uid);
+			$this->displayNames[$uid] = $this->userManager->getDisplayName($uid) ?? $uid;
 		}
 
 		return [
@@ -181,13 +180,5 @@ class Provider implements IProvider {
 			'id' => $uid,
 			'name' => $this->displayNames[$uid],
 		];
-	}
-
-	protected function getDisplayName(string $uid): string {
-		$user = $this->userManager->get($uid);
-		if ($user instanceof IUser) {
-			return $user->getDisplayName();
-		}
-		return $uid;
 	}
 }
