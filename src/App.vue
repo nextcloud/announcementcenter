@@ -153,6 +153,11 @@ export default {
 ::v-deep .comments {
 	margin: 10px;
 }
+::v-deep .empty-content__icon span {
+	width: 64px;
+	height: 64px;
+	background-size: 64px;
+}
 
 .fade-enter-active,
 .fade-leave-active,

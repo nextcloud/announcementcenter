@@ -75,9 +75,6 @@ div.section {
 	box-sizing: content-box;
 }
 
-@include icon-black-white('announcementcenter-dark', 'announcementcenter', 1);
-@include icon-black-white('notifications-off', 'announcementcenter', 1);
-
 .section > span {
 	padding-right: 7px;
 	color: #878787;
