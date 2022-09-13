@@ -90,8 +90,8 @@ appstore: dev-setup build-js-production
 	--exclude=/vendor \
 	--exclude=/.eslintrc.js \
 	--exclude=/.l10nignore \
-	--exclude=/.php_cs.cache \
-	--exclude=/.php_cs.dist \
+	--exclude=/.php-cs-fixer.cache \
+	--exclude=/.php-cs-fixer.dist.php \
 	--exclude=/.gitattributes \
 	--exclude=/.gitignore \
 	--exclude=/.scrutinizer.yml \
