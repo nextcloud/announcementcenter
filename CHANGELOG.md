@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.4.0-beta.1 – 2022-09-13
+### Changed
+- Compatibility with Nextcloud 25
+- Drop support for Nextcloud 24 and older
+
 ## 6.3.1 – 2022-06-14
 ### Fixed
 - Don't send emails to disabled users
