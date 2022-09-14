@@ -8,7 +8,6 @@ OC.L10N.register(
     "Announcements" : "Anunțuri",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
     "Announcement center" : "Centru anunturi",
-    "There are currently no announcements…" : "În acest moment nu există niciun anunț...",
     "Comments" : "Comentarii",
     "seconds ago" : "secunde în urmă",
     ", " : ",",

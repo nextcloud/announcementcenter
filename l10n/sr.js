@@ -12,7 +12,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} објави “{announcement}”",
     "Announcement center" : "Центар за објављивање",
     "This app allows admins to post announcements." : "Ова апликација дозвољава администраторима да постављају објаве.",
-    "There are currently no announcements…" : "Тренутно нема објава…",
     "Comments" : "Коментари",
     "Delete announcement" : "Обриши објаву",
     "seconds ago" : "пре неколико секунди",

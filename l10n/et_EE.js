@@ -8,7 +8,6 @@ OC.L10N.register(
     "Announcements" : "Teadaanded",
     "{user} announced “{announcement}”" : "{user} teatas “{announcement}”",
     "Announcement center" : "Teadete keskus",
-    "There are currently no announcements…" : "Praegu pole ühtegi teadaannet...",
     "Comments" : "Kommentaarid",
     "Delete announcement" : "Kustuta teade",
     "seconds ago" : "sekundit tagasi",

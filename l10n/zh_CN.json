@@ -13,7 +13,6 @@
     "This app allows admins to post announcements." : "此应用允许管理员发布公告",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "公布系统维护时间 🎛️, 为其他同事介绍 👤 或者让其他同事知道下个月的会议 📅🖌️ 支持Markdown 📑 使用@提及某人👪 群组权限⭕ 集成仪表盘⚡ 集成动态🔔 集成通知",
     "No announcements" : "没有公告",
-    "There are currently no announcements…" : "当前没有公告...",
     "Comments" : "评论",
     "Clear notifications" : "清除通知",
     "Delete announcement" : "删除公告",

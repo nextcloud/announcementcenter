@@ -15,7 +15,6 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "این برنامه به سرورها امکان ارسال اعلان ها را می دهد.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "پنجره تعمیر و نگهداری خود را اعلام کنید 🎛️، یک همکار جدید معرفی کنید 👤 یا مطمئن شوید که همه از رویداد بزرگ ماه آینده اطلاع دارند 📅\n\n🖌️ پشتیبانی از Markdown\n\n📑 نظراتی از جمله @-mention\n\n👪 مجوزهای گروهی\n\n⭕ ادغام داشبورد\n\n⚡ یکپارچه سازی فعالیت ها\n\n🔔 ادغام اعلان ها",
     "No announcements" : "بدون آگهی",
-    "There are currently no announcements…" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد ...",
     "Comments" : "نظرات",
     "Clear notifications" : "پاک کردن اعلان‌ها",
     "Delete announcement" : "پاک کردن آگهی‌ها",

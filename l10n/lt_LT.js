@@ -14,7 +14,6 @@ OC.L10N.register(
     "Announcement center" : "Skelbimų centras",
     "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
     "No announcements" : "Nėra skelbimų",
-    "There are currently no announcements…" : "Šiuo metu skelbimų nėra…",
     "Comments" : "Komentarai",
     "Clear notifications" : "Išvalyti pranešimus",
     "Delete announcement" : "Ištrinti skelbimą",

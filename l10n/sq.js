@@ -9,7 +9,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} njoftoi “{announcement}”",
     "Announcement center" : "Qendra e njoftimeve",
     "This app allows admins to post announcements." : "Ky grup lejon administratorët të postojnë njoftimet.",
-    "There are currently no announcements…" : "Tani s’ka lajmërime…",
     "Comments" : "Komentet",
     "Delete announcement" : "Fshij njoftimin",
     "seconds ago" : "sekonda më parë",

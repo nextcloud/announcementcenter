@@ -14,7 +14,6 @@ OC.L10N.register(
     "Announcement center" : "מרכז ההכרזות",
     "This app allows admins to post announcements." : "יישומון זה מאפשר למנהלים לפרסם הכרזות.",
     "No announcements" : "אין הכרזות",
-    "There are currently no announcements…" : "ברגע זה אין הכרזות...",
     "Comments" : "תגובות",
     "Clear notifications" : "לפנות את כל ההתראות",
     "Delete announcement" : "למחוק הכרזה",

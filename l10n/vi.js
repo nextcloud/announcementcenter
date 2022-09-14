@@ -13,7 +13,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} đã thông báo “{announcement}”",
     "Announcement center" : "Trung tâm thông báo",
     "This app allows admins to post announcements." : "Ứng dụng này cho phép quản trị viên đang các thông báo",
-    "There are currently no announcements…" : "Hiện tại không có thông báo nào...…",
     "Comments" : "Các bình luận",
     "seconds ago" : "vài giây trước",
     ", " : ", ",

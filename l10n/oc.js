@@ -13,7 +13,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} anoncièt « {announcement} »",
     "Announcement center" : "Centre d’anóncia",
     "No announcements" : "Cap d’anóncia",
-    "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…",
     "Comments" : "Comentaris",
     "Clear notifications" : "Escafar las anóncias",
     "Delete announcement" : "Suprimir l’anóncia",

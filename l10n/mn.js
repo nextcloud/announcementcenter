@@ -11,7 +11,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} “{announcement}”-г зарласан",
     "Announcement center" : "Мэдээллийн төв",
     "No announcements" : "Зарлал байхгүй",
-    "There are currently no announcements…" : "Энд одоогоор мэдээлэл байхгүй байна...",
     "Comments" : "Сэтгэгдлүүд",
     "seconds ago" : "хоёрдахь өмнө",
     ", " : ", ",

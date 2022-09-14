@@ -12,7 +12,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} divulgou “{announcement}”",
     "Announcement center" : "Centro de Anúncios",
     "This app allows admins to post announcements." : "Esta aplicação permite que os administradores publiquem anúncios.",
-    "There are currently no announcements…" : "Atualmente não existem anúncios...",
     "Comments" : "Comentários",
     "Delete announcement" : "Remover anúncio",
     "seconds ago" : "segundos atrás",

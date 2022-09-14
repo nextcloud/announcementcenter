@@ -8,7 +8,6 @@ OC.L10N.register(
     "Announcements" : "Paziņojumi",
     "{user} announced “{announcement}”" : "{user} paziņots “{announcement}”",
     "Announcement center" : "Paziņojumu centrs",
-    "There are currently no announcements…" : "Šobrīd nav paziņojumu...",
     "Comments" : "Komentāri",
     "Delete announcement" : "Dzēst paziņojumu",
     "seconds ago" : "pirms mirkļa",

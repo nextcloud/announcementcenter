@@ -7,7 +7,6 @@ OC.L10N.register(
     "The subject is too long or empty" : "Le subjecto es troppo grande o es vacue",
     "Announcements" : "Annucios",
     "{user} announced “{announcement}”" : "{user} annunciava “{announcement}”",
-    "There are currently no announcements…" : "Actualmente il ha nulle annuncios...",
     "Comments" : "Commentarios",
     "seconds ago" : "secundas passate",
     ", " : ",",

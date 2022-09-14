@@ -13,7 +13,6 @@ OC.L10N.register(
     "Announcement center" : "Announcement centre",
     "This app allows admins to post announcements." : "This app allows admins to post announcements.",
     "No announcements" : "No announcements",
-    "There are currently no announcements…" : "There are currently no announcements…",
     "Comments" : "Comments",
     "Delete announcement" : "Delete announcement",
     "seconds ago" : "seconds ago",

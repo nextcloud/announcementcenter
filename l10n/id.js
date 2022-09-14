@@ -14,7 +14,6 @@ OC.L10N.register(
     "Announcement center" : "Pusat pengumuman",
     "This app allows admins to post announcements." : "Aplikasi ini mengizinkan admin membuat pengumuman.",
     "No announcements" : "Tidak ada pengumuman",
-    "There are currently no announcements…" : "Saat ini tidak ada pengumuman...",
     "Comments" : "Komentar",
     "Clear notifications" : "Bersihkan notifikasi",
     "Delete announcement" : "Hapus pengumuman",

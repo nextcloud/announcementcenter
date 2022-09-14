@@ -15,7 +15,6 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "Bu uygulama yöneticilerin duyurular yapabilmesini sağlar.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "🎛️ ile bakım zamanlarını duyurabilir, 👤 ile yeni bir takım arkadaşını tanıtabilir ya da 📅 gelecek ay yapılacak bir etkinliği herkesin duyacağından emin olabilirsiniz\n\n🖌️ Markdown desteği\n\n📑 @-anmaları ile yorumlar\n\n👪 Grup izinleri\n\n⭕ Pano bütünleştirmesi\n\n⚡ İşlemler bütünleştirmesi\n\n🔔 Bildirimler bütünleştirmesi",
     "No announcements" : "Herhangi bir duyuru yok",
-    "There are currently no announcements…" : "Şu anda herhangi bir duyuru yok …",
     "Comments" : "Yorumlar",
     "Clear notifications" : "Bildirimleri temizle",
     "Delete announcement" : "Duyuruyu sil",

@@ -10,7 +10,6 @@ OC.L10N.register(
     "Announcement center" : "නිවේදන මධ්‍යස්ථානය",
     "This app allows admins to post announcements." : "මෙම යෙදුම පරිපාලකයින්ට නිවේදන පළ කිරීමට ඉඩ දෙයි.",
     "No announcements" : "නිවේදන නැත",
-    "There are currently no announcements…" : "දැනට නිවේදන නොමැත…",
     "Comments" : "අදහස්",
     "seconds ago" : "තත්පර කිහිපයකට පෙර",
     "visible to everyone" : "සෑම දෙනාටම පෙනෙයි",

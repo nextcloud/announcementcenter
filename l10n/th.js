@@ -14,7 +14,6 @@ OC.L10N.register(
     "Announcement center" : "ศูนย์ประกาศ",
     "This app allows admins to post announcements." : "แอปนี้อนุญาตให้ผู้ดูแลระบบโพสต์ประกาศ",
     "No announcements" : "ไม่มีประกาศ",
-    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ...",
     "Comments" : "ความคิดเห็น",
     "Clear notifications" : "ล้างการแจ้งเตือน",
     "Delete announcement" : "ลบประกาศ",

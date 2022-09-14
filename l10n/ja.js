@@ -15,7 +15,6 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "このアプリは、管理者がお知らせを投稿できるようにします。",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "メンテナンス期間を告知したり🎛️、新しい同僚を紹介したり👤、来月の大きなイベントを皆に知らせたり📅できます。\n\n🖌️ Markdownをサポート\n\n📑 @-メンション含めたコメント\n\n👪 グループパーミッション\n\n⭕ ダッシュボードの統合\n\n⚡ アクティビティの統合\n\n🔔 通知の統合",
     "No announcements" : "お知らせがありません",
-    "There are currently no announcements…" : "今はお知らせがありません...",
     "Comments" : "コメント",
     "Clear notifications" : "通知を消去",
     "Delete announcement" : "お知らせを削除",

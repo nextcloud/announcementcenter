@@ -15,7 +15,6 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "Denne appen tillater administratorer å legge inn kunngjøringer.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kunngjør ditt vedlikeholdsvindu 🎛️, introduser en ny kollega 👤 eller sørg for at alle vet om den store hendelsen neste måned 📅\n\n🖌️ Markdown-støtte\n\n📑 Kommentarer med @-nevnelser\n\n👪 Gruppe-tilltatelser\n\n⭕ Dashboard-integrasjon\n\n⚡ Aktiviteter-integrasjon\n\n🔔 Varsel-integrasjon",
     "No announcements" : "Ingen kunngjøringer",
-    "There are currently no announcements…" : "Det er for øyeblikket ingen kunngjøringer…",
     "Comments" : "Kommentarer",
     "Clear notifications" : "Slett alle varsler",
     "Delete announcement" : "Slett kunngjøring",

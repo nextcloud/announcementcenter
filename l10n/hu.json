@@ -13,7 +13,6 @@
     "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy a rendszergazdák bejelentéseket küldjenek.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Hirdesse meg karbantartási ablakát 🎛, mutasson be új kollégát 👤, vagy győződjön meg róla, hogy mindenki tud a jövő hónap nagy eseményéről 📅\n\n🖌️ Markdown támogatás\n\n📑 Megjegyzések, beleértve a @ -említéseket\n\n👪 Csoportengedélyek\n\n⭕ Irányítópult integráció\n\n⚡ Tevékenységek integrálása\n\n🔔 Értesítések integrálása",
     "No announcements" : "Nincsenek bejelentések",
-    "There are currently no announcements…" : "Jelenleg egyetlen bejelentés sincs…",
     "Comments" : "Hozzászólások",
     "Clear notifications" : "Értesítések törlése",
     "Delete announcement" : "Bejelentés törlése",

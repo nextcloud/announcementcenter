@@ -13,7 +13,6 @@
     "This app allows admins to post announcements." : "Это приложение позволяет администраторам публиковать объявления.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Приложение предоставляет возможность создавать уведомления о периодах технического обслуживания  🎛️, представлять новых коллег 👤 или донести до всех информацию о грядущем важном событии  📅.\n\n🖌️ Поддержка формата разметки Markdown;\n\n📑 Возможность комментирования с использованием @-упоминаний;\n\n👪 Разграничение прав доступа группами;\n\n⭕ Наличие виджета;\n\n⚡ Интеграция с лентой событий;\n\n🔔 Интеграция с приложением «Уведомления».",
     "No announcements" : "Уведомления отсуствуют",
-    "There are currently no announcements…" : "На данный момент уведомления отсутствуют…",
     "Comments" : "Комментарии",
     "Clear notifications" : "Отключить оповещение",
     "Delete announcement" : "Удалить уведомление",

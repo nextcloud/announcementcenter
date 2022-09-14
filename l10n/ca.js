@@ -15,7 +15,6 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "Aquesta aplicació permet que els administradors publiquin anuncis.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncieu la vostra finestra de anteniment 🎛️, presenteu un nou company 👤 o assegureu-vos que tothom sàpiga sobre el gran esdeveniment el proper mes 📅\n\n🖌️ Suport de Markdown\n\n📑 Comentaris que inclouen @-mentions\n\n👪 Permisos de grup\n\n⭕ Integració de l'escriptori digital\n\n⚡ Integració d'activitats\n\n🔔 Integració de notificacions",
     "No announcements" : "No hi ha cap anunci",
-    "There are currently no announcements…" : "Actualment no hi ha anuncis…",
     "Comments" : "Comentaris",
     "Clear notifications" : "Esborra les notificacions",
     "Delete announcement" : "Suprimeix l'anunci",

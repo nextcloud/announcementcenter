@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "The subject is too long or empty" : "Темата е премногу долга или ја нема",
     "Announcements" : "Објави",
-    "There are currently no announcements…" : "Во моментов нема објави...",
     "Comments" : "Коментари",
     "seconds ago" : "пред неколку секунди",
     ", " : ", ",
