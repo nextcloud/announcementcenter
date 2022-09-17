@@ -6,7 +6,7 @@ OC.L10N.register(
     "You posted an announcement" : "Du hast eine Ankündigung geschrieben",
     "{actor} posted an announcement" : "{actor} hat eine Ankündigung geschrieben",
     "The announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
-    "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator versendet",
+    "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator gesendet",
     "The subject is too long or empty" : "Der Betreff ist zu lang oder leer",
     "Announcements" : "Ankündigungen",
     "{user} announced {announcement}" : "{user} hat {announcement} angekündigt",
