@@ -5,7 +5,7 @@ OC.L10N.register(
     "{actor} announced “{announcement}”" : "{actor} announced “{announcement}”",
     "You posted an announcement" : "You posted an announcement",
     "{actor} posted an announcement" : "{actor} posted an announcement",
-    "The announcement does not exist anymore" : "The announcement does not exist anymore",
+    "The announcement does not exist anymore" : "The announcement does not exist any more",
     "An <strong>announcement</strong> is posted by an administrator" : "An <strong>announcement</strong> is posted by an administrator",
     "The subject is too long or empty" : "The subject is too long or empty",
     "Announcements" : "Announcements",
