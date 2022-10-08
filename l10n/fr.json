@@ -4,7 +4,7 @@
     "You posted an announcement" : "Vous avez posté une annonce",
     "{actor} posted an announcement" : "{actor} a posté une annonce",
     "The announcement does not exist anymore" : "L'annonce n'existe plus",
-    "An <strong>announcement</strong> is posted by an administrator" : "Une <strong>annonce</strong> a été posté par un administrateur",
+    "An <strong>announcement</strong> is posted by an administrator" : "Une <strong>annonce</strong> a été postée par un administrateur",
     "The subject is too long or empty" : "Le sujet est trop long ou vide",
     "Announcements" : "Annonces",
     "{author}, {time}" : "{author}, {time}",
