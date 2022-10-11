@@ -12,11 +12,11 @@
 		"nextcloud/coding-standard": "^1.0.0",
 		"phpunit/phpunit": "^9.5",
 		"vimeo/psalm": "^4.3.2",
-		"christophwurst/nextcloud": "dev-master"
+		"nextcloud/ocp": "dev-master"
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"OCP\\": "vendor/christophwurst/nextcloud/OCP",
+			"OCP\\": "vendor/nextcloud/ocp/OCP",
 			"OCA\\AnnouncementCenter\\": "lib/"
 		}
 	},
