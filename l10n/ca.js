@@ -19,7 +19,7 @@ OC.L10N.register(
     "There are currently no announcements …" : "Actualment no hi ha anuncis…",
     "Comments" : "Comentaris",
     "Clear notifications" : "Esborra les notificacions",
-    "Delete announcement" : "Suprimeix l'anunci",
+    "Delete announcement" : "Suprimir l'anunci",
     "seconds ago" : "fa uns segons",
     "visible to everyone" : "visible per a tothom",
     "visible to group {name}" : "visible per al grup {name}",
