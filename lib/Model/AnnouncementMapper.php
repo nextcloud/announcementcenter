@@ -71,16 +71,17 @@ class AnnouncementMapper extends QBMapper {
 	/**
 	 * @param array $userGroups
 	 * @param int $offsetId
+	 * @param int $limit
 	 * @return Announcement[]
 	 */
-	public function getAnnouncements(array $userGroups, int $offsetId = 0): array {
+	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array {
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('a.announcement_id')
 			->from($this->getTableName(), 'a')
 			->orderBy('a.announcement_time', 'DESC')
 			->groupBy('a.announcement_id')
-			->setMaxResults(7);
+			->setMaxResults($limit);
 
 		if (!empty($userGroups)) {
 			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(

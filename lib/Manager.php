@@ -207,16 +207,17 @@ class Manager {
 
 	/**
 	 * @param int $offsetId
+	 * @param int $limit
 	 * @return Announcement[]
 	 */
-	public function getAnnouncements(int $offsetId = 0): array {
+	public function getAnnouncements(int $offsetId = 0, int $limit = 7): array {
 		$userGroups = $this->getUserGroups();
 		$memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
 		if (!empty($memberOfAdminGroups)) {
 			$userGroups = [];
 		}
 
-		$announcements = $this->announcementMapper->getAnnouncements($userGroups, $offsetId);
+		$announcements = $this->announcementMapper->getAnnouncements($userGroups, $offsetId, $limit);
 
 		return $announcements;
 	}

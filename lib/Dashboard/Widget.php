@@ -30,6 +30,9 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Dashboard\IAPIWidget;
+use OCP\Dashboard\IButtonWidget;
+use OCP\Dashboard\IIconWidget;
+use OCP\Dashboard\Model\WidgetButton;
 use OCP\Dashboard\Model\WidgetItem;
 use OCP\IDateTimeFormatter;
 use OCP\IL10N;
@@ -37,7 +40,7 @@ use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Util;
 
-class Widget implements IAPIWidget {
+class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	private Manager $manager;
 	private IUserManager $userManager;
 	private IURLGenerator $url;
@@ -99,6 +102,26 @@ class Widget implements IAPIWidget {
 	/**
 	 * @inheritDoc
 	 */
+	public function getIconUrl(): string {
+		return $this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg'));
+	}
+
+	/**
+	 * @return WidgetButton[]
+	 */
+	public function getWidgetButtons(string $userId): array {
+		$buttons = [];
+		$buttons[] = new WidgetButton(
+			WidgetButton::TYPE_MORE,
+			$this->getUrl(),
+			$this->l10n->t('Read more')
+		);
+		return $buttons;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function load(): void {
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
 			$announcements = $this->manager->getAnnouncements();
@@ -126,7 +149,7 @@ class Widget implements IAPIWidget {
 	}
 
 	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
-		$announcements = $this->manager->getAnnouncements((int) $since);
+		$announcements = $this->manager->getAnnouncements((int) $since, $limit);
 		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);
 		return $data;
 	}
