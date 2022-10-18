@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Administratorius paskelbė <strong>skelbimą</strong>",
     "The subject is too long or empty" : "Tema per ilga arba tuščia",
     "Announcements" : "Skelbimai",
+    "Read more" : "Daugiau skaitykite",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} paskelbė {announcement}",
     "{user} announced “{announcement}”" : "{user} paskelbė „{announcement}“",

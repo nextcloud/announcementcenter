@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "یک اطلاعیه توسط یک مدیر ارسال می شود",
     "The subject is too long or empty" : "موضوع خیلی طولانی یا خالی است",
     "Announcements" : "اطلاعیه ها",
+    "Read more" : "بیشتر بخوانید",
     "{user} announced {announcement}" : "{user}  {announcement} را اعلام کرد",
     "{user} announced “{announcement}”" : "{user} اعلام کرد {announcement}",
     "Announcement center" : "مرکز اعلامیه",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "관리자가 <strong>공지 사항</strong>을 게시했습니다",
     "The subject is too long or empty" : "제목이 너무 길거나 비어 있습니다",
     "Announcements" : "공지",
+    "Read more" : "더 읽기",
     "{user} announced {announcement}" : "{user}님이 {announcement} 를 공지했습니다.",
     "{user} announced “{announcement}”" : "{user} 님이 “{announcement}” 공지를 올림",
     "Announcement center" : "공지 센터",

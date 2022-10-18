@@ -6,6 +6,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anunț</strong> a fost postat de administrator",
     "The subject is too long or empty" : "Subiectul este gol sau prea lung",
     "Announcements" : "Anunțuri",
+    "Read more" : "Citește mai mult",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
     "Announcement center" : "Centru anunturi",
     "Comments" : "Comentarii",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator gemacht",
     "The subject is too long or empty" : "Das Betreff ist zu lang oder leer",
     "Announcements" : "Ankündigungen",
+    "Read more" : "Weiterlesen",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} hat {announcement} angekündigt",
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>announcement</strong> розміщено адміністратором",
     "The subject is too long or empty" : "Тема занадто довга або порожня",
     "Announcements" : "Оголошення",
+    "Read more" : "Читати далі",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} оголосив {announcement}",
     "{user} announced “{announcement}”" : "{user} розмістив “{announcement}”",

@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Oznámení</strong> je odesláno správcem",
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo naopak nevyplněný",
     "Announcements" : "Oznámení",
+    "Read more" : "Přečtěte si více",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} oznámil(a) {announcement}",
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",

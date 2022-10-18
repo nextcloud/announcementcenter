@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "A rendszergazda közzétett egy <strong>bejelentést</strong>",
     "The subject is too long or empty" : "A tárgy túl hosszú vagy üres",
     "Announcements" : "Bejelentések",
+    "Read more" : "Továbbolvasás",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} bejelentette: {announcement}",
     "{user} announced “{announcement}”" : "{user} bejelentette: „{announcement}”",

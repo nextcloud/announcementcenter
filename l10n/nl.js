@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Er is een <strong>aankondiging</strong> geplaatst door de beheerder",
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "Announcements" : "Aankondigingen",
+    "Read more" : "Lees meer",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} kondigde {announcement} aan",
     "{user} announced “{announcement}”" : "{user} kondigde “{announcement}” aan",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "管理員發佈了一篇<strong>公告</strong>",
     "The subject is too long or empty" : "主旨太長或是空白",
     "Announcements" : "公告",
+    "Read more" : "更多",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} 公告了 {announcement}",
     "{user} announced “{announcement}”" : "{user} 公告了「{announcement}」",

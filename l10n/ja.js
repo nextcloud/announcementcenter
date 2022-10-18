@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "管理者から<strong>お知らせ</strong>が投稿されました。",
     "The subject is too long or empty" : "件名が長すぎるか空です",
     "Announcements" : "お知らせ",
+    "Read more" : "続きを読む",
     "{user} announced {announcement}" : "{user} さんが {announcement} をお知らせしました",
     "{user} announced “{announcement}”" : "{user} さんが “{announcement}” とお知らせしました。",
     "Announcement center" : "お知らせセンター",

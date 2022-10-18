@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "管理员发布了一个<strong>公告</strong>",
     "The subject is too long or empty" : "标题太长或为空",
     "Announcements" : "公告",
+    "Read more" : "阅读更多",
     "{user} announced {announcement}" : "用户 {user} 宣布了公告 {announcement}",
     "{user} announced “{announcement}”" : "{user} 公告了“{announcement}”",
     "Announcement center" : "通知中心",

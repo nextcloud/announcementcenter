@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Ylläpitäjä lähetti <strong>tiedotteen</strong>",
     "The subject is too long or empty" : "Aihe on joko liian pitkä tai tyhjä",
     "Announcements" : "Tiedotteet",
+    "Read more" : "Lue lisää",
     "{user} announced {announcement}" : "{user} julkaisi tiedotteen {announcement}",
     "{user} announced “{announcement}”" : "{user} tiedotti \"{announcement}\"",
     "Announcement center" : "Tiedotekeskus",

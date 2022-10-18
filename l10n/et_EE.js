@@ -6,6 +6,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : " <strong>teade</strong> postitati administraatori poolt",
     "The subject is too long or empty" : "Pealkiri on liiga pikk või tühi",
     "Announcements" : "Teadaanded",
+    "Read more" : "Loe rohkem",
     "{user} announced “{announcement}”" : "{user} teatas “{announcement}”",
     "Announcement center" : "Teadete keskus",
     "Comments" : "Kommentaarid",

@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator gesendet",
     "The subject is too long or empty" : "Der Betreff ist zu lang oder leer",
     "Announcements" : "Ankündigungen",
+    "Read more" : "Weiterlesen",
     "{user} announced {announcement}" : "{user} hat {announcement} angekündigt",
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",
     "Announcement center" : "Ankündigungen",

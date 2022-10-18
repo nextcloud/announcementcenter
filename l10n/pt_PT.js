@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Um <strong>anúncio</strong> foi publicado por um administrador",
     "The subject is too long or empty" : "O assunto contém demasiados carateres ou está vazio",
     "Announcements" : "Anúncios",
+    "Read more" : "Ler mais",
     "{user} announced “{announcement}”" : "{user} divulgou “{announcement}”",
     "Announcement center" : "Centro de Anúncios",
     "This app allows admins to post announcements." : "Esta aplicação permite que os administradores publiquem anúncios.",

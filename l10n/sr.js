@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Администратор је поставио <strong>објаву</strong>",
     "The subject is too long or empty" : "Тема је предугачка или празна",
     "Announcements" : "Објаве",
+    "Read more" : "Прочитајте више",
     "{user} announced “{announcement}”" : "{user} објави “{announcement}”",
     "Announcement center" : "Центар за објављивање",
     "This app allows admins to post announcements." : "Ова апликација дозвољава администраторима да постављају објаве.",

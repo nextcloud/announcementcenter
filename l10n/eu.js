@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Iragarpen</strong> bat administratzaile batek argitaratzen du",
     "The subject is too long or empty" : "Gaia luzeegia da edo hutsik dago",
     "Announcements" : "Iragarpenak",
+    "Read more" : "Irakurri gehiago",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} erabiltzaileak “{announcement}” iragarri du",
     "{user} announced “{announcement}”" : "{user} erabiltzaileak “{announcement}” iragarri du",

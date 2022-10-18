@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>oznámenie</strong> je uverejnené administrátorom",
     "The subject is too long or empty" : "Predmet je príliš dlhý alebo prázdny",
     "Announcements" : "Oznámenia",
+    "Read more" : "Ćítať viac",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} oznámil “{announcement}”",
     "{user} announced “{announcement}”" : "{user} oznámil “{announcement}”",

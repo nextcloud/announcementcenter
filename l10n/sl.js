@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Skrbnik objavi <strong>obvestilo</strong>",
     "The subject is too long or empty" : "Vpis zadeve je predolg, ali pa ga ni.",
     "Announcements" : "Obvestila",
+    "Read more" : "Več o tem",
     "{user} announced {announcement}" : "{user} objavi objavo {announcement}",
     "{user} announced “{announcement}”" : "Uporabnik {user} objavi obvestilo »{announcement}«",
     "Announcement center" : "Središče za obveščanje",

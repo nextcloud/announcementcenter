@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador ha publicat un <strong>anunci</strong>",
     "The subject is too long or empty" : "L'assumpte és massa llarg o està buit",
     "Announcements" : "Anuncis",
+    "Read more" : "Més informació",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} ha publicat l'anunci {announcement}",
     "{user} announced “{announcement}”" : "{user} ha publicat l'anunci «{announcement}»",

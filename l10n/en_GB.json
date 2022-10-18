@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "An <strong>announcement</strong> is posted by an administrator",
     "The subject is too long or empty" : "The subject is too long or empty",
     "Announcements" : "Announcements",
+    "Read more" : "Read more",
     "{user} announced “{announcement}”" : "{user} announced “{announcement}”",
     "Announcement center" : "Announcement centre",
     "This app allows admins to post announcements." : "This app allows admins to post announcements.",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Μια <strong>ανακοίνωση</strong> δημοσιεύτηκε από έναν διαχειριστή",
     "The subject is too long or empty" : "Το θέμα είναι πολύ μακροσκελές ή κενό",
     "Announcements" : "Ανακοινώσεις",
+    "Read more" : "Διαβάστε περισσότερα",
     "{user} announced {announcement}" : "Ο/η {user} ανακοίνωσε {announcement}",
     "{user} announced “{announcement}”" : "Ο {user} ανακοίνωσε “{announcement}”",
     "Announcement center" : "Κέντρο ανακοινώσεων",

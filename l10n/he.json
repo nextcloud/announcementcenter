@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "פורסמה <strong>הכרזה</strong> על ידי מנהל",
     "The subject is too long or empty" : "הנושא ארוך מדי או ריק",
     "Announcements" : "הכרזות",
+    "Read more" : "מידע נוסף",
     "{user} announced {announcement}" : "הכרזה {announcement} מאת {user}",
     "{user} announced “{announcement}”" : "ההכרזה „{announcement}” פורסמה על ידי {user}",
     "Announcement center" : "מרכז ההכרזות",

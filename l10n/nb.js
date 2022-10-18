@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "En <strong>kunngjøring</strong> er postet av en administrator",
     "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "Announcements" : "Kunngjøringer",
+    "Read more" : "Les mer",
     "{user} announced {announcement}" : "{user} kunngjorde “{announcement}”",
     "{user} announced “{announcement}”" : "{user} kunngjorde “{announcement}”",
     "Announcement center" : "Kunngjøringssenter",

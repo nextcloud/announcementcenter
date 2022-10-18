@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Una <strong>comunicatzione</strong> est istada publicada dae un'amministradore",
     "The subject is too long or empty" : "S'ogetu est tropu longu o bòidu",
     "Announcements" : "Comunicatziones",
+    "Read more" : "Leghe de prus",
     "{user} announced {announcement}" : "{user} at comunicadu {announcement}",
     "{user} announced “{announcement}”" : "{user} at comunicadu “{announcement}”",
     "Announcement center" : "Tzentru de comunicatziones",

@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Уведомление</strong> опубликовано администратором",
     "The subject is too long or empty" : "Тема слишком короткая или отсутствует",
     "Announcements" : "Уведомления",
+    "Read more" : "Читать далее",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} создал уведомление «{announcement}»",
     "{user} announced “{announcement}”" : "{user} уведомил “{announcement}”",

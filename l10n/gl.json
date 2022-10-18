@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador publicou un <strong>anuncio<strong>",
     "The subject is too long or empty" : "O asunto é longo de máis ou está baleiro",
     "Announcements" : "Anuncios",
+    "Read more" : "Ler máis",
     "{user} announced {announcement}" : "{user} anunciou {announcement}",
     "{user} announced “{announcement}”" : "{user} anunciou «{announcement}»",
     "Announcement center" : "Centro de anuncios",

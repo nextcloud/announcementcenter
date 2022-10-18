@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Một <strong> thông báo</strong> được đăng bởi một quản trị viên",
     "The subject is too long or empty" : "Tiêu đề quá dài hoặc để trống",
     "Announcements" : "Các thông báo",
+    "Read more" : "Đọc thêm",
     "{user} announced {announcement}" : "{user} đã thông báo {announcement}",
     "{user} announced “{announcement}”" : "{user} đã thông báo “{announcement}”",
     "Announcement center" : "Trung tâm thông báo",

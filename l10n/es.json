@@ -7,6 +7,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anuncio</strong> fue publicado por el administrador",
     "The subject is too long or empty" : "El asunto es demasiado largo o está vacío",
     "Announcements" : "Anuncios",
+    "Read more" : "Ver más",
     "{author}, {time}" : "{autor},{hora}",
     "{user} announced {announcement}" : "{user} ha anunciado {announcement}",
     "{user} announced “{announcement}”" : "{user} ha anunciado \"{announcement}\"",
