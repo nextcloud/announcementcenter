@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 6.4.0-beta.1 – 2022-09-13
+## 6.4.0 – 2022-10-18
 ### Changed
 - Compatibility with Nextcloud 25
 - Drop support for Nextcloud 24 and older
