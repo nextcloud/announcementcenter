@@ -202,6 +202,10 @@ class BackgroundJob extends QueuedJob {
 			}
 
 			if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress() && $user->isEnabled()) {
+				if (!$this->mailer->validateMailAddress($user->getEMailAddress())) {
+					$this->logger->warning('User has no valid email address: ' . $user->getUID());
+					return;
+				}
 				$email->setTo([$user->getEMailAddress()]);
 				try {
 					$this->mailer->send($email);
