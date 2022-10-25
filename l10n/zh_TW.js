@@ -9,13 +9,15 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "管理者發布了一篇<strong>公告</strong>",
     "The subject is too long or empty" : "主旨太長或是空白",
     "Announcements" : "公告",
+    "Read more" : "更多",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} 公告了 {announcement}",
     "{user} announced “{announcement}”" : "{user} 公告了「{announcement}」",
     "Announcement center" : "公告中心",
     "This app allows admins to post announcements." : "這個應用程式允許管理員發布公告。",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "公告您的維護時段 🎛️、介紹一位新同事 👤 或確保每個人都知道下個月的大活動 📅\n\n🖌️ 支援 Markdown\n\n📑 可包含 @ 提及的留言\n\n👪 群組權限\n\n⭕ 儀表板整合\n\n⚡ 活動整合\n\n🔔 通知整合",
     "No announcements" : "無公告",
-    "There are currently no announcements…" : "目前沒有任何公告……",
+    "There are currently no announcements …" : "目前沒有公告…",
     "Comments" : "留言",
     "Clear notifications" : "清除通知",
     "Delete announcement" : "刪除公告",
@@ -43,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "依預設建立活動",
     "Create notifications by default" : "依預設建立通知",
     "Send emails by default" : "預設寄送電子郵件",
-    "Allow comments by default" : "預設允許留言"
+    "Allow comments by default" : "預設允許留言",
+    "There are currently no announcements…" : "目前沒有任何公告……"
 },
 "nplurals=1; plural=0;");

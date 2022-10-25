@@ -9,13 +9,13 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "یک اطلاعیه توسط یک مدیر ارسال می شود",
     "The subject is too long or empty" : "موضوع خیلی طولانی یا خالی است",
     "Announcements" : "اطلاعیه ها",
+    "Read more" : "بیشتر بخوانید",
     "{user} announced {announcement}" : "{user}  {announcement} را اعلام کرد",
     "{user} announced “{announcement}”" : "{user} اعلام کرد {announcement}",
     "Announcement center" : "مرکز اعلامیه",
     "This app allows admins to post announcements." : "این برنامه به سرورها امکان ارسال اعلان ها را می دهد.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "پنجره تعمیر و نگهداری خود را اعلام کنید 🎛️، یک همکار جدید معرفی کنید 👤 یا مطمئن شوید که همه از رویداد بزرگ ماه آینده اطلاع دارند 📅\n\n🖌️ پشتیبانی از Markdown\n\n📑 نظراتی از جمله @-mention\n\n👪 مجوزهای گروهی\n\n⭕ ادغام داشبورد\n\n⚡ یکپارچه سازی فعالیت ها\n\n🔔 ادغام اعلان ها",
     "No announcements" : "بدون آگهی",
-    "There are currently no announcements…" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد ...",
     "Comments" : "نظرات",
     "Clear notifications" : "پاک کردن اعلان‌ها",
     "Delete announcement" : "پاک کردن آگهی‌ها",
@@ -40,6 +40,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "این گروه ها می توانند اعلان ارسال کنند.",
     "Create activities by default" : "فعالیتها را بطور پیش فرض ایجاد کنید",
     "Create notifications by default" : "به طور پیش فرض اعلان ها را ایجاد کنید",
-    "Allow comments by default" : "نظرات را بطور پیش فرض مجاز کنید"
+    "Allow comments by default" : "نظرات را بطور پیش فرض مجاز کنید",
+    "There are currently no announcements…" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد ..."
 },
 "nplurals=2; plural=(n > 1);");

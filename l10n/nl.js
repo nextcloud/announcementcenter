@@ -9,13 +9,15 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Er is een <strong>aankondiging</strong> geplaatst door de beheerder",
     "The subject is too long or empty" : "Het onderwerp is te lang of is leeg",
     "Announcements" : "Aankondigingen",
+    "Read more" : "Lees meer",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} kondigde {announcement} aan",
     "{user} announced “{announcement}”" : "{user} kondigde “{announcement}” aan",
     "Announcement center" : "Meldingencentrum",
     "This app allows admins to post announcements." : "Deze app laat beheerders meldingen plaatsen.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kondig je onderhoudsvenster aan 🎛️, stel een nieuwe collega voor 👤 of zorg ervoor dat iedereen op de hoogte is van het grote evenement volgende maand 📅\n\n🖌️ Markdown-ondersteuning\n\n📑 Reacties inclusief @ -vermeldingen\n\n👪 Groepsmachtigingen\n\n⭕ Dashboard-integratie\n\n⚡ Integratie van activiteiten\n\n🔔 Integratie van meldingen",
     "No announcements" : "Geen aankondigingen",
-    "There are currently no announcements…" : "Er zijn nu geen aankondigingen...",
+    "There are currently no announcements …" : "Er zijn op dit moment geen aankondigingen ...",
     "Comments" : "Reacties",
     "Clear notifications" : "Opschonen meldingen",
     "Delete announcement" : "Verwijderen aankondiging",
@@ -43,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Standaard activiteiten creëren",
     "Create notifications by default" : "Standaard meldingen creëren",
     "Send emails by default" : "E-mails standaard verzenden",
-    "Allow comments by default" : "Reageren standaard toestaan"
+    "Allow comments by default" : "Reageren standaard toestaan",
+    "There are currently no announcements…" : "Er zijn nu geen aankondigingen..."
 },
 "nplurals=2; plural=(n != 1);");

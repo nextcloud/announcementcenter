@@ -7,11 +7,11 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrator a postat una <strong>anóncia</strong>",
     "The subject is too long or empty" : "Lo subjècte es tròp long o void",
     "Announcements" : "Anóncias",
+    "Read more" : "Ne legir mai",
     "{user} announced {announcement}" : "{user} anoncièt {announcement}",
     "{user} announced “{announcement}”" : "{user} anoncièt « {announcement} »",
     "Announcement center" : "Centre d’anóncia",
     "No announcements" : "Cap d’anóncia",
-    "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…",
     "Comments" : "Comentaris",
     "Clear notifications" : "Escafar las anóncias",
     "Delete announcement" : "Suprimir l’anóncia",
@@ -26,6 +26,7 @@
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
     "Everyone" : "Tot lo monde",
-    "{author}, {timestamp}" : "{author}, {timestamp}"
+    "{author}, {timestamp}" : "{author}, {timestamp}",
+    "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

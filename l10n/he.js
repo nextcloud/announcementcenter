@@ -9,12 +9,12 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "פורסמה <strong>הכרזה</strong> על ידי מנהל",
     "The subject is too long or empty" : "הנושא ארוך מדי או ריק",
     "Announcements" : "הכרזות",
+    "Read more" : "מידע נוסף",
     "{user} announced {announcement}" : "הכרזה {announcement} מאת {user}",
     "{user} announced “{announcement}”" : "ההכרזה „{announcement}” פורסמה על ידי {user}",
     "Announcement center" : "מרכז ההכרזות",
     "This app allows admins to post announcements." : "יישומון זה מאפשר למנהלים לפרסם הכרזות.",
     "No announcements" : "אין הכרזות",
-    "There are currently no announcements…" : "ברגע זה אין הכרזות...",
     "Comments" : "תגובות",
     "Clear notifications" : "לפנות את כל ההתראות",
     "Delete announcement" : "למחוק הכרזה",
@@ -40,6 +40,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "קבוצות אלו יוכלו לפרסם הכרזות",
     "Create activities by default" : "יצירת פעילויות כבררת מחדל",
     "Create notifications by default" : "יצירת התרעות כבררת מחדל",
-    "Allow comments by default" : "לאפשר תגובות כבררת מחדל"
+    "Allow comments by default" : "לאפשר תגובות כבררת מחדל",
+    "There are currently no announcements…" : "ברגע זה אין הכרזות..."
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

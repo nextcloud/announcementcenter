@@ -9,13 +9,15 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Um <strong>anúncio</strong> foi postado por um administrador",
     "The subject is too long or empty" : "O assunto está muito longo ou vazio",
     "Announcements" : "Notificações",
+    "Read more" : "Leia mais",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} anunciado {announcement}",
     "{user} announced “{announcement}”" : "{user} anunciado \"{announcement}\"",
     "Announcement center" : "Central de notificações",
     "This app allows admins to post announcements." : "Este aplicativo permite aos administradores publicarem anúncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie sua janela de manutenção  🎛️, apresente um novo colega  👤 ou certifique-se de que todos saibam sobre o grande evento no próximo mês  📅\n\n🖌️ Marcação de suporte\n\n📑 Comentários incluindo @-menções \n\n👪 Permissões de grupo \n\n⭕ Integração do painel \n\n⚡ Integração de atividades \n\n🔔 Integração de notificações ",
     "No announcements" : "Nenhum anúncio",
-    "There are currently no announcements…" : "Atualmente não há notificações...",
+    "There are currently no announcements …" : "Atualmente não há anúncios …",
     "Comments" : "Comentários",
     "Clear notifications" : "Limpar notificações",
     "Delete announcement" : "Excluir anúncio",
@@ -43,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Criar atividades por padrão",
     "Create notifications by default" : "Criar notificações por padrão",
     "Send emails by default" : "Enviar e-mails por padrão",
-    "Allow comments by default" : "Permitir comentários por padrão"
+    "Allow comments by default" : "Permitir comentários por padrão",
+    "There are currently no announcements…" : "Atualmente não há notificações..."
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

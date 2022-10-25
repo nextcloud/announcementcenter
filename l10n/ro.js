@@ -6,9 +6,9 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anunț</strong> a fost postat de administrator",
     "The subject is too long or empty" : "Subiectul este gol sau prea lung",
     "Announcements" : "Anunțuri",
+    "Read more" : "Citește mai mult",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
     "Announcement center" : "Centru anunturi",
-    "There are currently no announcements…" : "În acest moment nu există niciun anunț...",
     "Comments" : "Comentarii",
     "seconds ago" : "secunde în urmă",
     ", " : ",",
@@ -22,6 +22,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Aceste grupuri vor putea posta anunțuri.",
     "Create activities by default" : "Crează activități în mod implicit",
     "Create notifications by default" : "Crează notificări în mod implicit",
-    "Allow comments by default" : "Permite comentarii în mod implicit"
+    "Allow comments by default" : "Permite comentarii în mod implicit",
+    "There are currently no announcements…" : "În acest moment nu există niciun anunț..."
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");

@@ -11,7 +11,6 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} “{announcement}”-г зарласан",
     "Announcement center" : "Мэдээллийн төв",
     "No announcements" : "Зарлал байхгүй",
-    "There are currently no announcements…" : "Энд одоогоор мэдээлэл байхгүй байна...",
     "Comments" : "Сэтгэгдлүүд",
     "seconds ago" : "хоёрдахь өмнө",
     ", " : ", ",
@@ -25,6 +24,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Эдгээр бүлгүүд мэдээлэл зарлах боломжтой.",
     "Create activities by default" : "Анхнаасаа үйл явдал үүсгэх",
     "Create notifications by default" : "Анхнаасаа мэдэгдэл үүсгэх",
-    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх"
+    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх",
+    "There are currently no announcements…" : "Энд одоогоор мэдээлэл байхгүй байна..."
 },
 "nplurals=2; plural=(n != 1);");

@@ -8,7 +8,6 @@ OC.L10N.register(
     "Announcements" : "Anuncios",
     "{user} announced “{announcement}”" : "{user} anunció “{announcement}”",
     "Announcement center" : "Centro de anuncios",
-    "There are currently no announcements…" : "Actualmente no hay anuncios...",
     "Comments" : "Comentarios",
     "Delete announcement" : "Eliminar anuncio",
     "seconds ago" : "hace segundos",
@@ -23,6 +22,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Estos grupos podrán publicar anuncios.",
     "Create activities by default" : "Crear actividades predeterminadas",
     "Create notifications by default" : "Crear notificaciones predeterminada",
-    "Allow comments by default" : "Permitir comentarios predeterminada"
+    "Allow comments by default" : "Permitir comentarios predeterminada",
+    "There are currently no announcements…" : "Actualmente no hay anuncios..."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -9,13 +9,13 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Ett <strong>meddelande</strong> är utsänt av en administratör ",
     "The subject is too long or empty" : "Ämnet är för långt eller tomt",
     "Announcements" : "Meddelanden",
+    "Read more" : "Läs mer",
     "{user} announced {announcement}" : "{user} meddelade {announcement}",
     "{user} announced “{announcement}”" : "{user} meddelade “{announcement}”",
     "Announcement center" : "Meddelandecentralen",
     "This app allows admins to post announcements." : "Denna app tillåter administratörer att publicera meddelanden.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Meddela ditt serviceintervall 🎛️, introducera en ny kollega 👤 eller se till att alla vet om det stora evenemanget nästa månad 📅\n\n🖌️ Markdown-stöd\n\n📑 Kommentarer inklusive @-mentions\n\n👪 Gruppbehörigheter\n\n⭕ Dashboardintegration\n\n⚡ Integration med aktiviteter\n\n🔔 Integration med notifikationer",
     "No announcements" : "Inga meddelanden",
-    "There are currently no announcements…" : "Det finns inga meddelanden just nu...",
     "Comments" : "Kommentarer",
     "Clear notifications" : "Rensa notifikationer",
     "Delete announcement" : "Ta bort meddelande",
@@ -41,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Dessa grupper kan posta meddelanden",
     "Create activities by default" : "Få rättigheter att skapa aktiviteter",
     "Create notifications by default" : "Skapa aviseringar som standard",
-    "Allow comments by default" : "Tillåt kommentarer som standard"
+    "Allow comments by default" : "Tillåt kommentarer som standard",
+    "There are currently no announcements…" : "Det finns inga meddelanden just nu..."
 },
 "nplurals=2; plural=(n != 1);");

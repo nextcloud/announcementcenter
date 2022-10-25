@@ -9,13 +9,13 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador publicou un <strong>anuncio<strong>",
     "The subject is too long or empty" : "O asunto é longo de máis ou está baleiro",
     "Announcements" : "Anuncios",
+    "Read more" : "Ler máis",
     "{user} announced {announcement}" : "{user} anunciou {announcement}",
     "{user} announced “{announcement}”" : "{user} anunciou «{announcement}»",
     "Announcement center" : "Centro de anuncios",
     "This app allows admins to post announcements." : "Esta aplicación permítelle aos administradores publicar anuncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie a súa xanela de mantemento 🎛️, presente a un novo compañeiro 👤 ou asegúrese de que todo o mundo saiba do gran evento do próximo mes 📅\n\n🖌️ Compatibilidade con Markdown\n\n📑 Comentarios que inclúen @-mencións\n\n👪 Permisos de grupo\n\n⭕ Integración do panel\n\n⚡ Integración de actividades\n\n🔔 Integración de notificacións",
     "No announcements" : "Non hai anuncios",
-    "There are currently no announcements…" : "Actualmente non hai anuncios…",
     "Comments" : "Comentarios",
     "Clear notifications" : "Limpar as notificacións",
     "Delete announcement" : "Eliminar o anuncio",
@@ -41,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Estes grupos poderán publicar anuncios.",
     "Create activities by default" : "Crear actividades por omisión",
     "Create notifications by default" : "Crear notificacións por omisión",
-    "Allow comments by default" : "Permitir comentarios por omisión"
+    "Allow comments by default" : "Permitir comentarios por omisión",
+    "There are currently no announcements…" : "Actualmente non hai anuncios…"
 },
 "nplurals=2; plural=(n != 1);");

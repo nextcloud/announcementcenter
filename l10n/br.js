@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Read more" : "Lenn muioc'h",
     "Comments" : "Displegadennoù",
     "seconds ago" : "eilenn zo",
     ", " : "'",

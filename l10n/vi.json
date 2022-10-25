@@ -7,11 +7,11 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Một <strong> thông báo</strong> được đăng bởi một quản trị viên",
     "The subject is too long or empty" : "Tiêu đề quá dài hoặc để trống",
     "Announcements" : "Các thông báo",
+    "Read more" : "Đọc thêm",
     "{user} announced {announcement}" : "{user} đã thông báo {announcement}",
     "{user} announced “{announcement}”" : "{user} đã thông báo “{announcement}”",
     "Announcement center" : "Trung tâm thông báo",
     "This app allows admins to post announcements." : "Ứng dụng này cho phép quản trị viên đang các thông báo",
-    "There are currently no announcements…" : "Hiện tại không có thông báo nào...…",
     "Comments" : "Các bình luận",
     "seconds ago" : "vài giây trước",
     ", " : ", ",
@@ -25,6 +25,7 @@
     "These groups will be able to post announcements." : "Các nhóm này  sẽ được phép đăng các thông báo",
     "Create activities by default" : "Tạo các hoạt động mặc định",
     "Create notifications by default" : "Tạo các thông báo mặc định",
-    "Allow comments by default" : "Cho phép bình luận mặc định"
+    "Allow comments by default" : "Cho phép bình luận mặc định",
+    "There are currently no announcements…" : "Hiện tại không có thông báo nào...…"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

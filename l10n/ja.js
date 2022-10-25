@@ -9,13 +9,13 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "管理者から<strong>お知らせ</strong>が投稿されました。",
     "The subject is too long or empty" : "件名が長すぎるか空です",
     "Announcements" : "お知らせ",
+    "Read more" : "続きを読む",
     "{user} announced {announcement}" : "{user} さんが {announcement} をお知らせしました",
     "{user} announced “{announcement}”" : "{user} さんが “{announcement}” とお知らせしました。",
     "Announcement center" : "お知らせセンター",
     "This app allows admins to post announcements." : "このアプリは、管理者がお知らせを投稿できるようにします。",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "メンテナンス期間を告知したり🎛️、新しい同僚を紹介したり👤、来月の大きなイベントを皆に知らせたり📅できます。\n\n🖌️ Markdownをサポート\n\n📑 @-メンション含めたコメント\n\n👪 グループパーミッション\n\n⭕ ダッシュボードの統合\n\n⚡ アクティビティの統合\n\n🔔 通知の統合",
     "No announcements" : "お知らせがありません",
-    "There are currently no announcements…" : "今はお知らせがありません...",
     "Comments" : "コメント",
     "Clear notifications" : "通知を消去",
     "Delete announcement" : "お知らせを削除",
@@ -43,6 +43,7 @@ OC.L10N.register(
     "Create activities by default" : "デフォルトでアクティビティを作成する",
     "Create notifications by default" : "デフォルトで通知を作成する",
     "Send emails by default" : "デフォルトでメールを送信",
-    "Allow comments by default" : "デフォルトでコメントを許可する"
+    "Allow comments by default" : "デフォルトでコメントを許可する",
+    "There are currently no announcements…" : "今はお知らせがありません..."
 },
 "nplurals=1; plural=0;");

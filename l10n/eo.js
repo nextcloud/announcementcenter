@@ -9,10 +9,10 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Anonco</strong> estis sendita de administranto",
     "The subject is too long or empty" : "La temo tro longas aŭ malplenas",
     "Announcements" : "Anoncoj",
+    "Read more" : "Legi pli",
     "{user} announced “{announcement}”" : "{user} anoncis „{announcement}“",
     "Announcement center" : "Anoncejo",
     "This app allows admins to post announcements." : "Tiu aplikaĵo ebligas al administranto afiŝi anoncoj.",
-    "There are currently no announcements…" : "Estas neniu anonco nun...",
     "Comments" : "Komentoj",
     "Delete announcement" : "Forigi anoncon",
     "seconds ago" : "antaŭ kelkaj sekundoj",
@@ -27,6 +27,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Tiuj grupoj eblos sendi anoncojn.",
     "Create activities by default" : "Defaŭlte krei aktivaĵojn",
     "Create notifications by default" : "Defaŭlte krei sciigojn",
-    "Allow comments by default" : "Defaŭlte permesi komentojn"
+    "Allow comments by default" : "Defaŭlte permesi komentojn",
+    "There are currently no announcements…" : "Estas neniu anonco nun..."
 },
 "nplurals=2; plural=(n != 1);");

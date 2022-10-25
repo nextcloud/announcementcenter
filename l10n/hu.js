@@ -9,13 +9,15 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "A rendszergazda közzétett egy <strong>bejelentést</strong>",
     "The subject is too long or empty" : "A tárgy túl hosszú vagy üres",
     "Announcements" : "Bejelentések",
+    "Read more" : "Továbbolvasás",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} bejelentette: {announcement}",
     "{user} announced “{announcement}”" : "{user} bejelentette: „{announcement}”",
     "Announcement center" : "Bejelentésközpont ",
     "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy a rendszergazdák bejelentéseket küldjenek.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Hirdesse meg karbantartási ablakát 🎛, mutasson be új kollégát 👤, vagy győződjön meg róla, hogy mindenki tud a jövő hónap nagy eseményéről 📅\n\n🖌️ Markdown támogatás\n\n📑 Megjegyzések, beleértve a @ -említéseket\n\n👪 Csoportengedélyek\n\n⭕ Irányítópult integráció\n\n⚡ Tevékenységek integrálása\n\n🔔 Értesítések integrálása",
     "No announcements" : "Nincsenek bejelentések",
-    "There are currently no announcements…" : "Jelenleg egyetlen bejelentés sincs…",
+    "There are currently no announcements …" : "Jelenleg nincsenek bejelentések…",
     "Comments" : "Hozzászólások",
     "Clear notifications" : "Értesítések törlése",
     "Delete announcement" : "Bejelentés törlése",
@@ -43,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
     "Send emails by default" : "E-mailek küldése alapértelmezetten",
-    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten"
+    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten",
+    "There are currently no announcements…" : "Jelenleg egyetlen bejelentés sincs…"
 },
 "nplurals=2; plural=(n != 1);");

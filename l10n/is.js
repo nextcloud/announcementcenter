@@ -9,10 +9,10 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Tilkynning</strong> er send inn af kerfisstjóra",
     "The subject is too long or empty" : "Efnislínan er of löng eða er tóm",
     "Announcements" : "Tilkynningar",
+    "Read more" : "Lesa meira",
     "{user} announced “{announcement}”" : "{user} tilkynnti “{announcement}”",
     "Announcement center" : "Tilkynningamiðstöð",
     "This app allows admins to post announcements." : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar.",
-    "There are currently no announcements…" : "Það eru engar tilkynningar í gangi...",
     "Comments" : "Athugasemdir",
     "Delete announcement" : "Eyða tilkynningu",
     "seconds ago" : "sekúndum síðan",
@@ -27,6 +27,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
     "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
     "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
-    "Allow comments by default" : "Sjálfgefið leyfa ummæli"
+    "Allow comments by default" : "Sjálfgefið leyfa ummæli",
+    "There are currently no announcements…" : "Það eru engar tilkynningar í gangi..."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

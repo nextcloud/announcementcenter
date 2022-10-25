@@ -9,10 +9,10 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Администратор је поставио <strong>објаву</strong>",
     "The subject is too long or empty" : "Тема је предугачка или празна",
     "Announcements" : "Објаве",
+    "Read more" : "Прочитајте више",
     "{user} announced “{announcement}”" : "{user} објави “{announcement}”",
     "Announcement center" : "Центар за објављивање",
     "This app allows admins to post announcements." : "Ова апликација дозвољава администраторима да постављају објаве.",
-    "There are currently no announcements…" : "Тренутно нема објава…",
     "Comments" : "Коментари",
     "Delete announcement" : "Обриши објаву",
     "seconds ago" : "пре неколико секунди",
@@ -27,6 +27,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Ове групе ће моћи да постављају објаве.",
     "Create activities by default" : "Подразумевано је да креира активности",
     "Create notifications by default" : "Подразумевано је да креира обавештења",
-    "Allow comments by default" : "Подразумевано је да су дозвољени коментари"
+    "Allow comments by default" : "Подразумевано је да су дозвољени коментари",
+    "There are currently no announcements…" : "Тренутно нема објава…"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

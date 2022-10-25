@@ -7,13 +7,13 @@
     "An <strong>announcement</strong> is posted by an administrator" : "En <strong>meddelse</strong> er afsendt af en administrator",
     "The subject is too long or empty" : "Emnet er for langt, eller ikke udfyldt",
     "Announcements" : "Meddelelser",
+    "Read more" : "Læs mere",
     "{user} announced {announcement}" : "{user} har annonceret {announcement}",
     "{user} announced “{announcement}”" : "{user} annoncerede “{announcement}”",
     "Announcement center" : "Meddelses center",
     "This app allows admins to post announcements." : "Denne app giver administratorer mulighed for at annoncere meddelelser.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Annoncer dit vedligeholdelsesvindue 🎛️, præsenter en ny kollega 👤 eller sørg for, at alle ved om den store begivenhed i næste måned 📅\n\n🖌️ Markdown support\n\n📑 Kommentarer inklusive @-omtaler\n\n👪 Gruppe tilladelser\n\n⭕ Integration af dashboard\n\n⚡ Integration af aktiviteter\n\n🔔 Integration af notifikationer",
     "No announcements" : "Ingen meddelelser",
-    "There are currently no announcements…" : "Der er i øjeblikket ingen meddelelser...",
     "Comments" : "Kommentarer",
     "Clear notifications" : "Ryd notifikationer",
     "Delete announcement" : "Slet notifikationer",
@@ -41,6 +41,7 @@
     "Create activities by default" : "Opret aktiviteter som standard",
     "Create notifications by default" : "Opret notifikationer som standard",
     "Send emails by default" : "Send e-mails som standard",
-    "Allow comments by default" : "Tillad kommentarer som standard"
+    "Allow comments by default" : "Tillad kommentarer som standard",
+    "There are currently no announcements…" : "Der er i øjeblikket ingen meddelelser..."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

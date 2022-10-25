@@ -9,13 +9,13 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "En <strong>kunngjøring</strong> er postet av en administrator",
     "The subject is too long or empty" : "Emnet er for langt eller tomt",
     "Announcements" : "Kunngjøringer",
+    "Read more" : "Les mer",
     "{user} announced {announcement}" : "{user} kunngjorde “{announcement}”",
     "{user} announced “{announcement}”" : "{user} kunngjorde “{announcement}”",
     "Announcement center" : "Kunngjøringssenter",
     "This app allows admins to post announcements." : "Denne appen tillater administratorer å legge inn kunngjøringer.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kunngjør ditt vedlikeholdsvindu 🎛️, introduser en ny kollega 👤 eller sørg for at alle vet om den store hendelsen neste måned 📅\n\n🖌️ Markdown-støtte\n\n📑 Kommentarer med @-nevnelser\n\n👪 Gruppe-tilltatelser\n\n⭕ Dashboard-integrasjon\n\n⚡ Aktiviteter-integrasjon\n\n🔔 Varsel-integrasjon",
     "No announcements" : "Ingen kunngjøringer",
-    "There are currently no announcements…" : "Det er for øyeblikket ingen kunngjøringer…",
     "Comments" : "Kommentarer",
     "Clear notifications" : "Slett alle varsler",
     "Delete announcement" : "Slett kunngjøring",
@@ -43,6 +43,7 @@ OC.L10N.register(
     "Create activities by default" : "Opprett aktiviteter som standard",
     "Create notifications by default" : "Opprett varsler som forvalg",
     "Send emails by default" : "Send e-poster som standard",
-    "Allow comments by default" : "Tillatt kommentarer som standard"
+    "Allow comments by default" : "Tillatt kommentarer som standard",
+    "There are currently no announcements…" : "Det er for øyeblikket ingen kunngjøringer…"
 },
 "nplurals=2; plural=(n != 1);");

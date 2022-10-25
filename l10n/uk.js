@@ -9,13 +9,15 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>announcement</strong> розміщено адміністратором",
     "The subject is too long or empty" : "Тема занадто довга або порожня",
     "Announcements" : "Оголошення",
+    "Read more" : "Читати далі",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} оголосив {announcement}",
     "{user} announced “{announcement}”" : "{user} розмістив “{announcement}”",
     "Announcement center" : "Центр оголошень",
     "This app allows admins to post announcements." : "Цей застосунок дозволяє адміністраторам розміщувати оголошення.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Оголосіть період обслуговування 🎛️, представте нового колегу 👤 або подбайте про те, щоб усі дізналися про велику подію наступного місяця 📅 \n\n🖌️ Підтримка уцінки \n\n📑 Коментарі, включаючи @-згадки \n\n👪 Групові дозволи \n\n⭕ Інтеграція інформаційної панелі \n\n⚡ Інтеграція діяльності \n\n🔔 Інтеграція сповіщень",
     "No announcements" : "Жодних оголошень",
-    "There are currently no announcements…" : "На даний час оголошення відсутні...",
+    "There are currently no announcements …" : "Наразі немає оголошень…",
     "Comments" : "Коментарі",
     "Clear notifications" : "Очистити сповіщення",
     "Delete announcement" : "Видалити оголошення",
@@ -43,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Створити події по-замовчуванню",
     "Create notifications by default" : "Створити оповіщення по-замовчуванню",
     "Send emails by default" : "Надсилати електронні листи за умовчанням",
-    "Allow comments by default" : "Дозволити коментарі по-замовчуванню"
+    "Allow comments by default" : "Дозволити коментарі по-замовчуванню",
+    "There are currently no announcements…" : "На даний час оголошення відсутні..."
 },
 "nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);");

@@ -8,7 +8,6 @@ OC.L10N.register(
     "Announcements" : "განცხადებები",
     "{user} announced “{announcement}”" : "{user} მომხმარებელმა განაცხადა “{announcement}”",
     "Announcement center" : "განცხადებების ცენტრი",
-    "There are currently no announcements…" : "ამჟამად განცხადებები არაა...",
     "Comments" : "კომენტარები",
     "Delete announcement" : "განცხადების გაუქმება",
     "seconds ago" : "წამის წინ",
@@ -23,6 +22,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "ეს ჯგუფები განცხადებების გამოსაქვეყნებლად დაიშვება.",
     "Create activities by default" : "საწყისად ქმნის აქტივობებს",
     "Create notifications by default" : "საწყისად ქმნის შეტყობინებებს",
-    "Allow comments by default" : "საწყისად კომენტარების დაშვება"
+    "Allow comments by default" : "საწყისად კომენტარების დაშვება",
+    "There are currently no announcements…" : "ამჟამად განცხადებები არაა..."
 },
 "nplurals=2; plural=(n!=1);");

@@ -5,15 +5,15 @@ OC.L10N.register(
     "{actor} announced “{announcement}”" : "{actor} announced “{announcement}”",
     "You posted an announcement" : "You posted an announcement",
     "{actor} posted an announcement" : "{actor} posted an announcement",
-    "The announcement does not exist anymore" : "The announcement does not exist anymore",
+    "The announcement does not exist anymore" : "The announcement does not exist any more",
     "An <strong>announcement</strong> is posted by an administrator" : "An <strong>announcement</strong> is posted by an administrator",
     "The subject is too long or empty" : "The subject is too long or empty",
     "Announcements" : "Announcements",
+    "Read more" : "Read more",
     "{user} announced “{announcement}”" : "{user} announced “{announcement}”",
     "Announcement center" : "Announcement centre",
     "This app allows admins to post announcements." : "This app allows admins to post announcements.",
     "No announcements" : "No announcements",
-    "There are currently no announcements…" : "There are currently no announcements…",
     "Comments" : "Comments",
     "Delete announcement" : "Delete announcement",
     "seconds ago" : "seconds ago",
@@ -29,6 +29,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "These groups will be able to post announcements.",
     "Create activities by default" : "Create activities by default",
     "Create notifications by default" : "Create notifications by default",
-    "Allow comments by default" : "Allow comments by default"
+    "Allow comments by default" : "Allow comments by default",
+    "There are currently no announcements…" : "There are currently no announcements…"
 },
 "nplurals=2; plural=(n != 1);");

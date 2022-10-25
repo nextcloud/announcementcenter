@@ -9,12 +9,12 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Ylläpitäjä lähetti <strong>tiedotteen</strong>",
     "The subject is too long or empty" : "Aihe on joko liian pitkä tai tyhjä",
     "Announcements" : "Tiedotteet",
+    "Read more" : "Lue lisää",
     "{user} announced {announcement}" : "{user} julkaisi tiedotteen {announcement}",
     "{user} announced “{announcement}”" : "{user} tiedotti \"{announcement}\"",
     "Announcement center" : "Tiedotekeskus",
     "This app allows admins to post announcements." : "Tämä sovellus mahdollistaa ylläpitäjien lähettää ilmoituksia.",
     "No announcements" : "Ei tiedotteita",
-    "There are currently no announcements…" : "Ei tiedotteita juuri nyt…",
     "Comments" : "Kommentit",
     "Clear notifications" : "Tyhjennä ilmoitukset",
     "Delete announcement" : "Poista tiedote",
@@ -40,6 +40,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
     "Create activities by default" : "Luo toimet oletuksena",
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
-    "Allow comments by default" : "Salli kommentit oletuksena"
+    "Allow comments by default" : "Salli kommentit oletuksena",
+    "There are currently no announcements…" : "Ei tiedotteita juuri nyt…"
 },
 "nplurals=2; plural=(n != 1);");

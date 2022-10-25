@@ -7,10 +7,10 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Um <strong>anúncio</strong> foi publicado por um administrador",
     "The subject is too long or empty" : "O assunto contém demasiados carateres ou está vazio",
     "Announcements" : "Anúncios",
+    "Read more" : "Ler mais",
     "{user} announced “{announcement}”" : "{user} divulgou “{announcement}”",
     "Announcement center" : "Centro de Anúncios",
     "This app allows admins to post announcements." : "Esta aplicação permite que os administradores publiquem anúncios.",
-    "There are currently no announcements…" : "Atualmente não existem anúncios...",
     "Comments" : "Comentários",
     "Delete announcement" : "Remover anúncio",
     "seconds ago" : "segundos atrás",
@@ -25,6 +25,7 @@
     "These groups will be able to post announcements." : "Estes grupos irão poder publicar anúncios.",
     "Create activities by default" : "Criar atividades por predefinição",
     "Create notifications by default" : "Criar notificações por predefinição",
-    "Allow comments by default" : "Permitir comentários por predefinição"
+    "Allow comments by default" : "Permitir comentários por predefinição",
+    "There are currently no announcements…" : "Atualmente não existem anúncios..."
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

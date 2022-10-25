@@ -6,16 +6,17 @@ OC.L10N.register(
     "You posted an announcement" : "Du hast eine Ankündigung geschrieben",
     "{actor} posted an announcement" : "{actor} hat eine Ankündigung geschrieben",
     "The announcement does not exist anymore" : "Die Ankündigung existiert nicht mehr",
-    "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator versendet",
+    "An <strong>announcement</strong> is posted by an administrator" : "Eine <strong>Ankündigung</strong> wurde durch einen Administrator gesendet",
     "The subject is too long or empty" : "Der Betreff ist zu lang oder leer",
     "Announcements" : "Ankündigungen",
+    "Read more" : "Weiterlesen",
     "{user} announced {announcement}" : "{user} hat {announcement} angekündigt",
     "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",
     "Announcement center" : "Ankündigungen",
     "This app allows admins to post announcements." : "Mit dieser App können Administratoren Ankündigungen schreiben",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kündige dein Wartungsfenster 🎛️ an, stelle einen neuen Kollegen 👤 vor oder stelle sicher, dass jeder über das große Ereignis im nächsten Monat 📅Bescheid weiß\n\n🖌️ Markdown-Unterstützung\n\n📑 Kommentare einschließlich @-Erwähnungen\n\n👪 Gruppenberechtigungen\n\n⭕ Dashboard-Integration\n\n⚡ Integration von Aktivitäten\n\n🔔 Integration von Benachrichtigungen ",
     "No announcements" : "Keine Ankündigungen",
-    "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…",
+    "Comments" : "Kommentare",
     "Clear notifications" : "Lösche Benachrichtigungen",
     "Delete announcement" : "Lösche Ankündigung",
     "seconds ago" : "Gerade eben",
@@ -42,6 +43,7 @@ OC.L10N.register(
     "Create activities by default" : "Aktivitäten standardmäßig erstellen",
     "Create notifications by default" : "Benachrichtigungen standardmäßig erstellen",
     "Send emails by default" : "Standardmäßig E-Mails senden",
-    "Allow comments by default" : "Kommentare standardmäßig erlauben"
+    "Allow comments by default" : "Kommentare standardmäßig erlauben",
+    "There are currently no announcements…" : "Es gibt derzeit keine Ankündigungen…"
 },
 "nplurals=2; plural=(n != 1);");

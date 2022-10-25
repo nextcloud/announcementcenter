@@ -7,13 +7,15 @@
     "An <strong>announcement</strong> is posted by an administrator" : "<strong>Oznámení</strong> je odesláno správcem",
     "The subject is too long or empty" : "Předmět je příliš dlouhý nebo naopak nevyplněný",
     "Announcements" : "Oznámení",
+    "Read more" : "Přečtěte si více",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} oznámil(a) {announcement}",
     "{user} announced “{announcement}”" : "{user} oznamuje „{announcement}“",
     "Announcement center" : "Centrum oznámení",
     "This app allows admins to post announcements." : "Tato aplikace umožňuje správcům vystavovat oznámení.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Oznamte údržbu serveru 🎛️, představte nového kolegu 👤 nebo  zajistěte, že každý bude vědět o velké události co bude příští měsíc 📅\n\n🖌️ Podpora formátování Markdown značkami\n\n📑 Komentáře včetně @-zmínění\n\n👪 Oprávnění pro skupiny\n\n⭕ Zobrazení na nástěnce\n\n⚡ Zobrazení v aktivitách\n\n🔔 Zobrazení v upozorněních",
     "No announcements" : "Žádná oznámení",
-    "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…",
+    "There are currently no announcements …" : "V tuto chvíli zde nejsou žádná oznámení…",
     "Comments" : "Komentáře",
     "Clear notifications" : "Smazat upozornění",
     "Delete announcement" : "Smazat oznámení",
@@ -41,6 +43,7 @@
     "Create activities by default" : "Aktivity vždy vytvářet, pokud nebude výslovně nastaven opak",
     "Create notifications by default" : "Upozornění vždy vytvářet, pokud nebude výslovně nastaven opak",
     "Send emails by default" : "Ve výchozím stavu odesílat e-maily",
-    "Allow comments by default" : "Komentáře vždy povolit, pokud nebude výslovně nastaven opak"
+    "Allow comments by default" : "Komentáře vždy povolit, pokud nebude výslovně nastaven opak",
+    "There are currently no announcements…" : "Zatím nebyla učiněna žádná oznámení…"
 },"pluralForm" :"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n <= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;"
 }

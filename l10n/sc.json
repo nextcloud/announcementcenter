@@ -7,13 +7,13 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Una <strong>comunicatzione</strong> est istada publicada dae un'amministradore",
     "The subject is too long or empty" : "S'ogetu est tropu longu o bòidu",
     "Announcements" : "Comunicatziones",
+    "Read more" : "Leghe de prus",
     "{user} announced {announcement}" : "{user} at comunicadu {announcement}",
     "{user} announced “{announcement}”" : "{user} at comunicadu “{announcement}”",
     "Announcement center" : "Tzentru de comunicatziones",
     "This app allows admins to post announcements." : "Custa aplicatzione permitit a is amministradores de publicare comunicatziones. ",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Dae comunicatzione de sa bentana de mantenidura 🎛️, presenta unu collega 👤 segura·ti chi totus l'iscant de s'eventu de su mese chi intrat 📅\n\n🖌️ Agiudu Markdown \n\n📑 Commentos chi includent mentziones @\n👪 Permissos de su grupu\n\n⭕ Integratziones de su pannellu de controllu\n\n⚡ Integratzione atividades\n\n🔔 Integratzione Notìficas",
     "No announcements" : "Peruna comunicatzione",
-    "There are currently no announcements…" : "Pro immoe non ddoe at comunicatziones…",
     "Comments" : "Cummentos",
     "Clear notifications" : "Lìmpia is notìficas",
     "Delete announcement" : "Cantzella comunicatzione",
@@ -39,6 +39,7 @@
     "These groups will be able to post announcements." : "Custos grupos ant a pòdere publicare comunicatziones.",
     "Create activities by default" : "Crea atividades cun impostatziones predefinidas",
     "Create notifications by default" : "Crea notìficas cun impostatziones predefinidas",
-    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas"
+    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas",
+    "There are currently no announcements…" : "Pro immoe non ddoe at comunicatziones…"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
