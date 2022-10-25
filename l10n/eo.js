@@ -27,6 +27,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Tiuj grupoj eblos sendi anoncojn.",
     "Create activities by default" : "Defaŭlte krei aktivaĵojn",
     "Create notifications by default" : "Defaŭlte krei sciigojn",
-    "Allow comments by default" : "Defaŭlte permesi komentojn"
+    "Allow comments by default" : "Defaŭlte permesi komentojn",
+    "There are currently no announcements…" : "Estas neniu anonco nun..."
 },
 "nplurals=2; plural=(n != 1);");

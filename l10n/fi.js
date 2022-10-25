@@ -40,6 +40,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
     "Create activities by default" : "Luo toimet oletuksena",
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
-    "Allow comments by default" : "Salli kommentit oletuksena"
+    "Allow comments by default" : "Salli kommentit oletuksena",
+    "There are currently no announcements…" : "Ei tiedotteita juuri nyt…"
 },
 "nplurals=2; plural=(n != 1);");

@@ -41,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Questi gruppi saranno in grado di pubblicare annunci.",
     "Create activities by default" : "Creare attività per impostazione predefinita",
     "Create notifications by default" : "Creare notifiche per impostazione predefinita",
-    "Allow comments by default" : "Consenti i commenti in modo predefinito"
+    "Allow comments by default" : "Consenti i commenti in modo predefinito",
+    "There are currently no announcements…" : "Attualmente non ci sono annunci..."
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

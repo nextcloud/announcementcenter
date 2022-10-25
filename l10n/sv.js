@@ -41,6 +41,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Dessa grupper kan posta meddelanden",
     "Create activities by default" : "Få rättigheter att skapa aktiviteter",
     "Create notifications by default" : "Skapa aviseringar som standard",
-    "Allow comments by default" : "Tillåt kommentarer som standard"
+    "Allow comments by default" : "Tillåt kommentarer som standard",
+    "There are currently no announcements…" : "Det finns inga meddelanden just nu..."
 },
 "nplurals=2; plural=(n != 1);");

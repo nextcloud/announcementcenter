@@ -39,6 +39,7 @@
     "These groups will be able to post announcements." : "Custos grupos ant a pòdere publicare comunicatziones.",
     "Create activities by default" : "Crea atividades cun impostatziones predefinidas",
     "Create notifications by default" : "Crea notìficas cun impostatziones predefinidas",
-    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas"
+    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas",
+    "There are currently no announcements…" : "Pro immoe non ddoe at comunicatziones…"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

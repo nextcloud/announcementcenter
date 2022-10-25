@@ -45,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Crear actividades por defecto.",
     "Create notifications by default" : "Crear notificaciones por defecto.",
     "Send emails by default" : "Enviar emails por defecto",
-    "Allow comments by default" : "Permitir comentarios por defecto"
+    "Allow comments by default" : "Permitir comentarios por defecto",
+    "There are currently no announcements…" : "Actualmente no hay anuncios…"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

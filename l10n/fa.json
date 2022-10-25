@@ -38,6 +38,7 @@
     "These groups will be able to post announcements." : "این گروه ها می توانند اعلان ارسال کنند.",
     "Create activities by default" : "فعالیتها را بطور پیش فرض ایجاد کنید",
     "Create notifications by default" : "به طور پیش فرض اعلان ها را ایجاد کنید",
-    "Allow comments by default" : "نظرات را بطور پیش فرض مجاز کنید"
+    "Allow comments by default" : "نظرات را بطور پیش فرض مجاز کنید",
+    "There are currently no announcements…" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد ..."
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -45,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
     "Send emails by default" : "E-mailek küldése alapértelmezetten",
-    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten"
+    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten",
+    "There are currently no announcements…" : "Jelenleg egyetlen bejelentés sincs…"
 },
 "nplurals=2; plural=(n != 1);");

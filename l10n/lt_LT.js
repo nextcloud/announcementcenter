@@ -45,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Pagal numatymą, kurti veiklas",
     "Create notifications by default" : "Pagal numatymą, kurti pranešimus",
     "Send emails by default" : "Pagal numatymą, siųsti el. laiškus",
-    "Allow comments by default" : "Pagal numatymą, leisti komentarus"
+    "Allow comments by default" : "Pagal numatymą, leisti komentarus",
+    "There are currently no announcements…" : "Šiuo metu skelbimų nėra…"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");

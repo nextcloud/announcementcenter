@@ -26,6 +26,7 @@
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "මෙම සමූහයන්ට නිවේදනය දැක ගත හැකිය. සමූහයක් තෝරා නොගත්තේ නම් සියලුම පරිශීලකයින්ට එය දැකිය හැකිය.",
     "An error occurred while posting the announcement" : "නිවේදනය පළ කිරීමේදී දෝෂයක් ඇතිවිය",
     "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත."
+    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත.",
+    "There are currently no announcements…" : "දැනට නිවේදන නොමැත…"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

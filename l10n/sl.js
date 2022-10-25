@@ -43,6 +43,7 @@ OC.L10N.register(
     "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
     "Create notifications by default" : "Dovoli ustvarjanje obvestil",
     "Send emails by default" : "Privzeto pošlji e-pošto",
-    "Allow comments by default" : "Dovoli komentiranje"
+    "Allow comments by default" : "Dovoli komentiranje",
+    "There are currently no announcements…" : "Trenutno še nihče ni objavil ..."
 },
 "nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);");

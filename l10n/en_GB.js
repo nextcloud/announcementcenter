@@ -29,6 +29,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "These groups will be able to post announcements.",
     "Create activities by default" : "Create activities by default",
     "Create notifications by default" : "Create notifications by default",
-    "Allow comments by default" : "Allow comments by default"
+    "Allow comments by default" : "Allow comments by default",
+    "There are currently no announcements…" : "There are currently no announcements…"
 },
 "nplurals=2; plural=(n != 1);");

@@ -28,6 +28,7 @@ OC.L10N.register(
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
     "Everyone" : "Tot lo monde",
-    "{author}, {timestamp}" : "{author}, {timestamp}"
+    "{author}, {timestamp}" : "{author}, {timestamp}",
+    "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…"
 },
 "nplurals=2; plural=(n > 1);");

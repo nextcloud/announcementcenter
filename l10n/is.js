@@ -27,6 +27,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
     "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
     "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
-    "Allow comments by default" : "Sjálfgefið leyfa ummæli"
+    "Allow comments by default" : "Sjálfgefið leyfa ummæli",
+    "There are currently no announcements…" : "Það eru engar tilkynningar í gangi..."
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

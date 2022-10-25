@@ -43,6 +43,7 @@ OC.L10N.register(
     "Create activities by default" : "デフォルトでアクティビティを作成する",
     "Create notifications by default" : "デフォルトで通知を作成する",
     "Send emails by default" : "デフォルトでメールを送信",
-    "Allow comments by default" : "デフォルトでコメントを許可する"
+    "Allow comments by default" : "デフォルトでコメントを許可する",
+    "There are currently no announcements…" : "今はお知らせがありません..."
 },
 "nplurals=1; plural=0;");

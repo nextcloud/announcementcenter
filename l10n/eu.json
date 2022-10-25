@@ -43,6 +43,7 @@
     "Create activities by default" : "Sortu jarduerak lehenespenez",
     "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
     "Send emails by default" : "Bidali e-postak modu lehenetsian",
-    "Allow comments by default" : "Baimendu iruzkinak lehenespenez"
+    "Allow comments by default" : "Baimendu iruzkinak lehenespenez",
+    "There are currently no announcements…" : "Une honetan ez dago iragarpenik..."
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

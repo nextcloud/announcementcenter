@@ -25,6 +25,7 @@ OC.L10N.register(
     "Create notifications" : "สร้างการแจ้งเตือน",
     "Allow comments" : "อนุญาตแสดงความคิดเก็น",
     "Everyone" : "ทุกคน",
-    "An error occurred while posting the announcement" : "เกิดข้อผิดพลาดขณะโพสต์ประกาศ"
+    "An error occurred while posting the announcement" : "เกิดข้อผิดพลาดขณะโพสต์ประกาศ",
+    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ..."
 },
 "nplurals=1; plural=0;");

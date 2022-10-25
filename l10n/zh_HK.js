@@ -45,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "默認創建活動紀錄",
     "Create notifications by default" : "默認建立通告",
     "Send emails by default" : "默認傳送電子郵件",
-    "Allow comments by default" : "默認允許留言"
+    "Allow comments by default" : "默認允許留言",
+    "There are currently no announcements…" : "目前沒有任何公告…"
 },
 "nplurals=1; plural=0;");
