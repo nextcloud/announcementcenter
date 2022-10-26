@@ -45,6 +45,7 @@ OC.L10N.register(
     "Create activities by default" : "Създава активности по подразбиране",
     "Create notifications by default" : "Създава известия по подразбиране",
     "Send emails by default" : "Изпращане на имейли по подразбиране",
-    "Allow comments by default" : "Позволи коментари по подразбиране"
+    "Allow comments by default" : "Позволи коментари по подразбиране",
+    "There are currently no announcements…" : "В моемнта няма уведомления ..."
 },
 "nplurals=2; plural=(n != 1);");

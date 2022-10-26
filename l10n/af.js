@@ -32,6 +32,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Hierdie groepe sal aankondigings kan maak.",
     "Create activities by default" : "Skep by verstek aktiwiteite",
     "Create notifications by default" : "Skep by verstek kennisgewings",
-    "Allow comments by default" : "Staan by verstek kommentare toe"
+    "Allow comments by default" : "Staan by verstek kommentare toe",
+    "There are currently no announcements…" : "Daar is tans geen aankondigings…"
 },
 "nplurals=2; plural=(n != 1);");
