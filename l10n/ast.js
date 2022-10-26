@@ -22,6 +22,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Estos grupos sedrán a espublizar anuncios.",
     "Create activities by default" : "Crear actividaes por defeutu",
     "Create notifications by default" : "Crear avisos por defeutu",
-    "Allow comments by default" : "Permitir comentarios por defeutu"
+    "Allow comments by default" : "Permitir comentarios por defeutu",
+    "There are currently no announcements…" : "Anguaño nun hai anuncios..."
 },
 "nplurals=2; plural=(n != 1);");
