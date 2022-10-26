@@ -387,6 +387,10 @@ class BackgroundJobTest extends TestCase {
 			->method('setTo')
 			->willReturnSelf();
 
+		$this->mailer->expects(self::any())
+			->method('validateMailAddress')
+			->willReturn(true);
+
 		$job = $this->getJob();
 		$this->userManager->expects(self::once())
 			->method('callForSeenUsers')
