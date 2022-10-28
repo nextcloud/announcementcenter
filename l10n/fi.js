@@ -15,6 +15,7 @@ OC.L10N.register(
     "Announcement center" : "Tiedotekeskus",
     "This app allows admins to post announcements." : "Tämä sovellus mahdollistaa ylläpitäjien lähettää ilmoituksia.",
     "No announcements" : "Ei tiedotteita",
+    "There are currently no announcements …" : "Ei tiedotteita tällä hetkellä…",
     "Comments" : "Kommentit",
     "Clear notifications" : "Tyhjennä ilmoitukset",
     "Delete announcement" : "Poista tiedote",
@@ -32,6 +33,7 @@ OC.L10N.register(
     "Announce" : "Tiedota",
     "Create activities" : "Luo toimet",
     "Create notifications" : "Luo ilmoitukset",
+    "Send emails" : "Lähetä sähköpostia",
     "Allow comments" : "Salli kommentit",
     "Everyone" : "Kaikki",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Nämä ryhmät voivat nähdä tiedotteen. Jos yhtään ryhmää ei ole valittu, kaikki käyttäjät voivat nähdä sen.",
@@ -40,6 +42,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
     "Create activities by default" : "Luo toimet oletuksena",
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
+    "Send emails by default" : "Lähetä sähköpostia oletusarvoisesti",
     "Allow comments by default" : "Salli kommentit oletuksena",
     "There are currently no announcements…" : "Ei tiedotteita juuri nyt…"
 },
