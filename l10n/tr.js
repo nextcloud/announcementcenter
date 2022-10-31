@@ -46,6 +46,6 @@ OC.L10N.register(
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
     "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
     "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
-    "There are currently no announcements…" : "Şu anda herhangi bir duyuru yok …"
+    "There are currently no announcements…" : "Şu anda herhangi bir duyuru yok…"
 },
 "nplurals=2; plural=(n > 1);");
