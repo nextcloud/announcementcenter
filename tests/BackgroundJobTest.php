@@ -144,6 +144,10 @@ class BackgroundJobTest extends TestCase {
 	public function testRun(int $id, bool $activities, bool $notifications): void {
 		$job = $this->getJob(['createPublicity']);
 
+		$this->config->method('getAppValue')
+			->with('guests', 'whitelist', '')
+			->willReturn('');
+
 		$announcement = $this->createMock(Announcement::class);
 
 		$this->manager->expects(self::once())
