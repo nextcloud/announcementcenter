@@ -27,6 +27,9 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * @template-extends QBMapper<Group>
+ */
 class GroupMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'announcements_map', Group::class);

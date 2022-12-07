@@ -29,6 +29,9 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
+/**
+ * @template-extends QBMapper<Announcement>
+ */
 class AnnouncementMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'announcements', Announcement::class);
@@ -55,6 +58,7 @@ class AnnouncementMapper extends QBMapper {
 	 * Deletes an entity from the table
 	 * @param Entity $entity the entity that should be deleted
 	 * @return Entity the deleted entity
+	 * @psalm-return Announcement the deleted entity
 	 * @since 14.0.0
 	 */
 	public function delete(Entity $entity): Entity {
