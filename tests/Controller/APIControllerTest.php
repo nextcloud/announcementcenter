@@ -42,6 +42,7 @@ use OCP\AppFramework\Http\DataResponse;
 use OCP\IGroup;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
 /**
  * @package OCA\AnnouncementCenter\Tests\Controller
@@ -67,6 +68,8 @@ class APIControllerTest extends TestCase {
 	protected $userSession;
 	/** @var IInitialStateService|MockObject */
 	protected $initialStateService;
+	/** @var LoggerInterface|MockObject */
+	protected $logger;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -79,6 +82,7 @@ class APIControllerTest extends TestCase {
 		$this->manager = $this->createMock(Manager::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->l
 			->method('t')
@@ -87,6 +91,10 @@ class APIControllerTest extends TestCase {
 			});
 	}
 
+	/**
+	 * @param array $methods
+	 * @return APIController|MockObject
+	 */
 	protected function getController(array $methods = []): APIController {
 		if (empty($methods)) {
 			return new APIController(
@@ -99,6 +107,7 @@ class APIControllerTest extends TestCase {
 				$this->manager,
 				$this->timeFactory,
 				$this->userSession,
+				$this->logger
 			);
 		}
 
@@ -114,6 +123,7 @@ class APIControllerTest extends TestCase {
 			$this->manager,
 			$this->timeFactory,
 			$this->userSession,
+			$this->logger
 		])
 			->setMethods($methods)
 			->getMock();
@@ -172,12 +182,8 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataGet
-	 * @param int $offset
-	 * @param array $announcements
-	 * @param array $userMap
-	 * @param array $expected
 	 */
-	public function legacyTestGet($offset, $announcements, $userMap, $expected) {
+	public function legacyTestGet(int $offset, array $announcements, array $userMap, array $expected) {
 		$this->userManager
 			->method('get')
 			->willReturnMap($userMap);
@@ -224,19 +230,21 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataDelete
-	 * @param int $id
-	 * @param bool $isAdmin
-	 * @param int $statusCode
 	 */
-	public function testDelete($id, $isAdmin, $statusCode) {
+	public function testDelete(int $id, bool $isAdmin, int $statusCode) {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
 
 		if ($isAdmin) {
 			$this->manager->expects(self::once())
+				->method('getAnnouncement')
+				->with($id);
+			$this->manager->expects(self::once())
 				->method('delete')
 				->with($id);
+			$this->logger->expects($this->once())
+				->method('info');
 		} else {
 			$this->manager->expects(self::never())
 				->method('delete');
@@ -248,7 +256,7 @@ class APIControllerTest extends TestCase {
 		self::assertEquals($statusCode, $response->getStatus());
 	}
 
-	public function dataAddThrows() {
+	public function dataAddThrows(): array {
 		return [
 			['', ['error' => 'The subject is too long or empty']],
 			[str_repeat('a', 513), ['error' => 'The subject is too long or empty']],
@@ -257,10 +265,8 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataAddThrows
-	 * @param string $subject
-	 * @param array $expectedData
 	 */
-	public function testAddThrows($subject, array $expectedData) {
+	public function testAddThrows(string $subject, array $expectedData) {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -303,7 +309,7 @@ class APIControllerTest extends TestCase {
 		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
 	}
 
-	public function dataAdd() {
+	public function dataAdd(): array {
 		return [
 			['subject1', 'message1', 'message1', ['gid1'], true, true, true, false],
 			['subject2', 'message2', 'message2', ['gid2'], true, false, true, false],
@@ -315,17 +321,8 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataAdd
-	 *
-	 * @param string $subject
-	 * @param string $message
-	 * @param string $plainMessage
-	 * @param array $groups
-	 * @param bool $activities
-	 * @param bool $notifications
-	 * @param bool $emails
-	 * @param bool $comments
 	 */
-	public function legacyTestAdd($subject, $message, $plainMessage, array $groups, $activities, $notifications, $emails, $comments) {
+	public function legacyTestAdd(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments) {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -358,6 +355,9 @@ class APIControllerTest extends TestCase {
 				'emails' => $emails,
 			]);
 
+		$this->logger->expects($this->once())
+			->method('info');
+
 		$controller = $this->getController();
 
 		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
@@ -365,7 +365,7 @@ class APIControllerTest extends TestCase {
 		self::assertInstanceOf(DataResponse::class, $response);
 		$data = $response->getData();
 		self::assertArrayHasKey('time', $data);
-		self::assertInternalType('int', $data['time']);
+		self::assertIsInt($data['time']);
 		unset($data['time']);
 		self::assertEquals([
 			'author' => 'Author',
@@ -404,13 +404,8 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @dataProvider dataSearchGroup
-	 * @param bool $isAdmin
-	 * @param string $pattern
-	 * @param array|null $groupSearch
-	 * @param string $expected
-	 * @param int $code
 	 */
-	public function testSearchGroup(bool $isAdmin, string $pattern, $groupSearch, array $expected, int $code) {
+	public function testSearchGroup(bool $isAdmin, string $pattern, ?array $groupSearch, array $expected, int $code) {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
