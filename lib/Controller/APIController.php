@@ -200,14 +200,10 @@ class APIController extends OCSController {
 			$userId = $user instanceof IUser ? $user->getUID() : '';
 
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
-
-			return new DataResponse();
 		} catch (AnnouncementDoesNotExistException $e) {
-			return new DataResponse(
-				['message' => 'Announcement not found'],
-				Http::STATUS_NOT_FOUND
-			);
 		}
+		
+		return new DataResponse();
 	}
 
 	/**
