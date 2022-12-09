@@ -28,6 +28,7 @@ namespace OCA\AnnouncementCenter\Controller;
 use InvalidArgumentException;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -41,29 +42,17 @@ use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
 use OCA\AnnouncementCenter\BackgroundJob;
+use Psr\Log\LoggerInterface;
 
 class APIController extends OCSController {
-
-	/** @var IJobList */
-	protected $jobList;
-
-	/** @var IGroupManager */
-	protected $groupManager;
-
-	/** @var IUserManager */
-	protected $userManager;
-
-	/** @var IL10N */
-	protected $l;
-
-	/** @var Manager */
-	protected $manager;
-
-	/** @var ITimeFactory */
-	protected $timeFactory;
-
-	/** @var IUserSession */
-	protected $userSession;
+	protected IJobList $jobList;
+	protected IGroupManager $groupManager;
+	protected IUserManager $userManager;
+	protected IL10N $l;
+	protected Manager $manager;
+	protected ITimeFactory $timeFactory;
+	protected IUserSession $userSession;
+	protected LoggerInterface $logger;
 
 	public function __construct(string $appName,
 		IRequest $request,
@@ -73,7 +62,8 @@ class APIController extends OCSController {
 		IL10N $l,
 		Manager $manager,
 		ITimeFactory $timeFactory,
-		IUserSession $userSession) {
+		IUserSession $userSession,
+		LoggerInterface $logger) {
 		parent::__construct($appName, $request);
 
 		$this->groupManager = $groupManager;
@@ -83,6 +73,7 @@ class APIController extends OCSController {
 		$this->manager = $manager;
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -138,6 +129,8 @@ class APIController extends OCSController {
 				'emails' => $emails,
 			]);
 		}
+
+		$this->logger->info('Admin ' . $userId . ' posted a new announcement: "' . $announcement->getSubject() . '"');
 
 		return new DataResponse($this->renderAnnouncement($announcement));
 	}
@@ -198,8 +191,18 @@ class APIController extends OCSController {
 			);
 		}
 
-		$this->manager->delete($id);
+		try {
+			$announcement = $this->manager->getAnnouncement($id);
 
+			$this->manager->delete($id);
+
+			$user = $this->userSession->getUser();
+			$userId = $user instanceof IUser ? $user->getUID() : '';
+
+			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
+		} catch (AnnouncementDoesNotExistException $e) {
+		}
+		
 		return new DataResponse();
 	}
 
