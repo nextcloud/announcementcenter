@@ -44,7 +44,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Ці групи мають змогу розміщувати оголошення.",
     "Create activities by default" : "Створити події по-замовчуванню",
     "Create notifications by default" : "Створити оповіщення по-замовчуванню",
-    "Send emails by default" : "Надсилати електронні листи за умовчанням",
+    "Send emails by default" : "Типово надсилати електронні листи",
     "Allow comments by default" : "Дозволити коментарі по-замовчуванню",
     "There are currently no announcements…" : "На даний час оголошення відсутні..."
 },
