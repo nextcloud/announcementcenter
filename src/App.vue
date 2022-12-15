@@ -41,7 +41,7 @@
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>
-		<NcAppSidebar v-if="activeId !== 0"
+		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
 			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
@@ -98,14 +98,18 @@ export default {
 			}
 			return this.activeAnnouncement?.subject
 		},
+
+		activateAnnouncementHasComments() {
+			return this.activeAnnouncement?.comments === 0 || this.activeAnnouncement?.comments > 0
+		},
 	},
 
-	mounted() {
-		this.loadAnnouncements()
+	async mounted() {
+		await this.loadAnnouncements()
 
 		const activeId = loadState('announcementcenter', 'activeId', 0)
 		if (activeId !== 0) {
-			this.onClickAnnouncement(activeId)
+			await this.onClickAnnouncement(activeId)
 		}
 	},
 
@@ -130,6 +134,10 @@ export default {
 			}
 
 			this.activeId = id
+
+			if (!this.activateAnnouncementHasComments) {
+				return
+			}
 
 			if (id === 0) {
 				// Destroy the comments view as the sidebar is destroyed
