@@ -12,7 +12,7 @@
 		"nextcloud/coding-standard": "^1.0.0",
 		"phpunit/phpunit": "^9.5",
 		"vimeo/psalm": "^5.1.0",
-		"nextcloud/ocp": "dev-master"
+		"nextcloud/ocp": "dev-stable25"
 	},
 	"autoload-dev": {
 		"psr-4": {
