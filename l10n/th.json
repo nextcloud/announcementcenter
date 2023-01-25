@@ -15,7 +15,7 @@
     "Comments" : "ความคิดเห็น",
     "Clear notifications" : "ล้างการแจ้งเตือน",
     "Delete announcement" : "ลบประกาศ",
-    "seconds ago" : "วินาทีที่แล้ว",
+    "seconds ago" : "วินาทีที่ผ่านมา",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["ความคิดเห็น %n รายการ"],
     "Announce" : "ประกาศ",
