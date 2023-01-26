@@ -26,6 +26,6 @@ OC.L10N.register(
     "Allow comments" : "อนุญาตแสดงความคิดเก็น",
     "Everyone" : "ทุกคน",
     "An error occurred while posting the announcement" : "เกิดข้อผิดพลาดขณะโพสต์ประกาศ",
-    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศ..."
+    "There are currently no announcements…" : "ขณะนี้ยังไม่มีประกาศใด ๆ..."
 },
 "nplurals=1; plural=0;");
