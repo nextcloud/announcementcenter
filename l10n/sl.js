@@ -33,7 +33,7 @@ OC.L10N.register(
     "Announce" : "Objavi",
     "Create activities" : "Ustvari zapis dejavnosti",
     "Create notifications" : "Ustvari obvestila",
-    "Send emails" : "Pošlji e-pošto",
+    "Send emails" : "Pošlji elektronska sporočila",
     "Allow comments" : "Dovoli komentiranje obvestil",
     "Everyone" : "Vsi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Če ni navedene nobene skupine, bodo obvestilo prejeli vsi uporabniki.",
@@ -42,7 +42,7 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Navedene skupine imajo dovoljenje za objavljanje obvestil.",
     "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
     "Create notifications by default" : "Dovoli ustvarjanje obvestil",
-    "Send emails by default" : "Privzeto pošlji e-pošto",
+    "Send emails by default" : "Elektronsko sporočilo pošlji privzeto",
     "Allow comments by default" : "Dovoli komentiranje",
     "There are currently no announcements…" : "Trenutno še nihče ni objavil ..."
 },
