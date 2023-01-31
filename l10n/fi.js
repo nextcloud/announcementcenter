@@ -10,6 +10,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Aihe on joko liian pitkä tai tyhjä",
     "Announcements" : "Tiedotteet",
     "Read more" : "Lue lisää",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} julkaisi tiedotteen {announcement}",
     "{user} announced “{announcement}”" : "{user} tiedotti \"{announcement}\"",
     "Announcement center" : "Tiedotekeskus",

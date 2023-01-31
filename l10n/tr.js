@@ -9,7 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Bir yönetici tarafından bir <strong>duyuru</strong> yapıldı",
     "The subject is too long or empty" : "Konu çok uzun ya da boş",
     "Announcements" : "Duyurular",
-    "Read more" : "Devamını okuyun",
+    "Read more" : "Tümünü okuyun",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user}, {announcement} duyurusunu yaptı",
     "{user} announced “{announcement}”" : "{user}, “{announcement}” duyurusunu yaptı",
