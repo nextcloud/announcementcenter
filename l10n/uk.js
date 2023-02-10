@@ -20,7 +20,7 @@ OC.L10N.register(
     "There are currently no announcements …" : "Наразі немає оголошень…",
     "Comments" : "Коментарі",
     "Clear notifications" : "Очистити сповіщення",
-    "Delete announcement" : "Видалити оголошення",
+    "Delete announcement" : "Вилучити оголошення",
     "seconds ago" : "секунд тому",
     "visible to everyone" : "Видимий для всіх",
     "visible to group {name}" : "видимий для групи {name}",
