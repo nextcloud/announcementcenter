@@ -38,6 +38,8 @@ use OCP\AppFramework\Db\Entity;
  * @method string getPlainMessage()
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
+ * @method void setnotificationType(string $notificationType)
+ * @method string getnotificationType()
  */
 class Announcement extends Entity {
 
@@ -55,6 +57,9 @@ class Announcement extends Entity {
 
 	/** @var string */
 	protected $plainMessage;
+	
+	/** @var string */
+	protected $notificationType;
 
 	/** @var int */
 	protected $allowComments;
@@ -66,6 +71,7 @@ class Announcement extends Entity {
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
+		$this->addType('notificationType', 'string');
 	}
 
 	public function getParsedSubject(): string {

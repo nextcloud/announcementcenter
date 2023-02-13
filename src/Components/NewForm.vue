@@ -33,30 +33,42 @@
 			class="announcement__form__message"
 			name="message"
 			rows="4"
-			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
+			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used')" />
 
 		<div class="announcement__form__buttons">
-			<NcButton type="primary"
-				:disabled="!subject"
-				@click="onAnnounce">
+			<NcButton type="primary" :disabled="!subject" @click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
 			</NcButton>
 
 			<NcActions>
-				<NcActionCheckbox value="1"
-					:checked.sync="createActivities">
+				<NcActionRadio name="notificationType" :checked="true" @change="setNotificationType('general')">
+					General
+				</NcActionRadio>
+				<NcActionRadio name="notificationType" @change="setNotificationType('new_feature')">
+					New Feature
+				</NcActionRadio>
+				<NcActionRadio name="notificationType" @change="setNotificationType('reminder')">
+					Reminder
+				</NcActionRadio>
+				<NcActionRadio name="notificationType" @change="setNotificationType('exciting_news')">
+					Exciting news
+				</NcActionRadio>
+				<NcActionRadio name="notificationType" @change="setNotificationType('downtime')">
+					Downtime
+				</NcActionRadio>
+			</NcActions>
+
+			<NcActions>
+				<NcActionCheckbox value="1" :checked.sync="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					:checked.sync="createNotifications">
+				<NcActionCheckbox value="1" :checked.sync="createNotifications">
 					{{ t('announcementcenter', 'Create notifications') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					:checked.sync="sendEmails">
+				<NcActionCheckbox value="1" :checked.sync="sendEmails">
 					{{ t('announcementcenter', 'Send emails') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					:checked.sync="allowComments">
+				<NcActionCheckbox value="1" :checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
 				<NcActionInput v-model="groups"
@@ -79,6 +91,7 @@
 <script>
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
+import NcActionRadio from '@nextcloud/vue/dist/Components/NcActionRadio.js'
 import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
@@ -97,6 +110,7 @@ export default {
 	components: {
 		NcActions,
 		NcActionCheckbox,
+		NcActionRadio,
 		NcActionInput,
 		NcButton,
 	},
@@ -111,6 +125,7 @@ export default {
 			allowComments: loadState('announcementcenter', 'allowComments'),
 			groups: [],
 			groupOptions: [],
+			notificationType: 'general',
 		}
 	},
 
@@ -127,6 +142,7 @@ export default {
 			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
 			this.groups = []
+			this.notificationType = 'general'
 		},
 
 		onSearchChanged: debounce(function(search) {
@@ -136,6 +152,10 @@ export default {
 		async searchGroups(search) {
 			const response = await searchGroups(search)
 			this.groupOptions = response.data.ocs.data
+		},
+
+		async setNotificationType(value) {
+			this.notificationType = value
 		},
 
 		async onAnnounce() {
@@ -158,7 +178,8 @@ export default {
 					this.createActivities,
 					this.createNotifications,
 					this.sendEmails,
-					this.allowComments
+					this.allowComments,
+					this.notificationType
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
 

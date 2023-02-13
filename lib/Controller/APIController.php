@@ -100,9 +100,10 @@ class APIController extends OCSController {
 	 * @param bool $notifications
 	 * @param bool $emails
 	 * @param bool $comments
+	 * @param string $notificationType
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
+	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, string $notificationType): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -113,7 +114,7 @@ class APIController extends OCSController {
 		$userId = $user instanceof IUser ? $user->getUID() : '';
 
 		try {
-			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments);
+			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationType);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],

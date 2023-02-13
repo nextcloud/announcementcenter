@@ -60,9 +60,10 @@ const searchGroups = async function(search) {
  * @param {boolean} notifications Should notifications be generated
  * @param {boolean} emails Should emails be sent
  * @param {boolean} comments Are comments allowed
+ * @param {string} notificationType Type of notification
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments) {
+const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, notificationType) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
@@ -72,6 +73,7 @@ const postAnnouncement = async function(subject, message, plainMessage, groups, 
 		notifications,
 		emails,
 		comments,
+		notificationType,
 	})
 }
 

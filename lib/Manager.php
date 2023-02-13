@@ -90,14 +90,16 @@ class Manager {
 	 * @param string $user
 	 * @param int $time
 	 * @param string[] $groups
-	 * @param bool $comments
+	 * @param bool $comments3
+	 * @param string $notificationType
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, string $notificationType): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
+		$notificationType = trim($notificationType);
 		if (isset($subject[512])) {
 			throw new \InvalidArgumentException('Invalid subject', 1);
 		}
@@ -113,6 +115,7 @@ class Manager {
 		$announcement->setUser($user);
 		$announcement->setTime($time);
 		$announcement->setAllowComments((int) $comments);
+		$announcement->setnotificationType($notificationType);
 		$this->announcementMapper->insert($announcement);
 
 		$addedGroups = 0;
