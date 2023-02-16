@@ -21,7 +21,6 @@
 		"npm": "^7.0.0 || ^8.0.0"
 	},
 	"dependencies": {
-		"@juliushaertl/vue-richtext": "^1.0.1",
 		"@nextcloud/auth": "^2.0.0",
 		"@nextcloud/axios": "^2.3.0",
 		"@nextcloud/dialogs": "^3.2.0",
@@ -30,6 +29,7 @@
 		"@nextcloud/moment": "^1.2.1",
 		"@nextcloud/router": "^2.0.1",
 		"@nextcloud/vue": "^7.6.0",
+		"@nextcloud/vue-richtext": "^2.1.0-beta.5",
 		"debounce": "^1.2.1",
 		"remark": "^14.0.2",
 		"strip-markdown": "^5.0.0",
