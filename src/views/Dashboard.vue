@@ -20,30 +20,37 @@
   -->
 
 <template>
-	<DashboardWidget id="announcementcenter_panel"
+	<NcDashboardWidget id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
 		empty-content-icon="icon-announcementcenter-dark"
-		:empty-content-message="t('announcementcenter', 'No announcements')" />
+		:empty-content-message="t('announcementcenter', 'No announcements')">
+		<template #emptyContentIcon>
+			<div class="icon-announcementcenter-dark" />
+		</template>
+	</NcDashboardWidget>
 </template>
 
 <script>
-import { DashboardWidget } from '@nextcloud/vue-dashboard'
+import NcDashboardWidget from '@nextcloud/vue/dist/Components/NcDashboardWidget.js'
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl, imagePath } from '@nextcloud/router'
 import moment from '@nextcloud/moment'
 
 export default {
 	name: 'Dashboard',
+
 	components: {
-		DashboardWidget,
+		NcDashboardWidget,
 	},
+
 	data() {
 		return {
 			announcements: [],
 			loading: true,
 		}
 	},
+
 	computed: {
 		items() {
 			return this.announcements.map((item) => {
@@ -60,6 +67,7 @@ export default {
 			})
 		},
 	},
+
 	mounted() {
 		try {
 			this.announcements = loadState('announcementcenter', 'announcementcenter_dashboard')
@@ -70,3 +78,11 @@ export default {
 	},
 }
 </script>
+
+<style lang="scss" scoped>
+.icon-announcementcenter-dark {
+	background-size: 64px;
+	width: 64px;
+	height: 64px;
+}
+</style>
