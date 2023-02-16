@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import RichText from '@juliushaertl/vue-richtext'
+import { RichText } from '@nextcloud/vue-richtext'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
