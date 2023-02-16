@@ -30,7 +30,6 @@
 		"@nextcloud/moment": "^1.2.1",
 		"@nextcloud/router": "^2.0.1",
 		"@nextcloud/vue": "^7.6.0",
-		"@nextcloud/vue-dashboard": "^2.0.1",
 		"debounce": "^1.2.1",
 		"remark": "^14.0.2",
 		"strip-markdown": "^5.0.0",
