@@ -1,6 +1,21 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.5.0 – 2023-02-16
+### Added
+- Compatibility with Nextcloud 26
+
+### Changed
+- Updated and migrated some dependencies
+
+### Fixed
+- Don't load comment sidebar when the active announcement doesn't allow comments
+  [#576](https://github.com/nextcloud/announcementcenter/pull/576)
+- Log announcement creation and deletion
+  [#571](https://github.com/nextcloud/announcementcenter/pull/571)
+- Skip users without a valid email address
+  [#551](https://github.com/nextcloud/announcementcenter/pull/551)
+
 ## 6.4.0 – 2022-10-18
 ### Changed
 - Compatibility with Nextcloud 25
