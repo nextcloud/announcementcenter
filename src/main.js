@@ -29,7 +29,7 @@ import App from './App.vue'
 import Vuex from 'vuex'
 
 // Styles
-import '@nextcloud/dialogs/styles/toast.scss'
+import '@nextcloud/dialogs/dist/index.css'
 import '@nextcloud/vue-richtext/dist/style.css'
 
 // eslint-disable-next-line
