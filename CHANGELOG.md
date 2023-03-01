@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.5.1 – 2023-03-01
+### Changed
+- Updated some dependencies
+
+### Fixed
+- Fix broken group selection with `@nextcloud/vue` update
+  [#607](https://github.com/nextcloud/announcementcenter/pull/607)
+
 ## 6.5.0 – 2023-02-16
 ### Added
 - Compatibility with Nextcloud 26
