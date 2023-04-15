@@ -34,10 +34,10 @@ use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IGroupManager;
+use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
-use OCP\IUser;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**

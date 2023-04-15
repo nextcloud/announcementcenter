@@ -23,10 +23,10 @@
 
 namespace OCA\AnnouncementCenter\Tests\Notification;
 
+use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Notification\Notifier;
-use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\IL10N;
 use OCP\IURLGenerator;

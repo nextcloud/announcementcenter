@@ -26,6 +26,7 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Controller;
 
 use InvalidArgumentException;
+use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
@@ -41,7 +42,6 @@ use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
-use OCA\AnnouncementCenter\BackgroundJob;
 use Psr\Log\LoggerInterface;
 
 class APIController extends OCSController {
