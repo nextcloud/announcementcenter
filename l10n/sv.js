@@ -10,6 +10,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Ämnet är för långt eller tomt",
     "Announcements" : "Meddelanden",
     "Read more" : "Läs mer",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} meddelade {announcement}",
     "{user} announced “{announcement}”" : "{user} meddelade “{announcement}”",
     "Announcement center" : "Meddelandecentralen",
