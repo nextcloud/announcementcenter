@@ -26,31 +26,37 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Settings;
 
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
 use OCP\Settings\ISettings;
+use OCP\Util;
 
 class Admin implements ISettings {
 
 	/** @var IConfig */
 	protected $config;
+	/** @var IInitialState */
+	protected $initialState;
 
-	public function __construct(IConfig $config) {
+	public function __construct(IConfig $config, IInitialState $initialState) {
 		$this->config = $config;
+		$this->initialState = $initialState;
 	}
 
 	/**
 	 * @return TemplateResponse
 	 */
 	public function getForm(): TemplateResponse {
-		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
-		$adminGroups = implode('|', json_decode($adminGroups, true));
-		return new TemplateResponse('announcementcenter', 'admin', [
-			'adminGroups' => $adminGroups,
-			'createActivities' => $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes',
-			'createNotifications' => $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes',
-			'sendEmails' => $this->config->getAppValue('announcementcenter', 'send_emails', 'yes') === 'yes',
-			'allowComments' => $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes',
-		], 'blank');
+		$adminGroups = json_decode($this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]'), true);
+
+		$this->initialState->provideInitialState('admin_groups', $adminGroups);
+		$this->initialState->provideInitialState('create_activities', $this->config->getAppValue('announcementcenter', 'create_activities', 'yes') === 'yes');
+		$this->initialState->provideInitialState('create_notifications', $this->config->getAppValue('announcementcenter', 'create_notifications', 'yes') === 'yes');
+		$this->initialState->provideInitialState('send_emails', $this->config->getAppValue('announcementcenter', 'send_emails', 'yes') === 'yes');
+		$this->initialState->provideInitialState('allow_comments', $this->config->getAppValue('announcementcenter', 'allow_comments', 'yes') === 'yes');
+
+		Util::addScript('announcementcenter', 'announcementcenter-admin');
+		return new TemplateResponse('announcementcenter', 'admin', [], TemplateResponse::RENDER_AS_BLANK);
 	}
 
 	/**
