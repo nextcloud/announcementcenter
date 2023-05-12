@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.6.0 – 2023-05-12
+### Added
+- Compatibility with Nextcloud 27
+
+### Changed
+- Migrate RichText component from @nextcloud/vue-richtext to @nextcloud/vue
+- Updated some dependencies
+
 ## 6.5.1 – 2023-03-01
 ### Changed
 - Updated some dependencies
