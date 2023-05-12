@@ -43,6 +43,18 @@
 			</NcButton>
 
 			<NcActions>
+				<NcActionInput v-model="groups"
+					icon="icon-group"
+					type="multiselect"
+					:options="groupOptions"
+					label="label"
+					track-by="id"
+					:multiple="true"
+					:placeholder="t('announcementcenter', 'Everyone')"
+					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
+					@search-change="onSearchChanged">
+					{{ t('announcementcenter', 'Everyone') }}
+				</NcActionInput>
 				<NcActionCheckbox value="1"
 					:checked.sync="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
@@ -59,18 +71,6 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
-				<NcActionInput v-model="groups"
-					icon="icon-group"
-					type="multiselect"
-					:options="groupOptions"
-					label="label"
-					track-by="id"
-					:multiple="true"
-					:placeholder="t('announcementcenter', 'Everyone')"
-					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
-					@search-change="onSearchChanged">
-					{{ t('announcementcenter', 'Everyone') }}
-				</NcActionInput>
 			</NcActions>
 		</div>
 	</div>
