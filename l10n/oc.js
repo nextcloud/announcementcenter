@@ -24,10 +24,10 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "Announce" : "Anóncia",
+    "Everyone" : "Tot lo monde",
     "Create activities" : "Crear d’activitats",
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
-    "Everyone" : "Tot lo monde",
     "{author}, {timestamp}" : "{author}, {timestamp}",
     "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…"
 },
