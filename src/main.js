@@ -30,7 +30,6 @@ import Vuex from 'vuex'
 
 // Styles
 import '@nextcloud/dialogs/dist/index.css'
-import '@nextcloud/vue-richtext/dist/style.css'
 
 // eslint-disable-next-line
 __webpack_nonce__ = btoa(getRequestToken())

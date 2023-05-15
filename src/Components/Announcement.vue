@@ -69,7 +69,7 @@
 		<div v-if="message"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<RichText :text="message"
+			<NcRichText :text="message"
 				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
@@ -89,11 +89,11 @@
 </template>
 
 <script>
-import { RichText } from '@nextcloud/vue-richtext'
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
 import moment from '@nextcloud/moment'
 import {
 	showError,
@@ -110,7 +110,7 @@ export default {
 		NcActionButton,
 		NcAvatar,
 		NcButton,
-		RichText,
+		NcRichText,
 	},
 	props: {
 		isAdmin: {
