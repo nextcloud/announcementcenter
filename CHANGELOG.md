@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## 6.6.1 – 2023-05-16
 ### Fixed
 - Activity emails still send although the announcement is emailed
-  [#576](https://github.com/nextcloud/announcementcenter/pull/576)
+  [#655](https://github.com/nextcloud/announcementcenter/pull/655)
 
 ## 6.6.0 – 2023-05-12
 ### Added
