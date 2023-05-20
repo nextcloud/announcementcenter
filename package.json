@@ -31,7 +31,7 @@
 		"@nextcloud/vue": "^7.11.4",
 		"debounce": "^1.2.1",
 		"remark": "^14.0.2",
-		"strip-markdown": "^5.0.0",
+		"strip-markdown": "^5.0.1",
 		"vue": "^2.7.14",
 		"vuex": "^3.6.2"
 	},
