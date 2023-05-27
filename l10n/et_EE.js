@@ -23,7 +23,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Need grupid saavad edastada teateid",
     "Create activities by default" : "Koosta toimingud vaikimisi",
     "Create notifications by default" : "Koosta teated vaikimisi",
-    "Allow comments by default" : "Luba kommentaarid vaikimisi",
-    "There are currently no announcements…" : "Praegu pole ühtegi teadaannet..."
+    "Allow comments by default" : "Luba kommentaarid vaikimisi"
 },
 "nplurals=2; plural=(n != 1);");

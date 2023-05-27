@@ -33,7 +33,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Grup-grup ini akan bisa membuat pengumuman.",
     "Create activities by default" : "Buat aktivitas sebagai bawaan",
     "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
-    "Allow comments by default" : "Izinkan komentar secara default",
-    "There are currently no announcements…" : "Saat ini tidak ada pengumuman..."
+    "Allow comments by default" : "Izinkan komentar secara default"
 },
 "nplurals=1; plural=0;");

@@ -27,7 +27,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Các nhóm này  sẽ được phép đăng các thông báo",
     "Create activities by default" : "Tạo các hoạt động mặc định",
     "Create notifications by default" : "Tạo các thông báo mặc định",
-    "Allow comments by default" : "Cho phép bình luận mặc định",
-    "There are currently no announcements…" : "Hiện tại không có thông báo nào...…"
+    "Allow comments by default" : "Cho phép bình luận mặc định"
 },
 "nplurals=1; plural=0;");

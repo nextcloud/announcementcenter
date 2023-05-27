@@ -38,7 +38,6 @@
     "These groups will be able to post announcements." : "다음 그룹에 속한 사용자는 공지 사항을 게시할 수 있습니다.",
     "Create activities by default" : "기본적으로 활동 만들기",
     "Create notifications by default" : "기본적으로 알림 만들기",
-    "Allow comments by default" : "기본적으로 댓글 허용",
-    "There are currently no announcements…" : "현재 공지 사항이 없습니다…"
+    "Allow comments by default" : "기본적으로 댓글 허용"
 },"pluralForm" :"nplurals=1; plural=0;"
 }

@@ -41,7 +41,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
     "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
     "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
-    "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
-    "There are currently no announcements…" : "Δεν υπάρχουν ακόμη ανακοινώσεις..."
+    "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή"
 },
 "nplurals=2; plural=(n != 1);");

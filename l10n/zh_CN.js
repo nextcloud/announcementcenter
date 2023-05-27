@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "默认创建活动",
     "Create notifications by default" : "默认创建提示",
     "Send emails by default" : "默认发送邮件",
-    "Allow comments by default" : "默认允许注释",
-    "There are currently no announcements…" : "当前没有公告..."
+    "Allow comments by default" : "默认允许注释"
 },
 "nplurals=1; plural=0;");

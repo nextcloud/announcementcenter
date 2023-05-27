@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "Sortu jarduerak lehenespenez",
     "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
     "Send emails by default" : "Bidali e-postak modu lehenetsian",
-    "Allow comments by default" : "Baimendu iruzkinak lehenespenez",
-    "There are currently no announcements…" : "Une honetan ez dago iragarpenik..."
+    "Allow comments by default" : "Baimendu iruzkinak lehenespenez"
 },
 "nplurals=2; plural=(n != 1);");

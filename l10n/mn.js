@@ -24,7 +24,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Эдгээр бүлгүүд мэдээлэл зарлах боломжтой.",
     "Create activities by default" : "Анхнаасаа үйл явдал үүсгэх",
     "Create notifications by default" : "Анхнаасаа мэдэгдэл үүсгэх",
-    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх",
-    "There are currently no announcements…" : "Энд одоогоор мэдээлэл байхгүй байна..."
+    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх"
 },
 "nplurals=2; plural=(n != 1);");

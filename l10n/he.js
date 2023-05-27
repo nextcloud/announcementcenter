@@ -40,7 +40,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "קבוצות אלו יוכלו לפרסם הכרזות",
     "Create activities by default" : "יצירת פעילויות כבררת מחדל",
     "Create notifications by default" : "יצירת התרעות כבררת מחדל",
-    "Allow comments by default" : "לאפשר תגובות כבררת מחדל",
-    "There are currently no announcements…" : "ברגע זה אין הכרזות..."
+    "Allow comments by default" : "לאפשר תגובות כבררת מחדל"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

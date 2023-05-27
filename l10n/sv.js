@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "Få rättigheter att skapa aktiviteter",
     "Create notifications by default" : "Skapa aviseringar som standard",
     "Send emails by default" : "Skicka e-post som standard",
-    "Allow comments by default" : "Tillåt kommentarer som standard",
-    "There are currently no announcements…" : "Det finns inga meddelanden just nu..."
+    "Allow comments by default" : "Tillåt kommentarer som standard"
 },
 "nplurals=2; plural=(n != 1);");

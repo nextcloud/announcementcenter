@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "Crear actividades por omisión",
     "Create notifications by default" : "Crear notificacións por omisión",
     "Send emails by default" : "Enviar os correos de xeito predeterminado",
-    "Allow comments by default" : "Permitir comentarios por omisión",
-    "There are currently no announcements…" : "Actualmente non hai anuncios…"
+    "Allow comments by default" : "Permitir comentarios por omisión"
 },
 "nplurals=2; plural=(n != 1);");

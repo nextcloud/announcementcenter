@@ -43,7 +43,6 @@
     "Create activities by default" : "Utwórz aktywności domyślnie",
     "Create notifications by default" : "Utwórz powiadomienia domyślnie",
     "Send emails by default" : "Wyślij e-maile domyślnie",
-    "Allow comments by default" : "Zezwalaj na komentarze domyślnie",
-    "There are currently no announcements…" : "Obecnie nie ma żadnych ogłoszeń…"
+    "Allow comments by default" : "Zezwalaj na komentarze domyślnie"
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"
 }

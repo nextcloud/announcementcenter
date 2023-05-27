@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "Подразумевано је да креира активности",
     "Create notifications by default" : "Подразумевано је да креира обавештења",
     "Send emails by default" : "Подразумевано шаљи и-мејлове",
-    "Allow comments by default" : "Подразумевано је да су дозвољени коментари",
-    "There are currently no announcements…" : "Тренутно нема објава…"
+    "Allow comments by default" : "Подразумевано је да су дозвољени коментари"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

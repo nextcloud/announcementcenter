@@ -28,7 +28,6 @@ OC.L10N.register(
     "Allow comments" : "අදහස් දැක්වීමට ඉඩ දෙන්න",
     "An error occurred while posting the announcement" : "නිවේදනය පළ කිරීමේදී දෝෂයක් ඇතිවිය",
     "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත.",
-    "There are currently no announcements…" : "දැනට නිවේදන නොමැත…"
+    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත."
 },
 "nplurals=2; plural=(n != 1);");

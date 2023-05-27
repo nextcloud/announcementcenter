@@ -28,7 +28,6 @@ OC.L10N.register(
     "Create activities" : "Crear d’activitats",
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "There are currently no announcements…" : "Pel moment i a pas cap d’anóncia…"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n > 1);");

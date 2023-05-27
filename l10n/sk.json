@@ -43,7 +43,6 @@
     "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
     "Send emails by default" : "Odoslať emaily ako predvolené",
-    "Allow comments by default" : "V predvolenom nastavení povoliť komentáre",
-    "There are currently no announcements…" : "Momentálne tu nie sú žiadne oznámenia..."
+    "Allow comments by default" : "V predvolenom nastavení povoliť komentáre"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

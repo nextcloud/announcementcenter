@@ -45,7 +45,6 @@ OC.L10N.register(
     "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
     "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
-    "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
-    "There are currently no announcements…" : "Şu anda herhangi bir duyuru yok…"
+    "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin"
 },
 "nplurals=2; plural=(n > 1);");

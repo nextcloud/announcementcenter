@@ -40,7 +40,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "هذه المجموعات ستملك الصلاحية لنشر الاعلانات",
     "Create activities by default" : "انشئ النشاطات افتراضياً",
     "Create notifications by default" : "انشئ الاشعارات افتراضياً",
-    "Allow comments by default" : "اسمح بالتعليقات افتراضياً",
-    "There are currently no announcements…" : "لا يوجد حالياً اعلانات..."
+    "Allow comments by default" : "اسمح بالتعليقات افتراضياً"
 },
 "nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;");

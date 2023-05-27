@@ -44,7 +44,6 @@ OC.L10N.register(
     "Create activities by default" : "Luo toimet oletuksena",
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
     "Send emails by default" : "Lähetä sähköpostia oletusarvoisesti",
-    "Allow comments by default" : "Salli kommentit oletuksena",
-    "There are currently no announcements…" : "Ei tiedotteita juuri nyt…"
+    "Allow comments by default" : "Salli kommentit oletuksena"
 },
 "nplurals=2; plural=(n != 1);");

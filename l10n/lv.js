@@ -22,7 +22,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "Šīs grupas varēs ievietot paziņojumus.",
     "Create activities by default" : "Izveidot darbības pēc noklusējuma",
     "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
-    "Allow comments by default" : "Atļaut komentārus pēc noklusējuma",
-    "There are currently no announcements…" : "Šobrīd nav paziņojumu..."
+    "Allow comments by default" : "Atļaut komentārus pēc noklusējuma"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");
