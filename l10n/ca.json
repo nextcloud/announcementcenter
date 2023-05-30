@@ -29,7 +29,7 @@
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible per al grup {name} i %n més","visible per al grup {name} i %n més"],
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "New announcement subject" : "Nou tema d'anunci",
-    "Write announcement text, Markdown can be used …" : "Escriu el text de l'anunci, es pot utilitzar Markdown ...",
+    "Write announcement text, Markdown can be used …" : "Escriu el text de l'anunci, es pot utilitzar Markdown …",
     "Announce" : "Publica l'anunci",
     "Everyone" : "Tothom",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Aquests grups podran veure l'anunci. Si no heu seleccionat cap grup, tots els usuaris el podran veure.",
