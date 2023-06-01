@@ -61,6 +61,8 @@ class BackgroundJobTest extends TestCase {
 	protected $notificationManager;
 	/** @var IMailer|MockObject */
 	protected $mailer;
+	/** @var LoggerInterface|MockObject */
+	protected $logger;
 	/** @var Manager|MockObject */
 	protected $manager;
 
