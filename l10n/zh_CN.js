@@ -21,7 +21,7 @@ OC.L10N.register(
     "Comments" : "评论",
     "Clear notifications" : "清除通知",
     "Delete announcement" : "删除公告",
-    "seconds ago" : "数秒前",
+    "seconds ago" : "几秒前",
     "visible to everyone" : "对所有人可见",
     "visible to group {name}" : "对 {name} 小组可见",
     "visible to groups {name1} and {name2}" : "对小组  {name1} 和  {name2} 可见",
