@@ -239,7 +239,7 @@ class APIController extends OCSController {
 			);
 		}
 
-		$groups = $this->groupManager->search($search, 25);
+		$groups = $this->groupManager->search($search, 50);
 		$results = [];
 		foreach ($groups as $group) {
 			$results[] = [
