@@ -11,8 +11,8 @@
 	"require-dev": {
 		"nextcloud/coding-standard": "^1.0.0",
 		"phpunit/phpunit": "^9.5",
-		"vimeo/psalm": "^5.1.0",
-		"nextcloud/ocp": "dev-stable25"
+		"nextcloud/ocp": "dev-stable25",
+		"psalm/phar": "^5.12"
 	},
 	"autoload-dev": {
 		"psr-4": {
