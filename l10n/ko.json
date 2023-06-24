@@ -1,6 +1,6 @@
 { "translations": {
     "You announced “{announcement}”" : "“{announcement}” 공지를 올림",
-    "{actor} announced “{announcement}”" : "{actor} 님이 “{announcement}” 공지를 올림",
+    "{actor} announced “{announcement}”" : "{actor}님이 “{announcement}” 공지를 올림",
     "You posted an announcement" : "공지 사항을 게시했습니다",
     "{actor} posted an announcement" : "{actor} 님이 공지 사항을 게시했습니다",
     "The announcement does not exist anymore" : "공지가 더 이상 존재하지 않음",
@@ -9,7 +9,7 @@
     "Announcements" : "공지",
     "Read more" : "더 읽기",
     "{user} announced {announcement}" : "{user}님이 {announcement} 를 공지했습니다.",
-    "{user} announced “{announcement}”" : "{user} 님이 “{announcement}” 공지를 올림",
+    "{user} announced “{announcement}”" : "{user}님이 “{announcement}” 공지를 올림",
     "Announcement center" : "공지 센터",
     "This app allows admins to post announcements." : "이 앱은 관리자들이 공지사항을 게시할 수 있게 합니다.",
     "No announcements" : "공지 없음",
