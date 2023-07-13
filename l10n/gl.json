@@ -1,7 +1,7 @@
 { "translations": {
-    "You announced “{announcement}”" : "Vostede anunciou «{announcement}»",
+    "You announced “{announcement}”" : "Vde. anunciou «{announcement}»",
     "{actor} announced “{announcement}”" : "{actor} anunciou «{announcement}»",
-    "You posted an announcement" : "Vostede publicou un anuncio {announcement}",
+    "You posted an announcement" : "Vde. publicou un anuncio {announcement}",
     "{actor} posted an announcement" : "{actor} publicou un anuncio",
     "The announcement does not exist anymore" : "O anuncio xa non existe",
     "An <strong>announcement</strong> is posted by an administrator" : "Un administrador publicou un <strong>anuncio<strong>",
