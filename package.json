@@ -28,7 +28,7 @@
 		"@nextcloud/l10n": "^2.2.0",
 		"@nextcloud/moment": "^1.2.1",
 		"@nextcloud/router": "^2.1.2",
-		"@nextcloud/vue": "^7.12.0",
+		"@nextcloud/vue": "^7.12.1",
 		"debounce": "^1.2.1",
 		"remark": "^14.0.3",
 		"strip-markdown": "^5.0.1",
