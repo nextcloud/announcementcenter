@@ -283,7 +283,7 @@ export default {
 					display: flex;
 					align-items: center;
 
-					::v-deep .avatardiv {
+					:deep(.avatardiv) {
 						margin-right: 4px;
 					}
 

@@ -194,7 +194,7 @@ export default {
 		display: flex;
 		justify-content: right;
 
-		::v-deep .button-vue {
+		:deep(.button-vue) {
 			margin-right: 10px;
 		}
 	}
