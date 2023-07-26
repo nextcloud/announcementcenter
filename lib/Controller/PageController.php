@@ -30,14 +30,18 @@ use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IRequest;
+use OCP\Util;
 
 class PageController extends Controller {
 
 
 	/** @var Manager */
 	protected $manager;
+	/** @var ICommentsManager */
+	protected $commentsManager;
 
 	/** @var IConfig */
 	protected $config;
@@ -48,11 +52,13 @@ class PageController extends Controller {
 	public function __construct(string $AppName,
 		IRequest $request,
 		Manager $manager,
+		ICommentsManager $commentsManager,
 		IConfig $config,
 		IInitialState $initialState) {
 		parent::__construct($AppName, $request);
 
 		$this->manager = $manager;
+		$this->commentsManager = $commentsManager;
 		$this->config = $config;
 		$this->initialState = $initialState;
 	}
@@ -93,6 +99,9 @@ class PageController extends Controller {
 			'activeId',
 			$announcement
 		);
+
+		$this->commentsManager->load();
+		Util::addScript('announcementcenter', 'announcementcenter-main', 'comments');
 
 		return new TemplateResponse(Application::APP_ID, 'main', [
 			'app' => Application::APP_ID,
