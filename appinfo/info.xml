@@ -32,7 +32,7 @@
 	<bugs>https://github.com/nextcloud/announcementcenter/issues</bugs>
 	<repository>https://github.com/nextcloud/announcementcenter.git</repository>
 
-	<screenshot>https://github.com/nextcloud/announcementcenter/raw/master/docs/AnnouncementCenterFrontpage.png</screenshot>
+	<screenshot>https://github.com/nextcloud/announcementcenter/raw/main/docs/AnnouncementCenterFrontpage.png</screenshot>
 
 	<dependencies>
 		<nextcloud min-version="25" max-version="27" />

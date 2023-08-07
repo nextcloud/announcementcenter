@@ -9,10 +9,10 @@
 		}
 	],
 	"require-dev": {
-		"nextcloud/coding-standard": "^1.0.0",
-		"phpunit/phpunit": "^9.5",
+		"nextcloud/coding-standard": "^1.1",
 		"nextcloud/ocp": "dev-stable25",
-		"psalm/phar": "^5.12"
+		"phpunit/phpunit": "^9.6",
+		"psalm/phar": "^5.14"
 	},
 	"autoload-dev": {
 		"psr-4": {
@@ -25,7 +25,8 @@
 		"classmap-authoritative": true,
 		"platform": {
 			"php": "7.4"
-		}
+		},
+		"sort-packages": true
 	},
 	"scripts": {
 		"lint": "find . -name \\*.php -not -path './vendor/*' -not -path './build/*' -print0 | xargs -0 -n1 php -l",
