@@ -26,6 +26,7 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "هنگام حذف اعلان‌های آگهی خطایی روی داد",
     "An error occurred while deleting the announcement" : "هنگام حذف آگهی خطایی روی داد",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["برای گروه {name} و بیشتر قابل مشاهده است","برای گروه {name} و بیشتر %nقابل مشاهده است"],
     "_%n comment_::_%n comments_" : ["%n نظر","%n نظرات"],
     "New announcement subject" : "موضوع آگهی جدید",
     "Write announcement text, Markdown can be used …" : "متن آگهی را بنویسید، می توان از Markdown استفاده کرد…",
