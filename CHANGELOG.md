@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.6.2 – 2023-08-17
+### Fixed
+- Don't load JS assets on all pages
+  [#689](https://github.com/nextcloud/announcementcenter/pull/689)
+- Migrate admin settings to Vue so they are accessible
+  [#648](https://github.com/nextcloud/announcementcenter/pull/648)
+
 ## 6.6.1 – 2023-05-16
 ### Fixed
 - Activity emails still send although the announcement is emailed
