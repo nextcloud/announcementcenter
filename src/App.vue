@@ -37,7 +37,7 @@
 				:title="t('announcementcenter', 'No announcements')"
 				:description="t('announcementcenter', 'There are currently no announcements …')">
 				<template #icon>
-					<span class="icon-announcementcenter-dark"></span>
+					<span class="icon-announcementcenter-dark" />
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>

@@ -143,7 +143,7 @@ export default {
 	 */
 	async mounted() {
 		// version scoped to prevent issues with different library versions
-		const storageName = `announcementcenter/initialGroups`
+		const storageName = 'announcementcenter/initialGroups'
 
 		let savedGroups = window.sessionStorage.getItem(storageName)
 		if (savedGroups) {
