@@ -25,6 +25,7 @@ namespace OCA\AnnouncementCenter\Tests\Settings;
 
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
 use PHPUnit\Framework\MockObject\MockObject;
 use Test\TestCase;
@@ -36,10 +37,14 @@ class AdminTest extends TestCase {
 	/** @var IConfig|MockObject */
 	protected $config;
 
+	/** @var IInitialState|MockObject */
+	protected $initialState;
+
 	protected function setUp(): void {
 		parent::setUp();
 		$this->config = $this->createMock(IConfig::class);
-		$this->admin = new Admin($this->config);
+		$this->initialState = $this->createMock(IInitialState::class);
+		$this->admin = new Admin($this->config, $this->initialState);
 	}
 
 	public function dataGetForm() {
@@ -52,7 +57,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, true, true, true,
+				['admin'], true, true, true, true,
 			],
 			[
 				[
@@ -62,7 +67,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', false, true, true, true,
+				['admin'], false, true, true, true,
 			],
 			[
 				[
@@ -72,7 +77,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, false, true, true,
+				['admin'], true, false, true, true,
 			],
 			[
 				[
@@ -82,7 +87,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'yes'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, true, false, true,
+				['admin'], true, true, false, true,
 			],
 			[
 				[
@@ -92,7 +97,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'no'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
 				],
-				'admin', true, true, true, false,
+				['admin'], true, true, true, false,
 			],
 			[
 				[
@@ -102,7 +107,7 @@ class AdminTest extends TestCase {
 					['announcementcenter', 'allow_comments', 'yes', 'no'],
 					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin', 'group2'])],
 				],
-				'admin|group2', false, false, false, false,
+				['admin', 'group2'], false, false, false, false,
 			],
 		];
 	}
@@ -122,13 +127,28 @@ class AdminTest extends TestCase {
 			->method('getAppValue')
 			->willReturnMap($configMap);
 
-		$expected = new TemplateResponse('announcementcenter', 'admin', [
-			'adminGroups' => $adminGroups,
-			'createActivities' => $createActivities,
-			'createNotifications' => $createNotifications,
-			'sendEmails' => $sendEmails,
-			'allowComments' => $allowComments,
-		], 'blank');
+		$this->initialState->method('provideInitialState')
+			->willReturnCallback(function ($key, $data) use ($adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments) {
+				switch ($key) {
+					case 'admin_groups':
+						self::assertEquals($adminGroups, $data);
+						break;
+					case 'create_activities':
+						self::assertEquals($createActivities, $data);
+						break;
+					case 'create_notifications':
+						self::assertEquals($createNotifications, $data);
+						break;
+					case 'send_emails':
+						self::assertEquals($sendEmails, $data);
+						break;
+					case 'allow_comments':
+						self::assertEquals($allowComments, $data);
+						break;
+				}
+			});
+
+		$expected = new TemplateResponse('announcementcenter', 'admin', [], '');
 		self::assertEquals($expected, $this->admin->getForm());
 	}
 
