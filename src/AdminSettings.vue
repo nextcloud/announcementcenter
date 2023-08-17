@@ -21,7 +21,8 @@
 
 <template>
 	<NcSettingsSection :title="t('announcementcenter', 'Announcements')">
-		<NcSettingsSelectGroup v-model="adminGroups"
+		<NcSettingsSelectGroup id="announcementcenter_admin_group"
+			v-model="adminGroups"
 			:label="t('announcementcenter', 'These groups will be able to post announcements.')"
 			@input="updateGroups" />
 
@@ -51,7 +52,7 @@
 <script>
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import NcSettingsSelectGroup from '@nextcloud/vue/dist/Components/NcSettingsSelectGroup.js'
+import NcSettingsSelectGroup from './Components/SettingsSelectGroup.vue'
 import { loadState } from '@nextcloud/initial-state'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 
