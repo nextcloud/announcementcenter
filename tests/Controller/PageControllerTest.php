@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Services\IInitialState;
+use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IRequest;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -39,6 +40,8 @@ class PageControllerTest extends TestCase {
 	protected $request;
 	/** @var Manager|MockObject */
 	protected $manager;
+	/** @var ICommentsManager|MockObject */
+	protected $commentsManager;
 	/** @var IConfig|MockObject */
 	protected $config;
 	/** @var IInitialState|MockObject */
@@ -49,6 +52,7 @@ class PageControllerTest extends TestCase {
 
 		$this->request = $this->createMock(IRequest::class);
 		$this->manager = $this->createMock(Manager::class);
+		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->config = $this->createMock(IConfig::class);
 		$this->initialState = $this->createMock(IInitialState::class);
 	}
@@ -58,6 +62,7 @@ class PageControllerTest extends TestCase {
 			'announcementcenter',
 			$this->request,
 			$this->manager,
+			$this->commentsManager,
 			$this->config,
 			$this->initialState
 		);
