@@ -14,6 +14,11 @@
     "Announcement center" : "Središče za obveščanje",
     "This app allows admins to post announcements." : "Program omogoča skrbnikom objavljanje obvestil.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Objavite urnik skrbniškega urejanja strežnika 🎛️, predstavite nove člane 👤, ali pa zagotovite, da so vsi seznanjeni z izvedbo pomembnega dogodka naslednji mesec 📅\n\n🖌️ Podprt je oblikovan zapis Markdown\n\n📑 Omogočeno je komentiranje z uporabo @-mentions\n\n👪 Dodeliti je mogoče skupinska dovoljenja\n\n⭕ Program je mogoče dodati na Nadzorno ploščo\n\n⚡ Dejavnosti se beležijo med Dejanji\n\n🔔 Sistem omogoča obveščanje prek vseh podprtih načinov",
+    "These groups will be able to post announcements." : "Navedene skupine imajo dovoljenje za objavljanje obvestil.",
+    "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
+    "Create notifications by default" : "Dovoli ustvarjanje obvestil",
+    "Send emails by default" : "Elektronsko sporočilo pošlji privzeto",
+    "Allow comments by default" : "Dovoli komentiranje",
     "No announcements" : "Ni obvestil",
     "There are currently no announcements …" : "Trenutno še ni obvestil ...",
     "Comments" : "Opombe",
@@ -38,11 +43,6 @@
     "Send emails" : "Pošlji elektronska sporočila",
     "Allow comments" : "Dovoli komentiranje obvestil",
     "An error occurred while posting the announcement" : "Prišlo je do napake med objavljanjem objave.",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Navedene skupine imajo dovoljenje za objavljanje obvestil.",
-    "Create activities by default" : "Privzeto ustvari zapis dejavnosti",
-    "Create notifications by default" : "Dovoli ustvarjanje obvestil",
-    "Send emails by default" : "Elektronsko sporočilo pošlji privzeto",
-    "Allow comments by default" : "Dovoli komentiranje"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"
 }

@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Центар за објављивање",
     "This app allows admins to post announcements." : "Ова апликација дозвољава администраторима да постављају објаве.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Најавите ваш прозор за одржавање 🎛️, представите новог колегу 👤 или обезбедите да сви знају за главни догађај наредног месеца 📅\n\n🖌️ Markdown подршка\n\n📑 Коментари који укључују @-помињања\n\n👪 Групне дозволе\n\n⭕ Интеграција у Контролну таблу\n\n⚡ Интеграција у Активности\n\n🔔 Интеграција са обавештењима",
+    "These groups will be able to post announcements." : "Ове групе ће моћи да постављају објаве.",
+    "Create activities by default" : "Подразумевано је да креира активности",
+    "Create notifications by default" : "Подразумевано је да креира обавештења",
+    "Send emails by default" : "Подразумевано шаљи и-мејлове",
+    "Allow comments by default" : "Подразумевано је да су дозвољени коментари",
+    "An error occurred while changing the setting" : "Дошло је до грешке приликом измене подешавања",
     "No announcements" : "Нема најава",
     "There are currently no announcements …" : "Тренутно нема никаквих најава ...",
     "Comments" : "Коментари",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "Пошаљи и-мејлове",
     "Allow comments" : "Дозволи коментаре",
     "An error occurred while posting the announcement" : "Дошло је до грешке приликом постављања најаве",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Ове групе ће моћи да постављају објаве.",
-    "Create activities by default" : "Подразумевано је да креира активности",
-    "Create notifications by default" : "Подразумевано је да креира обавештења",
-    "Send emails by default" : "Подразумевано шаљи и-мејлове",
-    "Allow comments by default" : "Подразумевано је да су дозвољени коментари"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");

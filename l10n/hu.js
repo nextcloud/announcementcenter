@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Bejelentésközpont ",
     "This app allows admins to post announcements." : "Ez az alkalmazás lehetővé teszi, hogy a rendszergazdák bejelentéseket küldjenek.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Hirdesse meg karbantartási ablakát 🎛, mutasson be új kollégát 👤, vagy győződjön meg róla, hogy mindenki tud a jövő hónap nagy eseményéről 📅\n\n🖌️ Markdown támogatás\n\n📑 Megjegyzések, beleértve a @ -említéseket\n\n👪 Csoportengedélyek\n\n⭕ Irányítópult integráció\n\n⚡ Tevékenységek integrálása\n\n🔔 Értesítések integrálása",
+    "These groups will be able to post announcements." : "Ezek a csoportok fognak tudni bejelentéseket beküldeni.",
+    "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
+    "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
+    "Send emails by default" : "E-mailek küldése alapértelmezetten",
+    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten",
+    "An error occurred while changing the setting" : "Hiba történt a beállítás megváltoztatása során",
     "No announcements" : "Nincsenek bejelentések",
     "There are currently no announcements …" : "Jelenleg nincsenek bejelentések…",
     "Comments" : "Hozzászólások",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "E-mailek küldése",
     "Allow comments" : "Hozzászólások engedélyezése",
     "An error occurred while posting the announcement" : "Hiba történt a bejelentés közzététele során",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Ezek a csoportok fognak tudni bejelentéseket beküldeni.",
-    "Create activities by default" : "Tevékenységek létrehozása alapértelmezés szerint",
-    "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
-    "Send emails by default" : "E-mailek küldése alapértelmezetten",
-    "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

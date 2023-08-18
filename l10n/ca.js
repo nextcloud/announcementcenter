@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Centre d'anuncis",
     "This app allows admins to post announcements." : "Aquesta aplicació permet que els administradors publiquin anuncis.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncieu la vostra finestra de anteniment 🎛️, presenteu un nou company 👤 o assegureu-vos que tothom sàpiga sobre el gran esdeveniment el proper mes 📅\n\n🖌️ Suport de Markdown\n\n📑 Comentaris que inclouen @-mentions\n\n👪 Permisos de grup\n\n⭕ Integració de l'escriptori digital\n\n⚡ Integració d'activitats\n\n🔔 Integració de notificacions",
+    "These groups will be able to post announcements." : "Aquests grups podran publicar anuncis.",
+    "Create activities by default" : "Crea activitats per defecte",
+    "Create notifications by default" : "Crea notificacions per defecte",
+    "Send emails by default" : "Envia els correus electrònics per defecte",
+    "Allow comments by default" : "Permet els comentaris per defecte",
+    "An error occurred while changing the setting" : "S'ha produït un error en canviar els paràmetres",
     "No announcements" : "No hi ha cap anunci",
     "There are currently no announcements …" : "Actualment no hi ha anuncis…",
     "Comments" : "Comentaris",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "Envia els correus electrònics",
     "Allow comments" : "Permet els comentaris",
     "An error occurred while posting the announcement" : "S'ha produït un error en publicar l'anunci",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Aquests grups podran publicar anuncis.",
-    "Create activities by default" : "Crea activitats per defecte",
-    "Create notifications by default" : "Crea notificacions per defecte",
-    "Send emails by default" : "Envia els correus electrònics per defecte",
-    "Allow comments by default" : "Permet els comentaris per defecte"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

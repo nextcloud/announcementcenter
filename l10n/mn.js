@@ -10,6 +10,10 @@ OC.L10N.register(
     "Announcements" : "Мэдээллүүд",
     "{user} announced “{announcement}”" : "{user} “{announcement}”-г зарласан",
     "Announcement center" : "Мэдээллийн төв",
+    "These groups will be able to post announcements." : "Эдгээр бүлгүүд мэдээлэл зарлах боломжтой.",
+    "Create activities by default" : "Анхнаасаа үйл явдал үүсгэх",
+    "Create notifications by default" : "Анхнаасаа мэдэгдэл үүсгэх",
+    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх",
     "No announcements" : "Зарлал байхгүй",
     "Comments" : "Сэтгэгдлүүд",
     "seconds ago" : "хоёрдахь өмнө",
@@ -20,10 +24,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Эдгээр бүлгээд мэдээллийг харах боломжтой байна.  Хэрэв бүлэг сонгоогүй бол бүх хэрэглэгчид үүнийг харна.",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
-    "These groups will be able to post announcements." : "Эдгээр бүлгүүд мэдээлэл зарлах боломжтой.",
-    "Create activities by default" : "Анхнаасаа үйл явдал үүсгэх",
-    "Create notifications by default" : "Анхнаасаа мэдэгдэл үүсгэх",
-    "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
 },
 "nplurals=2; plural=(n != 1);");

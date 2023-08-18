@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "公告中心",
     "This app allows admins to post announcements." : "這個應用程式允許管理員發布公告。",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "公告您的維護時段 🎛️、介紹一位新同事 👤 或確保每個人都知道下個月的大活動 📅\n\n🖌️ 支援 Markdown\n\n📑 可包含 @ 提及的留言\n\n👪 群組權限\n\n⭕ 儀表板整合\n\n⚡ 活動整合\n\n🔔 通知整合",
+    "These groups will be able to post announcements." : "這些群組可以發表公告",
+    "Create activities by default" : "依預設建立活動",
+    "Create notifications by default" : "依預設建立通知",
+    "Send emails by default" : "預設寄送電子郵件",
+    "Allow comments by default" : "預設允許留言",
+    "An error occurred while changing the setting" : "變更設定時發生錯誤",
     "No announcements" : "無公告",
     "There are currently no announcements …" : "目前沒有公告…",
     "Comments" : "留言",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "寄送電子郵件",
     "Allow comments" : "允許留言",
     "An error occurred while posting the announcement" : "張貼公告時發生錯誤",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "這些群組可以發表公告",
-    "Create activities by default" : "依預設建立活動",
-    "Create notifications by default" : "依預設建立通知",
-    "Send emails by default" : "預設寄送電子郵件",
-    "Allow comments by default" : "預設允許留言"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=1; plural=0;");

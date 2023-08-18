@@ -14,6 +14,11 @@
     "Announcement center" : "Meddelses center",
     "This app allows admins to post announcements." : "Denne app giver administratorer mulighed for at annoncere meddelelser.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Annoncer dit vedligeholdelsesvindue 🎛️, præsenter en ny kollega 👤 eller sørg for, at alle ved om den store begivenhed i næste måned 📅\n\n🖌️ Markdown support\n\n📑 Kommentarer inklusive @-omtaler\n\n👪 Gruppe tilladelser\n\n⭕ Integration af dashboard\n\n⚡ Integration af aktiviteter\n\n🔔 Integration af notifikationer",
+    "These groups will be able to post announcements." : "Disse grupper er i stand til at annoncere meddelelser.",
+    "Create activities by default" : "Opret aktiviteter som standard",
+    "Create notifications by default" : "Opret notifikationer som standard",
+    "Send emails by default" : "Send e-mails som standard",
+    "Allow comments by default" : "Tillad kommentarer som standard",
     "No announcements" : "Ingen meddelelser",
     "There are currently no announcements …" : "Der er i øjeblikket ingen meddelelser ...",
     "Comments" : "Kommentarer",
@@ -38,11 +43,6 @@
     "Send emails" : "Send e-mails",
     "Allow comments" : "Tillad kommentarer",
     "An error occurred while posting the announcement" : "Der opstod en fejl under offentliggørelsen af meddelelsen",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Disse grupper er i stand til at annoncere meddelelser.",
-    "Create activities by default" : "Opret aktiviteter som standard",
-    "Create notifications by default" : "Opret notifikationer som standard",
-    "Send emails by default" : "Send e-mails som standard",
-    "Allow comments by default" : "Tillad kommentarer som standard"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

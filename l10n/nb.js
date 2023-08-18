@@ -16,6 +16,11 @@ OC.L10N.register(
     "Announcement center" : "Kunngjøringssenter",
     "This app allows admins to post announcements." : "Denne appen tillater administratorer å legge inn kunngjøringer.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kunngjør ditt vedlikeholdsvindu 🎛️, introduser en ny kollega 👤 eller sørg for at alle vet om den store hendelsen neste måned 📅\n\n🖌️ Markdown-støtte\n\n📑 Kommentarer med @-nevnelser\n\n👪 Gruppe-tilltatelser\n\n⭕ Dashboard-integrasjon\n\n⚡ Aktiviteter-integrasjon\n\n🔔 Varsel-integrasjon",
+    "These groups will be able to post announcements." : "Disse gruppene vil kunne poste kunngjøringer",
+    "Create activities by default" : "Opprett aktiviteter som standard",
+    "Create notifications by default" : "Opprett varsler som forvalg",
+    "Send emails by default" : "Send e-poster som standard",
+    "Allow comments by default" : "Tillatt kommentarer som standard",
     "No announcements" : "Ingen kunngjøringer",
     "There are currently no announcements …" : "Det er foreløpig ingen kunngjøringer...",
     "Comments" : "Kommentarer",
@@ -40,11 +45,6 @@ OC.L10N.register(
     "Send emails" : "Send e-poster",
     "Allow comments" : "Tillatt kommentarer",
     "An error occurred while posting the announcement" : "En feil oppsto ved posting av kunngjøringen",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Disse gruppene vil kunne poste kunngjøringer",
-    "Create activities by default" : "Opprett aktiviteter som standard",
-    "Create notifications by default" : "Opprett varsler som forvalg",
-    "Send emails by default" : "Send e-poster som standard",
-    "Allow comments by default" : "Tillatt kommentarer som standard"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

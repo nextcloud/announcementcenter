@@ -14,6 +14,11 @@
     "Announcement center" : "Centro annunci",
     "This app allows admins to post announcements." : "Questa applicazione consente agli amministratori di pubblicare annunci.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Annuncia la tua finestra di manutenzione 🎛️, presenta un nuovo collega 👤 o assicurati che tutti sappiano del grande evento del mese prossimo 📅\n\n🖌️ Supporto Markdown\n\n📑 Commenti che includono le menzioni @\n\n👪 Permessi di gruppo\n\n⭕ Integrazione del cruscotto\n\n⚡ Integrazione delle attività\n\n🔔 Integrazione delle notifiche",
+    "These groups will be able to post announcements." : "Questi gruppi saranno in grado di pubblicare annunci.",
+    "Create activities by default" : "Creare attività per impostazione predefinita",
+    "Create notifications by default" : "Creare notifiche per impostazione predefinita",
+    "Send emails by default" : "Invia email per impostazione predefinita",
+    "Allow comments by default" : "Consenti i commenti in modo predefinito",
     "No announcements" : "Nessun annuncio",
     "There are currently no announcements …" : "Attualmente non ci sono annunci …",
     "Comments" : "Commenti",
@@ -38,11 +43,6 @@
     "Send emails" : "Invia email",
     "Allow comments" : "Consenti i commenti",
     "An error occurred while posting the announcement" : "Si è verificato un errore durante la pubblicazione dell'annuncio",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Questi gruppi saranno in grado di pubblicare annunci.",
-    "Create activities by default" : "Creare attività per impostazione predefinita",
-    "Create notifications by default" : "Creare notifiche per impostazione predefinita",
-    "Send emails by default" : "Invia email per impostazione predefinita",
-    "Allow comments by default" : "Consenti i commenti in modo predefinito"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

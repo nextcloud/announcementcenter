@@ -7,6 +7,10 @@ OC.L10N.register(
     "The subject is too long or empty" : "Le subjecto es troppo grande o es vacue",
     "Announcements" : "Annucios",
     "{user} announced “{announcement}”" : "{user} annunciava “{announcement}”",
+    "These groups will be able to post announcements." : "Iste gruppos potera publicar annuncios.",
+    "Create activities by default" : "Crear activitates per predefinition",
+    "Create notifications by default" : "Crear notificationes per predefinition",
+    "Allow comments by default" : "Permitter commentarios per predeffinition",
     "Comments" : "Commentarios",
     "seconds ago" : "secundas passate",
     ", " : ",",
@@ -16,10 +20,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Iste gruppos potera vider le annuncio. Si nulle gruppo es seligite, tote usatores potera vider lo.",
     "Create activities" : "Crear activitates",
     "Create notifications" : "Crear notificationes",
-    "Allow comments" : "Permitter commentarios",
-    "These groups will be able to post announcements." : "Iste gruppos potera publicar annuncios.",
-    "Create activities by default" : "Crear activitates per predefinition",
-    "Create notifications by default" : "Crear notificationes per predefinition",
-    "Allow comments by default" : "Permitter commentarios per predeffinition"
+    "Allow comments" : "Permitter commentarios"
 },
 "nplurals=2; plural=(n != 1);");

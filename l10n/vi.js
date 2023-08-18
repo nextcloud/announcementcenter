@@ -16,6 +16,11 @@ OC.L10N.register(
     "Announcement center" : "Trung tâm thông báo",
     "This app allows admins to post announcements." : "Ứng dụng này cho phép quản trị viên đang các thông báo",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Thông báo bảo trì 🎛️, giới thiệu đồng nghiệp mới 👤hoặc đảm bảo tất cả mọi người biết về sự kiện lớn trong tháng tới 📅\n\n🖌️ Hỗ trợ Markdown\n\n📑 Bình luận bao gồm @-đề cập\n\n👪 Quyền của nhóm\n\n⭕ Tích hợp Bảng tổng quan\n\n⚡ Tích hợp Hoạt động\n\n🔔 Tích hợp Thông báo",
+    "These groups will be able to post announcements." : "Các nhóm này  sẽ được phép đăng các thông báo",
+    "Create activities by default" : "Tạo các hoạt động mặc định",
+    "Create notifications by default" : "Tạo các thông báo mặc định",
+    "Send emails by default" : "Gửi email theo mặc định",
+    "Allow comments by default" : "Cho phép bình luận mặc định",
     "No announcements" : "Không có thông báo nào",
     "There are currently no announcements …" : "Hiện tại không có thông báo nào",
     "Comments" : "Các bình luận",
@@ -40,11 +45,6 @@ OC.L10N.register(
     "Send emails" : "Gửi email",
     "Allow comments" : "Cho phép bình luận",
     "An error occurred while posting the announcement" : "Đã xảy ra lỗi khi đăng thông báo",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Các nhóm này  sẽ được phép đăng các thông báo",
-    "Create activities by default" : "Tạo các hoạt động mặc định",
-    "Create notifications by default" : "Tạo các thông báo mặc định",
-    "Send emails by default" : "Gửi email theo mặc định",
-    "Allow comments by default" : "Cho phép bình luận mặc định"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=1; plural=0;");

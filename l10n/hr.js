@@ -15,6 +15,10 @@ OC.L10N.register(
     "Announcement center" : "Centar za obavijesti",
     "This app allows admins to post announcements." : "Ova aplikacija omogućuje administratorima objavljivanje obavijesti.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Najavite razdoblje održavanja 🎛️, predstavite novog kolegu / novu kolegicu 👤 ili osigurajte da svi znaju za važan događaj u narednom mjesecu 📅\n\n🖌️ Podrška za Markdown\n\n📑 Komentari i @-spominjanja\n\n👪 Grupna dopuštenja\n\n⭕ Integracija nadzorne ploče\n\n⚡ Integracija aktivnosti\n\n🔔 Integracija obavijesti",
+    "These groups will be able to post announcements." : "Ove će skupine moći postavljati oglase",
+    "Create activities by default" : "Automatski stvaraj radnje",
+    "Create notifications by default" : "Automatski stvaraj obavijesti",
+    "Allow comments by default" : "Unaprijed dopusti napomene",
     "No announcements" : "Nema obavijesti",
     "Comments" : "Komentari",
     "Clear notifications" : "Izbriši obavijesti",
@@ -37,10 +41,6 @@ OC.L10N.register(
     "Create notifications" : "Stvori obavijesti",
     "Allow comments" : "Dopusti napomene",
     "An error occurred while posting the announcement" : "Došlo je do pogreške pri objavi obavijesti",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Ove će skupine moći postavljati oglase",
-    "Create activities by default" : "Automatski stvaraj radnje",
-    "Create notifications by default" : "Automatski stvaraj obavijesti",
-    "Allow comments by default" : "Unaprijed dopusti napomene"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;");

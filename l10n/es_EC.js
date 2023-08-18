@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Centro de anuncios",
     "This app allows admins to post announcements." : "Esta aplicación permite a los administradores publicar anuncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncia tu ventana de mantenimiento 🎛️, presenta a un nuevo colega 👤 o asegúrate de que todos sepan sobre el gran evento del próximo mes 📅\n      🖌️ Soporte de Markdown\n      📑 Comentarios que incluyen menciones @\n      👪 Permisos de grupo\n      ⭕ Integración en el tablero\n      ⚡ Integración con actividades\n      🔔 Integración de notificaciones",
+    "These groups will be able to post announcements." : "Estos grupos podrán publicar anuncios.",
+    "Create activities by default" : "Crear actividades predeterminadas",
+    "Create notifications by default" : "Crear notificaciones predeterminada",
+    "Send emails by default" : "Enviar correos electrónicos de forma predeterminada",
+    "Allow comments by default" : "Permitir comentarios predeterminada",
+    "An error occurred while changing the setting" : "Se produjo un error al cambiar la configuración",
     "No announcements" : "No hay anuncios",
     "There are currently no announcements …" : "No hay anuncios en este momento...",
     "Comments" : "Comentarios",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "Enviar correos electrónicos",
     "Allow comments" : "Permitir comentarios",
     "An error occurred while posting the announcement" : "Se produjo un error al publicar el anuncio",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Estos grupos podrán publicar anuncios.",
-    "Create activities by default" : "Crear actividades predeterminadas",
-    "Create notifications by default" : "Crear notificaciones predeterminada",
-    "Send emails by default" : "Enviar correos electrónicos de forma predeterminada",
-    "Allow comments by default" : "Permitir comentarios predeterminada"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

@@ -8,6 +8,10 @@ OC.L10N.register(
     "Announcements" : "Paziņojumi",
     "{user} announced “{announcement}”" : "{user} paziņots “{announcement}”",
     "Announcement center" : "Paziņojumu centrs",
+    "These groups will be able to post announcements." : "Šīs grupas varēs ievietot paziņojumus.",
+    "Create activities by default" : "Izveidot darbības pēc noklusējuma",
+    "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
+    "Allow comments by default" : "Atļaut komentārus pēc noklusējuma",
     "Comments" : "Komentāri",
     "Delete announcement" : "Dzēst paziņojumu",
     "seconds ago" : "pirms mirkļa",
@@ -18,10 +22,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt.",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut komentārus",
-    "These groups will be able to post announcements." : "Šīs grupas varēs ievietot paziņojumus.",
-    "Create activities by default" : "Izveidot darbības pēc noklusējuma",
-    "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
-    "Allow comments by default" : "Atļaut komentārus pēc noklusējuma"
+    "Allow comments" : "Atļaut komentārus"
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

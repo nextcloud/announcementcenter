@@ -13,6 +13,10 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} tilkynnti “{announcement}”",
     "Announcement center" : "Tilkynningamiðstöð",
     "This app allows admins to post announcements." : "Þetta forrit gerir kerfisstjórum kleift að birta tilkynningar.",
+    "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
+    "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
+    "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
+    "Allow comments by default" : "Sjálfgefið leyfa ummæli",
     "Comments" : "Athugasemdir",
     "Delete announcement" : "Eyða tilkynningu",
     "seconds ago" : "sekúndum síðan",
@@ -23,10 +27,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana.",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli",
-    "These groups will be able to post announcements." : "Þessir hópar munu geta sent tilkynningar.",
-    "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
-    "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
-    "Allow comments by default" : "Sjálfgefið leyfa ummæli"
+    "Allow comments" : "Leyfa ummæli"
 },
 "nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);");

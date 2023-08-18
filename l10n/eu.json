@@ -14,6 +14,12 @@
     "Announcement center" : "Iragarpen-zentroa",
     "This app allows admins to post announcements." : "Aplikazio honek administratzaileei iragarpenak argitaratzea ahalbidetzen die.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Mantentze leihoa iragarri 🎛️, lankide berria aurkeztu 👤 edo ziurtatu denek jakitea hurrengo hilabeteko gertaera handiaz 📅\n\n🖌️ Markdown zerbitzua\n\n📑 Iruzkinak @-aipamenak barne\n\n👪 Talde baimenak\n\n⭕ Aginte-panelaren integrazioa\n\n⚡Jardueren integrazioa\n\n🔔 Jakinarazpen integrazioa ",
+    "These groups will be able to post announcements." : "Talde hauek iragarpenak argitaratzeko baimena dute",
+    "Create activities by default" : "Sortu jarduerak lehenespenez",
+    "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
+    "Send emails by default" : "Bidali e-postak modu lehenetsian",
+    "Allow comments by default" : "Baimendu iruzkinak lehenespenez",
+    "An error occurred while changing the setting" : "Errore bat gertatu da ezarpena aldatzean",
     "No announcements" : "Ez dago iragarpenik",
     "There are currently no announcements …" : "Une honetan ez dago iragarpenik…",
     "Comments" : "Iruzkinak",
@@ -38,11 +44,6 @@
     "Send emails" : "Bidali e-postak",
     "Allow comments" : "Baimendu iruzkinak",
     "An error occurred while posting the announcement" : "Errore bat gertatu da iragarpena argitaratzean",
-    "{author}, {timestamp}" : "{egilea}, {denbora-zigilua}",
-    "These groups will be able to post announcements." : "Talde hauek iragarpenak argitaratzeko baimena dute",
-    "Create activities by default" : "Sortu jarduerak lehenespenez",
-    "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
-    "Send emails by default" : "Bidali e-postak modu lehenetsian",
-    "Allow comments by default" : "Baimendu iruzkinak lehenespenez"
+    "{author}, {timestamp}" : "{egilea}, {denbora-zigilua}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

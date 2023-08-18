@@ -14,6 +14,10 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "ההכרזה „{announcement}” פורסמה על ידי {user}",
     "Announcement center" : "מרכז ההכרזות",
     "This app allows admins to post announcements." : "יישומון זה מאפשר למנהלים לפרסם הכרזות.",
+    "These groups will be able to post announcements." : "קבוצות אלו יוכלו לפרסם הכרזות",
+    "Create activities by default" : "יצירת פעילויות כבררת מחדל",
+    "Create notifications by default" : "יצירת התרעות כבררת מחדל",
+    "Allow comments by default" : "לאפשר תגובות כבררת מחדל",
     "No announcements" : "אין הכרזות",
     "Comments" : "תגובות",
     "Clear notifications" : "לפנות את כל ההתראות",
@@ -36,10 +40,6 @@ OC.L10N.register(
     "Create notifications" : "יצירת התרעות",
     "Allow comments" : "לאפשר תגובות",
     "An error occurred while posting the announcement" : "אירעה שגיאה בפרסום ההכרזה",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "קבוצות אלו יוכלו לפרסם הכרזות",
-    "Create activities by default" : "יצירת פעילויות כבררת מחדל",
-    "Create notifications by default" : "יצירת התרעות כבררת מחדל",
-    "Allow comments by default" : "לאפשר תגובות כבררת מחדל"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");

@@ -13,6 +13,10 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} mengumumkan \"{announcement}\"",
     "Announcement center" : "Pusat pengumuman",
     "This app allows admins to post announcements." : "Aplikasi ini mengizinkan admin membuat pengumuman.",
+    "These groups will be able to post announcements." : "Grup-grup ini akan bisa membuat pengumuman.",
+    "Create activities by default" : "Buat aktivitas sebagai bawaan",
+    "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
+    "Allow comments by default" : "Izinkan komentar secara default",
     "No announcements" : "Tidak ada pengumuman",
     "Comments" : "Komentar",
     "Clear notifications" : "Bersihkan notifikasi",
@@ -29,10 +33,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Grup ini akan bisa melihat pengumuman. Apabila tidak ada grup terpilih, semua orang bisa melihat.",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "Izinkan komentar",
-    "These groups will be able to post announcements." : "Grup-grup ini akan bisa membuat pengumuman.",
-    "Create activities by default" : "Buat aktivitas sebagai bawaan",
-    "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
-    "Allow comments by default" : "Izinkan komentar secara default"
+    "Allow comments" : "Izinkan komentar"
 },
 "nplurals=1; plural=0;");

@@ -16,6 +16,11 @@ OC.L10N.register(
     "Announcement center" : "お知らせセンター",
     "This app allows admins to post announcements." : "このアプリは、管理者がお知らせを投稿できるようにします。",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "メンテナンス期間を告知したり🎛️、新しい同僚を紹介したり👤、来月の大きなイベントを皆に知らせたり📅できます。\n\n🖌️ Markdownをサポート\n\n📑 @-メンション含めたコメント\n\n👪 グループパーミッション\n\n⭕ ダッシュボードの統合\n\n⚡ アクティビティの統合\n\n🔔 通知の統合",
+    "These groups will be able to post announcements." : "これらのグループはお知らせを投稿することができます。",
+    "Create activities by default" : "デフォルトでアクティビティを作成する",
+    "Create notifications by default" : "デフォルトで通知を作成する",
+    "Send emails by default" : "デフォルトでメールを送信",
+    "Allow comments by default" : "デフォルトでコメントを許可する",
     "No announcements" : "お知らせがありません",
     "There are currently no announcements …" : "現在、お知らせはありません",
     "Comments" : "コメント",
@@ -40,11 +45,6 @@ OC.L10N.register(
     "Send emails" : "メールを送信",
     "Allow comments" : "コメントを許可",
     "An error occurred while posting the announcement" : "お知らせを投稿中にエラーが発生しました",
-    "{author}, {timestamp}" : "{author}さん, {timestamp}",
-    "These groups will be able to post announcements." : "これらのグループはお知らせを投稿することができます。",
-    "Create activities by default" : "デフォルトでアクティビティを作成する",
-    "Create notifications by default" : "デフォルトで通知を作成する",
-    "Send emails by default" : "デフォルトでメールを送信",
-    "Allow comments by default" : "デフォルトでコメントを許可する"
+    "{author}, {timestamp}" : "{author}さん, {timestamp}"
 },
 "nplurals=1; plural=0;");

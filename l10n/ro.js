@@ -9,6 +9,10 @@ OC.L10N.register(
     "Read more" : "Citește mai mult",
     "{user} announced “{announcement}”" : "{user} a anunțat “{announcement}”",
     "Announcement center" : "Centru anunturi",
+    "These groups will be able to post announcements." : "Aceste grupuri vor putea posta anunțuri.",
+    "Create activities by default" : "Crează activități în mod implicit",
+    "Create notifications by default" : "Crează notificări în mod implicit",
+    "Allow comments by default" : "Permite comentarii în mod implicit",
     "Comments" : "Comentarii",
     "seconds ago" : "secunde în urmă",
     ", " : ",",
@@ -18,10 +22,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Aceste grupuri vor putea vedea anunțul. Dacă nici un grup nu este selectat, toți utilizatorii îl pot vedea.",
     "Create activities" : "Creează activități",
     "Create notifications" : "Crează notificări",
-    "Allow comments" : "Permite comentarii",
-    "These groups will be able to post announcements." : "Aceste grupuri vor putea posta anunțuri.",
-    "Create activities by default" : "Crează activități în mod implicit",
-    "Create notifications by default" : "Crează notificări în mod implicit",
-    "Allow comments by default" : "Permite comentarii în mod implicit"
+    "Allow comments" : "Permite comentarii"
 },
 "nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));");

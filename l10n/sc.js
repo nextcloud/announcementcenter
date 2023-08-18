@@ -15,6 +15,10 @@ OC.L10N.register(
     "Announcement center" : "Tzentru de comunicatziones",
     "This app allows admins to post announcements." : "Custa aplicatzione permitit a is amministradores de publicare comunicatziones. ",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Dae comunicatzione de sa bentana de mantenidura 🎛️, presenta unu collega 👤 segura·ti chi totus l'iscant de s'eventu de su mese chi intrat 📅\n\n🖌️ Agiudu Markdown \n\n📑 Commentos chi includent mentziones @\n👪 Permissos de su grupu\n\n⭕ Integratziones de su pannellu de controllu\n\n⚡ Integratzione atividades\n\n🔔 Integratzione Notìficas",
+    "These groups will be able to post announcements." : "Custos grupos ant a pòdere publicare comunicatziones.",
+    "Create activities by default" : "Crea atividades cun impostatziones predefinidas",
+    "Create notifications by default" : "Crea notìficas cun impostatziones predefinidas",
+    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas",
     "No announcements" : "Peruna comunicatzione",
     "Comments" : "Cummentos",
     "Clear notifications" : "Lìmpia is notìficas",
@@ -37,10 +41,6 @@ OC.L10N.register(
     "Create notifications" : "Crea notìficas",
     "Allow comments" : "Permite cummentos",
     "An error occurred while posting the announcement" : "B'at àpidu un'errore publichende sa comunicatzione",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Custos grupos ant a pòdere publicare comunicatziones.",
-    "Create activities by default" : "Crea atividades cun impostatziones predefinidas",
-    "Create notifications by default" : "Crea notìficas cun impostatziones predefinidas",
-    "Allow comments by default" : "Permite commentos cun impostatziones predefinidas"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

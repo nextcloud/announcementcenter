@@ -15,6 +15,11 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} tiedotti \"{announcement}\"",
     "Announcement center" : "Tiedotekeskus",
     "This app allows admins to post announcements." : "Tämä sovellus mahdollistaa ylläpitäjien lähettää ilmoituksia.",
+    "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
+    "Create activities by default" : "Luo toimet oletuksena",
+    "Create notifications by default" : "Luo ilmoitukset oletuksena",
+    "Send emails by default" : "Lähetä sähköpostia oletusarvoisesti",
+    "Allow comments by default" : "Salli kommentit oletuksena",
     "No announcements" : "Ei tiedotteita",
     "There are currently no announcements …" : "Ei tiedotteita tällä hetkellä…",
     "Comments" : "Kommentit",
@@ -39,11 +44,6 @@ OC.L10N.register(
     "Send emails" : "Lähetä sähköpostia",
     "Allow comments" : "Salli kommentit",
     "An error occurred while posting the announcement" : "Tiedotetta lähettäessä tapahtui virhe",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Nämä ryhmät voivat lähettää tiedotteita.",
-    "Create activities by default" : "Luo toimet oletuksena",
-    "Create notifications by default" : "Luo ilmoitukset oletuksena",
-    "Send emails by default" : "Lähetä sähköpostia oletusarvoisesti",
-    "Allow comments by default" : "Salli kommentit oletuksena"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

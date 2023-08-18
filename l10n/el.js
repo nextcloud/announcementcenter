@@ -15,6 +15,10 @@ OC.L10N.register(
     "Announcement center" : "Κέντρο ανακοινώσεων",
     "This app allows admins to post announcements." : "Η εφαρμογή επιτρέπει στους διαχειριστές να δημοσιεύουν ανακοινώσεις.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Ανακοινώστε το χρονικό διάστημα συντήρησης 🎛️, συστήστε έναν νέο συνάδελφο 👤 ή βεβαιωθείτε ότι όλοι γνωρίζουν για το μεγάλο γεγονός του επόμενου μήνα 📅\n\n🖌️ Υποστήριξη markdown\n\n📑 Σχόλια συμπεριλαμβανομένων των @-mentions\n\n👪 Δικαιώματα ομάδας\n\n⭕ Ενσωμάτωση ταμπλό\n\n⚡ Ενσωμάτωση δραστηριοτήτων\n\n🔔 Ενσωμάτωση ειδοποιήσεων",
+    "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
+    "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
+    "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
+    "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
     "No announcements" : "Καμία ανακοίνωση",
     "Comments" : "Σχόλια",
     "Clear notifications" : "Εκκαθάριση ειδοποιήσεων",
@@ -37,10 +41,6 @@ OC.L10N.register(
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
     "Allow comments" : "Να επιτρέπονται σχόλια",
     "An error occurred while posting the announcement" : "Παρουσιάστηκε σφάλμα κατά την ανάρτηση της ανακοίνωσης",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Αυτές οι ομάδες θα έχουν τη δυνατότητα να δημοσιεύουν ανακοινώσεις.",
-    "Create activities by default" : "Δημιουργία δραστηριοτήτων απο προεπιλογή",
-    "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
-    "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

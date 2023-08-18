@@ -12,6 +12,10 @@ OC.L10N.register(
     "{user} announced {announcement}" : "{user} het {announcement} aangekondig",
     "{user} announced “{announcement}”" : "{user} se aankondiging is “{announcement}”",
     "Announcement center" : "Aankondigingsentrum",
+    "These groups will be able to post announcements." : "Hierdie groepe sal aankondigings kan maak.",
+    "Create activities by default" : "Skep by verstek aktiwiteite",
+    "Create notifications by default" : "Skep by verstek kennisgewings",
+    "Allow comments by default" : "Staan by verstek kommentare toe",
     "Comments" : "Kommentare",
     "Clear notifications" : "Wis kennisgewings",
     "Delete announcement" : "Skrap aankondiging",
@@ -28,10 +32,6 @@ OC.L10N.register(
     "Create notifications" : "Skep kennisgewings",
     "Allow comments" : "Staan kommentare toe",
     "An error occurred while posting the announcement" : "’n Fout het voorgekom toe die kommentaar geplaas is",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Hierdie groepe sal aankondigings kan maak.",
-    "Create activities by default" : "Skep by verstek aktiwiteite",
-    "Create notifications by default" : "Skep by verstek kennisgewings",
-    "Allow comments by default" : "Staan by verstek kommentare toe"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

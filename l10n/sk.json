@@ -14,6 +14,11 @@
     "Announcement center" : "Centrum oznámení",
     "This app allows admins to post announcements." : "Táto apka umožňuje administrátorom posielať oznámenia.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Ohláste svoje okno údržby 🎛️, predstavte nového kolegu 👤 alebo sa uistite, že všetci vedia o veľkej udalosti budúci mesiac 📅\n\n🖌️ Podpora Markdown\n\n📑 Komentáre vrátane @ -skratiek\n\n👪 Skupinové povolenia\n\n⭕ Integrácia palubnej dosky\n\n⚡ Integrácia aktivít\n\n🔔 Integrácia oznámení",
+    "These groups will be able to post announcements." : "Tieto skupiny budú môcť zverejňovať oznámenia.",
+    "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
+    "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
+    "Send emails by default" : "Odoslať emaily ako predvolené",
+    "Allow comments by default" : "V predvolenom nastavení povoliť komentáre",
     "No announcements" : "Žiadne oznámenia",
     "There are currently no announcements …" : "Momentálne tu nie sú žiadne oznámenia...",
     "Comments" : "Komentáre",
@@ -38,11 +43,6 @@
     "Send emails" : "Odoslať emaily",
     "Allow comments" : "Povoliť komentáre",
     "An error occurred while posting the announcement" : "Nastala chyba pri odosielaní oznámenia",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Tieto skupiny budú môcť zverejňovať oznámenia.",
-    "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
-    "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
-    "Send emails by default" : "Odoslať emaily ako predvolené",
-    "Allow comments by default" : "V predvolenom nastavení povoliť komentáre"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);"
 }

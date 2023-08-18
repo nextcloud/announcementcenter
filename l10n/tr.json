@@ -14,6 +14,12 @@
     "Announcement center" : "Duyuru merkezi",
     "This app allows admins to post announcements." : "Bu uygulama yöneticilerin duyurular yapabilmesini sağlar.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "🎛️ ile bakım zamanlarını duyurabilir, 👤 ile yeni bir takım arkadaşını tanıtabilir ya da 📅 gelecek ay yapılacak bir etkinliği herkesin duyacağından emin olabilirsiniz\n\n🖌️ Markdown desteği\n\n📑 @-anmaları ile yorumlar\n\n👪 Grup izinleri\n\n⭕ Pano bütünleştirmesi\n\n⚡ İşlemler bütünleştirmesi\n\n🔔 Bildirimler bütünleştirmesi",
+    "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
+    "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
+    "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
+    "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
+    "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
+    "An error occurred while changing the setting" : "Ayar değiştirilirken bir sorun çıktı",
     "No announcements" : "Herhangi bir duyuru yok",
     "There are currently no announcements …" : "Şu anda herhangi bir duyuru yok…",
     "Comments" : "Yorumlar",
@@ -38,11 +44,6 @@
     "Send emails" : "E-postalar gönderilsin",
     "Allow comments" : "Yorum yapılabilsin",
     "An error occurred while posting the announcement" : "Duyuru eklenirken bir sorun çıktı",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Bu gruplar duyuru gönderebilir.",
-    "Create activities by default" : "Varsayılan olarak işlemler oluşturulsun",
-    "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
-    "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
-    "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

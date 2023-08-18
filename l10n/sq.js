@@ -9,6 +9,10 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} njoftoi “{announcement}”",
     "Announcement center" : "Qendra e njoftimeve",
     "This app allows admins to post announcements." : "Ky grup lejon administratorët të postojnë njoftimet.",
+    "These groups will be able to post announcements." : "Këto grupe do jenë në gjëndje të postojnë njoftime",
+    "Create activities by default" : "Krijo aktivitete në mënyrë automatike",
+    "Create notifications by default" : "Krijo njoftime në mënyrë automatike",
+    "Allow comments by default" : "Lejo komentet në mënyrë automatike",
     "Comments" : "Komentet",
     "Delete announcement" : "Fshij njoftimin",
     "seconds ago" : "sekonda më parë",
@@ -19,10 +23,6 @@ OC.L10N.register(
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Këto grupe do të jenë në gjëndje të shohin njoftimin. Nëse asnjë grup nuk është përzgjedhur, të gjithë përdoruesit mund ta shohin atë.",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet",
-    "These groups will be able to post announcements." : "Këto grupe do jenë në gjëndje të postojnë njoftime",
-    "Create activities by default" : "Krijo aktivitete në mënyrë automatike",
-    "Create notifications by default" : "Krijo njoftime në mënyrë automatike",
-    "Allow comments by default" : "Lejo komentet në mënyrë automatike"
+    "Allow comments" : "Lejo komentet"
 },
 "nplurals=2; plural=(n != 1);");

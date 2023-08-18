@@ -14,6 +14,12 @@
     "Announcement center" : "Centro de anuncios",
     "This app allows admins to post announcements." : "Esta aplicación permítelle aos administradores publicar anuncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie a súa xanela de mantemento 🎛️, presente a un novo compañeiro 👤 ou asegúrese de que todo o mundo saiba do gran evento do próximo mes 📅\n\n🖌️ Compatibilidade con Markdown\n\n📑 Comentarios que inclúen @-mencións\n\n👪 Permisos de grupo\n\n⭕ Integración do taboleiro\n\n⚡ Integración de actividades\n\n🔔 Integración de notificacións",
+    "These groups will be able to post announcements." : "Estes grupos poderán publicar anuncios.",
+    "Create activities by default" : "Crear actividades por omisión",
+    "Create notifications by default" : "Crear notificacións por omisión",
+    "Send emails by default" : "Enviar os correos de xeito predeterminado",
+    "Allow comments by default" : "Permitir comentarios por omisión",
+    "An error occurred while changing the setting" : "Produciuse un erro ao cambiar os axustes",
     "No announcements" : "Non hai anuncios",
     "There are currently no announcements …" : "Actualmente non hai anuncios…",
     "Comments" : "Comentarios",
@@ -38,11 +44,6 @@
     "Send emails" : "Enviar os correos:",
     "Allow comments" : "Permitir comentarios",
     "An error occurred while posting the announcement" : "Produciuse un erro ao publicar o anuncio",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Estes grupos poderán publicar anuncios.",
-    "Create activities by default" : "Crear actividades por omisión",
-    "Create notifications by default" : "Crear notificacións por omisión",
-    "Send emails by default" : "Enviar os correos de xeito predeterminado",
-    "Allow comments by default" : "Permitir comentarios por omisión"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

@@ -14,6 +14,11 @@
     "Announcement center" : "Skelbimų centras",
     "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Paskelbkite apie techninės priežiūros langą 🎛️, pristatykite naują kolegą 👤 ir užtikrinkite, kad visi sužinotų apie kitą mėnesį artėjantį didelį įvykį 📅\n\n🖌️ „Markdown“ palaikymas\n\n📑 Komentarai, įskaitant @-paminėjimus\n\n👪 Grupės leidimai\n\n⭕ Integracija į skydelį\n\n⚡ Integracija į veiklas\n\n🔔 Integracija į pranešimus",
+    "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
+    "Create activities by default" : "Pagal numatymą, kurti veiklas",
+    "Create notifications by default" : "Pagal numatymą, kurti pranešimus",
+    "Send emails by default" : "Pagal numatymą, siųsti el. laiškus",
+    "Allow comments by default" : "Pagal numatymą, leisti komentarus",
     "No announcements" : "Nėra skelbimų",
     "There are currently no announcements …" : "Šiuo metu nėra jokių skelbimų…",
     "Comments" : "Komentarai",
@@ -38,11 +43,6 @@
     "Send emails" : "Siųsti el. laiškus",
     "Allow comments" : "Leisti komentuoti",
     "An error occurred while posting the announcement" : "Paskelbiant skelbimą, įvyko klaida",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
-    "Create activities by default" : "Pagal numatymą, kurti veiklas",
-    "Create notifications by default" : "Pagal numatymą, kurti pranešimus",
-    "Send emails by default" : "Pagal numatymą, siųsti el. laiškus",
-    "Allow comments by default" : "Pagal numatymą, leisti komentarus"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);"
 }

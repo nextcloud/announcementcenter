@@ -9,6 +9,7 @@ OC.L10N.register(
     "Announcements" : "නිවේදන",
     "Announcement center" : "නිවේදන මධ්‍යස්ථානය",
     "This app allows admins to post announcements." : "මෙම යෙදුම පරිපාලකයින්ට නිවේදන පළ කිරීමට ඉඩ දෙයි.",
+    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත.",
     "No announcements" : "නිවේදන නැත",
     "Comments" : "අදහස්",
     "seconds ago" : "තත්පර කිහිපයකට පෙර",
@@ -27,7 +28,6 @@ OC.L10N.register(
     "Create notifications" : "දැනුම්දීම් සාදන්න",
     "Allow comments" : "අදහස් දැක්වීමට ඉඩ දෙන්න",
     "An error occurred while posting the announcement" : "නිවේදනය පළ කිරීමේදී දෝෂයක් ඇතිවිය",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත."
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

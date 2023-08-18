@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Announcement centre",
     "This app allows admins to post announcements." : "This app allows admins to post announcements.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration",
+    "These groups will be able to post announcements." : "These groups will be able to post announcements.",
+    "Create activities by default" : "Create activities by default",
+    "Create notifications by default" : "Create notifications by default",
+    "Send emails by default" : "Send emails by default",
+    "Allow comments by default" : "Allow comments by default",
+    "An error occurred while changing the setting" : "An error occurred while changing the setting",
     "No announcements" : "No announcements",
     "There are currently no announcements …" : "There are currently no announcements …",
     "Comments" : "Comments",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "Send emails",
     "Allow comments" : "Allow comments",
     "An error occurred while posting the announcement" : "An error occurred while posting the announcement",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "These groups will be able to post announcements.",
-    "Create activities by default" : "Create activities by default",
-    "Create notifications by default" : "Create notifications by default",
-    "Send emails by default" : "Send emails by default",
-    "Allow comments by default" : "Allow comments by default"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");

@@ -16,6 +16,12 @@ OC.L10N.register(
     "Announcement center" : "Central de notificações",
     "This app allows admins to post announcements." : "Este aplicativo permite aos administradores publicarem anúncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie sua janela de manutenção  🎛️, apresente um novo colega  👤 ou certifique-se de que todos saibam sobre o grande evento no próximo mês  📅\n\n🖌️ Marcação de suporte\n\n📑 Comentários incluindo @-menções \n\n👪 Permissões de grupo \n\n⭕ Integração do painel \n\n⚡ Integração de atividades \n\n🔔 Integração de notificações ",
+    "These groups will be able to post announcements." : "Estes grupos poderão postar notificações.",
+    "Create activities by default" : "Criar atividades por padrão",
+    "Create notifications by default" : "Criar notificações por padrão",
+    "Send emails by default" : "Enviar e-mails por padrão",
+    "Allow comments by default" : "Permitir comentários por padrão",
+    "An error occurred while changing the setting" : "Um erro ocorreu ao mudar esta configuração",
     "No announcements" : "Nenhum anúncio",
     "There are currently no announcements …" : "Atualmente não há anúncios …",
     "Comments" : "Comentários",
@@ -40,11 +46,6 @@ OC.L10N.register(
     "Send emails" : "Enviar e-mails",
     "Allow comments" : "Permitir comentários",
     "An error occurred while posting the announcement" : "Ocorreu um erro ao postar o anúncio",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Estes grupos poderão postar notificações.",
-    "Create activities by default" : "Criar atividades por padrão",
-    "Create notifications by default" : "Criar notificações por padrão",
-    "Send emails by default" : "Enviar e-mails por padrão",
-    "Allow comments by default" : "Permitir comentários por padrão"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;");

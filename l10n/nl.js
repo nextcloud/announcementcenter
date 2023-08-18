@@ -16,6 +16,11 @@ OC.L10N.register(
     "Announcement center" : "Meldingencentrum",
     "This app allows admins to post announcements." : "Deze app laat beheerders meldingen plaatsen.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kondig je onderhoudsvenster aan 🎛️, stel een nieuwe collega voor 👤 of zorg ervoor dat iedereen op de hoogte is van het grote evenement volgende maand 📅\n\n🖌️ Markdown-ondersteuning\n\n📑 Reacties inclusief @ -vermeldingen\n\n👪 Groepsmachtigingen\n\n⭕ Dashboard-integratie\n\n⚡ Integratie van activiteiten\n\n🔔 Integratie van meldingen",
+    "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
+    "Create activities by default" : "Standaard activiteiten creëren",
+    "Create notifications by default" : "Standaard meldingen creëren",
+    "Send emails by default" : "E-mails standaard verzenden",
+    "Allow comments by default" : "Reageren standaard toestaan",
     "No announcements" : "Geen aankondigingen",
     "There are currently no announcements …" : "Er zijn op dit moment geen aankondigingen ...",
     "Comments" : "Reacties",
@@ -40,11 +45,6 @@ OC.L10N.register(
     "Send emails" : "Verzend e-mails",
     "Allow comments" : "Reageren toestaan",
     "An error occurred while posting the announcement" : "Er trad een fout op bij het plaatsen van de aankondiging",
-    "{author}, {timestamp}" : "{author}, {timestamp}",
-    "These groups will be able to post announcements." : "Deze groepen zullen meldingen kunnen plaatsen.",
-    "Create activities by default" : "Standaard activiteiten creëren",
-    "Create notifications by default" : "Standaard meldingen creëren",
-    "Send emails by default" : "E-mails standaard verzenden",
-    "Allow comments by default" : "Reageren standaard toestaan"
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");
