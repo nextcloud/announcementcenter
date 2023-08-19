@@ -19,6 +19,8 @@
     "Create notifications by default" : "Skapa aviseringar som standard",
     "Send emails by default" : "Skicka e-post som standard",
     "Allow comments by default" : "Tillåt kommentarer som standard",
+    "Setting changed" : "Inställningen ändrad",
+    "An error occurred while changing the setting" : "Ett fel uppstod när inställningen ändrades",
     "No announcements" : "Inga meddelanden",
     "There are currently no announcements …" : "Det finns inga meddelanden just nu ...",
     "Comments" : "Kommentarer",

@@ -19,6 +19,7 @@
     "Create notifications by default" : "默認建立通告",
     "Send emails by default" : "默認傳送電子郵件",
     "Allow comments by default" : "默認允許留言",
+    "Setting changed" : "設定已更新",
     "An error occurred while changing the setting" : "更新設定時發生錯誤",
     "No announcements" : "無公告",
     "There are currently no announcements …" : "目前沒有任何公告 …",

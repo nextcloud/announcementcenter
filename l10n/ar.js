@@ -21,6 +21,8 @@ OC.L10N.register(
     "Create notifications by default" : "انشئ الاشعارات افتراضياً",
     "Send emails by default" : "أرسل إيميل ما لم يحدد غير ذلك",
     "Allow comments by default" : "اسمح بالتعليقات افتراضياً",
+    "Setting changed" : "تمّ تغيير الإعداد",
+    "An error occurred while changing the setting" : "حدث خطأ أثناء تغيير الإعدادات",
     "No announcements" : "لا توجد اعلانات",
     "There are currently no announcements …" : "لا توجد أي إعلانات حاليّاً",
     "Comments" : "تعليقات",

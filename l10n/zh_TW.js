@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "依預設建立通知",
     "Send emails by default" : "預設寄送電子郵件",
     "Allow comments by default" : "預設允許留言",
+    "Setting changed" : "設定已變更",
     "An error occurred while changing the setting" : "變更設定時發生錯誤",
     "No announcements" : "無公告",
     "There are currently no announcements …" : "目前沒有公告…",

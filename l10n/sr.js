@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Подразумевано је да креира обавештења",
     "Send emails by default" : "Подразумевано шаљи и-мејлове",
     "Allow comments by default" : "Подразумевано је да су дозвољени коментари",
+    "Setting changed" : "Подешавање се изменило",
     "An error occurred while changing the setting" : "Дошло је до грешке приликом измене подешавања",
     "No announcements" : "Нема најава",
     "There are currently no announcements …" : "Тренутно нема никаквих најава ...",
