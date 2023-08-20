@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Create notifications by default",
     "Send emails by default" : "Send emails by default",
     "Allow comments by default" : "Allow comments by default",
+    "Setting changed" : "Setting changed",
     "An error occurred while changing the setting" : "An error occurred while changing the setting",
     "No announcements" : "No announcements",
     "There are currently no announcements …" : "There are currently no announcements …",
