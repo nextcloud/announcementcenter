@@ -109,7 +109,7 @@ export default {
 
 		const activeId = loadState('announcementcenter', 'activeId', 0)
 		if (activeId !== 0) {
-			await this.onClickAnnouncement(activeId)
+			this.onClickAnnouncement(activeId)
 		}
 	},
 
@@ -151,7 +151,9 @@ export default {
 			}
 
 			await this.commentsView.update(id)
-			this.commentsView.$mount(this.$refs.sidebar)
+			this.$nextTick(() => {
+				this.commentsView.$mount(this.$refs.sidebar)
+			})
 		},
 	},
 }
