@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Varsayılan olarak bildirim gönderilsin",
     "Send emails by default" : "E-postalar varsayılan olarak gönderilsin",
     "Allow comments by default" : "Varsayılan olarak yorum yapılabilsin",
+    "Setting changed" : "Ayar değiştirildi",
     "An error occurred while changing the setting" : "Ayar değiştirilirken bir sorun çıktı",
     "No announcements" : "Herhangi bir duyuru yok",
     "There are currently no announcements …" : "Şu anda herhangi bir duyuru yok…",
