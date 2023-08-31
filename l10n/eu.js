@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Sortu jakinarazpenak lehenespenez",
     "Send emails by default" : "Bidali e-postak modu lehenetsian",
     "Allow comments by default" : "Baimendu iruzkinak lehenespenez",
+    "Setting changed" : "Ezarpena aldatu da",
     "An error occurred while changing the setting" : "Errore bat gertatu da ezarpena aldatzean",
     "No announcements" : "Ez dago iragarpenik",
     "There are currently no announcements …" : "Une honetan ez dago iragarpenik…",
