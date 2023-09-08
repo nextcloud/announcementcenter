@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Създава известия по подразбиране",
     "Send emails by default" : "Изпращане на имейли по подразбиране",
     "Allow comments by default" : "Позволи коментари по подразбиране",
+    "An error occurred while changing the setting" : "Възникна грешка при промяна на настройката",
     "No announcements" : "Няма уведомления",
     "There are currently no announcements …" : "В момента няма уведомления ...",
     "Comments" : "Коментари",
