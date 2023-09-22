@@ -19,6 +19,7 @@
     "Create notifications by default" : "Создать уведомления по умолчанию",
     "Send emails by default" : "Отправить электронные письма по умолчанию",
     "Allow comments by default" : "По умолчанию комментарии будут разрешены",
+    "Setting changed" : "Настройки изменены",
     "An error occurred while changing the setting" : "При изменении настройки произошла ошибка",
     "No announcements" : "Уведомления отсуствуют",
     "There are currently no announcements …" : "На данный момент уведомления отсутствуют…",
