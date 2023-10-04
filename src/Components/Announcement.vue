@@ -205,7 +205,7 @@ export default {
 				'visible to group {name} and %n more',
 				'visible to group {name} and %n more',
 				this.groups.length - 1,
-				this.groups[0]
+				this.groups[0],
 			)
 		},
 

@@ -1,4 +1,3 @@
-
 <template>
 	<div>
 		<label v-if="label" :for="id" class="hidden-visually">{{ label }}</label>

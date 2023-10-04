@@ -158,7 +158,7 @@ export default {
 					this.createActivities,
 					this.createNotifications,
 					this.sendEmails,
-					this.allowComments
+					this.allowComments,
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
 
