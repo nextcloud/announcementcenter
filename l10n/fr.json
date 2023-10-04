@@ -19,6 +19,7 @@
     "Create notifications by default" : "Créer par défaut des notifications",
     "Send emails by default" : "Envoyer par défaut des e-mails",
     "Allow comments by default" : "Autoriser par défaut les commentaires",
+    "Setting changed" : "Paramétrage modifié",
     "An error occurred while changing the setting" : "Une erreur est survenue lors de la modification du paramètre",
     "No announcements" : "Aucune annonce",
     "There are currently no announcements …" : "Il n'y a aucune annonce pour l'instant ...",
