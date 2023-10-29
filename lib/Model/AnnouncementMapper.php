@@ -25,24 +25,31 @@ namespace OCA\AnnouncementCenter\Model;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\AppFramework\Db\QBMapper;
+use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
 
 /**
  * @template-extends QBMapper<Announcement>
  */
-class AnnouncementMapper extends QBMapper {
-	public function __construct(IDBConnection $db) {
+class AnnouncementMapper extends QBMapper
+{
+	public function __construct(IDBConnection $db)
+	{
 		parent::__construct($db, 'announcements', Announcement::class);
 	}
 
-	/**
-	 * @param int $id
-	 * @return Announcement
-	 * @throws DoesNotExistException
-	 */
-	public function getById(int $id): Announcement {
+    /**
+     * @param int $id
+     * @return Announcement
+     * @throws DoesNotExistException
+     * @throws Exception
+     * @throws MultipleObjectsReturnedException
+     */
+	public function getById(int $id): Announcement
+	{
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('*')
@@ -61,7 +68,8 @@ class AnnouncementMapper extends QBMapper {
 	 * @psalm-return Announcement the deleted entity
 	 * @since 14.0.0
 	 */
-	public function delete(Entity $entity): Entity {
+	public function delete(Entity $entity): Entity
+	{
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->delete($this->getTableName())
@@ -72,13 +80,15 @@ class AnnouncementMapper extends QBMapper {
 		return $entity;
 	}
 
-	/**
-	 * @param array $userGroups
-	 * @param int $offsetId
-	 * @param int $limit
-	 * @return Announcement[]
-	 */
-	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array {
+    /**
+     * @param array $userGroups
+     * @param int $offsetId
+     * @param int $limit
+     * @return Announcement[]
+     * @throws Exception
+     */
+	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array
+	{
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('a.announcement_id')
@@ -89,7 +99,8 @@ class AnnouncementMapper extends QBMapper {
 
 		if (!empty($userGroups)) {
 			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
-				'a.announcement_id', 'ag.announcement_id'
+				'a.announcement_id',
+				'ag.announcement_id'
 			))
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
 		}
@@ -117,4 +128,49 @@ class AnnouncementMapper extends QBMapper {
 
 		return $this->findEntities($query);
 	}
+
+    /**
+     * @throws Exception
+     */
+    public function updateAnnouncement(Announcement $entity): Announcement {
+        // if entity wasn't changed it makes no sense to run a db query
+        $properties = $entity->getUpdatedFields();
+        if (\count($properties) === 0) {
+            return $entity;
+        }
+
+        // entity needs an id
+        $id = $entity->getId();
+        if ($id === null) {
+            throw new \InvalidArgumentException(
+                'Entity which should be updated has no id');
+        }
+
+        // get updated fields to save, fields have to be set using a setter to
+        // be saved
+        // do not update the id field
+        unset($properties['id']);
+
+        $qb = $this->db->getQueryBuilder();
+        $qb->update($this->tableName);
+
+        // build the fields
+        foreach ($properties as $property => $updated) {
+            $column = $entity->propertyToColumn($property);
+            $getter = 'get' . ucfirst($property);
+            $value = $entity->$getter();
+
+            $type = $this->getParameterTypeForProperty($entity, $property);
+            $qb->set($column, $qb->createNamedParameter($value, $type));
+        }
+
+        $idType = $this->getParameterTypeForProperty($entity, 'id');
+
+        $qb->where(
+            $qb->expr()->eq('announcement_id', $qb->createNamedParameter($id, $idType))
+        );
+        $qb->executeStatement();
+
+        return $entity;
+    }
 }

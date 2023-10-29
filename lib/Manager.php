@@ -25,6 +25,7 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter;
 
+use InvalidArgumentException;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
@@ -33,6 +34,7 @@ use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
+use OCP\DB\Exception;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUser;
@@ -42,28 +44,28 @@ use OCP\Notification\IManager as INotificationManager;
 class Manager {
 
 	/** @var IConfig */
-	protected $config;
+	protected IConfig $config;
 
 	/** @var AnnouncementMapper */
-	protected $announcementMapper;
+	protected AnnouncementMapper $announcementMapper;
 
 	/** @var GroupMapper */
-	protected $groupMapper;
+	protected GroupMapper $groupMapper;
 
 	/** @var IGroupManager */
-	protected $groupManager;
+	protected IGroupManager $groupManager;
 
 	/** @var INotificationManager */
-	protected $notificationManager;
+	protected INotificationManager $notificationManager;
 
 	/** @var ICommentsManager */
-	protected $commentsManager;
+	protected ICommentsManager $commentsManager;
 
 	/** @var IJobList */
-	protected $jobList;
+	protected IJobList $jobList;
 
 	/** @var IUserSession */
-	protected $userSession;
+	protected IUserSession $userSession;
 
 	public function __construct(IConfig $config,
 		AnnouncementMapper $announcementMapper,
@@ -92,18 +94,18 @@ class Manager {
 	 * @param string[] $groups
 	 * @param bool $comments
 	 * @return Announcement
-	 * @throws \InvalidArgumentException when the subject is empty or invalid
+	 * @throws InvalidArgumentException|Exception when the subject is empty or invalid
 	 */
 	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
 		if (isset($subject[512])) {
-			throw new \InvalidArgumentException('Invalid subject', 1);
+			throw new InvalidArgumentException('Invalid subject', 1);
 		}
 
 		if ($subject === '') {
-			throw new \InvalidArgumentException('Invalid subject', 2);
+			throw new InvalidArgumentException('Invalid subject', 2);
 		}
 
 		$announcement = new Announcement();
@@ -130,7 +132,20 @@ class Manager {
 		return $announcement;
 	}
 
-	protected function addGroupLink(Announcement $announcement, string $gid): void {
+    /**
+     * @param Announcement $announcement
+     * @return Announcement
+     * @throws Exception
+     */
+    public function updateAnnouncement(Announcement $announcement): Announcement
+    {
+        return $this->announcementMapper->updateAnnouncement($announcement);
+    }
+
+    /**
+     * @throws Exception
+     */
+    protected function addGroupLink(Announcement $announcement, string $gid): void {
 		$group = new Group();
 		$group->setId($announcement->getId());
 		$group->setGroup($gid);
@@ -294,21 +309,21 @@ class Manager {
 	/**
 	 * Check if the user is in the admin group
 	 */
-	public function checkIsAdmin(): bool {
-		$user = $this->userSession->getUser();
+	public function checkIsAdmin(): bool
+    {
+        $user = $this->userSession->getUser();
 
-		if ($user instanceof IUser) {
-			$groups = $this->getAdminGroups();
-			foreach ($groups as $group) {
-				if ($this->groupManager->isInGroup($user->getUID(), $group)) {
-					return true;
-				}
-			}
-		}
+        if ($user instanceof IUser) {
+            $groups = $this->getAdminGroups();
+            foreach ($groups as $group) {
+                if ($this->groupManager->isInGroup($user->getUID(), $group)) {
+                    return true;
+                }
+            }
+        }
 
-		return false;
-	}
-
+        return false;
+    }
 	/**
 	 * @return string[]
 	 */

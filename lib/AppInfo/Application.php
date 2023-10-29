@@ -35,16 +35,23 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Util;
+use OCA\Text\Event\LoadEditor;
+use Psr\Log\LoggerInterface;
 
-class Application extends App implements IBootstrap {
+class Application extends App implements IBootstrap
+{
 	public const APP_ID = 'announcementcenter';
 
-	public function __construct() {
+	public function __construct()
+	{
 		parent::__construct(self::APP_ID);
+		
 	}
 
-	public function register(IRegistrationContext $context): void {
+	public function register(IRegistrationContext $context): void
+	{
 		$context->registerDashboardWidget(Widget::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
 		// FIXME when Nextcloud 28+ is required
@@ -56,6 +63,7 @@ class Application extends App implements IBootstrap {
 		$context->registerNotifierService(Notifier::class);
 	}
 
-	public function boot(IBootContext $context): void {
+	public function boot(IBootContext $context): void
+	{
 	}
 }

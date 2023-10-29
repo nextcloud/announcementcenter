@@ -30,11 +30,13 @@ use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\Text\Event\LoadEditor;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
+use OCP\DB\Exception;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IL10N;
@@ -44,7 +46,8 @@ use OCP\IUserManager;
 use OCP\IUserSession;
 use Psr\Log\LoggerInterface;
 
-class APIController extends OCSController {
+class APIController extends OCSController
+{
 	protected IJobList $jobList;
 	protected IGroupManager $groupManager;
 	protected IUserManager $userManager;
@@ -54,7 +57,8 @@ class APIController extends OCSController {
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
 
-	public function __construct(string $appName,
+	public function __construct(
+		string $appName,
 		IRequest $request,
 		IGroupManager $groupManager,
 		IUserManager $userManager,
@@ -63,9 +67,9 @@ class APIController extends OCSController {
 		Manager $manager,
 		ITimeFactory $timeFactory,
 		IUserSession $userSession,
-		LoggerInterface $logger) {
+		LoggerInterface $logger
+	) {
 		parent::__construct($appName, $request);
-
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
 		$this->jobList = $jobList;
@@ -83,7 +87,8 @@ class APIController extends OCSController {
 	 * @param int $offset
 	 * @return DataResponse
 	 */
-	public function get(int $offset = 0): DataResponse {
+	public function get(int $offset = 0): DataResponse
+	{
 		$announcements = $this->manager->getAnnouncements($offset);
 		$data = array_map([$this, 'renderAnnouncement'], $announcements);
 		return new DataResponse($data);
@@ -102,7 +107,8 @@ class APIController extends OCSController {
 	 * @param bool $comments
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
+	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse
+	{
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -135,7 +141,37 @@ class APIController extends OCSController {
 		return new DataResponse($this->renderAnnouncement($announcement));
 	}
 
-	protected function renderAnnouncement(Announcement $announcement): array {
+    /**
+     * @param int $id
+     * @param string|null $subject
+     * @param string|null $message
+     * @param string|null $plainMessage
+     * @return DataResponse
+     * @throws AnnouncementDoesNotExistException
+     * @throws Exception
+     */
+    public function update(int $id, string $subject=null, string $message=null, string $plainMessage=null):DataResponse
+    {
+        $announcement = $this->manager->getAnnouncement($id);
+        if($this->userSession->getUser()->getUID()!=$announcement->getUser())
+        {
+            return new DataResponse(
+                ['message' => 'Logged in user must be an author'],
+                Http::STATUS_FORBIDDEN
+            );
+        }
+        if($subject!=null)
+            $announcement->setSubject(trim($subject));
+        if($message!=null)
+            $announcement->setMessage(trim($message));
+        if ($plainMessage!=null)
+            $announcement->setPlainMessage(trim($plainMessage));
+        $this->logger->warning('announcemnt:'.$announcement->getId());
+        $result=$this->manager->updateAnnouncement($announcement);
+        return new DataResponse($this->renderAnnouncement($result));
+    }
+	protected function renderAnnouncement(Announcement $announcement): array
+	{
 		$displayName = $this->userManager->getDisplayName($announcement->getUser()) ?? $announcement->getUser();
 
 		$result = [
@@ -183,7 +219,8 @@ class APIController extends OCSController {
 	 * @param int $id
 	 * @return DataResponse
 	 */
-	public function delete(int $id): DataResponse {
+	public function delete(int $id): DataResponse
+	{
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -202,7 +239,7 @@ class APIController extends OCSController {
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
 		} catch (AnnouncementDoesNotExistException $e) {
 		}
-		
+
 		return new DataResponse();
 	}
 
@@ -212,7 +249,8 @@ class APIController extends OCSController {
 	 * @param int $id
 	 * @return DataResponse
 	 */
-	public function removeNotifications(int $id): DataResponse {
+	public function removeNotifications(int $id): DataResponse
+	{
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -231,7 +269,8 @@ class APIController extends OCSController {
 	 * @param string $search
 	 * @return DataResponse
 	 */
-	public function searchGroups(string $search): DataResponse {
+	public function searchGroups(string $search): DataResponse
+	{
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -250,4 +289,5 @@ class APIController extends OCSController {
 
 		return new DataResponse($results);
 	}
+
 }

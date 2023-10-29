@@ -74,7 +74,14 @@ const postAnnouncement = async function(subject, message, plainMessage, groups, 
 		comments,
 	})
 }
-
+const updateAnnouncement=async(id,subject=null,message=null,plainMessage=null)=>{
+	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements/update'),{
+		id,
+		subject,
+		message,
+		plainMessage
+	})
+}
 /**
  * Delete an announcement
  *
@@ -101,4 +108,5 @@ export {
 	postAnnouncement,
 	deleteAnnouncement,
 	removeNotifications,
+	updateAnnouncement
 }

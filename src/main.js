@@ -20,34 +20,36 @@
  *
  */
 
-import Vue from 'vue'
-import { generateFilePath } from '@nextcloud/router'
-import { getRequestToken } from '@nextcloud/auth'
-import { translate, translatePlural } from '@nextcloud/l10n'
-import store from './store/index.js'
-import App from './App.vue'
-import Vuex from 'vuex'
-
+import Vue from "vue";
+import { generateFilePath } from "@nextcloud/router";
+import { getRequestToken } from "@nextcloud/auth";
+import { translate, translatePlural } from "@nextcloud/l10n";
+import store from "./store/index.js";
+import App from "./App.vue";
+import Vuex from "vuex";
+import VTooltip from "@nextcloud/vue/dist/Directives/Tooltip.js";
 // Styles
-import '@nextcloud/dialogs/dist/index.css'
+import "@nextcloud/dialogs/style.css";
+import "windi.css";
+// eslint-disable-next-line
+__webpack_nonce__ = btoa(getRequestToken());
 
 // eslint-disable-next-line
-__webpack_nonce__ = btoa(getRequestToken())
+__webpack_public_path__ = generateFilePath("announcementcenter", "", "js/");
 
-// eslint-disable-next-line
-__webpack_public_path__ = generateFilePath('announcementcenter', '', 'js/')
-
-Vue.use(Vuex)
+// Register global directives
+Vue.directive("Tooltip", VTooltip);
+Vue.use(Vuex);
 
 Vue.mixin({
 	methods: {
 		t: translate,
 		n: translatePlural,
 	},
-})
+});
 
 export default new Vue({
-	el: '#content',
+	el: "#content",
 	store,
-	render: h => h(App),
-})
+	render: (h) => h(App),
+});
