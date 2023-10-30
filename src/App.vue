@@ -86,7 +86,7 @@ import {
 import AnnouncementList from "./components/AnnouncementList.vue";
 import AnnouncementDetail from "./components/AnnouncementDetail.vue";
 import { loadState } from "@nextcloud/initial-state";
-
+import NewForm from "./components/NewForm.vue";
 import AppNavigation from "./components/navigation/AppNavigation.vue";
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 export default {
@@ -102,6 +102,7 @@ export default {
 		AnnouncementDetail,
 		NcModal,
 		NcButton,
+		NewForm,
 	},
 
 	data() {
@@ -135,7 +136,7 @@ export default {
 		},
 	},
 	async beforeMount() {
-		await this.loadAnnouncements();
+		await this.loadAnnouncements({ filterKey: "", page: 1, pageSize: 14 });
 	},
 	async mounted() {
 		const activeId = loadState("announcementcenter", "activeId", 0);

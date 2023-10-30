@@ -20,96 +20,70 @@
   -->
 
 <template>
-	<div @click="onClick">
-		<div
-			class="rounded-lg flex items-center p-2 justify-between hover:bg-gray-100">
-			<div class="flex items-center w-[calc(100%+1rem)]">
-				<NcAvatar
-					:user="authorId"
-					:display-name="author"
-					:size="40"
-					:show-user-status="true" />
-				<div class="ml-2 flex-1">
-					<span class="text-xl">{{ author }}</span>
-					<div class="flex justify-between items-center">
-						<div class="text-sm">
-							{{ subject }}
+	<div
+		@click="onClick"
+		class="flex items-center p-2 justify-between announce_item"
+		style="
+			width: 100%;
+			border-bottom: 2px solid var(--color-background-dark);
+		"
+		:class="{ selected_announcement: isSelected }">
+		<div class="flex items-center" style="width: 100%">
+			<NcAvatar
+				:user="source.authorId"
+				:display-name="source.author"
+				:size="40"
+				:show-user-status="true" />
+			<div
+				class="ml-2 flex items-center justify-between"
+				style="width: calc(100% - 40px)">
+				<div class="flex-col" style="width: calc(100% - 50px)">
+					<span class="text-xl">{{ source.author }}</span>
+					<div class="flex text-sm justify-between items-center">
+						<div style="color: var(--color-primary)">
+							{{ source.subject }}
 						</div>
 
 						<div
 							class="live-relative-timestamp"
+							style="color: var(--color-text-maxcontrast)"
 							:data-timestamp="timestamp"
 							:title="dateFormat">
 							{{ dateRelative }}
 						</div>
 					</div>
 					<div
-						class="text-xs"
-						style="color: var(--color-text-maxcontrast)">
-						{{ message }}
+						class="text-xs announce_message"
+						style="
+							color: var(--color-text-maxcontrast);
+							width: 90%;
+						">
+						{{ source.message }}
 					</div>
 				</div>
+				<div class="flex justify-center">
+					<NcActions
+						v-if="source.isAdmin"
+						:force-menu="true"
+						:boundaries-element="boundariesElement">
+						<NcActionButton
+							v-if="source.notifications"
+							icon="icon-notifications-off"
+							:close-after-click="true"
+							:title="
+								t('announcementcenter', 'Clear notifications')
+							"
+							@click="onRemoveNotifications" />
+						<NcActionButton
+							icon="icon-delete"
+							:title="
+								t('announcementcenter', 'Delete announcement')
+							"
+							@click="onDeleteAnnouncement" />
+					</NcActions>
+				</div>
 			</div>
-			<NcActions
-				v-if="isAdmin"
-				:force-menu="true"
-				:boundaries-element="boundariesElement">
-				<NcActionButton
-					v-if="notifications"
-					icon="icon-notifications-off"
-					:close-after-click="true"
-					:title="t('announcementcenter', 'Clear notifications')"
-					@click="onRemoveNotifications" />
-				<NcActionButton
-					icon="icon-delete"
-					:title="t('announcementcenter', 'Delete announcement')"
-					@click="onDeleteAnnouncement" />
-
-			</NcActions>
 		</div>
-
-		<div class="">
-			<!-- <template v-if="isAdmin">
-					·
-					<template v-if="isVisibleToEveryone">
-						{{ visibilityLabel }}
-					</template>
-					<span v-else :title="visibilityTitle">
-						{{ visibilityLabel }}
-					</span>
-				</template> -->
-		</div>
-
-		<!-- <div
-			v-if="message"
-			class="announcement__message"
-			@click="onClickFoldedMessage">
-			<div v-if="textAppAvailable">
-				<div ref="editor" />
-			</div>
-			<template v-else>
-				<NcRichText
-					:text="message"
-					:arguments="{}"
-					:autolink="true"
-					:use-markdown="true"
-					:class="{
-						'announcement__message--folded': isMessageFolded,
-					}" />
-			</template>
-
-			<div
-				v-if="isMessageFolded"
-				class="announcement__message__overlay" />
-		</div>
-
-		<NcButton
-			v-if="comments !== false"
-			type="tertiary"
-			class="announcement__comments"
-			@click="onClickCommentCount">
-			{{ commentsCount }}
-		</NcButton> -->
 	</div>
 </template>
 
@@ -126,8 +100,8 @@ import {
 	deleteAnnouncement,
 	removeNotifications,
 } from "../services/announcementsService.js";
-import {mapState} from "vuex";
-
+import { mapGetters } from "vuex";
+import { emit } from "@nextcloud/event-bus";
 export default {
 	name: "Announcement",
 	components: {
@@ -139,45 +113,11 @@ export default {
 		Delete,
 	},
 	props: {
-		isAdmin: {
-			type: Boolean,
-			required: true,
-		},
-		id: {
-			type: Number,
-			required: true,
-		},
-		authorId: {
-			type: String,
-			required: true,
-		},
-		author: {
-			type: String,
-			required: true,
-		},
-		time: {
-			type: Number,
-			required: true,
-		},
-		subject: {
-			type: String,
-			required: true,
-		},
-		message: {
-			type: String,
-			required: true,
-		},
-		groups: {
-			type: Array,
-			required: true,
-		},
-		comments: {
-			type: [Boolean, Number],
-			required: true,
-		},
-		notifications: {
-			type: Boolean,
-			required: true,
+		source: {
+			type: Object,
+			default() {
+				return {};
+			},
 		},
 	},
 
@@ -186,19 +126,22 @@ export default {
 			isMessageFolded: true,
 			editor: null,
 			textAppAvailable: !!window.OCA?.Text?.createEditor,
-      ...mapState(["currentAnnouncementId"]),
 		};
 	},
-
 	computed: {
-
-
-
+		...mapGetters(["currentAnnouncement"]),
+		isSelected() {
+			if (this.currentAnnouncement) {
+				return this.currentAnnouncement.id === this.source.id;
+			} else {
+				return false;
+			}
+		},
 		boundariesElement() {
 			return document.querySelector(this.$el);
 		},
 		timestamp() {
-			return this.time * 1000;
+			return this.source.time * 1000;
 		},
 		dateFormat() {
 			return moment(this.timestamp).format("LLL");
@@ -213,8 +156,8 @@ export default {
 
 		isVisibleToEveryone() {
 			return (
-				this.groups.length === 0 ||
-				this.groups.filter(({ id }) => {
+				this.source.groups.length === 0 ||
+				this.source.groups.filter(({ id }) => {
 					return id === "everyone";
 				}).length === 1
 			);
@@ -225,20 +168,20 @@ export default {
 				return t("announcementcenter", "visible to everyone");
 			}
 
-			if (this.groups.length === 1) {
+			if (this.source.groups.length === 1) {
 				return t(
 					"announcementcenter",
 					"visible to group {name}",
-					this.groups[0]
+					this.source.groups[0]
 				);
 			}
-			if (this.groups.length === 2) {
+			if (this.source.groups.length === 2) {
 				return t(
 					"announcementcenter",
 					"visible to groups {name1} and {name2}",
 					{
-						name1: this.groups[0].name,
-						name2: this.groups[1].name,
+						name1: this.source.groups[0].name,
+						name2: this.source.groups[1].name,
 					}
 				);
 			}
@@ -246,8 +189,8 @@ export default {
 				"announcementcenter",
 				"visible to group {name} and %n more",
 				"visible to group {name} and %n more",
-				this.groups.length - 1,
-				this.groups[0]
+				this.source.groups.length - 1,
+				this.source.groups[0]
 			);
 		},
 
@@ -256,7 +199,7 @@ export default {
 				return "";
 			}
 
-			return this.groups
+			return this.source.groups
 				.map(({ name }) => {
 					return name;
 				})
@@ -268,13 +211,13 @@ export default {
 				"announcementcenter",
 				"%n comment",
 				"%n comments",
-				this.comments
+				this.source.comments
 			);
 		},
 	},
 
 	async mounted() {
-		if (this.message.length <= 200) {
+		if (this.source.message.length <= 200) {
 			this.isMessageFolded = false;
 		}
 		// await this.setupEditor();
@@ -282,12 +225,7 @@ export default {
 
 	methods: {
 		onClick() {
-			this.$emit("click", this.id);
-		},
-
-
-		onClickCommentCount() {
-			this.$emit("click", this.id);
+			emit("clickAnnouncement", this.source.id);
 		},
 		onClickFoldedMessage() {
 			this.isMessageFolded = false;
@@ -297,8 +235,8 @@ export default {
 		},
 		async onRemoveNotifications() {
 			try {
-				await removeNotifications(this.id);
-				this.$store.dispatch("removeNotifications", this.id);
+				await removeNotifications(this.source.id);
+				this.$store.dispatch("removeNotifications", this.source.id);
 			} catch (e) {
 				console.error(e);
 				showError(
@@ -311,8 +249,8 @@ export default {
 		},
 		async onDeleteAnnouncement() {
 			try {
-				await deleteAnnouncement(this.id);
-				this.$store.dispatch("deleteAnnouncement", this.id);
+				await deleteAnnouncement(this.source.id);
+				this.$store.dispatch("deleteAnnouncement", this.source.id);
 			} catch (e) {
 				console.error(e);
 				showError(
@@ -328,6 +266,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.selected_announcement {
+	border-left: 0.3rem solid var(--color-primary);
+	background: var(--color-background-hover);
+}
+.announcement_info {
+	width: calc(100% - 30px);
+}
+.announce_message {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.announce_item:hover {
+	background: var(--color-background-hover);
+}
+
 .announcement {
 	max-width: 690px;
 	padding: 0 10px;

@@ -21,6 +21,7 @@
     "npm": "^9.0.0"
   },
   "dependencies": {
+    "@ivanv/vue-collapse-transition": "^1.0.2",
     "@nextcloud/auth": "^2.2.1",
     "@nextcloud/axios": "^2.4.0",
     "@nextcloud/dialogs": "^4.2.1",
@@ -36,6 +37,7 @@
     "strip-markdown": "^5.0.1",
     "vue": "^2.7.14",
     "vue-click-outside": "^1.1.0",
+    "vue-virtual-scroll-list": "^2.3.5",
     "vuex": "^3.6.2"
   },
   "devDependencies": {

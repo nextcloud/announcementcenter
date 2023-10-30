@@ -40,8 +40,10 @@ use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
+use Psr\Log\LoggerInterface;
 
-class Manager {
+class Manager
+{
 
 	/** @var IConfig */
 	protected IConfig $config;
@@ -66,15 +68,18 @@ class Manager {
 
 	/** @var IUserSession */
 	protected IUserSession $userSession;
-
-	public function __construct(IConfig $config,
+	protected LoggerInterface $logger;
+	public function __construct(
+		IConfig $config,
 		AnnouncementMapper $announcementMapper,
 		GroupMapper $groupMapper,
 		IGroupManager $groupManager,
 		INotificationManager $notificationManager,
 		ICommentsManager $commentsManager,
 		IJobList $jobList,
-		IUserSession $userSession) {
+		IUserSession $userSession,
+		LoggerInterface $logger
+	) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
 		$this->groupMapper = $groupMapper;
@@ -83,6 +88,7 @@ class Manager {
 		$this->commentsManager = $commentsManager;
 		$this->jobList = $jobList;
 		$this->userSession = $userSession;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -96,7 +102,8 @@ class Manager {
 	 * @return Announcement
 	 * @throws InvalidArgumentException|Exception when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement
+	{
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
@@ -132,27 +139,29 @@ class Manager {
 		return $announcement;
 	}
 
-    /**
-     * @param Announcement $announcement
-     * @return Announcement
-     * @throws Exception
-     */
-    public function updateAnnouncement(Announcement $announcement): Announcement
-    {
-        return $this->announcementMapper->updateAnnouncement($announcement);
-    }
+	/**
+	 * @param Announcement $announcement
+	 * @return Announcement
+	 * @throws Exception
+	 */
+	public function updateAnnouncement(Announcement $announcement): Announcement
+	{
+		return $this->announcementMapper->updateAnnouncement($announcement);
+	}
 
-    /**
-     * @throws Exception
-     */
-    protected function addGroupLink(Announcement $announcement, string $gid): void {
+	/**
+	 * @throws Exception
+	 */
+	protected function addGroupLink(Announcement $announcement, string $gid): void
+	{
 		$group = new Group();
 		$group->setId($announcement->getId());
 		$group->setGroup($gid);
 		$this->groupMapper->insert($group);
 	}
 
-	public function delete(int $id): void {
+	public function delete(int $id): void
+	{
 		// Delete notifications
 		$notification = $this->notificationManager->createNotification();
 		$notification->setApp('announcementcenter')
@@ -173,7 +182,8 @@ class Manager {
 	 * @return Announcement
 	 * @throws AnnouncementDoesNotExistException
 	 */
-	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement {
+	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement
+	{
 		try {
 			$announcement = $this->announcementMapper->getById($id);
 		} catch (DoesNotExistException $e) {
@@ -200,7 +210,8 @@ class Manager {
 		return $announcement;
 	}
 
-	protected function getUserGroups(): array {
+	protected function getUserGroups(): array
+	{
 		$user = $this->userSession->getUser();
 		if ($user instanceof IUser) {
 			$userGroups = $this->groupManager->getUserGroupIds($user);
@@ -216,28 +227,37 @@ class Manager {
 	 * @param Announcement $announcement
 	 * @return string[]
 	 */
-	public function getGroups(Announcement $announcement): array {
+	public function getGroups(Announcement $announcement): array
+	{
 		return $this->groupMapper->getGroupsForAnnouncement($announcement);
 	}
 
 	/**
-	 * @param int $offsetId
-	 * @param int $limit
-	 * @return Announcement[]
+	 * @param int $page
+	 * @param int $pageSize
 	 */
-	public function getAnnouncements(int $offsetId = 0, int $limit = 7): array {
+	public function getAnnouncements(int $page = 1, int $pageSize = 10): array
+	{
 		$userGroups = $this->getUserGroups();
-		$memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
-		if (!empty($memberOfAdminGroups)) {
-			$userGroups = [];
-		}
-
-		$announcements = $this->announcementMapper->getAnnouncements($userGroups, $offsetId, $limit);
-
+		// $memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		// if (!empty($memberOfAdminGroups)) {
+		// 	$userGroups = [];
+		// }
+		$announcements = $this->announcementMapper->getAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $page, $pageSize);
 		return $announcements;
 	}
-
-	public function markNotificationRead(int $id): void {
+	public function searchAnnouncements(string $filterKey = '', int $page = 1, int $pageSize = 10): array
+	{
+		$userGroups = $this->getUserGroups();
+		// $memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		// if (!empty($memberOfAdminGroups)) {
+		// 	$userGroups = [];
+		// }
+		$announcements = $this->announcementMapper->searchAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $filterKey, $page, $pageSize);
+		return $announcements;
+	}
+	public function markNotificationRead(int $id): void
+	{
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
@@ -249,11 +269,13 @@ class Manager {
 		}
 	}
 
-	public function getNumberOfComments(Announcement $announcement): int {
+	public function getNumberOfComments(Announcement $announcement): int
+	{
 		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $announcement->getId());
 	}
 
-	public function hasNotifications(Announcement $announcement): bool {
+	public function hasNotifications(Announcement $announcement): bool
+	{
 		$jobMatrix = [
 			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => true],
 			['id' => $announcement->getId(), 'activities' => true, 'notifications' => true, 'emails' => false],
@@ -277,7 +299,8 @@ class Manager {
 		return $this->notificationManager->getCount($notification) > 0;
 	}
 
-	public function removeNotifications(int $id): void {
+	public function removeNotifications(int $id): void
+	{
 		$jobMatrix = [
 			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true],
 			['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false],
@@ -310,24 +333,34 @@ class Manager {
 	 * Check if the user is in the admin group
 	 */
 	public function checkIsAdmin(): bool
-    {
-        $user = $this->userSession->getUser();
+	{
+		$user = $this->userSession->getUser();
 
-        if ($user instanceof IUser) {
-            $groups = $this->getAdminGroups();
-            foreach ($groups as $group) {
-                if ($this->groupManager->isInGroup($user->getUID(), $group)) {
-                    return true;
-                }
-            }
-        }
+		if ($user instanceof IUser) {
+			$groups = $this->getAdminGroups();
+			foreach ($groups as $group) {
+				if ($this->groupManager->isInGroup($user->getUID(), $group)) {
+					return true;
+				}
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
+	public function checkIsAuthor(Announcement $announcement): bool
+	{
+		$user = $this->userSession->getUser();
+		if ($user->getUID() === $announcement->getUser()) {
+			return true;
+		}
+
+		return false;
+	}
 	/**
 	 * @return string[]
 	 */
-	protected function getAdminGroups(): array {
+	protected function getAdminGroups(): array
+	{
 		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
 		$adminGroups = json_decode($adminGroups, true);
 		return $adminGroups;

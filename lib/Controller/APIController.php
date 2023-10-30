@@ -84,16 +84,31 @@ class APIController extends OCSController
 	 * @NoAdminRequired
 	 * @NoCSRFRequired
 	 *
-	 * @param int $offset
+	 * @param int $page
+	 * @param int $pageSize
 	 * @return DataResponse
 	 */
-	public function get(int $offset = 0): DataResponse
+	public function get(int $page = 1, int $pageSize = 10): DataResponse
 	{
-		$announcements = $this->manager->getAnnouncements($offset);
-		$data = array_map([$this, 'renderAnnouncement'], $announcements);
-		return new DataResponse($data);
+		$announcements = $this->manager->getAnnouncements($page, $pageSize);
+		$announcements['data'] = array_map([$this, 'renderAnnouncement'], $announcements['data']);
+		return new DataResponse($announcements);
 	}
-
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @param string $filterKey
+	 * @param int $page
+	 * @param int $pageSize
+	 * @return DataResponse
+	 */
+	public function search(string $filterKey = '', int $page = 1, int $pageSize = 10): DataResponse
+	{
+		$announcements = $this->manager->searchAnnouncements($filterKey, $page, $pageSize);
+		$announcements['data'] = array_map([$this, 'renderAnnouncement'], $announcements['data']);
+		return new DataResponse($announcements);
+	}
 	/**
 	 * @NoAdminRequired
 	 *
@@ -141,35 +156,34 @@ class APIController extends OCSController
 		return new DataResponse($this->renderAnnouncement($announcement));
 	}
 
-    /**
-     * @param int $id
-     * @param string|null $subject
-     * @param string|null $message
-     * @param string|null $plainMessage
-     * @return DataResponse
-     * @throws AnnouncementDoesNotExistException
-     * @throws Exception
-     */
-    public function update(int $id, string $subject=null, string $message=null, string $plainMessage=null):DataResponse
-    {
-        $announcement = $this->manager->getAnnouncement($id);
-        if($this->userSession->getUser()->getUID()!=$announcement->getUser())
-        {
-            return new DataResponse(
-                ['message' => 'Logged in user must be an author'],
-                Http::STATUS_FORBIDDEN
-            );
-        }
-        if($subject!=null)
-            $announcement->setSubject(trim($subject));
-        if($message!=null)
-            $announcement->setMessage(trim($message));
-        if ($plainMessage!=null)
-            $announcement->setPlainMessage(trim($plainMessage));
-        $this->logger->warning('announcemnt:'.$announcement->getId());
-        $result=$this->manager->updateAnnouncement($announcement);
-        return new DataResponse($this->renderAnnouncement($result));
-    }
+	/**
+	 * @param int $id
+	 * @param string|null $subject
+	 * @param string|null $message
+	 * @param string|null $plainMessage
+	 * @return DataResponse
+	 * @throws AnnouncementDoesNotExistException
+	 * @throws Exception
+	 */
+	public function update(int $id, string $subject = null, string $message = null, string $plainMessage = null): DataResponse
+	{
+		$announcement = $this->manager->getAnnouncement($id);
+		if ($this->userSession->getUser()->getUID() != $announcement->getUser()) {
+			return new DataResponse(
+				['message' => 'Logged in user must be an author'],
+				Http::STATUS_FORBIDDEN
+			);
+		}
+		if ($subject != null)
+			$announcement->setSubject(trim($subject));
+		if ($message != null)
+			$announcement->setMessage(trim($message));
+		if ($plainMessage != null)
+			$announcement->setPlainMessage(trim($plainMessage));
+		$this->logger->warning('announcemnt:' . $announcement->getId());
+		$result = $this->manager->updateAnnouncement($announcement);
+		return new DataResponse($this->renderAnnouncement($result));
+	}
 	protected function renderAnnouncement(Announcement $announcement): array
 	{
 		$displayName = $this->userManager->getDisplayName($announcement->getUser()) ?? $announcement->getUser();
@@ -289,5 +303,4 @@ class APIController extends OCSController
 
 		return new DataResponse($results);
 	}
-
 }

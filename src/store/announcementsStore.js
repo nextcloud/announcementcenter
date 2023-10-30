@@ -20,16 +20,28 @@
  *
  */
 import Vue from "vue";
-import { getAnnouncements } from "../services/announcementsService.js";
+import {
+	getAnnouncements,
+	searchAnnouncements,
+} from "../services/announcementsService.js";
 const state = {
 	announcements: {},
+	searchAnnouncements: {},
 	currentAnnouncementId: null,
+	total: 0,
+	pages: 0,
+	searchTotal: 0,
 };
 
 const getters = {
-	currentAnnouncement: (state) => state.announcements[state.currentAnnouncementId],
+	currentAnnouncement: (state) =>
+		state.announcements[state.currentAnnouncementId],
 	announcements: (state) => Object.values(state.announcements),
+	searchAnnouncements: (state) => Object.values(state.searchAnnouncements),
 	announcement: (state) => (id) => state.announcements[id],
+	total: (state) => state.total,
+	pages: (state) => state.pages,
+	searchTotal: (state) => state.searchTotal,
 };
 
 const mutations = {
@@ -42,9 +54,20 @@ const mutations = {
 	addAnnouncement(state, announcement) {
 		Vue.set(state.announcements, announcement.id, announcement);
 	},
-	updateAnnouncement(state,announcement)
-	{
-		Vue.set(state.announcements,announcement.id,announcement);
+	addSearchAnnouncement(state, announcement) {
+		Vue.set(state.searchAnnouncements, announcement.id, announcement);
+	},
+	setTotal(state, total) {
+		state.total = total;
+	},
+	setSearchTotal(state, total) {
+		state.searchTotal = total;
+	},
+	setPages(state, pages) {
+		state.pages = pages;
+	},
+	updateAnnouncement(state, announcement) {
+		Vue.set(state.announcements, announcement.id, announcement);
 	},
 	/**
 	 * Deletes an announcement from the store
@@ -54,6 +77,9 @@ const mutations = {
 	 */
 	deleteAnnouncement(state, id) {
 		Vue.delete(state.announcements, id);
+	},
+	clearAnnoucements(state) {
+		state.announcements = {};
 	},
 	setCurrentAnnouncementId(state, id) {
 		Vue.set(state, "currentAnnouncementId", id);
@@ -83,17 +109,40 @@ const actions = {
 	addAnnouncement(context, announcement) {
 		context.commit("addAnnouncement", announcement);
 	},
+	addSearchAnnouncement(context, announcement) {
+		context.commit("addSearchAnnouncement", announcement);
+	},
 	updateAnnouncement(context, announcement) {
 		context.commit("updateAnnouncement", announcement);
 	},
-	async loadAnnouncements(context) {
-		const response = await getAnnouncements();
-		let announcements = response.data?.ocs?.data || [];
+	async loadAnnouncements(context, { filterKey, page, pageSize }) {
+		const response = await searchAnnouncements(filterKey, page, pageSize);
+		console.log(response);
+		context.commit("setTotal", response.data?.ocs?.data.total);
+		context.commit("setPages", response.data?.ocs?.data.pages);
+		let announcements = response.data?.ocs?.data.data || [];
 		announcements = announcements.sort((a1, a2) => {
 			return a2.time - a1.time;
 		});
 		announcements.forEach((announcement) => {
 			context.commit("addAnnouncement", announcement);
+		});
+	},
+	async searchAnnouncements(
+		context,
+		filterKey = "",
+		page = 1,
+		pageSize = 14
+	) {
+		const response = await searchAnnouncements(filterKey, page, pageSize);
+		console.log(response);
+		context.commit("setSearchTotal", response.data?.ocs?.data.total);
+		let announcements = response.data?.ocs?.data.data || [];
+		announcements = announcements.sort((a1, a2) => {
+			return a2.time - a1.time;
+		});
+		announcements.forEach((announcement) => {
+			context.commit("addSearchAnnouncement", announcement);
 		});
 	},
 	/**

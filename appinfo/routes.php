@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
  *
@@ -27,9 +28,10 @@ return [
 	],
 	'ocs' => [
 		['name' => 'API#get', 'url' => '/api/v1/announcements', 'verb' => 'GET'],
+		['name' => 'API#search', 'url' => '/api/v1/announcements/search', 'verb' => 'GET'],
 		['name' => 'API#add', 'url' => '/api/v1/announcements', 'verb' => 'POST'],
 		['name' => 'API#delete', 'url' => '/api/v1/announcements/{id}', 'verb' => 'DELETE'],
-        ['name' => 'API#update', 'url' => '/api/v1/announcements/update', 'verb' => 'POST'],
+		['name' => 'API#update', 'url' => '/api/v1/announcements/update', 'verb' => 'POST'],
 		['name' => 'API#removeNotifications', 'url' => '/api/v1/announcements/{id}/notifications', 'verb' => 'DELETE'],
 		['name' => 'API#searchGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
 	]

@@ -281,8 +281,6 @@ export default {
 		},
 
 		async onAnnounce() {
-			emit("closeNewAnnouncement");
-
 			const groups = this.assignedUsers.map((item) => {
 				return item.user;
 			});
@@ -309,7 +307,7 @@ export default {
 					this.allowComments
 				);
 				this.$store.dispatch("addAnnouncement", response.data.ocs.data);
-
+				emit("closeNewAnnouncement");
 				this.resetForm();
 			} catch (e) {
 				console.error(e);

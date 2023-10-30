@@ -30,24 +30,27 @@ use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @template-extends QBMapper<Announcement>
  */
 class AnnouncementMapper extends QBMapper
 {
-	public function __construct(IDBConnection $db)
+	protected LoggerInterface $logger;
+	public function __construct(IDBConnection $db, LoggerInterface $logger)
 	{
 		parent::__construct($db, 'announcements', Announcement::class);
+		$this->logger = $logger;
 	}
 
-    /**
-     * @param int $id
-     * @return Announcement
-     * @throws DoesNotExistException
-     * @throws Exception
-     * @throws MultipleObjectsReturnedException
-     */
+	/**
+	 * @param int $id
+	 * @return Announcement
+	 * @throws DoesNotExistException
+	 * @throws Exception
+	 * @throws MultipleObjectsReturnedException
+	 */
 	public function getById(int $id): Announcement
 	{
 		$query = $this->db->getQueryBuilder();
@@ -79,98 +82,156 @@ class AnnouncementMapper extends QBMapper
 		$qb->execute();
 		return $entity;
 	}
-
-    /**
-     * @param array $userGroups
-     * @param int $offsetId
-     * @param int $limit
-     * @return Announcement[]
-     * @throws Exception
-     */
-	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array
+	public function searchAnnouncements(string $userId, array $userGroups, string $filterKey, int $page = 1, int $pageSize = 10)
 	{
 		$query = $this->db->getQueryBuilder();
-
 		$query->select('a.announcement_id')
 			->from($this->getTableName(), 'a')
 			->orderBy('a.announcement_time', 'DESC')
-			->groupBy('a.announcement_id')
-			->setMaxResults($limit);
+			->groupBy('a.announcement_id');
+
+		if (!empty($userGroups)) {
+			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
+				'a.announcement_id',
+				'ag.announcement_id'
+			))->andWhere(
+				$query->expr()->orX(
+					$query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)),
+					$query->expr()->eq('a.announcement_user', $query->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+				)
+			);
+		}
+		$all_ids = [];
+		$result = $query->execute();
+		while ($row = $result->fetch()) {
+			$all_ids[] = (int) $row['announcement_id'];
+		}
+		$result->closeCursor();
+		if (empty($all_ids)) {
+			return [
+				'data' => [],
+				'total' => 0,
+				'pages' => 0
+			];
+		}
+		$ids = array_slice($all_ids, ($page - 1) * $pageSize, $pageSize);
+		$qb = $this->db->getQueryBuilder();
+		$qb->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_time', 'DESC')
+			->where(
+				$qb->expr()->andX($qb->expr()->orX(
+					$qb->expr()->like('announcement_user', $qb->expr()->literal('%' . $filterKey . '%')),
+					$qb->expr()->like('announcement_subject', $qb->expr()->literal('%' . $filterKey . '%')),
+					$qb->expr()->like('announcement_message', $qb->expr()->literal('%' . $filterKey . '%'))
+				), $qb->expr()->in('announcement_id', $qb->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)))
+			);
+		$results = $this->findEntities($qb);
+		$this->logger->warning('results:' . json_encode($results));
+		return [
+			'data' => $results,
+			'total' => count($all_ids),
+			'pages' => ceil(count($all_ids) / $pageSize)
+		];
+	}
+
+
+	public function getAnnouncements(string $userId, array $userGroups, int $page = 1, int $pageSize = 10): array
+	{
+		$query = $this->db->getQueryBuilder();
+		$query->select('a.announcement_id')
+			->from($this->getTableName(), 'a')
+			->orderBy('a.announcement_time', 'DESC')
+			->groupBy('a.announcement_id');
 
 		if (!empty($userGroups)) {
 			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
 				'a.announcement_id',
 				'ag.announcement_id'
 			))
-				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
+				->andWhere(
+					$query->expr()->orX(
+						$query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)),
+						$query->expr()->eq('a.announcement_user', $query->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+					)
+				);
 		}
 
-		if ($offsetId > 0) {
-			$query->andWhere($query->expr()->lt('a.announcement_id', $query->createNamedParameter($offsetId, IQueryBuilder::PARAM_INT)));
-		}
-
-		$ids = [];
+		$all_ids = [];
 		$result = $query->execute();
 		while ($row = $result->fetch()) {
-			$ids[] = (int) $row['announcement_id'];
+			$all_ids[] = (int) $row['announcement_id'];
 		}
+
 		$result->closeCursor();
 
-		if (empty($ids)) {
-			return [];
+		if (empty($all_ids)) {
+			return [
+				'data' => [],
+				'total' => 0,
+				'pages' => 0
+			];
 		}
-
+		$ids = array_slice($all_ids, ($page - 1) * $pageSize, $pageSize);
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->orderBy('announcement_time', 'DESC')
 			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
-
-		return $this->findEntities($query);
+		$results = $this->findEntities($query);
+		// $this->logger->warning('count1:' . $results[0]);
+		return [
+			'data' => $results,
+			'total' => count($all_ids),
+			'pages' => ceil(count($all_ids) / $pageSize),
+		];
 	}
 
-    /**
-     * @throws Exception
-     */
-    public function updateAnnouncement(Announcement $entity): Announcement {
-        // if entity wasn't changed it makes no sense to run a db query
-        $properties = $entity->getUpdatedFields();
-        if (\count($properties) === 0) {
-            return $entity;
-        }
 
-        // entity needs an id
-        $id = $entity->getId();
-        if ($id === null) {
-            throw new \InvalidArgumentException(
-                'Entity which should be updated has no id');
-        }
+	/**
+	 * @throws Exception
+	 */
+	public function updateAnnouncement(Announcement $entity): Announcement
+	{
+		// if entity wasn't changed it makes no sense to run a db query
+		$properties = $entity->getUpdatedFields();
+		if (\count($properties) === 0) {
+			return $entity;
+		}
 
-        // get updated fields to save, fields have to be set using a setter to
-        // be saved
-        // do not update the id field
-        unset($properties['id']);
+		// entity needs an id
+		$id = $entity->getId();
+		if ($id === null) {
+			throw new \InvalidArgumentException(
+				'Entity which should be updated has no id'
+			);
+		}
 
-        $qb = $this->db->getQueryBuilder();
-        $qb->update($this->tableName);
+		// get updated fields to save, fields have to be set using a setter to
+		// be saved
+		// do not update the id field
+		unset($properties['id']);
 
-        // build the fields
-        foreach ($properties as $property => $updated) {
-            $column = $entity->propertyToColumn($property);
-            $getter = 'get' . ucfirst($property);
-            $value = $entity->$getter();
+		$qb = $this->db->getQueryBuilder();
+		$qb->update($this->tableName);
 
-            $type = $this->getParameterTypeForProperty($entity, $property);
-            $qb->set($column, $qb->createNamedParameter($value, $type));
-        }
+		// build the fields
+		foreach ($properties as $property => $updated) {
+			$column = $entity->propertyToColumn($property);
+			$getter = 'get' . ucfirst($property);
+			$value = $entity->$getter();
 
-        $idType = $this->getParameterTypeForProperty($entity, 'id');
+			$type = $this->getParameterTypeForProperty($entity, $property);
+			$qb->set($column, $qb->createNamedParameter($value, $type));
+		}
 
-        $qb->where(
-            $qb->expr()->eq('announcement_id', $qb->createNamedParameter($id, $idType))
-        );
-        $qb->executeStatement();
+		$idType = $this->getParameterTypeForProperty($entity, 'id');
 
-        return $entity;
-    }
+		$qb->where(
+			$qb->expr()->eq('announcement_id', $qb->createNamedParameter($id, $idType))
+		);
+		$qb->executeStatement();
+
+		return $entity;
+	}
 }

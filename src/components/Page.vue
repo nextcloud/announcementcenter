@@ -7,10 +7,10 @@
 					ref="title"
 					v-model="newSubject"
 					v-tooltip="titleIfTruncated(newSubject)"
-					class="overflow-hidden overflow-ellipsis"
+					class="overflow-hidden overflow-ellipsis announcement_title"
 					:class="{ mobile: isMobile }"
 					:placeholder="t('collectives', 'Title')"
-          :disabled="!isTextEdit"
+					:disabled="!isTextEdit"
 					type="text" />
 			</form>
 
@@ -78,10 +78,8 @@ import EditButton from "./Page/EditButton.vue";
 import TextEditor from "./Page/TextEditor.vue";
 import { mapActions, mapGetters, mapMutations } from "vuex";
 import { showError } from "@nextcloud/dialogs";
-import {
-  updateAnnouncement
-} from "../services/announcementsService.js";
-import {remark} from "remark";
+import { updateAnnouncement } from "../services/announcementsService.js";
+import { remark } from "remark";
 import strip from "strip-markdown";
 export default {
 	name: "Page",
@@ -104,7 +102,7 @@ export default {
 			titleIsTruncated: false,
 			editor: null,
 			textAppAvailable: !!window.OCA?.Text?.createEditor,
-      newMessage:""
+			newMessage: "",
 		};
 	},
 
@@ -154,33 +152,40 @@ export default {
 		},
 		"currentAnnouncement.id"() {
 			this.initTitleEntry();
-      this.newMessage=this.currentAnnouncement.message
+			this.newMessage = this.currentAnnouncement.message;
 			this.editor.setContent(this.newMessage);
+			this.setTextView();
 		},
 		async isTextEdit() {
 			// this.editor.setReadOnly(!this.isTextEdit);
 			await this.setupEditor(!this.isTextEdit);
-      if(!this.isTextEdit)
-      {
-        try {
-          const plainMessage = await remark()
-              .use(strip, {
-                keep: ["blockquote", "link", "listItem"],
-              })
-              .process(this.newMessage);
-          const response=await updateAnnouncement(this.currentAnnouncement.id,this.newSubject,this.newMessage,plainMessage.value)
-          this.$store.dispatch("updateAnnouncement", response.data.ocs.data);
-        }
-        catch (e) {
-          console.error(e);
-          showError(
-              t(
-                  "announcementcenter",
-                  "An error occurred while updating the announcement"
-              )
-          );
-        }
-      }
+			if (!this.isTextEdit) {
+				try {
+					const plainMessage = await remark()
+						.use(strip, {
+							keep: ["blockquote", "link", "listItem"],
+						})
+						.process(this.newMessage);
+					const response = await updateAnnouncement(
+						this.currentAnnouncement.id,
+						this.newSubject,
+						this.newMessage,
+						plainMessage.value
+					);
+					this.$store.dispatch(
+						"updateAnnouncement",
+						response.data.ocs.data
+					);
+				} catch (e) {
+					console.error(e);
+					showError(
+						t(
+							"announcementcenter",
+							"An error occurred while updating the announcement"
+						)
+					);
+				}
+			}
 			// this.editor.focus();
 		},
 	},
@@ -188,18 +193,19 @@ export default {
 	async mounted() {
 		// document.title = this.documentTitle;
 		this.initTitleEntry();
-    this.newMessage=this.currentAnnouncement.message
+		this.newMessage = this.currentAnnouncement.message;
 		await this.setupEditor();
 	},
 
 	methods: {
+		...mapMutations(["setTextEdit", "setTextView"]),
 		async setupEditor(readOnly = true) {
 			this?.editor?.destroy();
 			this.editor = await window.OCA.Text.createEditor({
 				el: this.$refs.editor,
 				content: this.newMessage,
 				readOnly: readOnly,
-				onUpdate:  ({ markdown }) => {
+				onUpdate: ({ markdown }) => {
 					this.newMessage = markdown;
 				},
 			});
@@ -262,5 +268,8 @@ export default {
 	.emoji-picker-emoticon {
 		display: none !important;
 	}
+}
+.announcement_title:disabled {
+	color: var(--color-primary) !important;
 }
 </style>
