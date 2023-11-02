@@ -34,5 +34,14 @@ return [
 		['name' => 'API#update', 'url' => '/api/v1/announcements/update', 'verb' => 'POST'],
 		['name' => 'API#removeNotifications', 'url' => '/api/v1/announcements/{id}/notifications', 'verb' => 'DELETE'],
 		['name' => 'API#searchGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
+		// attachments
+		['name' => 'attachment#getAll', 'url' => '/api/v1/announcements/{announcementId}/attachments', 'verb' => 'GET'],
+		['name' => 'attachment#create', 'url' => '/api/v1/announcements/{announcementId}/attachment', 'verb' => 'POST'],
+		['name' => 'attachment#display', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'GET'],
+		['name' => 'attachment#update', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'PUT'],
+		// also allow to use POST for updates so we can properly access files when using application/x-www-form-urlencoded
+		['name' => 'attachment#update', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'POST'],
+		['name' => 'attachment#delete', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'DELETE'],
+		['name' => 'attachment#restore', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}/restore', 'verb' => 'GET'],
 	]
 ];

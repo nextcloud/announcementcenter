@@ -66,7 +66,7 @@ export default {
 			readMode: true,
 			scrollTop: 0,
 			textEditWatcher: null,
-			currentCollectiveCanEdit: true,
+			modalShow: false,
 		};
 	},
 
@@ -93,20 +93,12 @@ export default {
 	},
 
 	watch: {
-		// "currentAnnouncement.timestamp"() {
-		// 	if (this.currentAnnouncement.timestamp > this.previousSaveTimestamp) {
-		// 		this.previousSaveTimestamp = this.currentAnnouncement.timestamp;
-		// 		this.getPageContent();
-		// 	}
-		// },
+	
 	},
 
 	beforeMount() {
 		// Change back to default view mode
 		this.setTextView();
-
-		// this.load("editor");
-		// this.load("pageContent");
 	},
 
 	mounted() {
@@ -170,26 +162,6 @@ export default {
 			const alt = name.replaceAll(/[[\]]/g, "");
 
 			this.wrapper()?.$editor?.commands.setImage({ src, alt });
-		},
-
-		/**
-		 * Set readMode to false
-		 */
-		readyEditor() {
-			this.done("editor");
-
-			// Set pageContent if it's been empty before
-			if (!this.pageContent) {
-				this.pageContent = this.syncService()._getContent() || "";
-			}
-			this.readMode = false;
-
-			if (this.isTextEdit) {
-				if (this.doc()) {
-					this.previousSaveTimestamp =
-						this.doc().lastSavedVersionTime;
-				}
-			}
 		},
 
 		initEditMode() {

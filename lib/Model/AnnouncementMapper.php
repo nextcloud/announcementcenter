@@ -64,13 +64,14 @@ class AnnouncementMapper extends QBMapper
 		return $this->findEntity($query);
 	}
 
-	/**
-	 * Deletes an entity from the table
-	 * @param Entity $entity the entity that should be deleted
-	 * @return Entity the deleted entity
-	 * @psalm-return Announcement the deleted entity
-	 * @since 14.0.0
-	 */
+    /**
+     * Deletes an entity from the table
+     * @param Entity $entity the entity that should be deleted
+     * @return Entity the deleted entity
+     * @psalm-return Announcement the deleted entity
+     * @throws Exception
+     * @since 14.0.0
+     */
 	public function delete(Entity $entity): Entity
 	{
 		$qb = $this->db->getQueryBuilder();
@@ -82,8 +83,12 @@ class AnnouncementMapper extends QBMapper
 		$qb->execute();
 		return $entity;
 	}
-	public function searchAnnouncements(string $userId, array $userGroups, string $filterKey, int $page = 1, int $pageSize = 10)
-	{
+
+    /**
+     * @throws Exception
+     */
+    public function searchAnnouncements(string $userId, array $userGroups, string $filterKey, int $page = 1, int $pageSize = 10): array
+    {
 		$query = $this->db->getQueryBuilder();
 		$query->select('a.announcement_id')
 			->from($this->getTableName(), 'a')
@@ -114,7 +119,7 @@ class AnnouncementMapper extends QBMapper
 				'pages' => 0
 			];
 		}
-		$ids = array_slice($all_ids, ($page - 1) * $pageSize, $pageSize);
+
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from($this->getTableName())
@@ -124,19 +129,24 @@ class AnnouncementMapper extends QBMapper
 					$qb->expr()->like('announcement_user', $qb->expr()->literal('%' . $filterKey . '%')),
 					$qb->expr()->like('announcement_subject', $qb->expr()->literal('%' . $filterKey . '%')),
 					$qb->expr()->like('announcement_message', $qb->expr()->literal('%' . $filterKey . '%'))
-				), $qb->expr()->in('announcement_id', $qb->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)))
+				), $qb->expr()->in('announcement_id', $qb->createNamedParameter($all_ids, IQueryBuilder::PARAM_INT_ARRAY)))
 			);
 		$results = $this->findEntities($qb);
+
+		$slice_results = array_slice($results, ($page - 1) * $pageSize, $pageSize);
+
 		$this->logger->warning('results:' . json_encode($results));
 		return [
-			'data' => $results,
-			'total' => count($all_ids),
-			'pages' => ceil(count($all_ids) / $pageSize)
+			'data' => $slice_results,
+			'total' => count($results),
+			'pages' => ceil(count($results) / $pageSize)
 		];
 	}
 
-
-	public function getAnnouncements(string $userId, array $userGroups, int $page = 1, int $pageSize = 10): array
+    /**
+     * @throws Exception
+     */
+    public function getAnnouncements(string $userId, array $userGroups, int $page = 1, int $pageSize = 10): array
 	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('a.announcement_id')
@@ -233,5 +243,21 @@ class AnnouncementMapper extends QBMapper
 		$qb->executeStatement();
 
 		return $entity;
+	}
+
+    /**
+     * Check if $userId is owner of Entity with $id
+     *
+     * @param $userId string userId
+     * @param $id int|string unique entity identifier
+     * @return boolean
+     * @throws DoesNotExistException
+     * @throws Exception
+     * @throws MultipleObjectsReturnedException
+     */
+	public function isOwner(string $userId, int|string $id): bool
+	{
+		$announcement = $this->getById($id);
+		return $announcement->getUser() == $userId;
 	}
 }

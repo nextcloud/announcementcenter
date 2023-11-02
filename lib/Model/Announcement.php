@@ -39,7 +39,7 @@ use OCP\AppFramework\Db\Entity;
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
  */
-class Announcement extends Entity {
+class Announcement extends RelationalEntity {
 
 	/** @var int */
 	protected $time;
@@ -58,6 +58,8 @@ class Announcement extends Entity {
 
 	/** @var int */
 	protected $allowComments;
+    protected $attachments;
+    protected $attachmentCount;
 
 	public function __construct() {
 		$this->addType('time', 'int');
@@ -66,6 +68,8 @@ class Announcement extends Entity {
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
+        $this->addRelation('attachments');
+        $this->addRelation('attachmentCount');
 	}
 
 	public function getParsedSubject(): string {
@@ -100,4 +104,36 @@ class Announcement extends Entity {
 
 		return parent::propertyToColumn($property);
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getAttachmentCount()
+    {
+        return $this->attachmentCount;
+    }
+
+    /**
+     * @param mixed $attachmentCount
+     */
+    public function setAttachmentCount($attachmentCount): void
+    {
+        $this->attachmentCount = $attachmentCount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * @param mixed $attachments
+     */
+    public function setAttachments($attachments): void
+    {
+        $this->attachments = $attachments;
+    }
 }

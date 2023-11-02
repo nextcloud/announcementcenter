@@ -27,6 +27,8 @@ namespace OCA\AnnouncementCenter\Controller;
 
 use InvalidArgumentException;
 use OCA\AnnouncementCenter\BackgroundJob;
+use OCA\AnnouncementCenter\BadRequestException;
+use OCA\AnnouncementCenter\InvalidAttachmentType;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
@@ -80,29 +82,35 @@ class APIController extends OCSController
 		$this->logger = $logger;
 	}
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param int $page
-	 * @param int $pageSize
-	 * @return DataResponse
-	 */
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     *
+     * @param int $page
+     * @param int $pageSize
+     * @return DataResponse
+     * @throws Exception
+     */
 	public function get(int $page = 1, int $pageSize = 10): DataResponse
 	{
 		$announcements = $this->manager->getAnnouncements($page, $pageSize);
 		$announcements['data'] = array_map([$this, 'renderAnnouncement'], $announcements['data']);
 		return new DataResponse($announcements);
 	}
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param string $filterKey
-	 * @param int $page
-	 * @param int $pageSize
-	 * @return DataResponse
-	 */
+
+    /**
+     * @NoAdminRequired
+     * @NoCSRFRequired
+     *
+     * @param string $filterKey
+     * @param int $page
+     * @param int $pageSize
+     * @return DataResponse
+     * @throws Exception
+     * @throws BadRequestException
+     * @throws InvalidAttachmentType
+     * @throws \ReflectionException
+     */
 	public function search(string $filterKey = '', int $page = 1, int $pageSize = 10): DataResponse
 	{
 		$announcements = $this->manager->searchAnnouncements($filterKey, $page, $pageSize);
@@ -124,9 +132,9 @@ class APIController extends OCSController
 	 */
 	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse
 	{
-		if (!$this->manager->checkIsAdmin()) {
+		if (!$this->manager->checkCanCreate()) {
 			return new DataResponse(
-				['message' => 'Logged in user must be an admin'],
+				['message' => 'Logged in user must be in can create group'],
 				Http::STATUS_FORBIDDEN
 			);
 		}
@@ -157,6 +165,7 @@ class APIController extends OCSController
 	}
 
 	/**
+	 * @NoAdminRequired
 	 * @param int $id
 	 * @param string|null $subject
 	 * @param string|null $message
@@ -168,9 +177,9 @@ class APIController extends OCSController
 	public function update(int $id, string $subject = null, string $message = null, string $plainMessage = null): DataResponse
 	{
 		$announcement = $this->manager->getAnnouncement($id);
-		if ($this->userSession->getUser()->getUID() != $announcement->getUser()) {
+		if (!$this->manager->checkIsAdmin()&&!$this->manager->checkIsAuthor($announcement)) {
 			return new DataResponse(
-				['message' => 'Logged in user must be an author'],
+				['message' => 'Logged in user must be an admin or author'],
 				Http::STATUS_FORBIDDEN
 			);
 		}
@@ -196,33 +205,33 @@ class APIController extends OCSController
 			'subject' => $announcement->getParsedSubject(),
 			'message' => $announcement->getMessage(),
 			'groups' => null,
+            'attachmentCount'=>$announcement->getAttachmentCount(),
+            'attachments'=>$announcement->getAttachments(),
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
 
-		if ($this->manager->checkIsAdmin()) {
-			$groupIds = $this->manager->getGroups($announcement);
-			$groups = [];
-			foreach ($groupIds as $groupId) {
-				if ($groupId === 'everyone') {
-					$groups[] = [
-						'id' => 'everyone',
-						'name' => 'everyone',
-					];
-					continue;
-				}
-				$group = $this->groupManager->get($groupId);
-				if (!$group instanceof IGroup) {
-					continue;
-				}
-
+		$groupIds = $this->manager->getGroups($announcement);
+		$groups = [];
+		foreach ($groupIds as $groupId) {
+			if ($groupId === 'everyone') {
 				$groups[] = [
-					'id' => $group->getGID(),
-					'name' => $group->getDisplayName(),
+					'id' => 'everyone',
+					'name' => 'everyone',
 				];
+				continue;
 			}
-			$result['groups'] = $groups;
-			$result['notifications'] = $this->manager->hasNotifications($announcement);
+			$group = $this->groupManager->get($groupId);
+			if (!$group instanceof IGroup) {
+				continue;
+			}
+
+			$groups[] = [
+				'id' => $group->getGID(),
+				'name' => $group->getDisplayName(),
+			];
 		}
+		$result['groups'] = $groups;
+		$result['notifications'] = $this->manager->hasNotifications($announcement);
 
 		return $result;
 	}
@@ -235,20 +244,21 @@ class APIController extends OCSController
 	 */
 	public function delete(int $id): DataResponse
 	{
-		if (!$this->manager->checkIsAdmin()) {
-			return new DataResponse(
-				['message' => 'Logged in user must be an admin'],
-				Http::STATUS_FORBIDDEN
-			);
-		}
 
 		try {
 			$announcement = $this->manager->getAnnouncement($id);
+			$user = $this->userSession->getUser();
+			$userId = $user instanceof IUser ? $user->getUID() : '';
+			if (!$this->manager->checkIsAdmin() && !$this->manager->checkIsAuthor($announcement)) {
+				return new DataResponse(
+					['message' => 'Logged in user must be an admin or author'],
+					Http::STATUS_FORBIDDEN
+				);
+			}
 
 			$this->manager->delete($id);
 
-			$user = $this->userSession->getUser();
-			$userId = $user instanceof IUser ? $user->getUID() : '';
+
 
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
 		} catch (AnnouncementDoesNotExistException $e) {
@@ -265,7 +275,8 @@ class APIController extends OCSController
 	 */
 	public function removeNotifications(int $id): DataResponse
 	{
-		if (!$this->manager->checkIsAdmin()) {
+		$announcement = $this->manager->getAnnouncement($id);
+		if (!$this->manager->checkIsAdmin() && !$this->manager->checkIsAuthor($announcement)) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN
@@ -285,7 +296,8 @@ class APIController extends OCSController
 	 */
 	public function searchGroups(string $search): DataResponse
 	{
-		if (!$this->manager->checkIsAdmin()) {
+		
+		if (!$this->manager->checkCanCreate()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
 				Http::STATUS_FORBIDDEN

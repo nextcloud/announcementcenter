@@ -36,6 +36,9 @@ const state = {
 const getters = {
 	currentAnnouncement: (state) =>
 		state.announcements[state.currentAnnouncementId],
+	canEdit: (state) =>
+		OC.getCurrentUser().uid ===
+		state.announcements[state.currentAnnouncementId].author_id,
 	announcements: (state) => Object.values(state.announcements),
 	searchAnnouncements: (state) => Object.values(state.searchAnnouncements),
 	announcement: (state) => (id) => state.announcements[id],
@@ -97,6 +100,23 @@ const mutations = {
 
 		Vue.set(state.announcements[id], "notifications", false);
 	},
+	announcementSetAttachmentCount(state, { announcementId, count }) {
+		Vue.set(state.announcements[announcementId], "attachmentCount", count);
+	},
+	announcementIncreaseAttachmentCount(state, announcementId) {
+		Vue.set(
+			state.announcements[announcementId],
+			"attachmentCount",
+			state.announcements[announcementId].attachmentCount + 1
+		);
+	},
+	announcementDecreaseAttachmentCount(state, announcementId) {
+		Vue.set(
+			state.announcements[announcementId],
+			"attachmentCount",
+			state.announcements[announcementId].attachmentCount - 1
+		);
+	},
 };
 
 const actions = {
@@ -121,9 +141,7 @@ const actions = {
 		context.commit("setTotal", response.data?.ocs?.data.total);
 		context.commit("setPages", response.data?.ocs?.data.pages);
 		let announcements = response.data?.ocs?.data.data || [];
-		announcements = announcements.sort((a1, a2) => {
-			return a2.time - a1.time;
-		});
+
 		announcements.forEach((announcement) => {
 			context.commit("addAnnouncement", announcement);
 		});
@@ -139,7 +157,7 @@ const actions = {
 		context.commit("setSearchTotal", response.data?.ocs?.data.total);
 		let announcements = response.data?.ocs?.data.data || [];
 		announcements = announcements.sort((a1, a2) => {
-			return a2.time - a1.time;
+			return a1.time - a2.time;
 		});
 		announcements.forEach((announcement) => {
 			context.commit("addSearchAnnouncement", announcement);

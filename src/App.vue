@@ -28,31 +28,6 @@
 			</template>
 			<AnnouncementDetail></AnnouncementDetail>
 		</NcAppContent>
-		<!-- <NcAppContent>
-			<transition-group name="fade-collapse" tag="div">
-				<Announcement
-					v-for="announcement in announcements"
-					:key="announcement.id"
-					:is-admin="isAdmin"
-					:author-id="announcement.author_id"
-					v-bind="announcement"
-					@click="onClickAnnouncement" />
-			</transition-group>
-
-			<NcEmptyContent
-				v-if="!announcements.length"
-				:title="t('announcementcenter', 'No announcements')"
-				:description="
-					t(
-						'announcementcenter',
-						'There are currently no announcements …'
-					)
-				">
-				<template #icon>
-					<span class="icon-announcementcenter-dark" />
-				</template>
-			</NcEmptyContent>
-		</NcAppContent> -->
 		<NcAppSidebar
 			v-show="activeId !== 0 && activateAnnouncementHasComments"
 			:title="
@@ -136,13 +111,11 @@ export default {
 		},
 	},
 	async beforeMount() {
-		await this.loadAnnouncements({ filterKey: "", page: 1, pageSize: 14 });
+		await this.loadAnnouncements({ filterKey: "", page: 1, pageSize: 30 });
+		console.log(this.announcements);
 	},
 	async mounted() {
 		const activeId = loadState("announcementcenter", "activeId", 0);
-		if (activeId !== 0) {
-			await this.onClickAnnouncement(activeId);
-		}
 		subscribe("newAnnouncement", () => {
 			this.showNewModal = true;
 		});
@@ -155,37 +128,6 @@ export default {
 		...mapActions(["loadAnnouncements"]),
 		closeModal() {
 			this.showNewModal = false;
-		},
-
-		/**
-		 * Load the comments of the announcements
-		 *
-		 * @param {number} id the announcement
-		 */
-		async onClickAnnouncement(id) {
-			if (id === this.activeId) {
-				return;
-			}
-
-			this.activeId = id;
-
-			if (!this.activateAnnouncementHasComments) {
-				return;
-			}
-
-			if (id === 0) {
-				// Destroy the comments view as the sidebar is destroyed
-				this.commentsView = null;
-				return;
-			}
-
-			if (!this.commentsView) {
-				// Create a new comments view when there is none
-				this.commentsView = new OCA.Comments.View("announcement");
-			}
-
-			await this.commentsView.update(id);
-			this.commentsView.$mount(this.$refs.sidebar);
 		},
 	},
 };

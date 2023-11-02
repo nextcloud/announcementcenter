@@ -38,7 +38,12 @@
 			:options="formatedSharees"
 			:user-select="true"
 			:auto-limit="false"
-			:placeholder="t('deck', 'Assign a user to this card…')"
+			:placeholder="
+				t(
+					'announcementcenter',
+					'Assign announcement to  groups or circles…'
+				)
+			"
 			label="displayName"
 			track-by="multiselectKey"
 			@input="assignUserToAnnouncement"
@@ -79,24 +84,6 @@
 					{{ t("announcementcenter", "Announce") }}
 				</NcButton>
 				<NcActions>
-					<!-- <NcActionInput
-						v-model="groups"
-						icon="icon-group"
-						type="multiselect"
-						:options="groupOptions"
-						label="label"
-						track-by="id"
-						:multiple="true"
-						:placeholder="t('announcementcenter', 'Everyone')"
-						:title="
-							t(
-								'announcementcenter',
-								'These groups will be able to see the announcement. If no group is selected, all users can see it.'
-							)
-						"
-						@search-change="onSearchChanged">
-						{{ t("announcementcenter", "Everyone") }}
-					</NcActionInput> -->
 					<NcActionCheckbox
 						value="1"
 						:checked.sync="createActivities">
@@ -182,7 +169,6 @@ export default {
 	computed: {
 		...mapState(["sharees"]),
 		formatedSharees() {
-			console.log(this.sharees);
 			return this.sharees
 				.map((item) => {
 					const sharee = {

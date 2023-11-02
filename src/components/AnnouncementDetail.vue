@@ -1,13 +1,12 @@
 <template>
-	<NcAppContentDetails>
+	<NcAppContentDetails style="height: 100%">
 		<Page v-if="currentAnnouncement" />
 		<template v-else>
 			<NcEmptyContent
-				:title="t('collectives', 'Page not found: {page}')"
-				:description="
+				:title="
 					t(
-						'collectives',
-						'Select a page from the list or create a new one.'
+						'announcementcenter',
+						'Select an announcement from the list or create a new one.'
 					)
 				">
 			</NcEmptyContent
@@ -24,8 +23,6 @@ export default {
 	computed: {
 		...mapGetters(["currentAnnouncement"]),
 	},
-	mounted() {
-		console.log(this.currentAnnouncement);
-	},
+	mounted() {},
 };
 </script>

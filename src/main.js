@@ -27,7 +27,8 @@ import { translate, translatePlural } from "@nextcloud/l10n";
 import store from "./store/index.js";
 import App from "./App.vue";
 import Vuex from "vuex";
-import VTooltip from "@nextcloud/vue/dist/Directives/Tooltip.js";
+import router from "./router/router.js";
+import { Tooltip } from "@nextcloud/vue";
 // Styles
 import "@nextcloud/dialogs/style.css";
 import "windi.css";
@@ -38,7 +39,7 @@ __webpack_nonce__ = btoa(getRequestToken());
 __webpack_public_path__ = generateFilePath("announcementcenter", "", "js/");
 
 // Register global directives
-Vue.directive("Tooltip", VTooltip);
+Vue.directive("tooltip", Tooltip);
 Vue.use(Vuex);
 
 Vue.mixin({
@@ -51,5 +52,6 @@ Vue.mixin({
 export default new Vue({
 	el: "#content",
 	store,
+	router,
 	render: (h) => h(App),
 });

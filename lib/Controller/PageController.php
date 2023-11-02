@@ -92,9 +92,14 @@ class PageController extends Controller
 			$this->manager->checkIsAdmin()
 		);
 		$this->initialState->provideInitialState(
+			'canCreate',
+			$this->manager->checkCanCreate()
+		);
+		$this->initialState->provideInitialState(
 			'createActivities',
 			$this->config->getAppValue(Application::APP_ID, 'create_activities', 'yes') === 'yes'
 		);
+		$this->initialState->provideInitialState('maxUploadSize', (int)Util::uploadLimit());
 		$this->initialState->provideInitialState(
 			'createNotifications',
 			$this->config->getAppValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'

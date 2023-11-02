@@ -25,12 +25,12 @@
 		class="flex items-center p-2 justify-between announce_item"
 		style="
 			width: 100%;
-			border-bottom: 2px solid var(--color-background-dark);
+			border-bottom: 1px solid var(--color-background-darker);
 		"
 		:class="{ selected_announcement: isSelected }">
 		<div class="flex items-center" style="width: 100%">
 			<NcAvatar
-				:user="source.authorId"
+				:user="source.author_id"
 				:display-name="source.author"
 				:size="40"
 				:show-user-status="true" />
@@ -63,7 +63,7 @@
 				</div>
 				<div class="flex justify-center">
 					<NcActions
-						v-if="source.isAdmin"
+						v-if="isAuthor"
 						:force-menu="true"
 						:boundaries-element="boundariesElement">
 						<NcActionButton
@@ -100,7 +100,7 @@ import {
 	deleteAnnouncement,
 	removeNotifications,
 } from "../services/announcementsService.js";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { emit } from "@nextcloud/event-bus";
 export default {
 	name: "Announcement",
@@ -130,6 +130,9 @@ export default {
 	},
 	computed: {
 		...mapGetters(["currentAnnouncement"]),
+		isAuthor() {
+			return OC.getCurrentUser().uid === this.source.author_id;
+		},
 		isSelected() {
 			if (this.currentAnnouncement) {
 				return this.currentAnnouncement.id === this.source.id;
@@ -220,11 +223,12 @@ export default {
 		if (this.source.message.length <= 200) {
 			this.isMessageFolded = false;
 		}
-		// await this.setupEditor();
 	},
 
 	methods: {
+		...mapMutations(["setCurrentAnnouncementId"]),
 		onClick() {
+			this.setCurrentAnnouncementId(this.source.id);
 			emit("clickAnnouncement", this.source.id);
 		},
 		onClickFoldedMessage() {

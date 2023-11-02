@@ -23,6 +23,7 @@
 import Vue from "vue";
 import Vuex, { Store } from "vuex";
 import announcementsStore from "./announcementsStore.js";
+import attachmentStore from "./attachment.js";
 import axios from "@nextcloud/axios";
 import { generateOcsUrl, generateUrl } from "@nextcloud/router";
 import { pageModes } from "../constants.js";
@@ -32,6 +33,7 @@ Vue.use(Vuex);
 export default new Store({
 	modules: {
 		announcementsStore,
+		attachmentStore,
 	},
 	state: {
 		sharees: [],

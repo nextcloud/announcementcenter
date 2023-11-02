@@ -1,73 +1,59 @@
 <template>
 	<NcAppContentList ref="contentList" style="height: 100%">
 		<div class="page-list-headerbar p-2">
-			<NcButton class="mr-2" type="primary" @click="addAnnouncement">
-				<template #icon>
-					<PlusIcon :size="20" />
-				</template>
-			</NcButton>
 			<NcTextField
 				name="pageFilter"
 				:label="t('collectives', 'Search Announcements')"
 				:value.sync="filterString"
 				class="page-filter"
 				:placeholder="t('collectives', 'Announcements ...')" />
-
-			<NcActions
-				class="toggle"
-				:aria-label="t('collectives', 'Sort order')"
-				:title="t('collectives', 'Sort order')">
-				<!-- <template #icon>
-					<SortAscendingIcon v-if="sortedBy('byOrder')" :size="16" />
-					<SortAlphabeticalAscendingIcon
-						v-else-if="sortedBy('byTitle')"
-						:size="16" />
-					<SortClockAscendingOutlineIcon v-else :size="16" />
-				</template> -->
-				<NcActionButton
-					class="toggle-button"
-					:close-after-click="true"
-					@click="sortPagesAndScroll('byOrder')">
-					<template #icon>
-						<SortAscendingIcon :size="20" />
-					</template>
-					{{ t("collectives", "Sort by custom order") }}
-				</NcActionButton>
-				<NcActionButton
-					class="toggle-button"
-					:close-after-click="true"
-					@click="sortPagesAndScroll('byTimestamp')">
-					<template #icon>
-						<SortClockAscendingOutlineIcon :size="20" />
-					</template>
-					{{ t("collectives", "Sort recently changed first") }}
-				</NcActionButton>
-				<NcActionButton
-					class="toggle-button"
-					:close-after-click="true"
-					@click="sortPagesAndScroll('byTitle')">
-					<template #icon>
-						<SortAlphabeticalAscendingIcon :size="20" />
-					</template>
-					{{ t("collectives", "Sort by title") }}
-				</NcActionButton>
-			</NcActions>
+			<NcButton
+				class="ml-2"
+				:title="t('announcementcenter', 'post announcement')"
+				v-if="isAdmin || canCreate"
+				type="primary"
+				@click="addAnnouncement">
+				<template #icon>
+					<PlusIcon :size="20" />
+				</template>
+			</NcButton>
+			<NcButton
+				class="ml-2"
+				:title="t('announcementcenter', 'load more announcements')"
+				v-if="isAdmin || canCreate"
+				type="success"
+				@click="onScrollToBottom">
+				<template #icon>
+					<SyncIcon :size="20" />
+				</template>
+			</NcButton>
 		</div>
-		<button @click="isOpen = !isOpen">Toggle</button>
 		<div style="height: calc(100% - 60px)">
-			<collapse-transition>
-				<div v-show="isOpen">
-					<VirtualList
-						class="virtual-list"
-						wrap-class="list-wrap"
-						style="overflow-y: auto"
-						:data-key="'id'"
-						:data-sources="announcements"
-						:data-component="AnnouncementComponent"
-						:page-mode="true">
-					</VirtualList>
-				</div>
-			</collapse-transition>
+			<div v-for="time in Object.keys(groupedAnnouncements)">
+				<template v-if="groupedAnnouncements[time].length > 0">
+					<div
+						@click="toggleCollapse(time)"
+						class="time-stage flex items-center text-sm font-bold p-1 hover:cursor-pointer">
+						<RightArrowIcon
+							:class="{ rotate90: collapseShow[time] }"
+							:size="20"></RightArrowIcon>
+						{{ time }}
+					</div>
+					<collapse-transition>
+						<div v-show="collapseShow[time]">
+							<VirtualList
+								class="virtual-list"
+								wrap-class="list-wrap"
+								style="overflow-y: auto"
+								:data-key="'id'"
+								:data-sources="groupedAnnouncements[time]"
+								:data-component="AnnouncementComponent"
+								:page-mode="true">
+							</VirtualList>
+						</div>
+					</collapse-transition>
+				</template>
+			</div>
 
 			<div v-if="isLoading">
 				<NcLoadingIcon />
@@ -91,13 +77,14 @@ import CloseIcon from "vue-material-design-icons/Close.vue";
 import SortAlphabeticalAscendingIcon from "vue-material-design-icons/SortAlphabeticalAscending.vue";
 import SortAscendingIcon from "vue-material-design-icons/SortAscending.vue";
 import PlusIcon from "./icons/PlusIcon.vue";
+import SyncIcon from "./icons/SyncIcon.vue";
+import RightArrowIcon from "./icons/RightArrowIcon.vue";
 import SortClockAscendingOutlineIcon from "vue-material-design-icons/SortClockAscendingOutline.vue";
 import Announcement from "./Announcement";
 import { loadState } from "@nextcloud/initial-state";
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 import VirtualList from "vue-virtual-scroll-list";
 import { CollapseTransition } from "@ivanv/vue-collapse-transition";
-
 export default {
 	name: "AnnouncementList",
 
@@ -116,6 +103,8 @@ export default {
 		CloseIcon,
 		VirtualList,
 		CollapseTransition,
+		RightArrowIcon,
+		SyncIcon,
 	},
 
 	data() {
@@ -123,22 +112,55 @@ export default {
 			AnnouncementComponent: Announcement,
 			filterString: "",
 			isAdmin: loadState("announcementcenter", "isAdmin"),
+			canCreate: loadState("announcementcenter", "canCreate"),
 			isLoading: false,
 			page: 1,
-			isOpen: false,
+			collapseShow: {
+				Today: false,
+				Yesterday: false,
+				"This Week": false,
+				"Last Week": false,
+				"Two Weeks Ago": false,
+				"Three Weeks Ago": false,
+				"Earlier This Month": false,
+				"Last Month": false,
+				"Two Months Ago": false,
+				"Three Months Ago": false,
+				"Four Months Ago": false,
+				"Five Months Ago": false,
+				"Half A Year Ago": false,
+				"Seven Months Ago": false,
+				"Eight Months Ago": false,
+				"Nine Months Ago": false,
+				"Ten Months Ago": false,
+				"Eleven Months Ago": false,
+				"One Year Ago": false,
+				"Two Years Ago": false,
+				"Other Time": false,
+			},
 		};
 	},
 	mounted() {
-		subscribe("clickAnnouncement", async (id) => {
-			await this.onClickAnnouncement(id);
-		});
 		this.$refs.contentList.$el.addEventListener(
 			"scroll",
 			this.handleScroll
 		);
+		if (Object.keys(this.$route.query).length > 0) {
+			this.setCurrentAnnouncementId(
+				parseInt(this.$route.query.announcement)
+			);
+			setTimeout(() => {
+				let time = this.findAnnoucementTime(
+					parseInt(this.$route.query.announcement)
+				);
+
+				if (time !== "") {
+					this.toggleCollapse(time);
+				}
+			}, 1000);
+		}
 	},
 	beforeDestroy() {
-		unsubscribe("clickAnnouncement");
 		this.$refs.contentList.$el.removeEventListener(
 			"scroll",
 			this.handleScroll
@@ -151,99 +173,187 @@ export default {
 			"total",
 			"pages",
 		]),
-		groupedAnnouncements() {
-			let groups = {
-				Today: [],
-				Yesterday: [],
-				"This Week": [],
-				"Last Week": [],
-				"Two Weeks Ago": [],
-				"Three Weeks Ago": [],
-				"Earlier This Month": [],
-				"Last Month": [],
-				"Two Months Ago": [],
-				"Three Months Ago": [],
-				"Four Months Ago": [],
-				"Five Months Ago": [],
-				"Half A Year Ago": [],
-				"Seven Months Ago": [],
-				"Eight Months Ago": [],
-				"Nine Months Ago": [],
-				"Ten Months Ago": [],
-				"Eleven Months Ago": [],
-				"One Year Ago": [],
-				"Two Years Ago": [],
-				"Other Time": [],
-			};
-
-			this.announcements.forEach((announcement) => {
-				let time = moment(announcement.time * 1000);
-				let now = moment();
-
-				if (time.isSame(now, "day")) {
-					groups["Today"].push(announcement);
-				} else if (time.isSame(now.subtract(1, "days"), "day")) {
-					groups["Yesterday"].push(announcement);
-				} else if (time.isSame(now, "week")) {
-					groups["This Week"].push(announcement);
-				} else if (time.isSame(now.subtract(1, "weeks"), "week")) {
-					groups["Last Week"].push(announcement);
-				} else if (time.isSame(now.subtract(2, "weeks"), "week")) {
-					groups["Two Weeks Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(3, "weeks"), "week")) {
-					groups["Three Weeks Ago"].push(announcement);
-				} else if (time.isSame(now.startOf("month"), "month")) {
-					groups["Earlier This Month"].push(announcement);
-				} else if (time.isSame(now.subtract(1, "months"), "month")) {
-					groups["Last Month"].push(announcement);
-				} else if (time.isSame(now.subtract(2, "months"), "month")) {
-					groups["Two Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(3, "months"), "month")) {
-					groups["Three Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(4, "months"), "month")) {
-					groups["Four Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(5, "months"), "month")) {
-					groups["Five Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(6, "months"), "month")) {
-					groups["Half A Year Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(7, "months"), "month")) {
-					groups["Seven Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(8, "months"), "month")) {
-					groups["Eight Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(9, "months"), "month")) {
-					groups["Nine Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(10, "months"), "month")) {
-					groups["Ten Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(11, "months"), "month")) {
-					groups["Eleven Months Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(1, "years"), "year")) {
-					groups["One Year Ago"].push(announcement);
-				} else if (time.isSame(now.subtract(2, "years"), "year")) {
-					groups["Two Years Ago"].push(announcement);
-				} else {
-					groups["Other Time"].push(announcement);
-				}
+		sortAnnouncements() {
+			let res = this.announcements.sort((a1, a2) => {
+				return a2.time - a1.time;
 			});
+			return res;
+		},
+		groupedAnnouncements() {
+			// 定义一个空对象，用于存储分组结果
+			let result = {};
+			// 定义一个数组，用于存储分组的键
+			let keys = [
+				"Today",
+				"Yesterday",
+				"This Week",
+				"Last Week",
+				"Two Weeks Ago",
+				"Three Weeks Ago",
+				"Earlier This Month",
+				"Last Month",
+				"Two Months Ago",
+				"Three Months Ago",
+				"Four Months Ago",
+				"Five Months Ago",
+				"Half A Year Ago",
+				"Seven Months Ago",
+				"Eight Months Ago",
+				"Nine Months Ago",
+				"Ten Months Ago",
+				"Eleven Months Ago",
+				"One Year Ago",
+				"Two Years Ago",
+				"Other Time",
+			];
+			// 遍历每个键，初始化为空数组
+			for (let key of keys) {
+				result[key] = [];
+			}
+			// 获取当前时间的moment对象
+			let now = moment(new Date());
+			// 遍历announcements数组，根据时间戳判断属于哪个分组，并添加到相应的数组中
+			for (let announcement of this.sortAnnouncements) {
+				// 获取announcement的时间的moment对象
+				let time = moment(announcement.time * 1000);
+				// 定义一个变量，用于存储分组的键，默认为Other Time
+				let group = "Other Time";
 
-			return groups;
+				// 判断是否是今天
+				if (time.isSame(moment(), "day")) {
+					group = "Today";
+				}
+				// 判断是否是昨天
+				else if (time.isSame(moment().subtract(1, "day"), "day")) {
+					group = "Yesterday";
+				}
+				// 判断是否是本周
+				else if (time.isSame(moment(), "week")) {
+					group = "This Week";
+				}
+				// 判断是否是上周
+				else if (time.isSame(moment().subtract(1, "week"), "week")) {
+					group = "Last Week";
+				}
+				// 判断是否是两周前
+				else if (time.isSame(moment().subtract(2, "week"), "week")) {
+					group = "Two Weeks Ago";
+				}
+				// 判断是否是三周前
+				else if (time.isSame(moment().subtract(3, "week"), "week")) {
+					group = "Three Weeks Ago";
+				}
+				// 判断是否是本月初
+				else if (time.isSame(moment(), "month") && time.date() <= 7) {
+					group = "Earlier This Month";
+				}
+				// 判断是否是上个月
+				else if (time.isSame(moment().subtract(1, "month"), "month")) {
+					group = "Last Month";
+				}
+				// 判断是否是两个月前
+				else if (time.isSame(moment().subtract(2, "month"), "month")) {
+					group = "Two Months Ago";
+				}
+				// 判断是否是三个月前
+				else if (time.isSame(moment().subtract(3, "month"), "month")) {
+					group = "Three Months Ago";
+				}
+				// 判断是否是四个月前
+				else if (time.isSame(moment().subtract(4, "month"), "month")) {
+					group = "Four Months Ago";
+				}
+				// 判断是否是五个月前
+				else if (time.isSame(moment().subtract(5, "month"), "month")) {
+					group = "Five Months Ago";
+				}
+				// 判断是否是半年前
+				else if (time.isSame(moment().subtract(6, "month"), "month")) {
+					group = "Half A Year Ago";
+				}
+				// 判断是否是七个月前
+				else if (time.isSame(moment().subtract(7, "month"), "month")) {
+					group = "Seven Months Ago";
+				}
+				// 判断是否是八个月前
+				else if (time.isSame(moment().subtract(8, "month"), "month")) {
+					group = "Eight Months Ago";
+				}
+				// 判断是否是九个月前
+				else if (time.isSame(moment().subtract(9, "month"), "month")) {
+					group = "Nine Months Ago";
+				}
+				// 判断是否是十个月前
+				else if (time.isSame(moment().subtract(10, "month"), "month")) {
+					group = "Ten Months Ago";
+				}
+				// 判断是否是十一个月前
+				else if (time.isSame(moment().subtract(11, "month"), "month")) {
+					group = "Eleven Months Ago";
+				}
+				// 判断是否是一年前
+				else if (time.isSame(moment().subtract(1, "year"), "year")) {
+					group = "One Year Ago";
+				}
+				// 判断是否是两年前
+				else if (time.isSame(moment().subtract(2, "year"), "year")) {
+					group = "Two Years Ago";
+				}
+				console.log(
+					moment().format("YYYY-MM-DD hh:mm"),
+					time.format("YYYY-MM-DD hh:mm"),
+					group
+				);
+				// 将announcement添加到对应的分组数组中
+				result[group].push(announcement);
+			}
+
+			// 返回分组结果对象
+			return result;
 		},
 	},
 	watch: {
 		async filterString(oldValue, newValue) {
 			this.page = 1;
-			console.log(oldValue);
 			this.clearAnnoucements();
 			await this.loadAnnouncements({
 				filterKey: this.filterString,
 				page: this.page,
 				pageSize: 14,
 			});
-			this.setCurrentAnnouncementId(this.announcements[0].id);
+			if (this.announcements.length > 0) {
+				this.setCurrentAnnouncementId(this.announcements[0].id);
+			}
 		},
 	},
 	methods: {
 		...mapMutations(["setCurrentAnnouncementId", "clearAnnoucements"]),
 		...mapActions(["loadAnnouncements"]),
+		toggleCollapse(time) {
+			if (!this.collapseShow[time]) {
+				Object.keys(this.collapseShow).forEach((key) => {
+					this.collapseShow[key] = false;
+				});
+				this.collapseShow[time] = true;
+			} else {
+				this.collapseShow[time] = false;
+			}
+		},
+		findAnnoucementTime(id) {
+			let timeKeys = Object.keys(this.groupedAnnouncements);
+			for (let i = 0; i < timeKeys.length; i++) {
+				let key = timeKeys[i];
+				for (
+					let j = 0;
+					j < this.groupedAnnouncements[key].length;
+					j++
+				) {
+					if (this.groupedAnnouncements[key][j].id === id) return key;
+				}
+			}
+
+			return "";
+		},
 		handleScroll(e) {
 			const { scrollTop, scrollHeight, clientHeight } = e.target;
 			if (scrollTop + clientHeight >= scrollHeight) {
@@ -251,7 +361,6 @@ export default {
 			}
 		},
 		async onScrollToBottom() {
-			console.log(this.groupedAnnouncements);
 			if (
 				this.announcements.length >= this.total ||
 				this.page > this.pages ||
@@ -264,46 +373,15 @@ export default {
 			await this.loadAnnouncements({
 				filterKey: this.filterString,
 				page: this.page,
-				pageSize: 14,
+				pageSize: 30,
 			});
 			this.isLoading = false;
 		},
 		addAnnouncement() {
 			emit("newAnnouncement");
 		},
-		getExtraProps(index) {
-			return {
-				isAdmin: this.isAdmin,
-			};
-		},
+
 		sortPagesAndScroll() {},
-		async onClickAnnouncement(id) {
-			if (
-				this.currentAnnouncement &&
-				id === this.currentAnnouncement.id
-			) {
-				return;
-			}
-			this.setCurrentAnnouncementId(id);
-
-			if (!this.activateAnnouncementHasComments) {
-				return;
-			}
-
-			if (id === 0) {
-				// Destroy the comments view as the sidebar is destroyed
-				this.commentsView = null;
-				return;
-			}
-
-			if (!this.commentsView) {
-				// Create a new comments view when there is none
-				this.commentsView = new OCA.Comments.View("announcement");
-			}
-
-			await this.commentsView.update(id);
-			this.commentsView.$mount(this.$refs.sidebar);
-		},
 	},
 };
 </script>
@@ -317,7 +395,16 @@ export default {
 		padding: 0px 0px 0px !important;
 	}
 }
-
+.rotate90 {
+	rotate: 90deg;
+}
+.time-stage {
+	border-left: 0.3rem solid var(--color-primary);
+	border-bottom: 1px solid var(--color-background-darker);
+}
+.time-stage:hover {
+	background: var(--color-background-hover);
+}
 .app-content-list {
 	// nextcloud-vue component sets `max-height: unset` on mobile.
 	// Overwrite this to fix stickyness of header and landingpage.
@@ -340,7 +427,6 @@ export default {
 	width: 44px;
 	padding: 0;
 }
-
 .toggle:hover {
 	opacity: 1;
 }

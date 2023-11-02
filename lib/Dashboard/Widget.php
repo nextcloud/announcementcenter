@@ -124,8 +124,8 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	 */
 	public function load(): void {
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
-			$announcements = $this->manager->getAnnouncements();
-			return array_map([$this, 'renderAnnouncement'], $announcements);
+			$announcements = $this->manager->getAnnouncements(1,7);
+			return array_map([$this, 'renderAnnouncement'], $announcements['data']);
 		});
 		Util::addStyle(Application::APP_ID, 'dashboard');
 		Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');

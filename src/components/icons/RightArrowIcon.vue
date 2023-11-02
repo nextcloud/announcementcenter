@@ -7,12 +7,14 @@
 		v-bind="$attrs"
 		@click="$emit('click', $event)">
 		<svg
-			xmlns="http://www.w3.org/2000/svg"
 			:fill="fillColor"
 			:height="size"
 			:width="size"
+			xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 24 24">
-			<path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+			<title>chevron-right</title>
+			<path
+				d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
 		</svg>
 	</span>
 </template>

@@ -31,7 +31,9 @@ use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCA\AnnouncementCenter\Service\AttachmentService;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\DB\Exception;
@@ -41,6 +43,7 @@ use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use Psr\Log\LoggerInterface;
+use ReflectionException;
 
 class Manager
 {
@@ -69,6 +72,7 @@ class Manager
 	/** @var IUserSession */
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
+    protected AttachmentService $attachmentService;
 	public function __construct(
 		IConfig $config,
 		AnnouncementMapper $announcementMapper,
@@ -78,7 +82,8 @@ class Manager
 		ICommentsManager $commentsManager,
 		IJobList $jobList,
 		IUserSession $userSession,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+        AttachmentService $attachmentService
 	) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
@@ -89,6 +94,7 @@ class Manager
 		$this->jobList = $jobList;
 		$this->userSession = $userSession;
 		$this->logger = $logger;
+        $this->attachmentService=$attachmentService;
 	}
 
 	/**
@@ -176,12 +182,14 @@ class Manager
 		$this->groupMapper->deleteGroupsForAnnouncement($announcement);
 	}
 
-	/**
-	 * @param int $id
-	 * @param bool $ignorePermissions Permissions are ignored e.g. in background jobs to generate activities etc.
-	 * @return Announcement
-	 * @throws AnnouncementDoesNotExistException
-	 */
+    /**
+     * @param int $id
+     * @param bool $ignorePermissions Permissions are ignored e.g. in background jobs to generate activities etc.
+     * @return Announcement
+     * @throws AnnouncementDoesNotExistException
+     * @throws Exception
+     * @throws MultipleObjectsReturnedException
+     */
 	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement
 	{
 		try {
@@ -231,11 +239,45 @@ class Manager
 	{
 		return $this->groupMapper->getGroupsForAnnouncement($announcement);
 	}
-
 	/**
-	 * @param int $page
-	 * @param int $pageSize
+	 * @param int $announcementId
+	 * @return string[]
 	 */
+	public function getGroupsByAnnouncementId(int $announcementId): array
+	{
+		return $this->groupMapper->getGroupsByAnnouncementId($announcementId);
+	}
+	public function getUsersByAnnouncementId(int $announcementId): array
+	{
+		// 获取与公告ID相关的群组
+		$groups = $this->groupMapper->getGroupsByAnnouncementId($announcementId);
+
+		// 存储所有用户的数组
+		$users = [];
+
+		// 遍历每个群组
+		foreach ($groups as $group) {
+			// 使用GroupManager获取群组对象
+			$groupObject = $this->groupManager->get($group);
+
+			// 获取群组中的所有用户
+			$groupUsers = $groupObject->getUsers();
+
+			// 将群组用户添加到总用户数组中
+			foreach ($groupUsers as $user) {
+				$users[] = $user->getUID();
+			}
+		}
+
+		return $users;
+	}
+
+    /**
+     * @param int $page
+     * @param int $pageSize
+     * @return array
+     * @throws Exception
+     */
 	public function getAnnouncements(int $page = 1, int $pageSize = 10): array
 	{
 		$userGroups = $this->getUserGroups();
@@ -243,19 +285,38 @@ class Manager
 		// if (!empty($memberOfAdminGroups)) {
 		// 	$userGroups = [];
 		// }
-		$announcements = $this->announcementMapper->getAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $page, $pageSize);
-		return $announcements;
+        return $this->announcementMapper->getAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $page, $pageSize);
 	}
-	public function searchAnnouncements(string $filterKey = '', int $page = 1, int $pageSize = 10): array
+
+    /**
+     * @param string $filterKey
+     * @param int $page
+     * @param int $pageSize
+     * @return array
+     * @throws BadRequestException
+     * @throws Exception
+     * @throws InvalidAttachmentType
+     * @throws ReflectionException
+     */
+    public function searchAnnouncements(string $filterKey = '', int $page = 1, int $pageSize = 10): array
 	{
 		$userGroups = $this->getUserGroups();
 		// $memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
 		// if (!empty($memberOfAdminGroups)) {
 		// 	$userGroups = [];
 		// }
-		$announcements = $this->announcementMapper->searchAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $filterKey, $page, $pageSize);
-		return $announcements;
-	}
+        $result= $this->announcementMapper->searchAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $filterKey, $page, $pageSize);
+	    $result['data']=array_map(function (Announcement $announcement)
+        {
+            $attachments = $this->attachmentService->findAll($announcement->getId(), true);
+            $announcement->setAttachments($attachments);
+            $announcement->setAttachmentCount($this->attachmentService->count($announcement->getId()));
+            return $announcement;
+        },$result['data']);
+        return $result;
+    }
+
+
 	public function markNotificationRead(int $id): void
 	{
 		$user = $this->userSession->getUser();
@@ -337,6 +398,25 @@ class Manager
 		$user = $this->userSession->getUser();
 
 		if ($user instanceof IUser) {
+			$group = "admin";
+			if ($this->groupManager->isInGroup($user->getUID(), $group)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	public function checkIsAuthor(Announcement $announcement): bool
+	{
+		$user = $this->userSession->getUser();
+		$userId = $user instanceof IUser ? $user->getUID() : '';
+		return $userId == $announcement->getUser();
+	}
+	public function checkCanCreate(): bool
+	{
+		$user = $this->userSession->getUser();
+
+		if ($user instanceof IUser) {
 			$groups = $this->getAdminGroups();
 			foreach ($groups as $group) {
 				if ($this->groupManager->isInGroup($user->getUID(), $group)) {
@@ -347,15 +427,7 @@ class Manager
 
 		return false;
 	}
-	public function checkIsAuthor(Announcement $announcement): bool
-	{
-		$user = $this->userSession->getUser();
-		if ($user->getUID() === $announcement->getUser()) {
-			return true;
-		}
 
-		return false;
-	}
 	/**
 	 * @return string[]
 	 */

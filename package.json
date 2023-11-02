@@ -33,10 +33,12 @@
     "@nextcloud/text": "^28.0.0-dev.1",
     "@nextcloud/vue": "^7.12.6",
     "debounce": "^1.2.1",
+    "p-queue": "^7.4.1",
     "remark": "^15.0.1",
     "strip-markdown": "^5.0.1",
     "vue": "^2.7.14",
     "vue-click-outside": "^1.1.0",
+    "vue-router": "^3.6.5",
     "vue-virtual-scroll-list": "^2.3.5",
     "vuex": "^3.6.2"
   },
