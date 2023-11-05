@@ -24,13 +24,10 @@
 
 namespace OCA\AnnouncementCenter\Service;
 
-// use OCA\Announcementcenter\Activity\ActivityManager;
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\BadRequestException;
 use OCA\AnnouncementCenter\Model\Attachment;
 use OCA\AnnouncementCenter\Model\AttachmentMapper;
-// use OCA\Announcementcenter\Model\AnnouncementMapper;
-// use OCA\Announcementcenter\Model\ChangeHelper;
 use OCA\AnnouncementCenter\InvalidAttachmentType;
 use OCA\AnnouncementCenter\NoPermissionException;
 use OCA\AnnouncementCenter\NotFoundException;
@@ -48,6 +45,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Log\LoggerInterface;
 use ReflectionException;
+
 
 class AttachmentService
 {
@@ -91,7 +89,8 @@ class AttachmentService
 		IL10N $l10n,
 		// ActivityManager $activityManager,
 		AttachmentServiceValidator $attachmentServiceValidator,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+	
 	) {
 		$this->attachmentMapper = $attachmentMapper;
 		// $this->permissionService = $permissionService;
@@ -99,10 +98,12 @@ class AttachmentService
 		$this->application = $application;
 		$this->attachmentCacheHelper = $attachmentCacheHelper;
 		$this->l10n = $l10n;
-		// $this->activityManager = $activityManager;
+		// $this->activityManager = $activityManager; 
 		$this->userManager = $userManager;
 		$this->attachmentServiceValidator = $attachmentServiceValidator;
 		$this->logger = $logger;
+	
+		
 		// Register shipped attachment services
 		// TODO: move this to a plugin based approach once we have different types of attachments
 		$this->registerAttachmentService('deck_file', FileService::class);
@@ -220,7 +221,7 @@ class AttachmentService
 		$this->attachmentServiceValidator->check(compact('announcementId', 'type'));
 
 		// $this->permissionService->checkPermission($this->announcementMapper, $announcementId, Acl::PERMISSION_EDIT);
-		$this->logger->warning('data:' . json_encode($data));
+		
 		$this->attachmentCacheHelper->clearAttachmentCount((int)$announcementId);
 		$attachment = new Attachment();
 		$attachment->setAnnouncementId($announcementId);

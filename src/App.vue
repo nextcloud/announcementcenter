@@ -62,7 +62,7 @@ import AnnouncementList from "./components/AnnouncementList.vue";
 import AnnouncementDetail from "./components/AnnouncementDetail.vue";
 import { loadState } from "@nextcloud/initial-state";
 import NewForm from "./components/NewForm.vue";
-import AppNavigation from "./components/navigation/AppNavigation.vue";
+
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 export default {
 	name: "App",
@@ -73,7 +73,6 @@ export default {
 		NcAppSidebar,
 		NcContent,
 		NcEmptyContent,
-		AppNavigation,
 		AnnouncementDetail,
 		NcModal,
 		NcButton,
@@ -82,7 +81,6 @@ export default {
 
 	data() {
 		return {
-			isAdmin: loadState("announcementcenter", "isAdmin"),
 			commentsView: null,
 			activeId: 0,
 			showNewModal: false,

@@ -32,7 +32,6 @@ use OCA\AnnouncementCenter\InvalidAttachmentType;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
-use OCA\Text\Event\LoadEditor;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -82,15 +81,15 @@ class APIController extends OCSController
 		$this->logger = $logger;
 	}
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     *
-     * @param int $page
-     * @param int $pageSize
-     * @return DataResponse
-     * @throws Exception
-     */
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @param int $page
+	 * @param int $pageSize
+	 * @return DataResponse
+	 * @throws Exception
+	 */
 	public function get(int $page = 1, int $pageSize = 10): DataResponse
 	{
 		$announcements = $this->manager->getAnnouncements($page, $pageSize);
@@ -98,19 +97,19 @@ class APIController extends OCSController
 		return new DataResponse($announcements);
 	}
 
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     *
-     * @param string $filterKey
-     * @param int $page
-     * @param int $pageSize
-     * @return DataResponse
-     * @throws Exception
-     * @throws BadRequestException
-     * @throws InvalidAttachmentType
-     * @throws \ReflectionException
-     */
+	/**
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * @param string $filterKey
+	 * @param int $page
+	 * @param int $pageSize
+	 * @return DataResponse
+	 * @throws Exception
+	 * @throws BadRequestException
+	 * @throws InvalidAttachmentType
+	 * @throws \ReflectionException
+	 */
 	public function search(string $filterKey = '', int $page = 1, int $pageSize = 10): DataResponse
 	{
 		$announcements = $this->manager->searchAnnouncements($filterKey, $page, $pageSize);
@@ -177,7 +176,7 @@ class APIController extends OCSController
 	public function update(int $id, string $subject = null, string $message = null, string $plainMessage = null): DataResponse
 	{
 		$announcement = $this->manager->getAnnouncement($id);
-		if (!$this->manager->checkIsAdmin()&&!$this->manager->checkIsAuthor($announcement)) {
+		if (!$this->manager->checkIsAdmin() && !$this->manager->checkIsAuthor($announcement)) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin or author'],
 				Http::STATUS_FORBIDDEN
@@ -189,7 +188,6 @@ class APIController extends OCSController
 			$announcement->setMessage(trim($message));
 		if ($plainMessage != null)
 			$announcement->setPlainMessage(trim($plainMessage));
-		$this->logger->warning('announcemnt:' . $announcement->getId());
 		$result = $this->manager->updateAnnouncement($announcement);
 		return new DataResponse($this->renderAnnouncement($result));
 	}
@@ -205,8 +203,8 @@ class APIController extends OCSController
 			'subject' => $announcement->getParsedSubject(),
 			'message' => $announcement->getMessage(),
 			'groups' => null,
-            'attachmentCount'=>$announcement->getAttachmentCount(),
-            'attachments'=>$announcement->getAttachments(),
+			'attachmentCount' => $announcement->getAttachmentCount(),
+			'attachments' => $announcement->getAttachments(),
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
 
@@ -296,7 +294,7 @@ class APIController extends OCSController
 	 */
 	public function searchGroups(string $search): DataResponse
 	{
-		
+
 		if (!$this->manager->checkCanCreate()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],

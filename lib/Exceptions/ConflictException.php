@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (c) 2020 Jakob Röhrl <jakob.roehrl@web.de>
  *
@@ -23,21 +24,25 @@
 
 namespace OCA\AnnouncementCenter\Exceptions;
 
-use OCA\Announcementcenter\StatusException;
+use OCA\AnnouncementCenter\StatusException;
 
-class ConflictException extends StatusException {
+class ConflictException extends StatusException
+{
 	private $data;
 
-	public function __construct($message, $data = null) {
+	public function __construct($message, $data = null)
+	{
 		parent::__construct($message);
 		$this->data = $data;
 	}
 
-	public function getStatus() {
+	public function getStatus()
+	{
 		return 409;
 	}
 
-	public function getData() {
+	public function getData()
+	{
 		return $this->data;
 	}
 }

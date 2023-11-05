@@ -39,7 +39,8 @@ use OCP\AppFramework\Db\Entity;
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
  */
-class Announcement extends RelationalEntity {
+class Announcement extends RelationalEntity
+{
 
 	/** @var int */
 	protected $time;
@@ -58,25 +59,28 @@ class Announcement extends RelationalEntity {
 
 	/** @var int */
 	protected $allowComments;
-    protected $attachments;
-    protected $attachmentCount;
+	protected $attachments;
+	protected $attachmentCount;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->addType('time', 'int');
 		$this->addType('user', 'string');
 		$this->addType('subject', 'string');
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
-        $this->addRelation('attachments');
-        $this->addRelation('attachmentCount');
+		$this->addRelation('attachments');
+		$this->addRelation('attachmentCount');
 	}
 
-	public function getParsedSubject(): string {
+	public function getParsedSubject(): string
+	{
 		return trim(str_replace("\n", ' ', $this->getSubject()));
 	}
 
-	public function getParsedMessage(): string {
+	public function getParsedMessage(): string
+	{
 		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $this->getMessage());
 	}
 
@@ -84,7 +88,8 @@ class Announcement extends RelationalEntity {
 	 * @param string $columnName the name of the column
 	 * @return string the property name
 	 */
-	public function columnToProperty($columnName): string {
+	public function columnToProperty($columnName): string
+	{
 		// Strip off announcement_
 		if (strpos($columnName, 'announcement_') === 0) {
 			$columnName = substr($columnName, strlen('announcement_'));
@@ -97,7 +102,8 @@ class Announcement extends RelationalEntity {
 	 * @param string $property the name of the property
 	 * @return string the column name
 	 */
-	public function propertyToColumn($property): string {
+	public function propertyToColumn($property): string
+	{
 		if ($property !== 'allowComments') {
 			$property = 'announcement' . ucfirst($property);
 		}
@@ -105,35 +111,35 @@ class Announcement extends RelationalEntity {
 		return parent::propertyToColumn($property);
 	}
 
-    /**
-     * @return mixed
-     */
-    public function getAttachmentCount()
-    {
-        return $this->attachmentCount;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getAttachmentCount()
+	{
+		return $this->attachmentCount;
+	}
 
-    /**
-     * @param mixed $attachmentCount
-     */
-    public function setAttachmentCount($attachmentCount): void
-    {
-        $this->attachmentCount = $attachmentCount;
-    }
+	/**
+	 * @param mixed $attachmentCount
+	 */
+	public function setAttachmentCount($attachmentCount): void
+	{
+		$this->attachmentCount = $attachmentCount;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
-    }
+	/**
+	 * @return mixed
+	 */
+	public function getAttachments()
+	{
+		return $this->attachments;
+	}
 
-    /**
-     * @param mixed $attachments
-     */
-    public function setAttachments($attachments): void
-    {
-        $this->attachments = $attachments;
-    }
+	/**
+	 * @param mixed $attachments
+	 */
+	public function setAttachments($attachments): void
+	{
+		$this->attachments = $attachments;
+	}
 }

@@ -111,8 +111,8 @@ export default {
 		return {
 			AnnouncementComponent: Announcement,
 			filterString: "",
-			isAdmin: loadState("announcementcenter", "isAdmin"),
-			canCreate: loadState("announcementcenter", "canCreate"),
+			isAdmin: loadState("announcementcenter", "isAdmin", false),
+			canCreate: loadState("announcementcenter", "canCreate", true),
 			isLoading: false,
 			page: 1,
 			collapseShow: {

@@ -31,7 +31,6 @@ use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
-use OCA\AnnouncementCenter\Service\AttachmentService;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 use OCP\BackgroundJob\IJobList;
@@ -72,7 +71,6 @@ class Manager
 	/** @var IUserSession */
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
-    protected AttachmentService $attachmentService;
 	public function __construct(
 		IConfig $config,
 		AnnouncementMapper $announcementMapper,
@@ -83,7 +81,6 @@ class Manager
 		IJobList $jobList,
 		IUserSession $userSession,
 		LoggerInterface $logger,
-        AttachmentService $attachmentService
 	) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
@@ -94,7 +91,7 @@ class Manager
 		$this->jobList = $jobList;
 		$this->userSession = $userSession;
 		$this->logger = $logger;
-        $this->attachmentService=$attachmentService;
+
 	}
 
 	/**
@@ -182,14 +179,14 @@ class Manager
 		$this->groupMapper->deleteGroupsForAnnouncement($announcement);
 	}
 
-    /**
-     * @param int $id
-     * @param bool $ignorePermissions Permissions are ignored e.g. in background jobs to generate activities etc.
-     * @return Announcement
-     * @throws AnnouncementDoesNotExistException
-     * @throws Exception
-     * @throws MultipleObjectsReturnedException
-     */
+	/**
+	 * @param int $id
+	 * @param bool $ignorePermissions Permissions are ignored e.g. in background jobs to generate activities etc.
+	 * @return Announcement
+	 * @throws AnnouncementDoesNotExistException
+	 * @throws Exception
+	 * @throws MultipleObjectsReturnedException
+	 */
 	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement
 	{
 		try {
@@ -272,12 +269,12 @@ class Manager
 		return $users;
 	}
 
-    /**
-     * @param int $page
-     * @param int $pageSize
-     * @return array
-     * @throws Exception
-     */
+	/**
+	 * @param int $page
+	 * @param int $pageSize
+	 * @return array
+	 * @throws Exception
+	 */
 	public function getAnnouncements(int $page = 1, int $pageSize = 10): array
 	{
 		$userGroups = $this->getUserGroups();
@@ -285,36 +282,43 @@ class Manager
 		// if (!empty($memberOfAdminGroups)) {
 		// 	$userGroups = [];
 		// }
-        return $this->announcementMapper->getAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $page, $pageSize);
+		return $this->announcementMapper->getAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $page, $pageSize);
 	}
-
-    /**
-     * @param string $filterKey
-     * @param int $page
-     * @param int $pageSize
-     * @return array
-     * @throws BadRequestException
-     * @throws Exception
-     * @throws InvalidAttachmentType
-     * @throws ReflectionException
-     */
-    public function searchAnnouncements(string $filterKey = '', int $page = 1, int $pageSize = 10): array
+	public function getAnnouncementsFromOffsetId(int $since = null, int $limit = 7): array
 	{
 		$userGroups = $this->getUserGroups();
 		// $memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
 		// if (!empty($memberOfAdminGroups)) {
 		// 	$userGroups = [];
 		// }
-        $result= $this->announcementMapper->searchAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $filterKey, $page, $pageSize);
-	    $result['data']=array_map(function (Announcement $announcement)
-        {
-            $attachments = $this->attachmentService->findAll($announcement->getId(), true);
-            $announcement->setAttachments($attachments);
-            $announcement->setAttachmentCount($this->attachmentService->count($announcement->getId()));
-            return $announcement;
-        },$result['data']);
-        return $result;
-    }
+		return $this->announcementMapper->getAnnouncementsFromOffsetId($this->userSession->getUser()->getUID(), $userGroups, $since, $limit);
+	}
+	/**
+	 * @param string $filterKey
+	 * @param int $page
+	 * @param int $pageSize
+	 * @return array
+	 * @throws BadRequestException
+	 * @throws Exception
+	 * @throws InvalidAttachmentType
+	 * @throws ReflectionException
+	 */
+	public function searchAnnouncements(string $filterKey = '', int $page = 1, int $pageSize = 10): array
+	{
+		$userGroups = $this->getUserGroups();
+		// $memberOfAdminGroups = array_intersect($this->getAdminGroups(), $userGroups);
+		// if (!empty($memberOfAdminGroups)) {
+		// 	$userGroups = [];
+		// }
+		$result = $this->announcementMapper->searchAnnouncements($this->userSession->getUser()->getUID(), $userGroups, $filterKey, $page, $pageSize);
+		// $result['data'] = array_map(function (Announcement $announcement) {
+		// 	$attachments = $this->attachmentService->findAll($announcement->getId(), true);
+		// 	$announcement->setAttachments($attachments);
+		// 	$announcement->setAttachmentCount($this->attachmentService->count($announcement->getId()));
+		// 	return $announcement;
+		// }, $result['data']);
+		return $result;
+	}
 
 
 	public function markNotificationRead(int $id): void

@@ -39,10 +39,7 @@
 			:user-select="true"
 			:auto-limit="false"
 			:placeholder="
-				t(
-					'announcementcenter',
-					'Assign announcement to  groups or circles…'
-				)
+				t('announcementcenter', 'Assign announcement to groups…')
 			"
 			label="displayName"
 			track-by="multiselectKey"

@@ -271,7 +271,7 @@ export default {
 			immediate: true,
 			handler() {
 				this.fetchAttachments(this.announcementId);
-				console.log(this.attachments);
+				console.log(this.announcementId);
 			},
 		},
 	},
@@ -280,7 +280,6 @@ export default {
 		handleUploadFile(event) {
 			const files = event.target.files ?? [];
 			for (const file of files) {
-				
 				this.onLocalAttachmentSelected(file, "file");
 			}
 			event.target.value = "";
@@ -298,7 +297,7 @@ export default {
 				axios
 					.post(generateOcsUrl("apps/files_sharing/api/v1/shares"), {
 						path,
-						shareType: 12,
+						shareType: 14,
 						shareWith: "" + this.announcementId,
 					})
 					.then(() => {

@@ -91,10 +91,10 @@
 		</div>
 		<NcModal
 			v-if="modalShow"
-			:title="t('deck', 'Choose attachment')"
+			:title="t('announcementcenter', 'Choose attachment')"
 			@close="modalShow = false">
 			<div class="modal__content">
-				<h3>{{ t("deck", "Choose attachment") }}</h3>
+				<h3>{{ t("announcementcenter", "Choose attachment") }}</h3>
 				<AttachmentList
 					:announcement-id="currentAnnouncement.id"
 					:selectable="true"

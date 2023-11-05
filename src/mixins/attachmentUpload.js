@@ -36,11 +36,17 @@ export default {
 		async onLocalAttachmentSelected(file, type) {
 			if (this.maxUploadSize > 0 && file.size > this.maxUploadSize) {
 				showError(
-					t("deck", "Failed to upload {name}", { name: file.name }) +
+					t("announcementcenter", "Failed to upload {name}", {
+						name: file.name,
+					}) +
 						" - " +
-						t("deck", "Maximum file size of {size} exceeded", {
-							size: formatFileSize(this.maxUploadSize),
-						})
+						t(
+							"announcementcenter",
+							"Maximum file size of {size} exceeded",
+							{
+								size: formatFileSize(this.maxUploadSize),
+							}
+						)
 				);
 				event.target.value = "";
 				return;
@@ -58,7 +64,6 @@ export default {
 
 			await queue.add(async () => {
 				try {
-					
 					await this.$store.dispatch("createAttachment", {
 						announcementId: this.announcementId,
 						formData: bodyFormData,
@@ -92,7 +97,7 @@ export default {
 		overrideAttachment() {
 			const bodyFormData = new FormData();
 			bodyFormData.append("announcementId", this.announcementId);
-			bodyFormData.append("type", "deck_file");
+			bodyFormData.append("type", "announcementcenter_file");
 			bodyFormData.append("file", this.file);
 			this.$store.dispatch("updateAttachment", {
 				announcementId: this.announcementId,

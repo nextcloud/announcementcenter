@@ -33,7 +33,8 @@ export class AttachmentApi {
 			method: "GET",
 			url: this.url(`announcements/${announcementId}/attachments`),
 		});
-		return response.data;
+		console.log(response);
+		return response.data.ocs.data;
 	}
 
 	async createAttachment({ announcementId, formData, onUploadProgress }) {

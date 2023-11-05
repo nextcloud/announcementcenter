@@ -39,22 +39,25 @@ use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\Util;
+use Psr\Log\LoggerInterface;
 
-class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
+class Widget implements IAPIWidget, IButtonWidget, IIconWidget
+{
 	private Manager $manager;
 	private IUserManager $userManager;
 	private IURLGenerator $url;
 	private IInitialState $initialState;
 	private IDateTimeFormatter $dateTimeFormatter;
 	private IL10N $l10n;
-
+	private LoggerInterface $logger;
 	public function __construct(
 		Manager $manager,
 		IUserManager $userManager,
 		IURLGenerator $url,
 		IInitialState $initialState,
 		IDateTimeFormatter $dateTimeFormatter,
-		IL10N $l10n
+		IL10N $l10n,
+		LoggerInterface $logger
 	) {
 		$this->manager = $manager;
 		$this->userManager = $userManager;
@@ -62,54 +65,62 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		$this->initialState = $initialState;
 		$this->dateTimeFormatter = $dateTimeFormatter;
 		$this->l10n = $l10n;
+		$this->logger = $logger;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getId(): string {
+	public function getId(): string
+	{
 		return Application::APP_ID;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getTitle(): string {
+	public function getTitle(): string
+	{
 		return $this->l10n->t('Announcements');
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getOrder(): int {
+	public function getOrder(): int
+	{
 		return 1;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getIconClass(): string {
+	public function getIconClass(): string
+	{
 		return 'icon-announcementcenter-dark';
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getUrl(): ?string {
+	public function getUrl(): ?string
+	{
 		return $this->url->linkToRouteAbsolute('announcementcenter.page.index');
 	}
 
 	/**
 	 * @inheritDoc
 	 */
-	public function getIconUrl(): string {
+	public function getIconUrl(): string
+	{
 		return $this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg'));
 	}
 
 	/**
 	 * @return WidgetButton[]
 	 */
-	public function getWidgetButtons(string $userId): array {
+	public function getWidgetButtons(string $userId): array
+	{
 		$buttons = [];
 		$buttons[] = new WidgetButton(
 			WidgetButton::TYPE_MORE,
@@ -122,18 +133,19 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	/**
 	 * @inheritDoc
 	 */
-	public function load(): void {
+	public function load(): void
+	{
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
-			$announcements = $this->manager->getAnnouncements(1,7);
-			return array_map([$this, 'renderAnnouncement'], $announcements['data']);
+			$results = $this->manager->getAnnouncements(1, 7);
+			return array_map([$this, 'renderAnnouncement'], $results['data']);
 		});
 		Util::addStyle(Application::APP_ID, 'dashboard');
 		Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
 	}
 
-	protected function renderAnnouncement(Announcement $announcement): array {
+	protected function renderAnnouncement(Announcement $announcement): array
+	{
 		$displayName = $this->userManager->getDisplayName($announcement->getUser()) ?? $announcement->getUser();
-
 		$result = [
 			'id' => $announcement->getId(),
 			'author_id' => $announcement->getUser(),
@@ -148,13 +160,15 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		return $result;
 	}
 
-	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
-		$announcements = $this->manager->getAnnouncements((int) $since, $limit);
-		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);
+	public function getItems(string $userId, ?string $since = null, int $limit = 7): array
+	{
+		$results = $this->manager->getAnnouncementsFromOffsetId((int) $since, $limit);
+		$data = array_map([$this, 'renderAnnouncementAPI'], $results['data']);
 		return $data;
 	}
 
-	protected function renderAnnouncementAPI(Announcement $announcement): WidgetItem {
+	protected function renderAnnouncementAPI(Announcement $announcement): WidgetItem
+	{
 		$data = $this->renderAnnouncement($announcement);
 
 		return new WidgetItem(

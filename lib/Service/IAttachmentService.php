@@ -23,7 +23,7 @@
 
 namespace OCA\AnnouncementCenter\Service;
 
-use OCA\Announcementcenter\Model\Attachment;
+use OCA\AnnouncementCenter\Model\Attachment;
 use OCP\AppFramework\Http\Response;
 
 /**

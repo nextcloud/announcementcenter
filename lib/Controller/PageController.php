@@ -28,6 +28,7 @@ namespace OCA\AnnouncementCenter\Controller;
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCA\Text\Event\LoadEditor;
+use OCA\Viewer\Event\LoadViewer;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
@@ -36,7 +37,7 @@ use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IRequest;
 use OCP\Util;
-use Psr\Log\LoggerInterface;
+
 
 class PageController extends Controller
 {
@@ -71,6 +72,9 @@ class PageController extends Controller
 		$this->eventDispatcher = $eventDispatcher;
 		if (class_exists(LoadEditor::class)) {
 			$this->eventDispatcher->dispatchTyped(new LoadEditor());
+		}
+		if (class_exists(LoadViewer::class)) {
+			$this->eventDispatcher->dispatchTyped(new LoadViewer());
 		}
 	}
 

@@ -24,20 +24,22 @@
 
 namespace OCA\AnnouncementCenter\Controller;
 
-use OCP\AppFramework\ApiController;
+use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
 use OCA\AnnouncementCenter\Service\AttachmentService;
+use Psr\Log\LoggerInterface;
 
-class AttachmentController extends ApiController
+class AttachmentController extends OCSController
 {
 	private $attachmentService;
-
-	public function __construct($appName, IRequest $request, AttachmentService $attachmentService)
+	private LoggerInterface $logger;
+	public function __construct($appName, IRequest $request, AttachmentService $attachmentService, LoggerInterface $logger)
 	{
 		parent::__construct($appName, $request);
 		$this->attachmentService = $attachmentService;
+		$this->logger = $logger;
 	}
 
 	/**
@@ -48,6 +50,7 @@ class AttachmentController extends ApiController
 	 */
 	public function getAll($apiVersion)
 	{
+		
 		$attachment = $this->attachmentService->findAll($this->request->getParam('announcementId'), true);
 		if ($apiVersion === '1.0') {
 			$attachment = array_filter($attachment, function ($attachment) {

@@ -45,27 +45,29 @@
 
 		<NcModal
 			v-if="modalShow"
-			:title="t('deck', 'File already exists')"
+			:title="t('announcementcenter', 'File already exists')"
 			@close="modalShow = false">
 			<div class="modal__content">
-				<h2>{{ t("deck", "File already exists") }}</h2>
+				<h2>{{ t("announcementcenter", "File already exists") }}</h2>
 				<p>
 					{{
 						t(
-							"deck",
+							"announcementcenter",
 							"A file with the name {filename} already exists.",
 							{ filename: file.name }
 						)
 					}}
 				</p>
 				<p>
-					{{ t("deck", "Do you want to overwrite it?") }}
+					{{
+						t("announcementcenter", "Do you want to overwrite it?")
+					}}
 				</p>
 				<button class="primary" @click="overrideAttachment">
-					{{ t("deck", "Overwrite file") }}
+					{{ t("announcementcenter", "Overwrite file") }}
 				</button>
 				<button @click="modalShow = false">
-					{{ t("deck", "Keep existing file") }}
+					{{ t("announcementcenter", "Keep existing file") }}
 				</button>
 			</div>
 		</NcModal>
@@ -109,9 +111,9 @@ export default {
 		},
 		dropHintText() {
 			if (this.isReadOnly) {
-				return t("deck", "This board is read only");
+				return t("announcementcenter", "This board is read only");
 			} else {
-				return t("deck", "Drop your files to upload");
+				return t("announcementcenter", "Drop your files to upload");
 			}
 		},
 	},

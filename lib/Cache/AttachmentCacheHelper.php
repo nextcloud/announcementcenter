@@ -30,23 +30,28 @@ namespace OCA\AnnouncementCenter\Cache;
 use OCP\ICache;
 use OCP\ICacheFactory;
 
-class AttachmentCacheHelper {
+class AttachmentCacheHelper
+{
 	/** @var ICache */
 	private $cache;
 
-	public function __construct(ICacheFactory $cacheFactory) {
+	public function __construct(ICacheFactory $cacheFactory)
+	{
 		$this->cache = $cacheFactory->createDistributed('announcementcenter-attachments');
 	}
 
-	public function getAttachmentCount(int $announcementId): ?int {
+	public function getAttachmentCount(int $announcementId): ?int
+	{
 		return $this->cache->get('count-' . $announcementId);
 	}
 
-	public function setAttachmentCount(int $announcementId, int $count): void {
+	public function setAttachmentCount(int $announcementId, int $count): void
+	{
 		$this->cache->set('count-' . $announcementId, $count);
 	}
 
-	public function clearAttachmentCount(int $announcementId): void {
+	public function clearAttachmentCount(int $announcementId): void
+	{
 		$this->cache->remove('count-' . $announcementId);
 	}
 }

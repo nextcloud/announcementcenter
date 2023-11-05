@@ -27,16 +27,9 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Sharing;
 
 use OC\Files\Cache\Cache;
-use OCA\Announcementcenter\Cache\AttachmentCacheHelper;
-use OCA\Announcementcenter\Model\AnnouncementMapper;
-use OCA\Announcementcenter\Model\User;
-use OCA\AnnouncementCenter\Manager;
-use OCA\Announcementcenter\NoPermissionException;
-use OCA\AnnouncementCenter\Service\PermissionService;
-use OCP\AppFramework\Model\DoesNotExistException;
-use OCP\AppFramework\Model\MultipleObjectsReturnedException;
+use OCA\AnnouncementCenter\Cache\AttachmentCacheHelper;
+use OCA\AnnouncementCenter\Model\User;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\Constants;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Files\Folder;
@@ -48,67 +41,92 @@ use OCP\Share\Exceptions\GenericShareException;
 use OCP\Share\Exceptions\ShareNotFound;
 use OCP\Share\IManager;
 use OCP\Share\IShare;
+use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCP\Share\IShareProvider;
+use OCP\IGroupManager;
+use Psr\Log\LoggerInterface;
 
-/** Taken from the talk shareapicontroller helper */
-interface IShareProviderBackend
+class AnnouncementcenterShareProvider implements IShareProvider
 {
-	public function parseDate(string $expireDate): \DateTime;
-	public function createShare(IShare $share, string $shareWith, int $permissions, string $expireDate): void;
-	public function formatShare(IShare $share): array;
-	public function canAccessShare(IShare $share, string $user): bool;
-}
-
-class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
-{
-	public const DECK_FOLDER = '/Announcementcenter';
+	public const DECK_FOLDER = '/AnnouncementCenter';
 	public const DECK_FOLDER_PLACEHOLDER = '/{DECK_PLACEHOLDER}';
 
 	public const SHARE_TYPE_DECK_USER = IShare::TYPE_DECK_USER;
-	public const SHARE_TYPE_ANNOUNCEMENTCENTER = 14;
+	public const SHARE_TYPE_ANNOUNCEMENTCENTER = 12;
 	private IDBConnection $dbConnection;
 	private IManager $shareManager;
 	private AttachmentCacheHelper $attachmentCacheHelper;
-	private AnnouncementMapper $announcementMapper;
 	private ITimeFactory $timeFactory;
 	private IL10N $l;
 	private IMimeTypeLoader $mimeTypeLoader;
 	private ?string $userId;
-	private Manager $announcementManager;
+	private LoggerInterface $logger;
+	/** @var GroupMapper */
+	protected GroupMapper $groupMapper;
+	protected IGroupManager $groupManager;
 	public function __construct(
 		IDBConnection $connection,
 		IManager $shareManager,
-		AnnouncementMapper $announcementMapper,
 		AttachmentCacheHelper $attachmentCacheHelper,
 		IL10N $l,
 		ITimeFactory $timeFactory,
 		IMimeTypeLoader $mimeTypeLoader,
 		?string $userId,
-		Manager $announcementManager
+		LoggerInterface $logger,
+		GroupMapper $groupMapper,
+		IGroupManager $groupManager
 	) {
+		$this->logger = $logger;
+
 		$this->dbConnection = $connection;
+
 		$this->shareManager = $shareManager;
-		$this->announcementMapper = $announcementMapper;
 		$this->attachmentCacheHelper = $attachmentCacheHelper;
 		$this->l = $l;
 		$this->timeFactory = $timeFactory;
 		$this->mimeTypeLoader = $mimeTypeLoader;
 		$this->userId = $userId;
-		$this->announcementManager = $announcementManager;
+		$this->groupMapper = $groupMapper;
+		$this->groupManager = $groupManager;
+		// $this->announcementManager = $announcementManager;//9
+		// $this->logger->warning('shareProvider123');
 	}
 
 	public static function register(IEventDispatcher $dispatcher): void
 	{
 		// Register listeners to clean up shares when announcement/board is deleted
 	}
-
 	/**
 	 * @inheritDoc
 	 */
 	public function identifier()
 	{
-		return 'announcementcenter';
+		return 'deck';
 	}
+	public function getUsersByAnnouncementId(int $announcementId): array
+	{
+		// 获取与公告ID相关的群组
+		$groups = $this->groupMapper->getGroupsByAnnouncementId($announcementId);
 
+		// 存储所有用户的数组
+		$users = [];
+
+		// 遍历每个群组
+		foreach ($groups as $group) {
+			// 使用GroupManager获取群组对象
+			$groupObject = $this->groupManager->get($group);
+
+			// 获取群组中的所有用户
+			$groupUsers = $groupObject->getUsers();
+
+			// 将群组用户添加到总用户数组中
+			foreach ($groupUsers as $user) {
+				$users[] = $user->getUID();
+			}
+		}
+
+		return $users;
+	}
 	/**
 	 * @inheritDoc
 	 */
@@ -147,7 +165,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $this->createShareObject($data);
 	}
-
 	/**
 	 * Add share to the database and return the ID
 	 *
@@ -195,7 +212,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $qb->getLastInsertId();
 	}
-
 	/**
 	 * Get database row of the given share
 	 *
@@ -265,23 +281,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 		}
 		return $share;
 	}
-
-	// private function applyBoardPermission($share, $permissions, $userId) {
-	// 	try {
-	// 		$this->permissionService->checkPermission($this->announcementMapper, $share->getSharedWith(), Acl::PERMISSION_EDIT, $userId);
-	// 	} catch (NoPermissionException $e) {
-	// 		$permissions &= Constants::PERMISSION_ALL - Constants::PERMISSION_UPDATE;
-	// 		$permissions &= Constants::PERMISSION_ALL - Constants::PERMISSION_CREATE;
-	// 		$permissions &= Constants::PERMISSION_ALL - Constants::PERMISSION_DELETE;
-	// 	}
-
-	// 	try {
-	// 		$this->permissionService->checkPermission($this->announcementMapper, $share->getSharedWith(), Acl::PERMISSION_SHARE, $userId);
-	// 	} catch (NoPermissionException $e) {
-	// 		$permissions &= Constants::PERMISSION_ALL - Constants::PERMISSION_SHARE;
-	// 	}
-	// 	$share->setPermissions($permissions);
-	// }
 	/**
 	 * @inheritDoc
 	 */
@@ -338,7 +337,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		$this->attachmentCacheHelper->clearAttachmentCount((int)$share->getSharedWith());
 	}
-
 	/**
 	 * @inheritDoc
 	 */
@@ -419,7 +417,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $this->getShareById((int)$share->getId(), $recipient);
 	}
-
 	/**
 	 * @inheritDoc
 	 */
@@ -520,7 +517,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $shares;
 	}
-
 	/**
 	 * @inheritDoc
 	 */
@@ -620,7 +616,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $share;
 	}
-
 	/**
 	 * Returns each given share as seen by the given recipient.
 	 *
@@ -682,7 +677,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $result;
 	}
-
 	/**
 	 * Get shares for a given path
 	 *
@@ -785,7 +779,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return $shares;
 	}
-
 	/**
 	 * Get shared with the announcement
 	 *
@@ -874,7 +867,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 		}
 		return true;
 	}
-
 	/**
 	 * @inheritDoc
 	 */
@@ -977,7 +969,7 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 				// }
 
 				// $userList = $this->permissionService->findUsers($boardId);
-				$userList=$this->announcementManager->getUsersByAnnouncementId($announcementId);
+				$userList = $this->getUsersByAnnouncementId($announcementId);; //fixme $this->announcementManager->getUsersByAnnouncementId($announcementId);
 				/** @var User $user */
 				foreach ($userList as $user) {
 					$uid = $user->getUID();
@@ -1001,7 +993,6 @@ class AnnouncementcenterShareProvider implements \OCP\Share\IShareProvider
 
 		return ['users' => $users];
 	}
-
 	/**
 	 * For each user the path with the fewest slashes is returned
 	 * @param array $shares

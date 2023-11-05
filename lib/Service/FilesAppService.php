@@ -24,7 +24,7 @@
 
 namespace OCA\AnnouncementCenter\Service;
 
-use OCA\AnnouncementCenter\Model\Acl;
+
 use OCA\AnnouncementCenter\Model\Attachment;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\NoPermissionException;
@@ -89,11 +89,13 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		$this->announcementMapper = $announcementMapper;
 		$this->logger = $logger;
 		$this->connection = $connection;
+		// $this->logger->warning('fileapp1');
 	}
 
 	public function listAttachments(int $announcementId): array
 	{
 		$shares = $this->shareProvider->getSharedWithByType($announcementId, IShare::TYPE_DECK, -1, 0);
+		// $shares=[];
 		return array_filter(array_map(function (IShare $share) use ($announcementId) {
 			try {
 				$file = $share->getNode();
@@ -185,9 +187,10 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 
 	public function create(Attachment $attachment)
 	{
+		
 		$file = $this->getUploadedFile();
 		$fileName = $file['name'];
-
+		
 		// get shares for current announcement
 		// check if similar filename already exists
 

@@ -26,10 +26,8 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\Sharing;
 
-use OCA\AnnouncementCenter\Db\Acl;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\NoPermissionException;
-use OCA\AnnouncementCenter\Service\PermissionService;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -42,16 +40,15 @@ class ShareAPIHelper
 {
 	private $urlGenerator;
 	private $timeFactory;
-	private $cardMapper;
-	private $permissionService;
+	private $announcementMapper;
+
 	private $l10n;
 
-	public function __construct(IURLGenerator $urlGenerator, ITimeFactory $timeFactory, AnnouncementMapper $cardMapper, PermissionService $permissionService, IL10N $l10n)
+	public function __construct(IURLGenerator $urlGenerator, ITimeFactory $timeFactory, AnnouncementMapper $announcementMapper, IL10N $l10n)
 	{
 		$this->urlGenerator = $urlGenerator;
 		$this->timeFactory = $timeFactory;
-		$this->cardMapper = $cardMapper;
-		$this->permissionService = $permissionService;
+		$this->announcementMapper = $announcementMapper;
 		$this->l10n = $l10n;
 	}
 
@@ -59,14 +56,14 @@ class ShareAPIHelper
 	{
 		$result = [];
 		try {
-			$card = $this->cardMapper->find($share->getSharedWith());
+			$announcement = $this->announcementMapper->getById((int)$share->getSharedWith());
 		} catch (DoesNotExistException $e) {
 			throw new NotFoundException($e->getMessage());
 		}
-		$boardId = $this->cardMapper->findBoardId($card->getId());
+
 		$result['share_with'] = $share->getSharedWith();
-		$result['share_with_displayname'] = $card->getTitle();
-		$result['share_with_link'] = $this->urlGenerator->linkToRouteAbsolute('deck.page.index') . '#/board/' . $boardId . '/card/' . $card->getId();
+		$result['share_with_displayname'] = $announcement->getTitle();
+		$result['share_with_link'] = $this->urlGenerator->linkToRouteAbsolute('deck.page.index') . '/announcements/' . $announcement->getId();
 		return $result;
 	}
 
@@ -120,11 +117,11 @@ class ShareAPIHelper
 	 */
 	public function canAccessShare(IShare $share, string $user): bool
 	{
-		try {
-			$this->permissionService->checkPermission($this->cardMapper, $share->getSharedWith(), Acl::PERMISSION_READ, $user);
-		} catch (NoPermissionException $e) {
-			return false;
-		}
+		// try {
+		// 	$this->permissionService->checkPermission($this->announcementMapper, $share->getSharedWith(), Acl::PERMISSION_READ, $user);
+		// } catch (NoPermissionException $e) {
+		// 	return false;
+		// }
 		return true;
 	}
 }

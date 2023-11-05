@@ -27,9 +27,9 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter\Service;
 
-use OCA\Announcementcenter\AppInfo\Application;
-use OCA\Announcementcenter\BadRequestException;
-use OCA\Announcementcenter\NoPermissionException;
+use OCA\AnnouncementCenter\AppInfo\Application;
+use OCA\AnnouncementCenter\BadRequestException;
+use OCA\AnnouncementCenter\NoPermissionException;
 use OCP\IConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
@@ -241,6 +241,6 @@ class ConfigService
 			throw new NoPermissionException('Must be logged in get the attachment folder');
 		}
 
-		return $this->config->getUserValue($userId ?? $this->getUserId(), 'Announcementcenter', 'attachment_folder', '/Announcementcenter');
+		return $this->config->getUserValue($userId ?? $this->getUserId(), 'AnnouncementCenter', 'attachment_folder', '/AnnouncementCenter');
 	}
 }

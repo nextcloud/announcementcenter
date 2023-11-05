@@ -32,15 +32,17 @@ use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Server;
 use OCP\Share\Events\VerifyMountPointEvent;
 use OCP\Share\IShare;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
 class Listener
 {
 	private ConfigService $configService;
-
-	public function __construct(ConfigService $configService)
+	private LoggerInterface $logger;
+	public function __construct(ConfigService $configService, LoggerInterface $logger)
 	{
 		$this->configService = $configService;
+		$this->logger = $logger;
 	}
 
 	public function register(IEventDispatcher $dispatcher): void
@@ -70,7 +72,7 @@ class Listener
 	{
 		/** @var IShare $share */
 		$share = $event->getSubject();
-
+		$this->logger->warning('listener:' . $share->getShareType());
 		if (
 			$share->getShareType() !== IShare::TYPE_DECK
 			&& $share->getShareType() !== AnnouncementcenterShareProvider::SHARE_TYPE_DECK_USER

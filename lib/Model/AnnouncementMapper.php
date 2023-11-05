@@ -64,14 +64,14 @@ class AnnouncementMapper extends QBMapper
 		return $this->findEntity($query);
 	}
 
-    /**
-     * Deletes an entity from the table
-     * @param Entity $entity the entity that should be deleted
-     * @return Entity the deleted entity
-     * @psalm-return Announcement the deleted entity
-     * @throws Exception
-     * @since 14.0.0
-     */
+	/**
+	 * Deletes an entity from the table
+	 * @param Entity $entity the entity that should be deleted
+	 * @return Entity the deleted entity
+	 * @psalm-return Announcement the deleted entity
+	 * @throws Exception
+	 * @since 14.0.0
+	 */
 	public function delete(Entity $entity): Entity
 	{
 		$qb = $this->db->getQueryBuilder();
@@ -84,11 +84,11 @@ class AnnouncementMapper extends QBMapper
 		return $entity;
 	}
 
-    /**
-     * @throws Exception
-     */
-    public function searchAnnouncements(string $userId, array $userGroups, string $filterKey, int $page = 1, int $pageSize = 10): array
-    {
+	/**
+	 * @throws Exception
+	 */
+	public function searchAnnouncements(string $userId, array $userGroups, string $filterKey, int $page = 1, int $pageSize = 10): array
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('a.announcement_id')
 			->from($this->getTableName(), 'a')
@@ -135,18 +135,76 @@ class AnnouncementMapper extends QBMapper
 
 		$slice_results = array_slice($results, ($page - 1) * $pageSize, $pageSize);
 
-		$this->logger->warning('results:' . json_encode($results));
+		// $this->logger->warning('results:' . json_encode($results));
 		return [
 			'data' => $slice_results,
 			'total' => count($results),
 			'pages' => ceil(count($results) / $pageSize)
 		];
 	}
+	/**
+	 * @param array $userGroups
+	 * @param int $offsetId
+	 * @param int $limit
+	 * @return Announcement[]
+	 */
+	public function getAnnouncementsFromOffsetId($userId, array $userGroups, int $offsetId = 0, int $limit = 7): array
+	{
+		$query = $this->db->getQueryBuilder();
 
-    /**
-     * @throws Exception
-     */
-    public function getAnnouncements(string $userId, array $userGroups, int $page = 1, int $pageSize = 10): array
+		$query->select('a.announcement_id')
+			->from($this->getTableName(), 'a')
+			->orderBy('a.announcement_time', 'DESC')
+			->groupBy('a.announcement_id')
+			->setMaxResults($limit);
+
+		if (!empty($userGroups)) {
+			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
+				'a.announcement_id',
+				'ag.announcement_id'
+			))
+				->andWhere(
+					$query->expr()->orX(
+						$query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)),
+						$query->expr()->eq('a.announcement_user', $query->createNamedParameter($userId, IQueryBuilder::PARAM_STR))
+					)
+				);
+		}
+
+		if ($offsetId > 0) {
+			$query->andWhere($query->expr()->lt('a.announcement_id', $query->createNamedParameter($offsetId, IQueryBuilder::PARAM_INT)));
+		}
+
+
+		$all_ids = [];
+		$result = $query->execute();
+		while ($row = $result->fetch()) {
+			$all_ids[] = (int) $row['announcement_id'];
+		}
+
+		$result->closeCursor();
+
+		if (empty($all_ids)) {
+			return [
+				'data' => [],
+				'total' => 0,
+				'pages' => 0
+			];
+		}
+
+
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_time', 'DESC')
+			->where($query->expr()->in('announcement_id', $query->createNamedParameter($all_ids, IQueryBuilder::PARAM_INT_ARRAY)));
+
+		return $this->findEntities($query);
+	}
+	/**
+	 * @throws Exception
+	 */
+	public function getAnnouncements(string $userId, array $userGroups, int $page = 1, int $pageSize = 10): array
 	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('a.announcement_id')
@@ -245,16 +303,16 @@ class AnnouncementMapper extends QBMapper
 		return $entity;
 	}
 
-    /**
-     * Check if $userId is owner of Entity with $id
-     *
-     * @param $userId string userId
-     * @param $id int|string unique entity identifier
-     * @return boolean
-     * @throws DoesNotExistException
-     * @throws Exception
-     * @throws MultipleObjectsReturnedException
-     */
+	/**
+	 * Check if $userId is owner of Entity with $id
+	 *
+	 * @param $userId string userId
+	 * @param $id int|string unique entity identifier
+	 * @return boolean
+	 * @throws DoesNotExistException
+	 * @throws Exception
+	 * @throws MultipleObjectsReturnedException
+	 */
 	public function isOwner(string $userId, int|string $id): bool
 	{
 		$announcement = $this->getById($id);

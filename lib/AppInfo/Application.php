@@ -29,6 +29,8 @@ use OCA\AnnouncementCenter\Dashboard\Widget;
 use OCA\AnnouncementCenter\Listener\BeforeTemplateRenderedListener;
 use OCA\AnnouncementCenter\Listener\CommentsEntityListener;
 use OCA\AnnouncementCenter\Notification\Notifier;
+use OCA\AnnouncementCenter\Sharing\AnnouncementcenterShareProvider;
+use OCA\AnnouncementCenter\Sharing\Listener;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -37,8 +39,6 @@ use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Util;
-use OCA\Text\Event\LoadEditor;
-use Psr\Log\LoggerInterface;
 
 class Application extends App implements IBootstrap
 {
@@ -47,7 +47,6 @@ class Application extends App implements IBootstrap
 	public function __construct()
 	{
 		parent::__construct(self::APP_ID);
-		
 	}
 
 	public function register(IRegistrationContext $context): void
@@ -65,5 +64,12 @@ class Application extends App implements IBootstrap
 
 	public function boot(IBootContext $context): void
 	{
+		$context->injectFn(function (\OCP\Share\IManager $shareManager) {
+			$shareManager->registerShareProvider(AnnouncementcenterShareProvider::class);
+		});
+
+		$context->injectFn(function (Listener $listener, IEventDispatcher $eventDispatcher) {
+			$listener->register($eventDispatcher);
+		});
 	}
 }
