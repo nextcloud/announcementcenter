@@ -47,7 +47,6 @@
 					icon="icon-group"
 					type="multiselect"
 					:options="groupOptions"
-					label="label"
 					track-by="id"
 					:multiple="true"
 					:placeholder="t('announcementcenter', 'Everyone')"

@@ -29,7 +29,7 @@ import App from './App.vue'
 import Vuex from 'vuex'
 
 // Styles
-import '@nextcloud/dialogs/dist/index.css'
+import '@nextcloud/dialogs/style.css'
 
 // eslint-disable-next-line
 __webpack_nonce__ = btoa(getRequestToken())
