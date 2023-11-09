@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.7.0 – 2023-11-09
+### Added
+- Compatibility with Nextcloud 28
+- Removed Nextcloud 25
+
+### Changed
+- Updated some dependencies
+
 ## 6.6.2 – 2023-08-17
 ### Fixed
 - Don't load JS assets on all pages
