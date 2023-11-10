@@ -21,6 +21,8 @@ OC.L10N.register(
     "Create notifications by default" : "Створити оповіщення по-замовчуванню",
     "Send emails by default" : "Типово надсилати ел. поштою",
     "Allow comments by default" : "Дозволити коментарі по-замовчуванню",
+    "Setting changed" : "Налаштування оновлено",
+    "An error occurred while changing the setting" : "Помилка під час внесення змін до налаштувань",
     "No announcements" : "Жодних оголошень",
     "There are currently no announcements …" : "Наразі немає оголошень…",
     "Comments" : "Коментарі",
