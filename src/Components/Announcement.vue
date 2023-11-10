@@ -57,10 +57,10 @@
 					<NcActionButton v-if="notifications"
 						icon="icon-notifications-off"
 						:close-after-click="true"
-						:title="t('announcementcenter', 'Clear notifications')"
+						:name="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications" />
 					<NcActionButton icon="icon-delete"
-						:title="t('announcementcenter', 'Delete announcement')"
+						:name="t('announcementcenter', 'Delete announcement')"
 						@click="onDeleteAnnouncement" />
 				</NcActions>
 			</div>
