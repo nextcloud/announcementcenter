@@ -27,13 +27,16 @@ class UserService
 	{
 		// 根据用户的语言设置确定组名
 		$groupName = $this->l->t("everyone");
+		$this->logger->warning(" l10n:" . $this->l->t("everyone"));
 		// 检查组是否存在
 		$group = $this->groupManager->get($groupName);
 		// 如果组不存在，创建它并添加所有用户
 		if ($group === null) {
 			// 创建新组
+			$this->logger->warning("group add:" . $groupName);
 			$group = $this->groupManager->createGroup($groupName);
 		}
+		
 		// 获取所有用户
 		$users = $this->userManager->search('');
 		// 将每个用户添加到新组

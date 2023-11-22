@@ -43,13 +43,13 @@ export default {
 	computed: {
 		...mapGetters(["isTextEdit", "isTextView"]),
 		description() {
-			// return this.isTextEdit ? t('collectives', 'Stop editing') : t('collectives', 'Start editing')
+			return this.isTextEdit ? t('announcementcenter', 'Stop editing') : t('announcementcenter', 'Start editing')
 		},
 
 		title() {
 			return this.isTextEdit
-				? t("collectives", "Done")
-				: t("collectives", "Edit");
+				? t("announcementcenter", "Done")
+				: t("announcementcenter", "Edit");
 		},
 
 		buttonTitle() {

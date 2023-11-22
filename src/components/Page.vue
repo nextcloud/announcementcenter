@@ -27,7 +27,7 @@
 			<div
 				class="mr-2 px-2 rounded"
 				v-for="group in currentAnnouncement.groups"
-				style="border: solid 1px var(--color-text-maxcontrast)">
+				style="color: white; background: var(--color-primary)">
 				{{ group.name }}
 			</div>
 		</div>
@@ -37,15 +37,16 @@
 			<div
 				@click="toggleCollapse"
 				class="time-stage flex items-center text-sm font-bold p-1 hover:cursor-pointer">
-				<AttachmentIcon :size="20"></AttachmentIcon>
 				<RightArrowIcon
 					:class="{ rotate90: fileCollapseShow }"
 					:size="20"></RightArrowIcon>
 				{{
-					`${currentAnnouncement.attachmentCount} ${t(
+					n(
 						"announcementcenter",
-						"attachments"
-					)}`
+						"%n attachment",
+						"%n attachments",
+						currentAnnouncement.attachmentCount
+					)
 				}}
 			</div>
 			<collapse-transition>

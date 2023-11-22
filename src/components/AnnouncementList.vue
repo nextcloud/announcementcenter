@@ -41,6 +41,7 @@
 							:size="20"></RightArrowIcon>
 						{{ time }}
 					</div>
+
 					<collapse-transition>
 						<div v-show="collapseShow[time]">
 							<VirtualList
@@ -74,7 +75,6 @@ import {
 	NcTextField,
 	NcLoadingIcon,
 } from "@nextcloud/vue";
-import { showError } from "@nextcloud/dialogs";
 import CloseIcon from "vue-material-design-icons/Close.vue";
 import SortAlphabeticalAscendingIcon from "vue-material-design-icons/SortAlphabeticalAscending.vue";
 import SortAscendingIcon from "vue-material-design-icons/SortAscending.vue";
@@ -87,6 +87,8 @@ import { loadState } from "@nextcloud/initial-state";
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 import VirtualList from "vue-virtual-scroll-list";
 import { CollapseTransition } from "@ivanv/vue-collapse-transition";
+import Vue from "vue";
+import TimeClassify from "../mixins/timeClassify";
 export default {
 	name: "AnnouncementList",
 
@@ -108,7 +110,7 @@ export default {
 		RightArrowIcon,
 		SyncIcon,
 	},
-
+	mixins: [TimeClassify],
 	data() {
 		return {
 			AnnouncementComponent: Announcement,
@@ -117,32 +119,14 @@ export default {
 			canCreate: loadState("announcementcenter", "canCreate", true),
 			isLoading: false,
 			page: 1,
-			collapseShow: {
-				Today: false,
-				Yesterday: false,
-				"This Week": false,
-				"Last Week": false,
-				"Two Weeks Ago": false,
-				"Three Weeks Ago": false,
-				"Earlier This Month": false,
-				"Last Month": false,
-				"Two Months Ago": false,
-				"Three Months Ago": false,
-				"Four Months Ago": false,
-				"Five Months Ago": false,
-				"Half A Year Ago": false,
-				"Seven Months Ago": false,
-				"Eight Months Ago": false,
-				"Nine Months Ago": false,
-				"Ten Months Ago": false,
-				"Eleven Months Ago": false,
-				"One Year Ago": false,
-				"Two Years Ago": false,
-				"Other Time": false,
-			},
+			collapseShow: {},
 		};
 	},
 	mounted() {
+		for (let key of Object.values(this.timeClassify)) {
+			this.$set(this.collapseShow, key, false);
+		}
+		console.log(this.collapseShow);
 		this.$refs.contentList.$el.addEventListener(
 			"scroll",
 			this.handleScroll
@@ -185,31 +169,9 @@ export default {
 			// 定义一个空对象，用于存储分组结果
 			let result = {};
 			// 定义一个数组，用于存储分组的键
-			let keys = [
-				"Today",
-				"Yesterday",
-				"This Week",
-				"Last Week",
-				"Two Weeks Ago",
-				"Three Weeks Ago",
-				"Earlier This Month",
-				"Last Month",
-				"Two Months Ago",
-				"Three Months Ago",
-				"Four Months Ago",
-				"Five Months Ago",
-				"Half A Year Ago",
-				"Seven Months Ago",
-				"Eight Months Ago",
-				"Nine Months Ago",
-				"Ten Months Ago",
-				"Eleven Months Ago",
-				"One Year Ago",
-				"Two Years Ago",
-				"Other Time",
-			];
+
 			// 遍历每个键，初始化为空数组
-			for (let key of keys) {
+			for (let key of Object.values(this.timeClassify)) {
 				result[key] = [];
 			}
 			// 获取当前时间的moment对象
@@ -219,94 +181,88 @@ export default {
 				// 获取announcement的时间的moment对象
 				let time = moment(announcement.time * 1000);
 				// 定义一个变量，用于存储分组的键，默认为Other Time
-				let group = "Other Time";
+				let group = this.timeClassify.OtherTime;
 
 				// 判断是否是今天
 				if (time.isSame(moment(), "day")) {
-					group = "Today";
+					group = this.timeClassify.Today;
 				}
 				// 判断是否是昨天
 				else if (time.isSame(moment().subtract(1, "day"), "day")) {
-					group = "Yesterday";
+					group = this.timeClassify.Yesterday;
 				}
 				// 判断是否是本周
 				else if (time.isSame(moment(), "week")) {
-					group = "This Week";
+					group = this.timeClassify.ThisWeek;
 				}
 				// 判断是否是上周
 				else if (time.isSame(moment().subtract(1, "week"), "week")) {
-					group = "Last Week";
+					group = this.timeClassify.LastWeek;
 				}
 				// 判断是否是两周前
 				else if (time.isSame(moment().subtract(2, "week"), "week")) {
-					group = "Two Weeks Ago";
+					group = this.timeClassify.TwoWeeksAgo;
 				}
 				// 判断是否是三周前
 				else if (time.isSame(moment().subtract(3, "week"), "week")) {
-					group = "Three Weeks Ago";
+					group = this.timeClassify.ThreeWeeksAgo;
 				}
 				// 判断是否是本月初
 				else if (time.isSame(moment(), "month") && time.date() <= 7) {
-					group = "Earlier This Month";
+					group = this.timeClassify.EarlierThisMonth;
 				}
 				// 判断是否是上个月
 				else if (time.isSame(moment().subtract(1, "month"), "month")) {
-					group = "Last Month";
+					group = this.timeClassify.LastMonth;
 				}
 				// 判断是否是两个月前
 				else if (time.isSame(moment().subtract(2, "month"), "month")) {
-					group = "Two Months Ago";
+					group = this.timeClassify.TwoMonthsAgo;
 				}
 				// 判断是否是三个月前
 				else if (time.isSame(moment().subtract(3, "month"), "month")) {
-					group = "Three Months Ago";
+					group = this.timeClassify.ThreeMonthsAgo;
 				}
 				// 判断是否是四个月前
 				else if (time.isSame(moment().subtract(4, "month"), "month")) {
-					group = "Four Months Ago";
+					group = this.timeClassify.FourMonthsAgo;
 				}
 				// 判断是否是五个月前
 				else if (time.isSame(moment().subtract(5, "month"), "month")) {
-					group = "Five Months Ago";
+					group = this.timeClassify.FiveMonthsAgo;
 				}
 				// 判断是否是半年前
 				else if (time.isSame(moment().subtract(6, "month"), "month")) {
-					group = "Half A Year Ago";
+					group = this.timeClassify.HalfAYearAgo;
 				}
 				// 判断是否是七个月前
 				else if (time.isSame(moment().subtract(7, "month"), "month")) {
-					group = "Seven Months Ago";
+					group = this.timeClassify.SevenMonthsAgo;
 				}
 				// 判断是否是八个月前
 				else if (time.isSame(moment().subtract(8, "month"), "month")) {
-					group = "Eight Months Ago";
+					group = this.timeClassify.EightMonthsAgo;
 				}
 				// 判断是否是九个月前
 				else if (time.isSame(moment().subtract(9, "month"), "month")) {
-					group = "Nine Months Ago";
+					group = this.timeClassify.NineMonthsAgo;
 				}
 				// 判断是否是十个月前
 				else if (time.isSame(moment().subtract(10, "month"), "month")) {
-					group = "Ten Months Ago";
+					group = this.timeClassify.TenMonthsAgo;
 				}
 				// 判断是否是十一个月前
 				else if (time.isSame(moment().subtract(11, "month"), "month")) {
-					group = "Eleven Months Ago";
+					group = this.timeClassify.ElevenMonthsAgo;
 				}
 				// 判断是否是一年前
 				else if (time.isSame(moment().subtract(1, "year"), "year")) {
-					group = "One Year Ago";
+					group = this.timeClassify.OneYearAgo;
 				}
 				// 判断是否是两年前
 				else if (time.isSame(moment().subtract(2, "year"), "year")) {
-					group = "Two Years Ago";
+					group = this.timeClassify.TwoYearsAgo;
 				}
-				// console.log(
-				// 	moment().format("YYYY-MM-DD hh:mm"),
-				// 	time.format("YYYY-MM-DD hh:mm"),
-				// 	group
-				// );
-				// 将announcement添加到对应的分组数组中
 				result[group].push(announcement);
 			}
 
@@ -332,14 +288,16 @@ export default {
 		...mapMutations(["setCurrentAnnouncementId", "clearAnnoucements"]),
 		...mapActions(["loadAnnouncements"]),
 		toggleCollapse(time) {
+			console.log(time);
 			if (!this.collapseShow[time]) {
 				Object.keys(this.collapseShow).forEach((key) => {
-					this.collapseShow[key] = false;
+					this.$set(this.collapseShow, key, false);
 				});
-				this.collapseShow[time] = true;
+				this.$set(this.collapseShow, time, true);
 			} else {
-				this.collapseShow[time] = false;
+				this.$set(this.collapseShow, time, false);
 			}
+			console.log(this.collapseShow);
 		},
 		findAnnoucementTime(id) {
 			let timeKeys = Object.keys(this.groupedAnnouncements);

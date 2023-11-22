@@ -39,11 +39,31 @@
 				style="width: calc(100% - 40px)">
 				<div class="flex-col" style="width: calc(100% - 50px)">
 					<span class="text-xl">{{ source.author }}</span>
-					<div class="flex text-sm justify-between items-center">
-						<div style="color: var(--color-primary)">
-							{{ source.subject }}
+					<div
+						class="flex text-sm justify-between items-center"
+						style="width: 90%">
+						<div class="flex" style="width: 100%">
+							<div
+								class="font-bold"
+								style="color: var(--color-primary)">
+								{{ source.subject }}
+							</div>
+							<div
+								class="truncate"
+								style="
+									color: var(--color-text-maxcontrast);
+									width: 60%;
+								">
+								{{ source.message }}
+							</div>
 						</div>
-
+					</div>
+					<div
+						class="text-xs flex justify-between items-center announce_message"
+						style="
+							color: var(--color-text-maxcontrast);
+							width: 90%;
+						">
 						<div
 							class="live-relative-timestamp"
 							style="color: var(--color-text-maxcontrast)"
@@ -51,14 +71,9 @@
 							:title="dateFormat">
 							{{ dateRelative }}
 						</div>
-					</div>
-					<div
-						class="text-xs announce_message"
-						style="
-							color: var(--color-text-maxcontrast);
-							width: 90%;
-						">
-						{{ source.message }}
+						<div style="color: var(--color-text-maxcontrast)">
+							{{ commentsCount }}
+						</div>
 					</div>
 				</div>
 				<div class="flex justify-center">

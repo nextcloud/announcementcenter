@@ -360,6 +360,7 @@ export default {
 					}
 
 					sharee.value = item.value;
+
 					return sharee;
 				})
 				.slice(0, 10);
@@ -565,7 +566,6 @@ export default {
 					this.allowComments
 				);
 				let annoucement = response.data.ocs.data;
-				console.log(annoucement);
 				this.$store.dispatch("addAnnouncement", annoucement);
 				this.announcementId = annoucement.id;
 

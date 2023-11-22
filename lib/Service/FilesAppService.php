@@ -32,7 +32,6 @@ use OCA\AnnouncementCenter\Model\Share;
 use OCA\AnnouncementCenter\NoPermissionException;
 use OCA\AnnouncementCenter\Sharing\AnnouncementcenterShareProvider;
 use OCA\AnnouncementCenter\StatusException;
-use OCA\AnnouncementCenter\Model\ShareMapper;
 use OCP\AppFramework\Http\StreamResponse;
 use OCP\Constants;
 use OCP\Files\IMimeTypeDetector;
@@ -60,11 +59,9 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 	private IPreview $preview;
 	private IMimeTypeDetector $mimeTypeDetector;
 	// private PermissionService $permissionService;
-	private AnnouncementMapper $announcementMapper;
 	private LoggerInterface $logger;
 	private IDBConnection $connection;
 	private GroupMapper $groupMapper;
-	private ShareMapper $shareMapper;
 	public function __construct(
 		IRequest $request,
 		IL10N $l10n,
@@ -80,7 +77,7 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		IDBConnection $connection,
 		?string $userId,
 		GroupMapper $groupMapper,
-		ShareMapper $shareMapper
+
 	) {
 		$this->request = $request;
 		$this->l10n = $l10n;
@@ -92,11 +89,10 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		$this->preview = $preview;
 		$this->mimeTypeDetector = $mimeTypeDetector;
 		// $this->permissionService = $permissionService;
-		$this->announcementMapper = $announcementMapper;
 		$this->logger = $logger;
 		$this->connection = $connection;
 		$this->groupMapper = $groupMapper;
-		$this->shareMapper = $shareMapper;
+
 		// $this->logger->warning('fileapp1');
 
 	}

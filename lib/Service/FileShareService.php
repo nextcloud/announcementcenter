@@ -32,7 +32,6 @@ use OCA\AnnouncementCenter\Model\Share;
 use OCA\AnnouncementCenter\NoPermissionException;
 use OCA\AnnouncementCenter\Sharing\AnnouncementcenterShareProvider;
 use OCA\AnnouncementCenter\StatusException;
-use OCA\AnnouncementCenter\Model\ShareMapper;
 use OCP\AppFramework\Http\StreamResponse;
 use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\Constants;
@@ -65,7 +64,6 @@ class FileShareService implements IAttachmentService
 	private LoggerInterface $logger;
 	private IDBConnection $connection;
 	private GroupMapper $groupMapper;
-	private ShareMapper $shareMapper;
 	public function __construct(
 		IRequest $request,
 		IL10N $l10n,
@@ -81,7 +79,6 @@ class FileShareService implements IAttachmentService
 		IDBConnection $connection,
 		?string $userId,
 		GroupMapper $groupMapper,
-		ShareMapper $shareMapper
 	) {
 		$this->request = $request;
 		$this->l10n = $l10n;
@@ -97,7 +94,7 @@ class FileShareService implements IAttachmentService
 		$this->logger = $logger;
 		$this->connection = $connection;
 		$this->groupMapper = $groupMapper;
-		$this->shareMapper = $shareMapper;
+
 		// $this->logger->warning('fileapp1');
 
 	}

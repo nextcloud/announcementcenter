@@ -34,7 +34,6 @@ use OCA\AnnouncementCenter\NotFoundException;
 use OCA\AnnouncementCenter\Cache\AttachmentCacheHelper;
 use OCA\AnnouncementCenter\StatusException;
 use OCA\AnnouncementCenter\Validators\AttachmentServiceValidator;
-use OCA\AnnouncementCenter\Model\ShareMapper;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\IMapperException;
 use OCP\AppFramework\Http\Response;
