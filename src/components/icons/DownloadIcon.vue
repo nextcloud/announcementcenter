@@ -6,10 +6,14 @@
 		role="img"
 		v-bind="$attrs"
 		@click="$emit('click', $event)">
-		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-			<title>paperclip</title>
-			<path
-				d="M16.5,6V17.5A4,4 0 0,1 12.5,21.5A4,4 0 0,1 8.5,17.5V5A2.5,2.5 0 0,1 11,2.5A2.5,2.5 0 0,1 13.5,5V15.5A1,1 0 0,1 12.5,16.5A1,1 0 0,1 11.5,15.5V6H10V15.5A2.5,2.5 0 0,0 12.5,18A2.5,2.5 0 0,0 15,15.5V5A4,4 0 0,0 11,1A4,4 0 0,0 7,5V17.5A5.5,5.5 0 0,0 12.5,23A5.5,5.5 0 0,0 18,17.5V6H16.5Z" />
+		<svg
+			:fill="fillColor"
+			:height="size"
+			:width="size"
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24">
+			<title>download</title>
+			<path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
 		</svg>
 	</span>
 </template>

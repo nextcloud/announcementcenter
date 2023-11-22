@@ -26,15 +26,18 @@ namespace OCA\AnnouncementCenter\Model;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @template-extends QBMapper<Group>
  */
 class GroupMapper extends QBMapper
 {
-	public function __construct(IDBConnection $db)
+	private LoggerInterface $logger;
+	public function __construct(IDBConnection $db, LoggerInterface $logger)
 	{
 		parent::__construct($db, 'announcements_map', Group::class);
+		$this->logger = $logger;
 	}
 
 	/**
@@ -52,6 +55,7 @@ class GroupMapper extends QBMapper
 	 */
 	public function getGroupsByAnnouncementId(int $id): array
 	{
+		$this->logger->warning("enter0:" . $id);
 		$result = $this->getGroupsByAnnouncementIds([$id]);
 		return $result[$id] ?? [];
 	}
@@ -71,6 +75,7 @@ class GroupMapper extends QBMapper
 	 */
 	public function getGroupsByAnnouncementIds(array $ids): array
 	{
+		$this->logger->warning("enter:" . json_encode($ids));
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from('announcements_map')

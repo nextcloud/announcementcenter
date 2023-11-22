@@ -63,31 +63,53 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	 * @return array serialized data
 	 * @throws \ReflectionException
 	 */
-	public function jsonSerialize(): array {
+	public function jsonSerialize(): array
+	{
+		// Get all the properties of the object
 		$properties = get_object_vars($this);
+
+		// Create a reflection class to access the object's metadata
 		$reflection = new \ReflectionClass($this);
+
+		// Initialize an empty array for the JSON representation
 		$json = [];
+
+		// Iterate over each property
 		foreach ($properties as $property => $value) {
+			// Exclude properties starting with '_' and check if they exist in the class definition
 			if (!str_starts_with($property, '_') && $reflection->hasProperty($property)) {
+				// Access the reflection information for the property
 				$propertyReflection = $reflection->getProperty($property);
+
+				// Check if the property is not private and not resolved (not already included in JSON)
 				if (!$propertyReflection->isPrivate() && !in_array($property, $this->_resolvedProperties, true)) {
+					// Get the value using the getter method
 					$json[$property] = $this->getter($property);
+
+					// Format the value as a string if it's a DateTimeInterface object
 					if ($json[$property] instanceof \DateTimeInterface) {
 						$json[$property] = $json[$property]->format('c');
 					}
 				}
 			}
 		}
+
+		// Add any resolved properties to the JSON representation
 		foreach ($this->_resolvedProperties as $property => $value) {
 			if ($value !== null) {
 				$json[$property] = $value;
 			}
 		}
+
+		// Add ETag if the class has a getETag method
 		if ($reflection->hasMethod('getETag')) {
 			$json['ETag'] = $this->getETag();
 		}
+
+		// Return the JSON representation
 		return $json;
 	}
+
 
 	public function __toString(): string {
 		return (string)$this->getId();

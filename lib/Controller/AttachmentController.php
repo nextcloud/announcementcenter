@@ -50,7 +50,7 @@ class AttachmentController extends OCSController
 	 */
 	public function getAll($apiVersion)
 	{
-		
+
 		$attachment = $this->attachmentService->findAll($this->request->getParam('announcementId'), true);
 		if ($apiVersion === '1.0') {
 			$attachment = array_filter($attachment, function ($attachment) {
@@ -79,10 +79,26 @@ class AttachmentController extends OCSController
 	 */
 	public function create($announcementId, $type, $data)
 	{
+
 		$attachment = $this->attachmentService->create($announcementId, $type, $data);
 		return new DataResponse($attachment, HTTP::STATUS_OK);
 	}
+	/**
+	 * @NoAdminRequired
+	 * @CORS
+	 * @NoCSRFRequired
+	 *
+	 */
+	public function uploadFile()
+	{
 
+		return new DataResponse($this->attachmentService->uploadFile(), HTTP::STATUS_OK);
+	}
+	public function makeAttachmentByPath($path)
+	{
+		$this->logger->warning("make:" . $path);
+		return new DataResponse($this->attachmentService->makeAttachmentByPath($path), HTTP::STATUS_OK);
+	}
 	/**
 	 * @NoAdminRequired
 	 * @CORS

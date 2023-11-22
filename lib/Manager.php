@@ -29,6 +29,7 @@ use InvalidArgumentException;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\AttachmentMapper;
 use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCP\AppFramework\Db\DoesNotExistException;
@@ -40,6 +41,7 @@ use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserSession;
+use OCP\IL10N;
 use OCP\Notification\IManager as INotificationManager;
 use Psr\Log\LoggerInterface;
 use ReflectionException;
@@ -52,6 +54,7 @@ class Manager
 
 	/** @var AnnouncementMapper */
 	protected AnnouncementMapper $announcementMapper;
+	protected AttachmentMapper $attachmentMapper;
 
 	/** @var GroupMapper */
 	protected GroupMapper $groupMapper;
@@ -71,6 +74,7 @@ class Manager
 	/** @var IUserSession */
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
+	protected IL10N $l;
 	public function __construct(
 		IConfig $config,
 		AnnouncementMapper $announcementMapper,
@@ -80,7 +84,9 @@ class Manager
 		ICommentsManager $commentsManager,
 		IJobList $jobList,
 		IUserSession $userSession,
+		AttachmentMapper $attachmentMapper,
 		LoggerInterface $logger,
+		IL10N $l
 	) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
@@ -91,7 +97,8 @@ class Manager
 		$this->jobList = $jobList;
 		$this->userSession = $userSession;
 		$this->logger = $logger;
-
+		$this->attachmentMapper = $attachmentMapper;
+		$this->l = $l;
 	}
 
 	/**
@@ -136,7 +143,8 @@ class Manager
 		}
 
 		if ($addedGroups === 0) {
-			$this->addGroupLink($announcement, 'everyone');
+			$gid = $this->l->t("everyone");
+			$this->addGroupLink($announcement, $gid);
 		}
 
 		return $announcement;
@@ -175,8 +183,9 @@ class Manager
 		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
 
 		$announcement = $this->announcementMapper->getById($id);
-		$this->announcementMapper->delete($announcement);
+		$this->attachmentMapper->deleteAttachmentsSharesForAnnouncement($announcement);
 		$this->groupMapper->deleteGroupsForAnnouncement($announcement);
+		$this->announcementMapper->delete($announcement);
 	}
 
 	/**
@@ -220,9 +229,6 @@ class Manager
 		$user = $this->userSession->getUser();
 		if ($user instanceof IUser) {
 			$userGroups = $this->groupManager->getUserGroupIds($user);
-			$userGroups[] = 'everyone';
-		} else {
-			$userGroups = ['everyone'];
 		}
 
 		return $userGroups;

@@ -43,7 +43,6 @@
 			"
 			label="displayName"
 			track-by="multiselectKey"
-			@input="assignUserToAnnouncement"
 			@search-change="asyncFind">
 			<template #tag="scope">
 				<div class="avatarlist--inline">
@@ -100,6 +99,158 @@
 				</NcActions>
 			</div>
 		</div>
+		<NcModal
+			v-if="modalShow"
+			:title="t('announcementcenter', 'Choose attachment')"
+			@close="modalShow = false">
+			<div class="modal__content p-2">
+				<div
+					class="text-xl font-bold flex justify-center items-center p-1">
+					{{ t("announcementcenter", "Choose attachment") }}
+				</div>
+				<div class="button-group">
+					<button class="icon-upload" @click="uploadNewFile()">
+						{{ t("announcementcenter", "Upload new files") }}
+					</button>
+					<button class="icon-folder" @click="shareFromFiles()">
+						{{ t("announcementcenter", "Share from Files") }}
+					</button>
+				</div>
+				<input
+					ref="filesAttachment"
+					type="file"
+					style="display: none"
+					multiple
+					@change="handleUploadFile" />
+				<ul class="attachment-list">
+					<li
+						v-for="attachment in uploadQueue"
+						:key="attachment.name"
+						class="attachment">
+						<a
+							class="fileicon"
+							:style="mimetypeForAttachment(attachment)" />
+						<div class="details">
+							<a>
+								<div class="filename">
+									<span class="basename">{{
+										attachment.name
+									}}</span>
+								</div>
+								<progress
+									:value="attachment.progress"
+									max="100" />
+							</a>
+						</div>
+					</li>
+					<li
+						v-for="attachment in newUploadAttachments"
+						:key="attachment.fileId"
+						class="attachment"
+						:class="{
+							'attachment--deleted': attachment.deletedAt > 0,
+						}">
+						<a
+							class="fileicon"
+							:href="internalLink(attachment)"
+							:style="mimetypeForAttachment(attachment)"
+							@click.prevent="showViewer(attachment)" />
+						<div class="details">
+							<a
+								:href="internalLink(attachment)"
+								@click.prevent="showViewer(attachment)">
+								<div class="filename">
+									<span class="basename">{{
+										attachment.data
+									}}</span>
+								</div>
+								<div v-if="attachment.deletedAt === 0">
+									<span class="filesize">{{
+										formattedFileSize(
+											attachment.extendedData.filesize
+										)
+									}}</span>
+									<span class="filedate">{{
+										relativeDate(
+											attachment.createdAt * 1000
+										)
+									}}</span>
+									<span class="filedate">{{
+										attachment.extendedData
+											.attachmentCreator.displayName
+									}}</span>
+								</div>
+								<div v-else>
+									<span class="attachment--info">{{
+										t("announcementcenter", "Pending share")
+									}}</span>
+								</div>
+							</a>
+						</div>
+						<NcActions>
+							<NcActionButton
+								icon="icon-confirm"
+								@click="addAttachment(attachment)">
+								{{
+									t(
+										"announcementcenter",
+										"Add this attachment"
+									)
+								}}
+							</NcActionButton>
+						</NcActions>
+						<NcActions :force-menu="true">
+							<NcActionLink
+								v-if="attachment.extendedData.fileid"
+								icon="icon-folder"
+								:href="internalLink(attachment)">
+								{{ t("announcementcenter", "Show in Files") }}
+							</NcActionLink>
+							<NcActionLink
+								v-if="attachment.extendedData.fileid"
+								icon="icon-download"
+								:href="downloadLink(attachment)"
+								download>
+								{{ t("announcementcenter", "Download") }}
+							</NcActionLink>
+							<NcActionButton
+								v-if="attachment.extendedData.fileid"
+								icon="icon-delete"
+								@click="unshareAttachment(attachment)">
+								{{
+									t("announcementcenter", "Remove attachment")
+								}}
+							</NcActionButton>
+
+							<NcActionButton
+								v-if="
+									!attachment.extendedData.fileid &&
+									attachment.deletedAt === 0
+								"
+								icon="icon-delete"
+								@click="$emit('delete-attachment', attachment)">
+								{{
+									t("announcementcenter", "Delete Attachment")
+								}}
+							</NcActionButton>
+							<NcActionButton
+								v-else-if="!attachment.extendedData.fileid"
+								icon="icon-history"
+								@click="
+									$emit('restore-attachment', attachment)
+								">
+								{{
+									t(
+										"announcementcenter",
+										"Restore Attachment"
+									)
+								}}
+							</NcActionButton>
+						</NcActions>
+					</li>
+				</ul>
+			</div>
+		</NcModal>
 	</div>
 </template>
 
@@ -111,6 +262,8 @@ import {
 	NcActions,
 	NcActionCheckbox,
 	NcActionInput,
+	NcModal,
+	NcActionButton,
 } from "@nextcloud/vue";
 import { loadState } from "@nextcloud/initial-state";
 import {
@@ -123,6 +276,26 @@ import strip from "strip-markdown";
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 import debounce from "lodash/debounce.js";
 import { mapGetters, mapState } from "vuex";
+import { getFilePickerBuilder } from "@nextcloud/dialogs";
+import relativeDate from "../mixins/relativeDate.js";
+import attachmentUpload from "../mixins/attachmentUpload.js";
+import {
+	generateUrl,
+	generateOcsUrl,
+	generateRemoteUrl,
+} from "@nextcloud/router";
+import { formatFileSize } from "@nextcloud/files";
+import { getCurrentUser } from "@nextcloud/auth";
+import { AttachmentApi } from "./../services/AttachmentApi.js";
+const maxUploadSizeState = loadState("announcementcenter", "maxUploadSize");
+const apiClient = new AttachmentApi();
+const picker = getFilePickerBuilder(t("announcementcenter", "File to share"))
+	.setMultiSelect(false)
+	.setModal(true)
+	.setType(1)
+	.allowDirectories()
+	.build();
+
 export default {
 	name: "NewForm",
 	components: {
@@ -132,13 +305,15 @@ export default {
 		NcButton,
 		NcMultiselect,
 		NcAvatar,
+		NcModal,
+		NcActionButton,
 	},
-
+	mixins: [relativeDate, attachmentUpload],
 	data() {
 		return {
 			subject: "",
 			message: "",
-
+			modalShow: false,
 			createActivities: loadState(
 				"announcementcenter",
 				"createActivities"
@@ -152,9 +327,10 @@ export default {
 			groups: [],
 			groupOptions: [],
 			assignedUsers: [],
-
+			attachments: [],
 			editor: null,
 			textAppAvailable: !!window.OCA?.Text?.createEditor,
+			announcementId: "",
 		};
 	},
 
@@ -188,8 +364,106 @@ export default {
 				})
 				.slice(0, 10);
 		},
+		mimetypeForAttachment() {
+			return (attachment) => {
+				if (!attachment) {
+					return {};
+				}
+				const url = attachment.extendedData.hasPreview
+					? this.attachmentPreview64(attachment)
+					: OC.MimeType.getIconUrl(attachment.extendedData.mimetype);
+				const styles = {
+					"background-image": `url("${url}")`,
+				};
+				return styles;
+			};
+		},
+		attachmentPreview64() {
+			return (attachment) =>
+				attachment.extendedData.fileid
+					? generateUrl(
+							`/core/preview?fileId=${attachment.extendedData.fileid}&x=64&y=64`
+					  )
+					: null;
+		},
+		attachmentPreview() {
+			return (attachment) =>
+				attachment.extendedData.fileid
+					? generateUrl(
+							`/core/preview?fileId=${attachment.extendedData.fileid}&x=600&y=600&a=true`
+					  )
+					: null;
+		},
+
+		attachmentUrl() {
+			return (attachment) =>
+				generateUrl(
+					`/apps/announcementcenter/announcements/${attachment.announcementId}/attachment/${attachment.id}`
+				);
+		},
+		internalLink() {
+			return (attachment) =>
+				generateUrl("/f/" + attachment.extendedData.fileid);
+		},
+		downloadLink() {
+			return (attachment) =>
+				generateRemoteUrl(
+					`dav/files/${getCurrentUser().uid}/${
+						attachment.extendedData.path
+					}`
+				);
+		},
+		formattedFileSize() {
+			return (filesize) => formatFileSize(filesize);
+		},
 	},
 	methods: {
+		addAttachment(attachment) {
+			console.log(this.newUploadAttachments);
+			console.log(attachment);
+			const asImage =
+				(attachment.type === "file" &&
+					attachment.extendedData.hasPreview) ||
+				attachment.extendedData.mimetype.includes("image");
+			if (this.editor) {
+				this.editor.insertAtCursor(
+					asImage
+						? `<a href="${this.attachmentPreview(
+								attachment
+						  )}"><img src="${this.attachmentPreview(
+								attachment
+						  )}" alt="${attachment.data}" /></a>`
+						: `<a href="${this.attachmentPreview(attachment)}">${
+								attachment.data
+						  }</a>`
+				);
+				return;
+			}
+			this.modalShow = false;
+		},
+		uploadNewFile() {
+			this.$refs.filesAttachment.click();
+		},
+		shareFromFiles() {
+			picker.pick().then(async (path) => {
+				console.log(`path ${path} selected for sharing`);
+				if (!path.startsWith("/")) {
+					throw new Error(t("files", "Invalid path selected"));
+				}
+				const res = await apiClient.makeAttachmentByPath(path);
+				this.newUploadAttachments.push(res.ocs.data);
+			});
+		},
+		async handleUploadFile(event) {
+			const files = event.target.files ?? [];
+			for (const file of files) {
+				await this.onNewLocalAttachmentSelected(file);
+			}
+			event.target.value = "";
+		},
+		showAttachmentModal() {
+			this.modalShow = true;
+		},
 		async asyncFind(query) {
 			await this.debouncedFind(query);
 		},
@@ -198,26 +472,28 @@ export default {
 			await this.$store.dispatch("loadSharees", query);
 			this.isSearching = false;
 		}, 300),
-		assignUserToAnnouncement(item) {
-			// console.log(this.assignedUsers);
-			// this.assignedUsers.push(item);
-			// this.$store.dispatch('assignCardToUser', {
-			// 	card: this.copiedCard,
-			// 	assignee: {
-			// 		userId: user.uid,
-			// 		type: user.type,
-			// 	},
-			// })
-		},
+		showViewer(attachment) {
+			if (
+				attachment.extendedData.fileid &&
+				window.OCA.Viewer.availableHandlers
+					.map((handler) => handler.mimes)
+					.flat()
+					.includes(attachment.extendedData.mimetype)
+			) {
+				window.OCA.Viewer.open({ path: attachment.extendedData.path });
+				return;
+			}
 
-		removeUserFromAnnouncement(user) {
-			// this.$store.dispatch('removeUserFromCard', {
-			// 	card: this.copiedCard,
-			// 	assignee: {
-			// 		userId: user.uid,
-			// 		type: user.type,
-			// 	},
-			// })
+			if (attachment.extendedData.fileid) {
+				window.location = generateUrl(
+					"/f/" + attachment.extendedData.fileid
+				);
+				return;
+			}
+
+			window.location = generateUrl(
+				`/apps/announcementcenter/announcements/${attachment.announcementId}/attachment/${attachment.id}`
+			);
 		},
 		async setupEditor() {
 			this?.editor?.destroy();
@@ -230,8 +506,7 @@ export default {
 					// this.updateDescription();
 				},
 				onFileInsert: () => {
-					// this.showAttachmentModal();
-					console.log("files");
+					this.showAttachmentModal();
 				},
 			});
 		},
@@ -289,7 +564,18 @@ export default {
 					this.sendEmails,
 					this.allowComments
 				);
-				this.$store.dispatch("addAnnouncement", response.data.ocs.data);
+				let annoucement = response.data.ocs.data;
+				console.log(annoucement);
+				this.$store.dispatch("addAnnouncement", annoucement);
+				this.announcementId = annoucement.id;
+
+				this.newUploadAttachments.forEach(async (attachment) => {
+					console.log(attachment);
+					await this.onShareAttachmentSelected(
+						"share_file",
+						attachment.extendedData.path
+					);
+				});
 				emit("closeNewAnnouncement");
 				this.resetForm();
 			} catch (e) {
@@ -307,6 +593,105 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.button-group {
+	display: flex;
+
+	.icon-upload,
+	.icon-folder {
+		padding-left: 44px;
+		background-position: 16px center;
+		flex-grow: 1;
+		height: 44px;
+		margin-bottom: 12px;
+		text-align: left;
+	}
+}
+
+.attachment-list {
+	&.selector {
+		padding: 10px;
+		position: absolute;
+		width: 30%;
+		max-width: 500px;
+		min-width: 200px;
+		max-height: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #eee;
+		z-index: 2;
+		border-radius: 3px;
+		box-shadow: 0 0 3px darkgray;
+		overflow: scroll;
+	}
+	h3.attachment-selector {
+		margin: 0 0 10px;
+		padding: 0;
+		.icon-close {
+			display: inline-block;
+			float: right;
+		}
+	}
+
+	li.attachment {
+		display: flex;
+		padding: 3px;
+		min-height: 44px;
+
+		&.deleted {
+			opacity: 0.5;
+		}
+
+		.fileicon {
+			display: inline-block;
+			min-width: 32px;
+			width: 32px;
+			height: 32px;
+			background-size: contain;
+		}
+		.details {
+			flex-grow: 1;
+			flex-shrink: 1;
+			min-width: 0;
+			flex-basis: 50%;
+			line-height: 110%;
+			padding: 2px;
+		}
+		.filename {
+			width: 70%;
+			display: flex;
+			.basename {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				padding-bottom: 2px;
+			}
+			.extension {
+				opacity: 0.7;
+			}
+		}
+		.attachment--info,
+		.filesize,
+		.filedate {
+			font-size: 90%;
+			color: var(--color-text-maxcontrast);
+		}
+		.app-popover-menu-utils {
+			position: relative;
+			right: -10px;
+			button {
+				height: 32px;
+				width: 42px;
+			}
+		}
+		button.icon-history {
+			width: 44px;
+		}
+		progress {
+			margin-top: 3px;
+		}
+	}
+}
 .avatarlist--inline {
 	display: flex;
 	align-items: center;
@@ -316,7 +701,7 @@ export default {
 	}
 }
 .announcement__form {
-	max-width: 690px;
+	max-width: 800px;
 	padding: 0px 20px;
 	margin: 70px auto 35px;
 	font-size: 15px;

@@ -32,6 +32,7 @@ use OCA\AnnouncementCenter\InvalidAttachmentType;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Service\AttachmentService;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -57,7 +58,7 @@ class APIController extends OCSController
 	protected ITimeFactory $timeFactory;
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
-
+	protected AttachmentService $attachmentService;
 	public function __construct(
 		string $appName,
 		IRequest $request,
@@ -68,7 +69,8 @@ class APIController extends OCSController
 		Manager $manager,
 		ITimeFactory $timeFactory,
 		IUserSession $userSession,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		AttachmentService $attachmentService
 	) {
 		parent::__construct($appName, $request);
 		$this->groupManager = $groupManager;
@@ -79,6 +81,7 @@ class APIController extends OCSController
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
 		$this->logger = $logger;
+		$this->attachmentService = $attachmentService;
 	}
 
 	/**
@@ -203,7 +206,7 @@ class APIController extends OCSController
 			'subject' => $announcement->getParsedSubject(),
 			'message' => $announcement->getMessage(),
 			'groups' => null,
-			'attachmentCount' => $announcement->getAttachmentCount(),
+			'attachmentCount' => $this->attachmentService->count($announcement->getId()),
 			'attachments' => $announcement->getAttachments(),
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
@@ -211,13 +214,6 @@ class APIController extends OCSController
 		$groupIds = $this->manager->getGroups($announcement);
 		$groups = [];
 		foreach ($groupIds as $groupId) {
-			if ($groupId === 'everyone') {
-				$groups[] = [
-					'id' => 'everyone',
-					'name' => 'everyone',
-				];
-				continue;
-			}
 			$group = $this->groupManager->get($groupId);
 			if (!$group instanceof IGroup) {
 				continue;

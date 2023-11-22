@@ -27,9 +27,12 @@ namespace OCA\AnnouncementCenter\Service;
 
 use OCA\AnnouncementCenter\Model\Attachment;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
+use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCA\AnnouncementCenter\Model\Share;
 use OCA\AnnouncementCenter\NoPermissionException;
 use OCA\AnnouncementCenter\Sharing\AnnouncementcenterShareProvider;
 use OCA\AnnouncementCenter\StatusException;
+use OCA\AnnouncementCenter\Model\ShareMapper;
 use OCP\AppFramework\Http\StreamResponse;
 use OCP\Constants;
 use OCP\Files\IMimeTypeDetector;
@@ -60,7 +63,8 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 	private AnnouncementMapper $announcementMapper;
 	private LoggerInterface $logger;
 	private IDBConnection $connection;
-
+	private GroupMapper $groupMapper;
+	private ShareMapper $shareMapper;
 	public function __construct(
 		IRequest $request,
 		IL10N $l10n,
@@ -74,7 +78,9 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		AnnouncementMapper  $announcementMapper,
 		LoggerInterface $logger,
 		IDBConnection $connection,
-		?string $userId
+		?string $userId,
+		GroupMapper $groupMapper,
+		ShareMapper $shareMapper
 	) {
 		$this->request = $request;
 		$this->l10n = $l10n;
@@ -89,7 +95,10 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		$this->announcementMapper = $announcementMapper;
 		$this->logger = $logger;
 		$this->connection = $connection;
+		$this->groupMapper = $groupMapper;
+		$this->shareMapper = $shareMapper;
 		// $this->logger->warning('fileapp1');
+
 	}
 
 	public function listAttachments(int $announcementId): array
@@ -146,12 +155,14 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 	public function extendData(Attachment $attachment)
 	{
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
-		$share = $this->getShareForAttachment($attachment);
-		$files = $userFolder->getById($share->getNode()->getId());
+		// $share = $this->getShareForAttachment($attachment);
+		// $files = $userFolder->getById($share->getNode()->getId());
+		$files = $userFolder->getById($attachment->getFileId());
 		if (count($files) === 0) {
 			return $attachment;
 		}
 		$file = array_shift($files);
+
 		$attachment->setExtendedData([
 			'path' => $userFolder->getRelativePath($file->getPath()),
 			'fileid' => $file->getId(),
@@ -160,7 +171,7 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 			'mimetype' => $file->getMimeType(),
 			'info' => pathinfo($file->getName()),
 			'hasPreview' => $this->preview->isAvailable($file),
-			'permissions' => $share->getPermissions(),
+
 		]);
 		return $attachment;
 	}
@@ -185,22 +196,18 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 		return $response;
 	}
 
-	public function create(Attachment $attachment)
+	public function create(Attachment $attachment, int $permission = Constants::PERMISSION_READ)
 	{
-		
 		$file = $this->getUploadedFile();
 		$fileName = $file['name'];
-		
 		// get shares for current announcement
 		// check if similar filename already exists
-
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
 		try {
 			$folder = $userFolder->get($this->configService->getAttachmentFolder());
 		} catch (NotFoundException $e) {
 			$folder = $userFolder->newFolder($this->configService->getAttachmentFolder());
 		}
-
 		$fileName = $folder->getNonExistingName($fileName);
 		$target = $folder->newFile($fileName);
 		$content = fopen($file['tmp_name'], 'rb');
@@ -208,15 +215,21 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 			throw new StatusException('Could not read file');
 		}
 		$target->putContent($content);
+		if ($attachment->getData() !== "only_upload") {
+			$groups = $this->groupMapper->getGroupsByAnnouncementId($attachment->getAnnouncementId());
+			foreach ($groups as $group) {
+				$share = $this->shareManager->newShare();
+				$share->setNode($target);
+				$share->setShareType(ISHARE::TYPE_GROUP);
+				$share->setSharedWith($group);
+				$share->setPermissions($permission);
+				$share->setSharedBy($this->userId);
+				$share = $this->shareManager->createShare($share);
+			}
+		}
 
-		$share = $this->shareManager->newShare();
-		$share->setNode($target);
-		$share->setShareType(ISHARE::TYPE_DECK);
-		$share->setSharedWith((string)$attachment->getAnnouncementId());
-		$share->setPermissions(Constants::PERMISSION_READ);
-		$share->setSharedBy($this->userId);
-		$share = $this->shareManager->createShare($share);
-		$attachment->setId((int)$share->getId());
+		$this->logger->warning('fileapp:' . json_encode($share));
+		$attachment->setFileId((int)$target->getId());
 		$attachment->setData($target->getName());
 		return $attachment;
 	}
@@ -309,15 +322,16 @@ class FilesAppService implements IAttachmentService, ICustomAttachmentService
 	 */
 	private function getShareForAttachment(Attachment $attachment): IShare
 	{
+
 		try {
 			$share = $this->shareProvider->getShareById($attachment->getId());
 		} catch (ShareNotFound $e) {
 			throw new NoPermissionException('No permission to access the attachment from the announcement');
 		}
 
-		if ((int)$share->getSharedWith() !== (int)$attachment->getAnnouncementId()) {
-			throw new NoPermissionException('No permission to access the attachment from the announcement');
-		}
+		// if ((int)$share->getSharedWith() !== (int)$attachment->getAnnouncementId()) {
+		// 	throw new NoPermissionException('No permission to access the attachment from the announcement');
+		// }
 
 		return $share;
 	}

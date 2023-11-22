@@ -1,0 +1,664 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Nextcloud package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Nextcloud 3.14159\n"
+"Report-Msgid-Bugs-To: translations\\@example.com\n"
+"POT-Creation-Date: 2023-11-22 10:57+0800\n"
+"PO-Revision-Date: 2023-11-22 11:11+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4.1\n"
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Provider.php:101
+msgid "You announced “{announcement}”"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Provider.php:104
+msgid "{actor} announced “{announcement}”"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Provider.php:110
+msgid "You posted an announcement"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Provider.php:113
+msgid "{actor} posted an announcement"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Provider.php:116
+msgid "The announcement does not exist anymore"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Activity/Setting.php:54
+msgid "An <strong>announcement</strong> is posted by an administrator"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Controller/APIController.php:150
+msgid "The subject is too long or empty"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:23
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Dashboard/Widget.php:84
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Notification/Notifier.php:84
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialAppInfoFakeDummyForL10nScript.php:3
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:2
+msgid "Announcements"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Dashboard/Widget.php:128
+msgid "Read more"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Dashboard/Widget.php:179
+msgid "{author}, {time}"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Manager.php:146
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/UserService.php:29
+msgid "everyone"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Notification/Notifier.php:125
+msgid "{user} announced {announcement}"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Notification/Notifier.php:152
+msgid "{user} announced “{announcement}”"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:236
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:131
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:246
+msgid "The file was uploaded"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:237
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:132
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:247
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:238
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:133
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:248
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:239
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:134
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:249
+msgid "The file was only partially uploaded"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:240
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:135
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:250
+msgid "No file was uploaded"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:241
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:136
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:251
+msgid "Missing a temporary folder"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:242
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:137
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:252
+msgid "Could not write file to disk"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:243
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:138
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:253
+msgid "A PHP extension stopped the file upload"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:247
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileService.php:142
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FilesAppService.php:257
+#, php-format
+msgid "No file uploaded or file size exceeds maximum of %s"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:265
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/FileShareService.php:163
+msgid "Wrong path, file/folder does not exist"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Service/AttachmentService.php:353
+msgid "No data was provided to create an attachment."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Sharing/AnnouncementcenterShareProvider.php:139
+msgid "Path is already shared with this announcement"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/lib/Sharing/ShareAPIHelper.php:80
+msgid "Invalid date, date format must be YYYY-MM-DD"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialAppInfoFakeDummyForL10nScript.php:2
+msgid "Announcement center"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialAppInfoFakeDummyForL10nScript.php:4
+msgid "This app allows admins to post announcements."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialAppInfoFakeDummyForL10nScript.php:5
+msgid ""
+"Announce your maintenance window 🎛️, introduce a new colleague 👤 or make "
+"sure everyone knows about the big event next month 📅\n"
+"\t\t\n"
+"🖌️ Markdown support\n"
+"\n"
+"📑 Comments including @-mentions\n"
+"\n"
+"👪 Group permissions\n"
+"\n"
+"⭕ Dashboard integration\n"
+"\n"
+"⚡ Activities integration\n"
+"\n"
+"🔔 Notifications integration"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:28
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:4
+msgid "These groups will be able to post announcements."
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:39
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:6
+msgid "Create activities by default"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:45
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:8
+msgid "Create notifications by default"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:51
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:10
+msgid "Send emails by default"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:57
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:12
+msgid "Allow comments by default"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:103
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:14
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:18
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:22
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:26
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:30
+msgid "Setting changed"
+msgstr ""
+
+#. TRANSLATORS src/AdminSettings.vue:107
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:16
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:20
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:24
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:28
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:32
+msgid "An error occurred while changing the setting"
+msgstr ""
+
+#. TRANSLATORS src/App.vue:36
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:34
+msgid "Comments"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:74
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:36
+msgid "Clear notifications"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:80
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:38
+msgid "Delete announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:155
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:40
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/relativeDate.js:31
+msgid "seconds ago"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:171
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:42
+msgid "visible to everyone"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:175
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:44
+msgid "visible to group {name}"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:182
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:46
+msgid "visible to groups {name1} and {name2}"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:209
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:48
+msgid ", "
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:247
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:50
+msgid "An error occurred while removing the notifications of the announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:261
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:52
+msgid "An error occurred while deleting the announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/Announcement.vue:191
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:54
+msgid "visible to group {name} and %n more"
+msgid_plural "visible to group {name} and %n more"
+msgstr[0] ""
+
+#. TRANSLATORS src/components/Announcement.vue:213
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:56
+msgid "%n comment"
+msgid_plural "%n comments"
+msgstr[0] ""
+
+#. TRANSLATORS src/components/AnnouncementDetail.vue:7
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:58
+msgid "Select an announcement from the list or create a new one."
+msgstr ""
+
+#. TRANSLATORS src/components/AnnouncementList.vue:6
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:60
+msgid "Search Announcements"
+msgstr "搜索公告"
+
+
+#. TRANSLATORS src/components/AnnouncementList.vue:14
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:64
+msgid "post announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/AnnouncementList.vue:24
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:66
+msgid "load more announcements"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:48
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:51
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:68
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:70
+msgid "File already exists"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:54
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:72
+msgid "A file with the name {filename} already exists."
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:63
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:74
+msgid "Do you want to overwrite it?"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:67
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:76
+msgid "Overwrite file"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:70
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:78
+msgid "Keep existing file"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:114
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:80
+msgid "This announcement is read only"
+msgstr ""
+
+#. TRANSLATORS src/components/AttachmentDragAndDrop.vue:119
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:82
+msgid "Drop your files to upload"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:32
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:84
+msgid "New announcement subject"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:42
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:86
+msgid "Assign announcement to groups…"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:69
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:88
+msgid "Write announcement text, Markdown can be used …"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:104
+#. TRANSLATORS src/components/NewForm.vue:109
+#. TRANSLATORS src/components/Page.vue:117
+#. TRANSLATORS src/components/Page.vue:120
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:90
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:102
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:164
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:172
+msgid "Choose attachment"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:80
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:92
+msgid "Announce"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:86
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:94
+msgid "Create activities"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:91
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:96
+msgid "Create notifications"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:94
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:98
+msgid "Send emails"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:97
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:100
+msgid "Allow comments"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:113
+#. TRANSLATORS src/components/Page/AttachmentList.vue:29
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:104
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:128
+msgid "Upload new files"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:116
+#. TRANSLATORS src/components/Page/AttachmentList.vue:32
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:106
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:130
+msgid "Share from Files"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:185
+#. TRANSLATORS src/components/Page/AttachmentList.vue:89
+#. TRANSLATORS src/components/Page.vue:80
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:108
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:132
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:168
+msgid "Pending share"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:195
+#. TRANSLATORS src/components/Page/AttachmentList.vue:98
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:110
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:134
+msgid "Add this attachment"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:207
+#. TRANSLATORS src/components/Page/AttachmentList.vue:106
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:112
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:136
+msgid "Show in Files"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:214
+#. TRANSLATORS src/components/Page/AttachmentList.vue:113
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:114
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:138
+msgid "Download"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:221
+#. TRANSLATORS src/components/Page/AttachmentList.vue:119
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:116
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:140
+msgid "Remove attachment"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:233
+#. TRANSLATORS src/components/Page/AttachmentList.vue:129
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:118
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:142
+msgid "Delete Attachment"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:243
+#. TRANSLATORS src/components/Page/AttachmentList.vue:135
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:120
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:144
+msgid "Restore Attachment"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:292
+#. TRANSLATORS src/components/Page/AttachmentList.vue:161
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:122
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:146
+msgid "File to share"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:451
+#. TRANSLATORS src/components/Page/AttachmentList.vue:287
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:124
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:148
+msgid "Invalid path selected"
+msgstr ""
+
+#. TRANSLATORS src/components/NewForm.vue:584
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:126
+msgid "An error occurred while posting the announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/Page/EditButton.vue:46
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:150
+msgid "Stop editing"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:150
+msgid "Start editing"
+msgstr ""
+
+#. TRANSLATORS src/components/Page/EditButton.vue:51
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:152
+msgid "Done"
+msgstr ""
+
+#. TRANSLATORS src/components/Page/EditButton.vue:52
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:154
+msgid "Edit"
+msgstr ""
+
+#. TRANSLATORS src/components/Page/PageNotFound.vue:2
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:156
+msgid "Page not found: {page}"
+msgstr ""
+
+#. TRANSLATORS src/components/Page/PageNotFound.vue:3
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:158
+msgid "Select a page from the list or create a new one."
+msgstr ""
+
+#. TRANSLATORS src/components/Page.vue:12
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:160
+msgid "Title"
+msgstr ""
+
+#. TRANSLATORS src/components/Page.vue:24
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:162
+msgid "receivers"
+msgstr ""
+
+#. TRANSLATORS src/components/Page.vue:45
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:166
+msgid "attachments"
+msgstr ""
+
+#. TRANSLATORS src/components/Page.vue:109
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:170
+msgid "comments"
+msgstr ""
+
+#. TRANSLATORS src/components/Page.vue:309
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:174
+msgid "An error occurred while updating the announcement"
+msgstr ""
+
+#. TRANSLATORS src/components/SharingSearchDiv.vue:31
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:176
+msgid "Search for user, group or circle …"
+msgstr ""
+
+#. TRANSLATORS src/components/SharingSearchDiv.vue:119
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:178
+msgid "No recommendations. Start typing."
+msgstr ""
+
+#. TRANSLATORS src/components/SharingSearchDiv.vue:121
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:180
+msgid "No elements found."
+msgstr ""
+
+#. TRANSLATORS src/views/Dashboard.vue:28
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:182
+msgid "No announcements"
+msgstr ""
+
+#. TRANSLATORS src/views/Dashboard.vue:69
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/specialVueFakeDummyForL10nScript.js:184
+msgid "{author}, {timestamp}"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/ShareLinkMixin.js:57
+msgid "Form link copied"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/ShareLinkMixin.js:59
+msgid "Cannot copy, please copy the link manually"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/attachmentUpload.js:41
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/attachmentUpload.js:101
+msgid "Failed to upload {name}"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/attachmentUpload.js:47
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/mixins/attachmentUpload.js:107
+msgid "Maximum file size of {size} exceeded"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/utils/SetWindowTitle.js:30
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/src/utils/SetWindowTitle.js:32
+msgid "Forms"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Federation/Exceptions/ActionNotSupportedException.php:43
+#, php-format
+msgid "Action \"%s\" not supported or implemented."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Federation/Exceptions/AuthenticationFailedException.php:43
+msgid "Authentication failed, wrong token or provider ID given"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Federation/Exceptions/BadRequestException.php:52
+#, php-format
+msgid ""
+"Parameters missing in order to complete the request. Missing Parameters: "
+"\"%s\""
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Federation/Exceptions/ProviderAlreadyExistsException.php:47
+#, php-format
+msgid "ID \"%1$s\" already used by cloud federation provider \"%2$s\""
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Federation/Exceptions/ProviderDoesNotExistsException.php:44
+#, php-format
+msgid "Cloud Federation Provider with ID: \"%s\" does not exist."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/LockNotAcquiredException.php:46
+#, php-format
+msgid "Could not obtain lock type %d on \"%s\"."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/StorageAuthException.php:40
+#, php-format
+msgid "Storage unauthorized. %s"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/StorageBadConfigException.php:40
+#, php-format
+msgid "Storage incomplete configuration. %s"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/StorageConnectionException.php:40
+#, php-format
+msgid "Storage connection error. %s"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/StorageNotAvailableException.php:60
+msgid "Storage is temporarily not available"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/Files/StorageTimeoutException.php:40
+#, php-format
+msgid "Storage connection timeout. %s"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/FreePromptTaskType.php:56
+msgid "Free prompt"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/FreePromptTaskType.php:64
+msgid "Runs an arbitrary prompt through the language model."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/HeadlineTaskType.php:56
+msgid "Generate headline"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/HeadlineTaskType.php:64
+msgid "Generates a possible headline for a text."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/SummaryTaskType.php:56
+msgid "Summarize"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/SummaryTaskType.php:64
+msgid "Summarizes text by reducing its length without losing key information."
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/TopicsTaskType.php:56
+msgid "Extract topics"
+msgstr ""
+
+#: /opt/nextcloud/insiinc/Nextcloud_docker/app/custom_apps/announcementcenter/vendor/nextcloud/ocp/OCP/TextProcessing/TopicsTaskType.php:64
+msgid "Extracts topics from a text and outputs them separated by commas."
+msgstr ""

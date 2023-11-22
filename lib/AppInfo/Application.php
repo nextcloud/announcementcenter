@@ -38,17 +38,17 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
 use OCP\EventDispatcher\IEventDispatcher;
+use OCA\AnnouncementCenter\Service\UserService;
 use OCP\Util;
+
 
 class Application extends App implements IBootstrap
 {
 	public const APP_ID = 'announcementcenter';
-
 	public function __construct()
 	{
 		parent::__construct(self::APP_ID);
 	}
-
 	public function register(IRegistrationContext $context): void
 	{
 		$context->registerDashboardWidget(Widget::class);
@@ -64,6 +64,7 @@ class Application extends App implements IBootstrap
 
 	public function boot(IBootContext $context): void
 	{
+		$userService = $context->getAppContainer()->get(UserService::class);
 		$context->injectFn(function (\OCP\Share\IManager $shareManager) {
 			$shareManager->registerShareProvider(AnnouncementcenterShareProvider::class);
 		});
@@ -71,5 +72,6 @@ class Application extends App implements IBootstrap
 		$context->injectFn(function (Listener $listener, IEventDispatcher $eventDispatcher) {
 			$listener->register($eventDispatcher);
 		});
+		$userService->createGroupWithAllUsers();
 	}
 }

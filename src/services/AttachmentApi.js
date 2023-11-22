@@ -38,17 +38,32 @@ export class AttachmentApi {
 	}
 
 	async createAttachment({ announcementId, formData, onUploadProgress }) {
-		console.log(formData);
 		const response = await axios({
 			method: "POST",
 			url: this.url(`announcements/${announcementId}/attachment`),
 			data: formData,
 			onUploadProgress,
 		});
-		console.log(response);
+		// console.log(response);
 		return response.data;
 	}
+	async uploadAttachment({ formData, onUploadProgress }) {
+		const response = await axios({
+			method: "POST",
+			url: this.url(`announcements/attachment/upload`),
+			data: formData,
+			onUploadProgress,
+		});
 
+		return response.data;
+	}
+	async makeAttachmentByPath(path) {
+		const response = await axios({
+			method: "GET",
+			url: this.url(`announcements/attachment/make/${path}`),
+		});
+		return response.data;
+	}
 	async updateAttachment({ announcementId, attachment, formData }) {
 		const response = await axios({
 			method: "POST",

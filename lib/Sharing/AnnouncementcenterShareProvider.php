@@ -49,7 +49,7 @@ use Psr\Log\LoggerInterface;
 class AnnouncementcenterShareProvider implements IShareProvider
 {
 	public const DECK_FOLDER = '/AnnouncementCenter';
-	public const DECK_FOLDER_PLACEHOLDER = '/{DECK_PLACEHOLDER}';
+	public const ANNOUNCEMENTCENTER_FOLDER_PLACEHOLDER = '/{DECK_PLACEHOLDER}';
 
 	public const SHARE_TYPE_DECK_USER = IShare::TYPE_DECK_USER;
 	public const SHARE_TYPE_ANNOUNCEMENTCENTER = 12;

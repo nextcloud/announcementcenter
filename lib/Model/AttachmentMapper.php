@@ -28,18 +28,26 @@ namespace OCA\AnnouncementCenter\Model;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\IRootFolder;
 use OCP\IDBConnection;
 use OCP\IUserManager;
+use Psr\Log\LoggerInterface;
+use OCP\Share\IManager;
+use OCP\Share\IShare;
 
-/** @template-extends BaseMapper<Attachment> */
-class AttachmentMapper extends BaseMapper
+/** @template-extends QBMapper<Attachment> */
+class AttachmentMapper extends QBMapper
 {
 	private AnnouncementMapper $announcementMapper;
 	private IUserManager $userManager;
-
-
+	private LoggerInterface $logger;
+	private GroupMapper $groupMapper;
+	private IManager $shareManager;
+	private ?string $userId;
+	private IRootFolder $rootFolder;
 	/**
 	 * AttachmentMapper constructor.
 	 *
@@ -47,12 +55,16 @@ class AttachmentMapper extends BaseMapper
 	 * @param AnnouncementMapper $announcementMapper
 	 * @param IUserManager $userManager
 	 */
-	public function __construct(IDBConnection $db, AnnouncementMapper $announcementMapper, IUserManager $userManager)
+	public function __construct(IDBConnection $db, AnnouncementMapper $announcementMapper, IUserManager $userManager, IManager $shareManager, GroupMapper $groupMapper, ?string $userId, IRootFolder $rootFolder, LoggerInterface $logger)
 	{
 		parent::__construct($db, 'announcements_attach', Attachment::class);
 		$this->announcementMapper = $announcementMapper;
 		$this->userManager = $userManager;
-		
+		$this->logger = $logger;
+		$this->groupMapper = $groupMapper;
+		$this->shareManager = $shareManager;
+		$this->userId = $userId;
+		$this->rootFolder = $rootFolder;
 	}
 
 	/**
@@ -63,7 +75,7 @@ class AttachmentMapper extends BaseMapper
 	 * @throws Exception
 	 */
 	public function find($id): Attachment
-    {
+	{
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from($this->getTableName())
@@ -81,7 +93,7 @@ class AttachmentMapper extends BaseMapper
 	 * @throws Exception
 	 */
 	public function findByData(int $announcementId, string $data): Attachment
-    {
+	{
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from($this->getTableName())
@@ -90,6 +102,34 @@ class AttachmentMapper extends BaseMapper
 
 		return $this->findEntity($qb);
 	}
+	public function deleteAttachmentsSharesForAnnouncement(Announcement $announcement): void
+	{;
+		$attachments = $this->findAll($announcement->getId());
+		$groups = $this->groupMapper->getGroupsByAnnouncementId($announcement->getId());
+		foreach ($attachments as $attachment) {
+			$fileId = $attachment->getFileId();
+			$files = $this->rootFolder->getUserFolder($this->userId)->getById($fileId);
+			foreach ($files as $file) {
+				// 获取文件的所有分享
+				$shares = $this->shareManager->getSharesBy($this->userId, IShare::TYPE_GROUP, $file);
+
+				foreach ($shares as $share) {
+					// 检查分享是否属于我们关心的组
+					if (in_array($share->getSharedWith(), $groups)) {
+						$this->logger->warning("del:" . $share->getSharedWith());
+						// 如果是，则删除分享
+						$this->shareManager->deleteShare($share);
+					}
+				}
+			}
+		}
+
+		// 删除附件信息
+		$query = $this->db->getQueryBuilder();
+		$query->delete('announcements_attach')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($announcement->getId())));
+		$query->execute();
+	}
 
 	/**
 	 * @param $announcementId
@@ -97,7 +137,8 @@ class AttachmentMapper extends BaseMapper
 	 * @throws Exception
 	 */
 	public function findAll($announcementId): array
-    {
+	{
+		$this->logger->warning("render");
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from($this->getTableName())
@@ -108,14 +149,14 @@ class AttachmentMapper extends BaseMapper
 		return $this->findEntities($qb);
 	}
 
-    /**
-     * @param int|null $announcementId
-     * @param bool $withOffset
-     * @return array
-     * @throws Exception
-     */
+	/**
+	 * @param int|null $announcementId
+	 * @param bool $withOffset
+	 * @return array
+	 * @throws Exception
+	 */
 	public function findToDelete(int $announcementId = null, bool $withOffset = true): array
-    {
+	{
 		// add buffer of 5 min
 		$timeLimit = time() - (60 * 5);
 		$qb = $this->db->getQueryBuilder();
@@ -135,21 +176,21 @@ class AttachmentMapper extends BaseMapper
 	}
 
 
-    /**
-     * Check if $userId is owner of Entity with $id
-     *
-     * @param $userId string userId
-     * @param $id int|string unique entity identifier
-     * @return boolean
-     * @throws Exception
-     */
+	/**
+	 * Check if $userId is owner of Entity with $id
+	 *
+	 * @param $userId string userId
+	 * @param $id int|string unique entity identifier
+	 * @return boolean
+	 * @throws Exception
+	 */
 	public function isOwner(string $userId, int|string $id): bool
 	{
 		try {
 			$attachment = $this->find($id);
 			return $this->announcementMapper->isOwner($userId, $attachment->getAnnouncementId());
-		} catch (DoesNotExistException|MultipleObjectsReturnedException $e) {
+		} catch (DoesNotExistException | MultipleObjectsReturnedException $e) {
 		}
-        return false;
+		return false;
 	}
 }

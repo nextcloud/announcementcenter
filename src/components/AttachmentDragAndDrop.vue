@@ -111,7 +111,10 @@ export default {
 		},
 		dropHintText() {
 			if (this.isReadOnly) {
-				return t("announcementcenter", "This board is read only");
+				return t(
+					"announcementcenter",
+					"This announcement is read only"
+				);
 			} else {
 				return t("announcementcenter", "Drop your files to upload");
 			}

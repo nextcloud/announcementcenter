@@ -9,7 +9,7 @@
 					v-tooltip="titleIfTruncated(newSubject)"
 					class="overflow-hidden overflow-ellipsis announcement_title"
 					:class="{ mobile: isMobile }"
-					:placeholder="t('collectives', 'Title')"
+					:placeholder="t('announcementcenter', 'Title')"
 					:disabled="!isTextEdit"
 					type="text" />
 			</form>
@@ -17,52 +17,80 @@
 			<div class="flex">
 				<!-- Edit button if editable -->
 				<EditButton v-if="isAuthor" :mobile="isMobile" />
-
-				<!-- Actions menu -->
-				<!-- <PageActionMenu
-					:show-files-link="!isPublic"
-					:page-id="currentPage.id"
-					:parent-id="currentPage.parentId"
-					:timestamp="currentPage.timestamp"
-					:last-user-id="currentPage.lastUserId"
-					:last-user-display-name="currentPage.lastUserDisplayName"
-					:is-landing-page="isLandingPage"
-					:is-template="isTemplatePage" /> -->
-
-				<!-- Sidebar toggle -->
-				<!-- <NcActions v-if="!showing('sidebar') && !isMobile">
-					<NcActionButton
-						icon="icon-menu-sidebar"
-						:aria-label="t('collectives', 'Open page sidebar')"
-						aria-controls="app-sidebar-vue"
-						:close-after-click="true"
-						@click="toggle('sidebar')" />
-				</NcActions> -->
 			</div>
 		</h1>
 		<div
+			style="border-left: solid 2px var(--color-primary)"
 			:title="t('announcementcenter', 'receivers')"
 			class="px-3 my-1 flex items-center">
-			<NcUserBubble
-				v-if="group.name !== 'everyone'"
+			<GroupIcon :size="20" class="mr-2"></GroupIcon>
+			<div
+				class="mr-2 px-2 rounded"
 				v-for="group in currentAnnouncement.groups"
-				avatar-image="icon-group"
-				:margin="4"
-				:display-name="group.name"></NcUserBubble>
-			<NcUserBubble
-				v-else
-				avatar-image="icon-group"
-				:margin="4"
-				:display-name="
-					t('announcementcenter', 'everyone')
-				"></NcUserBubble>
+				style="border: solid 1px var(--color-text-maxcontrast)">
+				{{ group.name }}
+			</div>
 		</div>
 		<div
-			class="rounded mb-2"
-			style="
-				height: 60%;
-				border: 1px solid var(--color-background-darker);
-			">
+			style="border-left: solid 2px var(--color-primary)"
+			v-if="currentAnnouncement.attachmentCount > 0">
+			<div
+				@click="toggleCollapse"
+				class="time-stage flex items-center text-sm font-bold p-1 hover:cursor-pointer">
+				<AttachmentIcon :size="20"></AttachmentIcon>
+				<RightArrowIcon
+					:class="{ rotate90: fileCollapseShow }"
+					:size="20"></RightArrowIcon>
+				{{
+					`${currentAnnouncement.attachmentCount} ${t(
+						"announcementcenter",
+						"attachments"
+					)}`
+				}}
+			</div>
+			<collapse-transition>
+				<div v-show="fileCollapseShow">
+					<ul class="attachment-list grid grid-cols-3 gap-2">
+						<li
+							v-for="attachment in attachments"
+							:key="attachment.id"
+							class="attachment"
+							:class="{
+								'attachment--deleted': attachment.deletedAt > 0,
+							}">
+							<a
+								class="fileicon"
+								:style="mimetypeForAttachment(attachment)" />
+							<div class="flex items-center justify-between">
+								<a
+									class="hover:cursor-pointer mr-2 truncate"
+									@click.prevent="showViewer(attachment)"
+									style="width: 200px">
+									{{ attachment.data }}
+								</a>
+								<div v-if="attachment.deletedAt === 0">
+									<span class="filesize">{{
+										formattedFileSize(
+											attachment.extendedData.filesize
+										)
+									}}</span>
+								</div>
+								<div v-else>
+									<span class="attachment--info">{{
+										t("announcementcenter", "Pending share")
+									}}</span>
+								</div>
+
+								<a :href="downloadLink(attachment)"
+									><DownloadIcon :size="20"></DownloadIcon
+								></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</collapse-transition>
+		</div>
+		<div class="rounded mb-2" style="height: 60%">
 			<div style="height: 100%; overflow-y: auto" v-if="textAppAvailable">
 				<div ref="editor" />
 			</div>
@@ -74,12 +102,7 @@
 					:use-markdown="true" />
 			</template>
 		</div>
-		<div
-			class="rounded p-2"
-			style="
-				height: 30%;
-				border: 1px solid var(--color-background-darker);
-			">
+		<div class="rounded p-2" style="height: 30%">
 			<div
 				class="font-bold text-xl"
 				style="color: var(--color-text-maxcontrast)">
@@ -106,6 +129,7 @@
 
 <script>
 import isMobile from "@nextcloud/vue/dist/Mixins/isMobile.js";
+import GroupIcon from "./icons/GroupIcon.vue";
 import {
 	NcActions,
 	NcActionButton,
@@ -120,8 +144,16 @@ import { mapActions, mapGetters, mapMutations } from "vuex";
 import { showError } from "@nextcloud/dialogs";
 import { updateAnnouncement } from "../services/announcementsService.js";
 import { remark } from "remark";
+import relativeDate from "../mixins/relativeDate.js";
 import strip from "strip-markdown";
 import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
+import { generateUrl, generateRemoteUrl } from "@nextcloud/router";
+import { formatFileSize } from "@nextcloud/files";
+import { getCurrentUser } from "@nextcloud/auth";
+import { CollapseTransition } from "@ivanv/vue-collapse-transition";
+import RightArrowIcon from "./icons/RightArrowIcon.vue";
+import AttachmentIcon from "./icons/AttachmentIcon.vue";
+import DownloadIcon from "./icons/DownloadIcon.vue";
 export default {
 	name: "Page",
 
@@ -134,9 +166,14 @@ export default {
 		NcUserBubble,
 		AttachmentList,
 		NcModal,
+		GroupIcon,
+		CollapseTransition,
+		RightArrowIcon,
+		AttachmentIcon,
+		DownloadIcon,
 	},
 
-	mixins: [isMobile],
+	mixins: [isMobile, relativeDate],
 
 	data() {
 		return {
@@ -147,11 +184,73 @@ export default {
 			newMessage: "",
 			commentsView: null,
 			modalShow: false,
+			fileCollapseShow: false,
 		};
 	},
 
 	computed: {
 		...mapGetters(["currentAnnouncement", "isTextEdit"]),
+		attachments() {
+			// FIXME sort propertly by last modified / deleted at
+			return [
+				...this.$store.getters.attachmentsByannouncement(
+					this.currentAnnouncement.id
+				),
+			]
+				.filter((attachment) => attachment.deletedAt >= 0)
+				.sort((a, b) => b.id - a.id);
+		},
+		mimetypeForAttachment() {
+			return (attachment) => {
+				if (!attachment) {
+					return {};
+				}
+				const url = attachment.extendedData.hasPreview
+					? this.attachmentPreview16(attachment)
+					: OC.MimeType.getIconUrl(attachment.extendedData.mimetype);
+				const styles = {
+					"background-image": `url("${url}")`,
+				};
+				return styles;
+			};
+		},
+		attachmentPreview16() {
+			return (attachment) =>
+				attachment.extendedData.fileid
+					? generateUrl(
+							`/core/preview?fileId=${attachment.extendedData.fileid}&x=16&y=16`
+					  )
+					: null;
+		},
+		attachmentPreview() {
+			return (attachment) =>
+				attachment.extendedData.fileid
+					? generateUrl(
+							`/core/preview?fileId=${attachment.extendedData.fileid}&x=600&y=600&a=true`
+					  )
+					: null;
+		},
+		attachmentUrl() {
+			return (attachment) =>
+				generateUrl(
+					`/apps/announcementcenter/announcements/${attachment.announcementId}/attachment/${attachment.id}`
+				);
+		},
+		internalLink() {
+			return (attachment) =>
+				generateUrl("/f/" + attachment.extendedData.fileid);
+		},
+		downloadLink() {
+			return (attachment) =>
+				generateRemoteUrl(
+					`dav/files/${getCurrentUser().uid}/${
+						attachment.extendedData.path
+					}`
+				);
+		},
+		formattedFileSize() {
+			return (filesize) => formatFileSize(filesize);
+		},
 		isAuthor() {
 			return (
 				OC.getCurrentUser().uid === this.currentAnnouncement.author_id
@@ -182,6 +281,7 @@ export default {
 			this.editor.setContent(this.newMessage);
 			this.setTextView();
 			await this.commentsView.update(this.currentAnnouncement.id);
+			await this.fetchAttachments(this.currentAnnouncement.id);
 		},
 		async isTextEdit() {
 			// this.editor.setReadOnly(!this.isTextEdit);
@@ -229,15 +329,45 @@ export default {
 		this.commentsView.$mount(this.$refs.commentsView);
 
 		await this.setupEditor();
+		this.fetchAttachments(this.currentAnnouncement.id);
 	},
 	beforeDestroy() {
 		unsubscribe("clickAnnouncement");
 	},
 	methods: {
 		...mapMutations(["setTextEdit", "setTextView"]),
+		...mapActions(["fetchAttachments"]),
+		showViewer(attachment) {
+			if (
+				attachment.extendedData.fileid &&
+				window.OCA.Viewer.availableHandlers
+					.map((handler) => handler.mimes)
+					.flat()
+					.includes(attachment.extendedData.mimetype)
+			) {
+				window.OCA.Viewer.open({ path: attachment.extendedData.path });
+				return;
+			}
+
+			if (attachment.extendedData.fileid) {
+				window.location = generateUrl(
+					"/f/" + attachment.extendedData.fileid
+				);
+				return;
+			}
+
+			window.location = generateUrl(
+				`/apps/announcementcenter/announcements/${attachment.announcementId}/attachment/${attachment.id}`
+			);
+		},
+
+		toggleCollapse() {
+			this.fileCollapseShow = !this.fileCollapseShow;
+		},
 		showAttachmentModal() {
 			this.modalShow = true;
 		},
+
 		addAttachment(attachment) {
 			const asImage =
 				(attachment.type === "file" &&
@@ -319,6 +449,9 @@ export default {
 		padding-right: 4px;
 	}
 }
+.rotate90 {
+	rotate: 90deg;
+}
 </style>
 
 <style lang="scss">
@@ -334,5 +467,70 @@ export default {
 }
 .announcement_title:disabled {
 	color: var(--color-primary) !important;
+}
+.attachment-list {
+	&.selector {
+		padding: 10px;
+		position: absolute;
+		width: 30%;
+		max-width: 500px;
+		min-width: 200px;
+		max-height: 50%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #eee;
+		z-index: 2;
+		border-radius: 3px;
+		box-shadow: 0 0 3px darkgray;
+		overflow: scroll;
+	}
+	h3.attachment-selector {
+		margin: 0 0 10px;
+		padding: 0;
+		.icon-close {
+			display: inline-block;
+			float: right;
+		}
+	}
+
+	li.attachment {
+		display: flex;
+		padding: 3px;
+		min-height: 44px;
+
+		&.deleted {
+			opacity: 0.5;
+		}
+
+		.fileicon {
+			display: inline-block;
+			min-width: 32px;
+			width: 32px;
+			height: 32px;
+			background-size: contain;
+		}
+
+		.attachment--info,
+		.filesize,
+		.filedate {
+			font-size: 90%;
+			color: var(--color-text-maxcontrast);
+		}
+		.app-popover-menu-utils {
+			position: relative;
+			right: -10px;
+			button {
+				height: 32px;
+				width: 42px;
+			}
+		}
+		button.icon-history {
+			width: 44px;
+		}
+		progress {
+			margin-top: 3px;
+		}
+	}
 }
 </style>

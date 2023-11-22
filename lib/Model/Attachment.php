@@ -24,112 +24,44 @@
 
 namespace OCA\AnnouncementCenter\Model;
 
+use OCP\AppFramework\Db\Entity;
+
+/**
+ * @method void setAnnouncementId(int $announcementId)
+ * @method int getAnnouncementId()
+ * @method void setType(string $type)
+ * @method string getType()
+ * @method void setLastModified(int $lastModified)
+ * @method string getLastModified()
+ * @method void setCreatedAt(int $createdAt)
+ * @method string getCreatedAt()
+ * @method void setDeletedAt(string $deletedAt)
+ * @method string getDeletedAt()
+ * @method void setFileId(int $fileId)
+ * @method string getFileId()
+ */
 class Attachment extends RelationalEntity
 {
-    /**
-     * @var int
-     */
-    protected int $announcementId;
-	protected $type;
+    protected int $announcementId = -1;
+    protected $fileId = -1;
+    protected $type;
     protected $data;
-	protected int $lastModified = 0;
-	protected int $createdAt = 0;
-	protected mixed $createdBy;
-	protected int $deletedAt = 0;
-	protected array $extendedData = [];
+    protected int $lastModified = 0;
+    protected int $createdAt = 0;
+    protected mixed $createdBy = '';
+    protected int $deletedAt = 0;
+    protected array $extendedData = [];
 
-	public function __construct()
-	{
-		$this->addType('id', 'integer');
-		$this->addType('announcementId', 'integer');
-		$this->addType('lastModified', 'integer');
-		$this->addType('createdAt', 'integer');
-		$this->addType('deletedAt', 'integer');
-		$this->addResolvable('createdBy');
-		$this->addRelation('extendedData');
-	}
 
-    public function setExtendedData(array $array): void
+    public function __construct()
     {
-        $this->extendedData=$array;
-    }
-
-
-
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function setData(mixed $fileName): void
-    {
-        $this->data=$fileName;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAnnouncementId(): int
-    {
-        return $this->announcementId;
-    }
-
-    /**
-     * @param int $announcementId
-     */
-    public function setAnnouncementId(int $announcementId): void
-    {
-        $this->announcementId = $announcementId;
-    }
-
-    public function getExtendedData(): array
-    {
-        return $this->extendedData;
-    }
-
-    public function getDeletedAt(): int
-    {
-        return $this->deletedAt;
-    }
-
-    public function setDeletedAt(int $deletedAt): void
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCreatedBy(): mixed
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param mixed $createdBy
-     */
-    public function setCreatedBy(mixed $createdBy): void
-    {
-        $this->createdBy = $createdBy;
-    }
-
-    public function getCreatedAt(): int
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(int $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    public function getLastModified(): int
-    {
-        return $this->lastModified;
-    }
-
-    public function setLastModified(int $lastModified): void
-    {
-        $this->lastModified = $lastModified;
+        $this->addType('id', 'integer');
+        $this->addType('announcementId', 'integer');
+        $this->addType('lastModified', 'integer');
+        $this->addType('createdAt', 'integer');
+        $this->addType('deletedAt', 'integer');
+        $this->addType('fileId', 'integer');
+        // $this->addResolvable('createdBy');
+        // $this->addRelation('extendedData');
     }
 }

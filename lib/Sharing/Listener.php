@@ -34,15 +34,19 @@ use OCP\Share\Events\VerifyMountPointEvent;
 use OCP\Share\IShare;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use OCA\AnnouncementCenter\Model\Attachment;
+use OCA\AnnouncementCenter\Model\AttachmentMapper;
 
 class Listener
 {
 	private ConfigService $configService;
+	private AttachmentMapper $attachmentMapper;
 	private LoggerInterface $logger;
-	public function __construct(ConfigService $configService, LoggerInterface $logger)
+	public function __construct(ConfigService $configService, LoggerInterface $logger, AttachmentMapper $attachmentMapper,)
 	{
 		$this->configService = $configService;
 		$this->logger = $logger;
+		$this->attachmentMapper = $attachmentMapper;
 	}
 
 	public function register(IEventDispatcher $dispatcher): void
@@ -56,6 +60,7 @@ class Listener
 
 	public static function listenPreShare(GenericEvent $event): void
 	{
+
 		/** @var self $listener */
 		$listener = Server::get(self::class);
 		$listener->overwriteShareTarget($event);
@@ -70,19 +75,32 @@ class Listener
 
 	public function overwriteShareTarget(GenericEvent $event): void
 	{
+
 		/** @var IShare $share */
 		$share = $event->getSubject();
-		$this->logger->warning('listener:' . $share->getShareType());
-		if (
-			$share->getShareType() !== IShare::TYPE_DECK
-			&& $share->getShareType() !== AnnouncementcenterShareProvider::SHARE_TYPE_DECK_USER
-		) {
-			return;
-		}
+		// $this->logger->warning('listener:' . $share->getNote());
+		// $fileId = $share->getNodeId();
+		// $announcementId = (int)$share->getNote();
+		// $attachment = new Attachment();
+		// $attachment->setAnnouncementId($announcementId);
+		// $attachment->setId($fileId);
+		// $attachment->setType("share_file");
+		// $attachment->setData($share->getNode()->getName());
+		// $attachment->setCreatedBy($share->getSharedBy());
+		// $attachment->setLastModified(time());
+		// $attachment->setCreatedAt(time());
+		// $this->logger->warning("insert share attach" . json_encode($attachment));
+		// $this->attachmentMapper->insert($attachment);
+		// if (
+		// 	$share->getShareType() !== IShare::TYPE_DECK
+		// 	&& $share->getShareType() !== AnnouncementcenterShareProvider::SHARE_TYPE_DECK_USER
+		// ) {
+		// 	return;
+		// }
 
-		$target = AnnouncementcenterShareProvider::DECK_FOLDER_PLACEHOLDER . '/' . $share->getNode()->getName();
-		$target = Filesystem::normalizePath($target);
-		$share->setTarget($target);
+		// $target = AnnouncementcenterShareProvider::ANNOUNCEMENTCENTER_FOLDER_PLACEHOLDER . '/' . $share->getNode()->getName();
+		// $target = Filesystem::normalizePath($target);
+		// $share->setTarget($target);
 	}
 
 	public function overwriteMountPoint(VerifyMountPointEvent $event): void
@@ -97,7 +115,7 @@ class Listener
 			return;
 		}
 
-		if ($event->getParent() === AnnouncementcenterShareProvider::DECK_FOLDER_PLACEHOLDER) {
+		if ($event->getParent() === AnnouncementcenterShareProvider::ANNOUNCEMENTCENTER_FOLDER_PLACEHOLDER) {
 			try {
 				$userId = $view->getOwner('/');
 			} catch (\Exception $e) {

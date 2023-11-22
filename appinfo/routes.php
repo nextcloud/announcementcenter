@@ -36,7 +36,9 @@ return [
 		['name' => 'API#searchGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
 		// attachments
 		['name' => 'attachment#getAll', 'url' => '/api/v1/announcements/{announcementId}/attachments', 'verb' => 'GET'],
+		['name' => 'attachment#makeAttachmentByPath', 'url' => '/api/v1/announcements/attachment/make/{path}', 'verb' => 'GET'],
 		['name' => 'attachment#create', 'url' => '/api/v1/announcements/{announcementId}/attachment', 'verb' => 'POST'],
+		['name' => 'attachment#uploadFile', 'url' => '/api/v1/announcements/attachment/upload', 'verb' => 'POST'],
 		['name' => 'attachment#display', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'GET'],
 		['name' => 'attachment#update', 'url' => '/api/v1/announcements/{announcementId}/attachment/{attachmentId}', 'verb' => 'PUT'],
 		// also allow to use POST for updates so we can properly access files when using application/x-www-form-urlencoded

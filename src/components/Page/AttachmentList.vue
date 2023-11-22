@@ -198,6 +198,7 @@ export default {
 			maxUploadSize: maxUploadSizeState,
 		};
 	},
+
 	computed: {
 		attachments() {
 			// FIXME sort propertly by last modified / deleted at
@@ -252,18 +253,9 @@ export default {
 		formattedFileSize() {
 			return (filesize) => formatFileSize(filesize);
 		},
-		...mapState({
-			currentBoard: (state) => state.currentBoard,
-		}),
+
 		isReadOnly() {
 			return !this.$store.getters.canEdit;
-		},
-		dropHintText() {
-			if (this.isReadOnly) {
-				return t("announcementcenter", "This board is read only");
-			} else {
-				return t("announcementcenter", "Drop your files to upload");
-			}
 		},
 	},
 	watch: {
@@ -277,12 +269,13 @@ export default {
 	},
 	methods: {
 		...mapActions(["fetchAttachments"]),
-		handleUploadFile(event) {
+		async handleUploadFile(event) {
 			const files = event.target.files ?? [];
 			for (const file of files) {
-				this.onLocalAttachmentSelected(file, "file");
+				await this.onLocalAttachmentSelected(file, "file");
 			}
 			event.target.value = "";
+			this.fetchAttachments(this.announcementId);
 		},
 		uploadNewFile() {
 			this.$refs.filesAttachment.click();
@@ -293,16 +286,8 @@ export default {
 				if (!path.startsWith("/")) {
 					throw new Error(t("files", "Invalid path selected"));
 				}
-
-				axios
-					.post(generateOcsUrl("apps/files_sharing/api/v1/shares"), {
-						path,
-						shareType: 14,
-						shareWith: "" + this.announcementId,
-					})
-					.then(() => {
-						this.fetchAttachments(this.announcementId);
-					});
+				await this.onShareAttachmentSelected("share_file", path);
+				this.fetchAttachments(this.announcementId);
 			});
 		},
 		unshareAttachment(attachment) {

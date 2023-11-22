@@ -34,12 +34,17 @@ use OCA\AnnouncementCenter\NotFoundException;
 use OCA\AnnouncementCenter\Cache\AttachmentCacheHelper;
 use OCA\AnnouncementCenter\StatusException;
 use OCA\AnnouncementCenter\Validators\AttachmentServiceValidator;
+use OCA\AnnouncementCenter\Model\ShareMapper;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\IMapperException;
 use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\OCS\OCSNotFoundException;
 use OCP\AppFramework\QueryException;
 use OCP\DB\Exception;
+use OCP\Files\IRootFolder;
 use OCP\IL10N;
+use OCP\IPreview;
+use OCP\IRequest;
 use OCP\IUserManager;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -50,6 +55,7 @@ use ReflectionException;
 class AttachmentService
 {
 	private AttachmentMapper $attachmentMapper;
+
 	private $userId;
 
 	/** @var IAttachmentService[] */
@@ -66,7 +72,10 @@ class AttachmentService
 	/** @var AttachmentServiceValidator */
 	private AttachmentServiceValidator $attachmentServiceValidator;
 	private LoggerInterface $logger;
-
+	private IRootFolder $rootFolder;
+	private IRequest $request;
+	private ConfigService $configService;
+	private IPreview $preview;
 	/**
 	 * @param AttachmentMapper $attachmentMapper
 	 * @param IUserManager $userManager
@@ -82,32 +91,40 @@ class AttachmentService
 	public function __construct(
 		AttachmentMapper $attachmentMapper,
 		IUserManager $userManager,
+		IPreview $preview,
 		// PermissionService $permissionService,
 		Application $application,
 		AttachmentCacheHelper $attachmentCacheHelper,
 		$userId,
 		IL10N $l10n,
+		IRootFolder $rootFolder,
 		// ActivityManager $activityManager,
 		AttachmentServiceValidator $attachmentServiceValidator,
 		LoggerInterface $logger,
-	
+		IRequest $request,
+		ConfigService $configService
+
+
 	) {
 		$this->attachmentMapper = $attachmentMapper;
+		$this->configService = $configService;
 		// $this->permissionService = $permissionService;
 		$this->userId = $userId;
 		$this->application = $application;
 		$this->attachmentCacheHelper = $attachmentCacheHelper;
 		$this->l10n = $l10n;
 		// $this->activityManager = $activityManager; 
+		$this->request = $request;
 		$this->userManager = $userManager;
 		$this->attachmentServiceValidator = $attachmentServiceValidator;
 		$this->logger = $logger;
-	
-		
+		$this->rootFolder = $rootFolder;
+		$this->preview = $preview;
 		// Register shipped attachment services
 		// TODO: move this to a plugin based approach once we have different types of attachments
 		$this->registerAttachmentService('deck_file', FileService::class);
 		$this->registerAttachmentService('file', FilesAppService::class);
+		$this->registerAttachmentService('share_file', FileShareService::class);
 	}
 
 	/**
@@ -156,13 +173,13 @@ class AttachmentService
 		if ($withDeleted) {
 			$attachments = array_merge($attachments, $this->attachmentMapper->findToDelete($announcementId, false));
 		}
-
-		foreach (array_keys($this->services) as $attachmentType) {
-			$service = $this->getService($attachmentType);
-			if ($service instanceof ICustomAttachmentService) {
-				$attachments = array_merge($attachments, $service->listAttachments((int)$announcementId));
-			}
-		}
+		$this->logger->warning('service:' . json_encode($attachments));
+		// foreach (array_keys($this->services) as $attachmentType) {
+		// 	$service = $this->getService($attachmentType);
+		// 	if ($service instanceof ICustomAttachmentService) {
+		// 		$attachments = array_merge($attachments, $service->listAttachments((int)$announcementId));
+		// 	}
+		// }
 
 		foreach ($attachments as &$attachment) {
 			try {
@@ -192,21 +209,122 @@ class AttachmentService
 
 		$count = $this->attachmentCacheHelper->getAttachmentCount((int)$announcementId);
 		if ($count === null) {
+
 			$count = count($this->attachmentMapper->findAll($announcementId));
 
-			foreach (array_keys($this->services) as $attachmentType) {
-				$service = $this->getService($attachmentType);
-				if ($service instanceof ICustomAttachmentService) {
-					$count += $service->getAttachmentCount((int)$announcementId);
-				}
-			}
+			// foreach (array_keys($this->services) as $attachmentType) {
+			// 	$service = $this->getService($attachmentType);
+			// 	if ($service instanceof ICustomAttachmentService) {
+			// 		$count += $service->getAttachmentCount((int)$announcementId);
+			// 	}
+			// }
 
 			$this->attachmentCacheHelper->setAttachmentCount((int)$announcementId, $count);
 		}
 
 		return $count;
 	}
+	/**
+	 * @return array
+	 * @throws StatusException
+	 */
+	private function getUploadedFile()
+	{
+		$file = $this->request->getUploadedFile('file');
+		$error = null;
+		$phpFileUploadErrors = [
+			UPLOAD_ERR_OK => $this->l10n->t('The file was uploaded'),
+			UPLOAD_ERR_INI_SIZE => $this->l10n->t('The uploaded file exceeds the upload_max_filesize directive in php.ini'),
+			UPLOAD_ERR_FORM_SIZE => $this->l10n->t('The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form'),
+			UPLOAD_ERR_PARTIAL => $this->l10n->t('The file was only partially uploaded'),
+			UPLOAD_ERR_NO_FILE => $this->l10n->t('No file was uploaded'),
+			UPLOAD_ERR_NO_TMP_DIR => $this->l10n->t('Missing a temporary folder'),
+			UPLOAD_ERR_CANT_WRITE => $this->l10n->t('Could not write file to disk'),
+			UPLOAD_ERR_EXTENSION => $this->l10n->t('A PHP extension stopped the file upload'),
+		];
 
+		if (empty($file)) {
+			$error = $this->l10n->t('No file uploaded or file size exceeds maximum of %s', [\OCP\Util::humanFileSize(\OCP\Util::uploadLimit())]);
+		}
+		if (!empty($file) && array_key_exists('error', $file) && $file['error'] !== UPLOAD_ERR_OK) {
+			$error = $phpFileUploadErrors[$file['error']];
+		}
+		if ($error !== null) {
+			throw new StatusException($error);
+		}
+		return $file;
+	}
+	public function makeAttachmentByPath($path)
+	{
+		
+		$userFolder = $this->rootFolder->getUserFolder($this->userId);
+		try {
+			/** @var \OC\Files\Node\Node $node */
+			$target = $userFolder->get($path);
+		} catch (NotFoundException $e) {
+			throw new OCSNotFoundException($this->l10n->t('Wrong path, file/folder does not exist'));
+		}
+		$attachment = new Attachment();
+		$attachment->setAnnouncementId('');
+		$attachment->setType("share_file");
+		$attachment->setFileId($target->getId());
+		$attachment->setData($target->getName());
+		$attachment->setCreatedBy($this->userId);
+		$attachment->setLastModified(time());
+		$attachment->setCreatedAt(time());
+		$attachment->setExtendedData([
+			'path' => $userFolder->getRelativePath($target->getPath()),
+			'fileid' => $target->getId(),
+			'data' => $target->getName(),
+			'filesize' => $target->getSize(),
+			'mimetype' => $target->getMimeType(),
+			'info' => pathinfo($target->getName()),
+			'hasPreview' => $this->preview->isAvailable($target),
+
+		]);
+		$this->addCreator($attachment);
+		return $attachment;
+	}
+	public function uploadFile()
+	{
+		$file = $this->getUploadedFile();
+		$fileName = $file['name'];
+		// get shares for current announcement
+		// check if similar filename already exists
+		$userFolder = $this->rootFolder->getUserFolder($this->userId);
+		try {
+			$folder = $userFolder->get($this->configService->getAttachmentFolder());
+		} catch (NotFoundException $e) {
+			$folder = $userFolder->newFolder($this->configService->getAttachmentFolder());
+		}
+		$fileName = $folder->getNonExistingName($fileName);
+		$target = $folder->newFile($fileName);
+		$content = fopen($file['tmp_name'], 'rb');
+		if ($content === false) {
+			throw new StatusException('Could not read file');
+		}
+		$target->putContent($content);
+		$attachment = new Attachment();
+		$attachment->setAnnouncementId('');
+		$attachment->setType("share_file");
+		$attachment->setFileId($target->getId());
+		$attachment->setData($target->getName());
+		$attachment->setCreatedBy($this->userId);
+		$attachment->setLastModified(time());
+		$attachment->setCreatedAt(time());
+		$attachment->setExtendedData([
+			'path' => $userFolder->getRelativePath($target->getPath()),
+			'fileid' => $target->getId(),
+			'data' => $target->getName(),
+			'filesize' => $target->getSize(),
+			'mimetype' => $target->getMimeType(),
+			'info' => pathinfo($target->getName()),
+			'hasPreview' => $this->preview->isAvailable($target),
+
+		]);
+		$this->addCreator($attachment);
+		return $attachment;
+	}
 	/**
 	 * @param $announcementId
 	 * @param $type
@@ -219,9 +337,7 @@ class AttachmentService
 	public function create($announcementId, $type, $data)
 	{
 		$this->attachmentServiceValidator->check(compact('announcementId', 'type'));
-
 		// $this->permissionService->checkPermission($this->announcementMapper, $announcementId, Acl::PERMISSION_EDIT);
-		
 		$this->attachmentCacheHelper->clearAttachmentCount((int)$announcementId);
 		$attachment = new Attachment();
 		$attachment->setAnnouncementId($announcementId);
@@ -230,19 +346,13 @@ class AttachmentService
 		$attachment->setCreatedBy($this->userId);
 		$attachment->setLastModified(time());
 		$attachment->setCreatedAt(time());
-
 		try {
 			$service = $this->getService($attachment->getType());
 			$service->create($attachment);
-
-			if (!$service instanceof ICustomAttachmentService) {
-				if ($attachment->getData() === null) {
-					throw new StatusException($this->l10n->t('No data was provided to create an attachment.'));
-				}
-
-				$attachment = $this->attachmentMapper->insert($attachment);
+			if ($attachment->getData() === null) {
+				throw new StatusException($this->l10n->t('No data was provided to create an attachment.'));
 			}
-
+			$this->attachmentMapper->insert($attachment);
 			$service->extendData($attachment);
 			$this->addCreator($attachment);
 		} catch (InvalidAttachmentType $e) {

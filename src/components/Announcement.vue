@@ -156,59 +156,6 @@ export default {
 			}
 			return moment(this.timestamp).fromNow();
 		},
-
-		isVisibleToEveryone() {
-			return (
-				this.source.groups.length === 0 ||
-				this.source.groups.filter(({ id }) => {
-					return id === "everyone";
-				}).length === 1
-			);
-		},
-
-		visibilityLabel() {
-			if (this.isVisibleToEveryone) {
-				return t("announcementcenter", "visible to everyone");
-			}
-
-			if (this.source.groups.length === 1) {
-				return t(
-					"announcementcenter",
-					"visible to group {name}",
-					this.source.groups[0]
-				);
-			}
-			if (this.source.groups.length === 2) {
-				return t(
-					"announcementcenter",
-					"visible to groups {name1} and {name2}",
-					{
-						name1: this.source.groups[0].name,
-						name2: this.source.groups[1].name,
-					}
-				);
-			}
-			return n(
-				"announcementcenter",
-				"visible to group {name} and %n more",
-				"visible to group {name} and %n more",
-				this.source.groups.length - 1,
-				this.source.groups[0]
-			);
-		},
-
-		visibilityTitle() {
-			if (this.isVisibleToEveryone) {
-				return "";
-			}
-
-			return this.source.groups
-				.map(({ name }) => {
-					return name;
-				})
-				.join(t("announcementcenter", ", "));
-		},
-
 		commentsCount() {
 			return n(
 				"announcementcenter",

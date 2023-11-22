@@ -3,10 +3,12 @@
 		<div class="page-list-headerbar p-2">
 			<NcTextField
 				name="pageFilter"
-				:label="t('collectives', 'Search Announcements')"
+				:label="t('announcementcenter', 'Search Announcements')"
 				:value.sync="filterString"
 				class="page-filter"
-				:placeholder="t('collectives', 'Announcements ...')" />
+				:placeholder="
+					t('announcementcenter', 'Search Announcements')
+				" />
 			<NcButton
 				class="ml-2"
 				:title="t('announcementcenter', 'post announcement')"
@@ -299,11 +301,11 @@ export default {
 				else if (time.isSame(moment().subtract(2, "year"), "year")) {
 					group = "Two Years Ago";
 				}
-				console.log(
-					moment().format("YYYY-MM-DD hh:mm"),
-					time.format("YYYY-MM-DD hh:mm"),
-					group
-				);
+				// console.log(
+				// 	moment().format("YYYY-MM-DD hh:mm"),
+				// 	time.format("YYYY-MM-DD hh:mm"),
+				// 	group
+				// );
 				// 将announcement添加到对应的分组数组中
 				result[group].push(announcement);
 			}
