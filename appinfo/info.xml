@@ -5,7 +5,7 @@
 	<name>Announcement center</name>
 	<summary><![CDATA[This app allows admins to post announcements.]]></summary>
 	<description><![CDATA[Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅
-
+		
 🖌️ Markdown support
 
 📑 Comments including @-mentions
@@ -17,7 +17,7 @@
 ⚡ Activities integration
 
 🔔 Notifications integration]]></description>
-	<version>6.7.0</version>
+	<version>6.7.1</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
@@ -57,7 +57,6 @@
 			<provider>OCA\AnnouncementCenter\Activity\Provider</provider>
 		</providers>
 	</activity>
-
 	<navigations>
 		<navigation>
 			<name>Announcements</name>

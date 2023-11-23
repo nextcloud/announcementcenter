@@ -27,15 +27,20 @@ namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
+use OCA\Text\Event\LoadEditor;
+use OCA\Viewer\Event\LoadViewer;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IRequest;
 use OCP\Util;
 
-class PageController extends Controller {
+
+class PageController extends Controller
+{
 
 
 	/** @var Manager */
@@ -48,19 +53,29 @@ class PageController extends Controller {
 
 	/** @var IInitialState */
 	protected $initialState;
-
-	public function __construct(string $AppName,
+	protected IEventDispatcher $eventDispatcher;
+	public function __construct(
+		string $AppName,
 		IRequest $request,
 		Manager $manager,
 		ICommentsManager $commentsManager,
 		IConfig $config,
-		IInitialState $initialState) {
+		IInitialState $initialState,
+		IEventDispatcher $eventDispatcher
+	) {
 		parent::__construct($AppName, $request);
 
 		$this->manager = $manager;
 		$this->commentsManager = $commentsManager;
 		$this->config = $config;
 		$this->initialState = $initialState;
+		$this->eventDispatcher = $eventDispatcher;
+		if (class_exists(LoadEditor::class)) {
+			$this->eventDispatcher->dispatchTyped(new LoadEditor());
+		}
+		if (class_exists(LoadViewer::class)) {
+			$this->eventDispatcher->dispatchTyped(new LoadViewer());
+		}
 	}
 
 	/**
@@ -70,7 +85,8 @@ class PageController extends Controller {
 	 * @param int $announcement
 	 * @return TemplateResponse
 	 */
-	public function index(int $announcement = 0): TemplateResponse {
+	public function index(int $announcement = 0): TemplateResponse
+	{
 		if ($announcement) {
 			$this->manager->markNotificationRead($announcement);
 		}
@@ -80,9 +96,14 @@ class PageController extends Controller {
 			$this->manager->checkIsAdmin()
 		);
 		$this->initialState->provideInitialState(
+			'canCreate',
+			$this->manager->checkCanCreate()
+		);
+		$this->initialState->provideInitialState(
 			'createActivities',
 			$this->config->getAppValue(Application::APP_ID, 'create_activities', 'yes') === 'yes'
 		);
+		$this->initialState->provideInitialState('maxUploadSize', (int)Util::uploadLimit());
 		$this->initialState->provideInitialState(
 			'createNotifications',
 			$this->config->getAppValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'

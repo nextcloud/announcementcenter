@@ -20,20 +20,85 @@
  *
  */
 
-import Vue from 'vue'
-import Vuex, { Store } from 'vuex'
-import announcementsStore from './announcementsStore.js'
+import Vue from "vue";
+import Vuex, { Store } from "vuex";
+import announcementsStore from "./announcementsStore.js";
+import attachmentStore from "./attachment.js";
+import axios from "@nextcloud/axios";
+import { generateOcsUrl, generateUrl } from "@nextcloud/router";
+import { pageModes } from "../constants.js";
 
-Vue.use(Vuex)
-
-const mutations = {}
+Vue.use(Vuex);
 
 export default new Store({
 	modules: {
 		announcementsStore,
+		attachmentStore,
 	},
+	state: {
+		sharees: [],
+		assignableUsers: [],
+		currentBoard: null,
+		textMode: pageModes.MODE_VIEW,
+	},
+	mutations: {
+		setSharees(state, shareesUsersAndGroups) {
+			// Vue.set(state, "sharees", shareesUsersAndGroups.exact.users);
+			Vue.set(state, "sharees", shareesUsersAndGroups.exact.groups);
+			// state.sharees.push(...shareesUsersAndGroups.exact.groups);
+			state.sharees.push(...shareesUsersAndGroups.exact.circles);
+			// state.sharees.push(...shareesUsersAndGroups.users);
+			state.sharees.push(...shareesUsersAndGroups.groups);
+			state.sharees.push(...shareesUsersAndGroups.circles);
+		},
+		setTextEdit: (state) => {
+			state.textMode = pageModes.MODE_EDIT;
+		},
+		setTextView: (state) => {
+			state.textMode = pageModes.MODE_VIEW;
+		},
+	},
+	actions: {
+		async loadSharees({ commit }, query) {
+			const params = new URLSearchParams();
+			if (typeof query === "undefined") {
+				return;
+			}
+			params.append("search", query);
+			params.append("format", "json");
+			params.append("perPage", 20);
+			params.append("itemType", [0, 1, 4, 7]); //0,1,4,7
+			params.append("lookup", false);
 
-	mutations,
-
-	strict: process.env.NODE_ENV !== 'production',
-})
+			const response = await axios.get(
+				generateOcsUrl("apps/files_sharing/api/v1/sharees"),
+				{ params }
+			);
+			commit("setSharees", response.data.ocs.data);
+		},
+	},
+	getters: {
+		isTextEdit: (state) => state.textMode === pageModes.MODE_EDIT,
+		isTextView: (state) => state.textMode === pageModes.MODE_VIEW,
+		assignables: (state) => {
+			return [
+				...state.assignableUsers.map((user) => ({ ...user, type: 0 })),
+				...state.currentBoard.acl
+					.filter(
+						(acl) =>
+							acl.type === 1 &&
+							typeof acl.participant === "object"
+					)
+					.map((group) => ({ ...group.participant, type: 1 })),
+				...state.currentBoard.acl
+					.filter(
+						(acl) =>
+							acl.type === 7 &&
+							typeof acl.participant === "object"
+					)
+					.map((circle) => ({ ...circle.participant, type: 7 })),
+			];
+		},
+	},
+	strict: process.env.NODE_ENV !== "production",
+});

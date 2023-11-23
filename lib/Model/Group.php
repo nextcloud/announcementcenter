@@ -29,12 +29,14 @@ use OCP\AppFramework\Db\Entity;
  * @method void setGroup(string $group)
  * @method string getGroup()
  */
-class Group extends Entity {
+class Group extends Entity
+{
 
 	/** @var string */
 	protected $group;
 
-	public function __construct() {
+	public function __construct()
+	{
 		$this->addType('group', 'string');
 	}
 
@@ -42,7 +44,8 @@ class Group extends Entity {
 	 * @param string $columnName the name of the column
 	 * @return string the property name
 	 */
-	public function columnToProperty($columnName): string {
+	public function columnToProperty($columnName): string
+	{
 		switch ($columnName) {
 			case 'announcement_id':
 				return 'id';
@@ -57,7 +60,8 @@ class Group extends Entity {
 	 * @param string $property the name of the property
 	 * @return string the column name
 	 */
-	public function propertyToColumn($property): string {
+	public function propertyToColumn($property): string
+	{
 		switch ($property) {
 			case 'id':
 				return 'announcement_id';
