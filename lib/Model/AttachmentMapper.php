@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (c) 2018 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,6 +21,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 
 
 namespace OCA\AnnouncementCenter\Model;

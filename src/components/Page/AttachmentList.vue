@@ -1,7 +1,7 @@
 <!--
-  - @copyright Copyright (c) 2020 Jakob Röhrl <jakob.roehrl@web.de>
+  - @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
   -
-  - @author Jakob Röhrl <jakob.roehrl@web.de>
+  - @author insiinc <insiinc@outlook.com>
   -
   - @license GNU AGPL version 3 or any later version
   -

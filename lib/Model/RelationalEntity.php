@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (c) 2017 Julius Härtl <jus@bitgrid.net>
  *
@@ -25,7 +26,8 @@ namespace OCA\AnnouncementCenter\Model;
 
 use OCP\AppFramework\Db\Entity;
 
-class RelationalEntity extends Entity implements \JsonSerializable {
+class RelationalEntity extends Entity implements \JsonSerializable
+{
 	private $_relations = [];
 	private $_resolvedProperties = [];
 
@@ -33,7 +35,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	 * Mark a property as relation so it will not get updated using Mapper::update
 	 * @param string $property string Name of the property
 	 */
-	public function addRelation($property) {
+	public function addRelation($property)
+	{
 		if (!in_array($property, $this->_relations, true)) {
 			$this->_relations[] = $property;
 		}
@@ -43,7 +46,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	 * Mark a property as resolvable via resolveRelation()
 	 * @param string $property string Name of the property
 	 */
-	public function addResolvable($property) {
+	public function addResolvable($property)
+	{
 		$this->_resolvedProperties[$property] = null;
 	}
 
@@ -53,7 +57,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	 * @param string $attribute the name of the attribute
 	 * @since 7.0.0
 	 */
-	protected function markFieldUpdated(string $attribute): void {
+	protected function markFieldUpdated(string $attribute): void
+	{
 		if (!in_array($attribute, $this->_relations, true)) {
 			parent::markFieldUpdated($attribute);
 		}
@@ -111,7 +116,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	}
 
 
-	public function __toString(): string {
+	public function __toString(): string
+	{
 		return (string)$this->getId();
 	}
 
@@ -136,7 +142,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 	 * data defined by $property as unique identifier
 	 * @throws \Exception
 	 */
-	public function resolveRelation($property, $resolver) {
+	public function resolveRelation($property, $resolver)
+	{
 		$result = null;
 		if ($property !== null && $this->$property !== null) {
 			$result = $resolver($this->$property);
@@ -149,7 +156,8 @@ class RelationalEntity extends Entity implements \JsonSerializable {
 		}
 	}
 
-	public function __call(string $methodName, array $args) {
+	public function __call(string $methodName, array $args)
+	{
 		$attr = lcfirst(substr($methodName, 7));
 		if (array_key_exists($attr, $this->_resolvedProperties) && str_starts_with($methodName, 'resolve')) {
 			if ($this->_resolvedProperties[$attr] !== null) {

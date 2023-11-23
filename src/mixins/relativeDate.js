@@ -1,7 +1,7 @@
-/*
- * @copyright Copyright (c) 2020 Julius Härtl <jus@bitgrid.net>
+/**
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -12,7 +12,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
@@ -20,18 +20,18 @@
  *
  */
 
-import moment from '@nextcloud/moment'
+import moment from "@nextcloud/moment";
 
 export default {
 	computed: {
 		relativeDate() {
 			return (timestamp) => {
-				const diff = moment(this.$root.time).diff(moment(timestamp))
+				const diff = moment(this.$root.time).diff(moment(timestamp));
 				if (diff >= 0 && diff < 45000) {
-					return t('core', 'seconds ago')
+					return t("core", "seconds ago");
 				}
-				return moment(timestamp).fromNow()
-			}
+				return moment(timestamp).fromNow();
+			};
 		},
 	},
-}
+};

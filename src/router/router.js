@@ -1,9 +1,9 @@
 /**
- * @copyright Copyright (c) 2020 Azul <azul@riseup.net>
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Azul <azul@riseup.net>
+ * @author insiinc <insiinc@outlook.com>
  *
- * @license AGPL-3.0-or-later
+ * @license GNU AGPL version 3 or any later version
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as

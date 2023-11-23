@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright (c) 2018 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -21,6 +21,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 
 namespace OCA\AnnouncementCenter\Service;
 
@@ -55,21 +56,20 @@ class FileShareService implements IAttachmentService
 	private AnnouncementcenterShareProvider $shareProvider;
 	private IManager $shareManager;
 	private ?string $userId;
-	private ConfigService $configService;
+
 	private IL10N $l10n;
 	private IPreview $preview;
 	private IMimeTypeDetector $mimeTypeDetector;
 	// private PermissionService $permissionService;
-	private AnnouncementMapper $announcementMapper;
+
 	private LoggerInterface $logger;
-	private IDBConnection $connection;
+
 	private GroupMapper $groupMapper;
 	public function __construct(
 		IRequest $request,
 		IL10N $l10n,
 		IRootFolder $rootFolder,
 		IManager $shareManager,
-		ConfigService $configService,
 		AnnouncementcenterShareProvider $shareProvider,
 		IPreview $preview,
 		IMimeTypeDetector $mimeTypeDetector,
@@ -83,16 +83,16 @@ class FileShareService implements IAttachmentService
 		$this->request = $request;
 		$this->l10n = $l10n;
 		$this->rootFolder = $rootFolder;
-		$this->configService = $configService;
+
 		$this->shareProvider = $shareProvider;
 		$this->shareManager = $shareManager;
 		$this->userId = $userId;
 		$this->preview = $preview;
 		$this->mimeTypeDetector = $mimeTypeDetector;
 		// $this->permissionService = $permissionService;
-		$this->announcementMapper = $announcementMapper;
+
 		$this->logger = $logger;
-		$this->connection = $connection;
+
 		$this->groupMapper = $groupMapper;
 
 		// $this->logger->warning('fileapp1');

@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @copyright Copyright (c) 2018 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -34,7 +35,8 @@ use OCP\AppFramework\Http\Response;
  * as well as rendering a custom output per attachment type
  *
  */
-interface IAttachmentService {
+interface IAttachmentService
+{
 
 	/**
 	 * Add extended data to the returned data of an attachment

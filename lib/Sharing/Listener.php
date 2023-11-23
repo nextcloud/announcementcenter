@@ -1,8 +1,9 @@
 <?php
-/*
- * @copyright Copyright (c) 2020 Julius Härtl <jus@bitgrid.net>
+
+/**
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -13,7 +14,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
@@ -21,13 +22,14 @@
  *
  */
 
+
 declare(strict_types=1);
 
 
 namespace OCA\AnnouncementCenter\Sharing;
 
 use OC\Files\Filesystem;
-use OCA\AnnouncementCenter\Service\ConfigService;
+
 use OCP\EventDispatcher\IEventDispatcher;
 use OCP\Server;
 use OCP\Share\Events\VerifyMountPointEvent;
@@ -39,12 +41,11 @@ use OCA\AnnouncementCenter\Model\AttachmentMapper;
 
 class Listener
 {
-	private ConfigService $configService;
+
 	private AttachmentMapper $attachmentMapper;
 	private LoggerInterface $logger;
-	public function __construct(ConfigService $configService, LoggerInterface $logger, AttachmentMapper $attachmentMapper,)
+	public function __construct(LoggerInterface $logger, AttachmentMapper $attachmentMapper,)
 	{
-		$this->configService = $configService;
 		$this->logger = $logger;
 		$this->attachmentMapper = $attachmentMapper;
 	}

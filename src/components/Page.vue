@@ -1,3 +1,24 @@
+<!--
+  - @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
+  -
+  - @author insiinc <insiinc@outlook.com>
+  -
+  - @license GNU AGPL version 3 or any later version
+  -
+  - This program is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU Affero General Public License as
+  - published by the Free Software Foundation, either version 3 of the
+  - License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU Affero General Public License for more details.
+  -
+  - You should have received a copy of the GNU Affero General Public License
+  - along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -
+  -->
 <template>
 	<div class="p-8" style="height: 100%">
 		<h1 id="titleform" class="flex sticky top-0 items-center">
@@ -117,8 +138,11 @@
 			v-if="modalShow"
 			:title="t('announcementcenter', 'Choose attachment')"
 			@close="modalShow = false">
-			<div class="modal__content">
-				<h3>{{ t("announcementcenter", "Choose attachment") }}</h3>
+			<div class="modal__content p-2">
+				<div
+					class="text-xl font-bold flex justify-center items-center p-1">
+					{{ t("announcementcenter", "Choose attachment") }}
+				</div>
 				<AttachmentList
 					:announcement-id="currentAnnouncement.id"
 					:selectable="true"

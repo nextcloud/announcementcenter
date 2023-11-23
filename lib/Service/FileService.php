@@ -1,8 +1,9 @@
 <?php
+
 /**
- * @copyright Copyright (c) 2018 Julius Härtl <jus@bitgrid.net>
+ * @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
  *
- * @author Julius Härtl <jus@bitgrid.net>
+ * @author insiinc <insiinc@outlook.com>
  *
  * @license GNU AGPL version 3 or any later version
  *
@@ -20,6 +21,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
 
 namespace OCA\AnnouncementCenter\Service;
 
@@ -45,7 +47,8 @@ use OCP\IRequest;
 use OCP\Util;
 use Psr\Log\LoggerInterface;
 
-class FileService implements IAttachmentService {
+class FileService implements IAttachmentService
+{
 	private IL10N $l10n;
 	private IAppData $appData;
 	private IRequest $request;
@@ -82,7 +85,7 @@ class FileService implements IAttachmentService {
 	 * @throws NotPermittedException
 	 */
 	private function getFileForAttachment(Attachment $attachment): ISimpleFile
-    {
+	{
 		return $this->getFolder($attachment)
 			->getFile($attachment->getData());
 	}
@@ -93,7 +96,7 @@ class FileService implements IAttachmentService {
 	 * @throws NotPermittedException
 	 */
 	public function getFolder(Attachment $attachment): ISimpleFolder
-    {
+	{
 		$folderName = 'file-announcement-' . (int)$attachment->getAnnouncementId();
 		try {
 			$folder = $this->appData->getFolder($folderName);
@@ -104,14 +107,14 @@ class FileService implements IAttachmentService {
 	}
 
 	public function extendData(Attachment $attachment): Attachment
-    {
+	{
 		try {
 			$file = $this->getFileForAttachment($attachment);
-		} catch (NotFoundException|NotPermittedException $e) {
+		} catch (NotFoundException | NotPermittedException $e) {
 			$this->logger->info('Extending data for file attachment failed');
 			return $attachment;
 		}
-        $attachment->setExtendedData([
+		$attachment->setExtendedData([
 			'filesize' => $file->getSize(),
 			'mimetype' => $file->getMimeType(),
 			'info' => pathinfo($file->getName())
@@ -124,7 +127,7 @@ class FileService implements IAttachmentService {
 	 * @throws StatusException
 	 */
 	private function getUploadedFile(): array
-    {
+	{
 		$file = $this->request->getUploadedFile('file');
 		$error = null;
 		$phpFileUploadErrors = [
@@ -150,18 +153,18 @@ class FileService implements IAttachmentService {
 		return $file;
 	}
 
-    /**
-     * @param Attachment $attachment
-     * @throws ConflictException
-     * @throws NotFoundException
-     * @throws NotPermittedException
-     * @throws StatusException
-     * @throws DoesNotExistException
-     * @throws MultipleObjectsReturnedException
-     * @throws Exception
-     */
+	/**
+	 * @param Attachment $attachment
+	 * @throws ConflictException
+	 * @throws NotFoundException
+	 * @throws NotPermittedException
+	 * @throws StatusException
+	 * @throws DoesNotExistException
+	 * @throws MultipleObjectsReturnedException
+	 * @throws Exception
+	 */
 	public function create(Attachment $attachment): void
-    {
+	{
 		$file = $this->getUploadedFile();
 		$folder = $this->getFolder($attachment);
 		$fileName = $file['name'];
@@ -189,7 +192,7 @@ class FileService implements IAttachmentService {
 	 * @throws \Exception
 	 */
 	public function update(Attachment $attachment): void
-    {
+	{
 		$file = $this->getUploadedFile();
 		$fileName = $file['name'];
 		$attachment->setData($fileName);
@@ -212,7 +215,7 @@ class FileService implements IAttachmentService {
 	 * @throws NotPermittedException
 	 */
 	public function delete(Attachment $attachment): void
-    {
+	{
 		try {
 			$file = $this->getFileForAttachment($attachment);
 			$file->delete();
@@ -226,7 +229,7 @@ class FileService implements IAttachmentService {
 	 * @throws \Exception
 	 */
 	private function getFileFromRootFolder(Attachment $attachment): \OCP\Files\Node
-    {
+	{
 		$folderName = 'file-announcement-' . (int)$attachment->getAnnouncementId();
 		$instanceId = $this->config->getSystemValue('instanceid', null);
 		if ($instanceId === null) {
@@ -248,7 +251,7 @@ class FileService implements IAttachmentService {
 	 * @throws \Exception
 	 */
 	public function display(Attachment $attachment): StreamResponse
-    {
+	{
 		$file = $this->getFileFromRootFolder($attachment);
 		$response = new StreamResponse($file->fopen('rb'));
 		$response->addHeader('Content-Disposition', 'attachment; filename="' . rawurldecode($file->getName()) . '"');
@@ -262,7 +265,7 @@ class FileService implements IAttachmentService {
 	 * @return bool
 	 */
 	public function allowUndo(): bool
-    {
+	{
 		return true;
 	}
 
@@ -272,7 +275,7 @@ class FileService implements IAttachmentService {
 	 * @param Attachment $attachment
 	 */
 	public function markAsDeleted(Attachment $attachment): void
-    {
+	{
 		$attachment->setDeletedAt(time());
 	}
 }
