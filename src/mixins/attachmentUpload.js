@@ -190,7 +190,6 @@ export default {
 				attachment: this.overwriteAttachment,
 				formData: bodyFormData,
 			});
-
 			this.modalShow = false;
 		},
 	},
