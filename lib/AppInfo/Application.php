@@ -29,22 +29,28 @@ use OCA\AnnouncementCenter\Dashboard\Widget;
 use OCA\AnnouncementCenter\Listener\BeforeTemplateRenderedListener;
 use OCA\AnnouncementCenter\Listener\CommentsEntityListener;
 use OCA\AnnouncementCenter\Notification\Notifier;
+use OCA\AnnouncementCenter\Sharing\AnnouncementcenterShareProvider;
+use OCA\AnnouncementCenter\Sharing\Listener;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\Comments\CommentsEntityEvent;
+use OCP\EventDispatcher\IEventDispatcher;
+use OCA\AnnouncementCenter\Service\UserService;
 use OCP\Util;
 
-class Application extends App implements IBootstrap {
-	public const APP_ID = 'announcementcenter';
 
-	public function __construct() {
+class Application extends App implements IBootstrap
+{
+	public const APP_ID = 'announcementcenter';
+	public function __construct()
+	{
 		parent::__construct(self::APP_ID);
 	}
-
-	public function register(IRegistrationContext $context): void {
+	public function register(IRegistrationContext $context): void
+	{
 		$context->registerDashboardWidget(Widget::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
 		// FIXME when Nextcloud 28+ is required
@@ -56,6 +62,16 @@ class Application extends App implements IBootstrap {
 		$context->registerNotifierService(Notifier::class);
 	}
 
-	public function boot(IBootContext $context): void {
+	public function boot(IBootContext $context): void
+	{
+		$userService = $context->getAppContainer()->get(UserService::class);
+		$context->injectFn(function (\OCP\Share\IManager $shareManager) {
+			$shareManager->registerShareProvider(AnnouncementcenterShareProvider::class);
+		});
+
+		$context->injectFn(function (Listener $listener, IEventDispatcher $eventDispatcher) {
+			$listener->register($eventDispatcher);
+		});
+		$userService->createGroupWithAllUsers();
 	}
 }

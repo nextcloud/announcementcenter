@@ -20,7 +20,8 @@
   -->
 
 <template>
-	<NcDashboardWidget id="announcementcenter_panel"
+	<NcDashboardWidget
+		id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
 		empty-content-icon="icon-announcementcenter-dark"
@@ -32,13 +33,13 @@
 </template>
 
 <script>
-import NcDashboardWidget from '@nextcloud/vue/dist/Components/NcDashboardWidget.js'
-import { loadState } from '@nextcloud/initial-state'
-import { generateUrl, imagePath } from '@nextcloud/router'
-import moment from '@nextcloud/moment'
+import NcDashboardWidget from "@nextcloud/vue/dist/Components/NcDashboardWidget.js";
+import { loadState } from "@nextcloud/initial-state";
+import { generateUrl, imagePath } from "@nextcloud/router";
+import moment from "@nextcloud/moment";
 
 export default {
-	name: 'Dashboard',
+	name: "Dashboard",
 
 	components: {
 		NcDashboardWidget,
@@ -48,7 +49,7 @@ export default {
 		return {
 			announcements: [],
 			loading: true,
-		}
+		};
 	},
 
 	computed: {
@@ -57,26 +58,43 @@ export default {
 				return {
 					mainText: item.subject,
 					avatarUsername: item.author_id,
-					targetUrl: generateUrl('/apps/announcementcenter') + '?announcement=' + item.id,
-					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
-					subText: t('announcementcenter', '{author}, {timestamp}', {
-						author: item.author,
-						timestamp: moment(item.time, 'X').fromNow(),
-					}, null, { escape: false, sanitize: false }),
-				}
-			})
+					targetUrl:
+						generateUrl("/apps/announcementcenter") +
+						"?announcement=" +
+						item.id,
+					overlayIconUrl: imagePath(
+						"announcementcenter",
+						"empty.svg"
+					),
+					subText: t(
+						"announcementcenter",
+						"{author}, {timestamp}",
+						{
+							author: item.author,
+							timestamp: moment(item.time, "X")
+								.locale("zh_CN")
+								.fromNow(),
+						},
+						null,
+						{ escape: false, sanitize: false }
+					),
+				};
+			});
 		},
 	},
 
 	mounted() {
 		try {
-			this.announcements = loadState('announcementcenter', 'announcementcenter_dashboard')
-			this.loading = false
+			this.announcements = loadState(
+				"announcementcenter",
+				"announcementcenter_dashboard"
+			);
+			this.loading = false;
 		} catch (e) {
-			console.error(e)
+			console.error(e);
 		}
 	},
-}
+};
 </script>
 
 <style lang="scss" scoped>

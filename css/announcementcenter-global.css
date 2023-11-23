@@ -1,3 +1,4 @@
+
 .icon-announcementcenter-dark {
 	background-image: url(../img/announcementcenter-dark.svg);
 	filter: var(--background-invert-if-dark);
@@ -5,5 +6,10 @@
 
 .icon-notifications-off {
 	background-image: url(../img/notifications-off.svg);
+	filter: var(--background-invert-if-dark);
+}
+
+.icon-circle-edit{
+	background-image: url(../img/edit.svg);
 	filter: var(--background-invert-if-dark);
 }

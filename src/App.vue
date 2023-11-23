@@ -1,7 +1,7 @@
 <!--
-  - @copyright Copyright (c) 2020 Joas Schilling <coding@schilljs.com>
+  - @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
   -
-  - @author Joas Schilling <coding@schilljs.com>
+  - @author insiinc <insiinc@outlook.com>
   -
   - @license GNU AGPL version 3 or any later version
   -
@@ -12,152 +12,126 @@
   -
   - This program is distributed in the hope that it will be useful,
   - but WITHOUT ANY WARRANTY; without even the implied warranty of
-  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   - GNU Affero General Public License for more details.
   -
   - You should have received a copy of the GNU Affero General Public License
   - along with this program. If not, see <http://www.gnu.org/licenses/>.
--->
-
+  -
+  -->
 <template>
 	<NcContent app-name="announcementcenter">
-		<NcAppContent>
-			<NewForm v-if="isAdmin" />
-
-			<transition-group name="fade-collapse" tag="div">
-				<Announcement v-for="announcement in announcements"
-					:key="announcement.id"
-					:is-admin="isAdmin"
-					:author-id="announcement.author_id"
-					v-bind="announcement"
-					@click="onClickAnnouncement" />
-			</transition-group>
-
-			<NcEmptyContent v-if="!announcements.length"
-				:title="t('announcementcenter', 'No announcements')"
-				:description="t('announcementcenter', 'There are currently no announcements …')">
-				<template #icon>
-					<span class="icon-announcementcenter-dark" />
-				</template>
-			</NcEmptyContent>
+		<!-- <AppNavigation /> -->
+		<NcAppContent :list-size="20" :list-min-width="15">
+			<template #list>
+				<AnnouncementList></AnnouncementList>
+			</template>
+			<AnnouncementDetail></AnnouncementDetail>
 		</NcAppContent>
-		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
-			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
+		<NcAppSidebar
+			v-show="activeId !== 0 && activateAnnouncementHasComments"
+			:title="
+				activeAnnouncementTitle +
+				' - ' +
+				t('announcementcenter', 'Comments')
+			"
 			@close="onClickAnnouncement(0)">
-			<div ref="sidebar"
-				class="comments" />
+			<div ref="sidebar" class="comments" />
 		</NcAppSidebar>
+		<NcModal
+			v-if="showNewModal"
+			ref="modalRef"
+			@close="closeModal"
+			name="Name inside modal">
+			<NewForm />
+		</NcModal>
 	</NcContent>
 </template>
 
 <script>
-import NcAppContent from '@nextcloud/vue/dist/Components/NcAppContent.js'
-import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
-import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
-import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
-import { loadState } from '@nextcloud/initial-state'
-import Announcement from './Components/Announcement.vue'
-import NewForm from './Components/NewForm.vue'
-import { getAnnouncements } from './services/announcementsService.js'
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import {
+	NcButton,
+	NcAppContent,
+	NcAppSidebar,
+	NcContent,
+	NcEmptyContent,
+	NcModal,
+} from "@nextcloud/vue";
+import AnnouncementList from "./components/AnnouncementList.vue";
+import AnnouncementDetail from "./components/AnnouncementDetail.vue";
+import { loadState } from "@nextcloud/initial-state";
+import NewForm from "./components/NewForm.vue";
 
+import { emit, subscribe, unsubscribe } from "@nextcloud/event-bus";
 export default {
-	name: 'App',
+	name: "App",
 
 	components: {
-		Announcement,
+		AnnouncementList,
 		NcAppContent,
 		NcAppSidebar,
 		NcContent,
 		NcEmptyContent,
+		AnnouncementDetail,
+		NcModal,
+		NcButton,
 		NewForm,
 	},
 
 	data() {
 		return {
-			isAdmin: loadState('announcementcenter', 'isAdmin'),
 			commentsView: null,
 			activeId: 0,
-		}
+			showNewModal: false,
+		};
 	},
 
 	computed: {
-		announcements() {
-			const announcements = this.$store.getters.announcements
-			return announcements.sort((a1, a2) => {
-				return a2.time - a1.time
-			})
-		},
+		...mapGetters(["announcements"]),
 
 		activeAnnouncement() {
-			return this.$store.getters.announcement(this.activeId)
+			return this.$store.getters.announcement(this.activeId);
 		},
 
 		activeAnnouncementTitle() {
 			if (this.activeId === 0) {
-				return ''
+				return "";
 			}
-			return this.activeAnnouncement?.subject
+			return this.activeAnnouncement?.subject;
 		},
 
 		activateAnnouncementHasComments() {
-			return this.activeAnnouncement?.comments === 0 || this.activeAnnouncement?.comments > 0
+			return (
+				this.activeAnnouncement?.comments === 0 ||
+				this.activeAnnouncement?.comments > 0
+			);
 		},
 	},
-
+	async beforeMount() {
+		await this.loadAnnouncements({ filterKey: "", page: 1, pageSize: 30 });
+		console.log(this.announcements);
+	},
 	async mounted() {
-		await this.loadAnnouncements()
-
-		const activeId = loadState('announcementcenter', 'activeId', 0)
-		if (activeId !== 0) {
-			await this.onClickAnnouncement(activeId)
-		}
+		const activeId = loadState("announcementcenter", "activeId", 0);
+		subscribe("newAnnouncement", () => {
+			this.showNewModal = true;
+		});
+		subscribe("closeNewAnnouncement", () => {
+			this.showNewModal = false;
+		});
 	},
 
 	methods: {
-		async loadAnnouncements() {
-			const response = await getAnnouncements()
-			const announcements = response.data?.ocs?.data || []
-
-			announcements.forEach(announcement => {
-				this.$store.dispatch('addAnnouncement', announcement)
-			})
-		},
-
-		/**
-		 * Load the comments of the announcements
-		 *
-		 * @param {number} id the announcement
-		 */
-		async onClickAnnouncement(id) {
-			if (id === this.activeId) {
-				return
-			}
-
-			this.activeId = id
-
-			if (!this.activateAnnouncementHasComments) {
-				return
-			}
-
-			if (id === 0) {
-				// Destroy the comments view as the sidebar is destroyed
-				this.commentsView = null
-				return
-			}
-
-			if (!this.commentsView) {
-				// Create a new comments view when there is none
-				this.commentsView = new OCA.Comments.View('announcement')
-			}
-
-			await this.commentsView.update(id)
-			this.commentsView.$mount(this.$refs.sidebar)
+		...mapActions(["loadAnnouncements"]),
+		closeModal() {
+			this.showNewModal = false;
 		},
 	},
-}
+};
 </script>
 
-<style lang="scss" scoped>
+<style>
 ::v-deep .comments {
 	margin: 10px;
 }
@@ -171,7 +145,8 @@ export default {
 .fade-leave-active,
 .fade-collapse-enter-active,
 .fade-collapse-leave-active {
-	transition: opacity var(--animation-quick), max-height var(--animation-quick);
+	transition: opacity var(--animation-quick),
+		max-height var(--animation-quick);
 }
 
 .fade-collapse-enter,

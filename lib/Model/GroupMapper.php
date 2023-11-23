@@ -26,43 +26,56 @@ namespace OCA\AnnouncementCenter\Model;
 use OCP\AppFramework\Db\QBMapper;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IDBConnection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @template-extends QBMapper<Group>
  */
-class GroupMapper extends QBMapper {
-	public function __construct(IDBConnection $db) {
+class GroupMapper extends QBMapper
+{
+	private LoggerInterface $logger;
+	public function __construct(IDBConnection $db, LoggerInterface $logger)
+	{
 		parent::__construct($db, 'announcements_map', Group::class);
+		$this->logger = $logger;
 	}
 
 	/**
 	 * @param Announcement $announcement
 	 * @return string[]
 	 */
-	public function getGroupsForAnnouncement(Announcement $announcement): array {
+	public function getGroupsForAnnouncement(Announcement $announcement): array
+	{
 		$result = $this->getGroupsForAnnouncements([$announcement]);
 		return $result[$announcement->getId()] ?? [];
 	}
-
+	/**
+	 * @param int $id
+	 * @return string[]
+	 */
+	public function getGroupsByAnnouncementId(int $id): array
+	{
+		$this->logger->warning("enter0:" . $id);
+		$result = $this->getGroupsByAnnouncementIds([$id]);
+		return $result[$id] ?? [];
+	}
 	/**
 	 * @param Announcement $announcement
 	 */
-	public function deleteGroupsForAnnouncement(Announcement $announcement): void {
+	public function deleteGroupsForAnnouncement(Announcement $announcement): void
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->delete('announcements_map')
 			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($announcement->getId())));
 		$query->execute();
 	}
-
 	/**
-	 * @param Announcement[] $announcements
+	 * @param int[] $ids
 	 * @return array
 	 */
-	public function getGroupsForAnnouncements(array $announcements): array {
-		$ids = array_map(function (Announcement $announcement) {
-			return $announcement->getId();
-		}, $announcements);
-
+	public function getGroupsByAnnouncementIds(array $ids): array
+	{
+		$this->logger->warning("enter:" . json_encode($ids));
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from('announcements_map')
@@ -80,5 +93,16 @@ class GroupMapper extends QBMapper {
 		}
 
 		return $groups;
+	}
+	/**
+	 * @param Announcement[] $announcements
+	 * @return array
+	 */
+	public function getGroupsForAnnouncements(array $announcements): array
+	{
+		$ids = array_map(function (Announcement $announcement) {
+			return $announcement->getId();
+		}, $announcements);
+		return $this->getGroupsByAnnouncementIds($ids);
 	}
 }

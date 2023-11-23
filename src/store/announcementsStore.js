@@ -19,17 +19,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  */
-import Vue from 'vue'
-
+import Vue from "vue";
+import {
+	getAnnouncements,
+	searchAnnouncements,
+} from "../services/announcementsService.js";
 const state = {
-	announcements: {
-	},
-}
+	announcements: {},
+	searchAnnouncements: {},
+	currentAnnouncementId: null,
+	total: 0,
+	pages: 0,
+	searchTotal: 0,
+};
 
 const getters = {
-	announcements: state => Object.values(state.announcements),
-	announcement: state => id => state.announcements[id],
-}
+	currentAnnouncement: (state) =>
+		state.announcements[state.currentAnnouncementId],
+	canEdit: (state) =>
+		OC.getCurrentUser().uid ===
+		state.announcements[state.currentAnnouncementId].author_id,
+	announcements: (state) => Object.values(state.announcements),
+	searchAnnouncements: (state) => Object.values(state.searchAnnouncements),
+	announcement: (state) => (id) => state.announcements[id],
+	total: (state) => state.total,
+	pages: (state) => state.pages,
+	searchTotal: (state) => state.searchTotal,
+};
 
 const mutations = {
 	/**
@@ -39,9 +55,23 @@ const mutations = {
 	 * @param {object} announcement the announcement
 	 */
 	addAnnouncement(state, announcement) {
-		Vue.set(state.announcements, announcement.id, announcement)
+		Vue.set(state.announcements, announcement.id, announcement);
 	},
-
+	addSearchAnnouncement(state, announcement) {
+		Vue.set(state.searchAnnouncements, announcement.id, announcement);
+	},
+	setTotal(state, total) {
+		state.total = total;
+	},
+	setSearchTotal(state, total) {
+		state.searchTotal = total;
+	},
+	setPages(state, pages) {
+		state.pages = pages;
+	},
+	updateAnnouncement(state, announcement) {
+		Vue.set(state.announcements, announcement.id, announcement);
+	},
 	/**
 	 * Deletes an announcement from the store
 	 *
@@ -49,9 +79,14 @@ const mutations = {
 	 * @param {number} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(state, id) {
-		Vue.delete(state.announcements, id)
+		Vue.delete(state.announcements, id);
 	},
-
+	clearAnnoucements(state) {
+		state.announcements = {};
+	},
+	setCurrentAnnouncementId(state, id) {
+		Vue.set(state, "currentAnnouncementId", id);
+	},
 	/**
 	 * Remove the notifications of an announcement
 	 *
@@ -60,12 +95,29 @@ const mutations = {
 	 */
 	removeNotifications(state, id) {
 		if (!state.announcements[id]) {
-			return
+			return;
 		}
 
-		Vue.set(state.announcements[id], 'notifications', false)
+		Vue.set(state.announcements[id], "notifications", false);
 	},
-}
+	announcementSetAttachmentCount(state, { announcementId, count }) {
+		Vue.set(state.announcements[announcementId], "attachmentCount", count);
+	},
+	announcementIncreaseAttachmentCount(state, announcementId) {
+		Vue.set(
+			state.announcements[announcementId],
+			"attachmentCount",
+			state.announcements[announcementId].attachmentCount + 1
+		);
+	},
+	announcementDecreaseAttachmentCount(state, announcementId) {
+		Vue.set(
+			state.announcements[announcementId],
+			"attachmentCount",
+			state.announcements[announcementId].attachmentCount - 1
+		);
+	},
+};
 
 const actions = {
 	/**
@@ -75,9 +127,42 @@ const actions = {
 	 * @param {object} announcement the announcement
 	 */
 	addAnnouncement(context, announcement) {
-		context.commit('addAnnouncement', announcement)
+		context.commit("addAnnouncement", announcement);
 	},
+	addSearchAnnouncement(context, announcement) {
+		context.commit("addSearchAnnouncement", announcement);
+	},
+	updateAnnouncement(context, announcement) {
+		context.commit("updateAnnouncement", announcement);
+	},
+	async loadAnnouncements(context, { filterKey, page, pageSize }) {
+		const response = await searchAnnouncements(filterKey, page, pageSize);
+		console.log(response);
+		context.commit("setTotal", response.data?.ocs?.data.total);
+		context.commit("setPages", response.data?.ocs?.data.pages);
+		let announcements = response.data?.ocs?.data.data || [];
 
+		announcements.forEach((announcement) => {
+			context.commit("addAnnouncement", announcement);
+		});
+	},
+	async searchAnnouncements(
+		context,
+		filterKey = "",
+		page = 1,
+		pageSize = 14
+	) {
+		const response = await searchAnnouncements(filterKey, page, pageSize);
+		console.log(response);
+		context.commit("setSearchTotal", response.data?.ocs?.data.total);
+		let announcements = response.data?.ocs?.data.data || [];
+		announcements = announcements.sort((a1, a2) => {
+			return a1.time - a2.time;
+		});
+		announcements.forEach((announcement) => {
+			context.commit("addSearchAnnouncement", announcement);
+		});
+	},
 	/**
 	 * Delete an announcement
 	 *
@@ -85,7 +170,7 @@ const actions = {
 	 * @param {number} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(context, id) {
-		context.commit('deleteAnnouncement', id)
+		context.commit("deleteAnnouncement", id);
 	},
 
 	/**
@@ -95,8 +180,8 @@ const actions = {
 	 * @param {number} id the id of the announcement to remove the notifications of
 	 */
 	removeNotifications(context, id) {
-		context.commit('removeNotifications', id)
+		context.commit("removeNotifications", id);
 	},
-}
+};
 
-export default { state, mutations, getters, actions }
+export default { state, mutations, getters, actions };

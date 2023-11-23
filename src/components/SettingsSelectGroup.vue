@@ -1,7 +1,31 @@
+<!--
+  - @copyright Copyright (c) 2023 insiinc <insiinc@outlook.com>
+  -
+  - @author insiinc <insiinc@outlook.com>
+  -
+  - @license GNU AGPL version 3 or any later version
+  -
+  - This program is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU Affero General Public License as
+  - published by the Free Software Foundation, either version 3 of the
+  - License, or (at your option) any later version.
+  -
+  - This program is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU Affero General Public License for more details.
+  -
+  - You should have received a copy of the GNU Affero General Public License
+  - along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -
+  -->
 <template>
 	<div>
-		<label v-if="label" :for="id" class="hidden-visually">{{ label }}</label>
-		<NcSelect :value="inputValue"
+		<label v-if="label" :for="id" class="hidden-visually">{{
+			label
+		}}</label>
+		<NcSelect
+			:value="inputValue"
 			:options="groupsArray"
 			:placeholder="placeholder || label"
 			:filter-by="filterGroups"
@@ -17,15 +41,15 @@
 </template>
 
 <script>
-import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
+import NcSelect from "@nextcloud/vue/dist/Components/NcSelect.js";
 
-import axios from '@nextcloud/axios'
-import { showError } from '@nextcloud/dialogs'
-import { generateOcsUrl } from '@nextcloud/router'
-import { debounce } from 'debounce'
+import axios from "@nextcloud/axios";
+import { showError } from "@nextcloud/dialogs";
+import { generateOcsUrl } from "@nextcloud/router";
+import { debounce } from "debounce";
 
 export default {
-	name: 'SettingsSelectGroup',
+	name: "SettingsSelectGroup",
 	components: {
 		NcSelect,
 	},
@@ -44,7 +68,7 @@ export default {
 		 */
 		placeholder: {
 			type: String,
-			default: '',
+			default: "",
 		},
 
 		/**
@@ -52,8 +76,8 @@ export default {
 		 */
 		id: {
 			type: String,
-			default: () => 'action-GenRandomId',
-			validator: id => id.trim() !== '',
+			default: () => "action-GenRandomId",
+			validator: (id) => id.trim() !== "",
 		},
 
 		/**
@@ -73,16 +97,13 @@ export default {
 			default: false,
 		},
 	},
-	emits: [
-		'input',
-		'error',
-	],
+	emits: ["input", "error"],
 	data() {
 		return {
 			/** Temporary store to cache groups */
 			groups: {},
-			randId: 'GenRandomId',
-		}
+			randId: "GenRandomId",
+		};
 	},
 	computed: {
 		/**
@@ -91,24 +112,24 @@ export default {
 		 * @return {string[]}
 		 */
 		filteredValue() {
-			return this.value.filter((group) => group !== '' && typeof group === 'string')
+			return this.value.filter(
+				(group) => group !== "" && typeof group === "string"
+			);
 		},
 
 		/**
 		 * value property converted to an array of group objects used as input for the NcSelect
 		 */
 		inputValue() {
-			return this.filteredValue.map(
-				(id) => {
-					if (typeof this.groups[id] === 'undefined') {
-						return {
-							id,
-							displayname: id,
-						}
-					}
-					return this.groups[id]
-				},
-			)
+			return this.filteredValue.map((id) => {
+				if (typeof this.groups[id] === "undefined") {
+					return {
+						id,
+						displayname: id,
+					};
+				}
+				return this.groups[id];
+			});
 		},
 
 		/**
@@ -118,7 +139,9 @@ export default {
 		 * @return {object[]}
 		 */
 		groupsArray() {
-			return Object.values(this.groups).filter(g => !this.value.includes(g.id))
+			return Object.values(this.groups).filter(
+				(g) => !this.value.includes(g.id)
+			);
 		},
 	},
 	watch: {
@@ -127,11 +150,13 @@ export default {
 		 */
 		value: {
 			handler() {
-				const loadedGroupIds = Object.keys(this.groups)
-				const missing = this.filteredValue.filter(group => !loadedGroupIds.includes(group))
+				const loadedGroupIds = Object.keys(this.groups);
+				const missing = this.filteredValue.filter(
+					(group) => !loadedGroupIds.includes(group)
+				);
 				missing.forEach((groupId) => {
-					this.loadGroup(groupId)
-				})
+					this.loadGroup(groupId);
+				});
 			},
 			// Run the watch handler also when the component is initially mounted
 			immediate: true,
@@ -142,15 +167,20 @@ export default {
 	 */
 	async mounted() {
 		// version scoped to prevent issues with different library versions
-		const storageName = 'announcementcenter/initialGroups'
+		const storageName = "announcementcenter/initialGroups";
 
-		let savedGroups = window.sessionStorage.getItem(storageName)
+		let savedGroups = window.sessionStorage.getItem(storageName);
 		if (savedGroups) {
-			savedGroups = Object.fromEntries(JSON.parse(savedGroups).map(group => [group.id, group]))
-			this.groups = { ...this.groups, ...savedGroups }
+			savedGroups = Object.fromEntries(
+				JSON.parse(savedGroups).map((group) => [group.id, group])
+			);
+			this.groups = { ...this.groups, ...savedGroups };
 		} else {
-			await this.loadGroup('')
-			window.sessionStorage.setItem(storageName, JSON.stringify(Object.values(this.groups)))
+			await this.loadGroup("");
+			window.sessionStorage.setItem(
+				storageName,
+				JSON.stringify(Object.values(this.groups))
+			);
 		}
 	},
 	methods: {
@@ -160,9 +190,9 @@ export default {
 		 * @param {object[]} updatedValue Array of selected groups
 		 */
 		update(updatedValue) {
-			const value = updatedValue.map((element) => element.id)
+			const value = updatedValue.map((element) => element.id);
 			/** Emitted when the groups selection changes<br />**Payload:** `value` (`Array`) - *Ids of selected groups */
-			this.$emit('input', value)
+			this.$emit("input", value);
 		},
 
 		/**
@@ -173,20 +203,30 @@ export default {
 		 */
 		async loadGroup(query) {
 			try {
-				query = typeof query === 'string' ? encodeURI(query) : ''
-				const response = await axios.get(generateOcsUrl(`cloud/groups/details?search=${query}&limit=10`, 2))
+				query = typeof query === "string" ? encodeURI(query) : "";
+				const response = await axios.get(
+					generateOcsUrl(
+						`cloud/groups/details?search=${query}&limit=10`,
+						2
+					)
+				);
 
 				if (Object.keys(response.data.ocs.data.groups).length > 0) {
-					const newGroups = Object.fromEntries(response.data.ocs.data.groups.map((element) => [element.id, element]))
-					this.groups = { ...this.groups, ...newGroups }
-					return true
+					const newGroups = Object.fromEntries(
+						response.data.ocs.data.groups.map((element) => [
+							element.id,
+							element,
+						])
+					);
+					this.groups = { ...this.groups, ...newGroups };
+					return true;
 				}
 			} catch (error) {
 				/** Emitted if groups could not be queried.<br />**Payload:** `error` (`object`) - The Axios error */
-				this.$emit('error', error)
-				showError(t('Unable to search the group'))
+				this.$emit("error", error);
+				showError(t("Unable to search the group"));
 			}
-			return false
+			return false;
 		},
 
 		/**
@@ -197,15 +237,19 @@ export default {
 		 * @param {string} search The current search string
 		 */
 		filterGroups(option, label, search) {
-			return `${label || ''} ${option.id}`.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+			return (
+				`${label || ""} ${option.id}`
+					.toLocaleLowerCase()
+					.indexOf(search.toLocaleLowerCase()) > -1
+			);
 		},
 
 		/**
 		 * Debounce the group search (reduce API calls)
 		 */
-		onSearch: debounce(function(query) {
-			this.loadGroup(query)
+		onSearch: debounce(function (query) {
+			this.loadGroup(query);
 		}, 200),
 	},
-}
+};
 </script>
