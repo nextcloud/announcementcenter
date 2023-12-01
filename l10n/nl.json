@@ -19,6 +19,8 @@
     "Create notifications by default" : "Standaard meldingen creëren",
     "Send emails by default" : "E-mails standaard verzenden",
     "Allow comments by default" : "Reageren standaard toestaan",
+    "Setting changed" : "Instelling gewijzigd",
+    "An error occurred while changing the setting" : "Er is een fout opgetreden tijdens het wijzigen van de instelling.",
     "No announcements" : "Geen aankondigingen",
     "There are currently no announcements …" : "Er zijn op dit moment geen aankondigingen ...",
     "Comments" : "Reacties",
