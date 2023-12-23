@@ -1,6 +1,8 @@
 { "translations": {
+    "Comments" : "Şərhlər",
     "seconds ago" : "saniyələr öncə",
     ", " : ",",
+    "Announce" : "Elan et",
     "Everyone" : "Hamı"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
