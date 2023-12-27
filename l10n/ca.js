@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Crea notificacions per defecte",
     "Send emails by default" : "Envia els correus electrònics per defecte",
     "Allow comments by default" : "Permet els comentaris per defecte",
+    "Setting changed" : "S'han canviat paràmetres",
     "An error occurred while changing the setting" : "S'ha produït un error en canviar els paràmetres",
     "No announcements" : "No hi ha cap anunci",
     "There are currently no announcements …" : "Actualment no hi ha anuncis…",
