@@ -17,7 +17,7 @@ OC.L10N.register(
     "This app allows admins to post announcements." : "Esta app permite a los administradores enviar anuncios.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncie su ventana de mantenimiento 🎛️, introduzca a un nuevo colega 👤 o asegúrese de que todo el mundo conoce el gran evento del próximo mes 📅\n\n🖌️ Soporte Markdown\n\n📑 Comentarios incluyendo @-menciones\n\n👪 Permisos de Grupo\n\n⭕ Integración en Dashboard\n\n⚡ Integración en Actividades\n\n🔔 Integración con Notificaciones",
     "These groups will be able to post announcements." : "Estos grupos podrán poner anuncios.",
-    "Create activities by default" : "Crear actividades por defecto.",
+    "Create activities by default" : "Crear actividades por defecto",
     "Create notifications by default" : "Crear notificaciones por defecto.",
     "Send emails by default" : "Enviar emails por defecto",
     "Allow comments by default" : "Permitir comentarios por defecto",
