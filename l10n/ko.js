@@ -10,6 +10,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "제목이 너무 길거나 비어 있습니다",
     "Announcements" : "공지",
     "Read more" : "더 읽기",
+    "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user}님이 {announcement} 를 공지했습니다.",
     "{user} announced “{announcement}”" : "{user}님이 “{announcement}” 공지를 올림",
     "Announcement center" : "공지 센터",
