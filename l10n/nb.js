@@ -21,6 +21,8 @@ OC.L10N.register(
     "Create notifications by default" : "Opprett varsler som forvalg",
     "Send emails by default" : "Send e-poster som standard",
     "Allow comments by default" : "Tillatt kommentarer som standard",
+    "Setting changed" : "Innstilling endret",
+    "An error occurred while changing the setting" : "En feil oppstod under endring av innstillingen",
     "No announcements" : "Ingen kunngjøringer",
     "There are currently no announcements …" : "Det er foreløpig ingen kunngjøringer...",
     "Comments" : "Kommentarer",
