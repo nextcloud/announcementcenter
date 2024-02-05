@@ -75,7 +75,7 @@ class Provider implements IProvider {
 	 * @throws \InvalidArgumentException
 	 * @since 11.0.0
 	 */
-	public function parse($language, IEvent $event, IEvent $previousEvent = null): IEvent {
+	public function parse($language, IEvent $event, ?IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
 			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
@@ -146,7 +146,7 @@ class Provider implements IProvider {
 			->setRichSubject($subject, $parameters);
 	}
 
-	protected function getParsedParameters(array $parameters, Announcement $announcement = null): array {
+	protected function getParsedParameters(array $parameters, ?Announcement $announcement = null): array {
 		if ($announcement !== null) {
 			return [
 				'actor' => $this->generateUserParameter($parameters['author']),
