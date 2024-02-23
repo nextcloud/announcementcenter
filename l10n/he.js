@@ -29,8 +29,8 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "אירעה שגיאה בהסרת התראת ההכרזה",
     "An error occurred while deleting the announcement" : "אירעה שגיאה במחיקת ההכרזה",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["גלוי לקבוצה {name} ולאחת נוספת","גלוי לקבוצה {name} ול־%n נוספות","גלוי לקבוצה {name} ול־%n נוספות","גלוי לקבוצה {name} ול־%n נוספות"],
-    "_%n comment_::_%n comments_" : ["תגובה אחת","%n תגובות","%n תגובות","%n תגובות"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["גלוי לקבוצה {name} ולאחת נוספת","גלוי לקבוצה {name} ול־%n נוספות","גלוי לקבוצה {name} ול־%n נוספות"],
+    "_%n comment_::_%n comments_" : ["תגובה אחת","%n תגובות","%n תגובות"],
     "New announcement subject" : "נושא הכרזה חדש",
     "Write announcement text, Markdown can be used …" : "נא לכתוב את תוכן ההכרזה, ניתן להשתמש ב־Markdown…",
     "Announce" : "להכריז",
@@ -42,4 +42,4 @@ OC.L10N.register(
     "An error occurred while posting the announcement" : "אירעה שגיאה בפרסום ההכרזה",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
-"nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
+"nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;");
