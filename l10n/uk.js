@@ -15,7 +15,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} розмістив “{announcement}”",
     "Announcement center" : "Центр оголошень",
     "This app allows admins to post announcements." : "Цей застосунок дозволяє адміністраторам розміщувати оголошення.",
-    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Оголосіть період обслуговування 🎛️, представте нового колегу 👤 або подбайте про те, щоб усі дізналися про велику подію наступного місяця 📅 \n\n🖌️ Підтримка уцінки \n\n📑 Коментарі, включаючи @-згадки \n\n👪 Групові дозволи \n\n⭕ Інтеграція інформаційної панелі \n\n⚡ Інтеграція діяльності \n\n🔔 Інтеграція сповіщень",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Інформуйте про період обслуговування 🎛️, представте нового колегу 👤 або подбайте про те, щоб усі дізналися про велику подію наступного місяця 📅 \n\n🖌️ Підтримка уцінки \n\n📑 Коментарі включно @-згадки \n\n👪 Групові дозволи \n\n⭕ Інтеграція інформаційної панелі \n\n⚡ Інтеграція діяльності \n\n🔔 Інтеграція сповіщень",
     "These groups will be able to post announcements." : "Ці групи мають змогу розміщувати оголошення.",
     "Create activities by default" : "Створити події по-замовчуванню",
     "Create notifications by default" : "Створити оповіщення по-замовчуванню",
