@@ -21,6 +21,8 @@ OC.L10N.register(
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
     "Send emails by default" : "Odoslať emaily ako predvolené",
     "Allow comments by default" : "V predvolenom nastavení povoliť komentáre",
+    "Setting changed" : "Nastavenie zmenené",
+    "An error occurred while changing the setting" : "Nastala chyba počas zmeny nastavenia",
     "No announcements" : "Žiadne oznámenia",
     "There are currently no announcements …" : "Momentálne tu nie sú žiadne oznámenia...",
     "Comments" : "Komentáre",
