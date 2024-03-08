@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.8.0 – 2024-03-08
+### Added
+- Compatibility with Nextcloud 29
+- Update translations
+- Update dependencies
+
 ## 6.7.0 – 2023-11-09
 ### Added
 - Compatibility with Nextcloud 28
