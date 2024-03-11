@@ -160,7 +160,8 @@ export default {
 		scheduleTime: {
 			type: Number,
 			required: false,
-		}
+			default: null,
+		},
 	},
 
 	data() {
@@ -228,7 +229,7 @@ export default {
 
 		scheduledLabel() {
 			if (this.scheduleTime) {
-				return t('announcementcenter', 'scheduled at {time}', {time: this.scheduleDateFormat})
+				return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
 			}
 			return 'BUG:' + this.scheduleTime
 		},

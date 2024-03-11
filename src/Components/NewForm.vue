@@ -36,19 +36,21 @@
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__schedule">
-			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">{{ t('announcementcenter', 'Schedule Announcement Time (optional)') }}</NcCheckboxRadioSwitch>
-			<NcDateTimePicker
+			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">
+				{{ t('announcementcenter', 'Schedule Announcement Time (optional)') }}
+			</NcCheckboxRadioSwitch>
+			<NcDateTimePicker v-model="scheduleTime"
 				:disabled="!scheduleEnabled"
 				:clearable="true"
-				v-model="scheduleTime"
 				type="datetime" />
 		</div>
 		<div class="announcement__form__delete">
-			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">{{ t('announcementcenter', 'Schedule Deletion Time (optional)') }}</NcCheckboxRadioSwitch>
-			<NcDateTimePicker
+			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">
+				{{ t('announcementcenter', 'Schedule Deletion Time (optional)') }}
+			</NcCheckboxRadioSwitch>
+			<NcDateTimePicker v-model="deleteTime"
 				:disabled="!deleteEnabled"
 				:clearable="true"
-				v-model="deleteTime"
 				type="datetime" />
 		</div>
 
@@ -187,7 +189,7 @@ export default {
 					this.createNotifications,
 					this.sendEmails,
 					this.allowComments,
-					new Date(this.scheduleTime).getTime() / 1000,  // time in seconds
+					new Date(this.scheduleTime).getTime() / 1000, // time in seconds
 					new Date(this.deleteTime).getTime() / 1000,
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
