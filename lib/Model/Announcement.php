@@ -38,8 +38,15 @@ use OCP\AppFramework\Db\Entity;
  * @method string getPlainMessage()
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
+ * @method void setGroups(string $groups)
+ * @method string getGroups()
+ * @method void setScheduleTime(?int $scheduleTime)
+ * @method ?int getScheduleTime()
+ * @method void setDeleteTime(?int $scheduleTime)
+ * @method ?int getDeleteTime()
  */
-class Announcement extends Entity {
+class Announcement extends Entity
+{
 
 	/** @var int */
 	protected $time;
@@ -59,20 +66,34 @@ class Announcement extends Entity {
 	/** @var int */
 	protected $allowComments;
 
-	public function __construct() {
+	/** @var int */
+	protected $scheduleTime;
+
+	/** @var int */
+	protected $deleteTime;
+
+	/** @var string */
+	protected $groups;
+
+	public function __construct()
+	{
 		$this->addType('time', 'int');
 		$this->addType('user', 'string');
 		$this->addType('subject', 'string');
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
+		$this->addType('scheduleTime', 'int');
+		$this->addType('deleteTime', 'int');
 	}
 
-	public function getParsedSubject(): string {
+	public function getParsedSubject(): string
+	{
 		return trim(str_replace("\n", ' ', $this->getSubject()));
 	}
 
-	public function getParsedMessage(): string {
+	public function getParsedMessage(): string
+	{
 		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $this->getMessage());
 	}
 
@@ -80,7 +101,8 @@ class Announcement extends Entity {
 	 * @param string $columnName the name of the column
 	 * @return string the property name
 	 */
-	public function columnToProperty($columnName): string {
+	public function columnToProperty($columnName): string
+	{
 		// Strip off announcement_
 		if (strpos($columnName, 'announcement_') === 0) {
 			$columnName = substr($columnName, strlen('announcement_'));
@@ -93,11 +115,24 @@ class Announcement extends Entity {
 	 * @param string $property the name of the property
 	 * @return string the column name
 	 */
-	public function propertyToColumn($property): string {
+	public function propertyToColumn($property): string
+	{
 		if ($property !== 'allowComments') {
 			$property = 'announcement' . ucfirst($property);
 		}
 
 		return parent::propertyToColumn($property);
+	}
+
+	public function setGroupsImplode($groups)
+	{
+		// you can't create groups with linebreaks (and if so you deserve it)
+		// TODO use better seperator (maybe <sep>?) OR restructure program here
+		$this->setGroups(implode("\n", $groups));
+	}
+
+	public function getGroupsExplode(): array
+	{
+		return explode("\n", $this->getGroups());
 	}
 }

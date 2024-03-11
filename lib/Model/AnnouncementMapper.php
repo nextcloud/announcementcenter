@@ -117,4 +117,22 @@ class AnnouncementMapper extends QBMapper {
 
 		return $this->findEntities($query);
 	}
+
+	public function getAnnouncementsScheduled() : array {
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_scheduled_time', 'ASC')  // respect order
+			->where($query->expr()->isNotNull('announcement_scheduled_time'));
+		return $this->findEntities($query);
+	}
+
+	public function getAnnouncementsScheduledDelete() : array {
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_delete_time', 'ASC')  // highest chance to be deleted
+			->where($query->expr()->isNotNull('announcement_delete_time'));
+		return $this->findEntities($query);
+	}
 }
