@@ -100,9 +100,11 @@ class APIController extends OCSController {
 	 * @param bool $notifications
 	 * @param bool $emails
 	 * @param bool $comments
+	 * @param ?int $scheduleTime
+	 * @param ?int $deleteTime
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
+	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, ?int $scheduleTime = null, ?int $deleteTime = null): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -113,7 +115,7 @@ class APIController extends OCSController {
 		$userId = $user instanceof IUser ? $user->getUID() : '';
 
 		try {
-			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments);
+			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $scheduleTime, $deleteTime);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
@@ -121,7 +123,7 @@ class APIController extends OCSController {
 			);
 		}
 
-		if ($activities || $notifications || $emails) {
+		if (!$scheduleTime && ($activities || $notifications || $emails)) {
 			$this->jobList->add(BackgroundJob::class, [
 				'id' => $announcement->getId(),
 				'activities' => $activities,
@@ -147,6 +149,8 @@ class APIController extends OCSController {
 			'message' => $announcement->getMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
+			'schedule_time' => $announcement->getScheduleTime(),
+			'delete_time' => $announcement->getDeleteTime(),
 		];
 
 		if ($this->manager->checkIsAdmin()) {
