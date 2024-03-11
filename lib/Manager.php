@@ -94,7 +94,7 @@ class Manager {
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, ?int $scheduledTime, ?int $deleteTime): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, ?int $scheduledTime = null, ?int $deleteTime = null): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
@@ -118,8 +118,9 @@ class Manager {
 		$announcement->setDeleteTime($deleteTime);
 		$this->announcementMapper->insert($announcement);
 
-		if (is_null($scheduledTime) || $scheduledTime === 0)
+		if (is_null($scheduledTime) || $scheduledTime === 0) {
 			$this->publishAnnouncement($announcement);
+		}
 		return $announcement;
 	}
 
