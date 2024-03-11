@@ -32,7 +32,7 @@ class AnnouncementSchedulerProcessor
     {
         $scheduledAnnouncements = $this->mapper->getAnnouncementsScheduled();
         foreach ($scheduledAnnouncements as $ann) {
-            if ($ann->getScheduledTime() && $ann->getScheduledTime() > 0 && $ann->getScheduledTime() > $this->timeFactory->getTime())
+            if ($ann->getScheduledTime() > $this->timeFactory->getTime())
                 break; //They are sorted and scheduled in the future
             $this->manager->publishAnnouncement($ann);
             $ann->setScheduledTime(0);
@@ -46,7 +46,7 @@ class AnnouncementSchedulerProcessor
             // don't delete unannounced announcements
             if ($ann->getScheduledTime() && $ann->getScheduledTime() > 0 && $ann->getScheduledTime() > $this->timeFactory->getTime())
                 continue;
-            if ($ann->getDeleteTime() && $ann->getDeleteTime() > 0 && $ann->getDeleteTime() > $this->timeFactory->getTime())
+            if ($ann->getDeleteTime() > $this->timeFactory->getTime())
                 break; //They are sorted and scheduled to be deleted in the future
             $this->manager->delete($ann->getId());
         }
