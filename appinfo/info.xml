@@ -38,6 +38,10 @@
 		<nextcloud min-version="26" max-version="29" />
 	</dependencies>
 
+	<background-jobs>
+		<job>OCA\AnnouncementCenter\AnnouncementSchedulerJob</job>
+	</background-jobs>
+
 	<repair-steps>
 		<post-migration>
 			<step>OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks</step>
@@ -65,8 +69,4 @@
 			<order>10</order>
 		</navigation>
 	</navigations>
-
-	<background-jobs>
-    	<job>OCA\AnnouncementCenter\AnnouncementSchedulerJob</job>
-	</background-jobs>
 </info>

@@ -2,9 +2,9 @@
 
 namespace OCA\AnnouncementCenter\Service;
 
+use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCA\AnnouncementCenter\Manager;
 
 class AnnouncementSchedulerProcessor {
 	private AnnouncementMapper $mapper;
@@ -33,7 +33,7 @@ class AnnouncementSchedulerProcessor {
 				break;
 			} //They are sorted and scheduled in the future
 			$this->manager->publishAnnouncement($ann);
-			$ann->setScheduledTime(0);
+			$ann->setScheduleTime(0);
 		}
 	}
 
