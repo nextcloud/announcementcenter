@@ -94,7 +94,7 @@ class Manager {
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, ?int $scheduledTime, ?int $deleteTime): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
@@ -113,9 +113,19 @@ class Manager {
 		$announcement->setUser($user);
 		$announcement->setTime($time);
 		$announcement->setAllowComments((int) $comments);
+		$announcement->setGroupsImplode($groups);
+		$announcement->setScheduleTime($scheduledTime);
+		$announcement->setDeleteTime($deleteTime);
 		$this->announcementMapper->insert($announcement);
 
+		if (is_null($scheduledTime) || $scheduledTime === 0)
+			$this->publishAnnouncement($announcement);
+		return $announcement;
+	}
+
+	public function publishAnnouncement(Announcement $announcement) : void {
 		$addedGroups = 0;
+		$groups = $announcement->getGroupsExplode();
 		foreach ($groups as $group) {
 			if ($this->groupManager->groupExists($group)) {
 				$this->addGroupLink($announcement, $group);
@@ -126,8 +136,6 @@ class Manager {
 		if ($addedGroups === 0) {
 			$this->addGroupLink($announcement, 'everyone');
 		}
-
-		return $announcement;
 	}
 
 	protected function addGroupLink(Announcement $announcement, string $gid): void {
