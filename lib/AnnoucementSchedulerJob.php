@@ -1,11 +1,11 @@
 <?php
-namespace OCA\MyApp\Cron;
+namespace OCA\AnnouncementCenter;
 
 use OCA\AnnouncementCenter\Service\AnnouncementSchedulerProcessor;
 use OCP\BackgroundJob\TimedJob;
 use OCP\AppFramework\Utility\ITimeFactory;
 
-class SomeTask extends TimedJob {
+class AnnouncementSchedulerJob extends TimedJob {
 
     private AnnouncementSchedulerProcessor $myService;
 
