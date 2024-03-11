@@ -35,6 +35,23 @@
 			rows="4"
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
+		<div class="announcement__form__schedule">
+			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">{{ t('announcementcenter', 'Schedule Announcement Time (optional)') }}</NcCheckboxRadioSwitch>
+			<NcDateTimePicker
+				:disabled="!scheduleEnabled"
+				:clearable="true"
+				v-model="scheduleTime"
+				type="datetime" />
+		</div>
+		<div class="announcement__form__delete">
+			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">{{ t('announcementcenter', 'Schedule Deletion Time (optional)') }}</NcCheckboxRadioSwitch>
+			<NcDateTimePicker
+				:disabled="!deleteEnabled"
+				:clearable="true"
+				v-model="deleteTime"
+				type="datetime" />
+		</div>
+
 		<div class="announcement__form__buttons">
 			<NcButton type="primary"
 				:disabled="!subject"
@@ -79,6 +96,8 @@
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
+import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
@@ -97,6 +116,8 @@ export default {
 		NcActions,
 		NcActionCheckbox,
 		NcActionInput,
+		NcDateTimePicker,
+		NcCheckboxRadioSwitch,
 		NcButton,
 	},
 
@@ -110,6 +131,10 @@ export default {
 			allowComments: loadState('announcementcenter', 'allowComments'),
 			groups: [],
 			groupOptions: [],
+			scheduleEnabled: false,
+			deleteEnabled: false,
+			scheduleTime: null,
+			deleteTime: null,
 		}
 	},
 
@@ -126,6 +151,10 @@ export default {
 			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
 			this.groups = []
+			this.scheduleEnabled = false
+			this.deleteEnabled = false
+			this.scheduleTime = null
+			this.deleteTime = null
 		},
 
 		onSearchChanged: debounce(function(search) {
@@ -158,6 +187,8 @@ export default {
 					this.createNotifications,
 					this.sendEmails,
 					this.allowComments,
+					new Date(this.scheduleTime).getTime() / 1000,  // time in seconds
+					new Date(this.deleteTime).getTime() / 1000,
 				)
 				this.$store.dispatch('addAnnouncement', response.data.ocs.data)
 
@@ -196,6 +227,12 @@ export default {
 		:deep(.button-vue) {
 			margin-right: 10px;
 		}
+	}
+
+	&__delete,
+	&__schedule {
+		display: flex;
+		justify-content: space-between;
 	}
 }
 </style>

@@ -41,6 +41,10 @@
 
 					<template v-if="isAdmin">
 						·
+						<template v-if="isScheduled">
+							{{ scheduledLabel }}
+							·
+						</template>
 						<template v-if="isVisibleToEveryone">
 							{{ visibilityLabel }}
 						</template>
@@ -153,6 +157,10 @@ export default {
 			type: Boolean,
 			required: true,
 		},
+		scheduleTime: {
+			type: Number,
+			required: false,
+		}
 	},
 
 	data() {
@@ -171,6 +179,11 @@ export default {
 		dateFormat() {
 			return moment(this.timestamp).format('LLL')
 		},
+
+		scheduleDateFormat() {
+			return moment(this.scheduleTime * 1000).format('LLL')
+		},
+
 		dateRelative() {
 			const diff = moment().diff(moment(this.timestamp))
 			if (diff >= 0 && diff < 45000) {
@@ -207,6 +220,17 @@ export default {
 				this.groups.length - 1,
 				this.groups[0],
 			)
+		},
+
+		isScheduled() {
+			return this.scheduleTime && this.scheduleTime !== null
+		},
+
+		scheduledLabel() {
+			if (this.scheduleTime) {
+				return t('announcementcenter', 'scheduled at {time}', {time: this.scheduleDateFormat})
+			}
+			return 'BUG:' + this.scheduleTime
 		},
 
 		visibilityTitle() {
