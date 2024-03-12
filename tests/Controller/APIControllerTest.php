@@ -26,11 +26,11 @@ namespace OCA\AnnouncementCenter\Tests\Controller;
 use OCA\AnnouncementCenter\Controller\APIController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
+use OCA\AnnouncementCenter\Model\NotificationType;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
@@ -54,8 +54,6 @@ class APIControllerTest extends TestCase {
 	protected $groupManager;
 	/** @var IUserManager|MockObject */
 	protected $userManager;
-	/** @var IJobList|MockObject */
-	protected $jobList;
 	/** @var IL10N|MockObject */
 	protected $l;
 	/** @var Manager|MockObject */
@@ -70,6 +68,8 @@ class APIControllerTest extends TestCase {
 	protected $initialStateService;
 	/** @var LoggerInterface|MockObject */
 	protected $logger;
+	/** @var NotificationType|MockObject */
+	protected $notificationType;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -77,11 +77,11 @@ class APIControllerTest extends TestCase {
 		$this->request = $this->createMock(IRequest::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
 		$this->userManager = $this->createMock(IUserManager::class);
-		$this->jobList = $this->createMock(IJobList::class);
 		$this->l = $this->createMock(IL10N::class);
 		$this->manager = $this->createMock(Manager::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->notificationType = $this->createMock(NotificationType::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->l
@@ -102,11 +102,11 @@ class APIControllerTest extends TestCase {
 				$this->request,
 				$this->groupManager,
 				$this->userManager,
-				$this->jobList,
 				$this->l,
 				$this->manager,
 				$this->timeFactory,
 				$this->userSession,
+				$this->notificationType,
 				$this->logger
 			);
 		}
@@ -118,11 +118,11 @@ class APIControllerTest extends TestCase {
 			$this->request,
 			$this->groupManager,
 			$this->userManager,
-			$this->jobList,
 			$this->l,
 			$this->manager,
 			$this->timeFactory,
 			$this->userSession,
+			$this->notificationType,
 			$this->logger
 		])
 			->setMethods($methods)
@@ -296,8 +296,6 @@ class APIControllerTest extends TestCase {
 
 		$this->manager->expects(self::never())
 			->method('announce');
-		$this->jobList->expects(self::never())
-			->method('add');
 
 		$controller = $this->getController(['createPublicity']);
 		$controller->expects(self::never())
@@ -346,14 +344,6 @@ class APIControllerTest extends TestCase {
 			->method('get')
 			->with('author')
 			->willReturn($this->getUserMock('author', 'Author'));
-		$this->jobList->expects(($activities || $notifications || $emails) ? self::once() : self::never())
-			->method('add')
-			->with('OCA\AnnouncementCenter\NotificationQueueJob', [
-				'id' => 10,
-				'activities' => $activities,
-				'notifications' => $notifications,
-				'emails' => $emails,
-			]);
 
 		$this->logger->expects($this->once())
 			->method('info');

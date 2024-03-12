@@ -23,12 +23,13 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
-use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCA\AnnouncementCenter\Model\NotificationType;
+use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
@@ -75,6 +76,9 @@ class ManagerTest extends TestCase {
 	/** @var IUserSession|MockObject */
 	protected $userSession;
 
+	/** @var NotificationType|MockObject */
+	protected $notificationType;
+
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -86,6 +90,7 @@ class ManagerTest extends TestCase {
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->notificationType = $this->createMock(NotificationType::class);
 
 		$this->manager = new Manager(
 			$this->config,
@@ -95,7 +100,8 @@ class ManagerTest extends TestCase {
 			$this->notificationManager,
 			$this->commentsManager,
 			$this->jobList,
-			$this->userSession
+			$this->userSession,
+			$this->notificationType
 		);
 
 		$query = \OC::$server->getDatabaseConnection()->getQueryBuilder();
