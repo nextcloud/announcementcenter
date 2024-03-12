@@ -348,7 +348,7 @@ class APIControllerTest extends TestCase {
 			->willReturn($this->getUserMock('author', 'Author'));
 		$this->jobList->expects(($activities || $notifications || $emails) ? self::once() : self::never())
 			->method('add')
-			->with('OCA\AnnouncementCenter\BackgroundJob', [
+			->with('OCA\AnnouncementCenter\NotificationQueueJob', [
 				'id' => 10,
 				'activities' => $activities,
 				'notifications' => $notifications,

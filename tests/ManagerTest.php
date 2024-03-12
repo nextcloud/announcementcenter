@@ -23,7 +23,7 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
-use OCA\AnnouncementCenter\BackgroundJob;
+use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
@@ -232,10 +232,10 @@ class ManagerTest extends TestCase {
 		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob && $hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], !$hasActivityJob && $hasNotificationJob && $hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false], $hasActivityJob && $hasNotificationJob && !$hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivityJob && $hasNotificationJob && !$hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], !$hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false], $hasActivityJob && $hasNotificationJob && !$hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivityJob && $hasNotificationJob && !$hasEmailJob],
 			]);
 
 		if (!$hasNotificationJob) {
@@ -287,14 +287,14 @@ class ManagerTest extends TestCase {
 		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivity],
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivity],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivity],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivity],
 			]);
 
 		if ($hasActivity) {
 			$this->jobList->expects(self::once())
 				->method('remove')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => true,
@@ -302,7 +302,7 @@ class ManagerTest extends TestCase {
 				]);
 			$this->jobList->expects(self::once())
 				->method('add')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => false,
@@ -311,7 +311,7 @@ class ManagerTest extends TestCase {
 		} else {
 			$this->jobList->expects(self::once())
 				->method('remove')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => true,
