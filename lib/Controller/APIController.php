@@ -26,15 +26,14 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Controller;
 
 use InvalidArgumentException;
-use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Model\NotificationType;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\BackgroundJob\IJobList;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IL10N;
@@ -45,7 +44,6 @@ use OCP\IUserSession;
 use Psr\Log\LoggerInterface;
 
 class APIController extends OCSController {
-	protected IJobList $jobList;
 	protected IGroupManager $groupManager;
 	protected IUserManager $userManager;
 	protected IL10N $l;
@@ -53,26 +51,27 @@ class APIController extends OCSController {
 	protected ITimeFactory $timeFactory;
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
+	protected NotificationType $notificationType;
 
 	public function __construct(string $appName,
 		IRequest $request,
 		IGroupManager $groupManager,
 		IUserManager $userManager,
-		IJobList $jobList,
 		IL10N $l,
 		Manager $manager,
 		ITimeFactory $timeFactory,
 		IUserSession $userSession,
+		NotificationType $notificationType,
 		LoggerInterface $logger) {
 		parent::__construct($appName, $request);
 
 		$this->groupManager = $groupManager;
 		$this->userManager = $userManager;
-		$this->jobList = $jobList;
 		$this->l = $l;
 		$this->manager = $manager;
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
+		$this->notificationType = $notificationType;
 		$this->logger = $logger;
 	}
 
@@ -113,23 +112,15 @@ class APIController extends OCSController {
 		}
 		$user = $this->userSession->getUser();
 		$userId = $user instanceof IUser ? $user->getUID() : '';
+		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 
 		try {
-			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $scheduleTime, $deleteTime);
+			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
 			);
-		}
-
-		if (!$scheduleTime && ($activities || $notifications || $emails)) {
-			$this->jobList->add(BackgroundJob::class, [
-				'id' => $announcement->getId(),
-				'activities' => $activities,
-				'notifications' => $notifications,
-				'emails' => $emails,
-			]);
 		}
 
 		$this->logger->info('Admin ' . $userId . ' posted a new announcement: "' . $announcement->getSubject() . '"');

@@ -30,6 +30,7 @@ use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCA\AnnouncementCenter\Model\NotificationType;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
@@ -65,6 +66,9 @@ class Manager {
 	/** @var IUserSession */
 	protected $userSession;
 
+	/** @var NotificationType */
+	protected $notificationType;
+
 	public function __construct(IConfig $config,
 		AnnouncementMapper $announcementMapper,
 		GroupMapper $groupMapper,
@@ -72,7 +76,8 @@ class Manager {
 		INotificationManager $notificationManager,
 		ICommentsManager $commentsManager,
 		IJobList $jobList,
-		IUserSession $userSession) {
+		IUserSession $userSession,
+		NotificationType $notificationType) {
 		$this->config = $config;
 		$this->announcementMapper = $announcementMapper;
 		$this->groupMapper = $groupMapper;
@@ -81,6 +86,7 @@ class Manager {
 		$this->commentsManager = $commentsManager;
 		$this->jobList = $jobList;
 		$this->userSession = $userSession;
+		$this->notificationType = $notificationType;
 	}
 
 	/**
@@ -94,7 +100,7 @@ class Manager {
 	 * @return Announcement
 	 * @throws \InvalidArgumentException when the subject is empty or invalid
 	 */
-	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, ?int $scheduledTime = null, ?int $deleteTime = null): Announcement {
+	public function announce(string $subject, string $message, string $plainMessage, string $user, int $time, array $groups, bool $comments, int $notificationOptions, ?int $scheduledTime = null, ?int $deleteTime = null): Announcement {
 		$subject = trim($subject);
 		$message = trim($message);
 		$plainMessage = trim($plainMessage);
@@ -116,6 +122,7 @@ class Manager {
 		$announcement->setGroupsImplode($groups);
 		$announcement->setScheduleTime($scheduledTime);
 		$announcement->setDeleteTime($deleteTime);
+		$announcement->setNotTypes($notificationOptions);
 		$this->announcementMapper->insert($announcement);
 
 		if (is_null($scheduledTime) || $scheduledTime === 0) {
@@ -136,6 +143,16 @@ class Manager {
 
 		if ($addedGroups === 0) {
 			$this->addGroupLink($announcement, 'everyone');
+		}
+
+		$notificationOptions = $announcement->getNotTypes();
+		if ($notificationOptions) {
+			$this->jobList->add(NotificationQueueJob::class, [
+				'id' => $announcement->getId(),
+				'activities' => $this->notificationType->getActivities($notificationOptions),
+				'notifications' => $this->notificationType->getNotifications($notificationOptions),
+				'emails' => $this->notificationType->getEmail($notificationOptions),
+			]);
 		}
 	}
 
@@ -256,7 +273,7 @@ class Manager {
 		];
 
 		foreach ($jobMatrix as $jobArguments) {
-			if ($hasJob = $this->jobList->has(BackgroundJob::class, $jobArguments)) {
+			if ($hasJob = $this->jobList->has(NotificationQueueJob::class, $jobArguments)) {
 				break;
 			}
 		}
@@ -279,16 +296,16 @@ class Manager {
 		];
 
 		$jobArguments = ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false];
-		if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+		if ($this->jobList->has(NotificationQueueJob::class, $jobArguments)) {
 			// Delete the current background job as it was only for notifications
-			$this->jobList->remove(BackgroundJob::class, $jobArguments);
+			$this->jobList->remove(NotificationQueueJob::class, $jobArguments);
 		} else {
 			foreach ($jobMatrix as $jobArguments) {
-				if ($this->jobList->has(BackgroundJob::class, $jobArguments)) {
+				if ($this->jobList->has(NotificationQueueJob::class, $jobArguments)) {
 					// Delete the current background job and add a new one without notifications
-					$this->jobList->remove(BackgroundJob::class, $jobArguments);
+					$this->jobList->remove(NotificationQueueJob::class, $jobArguments);
 					$jobArguments['notifications'] = false;
-					$this->jobList->add(BackgroundJob::class, $jobArguments);
+					$this->jobList->add(NotificationQueueJob::class, $jobArguments);
 					break;
 				}
 			}
