@@ -44,6 +44,8 @@ use OCP\AppFramework\Db\Entity;
  * @method ?int getScheduleTime()
  * @method void setDeleteTime(?int $scheduleTime)
  * @method ?int getDeleteTime()
+ * @method void setNotTypes(int $notificationTypes)
+ * @method int getNotTypes()
  */
 class Announcement extends Entity {
 
@@ -74,6 +76,9 @@ class Announcement extends Entity {
 	/** @var string */
 	protected $groups;
 
+	/** @var int */
+	protected $notTypes;
+
 	public function __construct() {
 		$this->addType('time', 'int');
 		$this->addType('user', 'string');
@@ -83,6 +88,7 @@ class Announcement extends Entity {
 		$this->addType('allowComments', 'int');
 		$this->addType('scheduleTime', 'int');
 		$this->addType('deleteTime', 'int');
+		$this->addType('notTypes', 'int');
 	}
 
 	public function getParsedSubject(): string {

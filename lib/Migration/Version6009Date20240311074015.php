@@ -79,6 +79,14 @@ class Version6009Date20240311074015 extends SimpleMigrationStep {
 				'default' => 'everyone',
 			]);
 		}
+
+		if (!$table->hasColumn('announcement_not_types')) {
+			$table->addColumn('announcement_not_types', Types::INTEGER, [
+				'notnull' => true,
+				'default' => 7, //all
+				'length' => 4,
+			]);
+		}
 		return $schema;
 	}
 
