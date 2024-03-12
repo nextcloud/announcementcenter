@@ -60,8 +60,8 @@ const searchGroups = async function(search) {
  * @param {boolean} notifications Should notifications be generated
  * @param {boolean} emails Should emails be sent
  * @param {boolean} comments Are comments allowed
- * @param {number} scheduleTime Time, when the annoucement is scheduled
- * @param {number} deleteTime Time, when the annoucement should be deleted
+ * @param {number} scheduleTime Time, when the announcement is scheduled
+ * @param {number} deleteTime Time, when the announcement should be deleted
  * @return {object} The axios response
  */
 const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
