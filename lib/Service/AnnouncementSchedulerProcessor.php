@@ -5,48 +5,55 @@ namespace OCA\AnnouncementCenter\Service;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
+use Psr\Log\LoggerInterface;
 
 class AnnouncementSchedulerProcessor {
 	private AnnouncementMapper $mapper;
 	private Manager $manager;
 	private ITimeFactory $timeFactory;
+	private LoggerInterface $logger;
 	/**
 	 * Create cron that is fetching the b2share communities api
 	 * with dependency injection
 	 */
-	public function __construct(AnnouncementMapper $mapper, Manager $manager, ITimeFactory $time) {
+	public function __construct(AnnouncementMapper $mapper, Manager $manager, ITimeFactory $time, LoggerInterface $logger) {
 		$this->mapper = $mapper;
 		$this->manager = $manager;
 		$this->timeFactory = $time;
+		$this->logger = $logger;
 	}
 
 	public function doCron($argument) {
+		$this->logger->debug('Started announcement scheduler');
 		//first schedule then delete because e-mails might be send
 		$this->scheduleAnnouncements($argument);
 		$this->deleteAnnouncements($argument);
+		$this->logger->debug('Finished announcement scheduler');
 	}
 
-	public function scheduleAnnouncements($argument) {
+	private function scheduleAnnouncements($argument) {
 		$scheduledAnnouncements = $this->mapper->getAnnouncementsScheduled();
 		foreach ($scheduledAnnouncements as $ann) {
-			if ($ann->getScheduledTime() > $this->timeFactory->getTime()) {
+			if ($ann->getScheduleTime() > $this->timeFactory->getTime()) {
 				break;
 			} //They are sorted and scheduled in the future
 			$this->manager->publishAnnouncement($ann);
 			$ann->setScheduleTime(0);
+			$this->logger->info('Posted scheduled announcement: "' . $ann->getSubject() . '"');
 		}
 	}
 
-	public function deleteAnnouncements($argument) {
+	private function deleteAnnouncements($argument) {
 		$deleteAnnouncements = $this->mapper->getAnnouncementsScheduledDelete();
 		foreach ($deleteAnnouncements as $ann) {
 			// don't delete unannounced announcements
-			if ($ann->getScheduledTime() && $ann->getScheduledTime() > 0 && $ann->getScheduledTime() > $this->timeFactory->getTime()) {
+			if ($ann->getScheduleTime() && $ann->getScheduleTime() > 0 && $ann->getScheduleTime() > $this->timeFactory->getTime()) {
 				continue;
 			}
 			if ($ann->getDeleteTime() > $this->timeFactory->getTime()) {
 				break;
 			} //They are sorted and scheduled to be deleted in the future
+			$this->logger->info('Deleting expired announcement: "' . $ann->getSubject() . '"');
 			$this->manager->delete($ann->getId());
 		}
 	}
