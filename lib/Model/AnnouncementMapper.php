@@ -146,7 +146,7 @@ class AnnouncementMapper extends QBMapper {
 			->orderBy('announcement_schedule_time', 'ASC')  // respect order
 			->where($query->expr()->isNotNull('announcement_schedule_time'))
 			->andWhere($query->expr()->gt(
-				'announcement_schedule_time', 
+				'announcement_schedule_time',
 				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
 			));
 		return $this->findEntities($query);
@@ -163,7 +163,7 @@ class AnnouncementMapper extends QBMapper {
 			->orderBy('announcement_delete_time', 'ASC')  // highest chance to be deleted
 			->where($query->expr()->isNotNull('announcement_delete_time'))
 			->andWhere($query->expr()->gt(
-				'announcement_delete_time', 
+				'announcement_delete_time',
 				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
 			));
 		return $this->findEntities($query);
