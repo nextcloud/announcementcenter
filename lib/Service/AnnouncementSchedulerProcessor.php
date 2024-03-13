@@ -38,7 +38,7 @@ class AnnouncementSchedulerProcessor {
 				break;
 			} //They are sorted and scheduled in the future
 			$this->manager->publishAnnouncement($ann);
-			$ann->setScheduleTime(0);
+			$this->mapper->resetScheduleTimeById($ann->getId());
 			$this->logger->info('Posted scheduled announcement: "' . $ann->getSubject() . '"');
 		}
 	}
