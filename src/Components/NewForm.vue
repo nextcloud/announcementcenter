@@ -42,6 +42,9 @@
 			<NcDateTimePicker v-model="scheduleTime"
 				:disabled="!scheduleEnabled"
 				:clearable="true"
+				:disabled-date="disabledInPastDate"
+				:disabled-time="disabledInPastTime"
+				:showSecond="false"
 				type="datetime" />
 		</div>
 		<div class="announcement__form__delete">
@@ -51,6 +54,9 @@
 			<NcDateTimePicker v-model="deleteTime"
 				:disabled="!deleteEnabled"
 				:clearable="true"
+				:disabled-date="disabledInPastDate"
+				:disabled-time="disabledInPastTime"
+				:showSecond="false"
 				type="datetime" />
 		</div>
 
@@ -157,6 +163,17 @@ export default {
 			this.deleteEnabled = false
 			this.scheduleTime = null
 			this.deleteTime = null
+		},
+
+		disabledInPastDate(date) {
+			const today = new Date()
+			today.setHours(0, 0, 0, 0)
+			return date < today
+		},
+
+		disabledInPastTime(date) {
+			const today = new Date()
+			return date < today
 		},
 
 		onSearchChanged: debounce(function(search) {
