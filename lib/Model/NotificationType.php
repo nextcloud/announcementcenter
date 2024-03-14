@@ -23,18 +23,36 @@ class NotificationType {
 		return ((int)$booleanValue) << $offset;
 	}
 
+	/**
+	 * @param int $value an integer with bit encoded notification types
+	 * @return bool returns if the activities notifications are set
+	 */
 	public function getActivities(int $value) : bool {
 		return $this->isTypeSet($value, 'activities');
 	}
 
+	/**
+	 * @param int $value an integer with bit encoded notification types
+	 * @return bool returns if nextcloud notifications are set
+	 */
 	public function getNotifications(int $value) : bool {
 		return $this->isTypeSet($value, 'notifications');
 	}
 
+	/**
+	 * @param int $value an integer with bit encoded notification types
+	 * @return bool returns if the email notification is set
+	 */
 	public function getEmail(int $value) : bool {
 		return $this->isTypeSet($value, 'email');
 	}
 
+	/**
+	 * @param bool $activities set activities as notification type
+	 * @param bool $notificiations set nextcloud notifications as notification type
+	 * @param bool $email set email as notification type
+	 * @return int an integer with bit encoded notification types
+	 */
 	public function setNotificationTypes(bool $activities, bool $notifications, bool $email) : int {
 		$value = 0;
 		$value += $this->getTypeMask($activities, 'activities');

@@ -124,12 +124,18 @@ class Announcement extends Entity {
 		return parent::propertyToColumn($property);
 	}
 
+	/**
+	 * @param array $groups a list of groups
+	 */
 	public function setGroupsImplode($groups) {
 		// you can't create groups with linebreaks (and if so you deserve it)
 		// TODO use better seperator (maybe <sep>?) OR restructure program here
 		$this->setGroups(implode("\n", $groups));
 	}
 
+	/**
+	 * @return array a list of groups
+	 */
 	public function getGroupsExplode(): array {
 		return explode("\n", $this->getGroups());
 	}

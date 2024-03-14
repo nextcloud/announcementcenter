@@ -61,22 +61,19 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 
 	public function data() {
 		return [
-			[1, 1, 2, true, true],
-			[2, 2, 1, false, false],
-			[1, 3, 2, true, false],
+			[1, 1, 2, true, true],   // publish and delete
+			[2, 2, 1, false, false], // it's not time yet
+			[1, 3, 2, true, false],  // time for publish, no time for delete
 			[3, 1, 2, false, false], // don't delete when unpublished
-			[2, 1, 3, true, true], // delete after being published, even when late
-			[0, 1, 2, false, true], // 0 means already published, but also delete directly published notifications
-			[1, 0, 2, true, false], // 0 means no deletion time!
+			[2, 1, 3, true, true],   // delete after being published, even when late
+			[0, 1, 2, false, true],  // 0 means already published, but also delete directly published notifications
+			[1, 0, 2, true, false],  // 0 means no deletion time!
 			[0, 0, 2, false, false], // No scheduling configured!
 		];
 	}
 
 	public function getMatcher($value) {
-		if ($value) {
-			return $this->once();
-		}
-		return $this->never();
+		return $value ? $this->once() : $this->never();
 	}
 
 	/**
@@ -87,7 +84,7 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		$this->logger->expects($this->any())
 			->method('debug');
 
-		// Setup times
+		// setup times
 		$this->announcement->expects($this->any())
 			->method('getScheduleTime')
 			->willReturn($publishTime);
@@ -97,7 +94,7 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		$this->timeFactory->expects($this->any())
 			->method('getTime')
 			->willReturn($currentTime);
-		$test = $publishTime === 0 ? true : false;
+		
 		// setup an announcement
 		$this->mapper->expects($this->once())
 			->method('getAnnouncementsScheduled')
@@ -120,6 +117,8 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		// delete part
 		$this->manager->expects($this->getMatcher($expectedDelete))
 			->method('delete');
+
+		// execute
 		$this->asp->doCron(null);
 	}
 }

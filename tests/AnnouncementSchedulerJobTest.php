@@ -34,7 +34,7 @@ class AnnouncementSchedulerJobTest extends TestCase {
 	protected ITimeFactory|MockObject $time;
 	protected LoggerInterface|MockObject $logger;
 	protected AnnouncementSchedulerProcessor|MockObject $asp;
-	protected AnnouncementSchedulerJob|MockObject $asj;
+	protected AnnouncementSchedulerJob $asj;
 	protected IJobList|MockObject $joblist;
 
 	protected function setUp(): void {
@@ -43,7 +43,6 @@ class AnnouncementSchedulerJobTest extends TestCase {
 		$this->time = $this->createMock(ITimeFactory::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->asp = $this->createMock(AnnouncementSchedulerProcessor::class);
-
 		$this->joblist = $this->createMock(IJobList::class);
 
 		$this->asj = new AnnouncementSchedulerJob(

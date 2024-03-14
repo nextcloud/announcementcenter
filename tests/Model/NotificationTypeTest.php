@@ -39,7 +39,7 @@ class NotificationTypeTest extends TestCase {
 
 	public function data(): array {
 		return [
-			//Email|Notifications|Acitivites|BitEncodedType
+			// Email|Notifications|Acitivites|BitEncodedType
 			[false, false, false, 0],
 			[false, false, true, 1],
 			[false, true, false, 2],
