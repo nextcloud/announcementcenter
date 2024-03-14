@@ -22,8 +22,8 @@
 namespace OCA\AnnouncementCenter\Tests\Activity;
 
 use OCA\AnnouncementCenter\Activity\Setting;
-use OCP\Activity\ISetting;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use OCP\Activity\ISetting;
 
 class SettingTest extends TestCase {
 	public function dataSettings() {

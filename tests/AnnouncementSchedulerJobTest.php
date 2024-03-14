@@ -27,46 +27,43 @@ use OCA\AnnouncementCenter\AnnouncementSchedulerJob;
 use OCA\AnnouncementCenter\Service\AnnouncementSchedulerProcessor;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
-use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 
-class AnnouncementSchedulerJobTest extends TestCase
-{
-    protected ITimeFactory|MockObject $time;
-    protected LoggerInterface|MockObject $logger;
-    protected AnnouncementSchedulerProcessor|MockObject $asp;
-    protected AnnouncementSchedulerJob|MockObject $asj;
-    protected IJobList|MockObject $joblist;
+class AnnouncementSchedulerJobTest extends TestCase {
+	protected ITimeFactory|MockObject $time;
+	protected LoggerInterface|MockObject $logger;
+	protected AnnouncementSchedulerProcessor|MockObject $asp;
+	protected AnnouncementSchedulerJob|MockObject $asj;
+	protected IJobList|MockObject $joblist;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
+	protected function setUp(): void {
+		parent::setUp();
 
-        $this->time = $this->createMock(ITimeFactory::class);
-        $this->logger = $this->createMock(LoggerInterface::class);
-        $this->asp = $this->createMock(AnnouncementSchedulerProcessor::class);
+		$this->time = $this->createMock(ITimeFactory::class);
+		$this->logger = $this->createMock(LoggerInterface::class);
+		$this->asp = $this->createMock(AnnouncementSchedulerProcessor::class);
 
-        $this->joblist = $this->createMock(IJobList::class);
+		$this->joblist = $this->createMock(IJobList::class);
 
-        $this->asj = new AnnouncementSchedulerJob(
-            $this->time,
-            $this->logger,
-            $this->asp,
-        );
-    }
+		$this->asj = new AnnouncementSchedulerJob(
+			$this->time,
+			$this->logger,
+			$this->asp,
+		);
+	}
 
-    /**
-     * Test this because this happened in development
-     */
-    public function testJobName()
-    {
-        //Read job name out of app info
-        $infoFile = file_get_contents('appinfo/info.xml');
-        $info = simplexml_load_string($infoFile);
-        $backgroundJobs = $info->{'background-jobs'};
-        $job = (string) $backgroundJobs[0]->job;
+	/**
+	 * Test this because this happened in development
+	 */
+	public function testJobName() {
+		//Read job name out of app info
+		$infoFile = file_get_contents('appinfo/info.xml');
+		$info = simplexml_load_string($infoFile);
+		$backgroundJobs = $info->{'background-jobs'};
+		$job = (string) $backgroundJobs[0]->job;
 
-        $expected = get_class($this->asj);
-        self::assertEquals($expected, $job);
-    }
+		$expected = get_class($this->asj);
+		self::assertEquals($expected, $job);
+	}
 }
