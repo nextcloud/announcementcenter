@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 /**
  * @copyright Copyright (c) 2024 Marvin Winkens <m.winkens@fz-juelich.de>
