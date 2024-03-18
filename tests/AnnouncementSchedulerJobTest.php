@@ -30,11 +30,9 @@ use OCA\AnnouncementCenter\Service\AnnouncementSchedulerProcessor;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use PHPUnit\Framework\MockObject\MockObject;
-use Psr\Log\LoggerInterface;
 
 class AnnouncementSchedulerJobTest extends TestCase {
 	protected ITimeFactory|MockObject $time;
-	protected LoggerInterface|MockObject $logger;
 	protected AnnouncementSchedulerProcessor|MockObject $asp;
 	protected AnnouncementSchedulerJob $asj;
 	protected IJobList|MockObject $joblist;
@@ -43,13 +41,11 @@ class AnnouncementSchedulerJobTest extends TestCase {
 		parent::setUp();
 
 		$this->time = $this->createMock(ITimeFactory::class);
-		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->asp = $this->createMock(AnnouncementSchedulerProcessor::class);
 		$this->joblist = $this->createMock(IJobList::class);
 
 		$this->asj = new AnnouncementSchedulerJob(
 			$this->time,
-			$this->logger,
 			$this->asp,
 		);
 	}
