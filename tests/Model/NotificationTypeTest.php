@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 /**
- * @copyright Copyright (c) 2016, Joas Schilling <coding@schilljs.com>
+ * @copyright Copyright (c) 2024 Marvin Winkens <m.winkens@fz-juelich.de>
  *
- * @author Joas Schilling <coding@schilljs.com>
+ * @author Marvin Winkens <m.winkens@fz-juelich.de>
  *
  * @license GNU AGPL version 3 or any later version
  *
