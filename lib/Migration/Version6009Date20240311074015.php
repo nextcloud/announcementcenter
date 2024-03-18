@@ -36,15 +36,6 @@ use OCP\Migration\SimpleMigrationStep;
  * Add scheduling and scheduled deletion feature
  */
 class Version6009Date20240311074015 extends SimpleMigrationStep {
-
-	/**
-	 * @param IOutput $output
-	 * @param Closure(): ISchemaWrapper $schemaClosure
-	 * @param array $options
-	 */
-	public function preSchemaChange(IOutput $output, Closure $schemaClosure, array $options): void {
-	}
-
 	/**
 	 * @param IOutput $output
 	 * @param Closure(): ISchemaWrapper $schemaClosure
