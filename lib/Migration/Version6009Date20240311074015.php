@@ -33,7 +33,7 @@ use OCP\Migration\IOutput;
 use OCP\Migration\SimpleMigrationStep;
 
 /**
- * Auto-generated migration step: Please modify to your needs!
+ * Add scheduling and scheduled deletion feature
  */
 class Version6009Date20240311074015 extends SimpleMigrationStep {
 
