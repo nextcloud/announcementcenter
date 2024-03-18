@@ -56,7 +56,7 @@
 				:clearable="true"
 				:disabled-date="disabledInPastDate"
 				:disabled-time="disabledInPastTime"
-				:showSecond="false"
+				:show-second="false"
 				type="datetime" />
 		</div>
 
