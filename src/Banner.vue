@@ -8,6 +8,7 @@
                     <p class="announcement__banner__message">{{ announcement.message }}</p>
                 </div>
                 <NcButton
+                    aria-label="close banner"
                     type="warning"
                     @click="announcementRead(index)">
                     <Close :size="20" />
@@ -87,7 +88,6 @@ export default {
 
 <style lang="scss" scoped>
 .announcement {
-
     &__banner {
         position: fixed;
         display: flex;
@@ -116,8 +116,8 @@ export default {
             display: flex;
             justify-content: space-between;
             border-radius: var(--border-radius-large);
-            background-color: #ffe680;
-            border: 3px solid #ffcc00;
+            background-color: color-mix(in srgb, var(--color-warning) 50%, white);
+            border: 3px solid var(--color-warning);
             height: var(--header-height);
             padding-left: 6px;
 
@@ -130,6 +130,7 @@ export default {
             .message-alert-icon {
                 /* 20px + 2*12px = 44px icon span */
                 padding: 0 12px 0 12px;
+                color: var(--color-warning);
             }
         }
     }
