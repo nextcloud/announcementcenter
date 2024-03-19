@@ -111,7 +111,7 @@ class AnnouncementMapper extends QBMapper
 			->groupBy('a.announcement_id')
 			->setMaxResults($limit);
 
-		if (!empty($userGroups)) {
+		if (!empty ($userGroups)) {
 			$query->leftJoin(
 				'a',
 				'announcements_map',
@@ -135,7 +135,7 @@ class AnnouncementMapper extends QBMapper
 		}
 		$result->closeCursor();
 
-		if (empty($ids)) {
+		if (empty ($ids)) {
 			return [];
 		}
 
@@ -199,9 +199,18 @@ class AnnouncementMapper extends QBMapper
 		$bannerValue = (1 << $bannerBit);
 		$query->select('*')
 			->from($this->getTableName())
-			->where($query->expr()->bitwiseAnd('announcement_not_types', $bannerValue));
+			->where($query->expr()->bitwiseAnd('announcement_not_types', $bannerValue))
+			->andWhere(
+				$query->expr()->orX(
+					$query->expr()->eq(
+						'announcement_schedule_time',
+						$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+					),
+					$query->expr()->isNull('announcement_schedule_time'),
+				)
+			);
 
-		if (!empty($notTheseIds)) {
+		if (!empty ($notTheseIds)) {
 			$query->andWhere(
 				$query->expr()->notIn(
 					'announcement_id',
