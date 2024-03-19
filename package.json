@@ -33,7 +33,8 @@
     "remark": "^15.0.1",
     "strip-markdown": "^6.0.0",
     "vue": "^2.7.16",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vue-material-design-icons": "^5.1.2"
   },
   "devDependencies": {
     "@nextcloud/babel-config": "^1.0.0",

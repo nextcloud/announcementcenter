@@ -41,15 +41,23 @@ class NotificationTypeTest extends TestCase {
 
 	public function data(): array {
 		return [
-			// Email|Notifications|Acitivites|BitEncodedType
-			[false, false, false, 0],
-			[false, false, true, 1],
-			[false, true, false, 2],
-			[false, true, true, 3],
-			[true, false, false, 4],
-			[true, false, true, 5],
-			[true, true, false, 6],
-			[true, true, true, 7],
+			// Email|Notifications|Acitivites|Banner|BitEncodedType
+			[false, false, false, false, 0],
+			[false, false, true, false, 1],
+			[false, true, false, false, 2],
+			[false, true, true, false, 3],
+			[true, false, false, false, 4],
+			[true, false, true, false, 5],
+			[true, true, false, false, 6],
+			[true, true, true, false, 7],
+			[false, false, false, true, 8],
+			[false, false, true, true, 9],
+			[false, true, false, true, 10],
+			[false, true, true, true, 11],
+			[true, false, false, true, 12],
+			[true, false, true, true, 13],
+			[true, true, false, true, 14],
+			[true, true, true, true, 15],
 		];
 	}
 
@@ -57,8 +65,8 @@ class NotificationTypeTest extends TestCase {
 	 * @test
 	 * @dataProvider data
 	 */
-	public function testEncode($emails, $notifications, $activities, $expected) {
-		$result = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
+	public function testEncode($emails, $notifications, $activities, $banner, $expected) {
+		$result = $this->notificationType->setNotificationTypes($activities, $notifications, $emails, $banner);
 		self::assertEquals($result, $expected);
 	}
 

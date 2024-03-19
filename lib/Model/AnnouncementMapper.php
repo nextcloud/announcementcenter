@@ -32,8 +32,10 @@ use OCP\IDBConnection;
 /**
  * @template-extends QBMapper<Announcement>
  */
-class AnnouncementMapper extends QBMapper {
-	public function __construct(IDBConnection $db) {
+class AnnouncementMapper extends QBMapper
+{
+	public function __construct(IDBConnection $db)
+	{
 		parent::__construct($db, 'announcements', Announcement::class);
 	}
 
@@ -42,7 +44,8 @@ class AnnouncementMapper extends QBMapper {
 	 * @return Announcement
 	 * @throws DoesNotExistException
 	 */
-	public function getById(int $id): Announcement {
+	public function getById(int $id): Announcement
+	{
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('*')
@@ -59,12 +62,14 @@ class AnnouncementMapper extends QBMapper {
 	 * @return int the number of affected rows
 	 * @throws DoesNotExistException
 	 */
-	public function resetScheduleTimeById(int $id) {
+	public function resetScheduleTimeById(int $id)
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->update($this->getTableName())
 			->set(
 				'announcement_schedule_time',
-				$query->expr()->literal(0, IQueryBuilder::PARAM_INT))
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+			)
 			->where(
 				$query->expr()->eq('announcement_id', $query->createNamedParameter($id))
 			);
@@ -78,7 +83,8 @@ class AnnouncementMapper extends QBMapper {
 	 * @psalm-return Announcement the deleted entity
 	 * @since 14.0.0
 	 */
-	public function delete(Entity $entity): Entity {
+	public function delete(Entity $entity): Entity
+	{
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->delete($this->getTableName())
@@ -95,7 +101,8 @@ class AnnouncementMapper extends QBMapper {
 	 * @param int $limit
 	 * @return Announcement[]
 	 */
-	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array {
+	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array
+	{
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('a.announcement_id')
@@ -105,9 +112,15 @@ class AnnouncementMapper extends QBMapper {
 			->setMaxResults($limit);
 
 		if (!empty($userGroups)) {
-			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
-				'a.announcement_id', 'ag.announcement_id'
-			))
+			$query->leftJoin(
+				'a',
+				'announcements_map',
+				'ag',
+				$query->expr()->eq(
+					'a.announcement_id',
+					'ag.announcement_id'
+				)
+			)
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
 		}
 
@@ -139,16 +152,19 @@ class AnnouncementMapper extends QBMapper {
 	 * Get all announcements, that have a schedule time
 	 * @return Announcement[]
 	 */
-	public function getAnnouncementsScheduled() : array {
+	public function getAnnouncementsScheduled(): array
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->orderBy('announcement_schedule_time', 'ASC')  // respect order
 			->where($query->expr()->isNotNull('announcement_schedule_time'))
-			->andWhere($query->expr()->gt(
-				'announcement_schedule_time',
-				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
-			));
+			->andWhere(
+				$query->expr()->gt(
+					'announcement_schedule_time',
+					$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+				)
+			);
 		return $this->findEntities($query);
 	}
 
@@ -156,16 +172,44 @@ class AnnouncementMapper extends QBMapper {
 	 * Get all announcements, that have a deletion time
 	 * @return Announcement[]
 	 */
-	public function getAnnouncementsScheduledDelete() : array {
+	public function getAnnouncementsScheduledDelete(): array
+	{
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->orderBy('announcement_delete_time', 'ASC')  // highest chance to be deleted
 			->where($query->expr()->isNotNull('announcement_delete_time'))
-			->andWhere($query->expr()->gt(
-				'announcement_delete_time',
-				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
-			));
+			->andWhere(
+				$query->expr()->gt(
+					'announcement_delete_time',
+					$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+				)
+			);
+		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcements, that are banners
+	 * @return Announcement[]
+	 */
+	public function getBanners($notTheseIds)
+	{
+		$query = $this->db->getQueryBuilder();
+		$bannerBit = 3; // See notificationType
+		$bannerValue = (1 << $bannerBit);
+		$query->select('*')
+			->from($this->getTableName())
+			->where($query->expr()->bitwiseAnd('announcement_not_types', $bannerValue));
+
+		if (!empty($notTheseIds)) {
+			$query->andWhere(
+				$query->expr()->notIn(
+					'announcement_id',
+					$query->createNamedParameter($notTheseIds, IQueryBuilder::PARAM_STR_ARRAY)
+				)
+			);
+		}
+
 		return $this->findEntities($query);
 	}
 }

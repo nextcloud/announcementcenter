@@ -96,6 +96,10 @@ class PageController extends Controller {
 			$this->config->getAppValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
+			'createBanner',
+			$this->config->getAppValue(Application::APP_ID, 'create_banner', 'no') === 'yes'
+		);
+		$this->initialState->provideInitialState(
 			'activeId',
 			$announcement
 		);

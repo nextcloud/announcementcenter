@@ -64,7 +64,7 @@ const searchGroups = async function(search) {
  * @param {number} deleteTime Time, when the announcement should be deleted
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
+const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, banner, scheduleTime = null, deleteTime = null) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
@@ -74,6 +74,7 @@ const postAnnouncement = async function(subject, message, plainMessage, groups, 
 		notifications,
 		emails,
 		comments,
+		banner,
 		scheduleTime,
 		deleteTime,
 	})
@@ -99,10 +100,30 @@ const removeNotifications = async function(id) {
 	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}/notifications', { id }))
 }
 
+/**
+ * get all announcements with banner type
+ * @return {object} The axios response
+ */
+const getBanners = async function() {
+	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements/banner'))
+}
+
+/**
+ * set an announcements with banner type as read
+ * @param {number} id The announcement id to mark as red
+ * @return {object} The axios response
+ */
+const setBannerRead = async function(id) {
+	return axios.put(generateOcsUrl('apps/announcementcenter/api/v1/announcements/banner/{id}', { id }))
+}
+
+
 export {
 	getAnnouncements,
 	searchGroups,
 	postAnnouncement,
 	deleteAnnouncement,
 	removeNotifications,
+	getBanners,
+	setBannerRead,
 }
