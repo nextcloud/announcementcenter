@@ -143,15 +143,15 @@ export default {
 		},
 		groups: {
 			type: Array,
-			required: true,
+			default: () => [],
 		},
 		comments: {
 			type: [Boolean, Number],
-			required: true,
+			default: false,
 		},
 		notifications: {
 			type: Boolean,
-			required: true,
+			default: false,
 		},
 	},
 
