@@ -8,6 +8,7 @@
                     <p class="announcement__banner__message">{{ announcement.message }}</p>
                 </div>
                 <NcButton
+                    class="announcement__banner__close"
                     aria-label="close banner"
                     type="warning"
                     @click="announcementRead(index)">
@@ -132,6 +133,13 @@ export default {
                 padding: 0 12px 0 12px;
                 color: var(--color-warning);
             }
+        }
+
+        &__close {
+            padding: 0 !important;
+            /* 44 is the default button height*/
+            margin-top: calc((var(--header-height) - 44px) / 2);
+            margin-bottom: calc((var(--header-height) - 44px) / 2);
         }
     }
 
