@@ -53,6 +53,11 @@ class BannerManager
         return $readBanners;
     }
 
+    private function setReadBanners(string $uid, array $readBanners) {
+        $readBannerValue = implode(",", $readBanners);
+        $this->config->setUserValue($uid, $this->appName, $this->userReadKey, $readBannerValue);
+    }
+
     /**
      * Returns all unread banners of a user
      * @param string $uid user id
@@ -68,13 +73,19 @@ class BannerManager
      * Sets a banner with id $id as read for a user with userId $uid
      * @param string $uid user id
      * @param string $id id of a banner
-     * @return mixed whatever setUserValue returns
      */
-    public function markBannerRead(string $uid, string $id): mixed
+    public function markBannerRead(string $uid, string $id)
     {
         $readBanners = $this->getReadBanners($uid);
         $readBanners[] = $id;
-        $readBannerValue = implode(",", $readBanners);
-        return $this->config->setUserValue($uid, $this->appName, $this->userReadKey, $readBannerValue);
+
+        /** maybe some banner annoucements got deleted, but don't spam the database */
+        if(count($readBanners) > 5) {
+            $existingReadBanners = $this->mapper->getAnnouncementsExisting($readBanners);
+            $readBanners = array_map(function($item) {
+                return strval($item['announcement_id']);
+            }, $existingReadBanners);
+        }
+        $this->setReadBanners($uid, $readBanners);
     }
 }

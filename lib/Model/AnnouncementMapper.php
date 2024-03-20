@@ -192,7 +192,7 @@ class AnnouncementMapper extends QBMapper
 	 * Get all announcements, that are banners
 	 * @return Announcement[]
 	 */
-	public function getBanners($notTheseIds)
+	public function getBanners($notTheseIds): array
 	{
 		$query = $this->db->getQueryBuilder();
 		$bannerBit = 3; // See notificationType
@@ -220,5 +220,32 @@ class AnnouncementMapper extends QBMapper
 		}
 
 		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcement ids, which exist from $annIds
+	 * @param array $annIds array of strings of ids, that need to be checked for existing
+	 * @return int[]
+	 */
+	public function getAnnouncementsExisting(array $annIds): array
+	{
+		if (!$annIds) {
+			return [];
+		}
+
+		$query = $this->db->getQueryBuilder();
+		$query->select('announcement_id')
+			->from($this->getTableName())
+			->where(
+				$query->expr()->in(
+					'announcement_id',
+					$query->createNamedParameter($annIds, IQueryBuilder::PARAM_STR_ARRAY)
+				)
+			);
+		
+		$result = $query->executeQuery();
+		$row = $result->fetchAll();
+		$result->closeCursor();
+		return $row;
 	}
 }
