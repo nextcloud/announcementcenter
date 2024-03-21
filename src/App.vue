@@ -35,7 +35,7 @@
 			</transition-group>
 
 			<NcEmptyContent v-if="!announcements.length"
-				:title="t('announcementcenter', 'No announcements')"
+				:name="t('announcementcenter', 'No announcements')"
 				:description="t('announcementcenter', 'There are currently no announcements …')">
 				<template #icon>
 					<span class="icon-announcementcenter-dark" />
@@ -43,7 +43,7 @@
 			</NcEmptyContent>
 		</NcAppContent>
 		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
-			:title="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
+			:name="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
