@@ -76,7 +76,7 @@
 					:multiple="true"
 					:placeholder="t('announcementcenter', 'Everyone')"
 					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
-					@search-change="onSearchChanged">
+					@search="onSearchChanged">
 					{{ t('announcementcenter', 'Everyone') }}
 				</NcActionInput>
 				<NcActionCheckbox value="1"
