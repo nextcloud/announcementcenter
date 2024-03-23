@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Iragarpen gai berria",
     "Write announcement text, Markdown can be used …" : "Idatzi iragarpenaren testua, Markdown erabil daiteke ...",
     "Announce" : "Iragarri",
+    "Visibility" : "Ikusgarritasuna",
     "Everyone" : "Edonor",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Talde hauek iragarpenak ikusteko baimena dute. Talderik ez ba da aukeratzen, erabiltzaile guztiek ikusteko baimena izango dute.",
     "Create activities" : "Sortu jarduerak",

@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Nieuwe aankondiging onderwerp",
     "Write announcement text, Markdown can be used …" : "Schrijf aankondigingstekst, Markdown kan worden gebruikt ...",
     "Announce" : "Aankondigen",
+    "Visibility" : "Zichtbaarheid",
     "Everyone" : "Iedereen",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Deze groepen zullen de aankondiging kunnen zien. Als er geen groep is geseleceerd, kunnen alle gebruikers het zien.",
     "Create activities" : "Creëren activiteiten",

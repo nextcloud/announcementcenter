@@ -38,6 +38,7 @@
     "New announcement subject" : "Új bejelentés tárgya",
     "Write announcement text, Markdown can be used …" : "Írja be a bejelentés szövegét, Markdownt is használhat…",
     "Announce" : "Bejelentés",
+    "Visibility" : "Láthatóság",
     "Everyone" : "Mindenki",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ezek a csoportok fogják látni a bejelentést. Ha nincs csoport kiválasztva, akkor minden felhasználó láthatja.",
     "Create activities" : "Tevékenységek létrehozása",

@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "新公告主题",
     "Write announcement text, Markdown can be used …" : "撰写公告文本，可使用 Markdown 格式 ......",
     "Announce" : "发布",
+    "Visibility" : "可见性",
     "Everyone" : "所有人",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "这些组可以看到公告。如果没有选择组，所有用户都能看到。",
     "Create activities" : "创建活动",

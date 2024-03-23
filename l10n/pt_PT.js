@@ -23,6 +23,7 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentário","%n comentários","%n comentários"],
     "Announce" : "Anunciar",
+    "Visibility" : "Visibilidade",
     "Everyone" : "Para todos",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estes grupos irão poder ver o anúncio. Se não for selecionado nenhum grupo, todos os utilizadores podem vê-lo.",
     "Create activities" : "Criar atividades",
