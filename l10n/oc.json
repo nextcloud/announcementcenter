@@ -22,6 +22,7 @@
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "Announce" : "Anóncia",
+    "Visibility" : "Visibilitat",
     "Everyone" : "Tot lo monde",
     "Create activities" : "Crear d’activitats",
     "Create notifications" : "Crear de notificacions",

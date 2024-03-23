@@ -21,6 +21,7 @@ OC.L10N.register(
     "An error occurred while deleting the announcement" : "Prodúxose un error mentanto se desaniciaba l'anunciu",
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarios"],
     "Write announcement text, Markdown can be used …" : "Escribi'l testu del anunciu, pues usar la sintaxis de Markdown…",
+    "Visibility" : "Visibilidá",
     "Everyone" : "Tol mundu",
     "An error occurred while posting the announcement" : "Prodúxose un error mentanto s'espublizaba l'anunciu"
 },

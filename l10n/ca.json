@@ -38,6 +38,7 @@
     "New announcement subject" : "Nou tema d'anunci",
     "Write announcement text, Markdown can be used …" : "Escriu el text de l'anunci, es pot utilitzar Markdown …",
     "Announce" : "Publica l'anunci",
+    "Visibility" : "Visibilitat",
     "Everyone" : "Tothom",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Aquests grups podran veure l'anunci. Si no heu seleccionat cap grup, tots els usuaris el podran veure.",
     "Create activities" : "Crea activitats",

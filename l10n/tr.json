@@ -38,6 +38,7 @@
     "New announcement subject" : "Yeni duyuru konusu",
     "Write announcement text, Markdown can be used …" : "Duyuru metnini yazın. Markdown kullanılabilir …",
     "Announce" : "Duyur",
+    "Visibility" : "Görünürlük",
     "Everyone" : "Herkes",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Bu gruplar duyuruları görebilir. Herhangi bir grup seçilmezse duyuruları tüm kullanıcılar görebilir.",
     "Create activities" : "İşlem oluştur",

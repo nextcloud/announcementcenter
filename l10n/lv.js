@@ -18,6 +18,7 @@ OC.L10N.register(
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komentāri","%n komentāri","%n komentāri"],
     "Announce" : "Paziņot",
+    "Visibility" : "Redzamība",
     "Everyone" : "Visi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt.",
     "Create activities" : "Izveidot darbības",

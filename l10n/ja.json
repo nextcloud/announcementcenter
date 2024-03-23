@@ -36,6 +36,7 @@
     "New announcement subject" : "新しいお知らせの件名",
     "Write announcement text, Markdown can be used …" : "お知らせを書いてください。Markdownは使えます。",
     "Announce" : "お知らせします",
+    "Visibility" : "可視性",
     "Everyone" : "皆さん",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "これらのグループがお知らせを見ることができます。グループが選択されていない場合は、すべてのユーザーが見ることができます。",
     "Create activities" : "アクティビティを作成",

@@ -35,6 +35,7 @@
     "New announcement subject" : "Uuden tiedotteen aihe",
     "Write announcement text, Markdown can be used …" : "Kirjoita tiedotteen teksti. Markdownia voi käyttää…",
     "Announce" : "Tiedota",
+    "Visibility" : "Näkyvyys",
     "Everyone" : "Kaikki",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Nämä ryhmät voivat nähdä tiedotteen. Jos yhtään ryhmää ei ole valittu, kaikki käyttäjät voivat nähdä sen.",
     "Create activities" : "Luo toimet",

@@ -38,6 +38,7 @@
     "New announcement subject" : "Nyt meddelelsesemne",
     "Write announcement text, Markdown can be used …" : "Skriv meddelelsestekst, Markdown kan bruges ...",
     "Announce" : "Meddel",
+    "Visibility" : "Synlighed",
     "Everyone" : "Alle",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse grupper er i stand til at se meddelelsen. Hvis ingen grupper er valgt, så kan alle brugere se den.",
     "Create activities" : "Opret aktiviteter",
