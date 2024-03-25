@@ -71,8 +71,8 @@ class AnnouncementList extends Command
         return $this::SUCCESS;
     }
 
-    private function ellipseAndLeftPadText(string $text, int $width, string $sep=" ") : string {
-        $text = str_pad($text, $width, $sep, STR_PAD_LEFT);
+    private function ellipseAndPadText(string $text, int $width, string $sep=" ") : string {
+        $text = str_pad($text, $width, $sep, STR_PAD_RIGHT);
         $text = strlen($text) > $width ? substr($text, 0, $width  - 3) . "..." : $text;
         return $text;
     }
@@ -80,7 +80,7 @@ class AnnouncementList extends Command
     private function formatTableRow(array $texts, array $widths, string $sep=" ") : string
     {
         $callback = function($a, $b) use ($sep) { 
-            return $this->ellipseAndLeftPadText($a, $b, $sep); 
+            return $this->ellipseAndPadText($a, $b, $sep); 
         };
         $formattedTexts = array_map(
             $callback, 
