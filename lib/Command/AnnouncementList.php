@@ -9,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Terminal;
 
 class AnnouncementList extends Command
 {
@@ -42,16 +43,49 @@ class AnnouncementList extends Command
         }
         $ulimit = intval($ulimit);
         $announcements = $this->manager->getAnnouncements(0, $ulimit + 1);
+
+        // Calculate table size
+        $terminal = new Terminal();
+        $width = $terminal->getWidth();
+        $minimalWidth = 6;
+        $minimalWidthText = 10;
+        $widthSubject = max($minimalWidthText, intdiv($width - $minimalWidth, 3));
+        $widthMessage = max($minimalWidthText, $width - $minimalWidth - $widthSubject);
+
+        $widths = [$minimalWidth - 2, $widthSubject, $widthMessage];
+        $text = $this->formatTableRow(["ID", "Subject", "Message"], $widths);
+        $output->writeln($text);
+        $text = $this->formatTableRow(["", "", ""], $widths, "-");
+        $output->writeln($text);
+
         foreach ($announcements as $index => $ann) {
             if ($index === $ulimit) {
                 $output->writeln("And more ...");
                 break;
             }
-            $id = str_pad($ann->getId(), 4, " ", STR_PAD_LEFT);
-            $subject = str_pad($ann->getParsedSubject(), 32, " ", STR_PAD_LEFT);
-            $subject = strlen($subject) > 32 ? substr($subject, 0, 32 - 3) . "..." : $subject;
-            $output->writeln($id . ": " . $subject);
+            $texts = [$ann->getId(), $ann->getParsedSubject(), $ann->getPlainMessage()];
+            
+            $text = $this->formatTableRow($texts, $widths);
+            $output->writeln($text);
         }
         return $this::SUCCESS;
+    }
+
+    private function ellipseAndLeftPadText(string $text, int $width, string $sep=" ") : string {
+        $text = str_pad($text, $width, $sep, STR_PAD_LEFT);
+        $text = strlen($text) > $width ? substr($text, 0, $width  - 3) . "..." : $text;
+        return $text;
+    }
+
+    private function formatTableRow(array $texts, array $widths, string $sep=" ") : string
+    {
+        $callback = function($a, $b) use ($sep) { 
+            return $this->ellipseAndLeftPadText($a, $b, $sep); 
+        };
+        $formattedTexts = array_map(
+            $callback, 
+            $texts, 
+            $widths);
+        return implode("|", $formattedTexts);
     }
 }
