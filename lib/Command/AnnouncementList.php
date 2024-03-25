@@ -6,13 +6,13 @@ namespace OCA\AnnouncementCenter\Command;
 
 use OCA\AnnouncementCenter\Manager;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AnnouncementList extends Command
 {
     protected Manager $manager;
-    protected int $ulimitAnnouncements = 100;
     public function __construct(Manager $manager)
     {
         parent::__construct();
@@ -25,14 +25,25 @@ class AnnouncementList extends Command
 
         $this
             ->setName('announcementcenter:list')
-            ->setDescription('List all announcements');
+            ->setDescription('List all announcements')
+            ->addArgument(
+                'limit',
+                InputArgument::OPTIONAL,
+                'Maximal number of announcements listed',
+                10,
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $announcements = $this->manager->getAnnouncements(0, $this->ulimitAnnouncements);
+        $ulimit = $input->getArgument('limit');
+        if (!is_numeric($ulimit)) {
+            throw new \InvalidArgumentException('"' . $ulimit . '" is not numeric');
+        }
+        $ulimit = intval($ulimit);
+        $announcements = $this->manager->getAnnouncements(0, $ulimit + 1);
         foreach ($announcements as $index => $ann) {
-            if($index === $this->ulimitAnnouncements - 1) {
+            if ($index === $ulimit) {
                 $output->writeln("And more ...");
                 break;
             }
@@ -40,7 +51,6 @@ class AnnouncementList extends Command
             $subject = str_pad($ann->getParsedSubject(), 32, " ", STR_PAD_LEFT);
             $subject = strlen($subject) > 32 ? substr($subject, 0, 32 - 3) . "..." : $subject;
             $output->writeln($id . ": " . $subject);
-            
         }
         return $this::SUCCESS;
     }
