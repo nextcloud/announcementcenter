@@ -4,7 +4,9 @@
  */
 namespace OCA\AnnouncementCenter\Command;
 
+use InvalidArgumentException;
 use OCA\AnnouncementCenter\Manager;
+use OCP\AppFramework\Db\DoesNotExistException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -36,10 +38,23 @@ class AnnouncementDelete extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $deleteId = $input->getArgument('id');
-        $this->manager->delete($deleteId);
-        $output->writeln("Deleted #" . $deleteId);
+        $deleteId = $this->parseId($input->getArgument('id'));
+        try {
+            $this->manager->delete($deleteId);
+        } catch (DoesNotExistException) {
+            $output->writeln("Announcement with #" . $deleteId . " does not exist!");
+            return $this::FAILURE;
+        }
+        $output->writeln("Successfully deleted #" . $deleteId);
         $this->logger->info('Admin deleted announcement #' . $deleteId . ' over CLI');
         return $this::SUCCESS;
+    }
+
+    private function parseId(mixed $value)
+    {
+        if (is_numeric($value)) {
+            return intval($value);
+        }
+        throw new InvalidArgumentException('Id "' . $value . '" is not an integer');
     }
 }
