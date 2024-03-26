@@ -1,6 +1,6 @@
 <?php
 /** TODO License
- * 
+ *
  */
 namespace OCA\AnnouncementCenter\Command;
 
@@ -11,81 +11,75 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 
-class AnnouncementList extends Command
-{
-    protected Manager $manager;
-    public function __construct(Manager $manager)
-    {
-        parent::__construct();
-        $this->manager = $manager;
-    }
+class AnnouncementList extends Command {
+	protected Manager $manager;
+	public function __construct(Manager $manager) {
+		parent::__construct();
+		$this->manager = $manager;
+	}
 
-    protected function configure(): void
-    {
-        //add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
+	protected function configure(): void {
+		$this
+			->setName('announcementcenter:list')
+			->setDescription('List all announcements')
+			->addArgument(
+				'limit',
+				InputArgument::OPTIONAL,
+				'Maximal number of announcements listed',
+				10,
+			);
+	}
 
-        $this
-            ->setName('announcementcenter:list')
-            ->setDescription('List all announcements')
-            ->addArgument(
-                'limit',
-                InputArgument::OPTIONAL,
-                'Maximal number of announcements listed',
-                10,
-            );
-    }
+	protected function execute(InputInterface $input, OutputInterface $output): int {
+		$ulimit = $input->getArgument('limit');
+		if (!is_numeric($ulimit)) {
+			throw new \InvalidArgumentException('"' . $ulimit . '" is not numeric');
+		}
+		$ulimit = intval($ulimit);
+		$announcements = $this->manager->getAnnouncements(0, $ulimit + 1);
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $ulimit = $input->getArgument('limit');
-        if (!is_numeric($ulimit)) {
-            throw new \InvalidArgumentException('"' . $ulimit . '" is not numeric');
-        }
-        $ulimit = intval($ulimit);
-        $announcements = $this->manager->getAnnouncements(0, $ulimit + 1);
+		// Calculate table size
+		$terminal = new Terminal();
+		$width = $terminal->getWidth();
+		$minimalWidth = 6;
+		$minimalWidthText = 10;
+		$widthSubject = max($minimalWidthText, intdiv($width - $minimalWidth, 3));
+		$widthMessage = max($minimalWidthText, $width - $minimalWidth - $widthSubject);
 
-        // Calculate table size
-        $terminal = new Terminal();
-        $width = $terminal->getWidth();
-        $minimalWidth = 6;
-        $minimalWidthText = 10;
-        $widthSubject = max($minimalWidthText, intdiv($width - $minimalWidth, 3));
-        $widthMessage = max($minimalWidthText, $width - $minimalWidth - $widthSubject);
+		$widths = [$minimalWidth - 2, $widthSubject, $widthMessage];
+		$text = $this->formatTableRow(["ID", "Subject", "Message"], $widths);
+		$output->writeln($text);
+		$text = $this->formatTableRow(["", "", ""], $widths, "-");
+		$output->writeln($text);
 
-        $widths = [$minimalWidth - 2, $widthSubject, $widthMessage];
-        $text = $this->formatTableRow(["ID", "Subject", "Message"], $widths);
-        $output->writeln($text);
-        $text = $this->formatTableRow(["", "", ""], $widths, "-");
-        $output->writeln($text);
+		foreach ($announcements as $index => $ann) {
+			if ($index === $ulimit) {
+				$output->writeln("And more ...");
+				break;
+			}
+			$texts = [$ann->getId(), $ann->getParsedSubject(), $ann->getPlainMessage()];
 
-        foreach ($announcements as $index => $ann) {
-            if ($index === $ulimit) {
-                $output->writeln("And more ...");
-                break;
-            }
-            $texts = [$ann->getId(), $ann->getParsedSubject(), $ann->getPlainMessage()];
-            
-            $text = $this->formatTableRow($texts, $widths);
-            $output->writeln($text);
-        }
-        return $this::SUCCESS;
-    }
+			$text = $this->formatTableRow($texts, $widths);
+			$output->writeln($text);
+		}
+		return $this::SUCCESS;
+	}
 
-    private function ellipseAndPadText(string $text, int $width, string $sep=" ") : string {
-        $text = str_pad($text, $width, $sep, STR_PAD_RIGHT);
-        $text = strlen($text) > $width ? substr($text, 0, $width  - 3) . "..." : $text;
-        return $text;
-    }
+	private function ellipseAndPadText(string $text, int $width, string $sep = " "): string {
+		$text = str_pad($text, $width, $sep, STR_PAD_RIGHT);
+		$text = strlen($text) > $width ? substr($text, 0, $width - 3) . "..." : $text;
+		return $text;
+	}
 
-    private function formatTableRow(array $texts, array $widths, string $sep=" ") : string
-    {
-        $callback = function($a, $b) use ($sep) { 
-            return $this->ellipseAndPadText($a, $b, $sep); 
-        };
-        $formattedTexts = array_map(
-            $callback, 
-            $texts, 
-            $widths);
-        return implode("|", $formattedTexts);
-    }
+	private function formatTableRow(array $texts, array $widths, string $sep = " "): string {
+		$callback = function ($a, $b) use ($sep) {
+			return $this->ellipseAndPadText($a, $b, $sep);
+		};
+		$formattedTexts = array_map(
+			$callback,
+			$texts,
+			$widths
+		);
+		return implode("|", $formattedTexts);
+	}
 }
