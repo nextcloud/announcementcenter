@@ -11,6 +11,7 @@ use OCP\IUserManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -51,42 +52,50 @@ class Announce extends Command
                 InputArgument::REQUIRED,
                 'message of the announcement (supports markdown)',
             )
-            ->addArgument(
-                'groups',
-                InputArgument::REQUIRED,
-                'Comma seperated list of groups who get informed (no space between)',
-            )
-            ->addArgument(
+            ->addOption(
                 'activities',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_NONE,
                 'Get notified over activities',
             )
-            ->addArgument(
+            ->addOption(
                 'notifications',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_NONE,
                 'Get notified over nextclouds notifications',
             )
-            ->addArgument(
+            ->addOption(
                 'emails',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_NONE,
                 'Notify users over email',
             )
-            ->addArgument(
+            ->addOption(
                 'comments',
-                InputArgument::REQUIRED,
+                null,
+                InputOption::VALUE_NONE,
                 'Allow comments',
             )
-            ->addArgument(
+            ->addOption(
                 'schedule-time',
-                InputArgument::OPTIONAL,
+                's',
+                InputOption::VALUE_OPTIONAL,
                 'Publishing time of the announcement (see php strtotime)',
                 null,
             )
-            ->addArgument(
+            ->addOption(
                 'delete-time',
-                InputArgument::OPTIONAL,
+                'd',
+                InputOption::VALUE_OPTIONAL,
                 'Deletion time of the announcement (see php strtotime)',
                 null,
+            )
+            ->addOption(
+                'group',
+                'g',
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'group to set send announcement to (default "everyone", multiple allowed)',
+                ['everyone'],
             );
     }
 
@@ -98,21 +107,29 @@ class Announce extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // required
         $user = $input->getArgument('user');
         if (!$this->userManager->userExists($user)) {
             throw new \InvalidArgumentException("User <$user> in unknown.");
         }
         $subject = $input->getArgument('subject');
         $message = $input->getArgument('message');
-        $groups = explode(",", $input->getArgument('groups'));
-        $activities = $this->parseBoolean($input->getArgument('activities'));
-        $notifications = $this->parseBoolean($input->getArgument('notifications'));
-        $emails = $this->parseBoolean($input->getArgument('emails'));
-        $comments = $this->parseBoolean($input->getArgument('comments'));
-        $scheduleTime = $this->parseTimestamp($input->getArgument('schedule-time'));
-        $deleteTime = $this->parseTimestamp($input->getArgument('delete-time'));
 
-        if($scheduleTime && $deleteTime && $deleteTime < $scheduleTime) {
+        // options
+        $groups = $input->getOption('group');
+
+        // notification types
+        $activities = $input->getOption('activities');
+        $notifications = $input->getOption('notifications');
+        $emails = $input->getOption('emails');
+        $comments = $input->getOption('comments');
+
+        // times
+        $scheduleTime = $this->parseTimestamp($input->getOption('schedule-time'));
+        $deleteTime = $this->parseTimestamp($input->getOption('delete-time'));
+
+        // validation
+        if ($scheduleTime && $deleteTime && $deleteTime < $scheduleTime) {
             throw new \InvalidArgumentException("Publishing time is after deletion time");
         }
 
@@ -125,27 +142,30 @@ class Announce extends Command
         return $this::SUCCESS;
     }
 
-    private function parseBoolean($argument): bool
+    /**
+     * Parses an arbitrary $argument into a timestamp
+     * @param null|int|string $argument argument provided by CLI for a time
+     *      Examples 1:
+     *          '1711440621' a plain unix timestamp
+     *      Examples 2 see strtotime (https://www.php.net/manual/de/function.strtotime.php): 
+     *          'now', 10 September 200', '+1 day', 'tomorrow'
+     * @return int|null a timestamp, returns null if $argument is null
+     * @throws \InvalidArgumentException If the time could not be interpreted or the time is in the past
+     */
+    private function parseTimestamp(null|int|string $argument): int|null
     {
-        $argument = strtolower($argument);
-        if ($argument === "y" || $argument === "yes" || $argument === "true") {
-            return true;
-        } elseif ($argument === "n" || $argument === "no" || $argument === "false") {
-            return false;
-        }
-        throw new \InvalidArgumentException("Could not interprete '" . $argument . "'");
-    }
-
-    private function parseTimestamp($argument) : int|null
-    {
-        if(is_null($argument)) {
+        if (is_null($argument)) {
             return null;
-        }
-        if (($timestamp = strtotime($argument)) === false) {
+        } else if (is_numeric($argument)) {
+            $timestamp = intval($argument);
+        } else if (($convTime = strtotime($argument)) !== false) {
+            $timestamp = $convTime;
+        } else {
             throw new \InvalidArgumentException("Could not interprete time '" . $argument . "'");
         }
-        if($timestamp < $this->time->getTime()) {
-            throw new \InvalidArgumentException("Time '". $argument . "' is not allowed, because it's in the past");
+
+        if ($timestamp < $this->time->getTime()) {
+            throw new \InvalidArgumentException("Time '" . $argument . "' is not allowed, because it's in the past");
         }
         return $timestamp;
     }
