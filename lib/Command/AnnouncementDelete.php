@@ -25,7 +25,7 @@ class AnnouncementDelete extends Command {
 	protected function configure(): void {
 		$this
 			->setName('announcementcenter:delete')
-			->setDescription('List all announcements')
+			->setDescription('Delete announcement by id')
 			->addArgument(
 				'id',
 				InputArgument::REQUIRED,
