@@ -133,6 +133,15 @@ class Announce extends Command {
 
 		$result = $this->manager->announce($subject, $message, $plainMessage, $user, $this->time->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
 		$output->writeln("Created announcement #" . $result->getId() . ": " . $result->getSubject());
+
+        if($scheduleTime) {
+            $output->writeln("Scheduled announcement for '" . date("D M j G:i:s T Y", $scheduleTime) . "'");
+        }
+
+        if($deleteTime) {
+            $output->writeln("Scheduled deletion for '" . date("D M j G:i:s T Y", $deleteTime) . "'");
+        }
+
 		$this->logger->info('Admin ' . $user . ' posted a new announcement: "' . $result->getSubject() . '" over CLI');
 		return $this::SUCCESS;
 	}
