@@ -83,7 +83,7 @@ class AnnouncementDeleteTest extends TestCase {
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = PHPUnitUtil::callHiddenMethod($this->deleteCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals($this->deleteCommand::SUCCESS, $result);
+		self::assertEquals(0, $result);
 	}
 
 	public function testDeleteInvalidId() {
@@ -106,6 +106,6 @@ class AnnouncementDeleteTest extends TestCase {
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = PHPUnitUtil::callHiddenMethod($this->deleteCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals($this->deleteCommand::FAILURE, $result);
+		self::assertEquals(1, $result);
 	}
 }

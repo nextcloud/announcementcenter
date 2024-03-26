@@ -80,7 +80,7 @@ class AnnouncementList extends Command {
 			$text = $this->formatTableRow($texts, $widths);
 			$output->writeln($text);
 		}
-		return $this::SUCCESS;
+		return 0;
 	}
 
 	private function ellipseAndPadText(string $text, int $width, string $sep = " "): string {

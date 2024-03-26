@@ -169,7 +169,7 @@ class AnnounceCommandTest extends TestCase {
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = PHPUnitUtil::callHiddenMethod($this->announceCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals($this->announceCommand::SUCCESS, $result);
+		self::assertEquals(0, $result);
 	}
 
 	/**

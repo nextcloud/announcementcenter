@@ -79,7 +79,7 @@ class AnnouncementListTest extends TestCase {
 		$this->output->expects($this->atLeast(2))
 			->method('writeln');
 		$result = PHPUnitUtil::callHiddenMethod($this->listCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals($this->listCommand::SUCCESS, $result);
+		self::assertEquals(0, $result);
 	}
 
 	public function testListInvalidLimit() {

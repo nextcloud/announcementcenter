@@ -57,11 +57,11 @@ class AnnouncementDelete extends Command {
 			$this->manager->delete($deleteId);
 		} catch (DoesNotExistException) {
 			$output->writeln("Announcement with #" . $deleteId . " does not exist!");
-			return $this::FAILURE;
+			return 1;
 		}
 		$output->writeln("Successfully deleted #" . $deleteId);
 		$this->logger->info('Admin deleted announcement #' . $deleteId . ' over CLI');
-		return $this::SUCCESS;
+		return 0;
 	}
 
 	private function parseId(mixed $value) {

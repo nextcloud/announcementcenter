@@ -165,7 +165,7 @@ class Announce extends Command {
 		}
 
 		$this->logger->info('Admin ' . $user . ' posted a new announcement: "' . $result->getSubject() . '" over CLI');
-		return $this::SUCCESS;
+		return 0;
 	}
 
 	/**
