@@ -60,12 +60,12 @@ class Announce extends Command {
 			->addArgument(
 				'subject',
 				InputArgument::REQUIRED,
-				'User for whom the addressbook will be created',
+				'Subject of the announcement',
 			)
 			->addArgument(
 				'message',
 				InputArgument::REQUIRED,
-				'message of the announcement (supports markdown)',
+				'Message of the announcement (supports markdown)',
 			)
 			->addOption(
 				'activities',
@@ -109,7 +109,7 @@ class Announce extends Command {
 				'group',
 				'g',
 				InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
-				'group to set send announcement to (default "everyone", multiple allowed)',
+				'Group to set send announcement to (default "everyone", multiple allowed)',
 				['everyone'],
 			);
 	}
