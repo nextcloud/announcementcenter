@@ -1,56 +1,58 @@
 <template>
     <div class="announcement__banner" v-if="isVisible">
-        <li v-for="(announcement, index) in announcements">
-            <div class="announcement__banner__container">
-                <div class="announcement__banner__container__text">
-                    <MessageAlert :size="20"/>
-                    <p class="announcement__banner__subject">{{ announcement.subject }}:</p>
-                    <p class="announcement__banner__message">{{ announcement.message }}</p>
+        <template v-for="(announcement, index) in announcements">
+            <NcNoteCard type="warning">
+                <template #icon>
+                    <MessageAlert :size="20" />
+                </template>
+                <div class="announcement__banner__container">
+                    <div class="announcement__banner__container__text">
+                        <p class="announcement__banner__subject">{{ announcement.subject }}:</p>
+                        <p class="announcement__banner__message">{{ announcement.message }}</p>
+                    </div>
+                    <NcButton class="announcement__banner__close" aria-label="close banner" type="warning"
+                        @click="announcementRead(index)">
+                        <Close :size="20" />
+                    </NcButton>
                 </div>
-                <NcButton
-                    class="announcement__banner__close"
-                    aria-label="close banner"
-                    type="warning"
-                    @click="announcementRead(index)">
-                    <Close :size="20" />
-                </NcButton>
-            </div>
-        </li>
+            </NcNoteCard>
+        </template>
     </div>
 </template>
 
 <script>
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
 import Close from 'vue-material-design-icons/Close'
 import MessageAlert from 'vue-material-design-icons/MessageAlert'
 import { showError } from '@nextcloud/dialogs'
 import {
-	getBanners,
-	setBannerRead,
+    getBanners,
+    setBannerRead,
 } from './services/announcementsService.js'
 
 export default {
-	name: 'Banner',
+    name: 'Banner',
 
-	components: {
+    components: {
         NcButton,
         Close,
         MessageAlert,
-	},
+        NcNoteCard,
+    },
 
-	data() {
-		return {
+    data() {
+        return {
             announcements: [],
             isVisible: false,
         }
-	},
+    },
 
-	async mounted() {
-        let success = await this.loadBanners()
-		this.isVisible = success
-	},
+    async mounted() {
+        this.loadBanners()
+    },
 
-	methods: {
+    methods: {
         async loadBanners() {
             this.announcements = []
             try {
@@ -58,15 +60,17 @@ export default {
                 promise.then((response) => {
                     if (response.status === 200) {
                         this.announcements = response.data.ocs.data
+                        this.isVisible = true
+                        console.debug(this.announcements)
                     }
                 });
                 await promise;
             } catch (e) {
-			    console.error(e)
-			    showError(t('announcementcenter', 'An error occurred while trying to receive banners'))
+                console.error(e)
+                showError(t('announcementcenter', 'An error occurred while trying to receive banners'))
                 this.announcements = []
                 return false
-		    }
+            }
             return true
         },
 
@@ -79,7 +83,7 @@ export default {
                     this.announcements.splice(index, 1)
                 } catch (e) {
                     console.error(e)
-			        showError(t('announcementcenter', 'An error occurred while trying to mark a banner as read'))
+                    showError(t('announcementcenter', 'An error occurred while trying to mark a banner as read'))
                 }
             }
         },
@@ -94,13 +98,14 @@ export default {
         display: flex;
         justify-content: start;
         /*The navbar has a z-index of 1999 */
-        z-index: 2000; 
+        z-index: 2000;
         width: 100%;
         flex-direction: column;
+        top: 0;
 
         &__subject,
         &__message {
-            color: black;
+            color: var(--color-main-text);
             overflow-wrap: break-word;
             text-align: center;
             display: flex;
@@ -116,16 +121,12 @@ export default {
         &__container {
             display: flex;
             justify-content: space-between;
-            border-radius: var(--border-radius-large);
-            background-color: color-mix(in srgb, var(--color-warning) 50%, white);
-            border: 3px solid var(--color-warning);
-            height: var(--header-height);
-            padding-left: 6px;
 
             &__text {
                 display: flex;
                 justify-content: start;
                 flex-direction: row;
+
             }
 
             .message-alert-icon {
@@ -140,12 +141,20 @@ export default {
             /* 44 is the default button height*/
             margin-top: calc((var(--header-height) - 44px) / 2);
             margin-bottom: calc((var(--header-height) - 44px) / 2);
+            margin-right: 12px;
         }
     }
+}
 
-    &__banner li {
-        width: 100%;
-    }
+$custom-note-background: rgba(var(--color-warning-rgb), .7);
 
+.announcement__banner .notecard {
+    background-color: $custom-note-background !important;
+    margin: 0;
+    padding: 0;
+}
+
+.announcement__banner .notecard::v-deep div {
+    width: 100%;
 }
 </style>
