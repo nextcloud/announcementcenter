@@ -60,6 +60,7 @@ const searchGroups = async function(search) {
  * @param {boolean} notifications Should notifications be generated
  * @param {boolean} emails Should emails be sent
  * @param {boolean} comments Are comments allowed
+ * @param {boolean} banner Should a banner be shown
  * @param {number} scheduleTime Time, when the announcement is scheduled
  * @param {number} deleteTime Time, when the announcement should be deleted
  * @return {object} The axios response
@@ -116,7 +117,6 @@ const getBanners = async function() {
 const setBannerRead = async function(id) {
 	return axios.put(generateOcsUrl('apps/announcementcenter/api/v1/announcements/banner/{id}', { id }))
 }
-
 
 export {
 	getAnnouncements,
