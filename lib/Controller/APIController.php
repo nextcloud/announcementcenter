@@ -251,7 +251,8 @@ class APIController extends OCSController {
 	}
 
 	/**
-	 * @NoAdminRequired
+	 * @PublicPage
+	 * @NoCSRFRequired
 	 * Returns all unread banners for a user
 	 * @return DataResponse
 	 */
@@ -269,7 +270,8 @@ class APIController extends OCSController {
 			}
 			return new DataResponse($results);
 		}
-		return new DataResponse(['error' => 'user not found'], Http::STATUS_BAD_REQUEST);
+		// no 401 no cry
+		return new DataResponse([], Http::STATUS_NO_CONTENT);
 	}
 
 	/**
