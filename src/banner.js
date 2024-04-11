@@ -24,19 +24,30 @@ Vue.mixin({
 })
 
 // Inject maintenance banner
+/**
+ *
+ */
 function injectBanner() {
-    // Create the banner element
-    var bannerDiv = document.createElement('div');
-    bannerDiv.id = 'announcement__banner';
+	if (document.body) {
+		// Create the banner element
+		const bannerDiv = document.createElement('div')
+		bannerDiv.id = 'announcement__banner'
 
-    // Append the banner to the body of the document
-    document.body.appendChild(bannerDiv);
+		// Append the banner to the body of the document
+		document.body.appendChild(bannerDiv)
+		return true
+	}
+	return false
 }
 
-// Call the function to inject the banner
-injectBanner();
+let banner = null
 
-export default new Vue({
-	el: '#announcement__banner',
-	render: h => h(Banner),
-})
+// Call the function to inject the banner
+if (injectBanner()) {
+	banner = new Vue({
+		el: '#announcement__banner',
+		render: h => h(Banner),
+	})
+}
+
+export default banner
