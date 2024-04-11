@@ -1,23 +1,29 @@
 <template>
-    <div class="announcement__banner" v-if="isVisible">
-        <template v-for="(announcement, index) in announcements">
-            <NcNoteCard type="warning">
-                <template #icon>
-                    <MessageAlert :size="20" />
-                </template>
-                <div class="announcement__banner__container">
-                    <div class="announcement__banner__container__text">
-                        <p class="announcement__banner__subject">{{ announcement.subject }}:</p>
-                        <p class="announcement__banner__message">{{ announcement.message }}</p>
-                    </div>
-                    <NcButton class="announcement__banner__close" aria-label="close banner" type="warning"
-                        @click="announcementRead(index)">
-                        <Close :size="20" />
-                    </NcButton>
-                </div>
-            </NcNoteCard>
-        </template>
-    </div>
+	<div v-if="isVisible" class="announcement__banner">
+		<template v-for="(announcement, index) in announcements">
+			<NcNoteCard type="warning">
+				<template #icon>
+					<MessageAlert :size="20" />
+				</template>
+				<div class="announcement__banner__container">
+					<div class="announcement__banner__container__text">
+						<p class="announcement__banner__subject">
+							{{ announcement.subject }}:
+						</p>
+						<p class="announcement__banner__message">
+							{{ announcement.message }}
+						</p>
+					</div>
+					<NcButton class="announcement__banner__close"
+						aria-label="close banner"
+						type="warning"
+						@click="announcementRead(index)">
+						<Close :size="20" />
+					</NcButton>
+				</div>
+			</NcNoteCard>
+		</template>
+	</div>
 </template>
 
 <script>
@@ -27,67 +33,69 @@ import Close from 'vue-material-design-icons/Close'
 import MessageAlert from 'vue-material-design-icons/MessageAlert'
 import { showError } from '@nextcloud/dialogs'
 import {
-    getBanners,
-    setBannerRead,
+	getBanners,
+	setBannerRead,
 } from './services/announcementsService.js'
 
 export default {
-    name: 'Banner',
+	name: 'Banner',
 
-    components: {
-        NcButton,
-        Close,
-        MessageAlert,
-        NcNoteCard,
-    },
+	components: {
+		NcButton,
+		Close,
+		MessageAlert,
+		NcNoteCard,
+	},
 
-    data() {
-        return {
-            announcements: [],
-            isVisible: false,
-        }
-    },
+	data() {
+		return {
+			announcements: [],
+			isVisible: false,
+		}
+	},
 
-    async mounted() {
-        this.loadBanners()
-    },
+	async mounted() {
+		this.loadBanners()
+	},
 
-    methods: {
-        async loadBanners() {
-            this.announcements = []
-            try {
-                const promise = getBanners();
-                promise.then((response) => {
-                    if (response.status === 200) {
-                        this.announcements = response.data.ocs.data
-                        this.isVisible = true
-                        console.debug(this.announcements)
-                    }
-                });
-                await promise;
-            } catch (e) {
-                console.error(e)
-                showError(t('announcementcenter', 'An error occurred while trying to receive banners'))
-                this.announcements = []
-                return false
-            }
-            return true
-        },
+	methods: {
+		async loadBanners() {
+			this.announcements = []
+			try {
+				const promise = getBanners()
+				promise.then((response) => {
+					if (response.status === 200) {
+						this.announcements = response.data.ocs.data
+						this.isVisible = true
+						console.debug('successfully loaded banner announcements')
+					} else {
+						console.debug('no content, user probably not logged in')
+					}
+				})
+				await promise
+			} catch (e) {
+				console.error(e)
+				showError(t('announcementcenter', 'An error occurred while trying to receive banners'))
+				this.announcements = []
+				return false
+			}
+			return true
+		},
 
-        async announcementRead(index) {
-            if (index >= 0 && index < this.announcements.length) {
-                const ann = this.announcements[index]
-                console.debug(ann)
-                try {
-                    await setBannerRead(ann.id)
-                    this.announcements.splice(index, 1)
-                } catch (e) {
-                    console.error(e)
-                    showError(t('announcementcenter', 'An error occurred while trying to mark a banner as read'))
-                }
-            }
-        },
-    },
+		async announcementRead(index) {
+			if (index >= 0 && index < this.announcements.length) {
+				const ann = this.announcements[index]
+				console.debug(ann)
+				try {
+					await setBannerRead(ann.id)
+					this.announcements.splice(index, 1)
+				} catch (e) {
+					console.error(e)
+					showError(t('announcementcenter', 'An error occurred while trying to mark a banner as read'))
+				}
+			}
+		},
+	},
 }
 </script>
 
