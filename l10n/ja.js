@@ -26,7 +26,7 @@ OC.L10N.register(
     "Comments" : "コメント",
     "Clear notifications" : "通知を消去",
     "Delete announcement" : "お知らせを削除",
-    "seconds ago" : "秒前",
+    "seconds ago" : "数秒前",
     "visible to everyone" : "皆さんに見えます",
     "visible to group {name}" : "グループ {name} に見えます",
     "visible to groups {name1} and {name2}" : "グループ {name1} と {name2} に見えます",
