@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Utwórz powiadomienia domyślnie",
     "Send emails by default" : "Wyślij e-maile domyślnie",
     "Allow comments by default" : "Zezwalaj na komentarze domyślnie",
+    "Setting changed" : "Ustawienie zmienione",
     "An error occurred while changing the setting" : "Wystąpił błąd podczas zmiany ustawienia",
     "No announcements" : "Brak ogłoszeń",
     "There are currently no announcements …" : "Obecnie nie ma żadnych ogłoszeń…",
