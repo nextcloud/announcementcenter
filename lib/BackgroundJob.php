@@ -46,35 +46,17 @@ use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface;
 
 class BackgroundJob extends QueuedJob {
-	/** @var IConfig */
-	protected $config;
+	protected IConfig $config;
 
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var IMailer */
-	private $mailer;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/** @var IUserManager */
-	private $userManager;
-
-	/** @var IGroupManager */
-	private $groupManager;
-
-	/** @var Manager */
-	private $manager;
-
-	/** @var IActivityManager */
-	private $activityManager;
-
-	/** @var array */
-	protected $notifiedUsers = [];
-
-	/** @var bool */
-	protected $enabledForGuestsUsers;
+	protected INotificationManager $notificationManager;
+	private IMailer $mailer;
+	private LoggerInterface $logger;
+	private IUserManager $userManager;
+	private IGroupManager $groupManager;
+	private Manager $manager;
+	private IActivityManager $activityManager;
+	protected array $notifiedUsers = [];
+	protected bool $enabledForGuestsUsers;
 
 	public function __construct(
 		IConfig $config,
