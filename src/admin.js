@@ -49,5 +49,5 @@ Vue.mixin({
 export default new Vue({
 	el: '#announcementcenter',
 	store,
-	render: h => h(AdminSettings),
+	render: (h) => h(AdminSettings),
 })

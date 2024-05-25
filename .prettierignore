@@ -13,3 +13,8 @@ js/
 # PHP
 lib/
 **/*.php
+
+# Various
+l10n/
+composer.lock
+package-lock.json

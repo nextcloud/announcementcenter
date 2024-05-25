@@ -104,7 +104,8 @@ export default {
 	padding: 0.25rem;
 	margin: 0.5rem 0;
 
-	&:hover, &:focus-within {
+	&:hover,
+	&:focus-within {
 		border-color: 2px solid var(--color-main-text);
 	}
 }

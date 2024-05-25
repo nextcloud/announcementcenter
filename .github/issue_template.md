@@ -5,18 +5,23 @@ This is the bug tracker for the AnnouncementCenter App. Find other components at
 
 To make it possible for us to help you please fill out below information carefully.
 -->
+
 ### Steps to reproduce
+
 1.
 2.
 3.
 
 ### Expected behaviour
+
 Tell us what should happen
 
 ### Actual behaviour
+
 Tell us what happens instead
 
 ### Server configuration
+
 <!--
 You can use the Issue Template application to prefill most of the required information: https://apps.nextcloud.com/apps/issuetemplate
 -->
@@ -65,6 +70,7 @@ Make sure to remove all sensitive content such as passwords. (e.g. database pass
 **Are you using an external user-backend, if yes which one:** LDAP/ActiveDirectory/Webdav/...
 
 ### Client configuration
+
 **Browser:**
 
 **Operating system:**
@@ -72,11 +78,13 @@ Make sure to remove all sensitive content such as passwords. (e.g. database pass
 ### Logs
 
 #### Nextcloud log (data/owncloud.log)
+
 ```
 Insert your Nextcloud log here
 ```
 
 #### Browser log
+
 ```
 Insert your browser log here, this could for example include:
 

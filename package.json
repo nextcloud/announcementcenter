@@ -9,6 +9,7 @@
     "dev": "NODE_ENV=development webpack --progress --config webpack.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
+    "prettier": "prettier --write .",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
     "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
     "watch": "NODE_ENV=development webpack --progress --watch --config webpack.js"
@@ -16,10 +17,7 @@
   "browserslist": [
     "extends @nextcloud/browserslist-config"
   ],
-  "engines": {
-    "node": "^20.0.0",
-    "npm": "^10.0.0"
-  },
+  "prettier": "@nextcloud/prettier-config",
   "dependencies": {
     "@nextcloud/auth": "^2.3.0",
     "@nextcloud/axios": "^2.5.0",
@@ -37,8 +35,14 @@
     "@nextcloud/babel-config": "^1.2.0",
     "@nextcloud/browserslist-config": "^3.0.1",
     "@nextcloud/eslint-config": "^8.4.1",
+    "@nextcloud/prettier-config": "^1.1.0",
     "@nextcloud/stylelint-config": "^3.0.1",
     "@nextcloud/webpack-vue-config": "^6.0.1",
+    "eslint-config-prettier": "^9.1.0",
     "vue-template-compiler": "^2.7.16"
+  },
+  "engines": {
+    "node": "^20.0.0",
+    "npm": "^10.0.0"
   }
 }

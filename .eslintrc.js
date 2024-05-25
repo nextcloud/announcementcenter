@@ -1,9 +1,6 @@
 module.exports = {
-	extends: [
-		'@nextcloud',
-		'prettier'
-	],
+	extends: ['@nextcloud', 'prettier'],
 	globals: {
-		'$': true
-	}
+		$: true,
+	},
 }

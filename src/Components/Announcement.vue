@@ -22,64 +22,71 @@
 <template>
 	<div class="announcement">
 		<div class="announcement__header">
-			<h2 class="announcement__header__subject"
-				:title="subject">
+			<h2 class="announcement__header__subject" :title="subject">
 				{{ subject }}
 			</h2>
 
 			<div class="announcement__header__details">
 				<div class="announcement__header__details__info">
-					<NcAvatar :user="authorId"
+					<NcAvatar
+						:user="authorId"
 						:display-name="author"
 						:size="16"
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span class="live-relative-timestamp"
+					<span
+						class="live-relative-timestamp"
 						:data-timestamp="timestamp"
-						:title="dateFormat">{{ dateRelative }}</span>
+						:title="dateFormat"
+						>{{ dateRelative }}</span
+					>
 
 					<template v-if="isAdmin">
 						·
 						<template v-if="isVisibleToEveryone">
 							{{ visibilityLabel }}
 						</template>
-						<span v-else
-							:title="visibilityTitle">
+						<span v-else :title="visibilityTitle">
 							{{ visibilityLabel }}
 						</span>
 					</template>
 				</div>
 
-				<NcActions v-if="isAdmin"
+				<NcActions
+					v-if="isAdmin"
 					:force-menu="true"
 					:boundaries-element="boundariesElement">
-					<NcActionButton v-if="notifications"
+					<NcActionButton
+						v-if="notifications"
 						icon="icon-notifications-off"
 						:close-after-click="true"
 						:name="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications" />
-					<NcActionButton icon="icon-delete"
+					<NcActionButton
+						icon="icon-delete"
 						:name="t('announcementcenter', 'Delete announcement')"
 						@click="onDeleteAnnouncement" />
 				</NcActions>
 			</div>
 		</div>
 
-		<div v-if="plainMessage"
+		<div
+			v-if="plainMessage"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<NcRichText :text="plainMessage"
+			<NcRichText
+				:text="plainMessage"
 				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
-				:class="{'announcement__message--folded': isMessageFolded}" />
+				:class="{ 'announcement__message--folded': isMessageFolded }" />
 
-			<div v-if="isMessageFolded"
-				class="announcement__message__overlay" />
+			<div v-if="isMessageFolded" class="announcement__message__overlay" />
 		</div>
 
-		<NcButton v-if="comments !== false"
+		<NcButton
+			v-if="comments !== false"
 			type="tertiary"
 			class="announcement__comments"
 			@click="onClickCommentCount">
@@ -95,9 +102,7 @@ import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
 import moment from '@nextcloud/moment'
-import {
-	showError,
-} from '@nextcloud/dialogs'
+import { showError } from '@nextcloud/dialogs'
 import {
 	deleteAnnouncement,
 	removeNotifications,
@@ -180,10 +185,12 @@ export default {
 		},
 
 		isVisibleToEveryone() {
-			return this.groups.length === 0
-				|| this.groups.filter(({ id }) => {
+			return (
+				this.groups.length === 0 ||
+				this.groups.filter(({ id }) => {
 					return id === 'everyone'
 				}).length === 1
+			)
 		},
 
 		visibilityLabel() {
@@ -192,13 +199,21 @@ export default {
 			}
 
 			if (this.groups.length === 1) {
-				return t('announcementcenter', 'visible to group {name}', this.groups[0])
+				return t(
+					'announcementcenter',
+					'visible to group {name}',
+					this.groups[0],
+				)
 			}
 			if (this.groups.length === 2) {
-				return t('announcementcenter', 'visible to groups {name1} and {name2}', {
-					name1: this.groups[0].name,
-					name2: this.groups[1].name,
-				})
+				return t(
+					'announcementcenter',
+					'visible to groups {name1} and {name2}',
+					{
+						name1: this.groups[0].name,
+						name2: this.groups[1].name,
+					},
+				)
 			}
 			return n(
 				'announcementcenter',
@@ -214,13 +229,20 @@ export default {
 				return ''
 			}
 
-			return this.groups.map(({ name }) => {
-				return name
-			}).join(t('announcementcenter', ', '))
+			return this.groups
+				.map(({ name }) => {
+					return name
+				})
+				.join(t('announcementcenter', ', '))
 		},
 
 		commentsCount() {
-			return n('announcementcenter', '%n comment', '%n comments', this.comments)
+			return n(
+				'announcementcenter',
+				'%n comment',
+				'%n comments',
+				this.comments,
+			)
 		},
 	},
 
@@ -246,7 +268,12 @@ export default {
 				this.$store.dispatch('removeNotifications', this.id)
 			} catch (e) {
 				console.error(e)
-				showError(t('announcementcenter', 'An error occurred while removing the notifications of the announcement'))
+				showError(
+					t(
+						'announcementcenter',
+						'An error occurred while removing the notifications of the announcement',
+					),
+				)
 			}
 		},
 		async onDeleteAnnouncement() {
@@ -255,7 +282,12 @@ export default {
 				this.$store.dispatch('deleteAnnouncement', this.id)
 			} catch (e) {
 				console.error(e)
-				showError(t('announcementcenter', 'An error occurred while deleting the announcement'))
+				showError(
+					t(
+						'announcementcenter',
+						'An error occurred while deleting the announcement',
+					),
+				)
 			}
 		},
 	},
@@ -263,72 +295,72 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.announcement {
-		max-width: 690px;
-		padding: 0 10px;
-		margin: 0 auto 3em;
-		font-size: 15px;
+.announcement {
+	max-width: 690px;
+	padding: 0 10px;
+	margin: 0 auto 3em;
+	font-size: 15px;
 
-		&:nth-child(1) {
-			margin-top: 70px;
-		}
+	&:nth-child(1) {
+		margin-top: 70px;
+	}
 
-		&__header {
-			&__details {
+	&__header {
+		&__details {
+			display: flex;
+
+			&__info {
+				color: var(--color-text-maxcontrast);
+				flex: 1 1 auto;
 				display: flex;
+				align-items: center;
 
-				&__info {
-					color: var(--color-text-maxcontrast);
-					flex: 1 1 auto;
-					display: flex;
-					align-items: center;
-
-					:deep(.avatardiv) {
-						margin-right: 4px;
-					}
-
-					span {
-						margin-left: 4px;
-						margin-right: 4px;
-					}
+				:deep(.avatardiv) {
+					margin-right: 4px;
 				}
 
-				.action-item {
-					display: flex;
-					flex: 0 0 44px;
-					position: relative;
+				span {
+					margin-left: 4px;
+					margin-right: 4px;
 				}
 			}
-		}
 
-		&__message {
-			position: relative;
-			margin-top: 20px;
-
-			&--folded {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 7;
-				-webkit-box-orient: vertical;
-				cursor: pointer;
+			.action-item {
+				display: flex;
+				flex: 0 0 44px;
+				position: relative;
 			}
-
-			&__overlay {
-				position: absolute;
-				bottom: 0;
-				height: 3.2em;
-				width: 100%;
-				cursor: pointer;
-				background: linear-gradient(
-					rgba(255, 255, 255, 0),
-					var(--color-main-background)
-				);
-			}
-		}
-
-		&__comments {
-			margin-left: -16px;
 		}
 	}
+
+	&__message {
+		position: relative;
+		margin-top: 20px;
+
+		&--folded {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 7;
+			-webkit-box-orient: vertical;
+			cursor: pointer;
+		}
+
+		&__overlay {
+			position: absolute;
+			bottom: 0;
+			height: 3.2em;
+			width: 100%;
+			cursor: pointer;
+			background: linear-gradient(
+				rgba(255, 255, 255, 0),
+				var(--color-main-background)
+			);
+		}
+	}
+
+	&__comments {
+		margin-left: -16px;
+	}
+}
 </style>

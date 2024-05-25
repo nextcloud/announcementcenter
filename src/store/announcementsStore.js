@@ -22,13 +22,12 @@
 import Vue from 'vue'
 
 const state = {
-	announcements: {
-	},
+	announcements: {},
 }
 
 const getters = {
-	announcements: state => Object.values(state.announcements),
-	announcement: state => id => state.announcements[id],
+	announcements: (state) => Object.values(state.announcements),
+	announcement: (state) => (id) => state.announcements[id],
 }
 
 const mutations = {
