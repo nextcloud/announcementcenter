@@ -30,6 +30,7 @@ use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Service\Markdown;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -63,7 +64,8 @@ class APIController extends OCSController {
 		Manager $manager,
 		ITimeFactory $timeFactory,
 		IUserSession $userSession,
-		LoggerInterface $logger) {
+		LoggerInterface $logger,
+		private Markdown $markdown) {
 		parent::__construct($appName, $request);
 
 		$this->groupManager = $groupManager;
@@ -94,7 +96,6 @@ class APIController extends OCSController {
 	 *
 	 * @param string $subject
 	 * @param string $message
-	 * @param string $plainMessage
 	 * @param string[] $groups,
 	 * @param bool $activities
 	 * @param bool $notifications
@@ -102,7 +103,7 @@ class APIController extends OCSController {
 	 * @param bool $comments
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
+	public function add(string $subject, string $message, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -113,7 +114,8 @@ class APIController extends OCSController {
 		$userId = $user instanceof IUser ? $user->getUID() : '';
 
 		try {
-			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments);
+			$htmlMessage = $this->markdown->convert($message);
+			$announcement = $this->manager->announce($subject, $htmlMessage, $message, $userId, $this->timeFactory->getTime(), $groups, $comments);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
@@ -145,6 +147,7 @@ class APIController extends OCSController {
 			'time' => $announcement->getTime(),
 			'subject' => $announcement->getParsedSubject(),
 			'message' => $announcement->getMessage(),
+			'plainMessage' => $announcement->getPlainMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 		];
@@ -202,7 +205,7 @@ class APIController extends OCSController {
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
 		} catch (AnnouncementDoesNotExistException $e) {
 		}
-		
+
 		return new DataResponse();
 	}
 

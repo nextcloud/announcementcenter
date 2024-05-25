@@ -20,11 +20,14 @@
 -->
 
 <template>
-	<NcSettingsSection :title="t('announcementcenter', 'Announcements')">
-		<NcSettingsSelectGroup id="announcementcenter_admin_group"
-			v-model="adminGroups"
-			:label="t('announcementcenter', 'These groups will be able to post announcements.')"
-			@input="updateGroups" />
+	<NcSettingsSection :name="t('announcementcenter', 'Announcements')">
+		<div>
+			<label for="announcementcenter_admin_group">{{ t('announcementcenter', 'These groups will be able to post announcements.') }}</label>
+			<NcSettingsSelectGroup id="announcementcenter_admin_group"
+				v-model="adminGroups"
+				:label="t('announcementcenter', 'Select user groups')"
+				@input="updateGroups" />
+		</div>
 
 		<NcCheckboxRadioSwitch :checked="createActivities"
 			type="switch"

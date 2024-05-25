@@ -54,7 +54,6 @@ const searchGroups = async function(search) {
  *
  * @param {string} subject Short title of the announcement
  * @param {string} message Markdown body of the announcement
- * @param {string} plainMessage Plain body of the announcement
  * @param {string[]} groups List of groups that can read the announcement
  * @param {boolean} activities Should activities be generated
  * @param {boolean} notifications Should notifications be generated
@@ -62,11 +61,10 @@ const searchGroups = async function(search) {
  * @param {boolean} comments Are comments allowed
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments) {
+const postAnnouncement = async function(subject, message, groups, activities, notifications, emails, comments) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
-		plainMessage,
 		groups,
 		activities,
 		notifications,
