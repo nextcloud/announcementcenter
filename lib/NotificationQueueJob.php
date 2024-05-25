@@ -27,6 +27,7 @@ namespace OCA\AnnouncementCenter;
 
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Service\Markdown;
 use OCA\Guests\UserBackend;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
@@ -84,7 +85,9 @@ class NotificationQueueJob extends QueuedJob {
 		INotificationManager $notificationManager,
 		IMailer $mailer,
 		LoggerInterface $logger,
-		Manager $manager) {
+		Manager $manager,
+		private Markdown $markdown
+	) {
 		parent::__construct($time);
 		$this->config = $config;
 		$this->userManager = $userManager;
@@ -141,7 +144,7 @@ class NotificationQueueJob extends QueuedJob {
 		$template->setSubject($announcement->getSubject());
 		$template->addHeader();
 		$template->addHeading($announcement->getSubject());
-		$this->setMailBody($template, $announcement->getPlainMessage());
+		$this->setMailBody($template, $announcement->getMessage(), $announcement->getPlainMessage());
 		$template->addFooter();
 		$email = $this->mailer->createMessage();
 		$email->useTemplate($template);
@@ -155,28 +158,8 @@ class NotificationQueueJob extends QueuedJob {
 		}
 	}
 
-	/**
-	 * Special-treat list items and strip empty lines
-	 *
-	 * @param IEMailTemplate $template
-	 * @param string         $message
-	 *
-	 * @return void
-	 */
-	protected function setMailBody(IEMailTemplate $template, string $message): void {
-		$lines = explode("\n", $message);
-
-		foreach ($lines as $line) {
-			if (trim($line) === '') {
-				continue;
-			}
-
-			if (strpos(trim($line), '* ') === 0) {
-				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)), '', '', '', false);
-			} else {
-				$template->addBodyText($line);
-			}
-		}
+	protected function setMailBody(IEMailTemplate $template, string $message, string $plainMessage): void {
+		$template->addBodyText($message, $plainMessage);
 	}
 
 	/**

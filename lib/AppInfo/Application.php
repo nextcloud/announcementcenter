@@ -45,6 +45,8 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
+		include_once __DIR__ . '/../../vendor/autoload.php';
+
 		$context->registerDashboardWidget(Widget::class);
 		$context->registerEventListener(BeforeTemplateRenderedEvent::class, BeforeTemplateRenderedListener::class);
 		// FIXME when Nextcloud 28+ is required

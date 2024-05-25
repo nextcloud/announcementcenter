@@ -54,7 +54,6 @@ const searchGroups = async function(search) {
  *
  * @param {string} subject Short title of the announcement
  * @param {string} message Markdown body of the announcement
- * @param {string} plainMessage Plain body of the announcement
  * @param {string[]} groups List of groups that can read the announcement
  * @param {boolean} activities Should activities be generated
  * @param {boolean} notifications Should notifications be generated
@@ -64,11 +63,10 @@ const searchGroups = async function(search) {
  * @param {number} deleteTime Time, when the announcement should be deleted
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
+const postAnnouncement = async function(subject, message, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
-		plainMessage,
 		groups,
 		activities,
 		notifications,

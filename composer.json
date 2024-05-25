@@ -38,5 +38,8 @@
 		"psalm:clear": "psalm.phar --clear-cache && psalm.phar --clear-global-cache",
 		"psalm:fix": "psalm.phar --alter --issues=InvalidReturnType,InvalidNullableReturnType,MissingParamType,InvalidFalsableReturnType",
 		"test:unit": "vendor/bin/phpunit --color -c tests/phpunit.xml"
-    }
+    },
+	"require": {
+		"league/commonmark": "^2.4"
+	}
 }

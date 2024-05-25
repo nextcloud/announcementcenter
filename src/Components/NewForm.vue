@@ -29,11 +29,7 @@
 			maxlength="512"
 			:placeholder="t('announcementcenter', 'New announcement subject')">
 
-		<textarea v-model="message"
-			class="announcement__form__message"
-			name="message"
-			rows="4"
-			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
+		<Description v-model="message" />
 
 		<div class="announcement__form__schedule">
 			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">
@@ -108,6 +104,7 @@ import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
 import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import Description from './Description.vue'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -115,8 +112,6 @@ import {
 	searchGroups,
 } from '../services/announcementsService.js'
 import { showError } from '@nextcloud/dialogs'
-import { remark } from 'remark'
-import strip from 'strip-markdown'
 
 export default {
 	name: 'NewForm',
@@ -128,6 +123,7 @@ export default {
 		NcDateTimePicker,
 		NcCheckboxRadioSwitch,
 		NcButton,
+		Description,
 	},
 
 	data() {
@@ -191,17 +187,10 @@ export default {
 				return group.id
 			})
 
-			const plainMessage = await remark()
-				.use(strip, {
-					keep: ['blockquote', 'link', 'listItem'],
-				})
-				.process(this.message)
-
 			try {
 				const response = await postAnnouncement(
 					this.subject,
 					this.message,
-					plainMessage.value,
 					groups,
 					this.createActivities,
 					this.createNotifications,

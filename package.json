@@ -7,11 +7,11 @@
   "scripts": {
     "build": "NODE_ENV=production webpack --progress --config webpack.js",
     "dev": "NODE_ENV=development webpack --progress --config webpack.js",
-    "watch": "NODE_ENV=development webpack --progress --watch --config webpack.js",
     "lint": "eslint --ext .js,.vue src",
     "lint:fix": "eslint --ext .js,.vue src --fix",
     "stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
-    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix"
+    "stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
+    "watch": "NODE_ENV=development webpack --progress --watch --config webpack.js"
   },
   "browserslist": [
     "extends @nextcloud/browserslist-config"
@@ -30,8 +30,6 @@
     "@nextcloud/router": "^3.0.1",
     "@nextcloud/vue": "^8.17.1",
     "debounce": "^2.1.0",
-    "remark": "^15.0.1",
-    "strip-markdown": "^6.0.0",
     "vue": "^2.7.16",
     "vuex": "^3.6.2"
   },

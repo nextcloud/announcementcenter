@@ -70,10 +70,10 @@
 			</div>
 		</div>
 
-		<div v-if="message"
+		<div v-if="plainMessage"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<NcRichText :text="message"
+			<NcRichText :text="plainMessage"
 				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
@@ -141,7 +141,7 @@ export default {
 			type: String,
 			required: true,
 		},
-		message: {
+		plainMessage: {
 			type: String,
 			required: true,
 		},

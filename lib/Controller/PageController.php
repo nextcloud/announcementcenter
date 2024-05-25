@@ -27,10 +27,12 @@ namespace OCA\AnnouncementCenter\Controller;
 
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
+use OCA\Text\Event\LoadEditor;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IConfig;
 use OCP\IRequest;
 use OCP\Util;
@@ -54,7 +56,8 @@ class PageController extends Controller {
 		Manager $manager,
 		ICommentsManager $commentsManager,
 		IConfig $config,
-		IInitialState $initialState) {
+		IInitialState $initialState,
+		private IEventDispatcher $eventDispatcher) {
 		parent::__construct($AppName, $request);
 
 		$this->manager = $manager;
@@ -101,6 +104,9 @@ class PageController extends Controller {
 		);
 
 		$this->commentsManager->load();
+		if (class_exists(LoadEditor::class)) {
+			$this->eventDispatcher->dispatchTyped(new LoadEditor());
+		}
 		Util::addScript('announcementcenter', 'announcementcenter-main', 'comments');
 
 		return new TemplateResponse(Application::APP_ID, 'main', [
