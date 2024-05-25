@@ -140,7 +140,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 			'author' => $displayName,
 			'time' => $announcement->getTime(),
 			'subject' => $announcement->getParsedSubject(),
-			'message' => $announcement->getParsedMessage(),
+			'message' => $announcement->getMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
 			'schedule_time' => $announcement->getScheduleTime(),

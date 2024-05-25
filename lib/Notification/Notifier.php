@@ -110,7 +110,7 @@ class Notifier implements INotifier {
 		]);
 
 		if ($announcement->getMessage() !== '') {
-			$notification->setParsedMessage($announcement->getMessage());
+			$notification->setParsedMessage($announcement->getTruncatedMessage());
 		}
 		$notification->setRichSubject(
 			$l->t('{user} announced {announcement}'),

@@ -88,7 +88,7 @@ class Provider implements IProvider {
 			} else {
 				$subject = $l->t('{actor} announced “{announcement}”');
 			}
-			$event->setParsedMessage($announcement->getMessage());
+			$event->setParsedMessage($announcement->getTruncatedMessage());
 		} catch (AnnouncementDoesNotExistException $e) {
 			$parsedParameters = $this->getParsedParameters($parameters);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
