@@ -20,12 +20,17 @@
 -->
 
 <template>
-	<div v-show="loaded" class="editor__wrapper">
-		<div id="richEditor" ref="editor" />
+	<div>
+		<NcLoadingIcon v-show="!loaded" />
+		<div v-show="loaded" class="editor__wrapper">
+			<div id="richEditor" ref="editor" />
+		</div>
 	</div>
 </template>
 
 <script>
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+
 export default {
 	name: 'Description',
 	props: {
@@ -33,6 +38,9 @@ export default {
 			type: String,
 			required: true,
 		},
+	},
+	components: {
+		NcLoadingIcon,
 	},
 
 	data() {
