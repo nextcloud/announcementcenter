@@ -35,23 +35,12 @@ use OCP\L10N\IFactory;
 
 class Provider implements IProvider {
 
-	/** @var IFactory */
-	protected $languageFactory;
-
-	/** @var IURLGenerator */
-	protected $url;
-
-	/** @var IActivityManager */
-	protected $activityManager;
-
-	/** @var IUserManager */
-	protected $userManager;
-
-	/** @var Manager */
-	protected $manager;
-
-	/** @var string[] */
-	protected $displayNames = [];
+	protected IFactory $languageFactory;
+	protected IURLGenerator $url;
+	protected IActivityManager $activityManager;
+	protected IUserManager $userManager;
+	protected Manager $manager;
+	protected array $displayNames = [];
 
 	public function __construct(
 		IFactory $languageFactory,
@@ -78,18 +67,14 @@ class Provider implements IProvider {
 	public function parse($language, IEvent $event, ?IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
-			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
+			!str_starts_with($event->getSubject(), 'announcementsubject#')) // 3.0 and before
 		) {
 			throw new \InvalidArgumentException('Unknown subject');
 		}
 
 		$l = $this->languageFactory->get('announcementcenter', $language);
 
-		if (method_exists($this->activityManager, 'getRequirePNG') && $this->activityManager->getRequirePNG()) {
-			$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.png')));
-		} else {
-			$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg')));
-		}
+		$event->setIcon($this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.png')));
 
 		$parameters = $this->getParameters($event);
 
@@ -135,7 +120,7 @@ class Provider implements IProvider {
 		];
 	}
 
-	protected function setSubjects(IEvent $event, string $subject, array $parameters) {
+	protected function setSubjects(IEvent $event, string $subject, array $parameters): void {
 		$placeholders = $replacements = [];
 		foreach ($parameters as $placeholder => $parameter) {
 			$placeholders[] = '{' . $placeholder . '}';
