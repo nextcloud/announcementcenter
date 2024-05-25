@@ -80,6 +80,7 @@
 				:arguments="{}"
 				:autolink="true"
 				:use-markdown="true"
+				:use-extended-markdown="true"
 				:class="{ 'announcement__message--folded': isMessageFolded }" />
 
 			<div v-if="isMessageFolded" class="announcement__message__overlay" />
