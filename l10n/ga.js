@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Read more" : "Leigh Nios mo",
     "Comments" : "Tuairimí",
     "seconds ago" : "soicind ó shin",
     "Visibility" : "Infheictheacht"
