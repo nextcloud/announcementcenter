@@ -39,6 +39,7 @@ OC.L10N.register(
     "New announcement subject" : "موضوع آگهی جدید",
     "Write announcement text, Markdown can be used …" : "متن آگهی را بنویسید، می توان از Markdown استفاده کرد…",
     "Announce" : "اعلام",
+    "Visibility" : "Visibility",
     "Everyone" : "همه",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "این گروه ها می توانند اعلامیه را مشاهده کنند. اگر هیچ گروه انتخاب نشده باشد ، همه کاربران می توانند آن را ببینند.",
     "Create activities" : "فعالیتهایی ایجاد کنید",

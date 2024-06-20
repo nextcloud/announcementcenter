@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Тема нове најаве",
     "Write announcement text, Markdown can be used …" : "Напишите текст најаве, може да се користи Markdown ...",
     "Announce" : "Објави",
+    "Visibility" : "Видљивост",
     "Everyone" : "Сви",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ове групе ће моћи да виде објаве. Ако се не одаберу групе, сви корисници ће моћи да их виде.",
     "Create activities" : "Направи активности",

@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 6.8.1 – 2024-03-21
+### Fixed
+- Fix searching for groups in the compose form
+  [#774](https://github.com/nextcloud/announcementcenter/pull/774)
+
 ## 6.8.0 – 2024-03-08
 ### Added
 - Compatibility with Nextcloud 29

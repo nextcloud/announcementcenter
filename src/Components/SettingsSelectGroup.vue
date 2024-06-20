@@ -22,7 +22,7 @@ import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
 import { generateOcsUrl } from '@nextcloud/router'
-import { debounce } from 'debounce'
+import debounce from 'debounce'
 
 export default {
 	name: 'SettingsSelectGroup',

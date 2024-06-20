@@ -38,6 +38,7 @@ OC.L10N.register(
     "New announcement subject" : "Zadeva nove objave",
     "Write announcement text, Markdown can be used …" : "Vpišite besedilo objave, uporabite lahko tudi oblikovanje Markdown ...",
     "Announce" : "Objavi",
+    "Visibility" : "Vidnost",
     "Everyone" : "Vsi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Če ni navedene nobene skupine, bodo obvestilo prejeli vsi uporabniki.",
     "Create activities" : "Ustvari zapis dejavnosti",

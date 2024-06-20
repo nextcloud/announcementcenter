@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Nový predmet oznámenia",
     "Write announcement text, Markdown can be used …" : "Zadajte text oznámenia, Markdown môže byť použitý ...",
     "Announce" : "Oznámiť",
+    "Visibility" : "Viditeľnosť",
     "Everyone" : "Všetci",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tieto skupiny budú môcť vidieť oznámenie. Ak nie je vybraná žiadna skupina, všetci používatelia ho môžu vidieť.",
     "Create activities" : "Vytvoriť aktivity",

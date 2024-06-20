@@ -38,6 +38,7 @@
     "New announcement subject" : "Тема уведомления",
     "Write announcement text, Markdown can be used …" : "Напишите текст уведомления, возможно использовать язык разметки Markdown…",
     "Announce" : "Отправить",
+    "Visibility" : "Видимость",
     "Everyone" : "Всем",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Эти группы смогут видеть уведомления. Если ни одна группа не выбрана, все пользователи смогут их видеть.",
     "Create activities" : "Создать действия",

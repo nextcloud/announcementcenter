@@ -38,6 +38,7 @@ OC.L10N.register(
     "New announcement subject" : "Naujo skelbimo tema",
     "Write announcement text, Markdown can be used …" : "Rašykite skelbimo tekstą, gali būti naudojamas „Markdown“…",
     "Announce" : "Paskelbti",
+    "Visibility" : "Matomumas",
     "Everyone" : "Visi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šios grupės galės matyti skelbimą. Jeigu nebus pasirinkta jokia grupė, tuomet skelbimą galės matyti visi naudotojai.",
     "Create activities" : "Sukurti veiklas",
