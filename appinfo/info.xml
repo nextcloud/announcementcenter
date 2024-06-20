@@ -17,7 +17,7 @@
 ⚡ Activities integration
 
 🔔 Notifications integration]]></description>
-	<version>6.8.1</version>
+	<version>6.9.0</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
@@ -37,6 +37,10 @@
 	<dependencies>
 		<nextcloud min-version="26" max-version="29" />
 	</dependencies>
+
+	<background-jobs>
+		<job>OCA\AnnouncementCenter\AnnouncementSchedulerJob</job>
+	</background-jobs>
 
 	<repair-steps>
 		<post-migration>

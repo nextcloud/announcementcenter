@@ -38,6 +38,14 @@ use OCP\AppFramework\Db\Entity;
  * @method string getPlainMessage()
  * @method void setAllowComments(int $allowComments)
  * @method int getAllowComments()
+ * @method void setGroups(string $groups)
+ * @method string getGroups()
+ * @method void setScheduleTime(?int $scheduleTime)
+ * @method ?int getScheduleTime()
+ * @method void setDeleteTime(?int $scheduleTime)
+ * @method ?int getDeleteTime()
+ * @method void setNotTypes(int $notificationTypes)
+ * @method int getNotTypes()
  */
 class Announcement extends Entity {
 
@@ -59,6 +67,18 @@ class Announcement extends Entity {
 	/** @var int */
 	protected $allowComments;
 
+	/** @var int */
+	protected $scheduleTime;
+
+	/** @var int */
+	protected $deleteTime;
+
+	/** @var string */
+	protected $groups;
+
+	/** @var int */
+	protected $notTypes;
+
 	public function __construct() {
 		$this->addType('time', 'int');
 		$this->addType('user', 'string');
@@ -66,6 +86,9 @@ class Announcement extends Entity {
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
 		$this->addType('allowComments', 'int');
+		$this->addType('scheduleTime', 'int');
+		$this->addType('deleteTime', 'int');
+		$this->addType('notTypes', 'int');
 	}
 
 	public function getParsedSubject(): string {
@@ -99,5 +122,21 @@ class Announcement extends Entity {
 		}
 
 		return parent::propertyToColumn($property);
+	}
+
+	/**
+	 * @param array $groups a list of groups
+	 */
+	public function setGroupsImplode($groups) {
+		// you can't create groups with linebreaks (and if so you deserve it)
+		// TODO use better seperator (maybe <sep>?) OR restructure program here
+		$this->setGroups(implode("\n", $groups));
+	}
+
+	/**
+	 * @return array a list of groups
+	 */
+	public function getGroupsExplode(): array {
+		return explode("\n", $this->getGroups());
 	}
 }
