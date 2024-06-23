@@ -24,11 +24,11 @@
 namespace OCA\AnnouncementCenter\Tests\Settings;
 
 use OCA\AnnouncementCenter\Settings\Admin;
+use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
 use PHPUnit\Framework\MockObject\MockObject;
-use Test\TestCase;
 
 class AdminTest extends TestCase {
 	/** @var Admin */

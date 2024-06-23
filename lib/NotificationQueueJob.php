@@ -44,7 +44,7 @@ use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface;
 
-class BackgroundJob extends QueuedJob {
+class NotificationQueueJob extends QueuedJob {
 	/** @var IConfig */
 	protected $config;
 
