@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\NotificationQueueJob;
+use OCA\AnnouncementCenter\Service\Markdown;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -47,24 +48,16 @@ use Psr\Log\LoggerInterface;
  * @group DB
  */
 class BackgroundJobTest extends TestCase {
-	/** @var IConfig|MockObject */
-	protected $config;
-	/** @var ITimeFactory|MockObject */
-	protected $time;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IGroupManager|MockObject */
-	protected $groupManager;
-	/** @var IActivityManager|MockObject */
-	protected $activityManager;
-	/** @var INotificationManager|MockObject */
-	protected $notificationManager;
-	/** @var IMailer|MockObject */
-	protected $mailer;
-	/** @var LoggerInterface|MockObject */
-	protected $logger;
-	/** @var Manager|MockObject */
-	protected $manager;
+	protected IConfig|MockObject $config;
+	protected ITimeFactory|MockObject $time;
+	protected IUserManager|MockObject $userManager;
+	protected IGroupManager|MockObject $groupManager;
+	protected IActivityManager|MockObject $activityManager;
+	protected INotificationManager|MockObject $notificationManager;
+	protected IMailer|MockObject $mailer;
+	protected LoggerInterface|MockObject $logger;
+	protected Manager|MockObject $manager;
+	protected Markdown|MockObject $markdown;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -78,6 +71,7 @@ class BackgroundJobTest extends TestCase {
 		$this->mailer = $this->createMock(IMailer::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->manager = $this->createMock(Manager::class);
+		$this->markdown = $this->createMock(Markdown::class);
 	}
 
 	protected function getJob(array $methods = []) {
@@ -91,7 +85,8 @@ class BackgroundJobTest extends TestCase {
 				$this->notificationManager,
 				$this->mailer,
 				$this->logger,
-				$this->manager
+				$this->manager,
+				$this->markdown
 			);
 		}
 
@@ -106,6 +101,7 @@ class BackgroundJobTest extends TestCase {
 				$this->mailer,
 				$this->logger,
 				$this->manager,
+				$this->markdown
 			])
 			->setMethods($methods)
 			->getMock();

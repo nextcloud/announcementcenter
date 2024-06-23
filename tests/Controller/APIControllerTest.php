@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Controller\APIController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\NotificationType;
+use OCA\AnnouncementCenter\Service\Markdown;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
@@ -48,28 +49,19 @@ use Psr\Log\LoggerInterface;
  * @package OCA\AnnouncementCenter\Tests\Controller
  */
 class APIControllerTest extends TestCase {
-	/** @var IRequest|MockObject */
-	protected $request;
-	/** @var IGroupManager|MockObject */
-	protected $groupManager;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IL10N|MockObject */
-	protected $l;
-	/** @var Manager|MockObject */
-	protected $manager;
-	/** @var IConfig|MockObject */
-	protected $config;
-	/** @var ITimeFactory|MockObject */
-	protected $timeFactory;
-	/** @var IUserSession|MockObject */
-	protected $userSession;
-	/** @var IInitialStateService|MockObject */
-	protected $initialStateService;
-	/** @var LoggerInterface|MockObject */
-	protected $logger;
-	/** @var NotificationType|MockObject */
-	protected $notificationType;
+	protected IRequest|MockObject $request;
+	protected IGroupManager|MockObject $groupManager;
+	protected IUserManager|MockObject $userManager;
+	protected IJobList|MockObject $jobList;
+	protected IL10N|MockObject $l;
+	protected Manager|MockObject $manager;
+	protected IConfig|MockObject $config;
+	protected ITimeFactory|MockObject $timeFactory;
+	protected IUserSession|MockObject $userSession;
+	protected IInitialStateService|MockObject $initialStateService;
+	protected LoggerInterface|MockObject $logger;
+	protected Markdown|MockObject $markdown;
+	protected NotificationType|MockObject $notificationType;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -83,6 +75,7 @@ class APIControllerTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->notificationType = $this->createMock(NotificationType::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
+		$this->markdown = $this->createMock(Markdown::class);
 
 		$this->l
 			->method('t')
@@ -107,7 +100,8 @@ class APIControllerTest extends TestCase {
 				$this->timeFactory,
 				$this->userSession,
 				$this->notificationType,
-				$this->logger
+				$this->logger,
+				$this->markdown
 			);
 		}
 
@@ -123,7 +117,8 @@ class APIControllerTest extends TestCase {
 			$this->timeFactory,
 			$this->userSession,
 			$this->notificationType,
-			$this->logger
+			$this->logger,
+			$this->markdown
 		])
 			->setMethods($methods)
 			->getMock();
@@ -183,7 +178,7 @@ class APIControllerTest extends TestCase {
 	/**
 	 * @dataProvider dataGet
 	 */
-	public function legacyTestGet(int $offset, array $announcements, array $userMap, array $expected) {
+	public function legacyTestGet(int $offset, array $announcements, array $userMap, array $expected): void {
 		$this->userManager
 			->method('get')
 			->willReturnMap($userMap);
@@ -283,7 +278,7 @@ class APIControllerTest extends TestCase {
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '', '', [], true, true, true, true);
+		$response = $controller->add($subject, '', [], true, true, true, true);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame($expectedData, $response->getData());
@@ -301,7 +296,7 @@ class APIControllerTest extends TestCase {
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add('subject', '', '', [], true, true, true, true);
+		$response = $controller->add('subject', '', [], true, true, true, true);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
@@ -350,7 +345,7 @@ class APIControllerTest extends TestCase {
 
 		$controller = $this->getController();
 
-		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
+		$response = $controller->add($subject, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		$data = $response->getData();

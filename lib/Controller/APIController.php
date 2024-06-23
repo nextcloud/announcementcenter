@@ -116,8 +116,8 @@ class APIController extends OCSController {
 		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 
 		try {
-			$htmlMessage = $this->markdown->convert($plainMessage);
-			$announcement = $this->manager->announce($subject, $htmlMessage, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
+			$htmlMessage = $this->markdown->convert($message);
+			$announcement = $this->manager->announce($subject, $htmlMessage, $message, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
 		} catch (InvalidArgumentException $e) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],

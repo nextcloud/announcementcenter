@@ -97,7 +97,10 @@ class Announcement extends Entity {
 	}
 
 	public function getTruncatedMessage(int $length = 100): string {
-		return substr($this->getPlainMessage(), 0, $length) . '…';
+		if (mb_strlen($this->getPlainMessage()) > $length) {
+			return mb_substr($this->getPlainMessage(), 0, $length) . '…';
+		}
+		return $this->getPlainMessage();
 	}
 
 	/**

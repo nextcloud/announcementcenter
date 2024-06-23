@@ -55,7 +55,7 @@ class NotificationQueueJob extends QueuedJob {
 	private Manager $manager;
 	private IActivityManager $activityManager;
 	protected array $notifiedUsers = [];
-	protected bool $enabledForGuestsUsers;
+	protected bool $enabledForGuestsUsers = false;
 
 	public function __construct(
 		IConfig $config,
@@ -93,7 +93,7 @@ class NotificationQueueJob extends QueuedJob {
 		}
 
 		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist');
-		$this->enabledForGuestsUsers = strpos($guestsWhiteList, 'announcementcenter') !== false;
+		$this->enabledForGuestsUsers = str_contains($guestsWhiteList, 'announcementcenter');
 
 		$this->createPublicity($announcement, $argument);
 	}

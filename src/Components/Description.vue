@@ -33,14 +33,14 @@ import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
 
 export default {
 	name: 'Description',
+	components: {
+		NcLoadingIcon,
+	},
 	props: {
 		value: {
 			type: String,
 			required: true,
 		},
-	},
-	components: {
-		NcLoadingIcon,
 	},
 
 	data() {
@@ -117,7 +117,7 @@ export default {
 	}
 }
 
-#richEditor::v-deep button.entry-action__image-upload {
+#richEditor:deep(button.entry-action__image-upload) {
 	display: none;
 }
 </style>
