@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<label v-if="label" :for="id" class="hidden-visually">{{ label }}</label>
-		<NcSelect :value="inputValue"
+		<NcSelect
+			:value="inputValue"
 			:options="groupsArray"
 			:placeholder="placeholder || label"
 			:filter-by="filterGroups"
@@ -53,7 +54,7 @@ export default {
 		id: {
 			type: String,
 			default: () => 'action-GenRandomId',
-			validator: id => id.trim() !== '',
+			validator: (id) => id.trim() !== '',
 		},
 
 		/**
@@ -73,10 +74,7 @@ export default {
 			default: false,
 		},
 	},
-	emits: [
-		'input',
-		'error',
-	],
+	emits: ['input', 'error'],
 	data() {
 		return {
 			/** Temporary store to cache groups */
@@ -91,24 +89,24 @@ export default {
 		 * @return {string[]}
 		 */
 		filteredValue() {
-			return this.value.filter((group) => group !== '' && typeof group === 'string')
+			return this.value.filter(
+				(group) => group !== '' && typeof group === 'string',
+			)
 		},
 
 		/**
 		 * value property converted to an array of group objects used as input for the NcSelect
 		 */
 		inputValue() {
-			return this.filteredValue.map(
-				(id) => {
-					if (typeof this.groups[id] === 'undefined') {
-						return {
-							id,
-							displayname: id,
-						}
+			return this.filteredValue.map((id) => {
+				if (typeof this.groups[id] === 'undefined') {
+					return {
+						id,
+						displayname: id,
 					}
-					return this.groups[id]
-				},
-			)
+				}
+				return this.groups[id]
+			})
 		},
 
 		/**
@@ -118,7 +116,9 @@ export default {
 		 * @return {object[]}
 		 */
 		groupsArray() {
-			return Object.values(this.groups).filter(g => !this.value.includes(g.id))
+			return Object.values(this.groups).filter(
+				(g) => !this.value.includes(g.id),
+			)
 		},
 	},
 	watch: {
@@ -128,7 +128,9 @@ export default {
 		value: {
 			handler() {
 				const loadedGroupIds = Object.keys(this.groups)
-				const missing = this.filteredValue.filter(group => !loadedGroupIds.includes(group))
+				const missing = this.filteredValue.filter(
+					(group) => !loadedGroupIds.includes(group),
+				)
 				missing.forEach((groupId) => {
 					this.loadGroup(groupId)
 				})
@@ -146,11 +148,16 @@ export default {
 
 		let savedGroups = window.sessionStorage.getItem(storageName)
 		if (savedGroups) {
-			savedGroups = Object.fromEntries(JSON.parse(savedGroups).map(group => [group.id, group]))
+			savedGroups = Object.fromEntries(
+				JSON.parse(savedGroups).map((group) => [group.id, group]),
+			)
 			this.groups = { ...this.groups, ...savedGroups }
 		} else {
 			await this.loadGroup('')
-			window.sessionStorage.setItem(storageName, JSON.stringify(Object.values(this.groups)))
+			window.sessionStorage.setItem(
+				storageName,
+				JSON.stringify(Object.values(this.groups)),
+			)
 		}
 	},
 	methods: {
@@ -174,10 +181,20 @@ export default {
 		async loadGroup(query) {
 			try {
 				query = typeof query === 'string' ? encodeURI(query) : ''
-				const response = await axios.get(generateOcsUrl(`cloud/groups/details?search=${query}&limit=10`, 2))
+				const response = await axios.get(
+					generateOcsUrl(
+						`cloud/groups/details?search=${query}&limit=10`,
+						2,
+					),
+				)
 
 				if (Object.keys(response.data.ocs.data.groups).length > 0) {
-					const newGroups = Object.fromEntries(response.data.ocs.data.groups.map((element) => [element.id, element]))
+					const newGroups = Object.fromEntries(
+						response.data.ocs.data.groups.map((element) => [
+							element.id,
+							element,
+						]),
+					)
 					this.groups = { ...this.groups, ...newGroups }
 					return true
 				}
@@ -197,13 +214,17 @@ export default {
 		 * @param {string} search The current search string
 		 */
 		filterGroups(option, label, search) {
-			return `${label || ''} ${option.id}`.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+			return (
+				`${label || ''} ${option.id}`
+					.toLocaleLowerCase()
+					.indexOf(search.toLocaleLowerCase()) > -1
+			)
 		},
 
 		/**
 		 * Debounce the group search (reduce API calls)
 		 */
-		onSearch: debounce(function(query) {
+		onSearch: debounce(function (query) {
 			this.loadGroup(query)
 		}, 200),
 	},

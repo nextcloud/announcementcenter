@@ -27,12 +27,15 @@ import { generateOcsUrl } from '@nextcloud/router'
  * @param {number} [offset] The last announcement id loaded
  * @return {object} The axios response
  */
-const getAnnouncements = async function(offset) {
-	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
-		params: {
-			offset: offset || 0,
+const getAnnouncements = async function (offset) {
+	return axios.get(
+		generateOcsUrl('apps/announcementcenter/api/v1/announcements'),
+		{
+			params: {
+				offset: offset || 0,
+			},
 		},
-	})
+	)
 }
 
 /**
@@ -41,7 +44,7 @@ const getAnnouncements = async function(offset) {
  * @param {string} [search] Search term to autocomplete a group
  * @return {object} The axios response
  */
-const searchGroups = async function(search) {
+const searchGroups = async function (search) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/groups'), {
 		params: {
 			search: search || '',
@@ -54,7 +57,6 @@ const searchGroups = async function(search) {
  *
  * @param {string} subject Short title of the announcement
  * @param {string} message Markdown body of the announcement
- * @param {string} plainMessage Plain body of the announcement
  * @param {string[]} groups List of groups that can read the announcement
  * @param {boolean} activities Should activities be generated
  * @param {boolean} notifications Should notifications be generated
@@ -62,17 +64,27 @@ const searchGroups = async function(search) {
  * @param {boolean} comments Are comments allowed
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments) {
-	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
-		subject,
-		message,
-		plainMessage,
-		groups,
-		activities,
-		notifications,
-		emails,
-		comments,
-	})
+const postAnnouncement = async function (
+	subject,
+	message,
+	groups,
+	activities,
+	notifications,
+	emails,
+	comments,
+) {
+	return axios.post(
+		generateOcsUrl('apps/announcementcenter/api/v1/announcements'),
+		{
+			subject,
+			message,
+			groups,
+			activities,
+			notifications,
+			emails,
+			comments,
+		},
+	)
 }
 
 /**
@@ -81,8 +93,10 @@ const postAnnouncement = async function(subject, message, plainMessage, groups, 
  * @param {number} id The announcement id to delete
  * @return {object} The axios response
  */
-const deleteAnnouncement = async function(id) {
-	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}', { id }))
+const deleteAnnouncement = async function (id) {
+	return axios.delete(
+		generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}', { id }),
+	)
 }
 
 /**
@@ -91,8 +105,13 @@ const deleteAnnouncement = async function(id) {
  * @param {number} id The announcement id to delete
  * @return {object} The axios response
  */
-const removeNotifications = async function(id) {
-	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}/notifications', { id }))
+const removeNotifications = async function (id) {
+	return axios.delete(
+		generateOcsUrl(
+			'apps/announcementcenter/api/v1/announcements/{id}/notifications',
+			{ id },
+		),
+	)
 }
 
 export {

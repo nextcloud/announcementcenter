@@ -72,8 +72,11 @@ class Announcement extends Entity {
 		return trim(str_replace("\n", ' ', $this->getSubject()));
 	}
 
-	public function getParsedMessage(): string {
-		return str_replace(['<', '>', "\n"], ['&lt;', '&gt;', '<br />'], $this->getMessage());
+	public function getTruncatedMessage(int $length = 100): string {
+		if (mb_strlen($this->getPlainMessage()) > $length) {
+			return mb_substr($this->getPlainMessage(), 0, $length) . '…';
+		}
+		return $this->getPlainMessage();
 	}
 
 	/**

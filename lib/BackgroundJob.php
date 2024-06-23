@@ -27,6 +27,7 @@ namespace OCA\AnnouncementCenter;
 
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\Service\Markdown;
 use OCA\Guests\UserBackend;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
@@ -45,35 +46,17 @@ use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface;
 
 class BackgroundJob extends QueuedJob {
-	/** @var IConfig */
-	protected $config;
+	protected IConfig $config;
 
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var IMailer */
-	private $mailer;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/** @var IUserManager */
-	private $userManager;
-
-	/** @var IGroupManager */
-	private $groupManager;
-
-	/** @var Manager */
-	private $manager;
-
-	/** @var IActivityManager */
-	private $activityManager;
-
-	/** @var array */
-	protected $notifiedUsers = [];
-
-	/** @var bool */
-	protected $enabledForGuestsUsers;
+	protected INotificationManager $notificationManager;
+	private IMailer $mailer;
+	private LoggerInterface $logger;
+	private IUserManager $userManager;
+	private IGroupManager $groupManager;
+	private Manager $manager;
+	private IActivityManager $activityManager;
+	protected array $notifiedUsers = [];
+	protected bool $enabledForGuestsUsers = false;
 
 	public function __construct(
 		IConfig $config,
@@ -84,7 +67,9 @@ class BackgroundJob extends QueuedJob {
 		INotificationManager $notificationManager,
 		IMailer $mailer,
 		LoggerInterface $logger,
-		Manager $manager) {
+		Manager $manager,
+		private Markdown $markdown
+	) {
 		parent::__construct($time);
 		$this->config = $config;
 		$this->userManager = $userManager;
@@ -109,7 +94,7 @@ class BackgroundJob extends QueuedJob {
 		}
 
 		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist');
-		$this->enabledForGuestsUsers = strpos($guestsWhiteList, 'announcementcenter') !== false;
+		$this->enabledForGuestsUsers = str_contains($guestsWhiteList, 'announcementcenter');
 
 		$this->createPublicity($announcement, $argument);
 	}
@@ -141,7 +126,7 @@ class BackgroundJob extends QueuedJob {
 		$template->setSubject($announcement->getSubject());
 		$template->addHeader();
 		$template->addHeading($announcement->getSubject());
-		$this->setMailBody($template, $announcement->getPlainMessage());
+		$this->setMailBody($template, $announcement->getMessage(), $announcement->getPlainMessage());
 		$template->addFooter();
 		$email = $this->mailer->createMessage();
 		$email->useTemplate($template);
@@ -155,28 +140,8 @@ class BackgroundJob extends QueuedJob {
 		}
 	}
 
-	/**
-	 * Special-treat list items and strip empty lines
-	 *
-	 * @param IEMailTemplate $template
-	 * @param string         $message
-	 *
-	 * @return void
-	 */
-	protected function setMailBody(IEMailTemplate $template, string $message): void {
-		$lines = explode("\n", $message);
-
-		foreach ($lines as $line) {
-			if (trim($line) === '') {
-				continue;
-			}
-
-			if (strpos(trim($line), '* ') === 0) {
-				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)), '', '', '', false);
-			} else {
-				$template->addBodyText($line);
-			}
-		}
+	protected function setMailBody(IEMailTemplate $template, string $message, string $plainMessage): void {
+		$template->addBodyText($message, $plainMessage);
 	}
 
 	/**

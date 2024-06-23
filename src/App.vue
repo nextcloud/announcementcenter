@@ -25,7 +25,8 @@
 			<NewForm v-if="isAdmin" />
 
 			<transition-group name="fade-collapse" tag="div">
-				<Announcement v-for="announcement in announcements"
+				<Announcement
+					v-for="announcement in announcements"
 					:key="announcement.id"
 					:is-admin="isAdmin"
 					:author-id="announcement.author_id"
@@ -33,19 +34,24 @@
 					@click="onClickAnnouncement" />
 			</transition-group>
 
-			<NcEmptyContent v-if="!announcements.length"
+			<NcEmptyContent
+				v-if="!announcements.length"
 				:name="t('announcementcenter', 'No announcements')"
-				:description="t('announcementcenter', 'There are currently no announcements …')">
+				:description="
+					t('announcementcenter', 'There are currently no announcements …')
+				">
 				<template #icon>
 					<span class="icon-announcementcenter-dark" />
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>
-		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
-			:name="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
+		<NcAppSidebar
+			v-show="activeId !== 0 && activateAnnouncementHasComments"
+			:name="
+				activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')
+			"
 			@close="onClickAnnouncement(0)">
-			<div ref="sidebar"
-				class="comments" />
+			<div ref="sidebar" class="comments" />
 		</NcAppSidebar>
 	</NcContent>
 </template>
@@ -100,7 +106,10 @@ export default {
 		},
 
 		activateAnnouncementHasComments() {
-			return this.activeAnnouncement?.comments === 0 || this.activeAnnouncement?.comments > 0
+			return (
+				this.activeAnnouncement?.comments === 0 ||
+				this.activeAnnouncement?.comments > 0
+			)
 		},
 	},
 
@@ -118,7 +127,7 @@ export default {
 			const response = await getAnnouncements()
 			const announcements = response.data?.ocs?.data || []
 
-			announcements.forEach(announcement => {
+			announcements.forEach((announcement) => {
 				this.$store.dispatch('addAnnouncement', announcement)
 			})
 		},
@@ -171,7 +180,9 @@ export default {
 .fade-leave-active,
 .fade-collapse-enter-active,
 .fade-collapse-leave-active {
-	transition: opacity var(--animation-quick), max-height var(--animation-quick);
+	transition:
+		opacity var(--animation-quick),
+		max-height var(--animation-quick);
 }
 
 .fade-collapse-enter,

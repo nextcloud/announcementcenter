@@ -35,7 +35,7 @@
 	<screenshot>https://github.com/nextcloud/announcementcenter/raw/main/docs/AnnouncementCenterFrontpage.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="26" max-version="29" />
+		<nextcloud min-version="26" max-version="30" />
 	</dependencies>
 
 	<repair-steps>

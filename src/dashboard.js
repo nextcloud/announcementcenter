@@ -37,7 +37,7 @@ Vue.prototype.n = translatePlural
 Vue.prototype.OC = OC
 Vue.prototype.OCA = OCA
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 	OCA.Dashboard.register('announcementcenter', (el) => {
 		const View = Vue.extend(Dashboard)
 		new View({

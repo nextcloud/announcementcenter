@@ -37,20 +37,11 @@ use OCP\Notification\INotifier;
 
 class Notifier implements INotifier {
 
-	/** @var Manager */
-	protected $manager;
-
-	/** @var IFactory */
-	protected $l10nFactory;
-
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var IUserManager */
-	protected $userManager;
-
-	/** @var IURLGenerator */
-	protected $urlGenerator;
+	protected Manager $manager;
+	protected IFactory $l10nFactory;
+	protected INotificationManager $notificationManager;
+	protected IUserManager $userManager;
+	protected IURLGenerator $urlGenerator;
 
 	public function __construct(Manager $manager,
 		IFactory $l10nFactory,
@@ -119,7 +110,7 @@ class Notifier implements INotifier {
 		]);
 
 		if ($announcement->getMessage() !== '') {
-			$notification->setParsedMessage($announcement->getMessage());
+			$notification->setParsedMessage($announcement->getTruncatedMessage());
 		}
 		$notification->setRichSubject(
 			$l->t('{user} announced {announcement}'),

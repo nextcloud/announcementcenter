@@ -20,7 +20,8 @@
   -->
 
 <template>
-	<NcDashboardWidget id="announcementcenter_panel"
+	<NcDashboardWidget
+		id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
 		empty-content-icon="icon-announcementcenter-dark"
@@ -57,12 +58,21 @@ export default {
 				return {
 					mainText: item.subject,
 					avatarUsername: item.author_id,
-					targetUrl: generateUrl('/apps/announcementcenter') + '?announcement=' + item.id,
+					targetUrl:
+						generateUrl('/apps/announcementcenter') +
+						'?announcement=' +
+						item.id,
 					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
-					subText: t('announcementcenter', '{author}, {timestamp}', {
-						author: item.author,
-						timestamp: moment(item.time, 'X').fromNow(),
-					}, null, { escape: false, sanitize: false }),
+					subText: t(
+						'announcementcenter',
+						'{author}, {timestamp}',
+						{
+							author: item.author,
+							timestamp: moment(item.time, 'X').fromNow(),
+						},
+						null,
+						{ escape: false, sanitize: false },
+					),
 				}
 			})
 		},
@@ -70,7 +80,10 @@ export default {
 
 	mounted() {
 		try {
-			this.announcements = loadState('announcementcenter', 'announcementcenter_dashboard')
+			this.announcements = loadState(
+				'announcementcenter',
+				'announcementcenter_dashboard',
+			)
 			this.loading = false
 		} catch (e) {
 			console.error(e)
