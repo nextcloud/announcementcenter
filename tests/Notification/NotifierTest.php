@@ -38,21 +38,14 @@ use OCP\Notification\INotification;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class NotifierTest extends TestCase {
-	/** @var Notifier */
-	protected $notifier;
+	protected Notifier $notifier;
 
-	/** @var Manager|MockObject */
-	protected $manager;
-	/** @var IManager|MockObject */
-	protected $notificationManager;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IFactory|MockObject */
-	protected $factory;
-	/** @var IURLGenerator|MockObject */
-	protected $urlGenerator;
-	/** @var IL10N|MockObject */
-	protected $l;
+	protected Manager|MockObject $manager;
+	protected IManager|MockObject $notificationManager;
+	protected IUserManager|MockObject $userManager;
+	protected IFactory|MockObject $factory;
+	protected MockObject|IURLGenerator $urlGenerator;
+	protected IL10N|MockObject $l;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -82,7 +75,7 @@ class NotifierTest extends TestCase {
 	}
 
 	public function testPrepareWrongApp(): void {
-		/** @var \OCP\Notification\INotification|MockObject $notification */
+		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())
@@ -97,7 +90,7 @@ class NotifierTest extends TestCase {
 	}
 
 	public function testPrepareWrongSubject(): void {
-		/** @var \OCP\Notification\INotification|MockObject $notification */
+		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())
@@ -137,26 +130,19 @@ class NotifierTest extends TestCase {
 
 	public function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
+
 		return [
 			['author', 'subject', 'message', 'message', '42', null, 'author announced “subject”', 'message'],
 			['author1', 'subject', 'message', 'message', '42', 'Author', 'Author announced “subject”', 'message'],
-			['author2', "subject\nsubject", $message, $message, '21', null, 'author2 announced “subject subject”', $message],
+			['author2', "subject\nsubject", $message, $message, '21', null, 'author2 announced “subject subject”', mb_substr($message, 0, 100) . '…'],
 		];
 	}
 
 	/**
 	 * @dataProvider dataPrepare
 	 *
-	 * @param string $author
-	 * @param string $subject
-	 * @param string $message
-	 * @param string $plainMessage
-	 * @param int $objectId
-	 * @param ?string $userDisplayName
-	 * @param string $expectedSubject
-	 * @param string $expectedMessage
 	 */
-	public function testPrepare($author, $subject, $message, $plainMessage, $objectId, $userDisplayName, $expectedSubject, $expectedMessage): void {
+	public function testPrepare(string $author, string $subject, string $message, string $plainMessage, string $objectId, ?string $userDisplayName, string $expectedSubject, string $expectedMessage): void {
 		/** @var INotification|MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
