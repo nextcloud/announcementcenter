@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "デフォルトで通知を作成する",
     "Send emails by default" : "デフォルトでメールを送信",
     "Allow comments by default" : "デフォルトでコメントを許可する",
+    "Setting changed" : "設定が変更されました",
     "An error occurred while changing the setting" : "設定の変更中にエラーが発生しました",
     "No announcements" : "お知らせがありません",
     "There are currently no announcements …" : "現在、お知らせはありません",
