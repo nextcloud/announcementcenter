@@ -17,7 +17,7 @@
 ⚡ Activities integration
 
 🔔 Notifications integration]]></description>
-	<version>6.9.0</version>
+	<version>6.9.0-dev.0</version>
 	<licence>agpl</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
@@ -35,7 +35,7 @@
 	<screenshot>https://github.com/nextcloud/announcementcenter/raw/main/docs/AnnouncementCenterFrontpage.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="26" max-version="29" />
+		<nextcloud min-version="28" max-version="30" />
 	</dependencies>
 
 	<background-jobs>
