@@ -23,12 +23,13 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
-use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\GroupMapper;
+use OCA\AnnouncementCenter\Model\NotificationType;
+use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
@@ -75,6 +76,9 @@ class ManagerTest extends TestCase {
 	/** @var IUserSession|MockObject */
 	protected $userSession;
 
+	/** @var NotificationType|MockObject */
+	protected $notificationType;
+
 	protected function setUp(): void {
 		parent::setUp();
 
@@ -86,6 +90,7 @@ class ManagerTest extends TestCase {
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->userSession = $this->createMock(IUserSession::class);
+		$this->notificationType = $this->createMock(NotificationType::class);
 
 		$this->manager = new Manager(
 			$this->config,
@@ -95,7 +100,8 @@ class ManagerTest extends TestCase {
 			$this->notificationManager,
 			$this->commentsManager,
 			$this->jobList,
-			$this->userSession
+			$this->userSession,
+			$this->notificationType
 		);
 
 		$query = \OC::$server->getDatabaseConnection()->getQueryBuilder();
@@ -117,14 +123,14 @@ class ManagerTest extends TestCase {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(2);
-		$this->manager->announce('', '', '', '', 0, [], false);
+		$this->manager->announce('', '', '', '', 0, [], false, 7);
 	}
 
 	public function testAnnounceSubjectTooLong(): void {
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid subject');
 		$this->expectExceptionCode(1);
-		$this->manager->announce(str_repeat('a', 513), '', '', '', 0, [], false);
+		$this->manager->announce(str_repeat('a', 513), '', '', '', 0, [], false, 7);
 	}
 
 	public function testDelete(): void {
@@ -232,10 +238,10 @@ class ManagerTest extends TestCase {
 		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob && $hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], !$hasActivityJob && $hasNotificationJob && $hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false], $hasActivityJob && $hasNotificationJob && !$hasEmailJob],
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivityJob && $hasNotificationJob && !$hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => true], !$hasActivityJob && $hasNotificationJob && $hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => false], $hasActivityJob && $hasNotificationJob && !$hasEmailJob],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivityJob && $hasNotificationJob && !$hasEmailJob],
 			]);
 
 		if (!$hasNotificationJob) {
@@ -287,14 +293,14 @@ class ManagerTest extends TestCase {
 		$this->jobList
 			->method('has')
 			->willReturnMap([
-				[BackgroundJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivity],
-				[BackgroundJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivity],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => false, 'notifications' => true, 'emails' => false], !$hasActivity],
+				[NotificationQueueJob::class, ['id' => $id, 'activities' => true, 'notifications' => true, 'emails' => true], $hasActivity],
 			]);
 
 		if ($hasActivity) {
 			$this->jobList->expects(self::once())
 				->method('remove')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => true,
@@ -302,7 +308,7 @@ class ManagerTest extends TestCase {
 				]);
 			$this->jobList->expects(self::once())
 				->method('add')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => false,
@@ -311,7 +317,7 @@ class ManagerTest extends TestCase {
 		} else {
 			$this->jobList->expects(self::once())
 				->method('remove')
-				->with(BackgroundJob::class, [
+				->with(NotificationQueueJob::class, [
 					'id' => $id,
 					'activities' => $hasActivity,
 					'notifications' => true,

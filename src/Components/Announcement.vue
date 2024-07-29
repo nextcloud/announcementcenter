@@ -35,7 +35,11 @@
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span class="live-relative-timestamp"
+					<span v-if="isScheduled"
+						class="live-relative-timestamp"
+						:title="scheduledLabel">{{ scheduledLabel }}</span>
+					<span v-else
+						class="live-relative-timestamp"
 						:data-timestamp="timestamp"
 						:title="dateFormat">{{ dateRelative }}</span>
 
@@ -153,6 +157,11 @@ export default {
 			type: Boolean,
 			required: true,
 		},
+		scheduleTime: {
+			type: Number,
+			required: false,
+			default: null,
+		},
 	},
 
 	data() {
@@ -171,6 +180,11 @@ export default {
 		dateFormat() {
 			return moment(this.timestamp).format('LLL')
 		},
+
+		scheduleDateFormat() {
+			return moment(this.scheduleTime * 1000).format('LLL')
+		},
+
 		dateRelative() {
 			const diff = moment().diff(moment(this.timestamp))
 			if (diff >= 0 && diff < 45000) {
@@ -207,6 +221,14 @@ export default {
 				this.groups.length - 1,
 				this.groups[0],
 			)
+		},
+
+		isScheduled() {
+			return this.scheduleTime && this.scheduleTime !== null
+		},
+
+		scheduledLabel() {
+			return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
 		},
 
 		visibilityTitle() {

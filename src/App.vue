@@ -29,6 +29,7 @@
 					:key="announcement.id"
 					:is-admin="isAdmin"
 					:author-id="announcement.author_id"
+					:schedule-time="announcement.schedule_time"
 					v-bind="announcement"
 					@click="onClickAnnouncement" />
 			</transition-group>

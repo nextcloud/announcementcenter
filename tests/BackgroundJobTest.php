@@ -23,10 +23,10 @@
 
 namespace OCA\AnnouncementCenter\Tests;
 
-use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -82,7 +82,7 @@ class BackgroundJobTest extends TestCase {
 
 	protected function getJob(array $methods = []) {
 		if (empty($methods)) {
-			return new BackgroundJob(
+			return new NotificationQueueJob(
 				$this->config,
 				$this->time,
 				$this->userManager,
@@ -95,7 +95,7 @@ class BackgroundJobTest extends TestCase {
 			);
 		}
 
-		return $this->getMockBuilder(BackgroundJob::class)
+		return $this->getMockBuilder(NotificationQueueJob::class)
 			->setConstructorArgs([
 				$this->config,
 				$this->time,

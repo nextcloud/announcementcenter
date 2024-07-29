@@ -55,6 +55,23 @@ class AnnouncementMapper extends QBMapper {
 	}
 
 	/**
+	 * @param int $id
+	 * @return int the number of affected rows
+	 * @throws DoesNotExistException
+	 */
+	public function resetScheduleTimeById(int $id) {
+		$query = $this->db->getQueryBuilder();
+		$query->update($this->getTableName())
+			->set(
+				'announcement_schedule_time',
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT))
+			->where(
+				$query->expr()->eq('announcement_id', $query->createNamedParameter($id))
+			);
+		return $query->executeStatement();
+	}
+
+	/**
 	 * Deletes an entity from the table
 	 * @param Entity $entity the entity that should be deleted
 	 * @return Entity the deleted entity
@@ -115,6 +132,40 @@ class AnnouncementMapper extends QBMapper {
 			->orderBy('announcement_time', 'DESC')
 			->where($query->expr()->in('announcement_id', $query->createNamedParameter($ids, IQueryBuilder::PARAM_INT_ARRAY)));
 
+		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcements, that have a schedule time
+	 * @return Announcement[]
+	 */
+	public function getAnnouncementsScheduled() : array {
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_schedule_time', 'ASC')  // respect order
+			->where($query->expr()->isNotNull('announcement_schedule_time'))
+			->andWhere($query->expr()->gt(
+				'announcement_schedule_time',
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+			));
+		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcements, that have a deletion time
+	 * @return Announcement[]
+	 */
+	public function getAnnouncementsScheduledDelete() : array {
+		$query = $this->db->getQueryBuilder();
+		$query->select('*')
+			->from($this->getTableName())
+			->orderBy('announcement_delete_time', 'ASC')  // highest chance to be deleted
+			->where($query->expr()->isNotNull('announcement_delete_time'))
+			->andWhere($query->expr()->gt(
+				'announcement_delete_time',
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+			));
 		return $this->findEntities($query);
 	}
 }

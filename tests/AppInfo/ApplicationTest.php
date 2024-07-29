@@ -26,7 +26,6 @@ namespace OCA\AnnouncementCenter\Tests\AppInfo;
 use OCA\AnnouncementCenter\Activity\Provider;
 use OCA\AnnouncementCenter\Activity\Setting;
 use OCA\AnnouncementCenter\AppInfo\Application;
-use OCA\AnnouncementCenter\BackgroundJob;
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Migration\AnnouncementsGroupsLinks;
@@ -35,6 +34,7 @@ use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCA\AnnouncementCenter\Notification\Notifier;
+use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\IProvider;
@@ -81,7 +81,7 @@ class ApplicationTest extends TestCase {
 			[AnnouncementsGroupsLinks::class, IRepairStep::class],
 			[Notifier::class, INotifier::class],
 			[Admin::class, ISettings::class],
-			[BackgroundJob::class, IJob::class],
+			[NotificationQueueJob::class, IJob::class],
 			[Manager::class, Manager::class],
 			[Announcement::class, Entity::class],
 			[AnnouncementMapper::class, QBMapper::class],

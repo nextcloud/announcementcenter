@@ -143,6 +143,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 			'message' => $announcement->getParsedMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
+			'schedule_time' => $announcement->getScheduleTime(),
 		];
 
 		return $result;
