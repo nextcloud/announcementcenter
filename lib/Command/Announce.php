@@ -139,8 +139,13 @@ class Announce extends Command {
 		$comments = $input->getOption('comments');
 
 		// times
-		$scheduleTime = $this->parseTimestamp($input->getOption('schedule-time'));
-		$deleteTime = $this->parseTimestamp($input->getOption('delete-time'));
+		try {
+			$scheduleTime = $this->parseTimestamp($input->getOption('schedule-time'));
+			$deleteTime = $this->parseTimestamp($input->getOption('delete-time'));
+		} catch(\InvalidArgumentException $e) {
+			$output->writeln($e->getMessage());
+			return 2;
+		}
 
 		// validation
 		if ($scheduleTime && $deleteTime && $deleteTime < $scheduleTime) {
@@ -152,7 +157,8 @@ class Announce extends Command {
 		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 
 		if (!$notificationOptions) {
-			throw new \InvalidArgumentException("You didn't set any notification option, please set 'activities', 'notifications' or 'emails'");
+			$output->writeln("You didn't set any notification option, please set 'activities', 'notifications' or 'emails'");
+			return 2;
 		}
 
 		$result = $this->manager->announce($subject, $message, $plainMessage, $user, $this->time->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);

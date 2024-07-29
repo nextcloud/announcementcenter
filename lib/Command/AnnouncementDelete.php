@@ -52,11 +52,14 @@ class AnnouncementDelete extends Command {
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int {
-		$deleteId = $this->parseId($input->getArgument('id'));
 		try {
+			$deleteId = $this->parseId($input->getArgument('id'));
 			$this->manager->delete($deleteId);
 		} catch (DoesNotExistException) {
 			$output->writeln("Announcement with #" . $deleteId . " does not exist!");
+			return 1;
+		} catch (InvalidArgumentException $e) {
+			$output->writeln($e->getMessage());
 			return 1;
 		}
 		$output->writeln("Successfully deleted #" . $deleteId);

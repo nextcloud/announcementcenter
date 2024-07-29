@@ -51,7 +51,8 @@ class AnnouncementList extends Command {
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$ulimit = $input->getArgument('limit');
 		if (!is_numeric($ulimit)) {
-			throw new \InvalidArgumentException('"' . $ulimit . '" is not numeric');
+			$output->writeln('"' . $ulimit . '" is not numeric');
+			return 1;
 		}
 		$ulimit = intval($ulimit);
 		$announcements = $this->manager->getAnnouncements(0, $ulimit + 1);
