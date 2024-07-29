@@ -82,7 +82,7 @@ class AnnouncementDeleteTest extends TestCase {
 			->method('delete');
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
-		$result = PHPUnitUtil::callHiddenMethod($this->deleteCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
 		self::assertEquals(0, $result);
 	}
 
@@ -92,7 +92,7 @@ class AnnouncementDeleteTest extends TestCase {
 			->with('id')
 			->willReturn('invalid');
 		$this->expectException(\InvalidArgumentException::class);
-		PHPUnitUtil::callHiddenMethod($this->deleteCommand, 'execute', [$this->input, $this->output]);
+		self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
 	}
 
 	public function testDeleteDoesNotExist() {
@@ -105,7 +105,7 @@ class AnnouncementDeleteTest extends TestCase {
 			->willThrowException(new DoesNotExistException("message"));
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
-		$result = PHPUnitUtil::callHiddenMethod($this->deleteCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
 		self::assertEquals(1, $result);
 	}
 }

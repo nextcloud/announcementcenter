@@ -168,7 +168,7 @@ class AnnounceCommandTest extends TestCase {
 			->method('announce');
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
-		$result = PHPUnitUtil::callHiddenMethod($this->announceCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->announceCommand, 'execute', [$this->input, $this->output]);
 		self::assertEquals(0, $result);
 	}
 
@@ -185,6 +185,6 @@ class AnnounceCommandTest extends TestCase {
 			->willReturn(10);
 
 		$this->expectException(\InvalidArgumentException::class);
-		PHPUnitUtil::callHiddenMethod($this->announceCommand, 'execute', [$this->input, $this->output]);
+		self::invokePrivate($this->announceCommand, 'execute', [$this->input, $this->output]);
 	}
 }

@@ -78,7 +78,7 @@ class AnnouncementListTest extends TestCase {
 			->willReturn([]);
 		$this->output->expects($this->atLeast(2))
 			->method('writeln');
-		$result = PHPUnitUtil::callHiddenMethod($this->listCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->listCommand, 'execute', [$this->input, $this->output]);
 		self::assertEquals(0, $result);
 	}
 
@@ -88,6 +88,6 @@ class AnnouncementListTest extends TestCase {
 			->with('limit')
 			->willReturn('invalid');
 		$this->expectException(\InvalidArgumentException::class);
-		PHPUnitUtil::callHiddenMethod($this->listCommand, 'execute', [$this->input, $this->output]);
+		self::invokePrivate($this->listCommand, 'execute', [$this->input, $this->output]);
 	}
 }
