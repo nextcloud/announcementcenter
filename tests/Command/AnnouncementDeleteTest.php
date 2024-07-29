@@ -25,6 +25,7 @@ namespace OCA\AnnouncementCenter\Tests\Command;
 use OCA\AnnouncementCenter\Command\AnnouncementDelete;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use OCP\AppFramework\Db\DoesNotExistException;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -99,7 +100,8 @@ class AnnouncementDeleteTest extends TestCase {
 			->with('id')
 			->willReturn(42);
 		$this->manager->expects($this->once())
-			->method('delete');
+			->method('delete')
+			->willThrowException(new DoesNotExistException("message"));
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
