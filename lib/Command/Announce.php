@@ -77,7 +77,7 @@ class Announce extends Command {
 				'notifications',
 				null,
 				InputOption::VALUE_NONE,
-				'Get notified over nextclouds notifications',
+				'Generate notifications',
 			)
 			->addOption(
 				'emails',
