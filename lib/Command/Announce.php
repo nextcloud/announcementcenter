@@ -123,7 +123,8 @@ class Announce extends Command {
 		// required
 		$user = $input->getArgument('user');
 		if (!$this->userManager->userExists($user)) {
-			throw new \InvalidArgumentException("User <$user> in unknown.");
+			$output->writeln("User <$user> in unknown.");
+			return 1;
 		}
 		$subject = $input->getArgument('subject');
 		$message = $input->getArgument('message');
