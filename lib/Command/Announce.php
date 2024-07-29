@@ -83,7 +83,7 @@ class Announce extends Command {
 				'emails',
 				null,
 				InputOption::VALUE_NONE,
-				'Notify users over email',
+				'Notify users via email',
 			)
 			->addOption(
 				'comments',
