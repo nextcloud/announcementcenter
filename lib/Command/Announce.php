@@ -143,7 +143,8 @@ class Announce extends Command {
 
 		// validation
 		if ($scheduleTime && $deleteTime && $deleteTime < $scheduleTime) {
-			throw new \InvalidArgumentException("Publishing time is after deletion time");
+			$output->writeln('Publishing time is after deletion time');
+			return 2;
 		}
 
 		$plainMessage = $this->plainifyMessage($message);
