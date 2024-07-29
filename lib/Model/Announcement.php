@@ -88,6 +88,7 @@ class Announcement extends Entity {
 		$this->addType('allowComments', 'int');
 		$this->addType('scheduleTime', 'int');
 		$this->addType('deleteTime', 'int');
+		$this->addType('groups', 'string');
 		$this->addType('notTypes', 'int');
 	}
 
