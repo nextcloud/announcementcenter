@@ -35,10 +35,11 @@
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span v-if="isScheduled" 
+					<span v-if="isScheduled"
 						class="live-relative-timestamp"
 						:title="scheduledLabel">{{ scheduledLabel }}</span>
-					<span v-else class="live-relative-timestamp"
+					<span v-else
+						class="live-relative-timestamp"
 						:data-timestamp="timestamp"
 						:title="dateFormat">{{ dateRelative }}</span>
 
