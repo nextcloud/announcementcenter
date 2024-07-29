@@ -71,7 +71,7 @@ class Announce extends Command {
 				'activities',
 				null,
 				InputOption::VALUE_NONE,
-				'Get notified over activities',
+				'Generate activities',
 			)
 			->addOption(
 				'notifications',
