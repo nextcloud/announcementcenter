@@ -184,7 +184,7 @@ class AnnounceCommandTest extends TestCase {
 			->method('getTime')
 			->willReturn(10);
 
-		$this->expectException(\InvalidArgumentException::class);
-		self::invokePrivate($this->announceCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->announceCommand, 'execute', [$this->input, $this->output]);
+		self::assertequals(True, $result > 0);
 	}
 }

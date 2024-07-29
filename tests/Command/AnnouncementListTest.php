@@ -87,7 +87,7 @@ class AnnouncementListTest extends TestCase {
 			->method('getArgument')
 			->with('limit')
 			->willReturn('invalid');
-		$this->expectException(\InvalidArgumentException::class);
-		self::invokePrivate($this->listCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->listCommand, 'execute', [$this->input, $this->output]);
+		self::assertEquals(True, $result > 0);
 	}
 }

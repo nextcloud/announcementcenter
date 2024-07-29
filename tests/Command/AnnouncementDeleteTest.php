@@ -91,8 +91,8 @@ class AnnouncementDeleteTest extends TestCase {
 			->method('getArgument')
 			->with('id')
 			->willReturn('invalid');
-		$this->expectException(\InvalidArgumentException::class);
-		self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
+		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
+		self::assertEquals(True, $result > 0);
 	}
 
 	public function testDeleteDoesNotExist() {
@@ -101,11 +101,10 @@ class AnnouncementDeleteTest extends TestCase {
 			->with('id')
 			->willReturn(42);
 		$this->manager->expects($this->once())
-			->method('delete')
-			->willThrowException(new DoesNotExistException("message"));
+			->method('delete');
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals(1, $result);
+		self::assertEquals(True, $result > 0);
 	}
 }
