@@ -37,7 +37,7 @@
 
 		<div class="announcement__form__schedule">
 			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">
-				{{ t('announcementcenter', 'Schedule Announcement Time (optional)') }}
+				{{ t('announcementcenter', 'Schedule announcement time (optional)') }}
 			</NcCheckboxRadioSwitch>
 			<NcDateTimePicker v-model="scheduleTime"
 				:disabled="!scheduleEnabled"
@@ -49,7 +49,7 @@
 		</div>
 		<div class="announcement__form__delete">
 			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">
-				{{ t('announcementcenter', 'Schedule Deletion Time (optional)') }}
+				{{ t('announcementcenter', 'Schedule deletion time (optional)') }}
 			</NcCheckboxRadioSwitch>
 			<NcDateTimePicker v-model="deleteTime"
 				:disabled="!deleteEnabled"

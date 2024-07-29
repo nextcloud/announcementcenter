@@ -4,6 +4,7 @@
     "An <strong>announcement</strong> is posted by an administrator" : "Un <strong>anuncio</strong> ha sido publicado por un administrador",
     "The subject is too long or empty" : "El asunto es muy largo o está vacío",
     "Announcements" : "Anuncios",
+    "Read more" : "Leer más",
     "{user} announced “{announcement}”" : "{user} anunció “{announcement}”",
     "Announcement center" : "Centro de anuncios",
     "This app allows admins to post announcements." : "Esta aplicación le permite a los adminsitradores publicar anuncios.",

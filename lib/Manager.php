@@ -119,7 +119,7 @@ class Manager {
 		$announcement->setUser($user);
 		$announcement->setTime($time);
 		$announcement->setAllowComments((int) $comments);
-		$announcement->setGroupsImplode($groups);
+		$announcement->setGroupsEncode($groups);
 		$announcement->setScheduleTime($scheduledTime);
 		$announcement->setDeleteTime($deleteTime);
 		$announcement->setNotTypes($notificationOptions);
@@ -133,7 +133,7 @@ class Manager {
 
 	public function publishAnnouncement(Announcement $announcement) : void {
 		$addedGroups = 0;
-		$groups = $announcement->getGroupsExplode();
+		$groups = $announcement->getGroupsDecode();
 		foreach ($groups as $group) {
 			if ($this->groupManager->groupExists($group)) {
 				$this->addGroupLink($announcement, $group);
