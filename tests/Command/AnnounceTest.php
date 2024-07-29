@@ -25,7 +25,6 @@ namespace OCA\AnnouncementCenter\Tests\Command;
 use OCA\AnnouncementCenter\Command\Announce;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\NotificationType;
-use OCA\AnnouncementCenter\Tests\PHPUnitUtil;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IUserManager;
@@ -185,6 +184,6 @@ class AnnounceCommandTest extends TestCase {
 			->willReturn(10);
 
 		$result = self::invokePrivate($this->announceCommand, 'execute', [$this->input, $this->output]);
-		self::assertequals(True, $result > 0);
+		self::assertequals(true, $result > 0);
 	}
 }

@@ -24,7 +24,6 @@ namespace OCA\AnnouncementCenter\Tests\Command;
 
 use OCA\AnnouncementCenter\Command\AnnouncementList;
 use OCA\AnnouncementCenter\Manager;
-use OCA\AnnouncementCenter\Tests\PHPUnitUtil;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Command\Command;
@@ -88,6 +87,6 @@ class AnnouncementListTest extends TestCase {
 			->with('limit')
 			->willReturn('invalid');
 		$result = self::invokePrivate($this->listCommand, 'execute', [$this->input, $this->output]);
-		self::assertEquals(True, $result > 0);
+		self::assertEquals(true, $result > 0);
 	}
 }
