@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Nuovo oggetto dell'annuncio",
     "Write announcement text, Markdown can be used …" : "Scrivi il testo dell'annuncio, può essere utilizzato Markdown…",
     "Announce" : "Annuncio",
+    "Visibility" : "Visibilità",
     "Everyone" : "Tutti",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Questi gruppi saranno in grado di vedere l'annuncio. Se non è selezionato alcun gruppo, potranno vederlo tutti gli utenti.",
     "Create activities" : "Crea attività",

@@ -35,7 +35,11 @@
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span class="live-relative-timestamp"
+					<span v-if="isScheduled"
+						class="live-relative-timestamp"
+						:title="scheduledLabel">{{ scheduledLabel }}</span>
+					<span v-else
+						class="live-relative-timestamp"
 						:data-timestamp="timestamp"
 						:title="dateFormat">{{ dateRelative }}</span>
 
@@ -228,10 +232,7 @@ export default {
 		},
 
 		scheduledLabel() {
-			if (this.scheduleTime) {
-				return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
-			}
-			return 'BUG:' + this.scheduleTime
+			return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
 		},
 
 		visibilityTitle() {

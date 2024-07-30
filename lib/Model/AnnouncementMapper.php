@@ -62,14 +62,12 @@ class AnnouncementMapper extends QBMapper
 	 * @return int the number of affected rows
 	 * @throws DoesNotExistException
 	 */
-	public function resetScheduleTimeById(int $id)
-	{
+	public function resetScheduleTimeById(int $id) {
 		$query = $this->db->getQueryBuilder();
 		$query->update($this->getTableName())
 			->set(
 				'announcement_schedule_time',
-				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
-			)
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT))
 			->where(
 				$query->expr()->eq('announcement_id', $query->createNamedParameter($id))
 			);
@@ -152,19 +150,16 @@ class AnnouncementMapper extends QBMapper
 	 * Get all announcements, that have a schedule time
 	 * @return Announcement[]
 	 */
-	public function getAnnouncementsScheduled(): array
-	{
+	public function getAnnouncementsScheduled() : array {
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->orderBy('announcement_schedule_time', 'ASC')  // respect order
 			->where($query->expr()->isNotNull('announcement_schedule_time'))
-			->andWhere(
-				$query->expr()->gt(
-					'announcement_schedule_time',
-					$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
-				)
-			);
+			->andWhere($query->expr()->gt(
+				'announcement_schedule_time',
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+			));
 		return $this->findEntities($query);
 	}
 
@@ -172,19 +167,16 @@ class AnnouncementMapper extends QBMapper
 	 * Get all announcements, that have a deletion time
 	 * @return Announcement[]
 	 */
-	public function getAnnouncementsScheduledDelete(): array
-	{
+	public function getAnnouncementsScheduledDelete() : array {
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')
 			->from($this->getTableName())
 			->orderBy('announcement_delete_time', 'ASC')  // highest chance to be deleted
 			->where($query->expr()->isNotNull('announcement_delete_time'))
-			->andWhere(
-				$query->expr()->gt(
-					'announcement_delete_time',
-					$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
-				)
-			);
+			->andWhere($query->expr()->gt(
+				'announcement_delete_time',
+				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+			));
 		return $this->findEntities($query);
 	}
 

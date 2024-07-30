@@ -15,7 +15,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} أعلن ”{announcement}“",
     "Announcement center" : "مركز الإعلانات",
     "This app allows admins to post announcements." : "هذا التطبيق يسمح للمدراء بإرسال الإعلانات.",
-    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "أعلن عن نافذة الصيانة الخاصة بك 🎛️، أو تقديم زميل جديد 👤 أو تأكد من أن الجميع على دراية بالحدث الكبير الشهر المقبل 📅\n\n🖌️ دعم \"Markdown\"\n\n📑 التعليقات بما في ذلك الإشارات \"@\"\n\n👪 أذونات المجموعة\n\n⭕ تكامل لوحة القيادة\n\n⚡ تكامل الأنشطة\n\n🔔 تكامل الإخطارات",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "أعلن عن نافذة الصيانة الخاصة بك 🎛️، أو قدم زميلًا جديدًا 👤 أو تأكد من أن الجميع يعرف عن الحدث الكبير الشهر المقبل 📅\n\n🖌️ دعم\"Markdown\"\n\n📑 التعليقات تتضمن @-الإشارات\n\n👪 أذونات المجموعة\n\n⭕ تكامل لوحة القيادة\n\n⚡ تكامل الأنشطة\n\n🔔 تكامل الإخطارات",
     "These groups will be able to post announcements." : "هذه المجموعات ستملك الصلاحية لنشر الاعلانات",
     "Create activities by default" : "انشئ النشاطات افتراضياً",
     "Create notifications by default" : "انشئ الاشعارات افتراضياً",
@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "موضوع إعلان جديد",
     "Write announcement text, Markdown can be used …" : "اكتب نص إعلان، يمكنكم استخدام \"Markdown\" ...",
     "Announce" : "أعلن",
+    "Visibility" : "الرؤية Visibility",
     "Everyone" : "الجميع",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "هذه المجموعات سترى الاعلانات. اذا لم يتم اختيار مجموعة محددة فإن جميع المستخدين سيرونها.",
     "Create activities" : "انشئ نشاطات",

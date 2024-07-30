@@ -40,6 +40,7 @@ OC.L10N.register(
     "New announcement subject" : "Nytt kunngjøringsemne",
     "Write announcement text, Markdown can be used …" : "Skriv tekst for din kunngjøring, Markdown kan brukes.",
     "Announce" : "Kunngjør",
+    "Visibility" : "Synlighet",
     "Everyone" : "Alle",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse gruppene vil kunne se kunngjøringen, hvis ingen grupper er valgt vil alle brukerne kunne se den.",
     "Create activities" : "Opprett aktiviteter",

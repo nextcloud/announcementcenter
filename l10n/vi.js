@@ -38,6 +38,7 @@ OC.L10N.register(
     "New announcement subject" : "Chủ đề thông báo mới",
     "Write announcement text, Markdown can be used …" : "Nhập văn bản thông báo, có thể sử dụng Markdown ...",
     "Announce" : "Thông báo",
+    "Visibility" : "Hiển thị",
     "Everyone" : "Tất cả mọi người",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Những nhóm này sẽ nhìn thấy thông báo này. Nếu không có nhóm nào được chọn, mọi người dùng có thể xem được thông báo này.",
     "Create activities" : "Tạo hoạt động",
