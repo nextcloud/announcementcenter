@@ -128,7 +128,7 @@ class Announcement extends Entity {
 	/**
 	 * @param array $groups a list of groups
 	 */
-	public function setGroupsEncode($groups) {
+	public function setGroupsEncode($groups): void {
 		// encode groups as a single string for the database
 		$this->setGroups(json_encode($groups));
 	}

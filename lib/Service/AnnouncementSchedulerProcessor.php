@@ -46,7 +46,7 @@ class AnnouncementSchedulerProcessor {
 		$this->logger = $logger;
 	}
 
-	public function doCron($argument) {
+	public function doCron($argument): void {
 		$this->logger->debug('Started announcement scheduler');
 		//first schedule then delete because e-mails might be send
 		$this->scheduleAnnouncements($argument);
@@ -54,7 +54,7 @@ class AnnouncementSchedulerProcessor {
 		$this->logger->debug('Finished announcement scheduler');
 	}
 
-	private function scheduleAnnouncements($argument) {
+	private function scheduleAnnouncements($argument): void {
 		$scheduledAnnouncements = $this->mapper->getAnnouncementsScheduled();
 		foreach ($scheduledAnnouncements as $ann) {
 			if ($ann->getScheduleTime() > $this->timeFactory->getTime()) {
@@ -66,7 +66,7 @@ class AnnouncementSchedulerProcessor {
 		}
 	}
 
-	private function deleteAnnouncements($argument) {
+	private function deleteAnnouncements($argument): void {
 		$deleteAnnouncements = $this->mapper->getAnnouncementsScheduledDelete();
 		foreach ($deleteAnnouncements as $ann) {
 			// don't delete unannounced announcements

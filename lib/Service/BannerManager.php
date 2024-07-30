@@ -51,7 +51,7 @@ class BannerManager {
 		return $readBanners;
 	}
 
-	private function setReadBanners(string $uid, array $readBanners) {
+	private function setReadBanners(string $uid, array $readBanners): void {
 		$readBannerValue = implode(",", $readBanners);
 		$this->config->setUserValue($uid, $this->appName, $this->userReadKey, $readBannerValue);
 	}
@@ -69,10 +69,11 @@ class BannerManager {
 
 	/**
 	 * Sets a banner with id $id as read for a user with userId $uid
+	 *
 	 * @param string $uid user id
 	 * @param string $id id of a banner
 	 */
-	public function markBannerRead(string $uid, string $id) {
+	public function markBannerRead(string $uid, string $id): void {
 		$readBanners = $this->getReadBanners($uid);
 		$readBanners[] = $id;
 
@@ -80,7 +81,7 @@ class BannerManager {
 		if(count($readBanners) > 5) {
 			$existingReadBanners = $this->mapper->getAnnouncementsExisting($readBanners);
 			$readBanners = array_map(function ($item) {
-				return strval($item['announcement_id']);
+				return strval($item);
 			}, $existingReadBanners);
 		}
 		$this->setReadBanners($uid, $readBanners);

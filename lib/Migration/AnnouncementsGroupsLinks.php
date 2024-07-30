@@ -54,8 +54,12 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	 * Must throw exception on error.
 	 *
 	 * @since 9.1.0
+	 *
 	 * @param IOutput $output
+	 *
 	 * @throws \Exception in case of failure
+	 *
+	 * @return void
 	 */
 	public function run(IOutput $output) {
 		$queryInsert = $this->connection->getQueryBuilder();

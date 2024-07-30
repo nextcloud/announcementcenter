@@ -179,7 +179,7 @@ class AnnouncementMapper extends QBMapper {
 	 * Get all announcements, that are banners
 	 * @return Announcement[]
 	 */
-	public function getBanners($notTheseIds): array {
+	public function getBanners(array $notTheseIds): array {
 		$query = $this->db->getQueryBuilder();
 		$bannerBit = 3; // See notificationType
 		$bannerValue = (1 << $bannerBit);
@@ -229,8 +229,12 @@ class AnnouncementMapper extends QBMapper {
 			);
 		
 		$result = $query->executeQuery();
-		$row = $result->fetchAll();
+		$rows = $result->fetchAll();
 		$result->closeCursor();
-		return $row;
+
+		$ids = array_map(function ($row) {
+			return $row['announcement_id'];
+		}, $rows);
+		return $ids;
 	}
 }
