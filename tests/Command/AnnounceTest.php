@@ -86,6 +86,7 @@ class AnnounceCommandTest extends TestCase {
 	public function dataCorrect() {
 		return [
 			// user | subject | message | group | acitivites | notifications | emails | comments | scheduleTime | deleteTime
+			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], false, false, false, false, null, null],  // no notification type
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, null, null],
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], false, true, false, false, null, null],
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], false, false, true, false, null, null],
@@ -101,7 +102,6 @@ class AnnounceCommandTest extends TestCase {
 	public function dataException() {
 		return [
 			// user | subject | message | group | acitivites | notifications | emails | comments | scheduleTime | deleteTime
-			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], false, false, false, false, null, null],  // no notification type
 			['invalid', 'TestSubject', 'TestMessage', ['everyone'], false, false, false, false, null, null],  // invalid user
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, 0, null],  // scheduled in past
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, null, 0],  // scheduled in past

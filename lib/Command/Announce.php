@@ -156,11 +156,6 @@ class Announce extends Command {
 		$plainMessage = $this->plainifyMessage($message);
 		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 
-		if (!$notificationOptions) {
-			$output->writeln("You didn't set any notification option, please set 'activities', 'notifications' or 'emails'");
-			return 2;
-		}
-
 		$result = $this->manager->announce($subject, $message, $plainMessage, $user, $this->time->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
 		$output->writeln("Created announcement #" . $result->getId() . ": " . $result->getSubject());
 
