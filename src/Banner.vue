@@ -1,36 +1,34 @@
 <template>
 	<div v-if="isVisible" class="announcement__banner">
-		<template v-for="(announcement, index) in announcements">
-			<NcNoteCard type="warning">
-				<template #icon>
-					<MessageAlert :size="20" />
-				</template>
-				<div class="announcement__banner__container">
-					<div class="announcement__banner__container__text">
-						<p class="announcement__banner__subject">
-							{{ announcement.subject }}:
-						</p>
-						<p class="announcement__banner__message">
-							{{ announcement.message }}
-						</p>
-					</div>
-					<NcButton class="announcement__banner__close"
-						aria-label="close banner"
-						type="warning"
-						@click="announcementRead(index)">
-						<Close :size="20" />
-					</NcButton>
+		<NcNoteCard v-for="(announcement, index) in announcements" :key="index" type="warning">
+			<template #icon>
+				<MessageAlert :size="20" />
+			</template>
+			<div class="announcement__banner__container">
+				<div class="announcement__banner__container__text">
+					<p class="announcement__banner__subject">
+						{{ announcement.subject }}:
+					</p>
+					<p class="announcement__banner__message">
+						{{ announcement.message }}
+					</p>
 				</div>
-			</NcNoteCard>
-		</template>
+				<NcButton class="announcement__banner__close"
+					aria-label="close banner"
+					type="warning"
+					@click="announcementRead(index)">
+					<Close :size="20" />
+				</NcButton>
+			</div>
+		</NcNoteCard>
 	</div>
 </template>
 
 <script>
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcNoteCard from '@nextcloud/vue/dist/Components/NcNoteCard.js'
-import Close from 'vue-material-design-icons/Close'
-import MessageAlert from 'vue-material-design-icons/MessageAlert'
+import Close from 'vue-material-design-icons/Close.vue'
+import MessageAlert from 'vue-material-design-icons/MessageAlert.vue'
 import { showError } from '@nextcloud/dialogs'
 import {
 	getBanners,
@@ -101,68 +99,68 @@ export default {
 
 <style lang="scss" scoped>
 .announcement {
-    &__banner {
-        position: fixed;
-        display: flex;
-        justify-content: start;
-        /*The navbar has a z-index of 1999 */
-        z-index: 2000;
-        width: 100%;
-        flex-direction: column;
-        top: 0;
+	&__banner {
+		position: fixed;
+		display: flex;
+		justify-content: start;
+		/*The navbar has a z-index of 1999 */
+		z-index: 2000;
+		width: 100%;
+		flex-direction: column;
+		top: 0;
 
-        &__subject,
-        &__message {
-            color: var(--color-main-text);
-            overflow-wrap: break-word;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            flex-direction: column;
-        }
+		&__subject,
+		&__message {
+			color: var(--color-main-text);
+			overflow-wrap: break-word;
+			text-align: center;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
 
-        &__subject {
-            font-weight: bold;
-            padding-right: 12px;
-        }
+		&__subject {
+			font-weight: bold;
+			padding-right: 12px;
+		}
 
-        &__container {
-            display: flex;
-            justify-content: space-between;
+		&__container {
+			display: flex;
+			justify-content: space-between;
 
-            &__text {
-                display: flex;
-                justify-content: start;
-                flex-direction: row;
+			&__text {
+				display: flex;
+				justify-content: start;
+				flex-direction: row;
 
-            }
+			}
 
-            .message-alert-icon {
-                /* 20px + 2*12px = 44px icon span */
-                padding: 0 12px 0 12px;
-                color: var(--color-warning);
-            }
-        }
+			.message-alert-icon {
+				/* 20px + 2*12px = 44px icon span */
+				padding: 0 12px 0 12px;
+				color: var(--color-warning);
+			}
+		}
 
-        &__close {
-            padding: 0 !important;
-            /* 44 is the default button height*/
-            margin-top: calc((var(--header-height) - 44px) / 2);
-            margin-bottom: calc((var(--header-height) - 44px) / 2);
-            margin-right: 12px;
-        }
-    }
+		&__close {
+			padding: 0 !important;
+			/* 44 is the default button height*/
+			margin-top: calc((var(--header-height) - 44px) / 2);
+			margin-bottom: calc((var(--header-height) - 44px) / 2);
+			margin-right: 12px;
+		}
+	}
 }
 
 $custom-note-background: rgba(var(--color-warning-rgb), .7);
 
 .announcement__banner .notecard {
-    background-color: $custom-note-background !important;
-    margin: 0;
-    padding: 0;
+	background-color: $custom-note-background !important;
+	margin: 0;
+	padding: 0;
 }
 
 .announcement__banner .notecard::v-deep div {
-    width: 100%;
+	width: 100%;
 }
 </style>

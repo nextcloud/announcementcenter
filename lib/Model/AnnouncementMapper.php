@@ -32,10 +32,8 @@ use OCP\IDBConnection;
 /**
  * @template-extends QBMapper<Announcement>
  */
-class AnnouncementMapper extends QBMapper
-{
-	public function __construct(IDBConnection $db)
-	{
+class AnnouncementMapper extends QBMapper {
+	public function __construct(IDBConnection $db) {
 		parent::__construct($db, 'announcements', Announcement::class);
 	}
 
@@ -44,8 +42,7 @@ class AnnouncementMapper extends QBMapper
 	 * @return Announcement
 	 * @throws DoesNotExistException
 	 */
-	public function getById(int $id): Announcement
-	{
+	public function getById(int $id): Announcement {
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('*')
@@ -81,8 +78,7 @@ class AnnouncementMapper extends QBMapper
 	 * @psalm-return Announcement the deleted entity
 	 * @since 14.0.0
 	 */
-	public function delete(Entity $entity): Entity
-	{
+	public function delete(Entity $entity): Entity {
 		$qb = $this->db->getQueryBuilder();
 
 		$qb->delete($this->getTableName())
@@ -99,8 +95,7 @@ class AnnouncementMapper extends QBMapper
 	 * @param int $limit
 	 * @return Announcement[]
 	 */
-	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array
-	{
+	public function getAnnouncements(array $userGroups, int $offsetId = 0, int $limit = 7): array {
 		$query = $this->db->getQueryBuilder();
 
 		$query->select('a.announcement_id')
@@ -109,7 +104,7 @@ class AnnouncementMapper extends QBMapper
 			->groupBy('a.announcement_id')
 			->setMaxResults($limit);
 
-		if (!empty ($userGroups)) {
+		if (!empty($userGroups)) {
 			$query->leftJoin(
 				'a',
 				'announcements_map',
@@ -133,7 +128,7 @@ class AnnouncementMapper extends QBMapper
 		}
 		$result->closeCursor();
 
-		if (empty ($ids)) {
+		if (empty($ids)) {
 			return [];
 		}
 
@@ -184,8 +179,7 @@ class AnnouncementMapper extends QBMapper
 	 * Get all announcements, that are banners
 	 * @return Announcement[]
 	 */
-	public function getBanners($notTheseIds): array
-	{
+	public function getBanners($notTheseIds): array {
 		$query = $this->db->getQueryBuilder();
 		$bannerBit = 3; // See notificationType
 		$bannerValue = (1 << $bannerBit);
@@ -202,7 +196,7 @@ class AnnouncementMapper extends QBMapper
 				)
 			);
 
-		if (!empty ($notTheseIds)) {
+		if (!empty($notTheseIds)) {
 			$query->andWhere(
 				$query->expr()->notIn(
 					'announcement_id',
@@ -219,8 +213,7 @@ class AnnouncementMapper extends QBMapper
 	 * @param array $annIds array of strings of ids, that need to be checked for existing
 	 * @return int[]
 	 */
-	public function getAnnouncementsExisting(array $annIds): array
-	{
+	public function getAnnouncementsExisting(array $annIds): array {
 		if (!$annIds) {
 			return [];
 		}
