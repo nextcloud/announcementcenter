@@ -40,9 +40,6 @@ class AnnouncementSchedulerJob extends TimedJob {
 		$this->setInterval(60);
 	}
 
-	/**
-	 * @return void
-	 */
 	protected function run($argument) {
 		$this->asp->doCron($argument);
 	}

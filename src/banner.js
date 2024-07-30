@@ -23,9 +23,8 @@ Vue.mixin({
 	},
 })
 
-// Inject maintenance banner
 /**
- *
+ * Injects a banner div into the document body in order to attach a Vue element to it
  */
 function injectBanner() {
 	if (document.body) {
@@ -42,7 +41,7 @@ function injectBanner() {
 
 let banner = null
 
-// Call the function to inject the banner
+// attach Vue Banner
 if (injectBanner()) {
 	banner = new Vue({
 		el: '#announcement__banner',

@@ -135,7 +135,7 @@ class Provider implements IProvider {
 		];
 	}
 
-	protected function setSubjects(IEvent $event, string $subject, array $parameters): void {
+	protected function setSubjects(IEvent $event, string $subject, array $parameters) {
 		$placeholders = $replacements = [];
 		foreach ($parameters as $placeholder => $parameter) {
 			$placeholders[] = '{' . $placeholder . '}';

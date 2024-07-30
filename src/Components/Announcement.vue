@@ -45,10 +45,6 @@
 
 					<template v-if="isAdmin">
 						·
-						<template v-if="isScheduled">
-							{{ scheduledLabel }}
-							·
-						</template>
 						<template v-if="isVisibleToEveryone">
 							{{ visibilityLabel }}
 						</template>
