@@ -282,8 +282,8 @@ class APIController extends OCSController {
 	public function markBannerRead(string $id): DataResponse {
 		$user = $this->userSession->getUser();
 		if ($user instanceof IUser) {
-			$response = $this->bannerManager->markBannerRead($user->getUID(), $id);
-			return new DataResponse($response);
+			$this->bannerManager->markBannerRead($user->getUID(), $id);
+			return new DataResponse('success');
 		}
 		return new DataResponse(['error' => 'user not found'], Http::STATUS_BAD_REQUEST);
 	}
