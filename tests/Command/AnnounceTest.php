@@ -147,7 +147,7 @@ class AnnounceCommandTest extends TestCase {
 		$this->input->expects($this->atLeastOnce())
 			->method('getArgument')
 			->willReturnCallback($argumentCallback);
-		$this->input->expects($this->atLeastOnce())
+		$this->input->expects($this->any())
 			->method('getOption')
 			->willReturnCallback($optionCallback);
 	}
@@ -178,7 +178,7 @@ class AnnounceCommandTest extends TestCase {
 		$this->setupInput($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime);
 		$this->userManager->expects($this->once())
 			->method('userExists')
-			->willReturn(true);
+			->willReturn($user !== 'invalid');
 		$this->time->expects($this->any())
 			->method('getTime')
 			->willReturn(10);
