@@ -85,6 +85,7 @@ class AnnouncementList extends Command {
 	}
 
 	private function ellipseAndPadText(string $text, int $width, string $sep = " "): string {
+		$text = str_replace(["\r", "\n"], ' ', $text);
 		$text = str_pad($text, $width, $sep, STR_PAD_RIGHT);
 		$text = strlen($text) > $width ? substr($text, 0, $width - 2) . " …" : $text;
 		return $text;
