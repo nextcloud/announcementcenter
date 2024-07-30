@@ -74,10 +74,11 @@ class NotificationTypeTest extends TestCase {
 	 * @test
 	 * @dataProvider data
 	 */
-	public function testDecode($emails, $notifications, $activities, $expected) {
+	public function testDecode($emails, $notifications, $activities, $banner, $expected) {
 		$result_activities = $this->notificationType->getActivities($expected);
 		$result_notifications = $this->notificationType->getNotifications($expected);
 		$result_emails = $this->notificationType->getEmail($expected);
-		self::assertEquals([$result_activities, $result_notifications, $result_emails], [$activities, $notifications, $emails]);
+		$result_banner = $this->notificationType->getBanner($expected);
+		self::assertEquals([$result_activities, $result_notifications, $result_emails, $result_banner], [$activities, $notifications, $emails, $banner]);
 	}
 }
