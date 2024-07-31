@@ -48,6 +48,12 @@
 		</post-migration>
 	</repair-steps>
 
+	<commands>
+		<command>OCA\AnnouncementCenter\Command\Announce</command>
+		<command>OCA\AnnouncementCenter\Command\AnnouncementList</command>
+		<command>OCA\AnnouncementCenter\Command\AnnouncementDelete</command>
+	</commands>
+
 	<settings>
 		<admin>OCA\AnnouncementCenter\Settings\Admin</admin>
 	</settings>

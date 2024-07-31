@@ -28,6 +28,11 @@
 				<referencedClass name="Doctrine\DBAL\Types\Types" />
 				<referencedClass name="OC" />
 				<referencedClass name="OCA\Guests\UserBackend" />
+				<referencedClass name="Symfony\Component\Console\Command\Command" />
+				<referencedClass name="Symfony\Component\Console\Input\InputArgument" />
+				<referencedClass name="Symfony\Component\Console\Input\InputInterface" />
+				<referencedClass name="Symfony\Component\Console\Input\InputOption" />
+				<referencedClass name="Symfony\Component\Console\Output\OutputInterface" />
 				<referencedClass name="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
 			</errorLevel>
 		</UndefinedClass>
