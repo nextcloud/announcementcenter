@@ -96,6 +96,10 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
+				<NcActionCheckbox value="0"
+					:checked.sync="createBanner">
+					{{ t('announcementcenter', 'Create Banner') }}
+				</NcActionCheckbox>
 			</NcActions>
 		</div>
 	</div>
@@ -138,6 +142,7 @@ export default {
 			createNotifications: loadState('announcementcenter', 'createNotifications'),
 			sendEmails: loadState('announcementcenter', 'sendEmails'),
 			allowComments: loadState('announcementcenter', 'allowComments'),
+			createBanner: loadState('announcementcenter', 'createBanner'),
 			groups: [],
 			groupOptions: [],
 			scheduleEnabled: false,
@@ -159,6 +164,7 @@ export default {
 			this.createNotifications = loadState('announcementcenter', 'createNotifications')
 			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
+			this.createBanner = loadState('announcementcenter', 'createBanner')
 			this.groups = []
 			this.scheduleEnabled = false
 			this.deleteEnabled = false
@@ -207,6 +213,7 @@ export default {
 					this.createNotifications,
 					this.sendEmails,
 					this.allowComments,
+					this.createBanner,
 					new Date(this.scheduleTime).getTime() / 1000, // time in seconds
 					new Date(this.deleteTime).getTime() / 1000,
 				)

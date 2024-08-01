@@ -105,9 +105,15 @@ class AnnouncementMapper extends QBMapper {
 			->setMaxResults($limit);
 
 		if (!empty($userGroups)) {
-			$query->leftJoin('a', 'announcements_map', 'ag', $query->expr()->eq(
-				'a.announcement_id', 'ag.announcement_id'
-			))
+			$query->leftJoin(
+				'a',
+				'announcements_map',
+				'ag',
+				$query->expr()->eq(
+					'a.announcement_id',
+					'ag.announcement_id'
+				)
+			)
 				->andWhere($query->expr()->in('ag.gid', $query->createNamedParameter($userGroups, IQueryBuilder::PARAM_STR_ARRAY)));
 		}
 
@@ -167,5 +173,68 @@ class AnnouncementMapper extends QBMapper {
 				$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
 			));
 		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcements, that are banners
+	 * @return Announcement[]
+	 */
+	public function getBanners(array $notTheseIds): array {
+		$query = $this->db->getQueryBuilder();
+		$bannerBit = 3; // See notificationType
+		$bannerValue = (1 << $bannerBit);
+		$query->select('*')
+			->from($this->getTableName())
+			->where($query->expr()->bitwiseAnd('announcement_not_types', $bannerValue))
+			->andWhere(
+				$query->expr()->orX(
+					$query->expr()->eq(
+						'announcement_schedule_time',
+						$query->expr()->literal(0, IQueryBuilder::PARAM_INT)
+					),
+					$query->expr()->isNull('announcement_schedule_time'),
+				)
+			);
+
+		if (!empty($notTheseIds)) {
+			$query->andWhere(
+				$query->expr()->notIn(
+					'announcement_id',
+					$query->createNamedParameter($notTheseIds, IQueryBuilder::PARAM_STR_ARRAY)
+				)
+			);
+		}
+
+		return $this->findEntities($query);
+	}
+
+	/**
+	 * Get all announcement ids, which exist from $annIds
+	 * @param array $annIds array of strings of ids, that need to be checked for existing
+	 * @return int[]
+	 */
+	public function getAnnouncementsExisting(array $annIds): array {
+		if (!$annIds) {
+			return [];
+		}
+
+		$query = $this->db->getQueryBuilder();
+		$query->select('announcement_id')
+			->from($this->getTableName())
+			->where(
+				$query->expr()->in(
+					'announcement_id',
+					$query->createNamedParameter($annIds, IQueryBuilder::PARAM_STR_ARRAY)
+				)
+			);
+		
+		$result = $query->executeQuery();
+		$rows = $result->fetchAll();
+		$result->closeCursor();
+
+		$ids = array_map(function ($row) {
+			return $row['announcement_id'];
+		}, $rows);
+		return $ids;
 	}
 }
