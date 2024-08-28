@@ -50,11 +50,11 @@ class CommentsEntityListener implements IEventListener {
 
 		$event->addEntityCollection('announcement', function ($name) {
 			try {
-				$announcement = $this->manager->getAnnouncement((int) $name);
+				$announcement = $this->manager->getAnnouncement((int)$name);
 			} catch (AnnouncementDoesNotExistException $e) {
 				return false;
 			}
-			return (bool) $announcement->getAllowComments();
+			return (bool)$announcement->getAllowComments();
 		});
 	}
 }

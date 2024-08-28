@@ -118,7 +118,7 @@ class AnnouncementMapper extends QBMapper {
 		$ids = [];
 		$result = $query->execute();
 		while ($row = $result->fetch()) {
-			$ids[] = (int) $row['announcement_id'];
+			$ids[] = (int)$row['announcement_id'];
 		}
 		$result->closeCursor();
 

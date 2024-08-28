@@ -58,7 +58,7 @@ class AnnouncementSchedulerJobTest extends TestCase {
 		$infoFile = file_get_contents('appinfo/info.xml');
 		$info = simplexml_load_string($infoFile);
 		$backgroundJobs = $info->{'background-jobs'};
-		$job = (string) $backgroundJobs[0]->job;
+		$job = (string)$backgroundJobs[0]->job;
 
 		$expected = get_class($this->asj);
 		self::assertEquals($expected, $job);
