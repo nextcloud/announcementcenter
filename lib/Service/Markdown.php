@@ -2,22 +2,26 @@
 
 namespace OCA\AnnouncementCenter\Service;
 
-use League\CommonMark\Exception\CommonMarkException;
-use League\CommonMark\GithubFlavoredMarkdownConverter;
+use OCA\AnnouncementCenter\Vendor\League\CommonMark\Environment;
+use OCA\AnnouncementCenter\Vendor\League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use OCA\AnnouncementCenter\Vendor\League\CommonMark\MarkdownConverter;
 
 class Markdown {
-	private GithubFlavoredMarkdownConverter $converter;
+	private MarkdownConverter $converter;
 
 	public function __construct() {
-		$this->converter = new GithubFlavoredMarkdownConverter([
-			'allow_unsafe_links' => false
+		$environment = Environment::createCommonMarkEnvironment();
+		$environment->addExtension(new GithubFlavoredMarkdownExtension());
+		$environment->mergeConfig([
+			'html_input' => 'escape',
+			'allow_unsafe_links' => false,
+			'max_nesting_level' => 20
 		]);
+
+		$this->converter = new MarkdownConverter($environment);
 	}
 
-	/**
-	 * @throws CommonMarkException
-	 */
 	public function convert(string $text): string {
-		return $this->converter->convert($text)->getContent();
+		return $this->converter->convertToHtml($text);
 	}
 }
