@@ -27,7 +27,6 @@ namespace OCA\AnnouncementCenter;
 
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
-use OCA\AnnouncementCenter\Service\Markdown;
 use OCA\Guests\UserBackend;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
@@ -66,8 +65,7 @@ class NotificationQueueJob extends QueuedJob {
 		INotificationManager $notificationManager,
 		IMailer $mailer,
 		LoggerInterface $logger,
-		Manager $manager,
-		private Markdown $markdown
+		Manager $manager
 	) {
 		parent::__construct($time);
 		$this->config = $config;
