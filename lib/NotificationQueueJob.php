@@ -159,7 +159,7 @@ class NotificationQueueJob extends QueuedJob {
 	 * Special-treat list items and strip empty lines
 	 *
 	 * @param IEMailTemplate $template
-	 * @param string         $message
+	 * @param string $message
 	 *
 	 * @return void
 	 */

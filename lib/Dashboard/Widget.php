@@ -150,7 +150,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	}
 
 	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
-		$announcements = $this->manager->getAnnouncements((int) $since, $limit);
+		$announcements = $this->manager->getAnnouncements((int)$since, $limit);
 		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);
 		return $data;
 	}
@@ -170,7 +170,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 				'userId' => $data['author_id'],
 				'size' => 64,
 			]),
-			(string) $data['id']
+			(string)$data['id']
 		);
 	}
 }
