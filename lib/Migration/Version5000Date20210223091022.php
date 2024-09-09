@@ -98,7 +98,7 @@ class Version5000Date20210223091022 extends SimpleMigrationStep {
 		$result = $query->execute();
 		while ($row = $result->fetch()) {
 			$insert
-				->setParameter('announcement_id', (int) $row['announcement_id'], IQueryBuilder::PARAM_INT)
+				->setParameter('announcement_id', (int)$row['announcement_id'], IQueryBuilder::PARAM_INT)
 				->setParameter('gid', $row['gid'])
 			;
 

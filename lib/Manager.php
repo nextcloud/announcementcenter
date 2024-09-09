@@ -118,7 +118,7 @@ class Manager {
 		$announcement->setPlainMessage($plainMessage);
 		$announcement->setUser($user);
 		$announcement->setTime($time);
-		$announcement->setAllowComments((int) $comments);
+		$announcement->setAllowComments((int)$comments);
 		$announcement->setGroupsEncode($groups);
 		$announcement->setScheduleTime($scheduledTime);
 		$announcement->setDeleteTime($deleteTime);
@@ -171,7 +171,7 @@ class Manager {
 		$this->notificationManager->markProcessed($notification);
 
 		// Delete comments
-		$this->commentsManager->deleteCommentsAtObject('announcement', (string) $id);
+		$this->commentsManager->deleteCommentsAtObject('announcement', (string)$id);
 
 		$announcement = $this->announcementMapper->getById($id);
 		$this->announcementMapper->delete($announcement);
@@ -261,7 +261,7 @@ class Manager {
 	}
 
 	public function getNumberOfComments(Announcement $announcement): int {
-		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string) $announcement->getId());
+		return $this->commentsManager->getNumberOfCommentsForObject('announcement', (string)$announcement->getId());
 	}
 
 	public function hasNotifications(Announcement $announcement): bool {
