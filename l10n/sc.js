@@ -30,7 +30,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Ddoe at àpidu un'errore boghende·nche is notìficas de sa comunicatzione",
     "An error occurred while deleting the announcement" : "B'at àpidu un'errore cantzellende sa comunicatzione",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visìbile pro su grupu {name} e pro %n àteros","visìbile pro su grupu {name} e pro %n àteros"],
     "_%n comment_::_%n comments_" : ["%n commentu","%n cummentu"],
     "New announcement subject" : "Ogetu nou de sa comunicatzione",
     "Write announcement text, Markdown can be used …" : "Iscrie su testu de sa comunicatzione, podes impreare Markdown …",

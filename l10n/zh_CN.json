@@ -33,7 +33,6 @@
     ", " : "，",
     "An error occurred while removing the notifications of the announcement" : "删除公告的通知时发生错误",
     "An error occurred while deleting the announcement" : "删除公告时发生错误",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["对小组 {name} 和另外 %n 个群组可见"],
     "_%n comment_::_%n comments_" : ["%n 评论"],
     "New announcement subject" : "新公告主题",
     "Write announcement text, Markdown can be used …" : "撰写公告文本，可使用 Markdown 格式 ......",

@@ -34,7 +34,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Duyurunun bildirimleri silinirken bir sorun çıktı",
     "An error occurred while deleting the announcement" : "Duyuru silinirken bir sorun çıktı",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["{name} ve %n diğer grup görebilir","{name} ve %n diğer grup görebilir"],
     "_%n comment_::_%n comments_" : ["%n yorum","%n yorum"],
     "New announcement subject" : "Yeni duyuru konusu",
     "Write announcement text, Markdown can be used …" : "Duyuru metnini yazın. Markdown kullanılabilir …",

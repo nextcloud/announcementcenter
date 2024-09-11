@@ -33,7 +33,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Помилка під час вилучення сповіщень",
     "An error occurred while deleting the announcement" : "Помилка під час вилучення повідомлень",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["видимий групі {name} та %n іншим","видимий групі {name} та %n іншим","видимий групі {name} та %n іншим","видимий групі {name} та %n іншим"],
     "_%n comment_::_%n comments_" : ["%n коментар","%nкоментарів","%nкоментарів","%n коментарів"],
     "New announcement subject" : "Нова тема оголошення",
     "Write announcement text, Markdown can be used …" : "Напишіть текст оголошення, Markdown можна використовувати...",

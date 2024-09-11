@@ -33,7 +33,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "S'ha produït un error en suprimir les notificacions de l'anunci",
     "An error occurred while deleting the announcement" : "S'ha produït un error en suprimir l'anunci",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible per al grup {name} i %n més","visible per al grup {name} i %n més"],
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "New announcement subject" : "Nou tema d'anunci",
     "Write announcement text, Markdown can be used …" : "Escriu el text de l'anunci, es pot utilitzar Markdown …",

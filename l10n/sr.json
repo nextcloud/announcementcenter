@@ -34,7 +34,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Дошло је до грешке приликом уклањања обавешења о најави",
     "An error occurred while deleting the announcement" : "Дошло је до грешке током брисања најаве",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["видљиво је групи {name} и још %n групи","видљиво је групи {name} и у још %n групе","видљиво је групи {name} и у још %n група"],
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара","%n коментара"],
     "New announcement subject" : "Тема нове најаве",
     "Write announcement text, Markdown can be used …" : "Напишите текст најаве, може да се користи Markdown ...",

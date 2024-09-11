@@ -30,7 +30,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Došlo je do pogreške pri uklanjanju obavijesti o objavi",
     "An error occurred while deleting the announcement" : "Došlo je do pogreške pri brisanju obavijesti",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["vidljivo grupi {name} i još % n","vidljivo grupi {name} i još % n","vidljivo grupi {name} i još %n"],
     "_%n comment_::_%n comments_" : ["%n napomena","%n napomene","%n napomena"],
     "New announcement subject" : "Predmet nove obavijesti",
     "Write announcement text, Markdown can be used …" : "Napišite tekst obavijesti, može se upotrijebiti Markdown...",

@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "An error occurred while removing the notifications of the announcement",
     "An error occurred while deleting the announcement" : "An error occurred while deleting the announcement",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible to group {name} and %n more","visible to group {name} and %n more"],
     "_%n comment_::_%n comments_" : ["%n comment","%n comments"],
     "New announcement subject" : "New announcement subject",
     "Write announcement text, Markdown can be used …" : "Write announcement text, Markdown can be used …",

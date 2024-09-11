@@ -33,7 +33,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Errore bat gertatu da iragarpenaren jakinarazpenak kentzean",
     "An error occurred while deleting the announcement" : "Errore bat gertatu da iragarpena ezabatzean",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["{name} eta %n talde gehiagorentzako ikusgai","{name} "],
     "_%n comment_::_%n comments_" : ["iruzkin %n","%n iruzkin"],
     "New announcement subject" : "Iragarpen gai berria",
     "Write announcement text, Markdown can be used …" : "Idatzi iragarpenaren testua, Markdown erabil daiteke ...",

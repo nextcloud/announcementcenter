@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Tharla earráid agus fógraí an fhógra á bhaint",
     "An error occurred while deleting the announcement" : "Tharla earráid agus an fógra á scriosadh",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["infheicthe don ghrúpa {name} agus %n eile","infheicthe don ghrúpa {name} agus %n eile","infheicthe don ghrúpa {name} agus %n eile","infheicthe don ghrúpa {name} agus %n eile","infheicthe don ghrúpa {name} agus %n eile"],
     "_%n comment_::_%n comments_" : ["%n nóta tráchta","%n trácht","%n trácht","%n trácht","%n trácht"],
     "New announcement subject" : "Ábhar fógartha nua",
     "Write announcement text, Markdown can be used …" : "Scríobh téacs fógra, is féidir Markdown a úsáid ...",

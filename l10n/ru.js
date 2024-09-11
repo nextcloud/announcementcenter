@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Не удалось отключить оповещение уведомления",
     "An error occurred while deleting the announcement" : "Не удалось отключить оповещение об уведомлении",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["видимое для группы {name} и ещё %n другой","видимое для группы {name} и %n других","видимое для группы {name} и %n других","видимое для группы {name} и %n других"],
     "_%n comment_::_%n comments_" : ["%n комментарий","%n комментария","%n комментариев","%n комментариев"],
     "New announcement subject" : "Тема уведомления",
     "Write announcement text, Markdown can be used …" : "Напишите текст уведомления, возможно использовать язык разметки Markdown…",

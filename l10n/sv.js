@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Ett fel uppstod vid borttagning av notifikationer för meddelandet",
     "An error occurred while deleting the announcement" : "Ett fel uppstod vid borttagning av meddelandet",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["synligt för gruppen {name} och %n ytterligare","synligt för gruppen {name} och %n ytterligare"],
     "_%n comment_::_%n comments_" : ["%n kommentar","%n kommentarer"],
     "New announcement subject" : "Ämne för nytt meddelande",
     "Write announcement text, Markdown can be used …" : "Skriv meddelandetext, Markdown kan användas …",

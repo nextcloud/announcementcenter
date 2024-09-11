@@ -35,7 +35,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "A apărut o eroare la ștergerea notificărilor anunțului",
     "An error occurred while deleting the announcement" : "A apărut o eroare la ștergerea anunțului",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["vizibil pentru grupul {name} și încă %n ","vizibil pentru grupul {name} și încă alţi %n","vizibil pentru grupul {name} și încă %n"],
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarii","%n comentarii"],
     "New announcement subject" : "Subiect nou pentru anunț",
     "Write announcement text, Markdown can be used …" : "Scrieți textul anunțului, Poate fi utilizat Markdown ...",

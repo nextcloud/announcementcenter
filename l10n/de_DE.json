@@ -34,7 +34,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Es ist ein Fehler beim Entfernen der Benachrichtigungen zur Ankündigung aufgetreten",
     "An error occurred while deleting the announcement" : "Es ist ein Fehler beim Löschen der Ankündigung aufgetreten",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["Sichtbar für Gruppe {name} und %n mehr","Sichtbar für Gruppe {name} und %n mehr"],
     "_%n comment_::_%n comments_" : ["%n Kommentar","%n Kommentare"],
     "New announcement subject" : "Thema der neuen Ankündigung",
     "Write announcement text, Markdown can be used …" : "Schreiben Sie den Ankündigungstext, Markdown kann verwendet werden …",

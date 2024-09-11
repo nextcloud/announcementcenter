@@ -32,7 +32,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Възникна грешка при премахването на известията за обявяването",
     "An error occurred while deleting the announcement" : "Възникна грешка при изтриването на известията за обявяването",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["видим за група: {име} и за още%n","видим за група: {име} и за още %n"],
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара"],
     "New announcement subject" : "Нова тема на Обявяване",
     "Write announcement text, Markdown can be used …" : "Написване на текст на обявяването, може да се използва Markdown ...",

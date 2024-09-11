@@ -34,7 +34,6 @@
     ", " : "،",
     "An error occurred while removing the notifications of the announcement" : "حدث خطأ أثناء إزالة إخطارات الإعلان",
     "An error occurred while deleting the announcement" : "حدث خطأ أثناء حذف الإعلان",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["مرئي لمجموعة \"{name}\"","مرئي لمجموعة \"{name}\" و واحدة أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى"],
     "_%n comment_::_%n comments_" : ["لا يوجد تعليقات","تعليق %n","تعليقين %n","%n تعليقات","%n تعليقات","%n تعليقات "],
     "New announcement subject" : "موضوع إعلان جديد",
     "Write announcement text, Markdown can be used …" : "اكتب نص إعلان، يمكنكم استخدام \"Markdown\" ...",

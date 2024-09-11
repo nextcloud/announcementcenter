@@ -34,7 +34,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "알림을 지우는 동안 오류가 발생했습니다.",
     "An error occurred while deleting the announcement" : "공지를 지우는 동안 오류가 발생했습니다.",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["그룹{name} 그리고 %n명에게 보임"],
     "_%n comment_::_%n comments_" : ["댓글 %n개"],
     "New announcement subject" : "새로운 공지 제목",
     "Write announcement text, Markdown can be used …" : "공지사항을 적으세요. 마크다운이 지원됩니다.",

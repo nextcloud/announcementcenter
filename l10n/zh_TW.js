@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : "、",
     "An error occurred while removing the notifications of the announcement" : "移除公告通知時發生錯誤",
     "An error occurred while deleting the announcement" : "刪除公告時發生錯誤",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["對 {name} 群組與 %n 等可見"],
     "_%n comment_::_%n comments_" : ["%n 則留言"],
     "New announcement subject" : "新的公告主旨",
     "Write announcement text, Markdown can be used …" : "編寫公告文字，可使用 Markdown……",

@@ -36,7 +36,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Hiba történt a bejelentés értesítéseinek eltávolítása közben",
     "An error occurred while deleting the announcement" : "Hiba történt a bejelentés törlése közben",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["a(z) {name} és %n még csoport számára látható","a(z) {name} és %n még csoport számára látható"],
     "_%n comment_::_%n comments_" : ["%n hozzászólás","%n hozzászólás"],
     "New announcement subject" : "Új bejelentés tárgya",
     "Write announcement text, Markdown can be used …" : "Írja be a bejelentés szövegét, Markdownt is használhat…",

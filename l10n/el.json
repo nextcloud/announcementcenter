@@ -28,7 +28,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Παρουσιάστηκε σφάλμα κατά την κατάργηση των ειδοποιήσεων της ανακοίνωσης",
     "An error occurred while deleting the announcement" : "Παρουσιάστηκε σφάλμα κατά τη διαγραφή της ανακοίνωσης",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["Ορατό στην ομάδα {name} και σε %n ακόμη","ορατό στην ομάδα {name} και σε %n ακόμη"],
     "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
     "New announcement subject" : "Νέο θέμα ανακοίνωσης",
     "Write announcement text, Markdown can be used …" : "Σύνταξη κειμένου ανακοίνωσης, μπορεί να χρησιμοποιηθεί το Markdown",

@@ -33,7 +33,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Tiedotteen ilmoituksia poistaessa tapahtui virhe",
     "An error occurred while deleting the announcement" : "Tiedotetta poistaessa tapahtui virhe",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["näkyvä ryhmälle {name} ja %n muulle","näkyvä ryhmälle {name} ja %n muulle"],
     "_%n comment_::_%n comments_" : ["%n kommentti","%n kommenttia"],
     "New announcement subject" : "Uuden tiedotteen aihe",
     "Write announcement text, Markdown can be used …" : "Kirjoita tiedotteen teksti. Markdownia voi käyttää…",

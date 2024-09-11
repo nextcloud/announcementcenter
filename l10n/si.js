@@ -18,7 +18,6 @@ OC.L10N.register(
     "visible to groups {name1} and {name2}" : "{name1} සහ {name2} සමූහයන්ට පෙනෙයි",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "නිවේදනයේ දැනුම්දීම් ඉවත් කිරීමේදී දෝෂයක් ඇතිවිය",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["{name} සහ තවත් සමූහ %n ට පෙනෙයි","{name} සහ තවත් සමූහ %n ට පෙනෙයි"],
     "_%n comment_::_%n comments_" : ["අදහස් %n","අදහස් %n"],
     "New announcement subject" : "නව නිවේදනයේ මාතෘකාව",
     "Announce" : "නිවේදනය කරන්න",

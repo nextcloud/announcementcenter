@@ -33,7 +33,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Při odebírání oznámení došlo k chybě",
     "An error occurred while deleting the announcement" : "Při mazání oznámení došlo k chybě",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["viditelné pro skupinu {name} a %n další ","viditelné pro skupinu {name} a %n další","viditelné pro skupinu {name} a %n dalších","viditelné pro skupinu {name} a %n další"],
     "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů","%n komentáře"],
     "New announcement subject" : "Předmět nového oznámení",
     "Write announcement text, Markdown can be used …" : "Napište text oznámení, lze použít Markdown…",

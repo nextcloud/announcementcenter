@@ -33,7 +33,6 @@
     ", " : "、",
     "An error occurred while removing the notifications of the announcement" : "お知らせの通知を削除中にエラーが発生しました",
     "An error occurred while deleting the announcement" : "お知らせを削除中にエラーが発生しました",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["グループ {name} と %n にも見えます"],
     "_%n comment_::_%n comments_" : ["%n のコメント"],
     "New announcement subject" : "新しいお知らせの件名",
     "Write announcement text, Markdown can be used …" : "お知らせを書いてください。Markdownは使えます。",

@@ -29,7 +29,6 @@ OC.L10N.register(
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "אירעה שגיאה בהסרת התראת ההכרזה",
     "An error occurred while deleting the announcement" : "אירעה שגיאה במחיקת ההכרזה",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["גלוי לקבוצה {name} ולאחת נוספת","גלוי לקבוצה {name} ול־%n נוספות","גלוי לקבוצה {name} ול־%n נוספות"],
     "_%n comment_::_%n comments_" : ["תגובה אחת","%n תגובות","%n תגובות"],
     "New announcement subject" : "נושא הכרזה חדש",
     "Write announcement text, Markdown can be used …" : "נא לכתוב את תוכן ההכרזה, ניתן להשתמש ב־Markdown…",

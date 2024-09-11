@@ -31,7 +31,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Đã xảy ra lỗi khi xoá thông báo từ danh sách",
     "An error occurred while deleting the announcement" : "Đã xảy ra lỗi khi xoá thông báo",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["hiển thị với {name} và những %n khác"],
     "_%n comment_::_%n comments_" : ["%n bình luận"],
     "New announcement subject" : "Chủ đề thông báo mới",
     "Write announcement text, Markdown can be used …" : "Nhập văn bản thông báo, có thể sử dụng Markdown ...",

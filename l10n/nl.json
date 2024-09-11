@@ -34,7 +34,6 @@
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Er trad een fout op bij het verwijderen van de meldingen van de aankondiging",
     "An error occurred while deleting the announcement" : "Er trad een fout op bij het verwijderen van de aankondiging",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["zichtbaar voor groep {name} en %n meer","zichtbaar voor groep {name} en %n meer"],
     "_%n comment_::_%n comments_" : ["%n reactie","%n reacties"],
     "New announcement subject" : "Nieuwe aankondiging onderwerp",
     "Write announcement text, Markdown can be used …" : "Schrijf aankondigingstekst, Markdown kan worden gebruikt ...",

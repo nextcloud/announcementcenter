@@ -33,7 +33,6 @@ OC.L10N.register(
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Šalinant skelbimo pranešimus, įvyko klaida",
     "An error occurred while deleting the announcement" : "Ištrinant skelbimą, įvyko klaida",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["matomas grupei „{name}“ ir dar %n grupei","matomas grupei „{name}“ ir dar %n grupėms","matomas grupei „{name}“ ir dar %n grupių","matomas grupei „{name}“ ir dar %n grupei"],
     "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų","%n komentaras"],
     "New announcement subject" : "Naujo skelbimo tema",
     "Write announcement text, Markdown can be used …" : "Rašykite skelbimo tekstą, gali būti naudojamas „Markdown“…",

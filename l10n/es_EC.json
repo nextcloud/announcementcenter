@@ -32,7 +32,6 @@
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Se produjo un error al eliminar las notificaciones del anuncio",
     "An error occurred while deleting the announcement" : "Se produjo un error al eliminar el anuncio",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible para el grupo {name} y %n más","visible para el grupo {name} y %n más","visible para el grupo {name} y %n más"],
     "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "New announcement subject" : "Asunto del nuevo anuncio",
     "Write announcement text, Markdown can be used …" : "Escribe el texto del anuncio, puedes utilizar Markdown...",
