@@ -157,14 +157,14 @@ class Announce extends Command {
 		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 
 		$result = $this->manager->announce($subject, $message, $plainMessage, $user, $this->time->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
-		$output->writeln("Created announcement #" . $result->getId() . ": " . $result->getSubject());
+		$output->writeln('Created announcement #' . $result->getId() . ': ' . $result->getSubject());
 
 		if ($scheduleTime) {
-			$output->writeln("Scheduled announcement for '" . date("D M j G:i:s T Y", $scheduleTime) . "'");
+			$output->writeln("Scheduled announcement for '" . date('D M j G:i:s T Y', $scheduleTime) . "'");
 		}
 
 		if ($deleteTime) {
-			$output->writeln("Scheduled deletion for '" . date("D M j G:i:s T Y", $deleteTime) . "'");
+			$output->writeln("Scheduled deletion for '" . date('D M j G:i:s T Y', $deleteTime) . "'");
 		}
 
 		$this->logger->info('Admin ' . $user . ' posted a new announcement: "' . $result->getSubject() . '" over CLI');
@@ -174,10 +174,10 @@ class Announce extends Command {
 	/**
 	 * Parses an arbitrary $argument into a timestamp
 	 * @param null|int|string $argument argument provided by CLI for a time
-	 *      Examples 1:
-	 *          '1711440621' a plain unix timestamp
-	 *      Examples 2 see strtotime (https://www.php.net/manual/de/function.strtotime.php):
-	 *          'now', 10 September 200', '+1 day', 'tomorrow'
+	 *                                  Examples 1:
+	 *                                  '1711440621' a plain unix timestamp
+	 *                                  Examples 2 see strtotime (https://www.php.net/manual/de/function.strtotime.php):
+	 *                                  'now', 10 September 200', '+1 day', 'tomorrow'
 	 * @return int|null a timestamp, returns null if $argument is null
 	 * @throws \InvalidArgumentException If the time could not be interpreted or the time is in the past
 	 */

@@ -101,7 +101,7 @@ class AnnouncementDeleteTest extends TestCase {
 			->willReturn(42);
 		$this->manager->expects($this->once())
 			->method('delete')
-			->willThrowException(new DoesNotExistException("message"));
+			->willThrowException(new DoesNotExistException('message'));
 		$this->output->expects($this->atLeastOnce())
 			->method('writeln');
 		$result = self::invokePrivate($this->deleteCommand, 'execute', [$this->input, $this->output]);

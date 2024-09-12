@@ -106,7 +106,7 @@ class AnnounceCommandTest extends TestCase {
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, 0, null],  // scheduled in past
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, null, 0],  // scheduled in past
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, 12, 11],  // deletion before publ.
-			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, null, "at christmas eve"],  // invalid time
+			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], true, false, false, false, null, 'at christmas eve'],  // invalid time
 		];
 	}
 
@@ -120,7 +120,7 @@ class AnnounceCommandTest extends TestCase {
 				case 'subject':
 					return $subject;
 				default:
-					throw new \InvalidArgumentException("Unknown property " . $property);
+					throw new \InvalidArgumentException('Unknown property ' . $property);
 			}
 		};
 
@@ -141,7 +141,7 @@ class AnnounceCommandTest extends TestCase {
 				case 'group':
 					return is_null($group) ? ['everyone'] : $group;
 				default:
-					throw new \InvalidArgumentException("Unknown property " . $property);
+					throw new \InvalidArgumentException('Unknown property ' . $property);
 			}
 		};
 		$this->input->expects($this->atLeastOnce())
