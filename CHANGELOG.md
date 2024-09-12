@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.0.0 – 2024-09-12
+### Added
+- Compatibility with Nextcloud 30
+- Added CLI commands to list, announce and remove announcements
+- Added option to schedule announcements
+- Added option to automatically delete announcements
+
+### Changed
+- Updated dependencies
+- Removed Nextcloud 26 and Nextcloud 27
+
 ## 6.8.1 – 2024-03-21
 ### Fixed
 - Fix searching for groups in the compose form
