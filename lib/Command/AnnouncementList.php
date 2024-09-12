@@ -66,14 +66,14 @@ class AnnouncementList extends Command {
 		$widthMessage = max($minimalWidthText, $width - $minimalWidth - $widthSubject);
 
 		$widths = [$minimalWidth - 2, $widthSubject, $widthMessage];
-		$text = $this->formatTableRow(["ID", "Subject", "Message"], $widths);
+		$text = $this->formatTableRow(['ID', 'Subject', 'Message'], $widths);
 		$output->writeln($text);
-		$text = $this->formatTableRow(["", "", ""], $widths, "-");
+		$text = $this->formatTableRow(['', '', ''], $widths, '-');
 		$output->writeln($text);
 
 		foreach ($announcements as $index => $ann) {
 			if ($index === $ulimit) {
-				$output->writeln("And more ...");
+				$output->writeln('And more ...');
 				break;
 			}
 			$texts = [$ann->getId(), $ann->getParsedSubject(), $ann->getPlainMessage()];
@@ -84,14 +84,14 @@ class AnnouncementList extends Command {
 		return 0;
 	}
 
-	private function ellipseAndPadText(string $text, int $width, string $sep = " "): string {
+	private function ellipseAndPadText(string $text, int $width, string $sep = ' '): string {
 		$text = str_replace(["\r", "\n"], ' ', $text);
 		$text = str_pad($text, $width, $sep, STR_PAD_RIGHT);
-		$text = strlen($text) > $width ? substr($text, 0, $width - 2) . " …" : $text;
+		$text = strlen($text) > $width ? substr($text, 0, $width - 2) . ' …' : $text;
 		return $text;
 	}
 
-	private function formatTableRow(array $texts, array $widths, string $sep = " "): string {
+	private function formatTableRow(array $texts, array $widths, string $sep = ' '): string {
 		$callback = function ($a, $b) use ($sep) {
 			return $this->ellipseAndPadText($a, $b, $sep);
 		};
@@ -100,6 +100,6 @@ class AnnouncementList extends Command {
 			$texts,
 			$widths
 		);
-		return implode("|", $formattedTexts);
+		return implode('|', $formattedTexts);
 	}
 }
