@@ -58,7 +58,7 @@ class Provider implements IProvider {
 		IURLGenerator $url,
 		IActivityManager $activityManager,
 		IUserManager $userManager,
-		Manager $manager
+		Manager $manager,
 	) {
 		$this->languageFactory = $languageFactory;
 		$this->url = $url;
