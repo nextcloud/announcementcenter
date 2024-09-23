@@ -38,7 +38,7 @@ class CommentsEntityListener implements IEventListener {
 	protected Manager $manager;
 
 	public function __construct(
-		Manager $manager
+		Manager $manager,
 	) {
 		$this->manager = $manager;
 	}

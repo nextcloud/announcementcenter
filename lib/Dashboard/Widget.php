@@ -54,7 +54,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		IURLGenerator $url,
 		IInitialState $initialState,
 		IDateTimeFormatter $dateTimeFormatter,
-		IL10N $l10n
+		IL10N $l10n,
 	) {
 		$this->manager = $manager;
 		$this->userManager = $userManager;

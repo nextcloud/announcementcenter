@@ -142,7 +142,7 @@ class Announce extends Command {
 		try {
 			$scheduleTime = $this->parseTimestamp($input->getOption('schedule-time'));
 			$deleteTime = $this->parseTimestamp($input->getOption('delete-time'));
-		} catch(\InvalidArgumentException $e) {
+		} catch (\InvalidArgumentException $e) {
 			$output->writeln($e->getMessage());
 			return 2;
 		}
@@ -181,7 +181,7 @@ class Announce extends Command {
 	 * @return int|null a timestamp, returns null if $argument is null
 	 * @throws \InvalidArgumentException If the time could not be interpreted or the time is in the past
 	 */
-	private function parseTimestamp(null|int|string $argument): int|null {
+	private function parseTimestamp(null|int|string $argument): ?int {
 		if (is_null($argument)) {
 			return null;
 		} elseif (is_numeric($argument)) {

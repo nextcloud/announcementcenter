@@ -33,7 +33,8 @@ class AnnouncementSchedulerJob extends TimedJob {
 
 	public function __construct(
 		ITimeFactory $time,
-		protected AnnouncementSchedulerProcessor $asp) {
+		protected AnnouncementSchedulerProcessor $asp,
+	) {
 		parent::__construct($time);
 
 		// Run every time the cron runs
