@@ -72,31 +72,30 @@
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
 				<NcActionSeparator />
-				<NcActionCheckbox value="0"
-					:checked.sync="scheduleEnabled">
-					{{ t('announcementcenter', 'Schedule announcement time (optional)') }}
-				</NcActionCheckbox>
-				<NcDateTimePicker v-model="scheduleTime"
-					class="announcement__form__timepicker"
+				<NcActionInput type="datetime-local"
+					:label="t('announcementcenter', 'Schedule announcement time')"
 					:disabled="!scheduleEnabled"
-					:clearable="true"
-					:disabled-date="disabledInPastDate"
-					:disabled-time="disabledInPastTime"
-					:show-second="false"
-					type="datetime" />
+					:is-native-picker="true"
+					:value="scheduleTime"
+					:min="new Date()"
+					@change="setScheduleTime">
+					<template #icon>
+						<ClockStart :size="20" />
+					</template>
+				</NcActionInput>
 				<NcActionSeparator />
-				<NcActionCheckbox value="0"
-					:checked.sync="deleteEnabled">
-					{{ t('announcementcenter', 'Schedule deletion time (optional)') }}
-				</NcActionCheckbox>
-				<NcDateTimePicker v-model="deleteTime"
-					class="announcement__form__timepicker"
+				<NcActionInput type="datetime-local"
+					:label="t('announcementcenter', 'Schedule deletion time')"
 					:disabled="!deleteEnabled"
-					:clearable="true"
-					:disabled-date="disabledInPastDate"
-					:disabled-time="disabledInPastTime"
-					:show-second="false"
-					type="datetime" />
+					:is-native-picker="true"
+					:value="deleteTime"
+					:min="getMinDeleteTime()"
+					id-native-date-time-picker="date-time-picker-delete_id"
+					@change="setDeleteTime">
+					<template #icon>
+						<ClockEnd :size="20" />
+					</template>
+				</NcActionInput>
 			</NcActions>
 		</div>
 	</div>
@@ -107,7 +106,6 @@ import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
 import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
-import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
@@ -118,16 +116,19 @@ import {
 import { showError } from '@nextcloud/dialogs'
 import { remark } from 'remark'
 import strip from 'strip-markdown'
+import ClockStart from 'vue-material-design-icons/ClockStart.vue'
+import ClockEnd from 'vue-material-design-icons/ClockEnd.vue'
 
 export default {
 	name: 'NewForm',
 
 	components: {
+		ClockEnd,
+		ClockStart,
 		NcActions,
 		NcActionCheckbox,
 		NcActionInput,
 		NcActionSeparator,
-		NcDateTimePicker,
 		NcButton,
 	},
 
@@ -141,8 +142,8 @@ export default {
 			allowComments: loadState('announcementcenter', 'allowComments'),
 			groups: [],
 			groupOptions: [],
-			scheduleEnabled: false,
-			deleteEnabled: false,
+			scheduleEnabled: true,
+			deleteEnabled: true,
 			scheduleTime: null,
 			deleteTime: null,
 		}
@@ -161,8 +162,8 @@ export default {
 			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
 			this.groups = []
-			this.scheduleEnabled = false
-			this.deleteEnabled = false
+			this.scheduleEnabled = true
+			this.deleteEnabled = true
 			this.scheduleTime = null
 			this.deleteTime = null
 		},
@@ -181,6 +182,27 @@ export default {
 		onSearchChanged: debounce(function(search) {
 			this.searchGroups(search)
 		}, 300),
+
+		setScheduleTime(event) {
+			this.scheduleTime = new Date(event.target.value)
+			if (this.deleteTime && this.scheduleTime > this.deleteTime) {
+				this.deleteTime = this.scheduleTime
+			}
+		},
+
+		setDeleteTime(event) {
+			this.deleteTime = new Date(event.target.value)
+			if (this.scheduleTime && this.scheduleTime > this.deleteTime) {
+				this.deleteTime = this.scheduleTime
+			}
+		},
+
+		getMinDeleteTime() {
+			if (this.scheduleTime) {
+				return this.scheduleTime
+			}
+			return new Date()
+		},
 
 		async searchGroups(search) {
 			const response = await searchGroups(search)
