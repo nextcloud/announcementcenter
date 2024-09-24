@@ -36,7 +36,6 @@
 					{{ author }}
 					·
 					<span v-if="isScheduled"
-						class="live-relative-timestamp"
 						:title="scheduledLabel">{{ scheduledLabel }}</span>
 					<span v-else
 						class="live-relative-timestamp"
