@@ -35,31 +35,6 @@
 			rows="4"
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
-		<div class="announcement__form__schedule">
-			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">
-				{{ t('announcementcenter', 'Schedule announcement time (optional)') }}
-			</NcCheckboxRadioSwitch>
-			<NcDateTimePicker v-model="scheduleTime"
-				:disabled="!scheduleEnabled"
-				:clearable="true"
-				:disabled-date="disabledInPastDate"
-				:disabled-time="disabledInPastTime"
-				:show-second="false"
-				type="datetime" />
-		</div>
-		<div class="announcement__form__delete">
-			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">
-				{{ t('announcementcenter', 'Schedule deletion time (optional)') }}
-			</NcCheckboxRadioSwitch>
-			<NcDateTimePicker v-model="deleteTime"
-				:disabled="!deleteEnabled"
-				:clearable="true"
-				:disabled-date="disabledInPastDate"
-				:disabled-time="disabledInPastTime"
-				:show-second="false"
-				type="datetime" />
-		</div>
-
 		<div class="announcement__form__buttons">
 			<NcButton type="primary"
 				:disabled="!subject"
@@ -96,6 +71,32 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
+				<NcActionSeparator />
+				<NcActionCheckbox value="0"
+					:checked.sync="scheduleEnabled">
+					{{ t('announcementcenter', 'Schedule announcement time (optional)') }}
+				</NcActionCheckbox>
+				<NcDateTimePicker v-model="scheduleTime"
+					class="announcement__form__timepicker"
+					:disabled="!scheduleEnabled"
+					:clearable="true"
+					:disabled-date="disabledInPastDate"
+					:disabled-time="disabledInPastTime"
+					:show-second="false"
+					type="datetime" />
+				<NcActionSeparator />
+				<NcActionCheckbox value="0"
+					:checked.sync="deleteEnabled">
+					{{ t('announcementcenter', 'Schedule deletion time (optional)') }}
+				</NcActionCheckbox>
+				<NcDateTimePicker v-model="deleteTime"
+					class="announcement__form__timepicker"
+					:disabled="!deleteEnabled"
+					:clearable="true"
+					:disabled-date="disabledInPastDate"
+					:disabled-time="disabledInPastTime"
+					:show-second="false"
+					type="datetime" />
 			</NcActions>
 		</div>
 	</div>
@@ -105,8 +106,8 @@
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
+import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
 import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
@@ -125,8 +126,8 @@ export default {
 		NcActions,
 		NcActionCheckbox,
 		NcActionInput,
+		NcActionSeparator,
 		NcDateTimePicker,
-		NcCheckboxRadioSwitch,
 		NcButton,
 	},
 
@@ -249,10 +250,8 @@ export default {
 		}
 	}
 
-	&__delete,
-	&__schedule {
-		display: flex;
-		justify-content: space-between;
+	&__timepicker {
+		width: 100%;
 	}
 }
 </style>
