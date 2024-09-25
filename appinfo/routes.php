@@ -31,5 +31,7 @@ return [
 		['name' => 'API#delete', 'url' => '/api/v1/announcements/{id}', 'verb' => 'DELETE'],
 		['name' => 'API#removeNotifications', 'url' => '/api/v1/announcements/{id}/notifications', 'verb' => 'DELETE'],
 		['name' => 'API#searchGroups', 'url' => '/api/v1/groups', 'verb' => 'GET'],
+		['name' => 'API#getBannerNotifications', 'url' => '/api/v1/announcements/banner', 'verb' => 'GET'],
+		['name' => 'API#markBannerRead', 'url' => '/api/v1/announcements/banner/{id}', 'verb' => 'PUT'],
 	]
 ];

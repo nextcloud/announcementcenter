@@ -42,6 +42,7 @@ class Application extends App implements IBootstrap {
 
 	public function __construct() {
 		parent::__construct(self::APP_ID);
+		Util::addScript(self::APP_ID, 'announcementcenter-banner');
 	}
 
 	public function register(IRegistrationContext $context): void {

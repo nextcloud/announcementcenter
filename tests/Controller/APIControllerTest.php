@@ -27,6 +27,7 @@ use OCA\AnnouncementCenter\Controller\APIController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\NotificationType;
+use OCA\AnnouncementCenter\Service\BannerManager;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
@@ -70,6 +71,8 @@ class APIControllerTest extends TestCase {
 	protected $logger;
 	/** @var NotificationType|MockObject */
 	protected $notificationType;
+	/** @var BannerManager|MockObject */
+	protected $bannerManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -83,6 +86,7 @@ class APIControllerTest extends TestCase {
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->notificationType = $this->createMock(NotificationType::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
+		$this->bannerManager = $this->createMock(BannerManager::class);
 
 		$this->l
 			->method('t')
@@ -107,6 +111,7 @@ class APIControllerTest extends TestCase {
 				$this->timeFactory,
 				$this->userSession,
 				$this->notificationType,
+				$this->bannerManager,
 				$this->logger
 			);
 		}
@@ -123,6 +128,7 @@ class APIControllerTest extends TestCase {
 			$this->timeFactory,
 			$this->userSession,
 			$this->notificationType,
+			$this->bannerManager,
 			$this->logger
 		])
 			->setMethods($methods)
@@ -283,7 +289,7 @@ class APIControllerTest extends TestCase {
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add($subject, '', '', [], true, true, true, true);
+		$response = $controller->add($subject, '', '', [], true, true, true, true, false);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame($expectedData, $response->getData());
@@ -301,7 +307,7 @@ class APIControllerTest extends TestCase {
 		$controller->expects(self::never())
 			->method('createPublicity');
 
-		$response = $controller->add('subject', '', '', [], true, true, true, true);
+		$response = $controller->add('subject', '', '', [], true, true, true, true, false);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
@@ -350,7 +356,7 @@ class APIControllerTest extends TestCase {
 
 		$controller = $this->getController();
 
-		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
+		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments, false);
 
 		self::assertInstanceOf(DataResponse::class, $response);
 		$data = $response->getData();

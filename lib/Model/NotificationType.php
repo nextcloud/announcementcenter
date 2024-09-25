@@ -33,6 +33,7 @@ class NotificationType {
 			'activities' => 0,
 			'notifications' => 1,
 			'email' => 2,
+			'banner' => 3,
 		];
 	}
 
@@ -71,16 +72,25 @@ class NotificationType {
 	}
 
 	/**
+	 * @param int $value an integer with bit encoded notification types
+	 * @return bool returns if the email notification is set
+	 */
+	public function getBanner(int $value) : bool {
+		return $this->isTypeSet($value, 'banner');
+	}
+
+	/**
 	 * @param bool $activities set activities as notification type
 	 * @param bool $notificiations set nextcloud notifications as notification type
 	 * @param bool $email set email as notification type
 	 * @return int an integer with bit encoded notification types
 	 */
-	public function setNotificationTypes(bool $activities, bool $notifications, bool $email) : int {
+	public function setNotificationTypes(bool $activities, bool $notifications, bool $email, bool $banner) : int {
 		$value = 0;
 		$value += $this->getTypeMask($activities, 'activities');
 		$value += $this->getTypeMask($notifications, 'notifications');
 		$value += $this->getTypeMask($email, 'email');
+		$value += $this->getTypeMask($banner, 'banner');
 		return $value;
 	}
 }

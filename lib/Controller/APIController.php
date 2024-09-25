@@ -30,6 +30,7 @@ use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\NotificationType;
+use OCA\AnnouncementCenter\Service\BannerManager;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
@@ -52,6 +53,7 @@ class APIController extends OCSController {
 	protected IUserSession $userSession;
 	protected LoggerInterface $logger;
 	protected NotificationType $notificationType;
+	protected BannerManager $bannerManager;
 
 	public function __construct(string $appName,
 		IRequest $request,
@@ -62,6 +64,7 @@ class APIController extends OCSController {
 		ITimeFactory $timeFactory,
 		IUserSession $userSession,
 		NotificationType $notificationType,
+		BannerManager $bannerManager,
 		LoggerInterface $logger) {
 		parent::__construct($appName, $request);
 
@@ -72,6 +75,7 @@ class APIController extends OCSController {
 		$this->timeFactory = $timeFactory;
 		$this->userSession = $userSession;
 		$this->notificationType = $notificationType;
+		$this->bannerManager = $bannerManager;
 		$this->logger = $logger;
 	}
 
@@ -103,7 +107,7 @@ class APIController extends OCSController {
 	 * @param ?int $deleteTime
 	 * @return DataResponse
 	 */
-	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, ?int $scheduleTime = null, ?int $deleteTime = null): DataResponse {
+	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, bool $banner, ?int $scheduleTime = null, ?int $deleteTime = null): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
 				['message' => 'Logged in user must be an admin'],
@@ -112,7 +116,7 @@ class APIController extends OCSController {
 		}
 		$user = $this->userSession->getUser();
 		$userId = $user instanceof IUser ? $user->getUID() : '';
-		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
+		$notificationOptions = $this->notificationType->setNotificationTypes($activities, $notifications, $emails, $banner);
 
 		try {
 			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
@@ -244,5 +248,43 @@ class APIController extends OCSController {
 		}
 
 		return new DataResponse($results);
+	}
+
+	/**
+	 * @PublicPage
+	 * @NoCSRFRequired
+	 * Returns all unread banners for a user
+	 * @return DataResponse
+	 */
+	public function getBannerNotifications(): DataResponse {
+		$user = $this->userSession->getUser();
+		if ($user instanceof IUser) {
+			$announcements = $this->bannerManager->getUnreadBanners($user->getUID());
+			$results = [];
+			foreach ($announcements as $ann) {
+				$results[] = [
+					'id' => $ann->getId(),
+					'subject' => $ann->getParsedSubject(),
+					'message' => $ann->getMessage(),
+				];
+			}
+			return new DataResponse($results);
+		}
+		// no 401 no cry
+		return new DataResponse([], Http::STATUS_NO_CONTENT);
+	}
+
+	/**
+	 * @NoAdminRequired
+	 * Marks a Banner as read. This only applies to a banner!
+	 * @return DataResponse
+	 */
+	public function markBannerRead(string $id): DataResponse {
+		$user = $this->userSession->getUser();
+		if ($user instanceof IUser) {
+			$this->bannerManager->markBannerRead($user->getUID(), $id);
+			return new DataResponse('success');
+		}
+		return new DataResponse(['error' => 'user not found'], Http::STATUS_BAD_REQUEST);
 	}
 }

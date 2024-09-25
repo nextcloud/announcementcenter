@@ -152,6 +152,7 @@ class Manager {
 				'activities' => $this->notificationType->getActivities($notificationOptions),
 				'notifications' => $this->notificationType->getNotifications($notificationOptions),
 				'emails' => $this->notificationType->getEmail($notificationOptions),
+				'banner' => $this->notificationType->getBanner($notificationOptions),
 			]);
 		}
 	}
