@@ -37,6 +37,7 @@
 					·
 					<span v-if="isScheduled"
 						class="live-relative-timestamp"
+						:data-timestamp="scheduleTime * 1000"
 						:title="scheduledLabel">{{ scheduledLabel }}</span>
 					<span v-else
 						class="live-relative-timestamp"
