@@ -35,31 +35,6 @@
 			rows="4"
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
-		<div class="announcement__form__schedule">
-			<NcCheckboxRadioSwitch :checked.sync="scheduleEnabled">
-				{{ t('announcementcenter', 'Schedule announcement time (optional)') }}
-			</NcCheckboxRadioSwitch>
-			<NcDateTimePicker v-model="scheduleTime"
-				:disabled="!scheduleEnabled"
-				:clearable="true"
-				:disabled-date="disabledInPastDate"
-				:disabled-time="disabledInPastTime"
-				:show-second="false"
-				type="datetime" />
-		</div>
-		<div class="announcement__form__delete">
-			<NcCheckboxRadioSwitch :checked.sync="deleteEnabled">
-				{{ t('announcementcenter', 'Schedule deletion time (optional)') }}
-			</NcCheckboxRadioSwitch>
-			<NcDateTimePicker v-model="deleteTime"
-				:disabled="!deleteEnabled"
-				:clearable="true"
-				:disabled-date="disabledInPastDate"
-				:disabled-time="disabledInPastTime"
-				:show-second="false"
-				type="datetime" />
-		</div>
-
 		<div class="announcement__form__buttons">
 			<NcButton type="primary"
 				:disabled="!subject"
@@ -68,18 +43,6 @@
 			</NcButton>
 
 			<NcActions>
-				<NcActionInput v-model="groups"
-					icon="icon-group"
-					type="multiselect"
-					:options="groupOptions"
-					track-by="id"
-					:multiple="true"
-					:input-label="t('announcementcenter', 'Visibility')"
-					:placeholder="t('announcementcenter', 'Everyone')"
-					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
-					@search="onSearchChanged">
-					{{ t('announcementcenter', 'Everyone') }}
-				</NcActionInput>
 				<NcActionCheckbox value="1"
 					:checked.sync="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
@@ -96,6 +59,46 @@
 					:checked.sync="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
+				<NcActionSeparator />
+				<NcActionInput v-model="groups"
+					icon="icon-group"
+					type="multiselect"
+					:options="groupOptions"
+					track-by="id"
+					:multiple="true"
+					:input-label="t('announcementcenter', 'Visibility')"
+					:placeholder="t('announcementcenter', 'Everyone')"
+					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
+					@search="onSearchChanged">
+					{{ t('announcementcenter', 'Everyone') }}
+				</NcActionInput>
+				<NcActionSeparator />
+				<NcActionInput type="datetime-local"
+					:label="t('announcementcenter', 'Schedule announcement time')"
+					:disabled="!scheduleEnabled"
+					is-native-picker
+					hide-label
+					:value="scheduleTime"
+					:min="new Date()"
+					@change="setScheduleTime">
+					<template #icon>
+						<ClockStart :size="20" />
+					</template>
+				</NcActionInput>
+				<NcActionSeparator />
+				<NcActionInput type="datetime-local"
+					:label="t('announcementcenter', 'Schedule deletion time')"
+					:disabled="!deleteEnabled"
+					is-native-picker
+					hide-label
+					:value="deleteTime"
+					:min="getMinDeleteTime()"
+					id-native-date-time-picker="date-time-picker-delete_id"
+					@change="setDeleteTime">
+					<template #icon>
+						<ClockEnd :size="20" />
+					</template>
+				</NcActionInput>
 			</NcActions>
 		</div>
 	</div>
@@ -105,8 +108,7 @@
 import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
 import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
 import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
-import NcDateTimePicker from '@nextcloud/vue/dist/Components/NcDateTimePicker.js'
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
+import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
@@ -117,16 +119,19 @@ import {
 import { showError } from '@nextcloud/dialogs'
 import { remark } from 'remark'
 import strip from 'strip-markdown'
+import ClockStart from 'vue-material-design-icons/ClockStart.vue'
+import ClockEnd from 'vue-material-design-icons/ClockEnd.vue'
 
 export default {
 	name: 'NewForm',
 
 	components: {
+		ClockEnd,
+		ClockStart,
 		NcActions,
 		NcActionCheckbox,
 		NcActionInput,
-		NcDateTimePicker,
-		NcCheckboxRadioSwitch,
+		NcActionSeparator,
 		NcButton,
 	},
 
@@ -140,8 +145,8 @@ export default {
 			allowComments: loadState('announcementcenter', 'allowComments'),
 			groups: [],
 			groupOptions: [],
-			scheduleEnabled: false,
-			deleteEnabled: false,
+			scheduleEnabled: true,
+			deleteEnabled: true,
 			scheduleTime: null,
 			deleteTime: null,
 		}
@@ -160,26 +165,36 @@ export default {
 			this.sendEmails = loadState('announcementcenter', 'sendEmails')
 			this.allowComments = loadState('announcementcenter', 'allowComments')
 			this.groups = []
-			this.scheduleEnabled = false
-			this.deleteEnabled = false
+			this.scheduleEnabled = true
+			this.deleteEnabled = true
 			this.scheduleTime = null
 			this.deleteTime = null
-		},
-
-		disabledInPastDate(date) {
-			const today = new Date()
-			today.setHours(0, 0, 0, 0)
-			return date < today
-		},
-
-		disabledInPastTime(date) {
-			const today = new Date()
-			return date < today
 		},
 
 		onSearchChanged: debounce(function(search) {
 			this.searchGroups(search)
 		}, 300),
+
+		setScheduleTime(event) {
+			this.scheduleTime = new Date(event.target.value)
+			if (this.deleteTime && this.scheduleTime > this.deleteTime) {
+				this.deleteTime = this.scheduleTime
+			}
+		},
+
+		setDeleteTime(event) {
+			this.deleteTime = new Date(event.target.value)
+			if (this.scheduleTime && this.scheduleTime > this.deleteTime) {
+				this.deleteTime = this.scheduleTime
+			}
+		},
+
+		getMinDeleteTime() {
+			if (this.scheduleTime) {
+				return this.scheduleTime
+			}
+			return new Date()
+		},
 
 		async searchGroups(search) {
 			const response = await searchGroups(search)
@@ -249,10 +264,8 @@ export default {
 		}
 	}
 
-	&__delete,
-	&__schedule {
-		display: flex;
-		justify-content: space-between;
+	&__timepicker {
+		width: 100%;
 	}
 }
 </style>
