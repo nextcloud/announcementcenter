@@ -170,17 +170,6 @@ export default {
 			this.deleteTime = null
 		},
 
-		disabledInPastDate(date) {
-			const today = new Date()
-			today.setHours(0, 0, 0, 0)
-			return date < today
-		},
-
-		disabledInPastTime(date) {
-			const today = new Date()
-			return date < today
-		},
-
 		onSearchChanged: debounce(function(search) {
 			this.searchGroups(search)
 		}, 300),
