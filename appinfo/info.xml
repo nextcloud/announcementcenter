@@ -52,6 +52,7 @@
 		<command>OCA\AnnouncementCenter\Command\Announce</command>
 		<command>OCA\AnnouncementCenter\Command\AnnouncementList</command>
 		<command>OCA\AnnouncementCenter\Command\AnnouncementDelete</command>
+		<command>OCA\AnnouncementCenter\Command\RemoveNotifications</command>
 	</commands>
 
 	<settings>
