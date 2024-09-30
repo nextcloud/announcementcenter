@@ -75,7 +75,8 @@
 				<NcActionInput type="datetime-local"
 					:label="t('announcementcenter', 'Schedule announcement time')"
 					:disabled="!scheduleEnabled"
-					:is-native-picker="true"
+					is-native-picker
+					hide-label
 					:value="scheduleTime"
 					:min="new Date()"
 					@change="setScheduleTime">
@@ -87,7 +88,8 @@
 				<NcActionInput type="datetime-local"
 					:label="t('announcementcenter', 'Schedule deletion time')"
 					:disabled="!deleteEnabled"
-					:is-native-picker="true"
+					is-native-picker
+					hide-label
 					:value="deleteTime"
 					:min="getMinDeleteTime()"
 					id-native-date-time-picker="date-time-picker-delete_id"
