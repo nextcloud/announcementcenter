@@ -20,10 +20,10 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n сэтгэгдэл","%n сэтгэгдэл"],
     "Announce" : "Мэдээлэх",
-    "Everyone" : "Бүх хэрэглэгчид",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Эдгээр бүлгээд мэдээллийг харах боломжтой байна.  Хэрэв бүлэг сонгоогүй бол бүх хэрэглэгчид үүнийг харна.",
     "Create activities" : "Үйлдлүүд үүсгэх",
     "Create notifications" : "Мэдэгдэл үүсгэх",
-    "Allow comments" : "Сэтгэгдэл зөвшөөрөх"
+    "Allow comments" : "Сэтгэгдэл зөвшөөрөх",
+    "Everyone" : "Бүх хэрэглэгчид",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Эдгээр бүлгээд мэдээллийг харах боломжтой байна.  Хэрэв бүлэг сонгоогүй бол бүх хэрэглэгчид үүнийг харна."
 },
 "nplurals=2; plural=(n != 1);");

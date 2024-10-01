@@ -37,13 +37,13 @@
     "New announcement subject" : "Нова тема оголошення",
     "Write announcement text, Markdown can be used …" : "Напишіть текст оголошення, Markdown можна використовувати...",
     "Announce" : "Оголошення",
-    "Visibility" : "Видимість",
-    "Everyone" : "Всі",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Вказані групи матимуть змогу бачити оголошення. Якщо жодна із груп не вибрана, тоді всі користувачі будуть бачити його.",
     "Create activities" : "Створити події",
     "Create notifications" : "Створити сповіщення",
     "Send emails" : "Надсилати ел. листи",
     "Allow comments" : "Дозволити коментарі",
+    "Visibility" : "Видимість",
+    "Everyone" : "Всі",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Вказані групи матимуть змогу бачити оголошення. Якщо жодна із груп не вибрана, тоді всі користувачі будуть бачити його.",
     "An error occurred while posting the announcement" : "Під час публікації оголошення сталася помилка",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);"

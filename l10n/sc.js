@@ -34,11 +34,11 @@ OC.L10N.register(
     "New announcement subject" : "Ogetu nou de sa comunicatzione",
     "Write announcement text, Markdown can be used …" : "Iscrie su testu de sa comunicatzione, podes impreare Markdown …",
     "Announce" : "Comunicatzione",
-    "Everyone" : "Totus",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Custos grupos ant a pòdere bìdere sa comunicatzione. Si no est seletzionadu perunu grupu, l'ant a pòdere bìdere totu is utentes.",
     "Create activities" : "Crea atividades",
     "Create notifications" : "Crea notìficas",
     "Allow comments" : "Permite cummentos",
+    "Everyone" : "Totus",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Custos grupos ant a pòdere bìdere sa comunicatzione. Si no est seletzionadu perunu grupu, l'ant a pòdere bìdere totu is utentes.",
     "An error occurred while posting the announcement" : "B'at àpidu un'errore publichende sa comunicatzione",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

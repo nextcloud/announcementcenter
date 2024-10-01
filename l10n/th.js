@@ -31,11 +31,11 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["ความคิดเห็น %n รายการ"],
     "Announce" : "ประกาศ",
-    "Everyone" : "ทุกคน",
     "Create activities" : "สร้างกิจกรรม",
     "Create notifications" : "สร้างการแจ้งเตือน",
     "Send emails" : "ส่งอีเมล์",
     "Allow comments" : "อนุญาตแสดงความคิดเก็น",
+    "Everyone" : "ทุกคน",
     "An error occurred while posting the announcement" : "เกิดข้อผิดพลาดขณะโพสต์ประกาศ",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

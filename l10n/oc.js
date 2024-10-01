@@ -24,11 +24,11 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "Announce" : "Anóncia",
-    "Visibility" : "Visibilitat",
-    "Everyone" : "Tot lo monde",
     "Create activities" : "Crear d’activitats",
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
+    "Visibility" : "Visibilitat",
+    "Everyone" : "Tot lo monde",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n > 1);");

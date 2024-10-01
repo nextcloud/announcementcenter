@@ -17,11 +17,11 @@
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n piebilžu","%n piebilde","%n piebildes"],
     "Announce" : "Paziņot",
-    "Visibility" : "Redzamība",
-    "Everyone" : "Visi",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt.",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
-    "Allow comments" : "Atļaut piebildes"
+    "Allow comments" : "Atļaut piebildes",
+    "Visibility" : "Redzamība",
+    "Everyone" : "Visi",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt."
 },"pluralForm" :"nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);"
 }

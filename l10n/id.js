@@ -29,10 +29,10 @@ OC.L10N.register(
     "_%n comment_::_%n comments_" : ["%n komentar"],
     "New announcement subject" : "Subjek pengumuman baru",
     "Announce" : "Umumkan",
-    "Everyone" : "Semua",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Grup ini akan bisa melihat pengumuman. Apabila tidak ada grup terpilih, semua orang bisa melihat.",
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
-    "Allow comments" : "Izinkan komentar"
+    "Allow comments" : "Izinkan komentar",
+    "Everyone" : "Semua",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Grup ini akan bisa melihat pengumuman. Apabila tidak ada grup terpilih, semua orang bisa melihat."
 },
 "nplurals=1; plural=0;");

@@ -37,13 +37,13 @@
     "New announcement subject" : "Nowy temat ogłoszenia",
     "Write announcement text, Markdown can be used …" : "Wpisz tekst ogłoszenia, można użyć Markdown…",
     "Announce" : "Ogłoś",
-    "Visibility" : "Widoczne",
-    "Everyone" : "Wszyscy",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Te grupy będą widziały ogłoszenia. Jeżeli nie jest wybrana żadna grupa, wszyscy użytkownicy będą je widzieli.",
     "Create activities" : "Utwórz aktywności",
     "Create notifications" : "Utwórz powiadomienia",
     "Send emails" : "Wyślij e-maile",
     "Allow comments" : "Zezwalaj na komentarze",
+    "Visibility" : "Widoczne",
+    "Everyone" : "Wszyscy",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Te grupy będą widziały ogłoszenia. Jeżeli nie jest wybrana żadna grupa, wszyscy użytkownicy będą je widzieli.",
     "An error occurred while posting the announcement" : "Wystąpił błąd podczas publikowania ogłoszenia",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);"

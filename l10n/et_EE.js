@@ -19,11 +19,11 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n kommentaar(i)","%n comments"],
     "Announce" : "teavita",
-    "Visibility" : "Nähtavus",
-    "Everyone" : "Igaüks",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Need grupid näead teateid. Kui ühtegi gruppi pole valitud, siis näevad teateid kõik kasutajad",
     "Create activities" : "Loo toimingud",
     "Create notifications" : "Koosta teateid",
-    "Allow comments" : "Luba kommentaarid"
+    "Allow comments" : "Luba kommentaarid",
+    "Visibility" : "Nähtavus",
+    "Everyone" : "Igaüks",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Need grupid näead teateid. Kui ühtegi gruppi pole valitud, siis näevad teateid kõik kasutajad"
 },
 "nplurals=2; plural=(n != 1);");

@@ -21,11 +21,11 @@
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n ummæli","%n ummæli"],
     "Announce" : "Tilkynna",
-    "Visibility" : "Sýnileiki",
-    "Everyone" : "Allir",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana.",
     "Create activities" : "Búa til virkniaðgerðir",
     "Create notifications" : "Búa til tilkynningar",
-    "Allow comments" : "Leyfa ummæli"
+    "Allow comments" : "Leyfa ummæli",
+    "Visibility" : "Sýnileiki",
+    "Everyone" : "Allir",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Þessir hópar munu geta tekið séð tilkynninguna. Ef enginn hópur er valinn, munu allir notendur sjá hana."
 },"pluralForm" :"nplurals=2; plural=(n % 10 != 1 || n % 100 == 11);"
 }

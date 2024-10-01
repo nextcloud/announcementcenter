@@ -23,10 +23,10 @@ OC.L10N.register(
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n komento","%n komentoj"],
     "Announce" : "Anonci",
-    "Everyone" : "Ĉiuj",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tiuj ĉi grupoj vidos la anoncon. Se neniu grupo estas elektita, ĉiuj uzantoj vidos ĝin.",
     "Create activities" : "Krei aktivaĵojn",
     "Create notifications" : "Krei sciigojn",
-    "Allow comments" : "Permesi komentojn"
+    "Allow comments" : "Permesi komentojn",
+    "Everyone" : "Ĉiuj",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tiuj ĉi grupoj vidos la anoncon. Se neniu grupo estas elektita, ĉiuj uzantoj vidos ĝin."
 },
 "nplurals=2; plural=(n != 1);");

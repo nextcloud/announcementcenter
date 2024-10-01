@@ -19,10 +19,10 @@ OC.L10N.register(
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komente","%n komente "],
     "Announce" : "Lajmëroje",
-    "Everyone" : "Kushdo",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Këto grupe do të jenë në gjëndje të shohin njoftimin. Nëse asnjë grup nuk është përzgjedhur, të gjithë përdoruesit mund ta shohin atë.",
     "Create activities" : "Krijo aktivitete",
     "Create notifications" : "Krijo njoftime",
-    "Allow comments" : "Lejo komentet"
+    "Allow comments" : "Lejo komentet",
+    "Everyone" : "Kushdo",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Këto grupe do të jenë në gjëndje të shohin njoftimin. Nëse asnjë grup nuk është përzgjedhur, të gjithë përdoruesit mund ta shohin atë."
 },
 "nplurals=2; plural=(n != 1);");

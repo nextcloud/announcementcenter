@@ -33,11 +33,11 @@ OC.L10N.register(
     "New announcement subject" : "נושא הכרזה חדש",
     "Write announcement text, Markdown can be used …" : "נא לכתוב את תוכן ההכרזה, ניתן להשתמש ב־Markdown…",
     "Announce" : "להכריז",
-    "Everyone" : "כולם",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "הקבוצות האלו יוכלו לצפות בהכרזות. אם לא נבחרו קבוצות, כל המשתמשים יוכלו לראות אותן.",
     "Create activities" : "יצירת פעילויות",
     "Create notifications" : "יצירת התרעות",
     "Allow comments" : "לאפשר תגובות",
+    "Everyone" : "כולם",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "הקבוצות האלו יוכלו לצפות בהכרזות. אם לא נבחרו קבוצות, כל המשתמשים יוכלו לראות אותן.",
     "An error occurred while posting the announcement" : "אירעה שגיאה בפרסום ההכרזה",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

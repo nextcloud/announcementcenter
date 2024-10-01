@@ -34,11 +34,11 @@ OC.L10N.register(
     "New announcement subject" : "Νέο θέμα ανακοίνωσης",
     "Write announcement text, Markdown can be used …" : "Σύνταξη κειμένου ανακοίνωσης, μπορεί να χρησιμοποιηθεί το Markdown",
     "Announce" : "Ανακοίνωση",
-    "Everyone" : " Όλοι",
-    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Αυτές οι ομάδες δεν θα έχουν την δυνατότητα να βλέπουν την ανακοίνωση. Εάν δεν επιλεγεί καμία ομάδα όλοι οι χρήστες θα μπορούν να την βλέπουν.",
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
     "Allow comments" : "Να επιτρέπονται σχόλια",
+    "Everyone" : " Όλοι",
+    "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Αυτές οι ομάδες δεν θα έχουν την δυνατότητα να βλέπουν την ανακοίνωση. Εάν δεν επιλεγεί καμία ομάδα όλοι οι χρήστες θα μπορούν να την βλέπουν.",
     "An error occurred while posting the announcement" : "Παρουσιάστηκε σφάλμα κατά την ανάρτηση της ανακοίνωσης",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
