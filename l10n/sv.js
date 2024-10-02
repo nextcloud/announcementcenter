@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Synlighet",
     "Everyone" : "Alla",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Dessa grupper kommer att kunna se meddelandet. Om inga grupper är valda, kommer alla användare att kunna se det.",
+    "Schedule announcement time" : "Schemalägg meddelandetid",
+    "Schedule deletion time" : "Schemalägg tid för radering",
     "An error occurred while posting the announcement" : "Ett fel uppstod vid publicering av meddelandet",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

@@ -45,6 +45,8 @@
     "Visibility" : "Visibilidade",
     "Everyone" : "Todos",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estes grupos poderán ver o anuncio. Se non se selecciona ningún grupo, todos os usuarios poderán velo.",
+    "Schedule announcement time" : "Programar a hora do anuncio",
+    "Schedule deletion time" : "Programar hora de eliminación",
     "An error occurred while posting the announcement" : "Produciuse un erro ao publicar o anuncio",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
