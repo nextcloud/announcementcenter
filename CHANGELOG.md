@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.0.1 – 2024-10-02
+### Added
+- Add CLI command to remove notifications from an announcement
+
+### Fixed
+- Fix "Invalid date" when scheduling an announcement
+- Move scheduling and deletion into … menu
+
 ## 7.0.0 – 2024-09-12
 ### Added
 - Compatibility with Nextcloud 30
