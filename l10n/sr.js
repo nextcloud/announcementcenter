@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Видљивост",
     "Everyone" : "Сви",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ове групе ће моћи да виде објаве. Ако се не одаберу групе, сви корисници ће моћи да их виде.",
+    "Schedule announcement time" : "Закажи време најаве",
+    "Schedule deletion time" : "Закажи време брисања",
     "An error occurred while posting the announcement" : "Дошло је до грешке приликом постављања најаве",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

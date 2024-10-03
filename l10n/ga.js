@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Infheictheacht",
     "Everyone" : "Gach duine",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Beidh na grúpaí seo in ann an fógra a fheiceáil. Mura roghnaítear grúpa, is féidir le gach úsáideoir é a fheiceáil.",
+    "Schedule announcement time" : "Sceideal am fógartha",
+    "Schedule deletion time" : "Sceideal am scriosta",
     "An error occurred while posting the announcement" : "Tharla earráid agus an fógra á phostáil",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

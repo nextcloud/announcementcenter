@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Visibility",
     "Everyone" : "Everyone",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "These groups will be able to see the announcement. If no group is selected, all users can see it.",
+    "Schedule announcement time" : "Schedule announcement time",
+    "Schedule deletion time" : "Schedule deletion time",
     "An error occurred while posting the announcement" : "An error occurred while posting the announcement",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
