@@ -26,6 +26,7 @@ namespace OCA\AnnouncementCenter\Activity;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
+use OCP\Activity\Exceptions\UnknownActivityException;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\Activity\IProvider;
@@ -80,6 +81,9 @@ class Provider implements IProvider {
 			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
 			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
 		) {
+			if (class_exists(UnknownActivityException::class)) {
+				throw new UnknownActivityException('Unknown app');
+			}
 			throw new \InvalidArgumentException('Unknown subject');
 		}
 
