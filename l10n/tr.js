@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Görünürlük",
     "Everyone" : "Herkes",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Bu gruplar duyuruları görebilir. Herhangi bir grup seçilmezse duyuruları tüm kullanıcılar görebilir.",
+    "Schedule announcement time" : "Duyuru zamanını ayarla",
+    "Schedule deletion time" : "Silinme zamanını ayarla",
     "An error occurred while posting the announcement" : "Duyuru eklenirken bir sorun çıktı",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
