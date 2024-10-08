@@ -34,6 +34,7 @@ use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
 use OCP\Notification\INotifier;
+use OCP\Notification\UnknownNotificationException;
 
 class Notifier implements INotifier {
 
@@ -93,6 +94,9 @@ class Notifier implements INotifier {
 	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() !== 'announcementcenter') {
 			// Not my app => throw
+			if (class_exists(UnknownNotificationException::class)) {
+				throw new UnknownNotificationException('Unknown app');
+			}
 			throw new \InvalidArgumentException('Unknown app');
 		}
 
@@ -102,6 +106,9 @@ class Notifier implements INotifier {
 		$i = $notification->getSubject();
 		if ($i !== 'announced') {
 			// Unknown subject => Unknown notification => throw
+			if (class_exists(UnknownNotificationException::class)) {
+				throw new UnknownNotificationException('Unknown subject');
+			}
 			throw new \InvalidArgumentException('Unknown subject');
 		}
 
