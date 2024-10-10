@@ -62,12 +62,14 @@ class AnnouncementMapper extends QBMapper {
 	public function resetScheduleTimeById(int $id) {
 		$query = $this->db->getQueryBuilder();
 		$query->update($this->getTableName())
-			->set(
-				'announcement_schedule_time',
-				$query->expr()->literal(0, IQueryBuilder::PARAM_INT))
-			->where(
-				$query->expr()->eq('announcement_id', $query->createNamedParameter($id))
-			);
+			->set('announcement_time', 'announcement_schedule_time')
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
+		$query->executeStatement();
+
+		$query = $this->db->getQueryBuilder();
+		$query->update($this->getTableName())
+			->set('announcement_schedule_time', $query->expr()->literal(0, IQueryBuilder::PARAM_INT))
+			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($id)));
 		return $query->executeStatement();
 	}
 
