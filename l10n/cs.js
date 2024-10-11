@@ -32,6 +32,7 @@ OC.L10N.register(
     "visible to everyone" : "viditelné všem",
     "visible to group {name}" : "viditelné skupině {name}",
     "visible to groups {name1} and {name2}" : "viditelné pro skupiny {name1} a {name2}",
+    "scheduled at {time}" : "naplánováno v {time}",
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Při odebírání oznámení došlo k chybě",
     "An error occurred while deleting the announcement" : "Při mazání oznámení došlo k chybě",
@@ -46,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Viditelnost",
     "Everyone" : "Všichni",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tyto skupiny uvidí oznámení. Pokud není vybrána žádná skupina, uvidí oznámení všichni uživatelé.",
+    "Schedule announcement time" : "Naplánovat okamžik oznámení",
+    "Schedule deletion time" : "Naplánovat okamžik smazání",
     "An error occurred while posting the announcement" : "Při zveřejňování oznámení došlo k chybě",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
