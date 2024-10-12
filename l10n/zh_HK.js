@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "可見性",
     "Everyone" : "所有人",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "這些群組可以看見公告。如果未選擇群組，則所有人均可看見。",
+    "Schedule announcement time" : "安排公告時間",
+    "Schedule deletion time" : "安排刪除時間",
     "An error occurred while posting the announcement" : "發佈公告時發生錯誤",
     "{author}, {timestamp}" : "{author}， {timestamp}"
 },
