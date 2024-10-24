@@ -6,7 +6,7 @@ OC.L10N.register(
     "You posted an announcement" : "لقد قمت بنشر إعلان",
     "{actor} posted an announcement" : "{actor} قام بنشر إعلان",
     "The announcement does not exist anymore" : "الإعلان لم يعد موجوداً",
-    "An <strong>announcement</strong> is posted by an administrator" : "قام مشرف بنشر <strong>إعلان</strong> ",
+    "An <strong>announcement</strong> is posted by an administrator" : "قام مسؤول النظام بنشر <strong>إعلان</strong> ",
     "The subject is too long or empty" : "الموضوع طويل جدا أو فارغ",
     "Announcements" : "الإعلانات",
     "Read more" : "أقرأ أكثر",
@@ -14,7 +14,7 @@ OC.L10N.register(
     "{user} announced {announcement}" : "{user} أعلَنَ {announcement}",
     "{user} announced “{announcement}”" : "{user} أعلَنَ ”{announcement}“",
     "Announcement center" : "مركز الإعلانات",
-    "This app allows admins to post announcements." : "هذا التطبيق يسمح للمشرفين بإرسال الإعلانات.",
+    "This app allows admins to post announcements." : "هذا التطبيق يسمح للمديرين بإرسال الإعلانات.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "أعلِن عن نافذة الصيانة الخاصة بك 🎛️، أو قدم زميلًا جديدًا 👤 أو تأكد من أن الجميع يعرف عن الحدث الكبير الشهر المقبل 📅\n\n🖌️ دعم التنسيق بصيغة \"Markdown\"\n\n📑 التعليقات تتضمن @-الإشارات\n\n👪 أذونات المجموعة\n\n⭕ تكامل لوحة القيادة\n\n⚡ تكامل الأنشطة\n\n🔔 تكامل الإشعارات",
     "These groups will be able to post announcements." : "هذه المجموعات ستملك الصلاحية لنشر الاعلانات",
     "Create activities by default" : "أنشِئْ النشاطات افتراضياً",
