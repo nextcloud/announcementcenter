@@ -32,6 +32,7 @@ OC.L10N.register(
     "visible to everyone" : "visibile a tutti",
     "visible to group {name}" : "visibile al gruppo {name}",
     "visible to groups {name1} and {name2}" : "visibile ai gruppi {name1} e {name2}",
+    "scheduled at {time}" : "programmato alle {time}",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Si è verificato un errore durante la rimozione delle notifiche dell'annuncio",
     "An error occurred while deleting the announcement" : "Si è verificato un errore durante l'eliminazione dell'annuncio",
@@ -46,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Visibilità",
     "Everyone" : "Tutti",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Questi gruppi saranno in grado di vedere l'annuncio. Se non è selezionato alcun gruppo, potranno vederlo tutti gli utenti.",
+    "Schedule announcement time" : "Pianifica l'orario dell'annuncio",
+    "Schedule deletion time" : "Pianifica l'ora di eliminazione",
     "An error occurred while posting the announcement" : "Si è verificato un errore durante la pubblicazione dell'annuncio",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
