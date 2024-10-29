@@ -1,0 +1,33 @@
+<!--
+  - SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+# Authors
+
+- Andy Scherzinger <info@andy-scherzinger.de>
+- Côme Chilliet <91878298+come-nc@users.noreply.github.com>
+- Georg Ehrke <oc.list@georgehrke.com>
+- Hemanth Kumar Veeranki <hems.india1997@gmail.com>
+- Jan-Christoph Borchardt <hey@jancborchardt.net>
+- janklostermann <janklostermann@users.noreply.github.com>
+- Joas Schilling <coding@schilljs.com>
+- John Molakvoæ <skjnldsv@protonmail.com>
+- Jonas <jonas@freesources.org>
+- Jonas Sulzer <jonas@violoncello.ch>
+- Jos Poortvliet <jos@opensuse.org>
+- Julius Knorr <jus@bitgrid.net>
+- Kyle Meadows <Kyle.Meadows@610ind.com>
+- Marco Ambrosini <marcoambrosini@pm.me>
+- MARINA Adrian <Adrian.MARINA@ext.ec.europa.eu>
+- Marius Blüm <marius@lineone.io>
+- Marvin Winkens <m.winkens@fz-juelich.de>
+- Morris Jobke <hey@morrisjobke.de>
+- mwinkens <104770531+mwinkens@users.noreply.github.com>
+- rabella <rabella@avaya.com>
+- rakekniven <mark.ziegler@rakekniven.de>
+- Rello <Rello@users.noreply.github.com>
+- Roeland Jago Douma <roeland@famdouma.nl>
+- sahalsaad <caalshift@gmail.com>
+- spoiledtechie <spoiledtechie@gmail.com>
+- Thomas Citharel <tcit@tcit.fr>
+- Vincent Petry <vincent@nextcloud.com>
