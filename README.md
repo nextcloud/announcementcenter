@@ -5,6 +5,8 @@
 -->
 # Announcement center
 
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/announcementcenter)](https://api.reuse.software/info/github.com/nextcloud/announcementcenter)
+
 ![](docs/AnnouncementCenterFrontpage.png)
 
 Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅
