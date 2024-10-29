@@ -1,4 +1,10 @@
+<!--
+  - SPDX-FileCopyrightText: 2015-2024 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 # Announcement center
+
+[![REUSE status](https://api.reuse.software/badge/github.com/nextcloud/announcementcenter)](https://api.reuse.software/info/github.com/nextcloud/announcementcenter)
 
 ![](docs/AnnouncementCenterFrontpage.png)
 
