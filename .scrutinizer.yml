@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2015-2026 ownCloud, Inc.
+# SPDX-FileCopyrightText: 2015-2026 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 filter:
     excluded_paths:
