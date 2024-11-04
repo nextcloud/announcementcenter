@@ -32,6 +32,7 @@ OC.L10N.register(
     "visible to everyone" : "Видимий для всіх",
     "visible to group {name}" : "видимий для групи {name}",
     "visible to groups {name1} and {name2}" : "видимий для груп {name1} і {name2}",
+    "scheduled at {time}" : "заплановано о {time}",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Помилка під час вилучення сповіщень",
     "An error occurred while deleting the announcement" : "Помилка під час вилучення повідомлень",
@@ -46,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Видимість",
     "Everyone" : "Всі",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Вказані групи матимуть змогу бачити оголошення. Якщо жодна із груп не вибрана, тоді всі користувачі будуть бачити його.",
+    "Schedule announcement time" : "Запланувати час оголошення",
+    "Schedule deletion time" : "Запланувати час, коли буде вилучено",
     "An error occurred while posting the announcement" : "Під час публікації оголошення сталася помилка",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
