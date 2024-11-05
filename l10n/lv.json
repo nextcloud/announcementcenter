@@ -1,7 +1,7 @@
 { "translations": {
     "You posted an announcement" : "Tu izliki paziņojumu",
     "{actor} posted an announcement" : "{actor} izlika paziņojumu",
-    "An <strong>announcement</strong> is posted by an administrator" : "Šis <strong>paziņojums</strong> ir no administratora",
+    "An <strong>announcement</strong> is posted by an administrator" : "Pārvaldītājs nosūtīja <strong>paziņojumu</strong> ",
     "The subject is too long or empty" : "Temats ir par garu vai arī tukšs",
     "Announcements" : "Paziņojumi",
     "Read more" : "Lasīt vairāk",
