@@ -32,6 +32,7 @@ OC.L10N.register(
     "visible to everyone" : "viditeľné pre všetkých",
     "visible to group {name}" : "viditeľné pre skupinu {name}",
     "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} a {name2}",
+    "scheduled at {time}" : "naplánované na {time}",
     ", " : ", ",
     "An error occurred while removing the notifications of the announcement" : "Nastala chyba pri odstraňovaní notifikácie oznámenia",
     "An error occurred while deleting the announcement" : "Chyba pri vymazávaní oznámenia",
