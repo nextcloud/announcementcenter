@@ -26,7 +26,6 @@
 	<issueHandlers>
 		<UndefinedClass>
 			<errorLevel type="suppress">
-				<referencedClass name="Doctrine\DBAL\Types\Types" />
 				<referencedClass name="OC" />
 				<referencedClass name="OCA\Guests\UserBackend" />
 				<referencedClass name="Symfony\Component\Console\Command\Command" />
