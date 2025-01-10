@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c7c6112e94cf0fe5989e93a1de70b94",
+    "content-hash": "787263c5bc1edbc751c5b822dac66d1f",
     "packages": [
         {
             "name": "bamarni/composer-bin-plugin",
@@ -67,16 +67,16 @@
     "packages-dev": [
         {
             "name": "nextcloud/ocp",
-            "version": "dev-stable28",
+            "version": "dev-stable29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nextcloud-deps/ocp.git",
-                "reference": "d1399b589aa6c0393b4f62bd7022315a711d8c09"
+                "reference": "5d14cd5c2d92046ce268033a8e420f4acf054403"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/d1399b589aa6c0393b4f62bd7022315a711d8c09",
-                "reference": "d1399b589aa6c0393b4f62bd7022315a711d8c09",
+                "url": "https://api.github.com/repos/nextcloud-deps/ocp/zipball/5d14cd5c2d92046ce268033a8e420f4acf054403",
+                "reference": "5d14cd5c2d92046ce268033a8e420f4acf054403",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-stable28": "28.0.0-dev"
+                    "dev-stable29": "29.0.0-dev"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -105,9 +105,9 @@
             "description": "Composer package containing Nextcloud's public API (classes, interfaces)",
             "support": {
                 "issues": "https://github.com/nextcloud-deps/ocp/issues",
-                "source": "https://github.com/nextcloud-deps/ocp/tree/stable28"
+                "source": "https://github.com/nextcloud-deps/ocp/tree/stable29"
             },
-            "time": "2025-01-08T00:43:56+00:00"
+            "time": "2025-01-08T00:43:58+00:00"
         },
         {
             "name": "psr/clock",
@@ -321,7 +321,7 @@
     "platform": {},
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.0.2"
+        "php": "8.1"
     },
     "plugin-api-version": "2.6.0"
 }

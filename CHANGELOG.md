@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Updated translations
 - Updated dependencies
+- Removed Nextcloud 28
 
 ### Fixed
 - Fix missing admin section headline
