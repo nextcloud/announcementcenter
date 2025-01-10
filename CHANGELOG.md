@@ -5,6 +5,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.1.0 – 2025-01-10
+### Added
+- Compatibility with Nextcloud 31
+
+### Changed
+- Updated translations
+- Updated dependencies
+- Removed Nextcloud 28 and Nextcloud 29
+
+### Fixed
+- Fix missing admin section headline
+  [#873](https://github.com/nextcloud/announcementcenter/pull/873)
+
 ## 7.0.1 – 2024-10-02
 ### Added
 - Add CLI command to remove notifications from an announcement

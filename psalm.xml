@@ -9,7 +9,7 @@
 	findUnusedBaselineEntry="true"
 	findUnusedCode="false"
 	resolveFromConfigFile="true"
-	phpVersion="8.0"
+	phpVersion="8.1"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns="https://getpsalm.org/schema/config"
 	xsi:schemaLocation="https://getpsalm.org/schema/config vendor-bin/psalm/vendor/vimeo/psalm/config.xsd"
@@ -22,14 +22,10 @@
 	</projectFiles>
 	<extraFiles>
 		<directory name="vendor" />
-		<ignoreFiles>
-			<directory name="vendor/phpunit/php-code-coverage" />
-		</ignoreFiles>
 	</extraFiles>
 	<issueHandlers>
 		<UndefinedClass>
 			<errorLevel type="suppress">
-				<referencedClass name="Doctrine\DBAL\Types\Types" />
 				<referencedClass name="OC" />
 				<referencedClass name="OCA\Guests\UserBackend" />
 				<referencedClass name="Symfony\Component\Console\Command\Command" />
