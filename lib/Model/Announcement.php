@@ -65,16 +65,16 @@ class Announcement extends Entity {
 	protected $notTypes;
 
 	public function __construct() {
-		$this->addType('time', 'int');
+		$this->addType('time', 'integer');
 		$this->addType('user', 'string');
 		$this->addType('subject', 'string');
 		$this->addType('message', 'string');
 		$this->addType('plainMessage', 'string');
-		$this->addType('allowComments', 'int');
-		$this->addType('scheduleTime', 'int');
-		$this->addType('deleteTime', 'int');
+		$this->addType('allowComments', 'integer');
+		$this->addType('scheduleTime', 'integer');
+		$this->addType('deleteTime', 'integer');
 		$this->addType('groups', 'string');
-		$this->addType('notTypes', 'int');
+		$this->addType('notTypes', 'integer');
 	}
 
 	public function getParsedSubject(): string {

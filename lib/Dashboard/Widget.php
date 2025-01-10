@@ -90,7 +90,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	}
 
 	/**
-	 * @return WidgetButton[]
+	 * @return list<WidgetButton>
 	 */
 	public function getWidgetButtons(string $userId): array {
 		$buttons = [];
