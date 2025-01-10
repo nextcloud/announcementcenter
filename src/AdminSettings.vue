@@ -4,7 +4,7 @@
 -->
 
 <template>
-	<NcSettingsSection :title="t('announcementcenter', 'Announcements')">
+	<NcSettingsSection :name="t('announcementcenter', 'Announcements')">
 		<NcSettingsSelectGroup id="announcementcenter_admin_group"
 			v-model="adminGroups"
 			:label="t('announcementcenter', 'These groups will be able to post announcements.')"
