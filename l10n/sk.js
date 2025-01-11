@@ -47,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Viditeľnosť",
     "Everyone" : "Všetci",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tieto skupiny budú môcť vidieť oznámenie. Ak nie je vybraná žiadna skupina, všetci používatelia ho môžu vidieť.",
+    "Schedule announcement time" : "Naplánujte si čas oznámenia",
+    "Schedule deletion time" : "Naplánujte si čas mazania",
     "An error occurred while posting the announcement" : "Nastala chyba pri odosielaní oznámenia",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
