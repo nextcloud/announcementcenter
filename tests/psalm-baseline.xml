@@ -1,11 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.1@b9d355e0829c397b9b3b47d0c0ed042a8a70284d">
-  <file src="lib/Dashboard/Widget.php">
-    <InvalidArgument>
-      <code><![CDATA[function () {
-			$announcements = $this->manager->getAnnouncements();
-			return array_map([$this, 'renderAnnouncement'], $announcements);
-		}]]></code>
-    </InvalidArgument>
-  </file>
-</files>
+<files psalm-version="6.0.0@b8e96bb617bf59382113b1b56cef751f648a7dc9"/>
