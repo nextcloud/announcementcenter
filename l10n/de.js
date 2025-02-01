@@ -12,7 +12,7 @@ OC.L10N.register(
     "Read more" : "Weiterlesen",
     "{author}, {time}" : "{author}, {time}",
     "{user} announced {announcement}" : "{user} hat {announcement} angekündigt",
-    "{user} announced “{announcement}”" : "{user} hat “{announcement}” angekündigt",
+    "{user} announced “{announcement}”" : "{user} hat \"{announcement}” angekündigt",
     "Announcement center" : "Ankündigungen",
     "This app allows admins to post announcements." : "Mit dieser App können Administratoren Ankündigungen schreiben",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Kündige dein Wartungsfenster 🎛️ an, stelle einen neuen Kollegen 👤 vor oder stelle sicher, dass jeder über das große Ereignis im nächsten Monat 📅Bescheid weiß\n\n🖌️ Markdown-Unterstützung\n\n📑 Kommentare einschließlich @-Erwähnungen\n\n👪 Gruppenberechtigungen\n\n⭕ Dashboard-Integration\n\n⚡ Integration von Aktivitäten\n\n🔔 Integration von Benachrichtigungen ",
