@@ -230,13 +230,11 @@ export default {
 
 	&__subject {
 		width: 100%;
-		font-size: 20px;
 		font-weight: bold;
 	}
 
 	&__message {
 		width: 100%;
-		font-size: 15px;
 	}
 
 	&__buttons {
