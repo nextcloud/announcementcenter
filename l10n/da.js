@@ -32,6 +32,7 @@ OC.L10N.register(
     "visible to everyone" : "Synlig for alle",
     "visible to group {name}" : "Synlig for gruppen {name}",
     "visible to groups {name1} and {name2}" : "Synlig for grupperne {name1} og {name2}",
+    "scheduled at {time}" : "planlagt kl {time}",
     ", " : ",",
     "An error occurred while removing the notifications of the announcement" : "Der opstod en fejl under fjernelse af meddelelserne om notifikationerne",
     "An error occurred while deleting the announcement" : "Der opstod en fejl under sletning af notifikationen",
@@ -46,6 +47,8 @@ OC.L10N.register(
     "Visibility" : "Synlighed",
     "Everyone" : "Alle",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse grupper er i stand til at se meddelelsen. Hvis ingen grupper er valgt, så kan alle brugere se den.",
+    "Schedule announcement time" : "Planlæg meddelelsestidspunkt",
+    "Schedule deletion time" : "Planlæg sletningstid",
     "An error occurred while posting the announcement" : "Der opstod en fejl under offentliggørelsen af meddelelsen",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
