@@ -3,7 +3,7 @@ OC.L10N.register(
     {
     "Announcements" : "Ilɣa",
     "Comments" : "Commentaires",
-    "Delete announcement" : "Kkes alɣu",
-    ", " : ", "
+    ", " : ", ",
+    "Delete announcement" : "Kkes alɣu"
 },
 "nplurals=2; plural=(n != 1);");

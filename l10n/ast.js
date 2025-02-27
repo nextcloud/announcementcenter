@@ -17,12 +17,12 @@ OC.L10N.register(
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Anuncia'l periodu de caltenimientu 🛠, presenta a un/a colega nuevu/a 👤 o asegúrate de que tol mundu s'entera del acontecimientu del mes que vien 📅\n\n🖌️ Compatibilidá con Markdown\n\n📑 Comentarios qu'inclúin menciones con «@»\n\n👪 Permisos pa los grupos\n\n⭕ Integración col Panel\n\n⚡ Integración coles actividaes\n\n🔔 Integración colos avisos",
     "Comments" : "Comentarios",
     "seconds ago" : "hai segundos",
+    "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarios"],
     "An error occurred while removing the notifications of the announcement" : "Prodúxose un error mentanto se quitaben los avisos del anunciu",
     "An error occurred while deleting the announcement" : "Prodúxose un error mentanto se desaniciaba l'anunciu",
-    "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarios"],
+    "An error occurred while posting the announcement" : "Prodúxose un error mentanto s'espublizaba l'anunciu",
     "Write announcement text, Markdown can be used …" : "Escribi'l testu del anunciu, pues usar la sintaxis de Markdown…",
     "Visibility" : "Visibilidá",
-    "Everyone" : "Tol mundu",
-    "An error occurred while posting the announcement" : "Prodúxose un error mentanto s'espublizaba l'anunciu"
+    "Everyone" : "Tol mundu"
 },
 "nplurals=2; plural=(n != 1);");

@@ -19,16 +19,17 @@
     "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
     "No announcements" : "Καμία ανακοίνωση",
     "Comments" : "Σχόλια",
-    "Clear notifications" : "Εκκαθάριση ειδοποιήσεων",
-    "Delete announcement" : "Διαγραφή ανακοίνωσης",
     "seconds ago" : "δευτερόλεπτα πριν",
     "visible to everyone" : "ορατό σε όλους",
     "visible to group {name}" : "ορατό στην ομάδα {name}",
     "visible to groups {name1} and {name2}" : "ορατό στις ομάδες {name1} και {name2}",
     ", " : ", ",
+    "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
     "An error occurred while removing the notifications of the announcement" : "Παρουσιάστηκε σφάλμα κατά την κατάργηση των ειδοποιήσεων της ανακοίνωσης",
     "An error occurred while deleting the announcement" : "Παρουσιάστηκε σφάλμα κατά τη διαγραφή της ανακοίνωσης",
-    "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
+    "Clear notifications" : "Εκκαθάριση ειδοποιήσεων",
+    "Delete announcement" : "Διαγραφή ανακοίνωσης",
+    "An error occurred while posting the announcement" : "Παρουσιάστηκε σφάλμα κατά την ανάρτηση της ανακοίνωσης",
     "New announcement subject" : "Νέο θέμα ανακοίνωσης",
     "Write announcement text, Markdown can be used …" : "Σύνταξη κειμένου ανακοίνωσης, μπορεί να χρησιμοποιηθεί το Markdown",
     "Announce" : "Ανακοίνωση",
@@ -37,7 +38,6 @@
     "Allow comments" : "Να επιτρέπονται σχόλια",
     "Everyone" : " Όλοι",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Αυτές οι ομάδες δεν θα έχουν την δυνατότητα να βλέπουν την ανακοίνωση. Εάν δεν επιλεγεί καμία ομάδα όλοι οι χρήστες θα μπορούν να την βλέπουν.",
-    "An error occurred while posting the announcement" : "Παρουσιάστηκε σφάλμα κατά την ανάρτηση της ανακοίνωσης",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
