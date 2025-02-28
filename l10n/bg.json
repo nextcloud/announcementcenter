@@ -27,6 +27,7 @@
     "visible to everyone" : "видим за всеки",
     "visible to group {name}" : "видим за групи: {име}",
     "visible to groups {name1} and {name2}" : "видим за групи: {име1} и {име2}",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["видим за група: {име} и за още%n","видим за група: {име} и за още %n"],
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n коментар","%n коментара"],
     "An error occurred while removing the notifications of the announcement" : "Възникна грешка при премахването на известията за обявяването",

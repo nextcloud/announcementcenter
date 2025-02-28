@@ -30,6 +30,7 @@ OC.L10N.register(
     "visible to everyone" : "viditelné všem",
     "visible to group {name}" : "viditelné skupině {name}",
     "visible to groups {name1} and {name2}" : "viditelné pro skupiny {name1} a {name2}",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["viditelné pro skupinu {name} a %n další ","viditelné pro skupinu {name} a %n další","viditelné pro skupinu {name} a %n dalších","viditelné pro skupinu {name} a %n další"],
     "scheduled at {time}" : "naplánováno v {time}",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komentář","%n komentáře","%n komentářů","%n komentáře"],

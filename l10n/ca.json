@@ -28,6 +28,7 @@
     "visible to everyone" : "visible per a tothom",
     "visible to group {name}" : "visible per al grup {name}",
     "visible to groups {name1} and {name2}" : "visible per als grups {name1} i {name2}",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible per al grup {name} i %n més","visible per al grup {name} i %n més"],
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "An error occurred while removing the notifications of the announcement" : "S'ha produït un error en suprimir les notificacions de l'anunci",

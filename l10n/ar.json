@@ -28,6 +28,7 @@
     "visible to everyone" : "مرئي للجميع",
     "visible to group {name}" : "مرئي لمجموعة \"{name}\"",
     "visible to groups {name1} and {name2}" : "مرئي لمجموعتي \"{name1}\" و \"{name2}\"",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["مرئي لمجموعة \"{name}\"","مرئي لمجموعة \"{name}\" و واحدة أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى","مرئي لمجموعة \"{name}\" و %n مجموعات أخرى"],
     "scheduled at {time}" : "مجدولة في {time}",
     ", " : "،",
     "_%n comment_::_%n comments_" : ["%n تعليقات","%n تعليق","%n تعليق","%n تعليقات","%n تعليقات","%n تعليقات"],
