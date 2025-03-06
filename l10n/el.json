@@ -23,6 +23,7 @@
     "visible to everyone" : "ορατό σε όλους",
     "visible to group {name}" : "ορατό στην ομάδα {name}",
     "visible to groups {name1} and {name2}" : "ορατό στις ομάδες {name1} και {name2}",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["Ορατό στην ομάδα {name} και σε %n ακόμη","ορατό στην ομάδα {name} και σε %n ακόμη"],
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n σχόλιο","%n σχόλια"],
     "An error occurred while removing the notifications of the announcement" : "Παρουσιάστηκε σφάλμα κατά την κατάργηση των ειδοποιήσεων της ανακοίνωσης",
@@ -36,6 +37,7 @@
     "Create activities" : "Δημιουργία δραστηριοτήτων",
     "Create notifications" : "Δημιουργία ειδοποιήσεων",
     "Allow comments" : "Να επιτρέπονται σχόλια",
+    "Visibility" : "Ορατότητα",
     "Everyone" : " Όλοι",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Αυτές οι ομάδες δεν θα έχουν την δυνατότητα να βλέπουν την ανακοίνωση. Εάν δεν επιλεγεί καμία ομάδα όλοι οι χρήστες θα μπορούν να την βλέπουν.",
     "{author}, {timestamp}" : "{author}, {timestamp}"
