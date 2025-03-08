@@ -31,6 +31,7 @@ OC.L10N.register(
     "visible to group {name}" : "グループ {name} に見えます",
     "visible to groups {name1} and {name2}" : "グループ {name1} と {name2} に見えます",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["グループ {name} と %n にも見えます"],
+    "scheduled at {time}" : "{time}に予定済み",
     ", " : "、",
     "_%n comment_::_%n comments_" : ["%n のコメント"],
     "An error occurred while removing the notifications of the announcement" : "お知らせの通知を削除中にエラーが発生しました",
@@ -48,6 +49,8 @@ OC.L10N.register(
     "Visibility" : "可視性",
     "Everyone" : "皆さん",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "これらのグループがお知らせを見ることができます。グループが選択されていない場合は、すべてのユーザーが見ることができます。",
+    "Schedule announcement time" : "スケジュールお知らせ時間",
+    "Schedule deletion time" : "スケジュール削除時間",
     "{author}, {timestamp}" : "{author}さん, {timestamp}"
 },
 "nplurals=1; plural=0;");
