@@ -22,7 +22,6 @@
 - Marius Blüm <marius@lineone.io>
 - Marvin Winkens <m.winkens@fz-juelich.de>
 - Morris Jobke <hey@morrisjobke.de>
-- mwinkens <104770531+mwinkens@users.noreply.github.com>
 - rabella <rabella@avaya.com>
 - rakekniven <mark.ziegler@rakekniven.de>
 - Rello <Rello@users.noreply.github.com>
