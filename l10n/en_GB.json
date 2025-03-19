@@ -28,6 +28,7 @@
     "visible to everyone" : "visible to everyone",
     "visible to group {name}" : "visible to group {name}",
     "visible to groups {name1} and {name2}" : "visible to groups {name1} and {name2}",
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible to group {name} and %n more","visible to group {name} and %n more"],
     "scheduled at {time}" : "scheduled at {time}",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n comment","%n comments"],
