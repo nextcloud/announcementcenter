@@ -31,7 +31,7 @@ OC.L10N.register(
     "visible to group {name}" : "visible per al grup {name}",
     "visible to groups {name1} and {name2}" : "visible per als grups {name1} i {name2}",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible per al grup {name} i %n més","visible per al grup {name} i %n més"],
-    "scheduled at {time}" : "programat a les {time}",
+    "scheduled at {time}" : "planificat a les {time}",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
     "An error occurred while removing the notifications of the announcement" : "S'ha produït un error en suprimir les notificacions de l'anunci",
@@ -49,8 +49,8 @@ OC.L10N.register(
     "Visibility" : "Visibilitat",
     "Everyone" : "Tothom",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Aquests grups podran veure l'anunci. Si no heu seleccionat cap grup, tots els usuaris el podran veure.",
-    "Schedule announcement time" : "Programar hora d'anunci",
-    "Schedule deletion time" : "Programeu l'hora d'eliminació",
+    "Schedule announcement time" : "Planificació d'hora d'anunci",
+    "Schedule deletion time" : "Planificació de l'hora d'eliminació",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");
