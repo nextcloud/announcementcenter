@@ -20,6 +20,7 @@ OC.L10N.register(
     "Create activities" : "Crear actividades",
     "Create notifications" : "Crear notificaciones",
     "Allow comments" : "Permitir comentarios",
+    "Visibility" : "Visibilidad",
     "Everyone" : "Todos",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estos grupos podrán ver el anuncio. Si no se seleccióna un grupo, todos los usuarios podrán verlo."
 },
