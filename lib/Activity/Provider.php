@@ -151,7 +151,7 @@ class Provider implements IProvider {
 	protected function generateAnnouncementParameter(Announcement $announcement): array {
 		return [
 			'type' => 'announcement',
-			'id' => $announcement->getId(),
+			'id' => (string)$announcement->getId(),
 			'name' => $announcement->getParsedSubject(),
 			'link' => $this->url->linkToRouteAbsolute('announcementcenter.page.index', [
 				'announcement' => $announcement->getId(),
