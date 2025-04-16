@@ -17,7 +17,7 @@ OC.L10N.register(
     "seconds ago" : "pirms mirkļa",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n piebilžu","%n piebilde","%n piebildes"],
-    "Delete announcement" : "Dzēst paziņojumu",
+    "Delete announcement" : "Izdzēst paziņojumu",
     "Announce" : "Paziņot",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
