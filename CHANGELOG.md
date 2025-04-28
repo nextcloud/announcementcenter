@@ -5,6 +5,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.1.1 – 2025-04-28
+### Changed
+- Updated translations
+- Updated dependencies
+
+### Fixed
+- Fix scheduling date replaced by relative date is confusing
+  [#912](https://github.com/nextcloud/announcementcenter/pull/912)
+- Fix log spam from activity about wrong object-id type
+  [#903](https://github.com/nextcloud/announcementcenter/pull/903)
+
 ## 7.1.0 – 2025-01-10
 ### Added
 - Compatibility with Nextcloud 31
