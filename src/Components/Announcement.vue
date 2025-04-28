@@ -19,13 +19,10 @@
 						:show-user-status="false" />
 					{{ author }}
 					·
-					<span v-if="isScheduled"
-						class="live-relative-timestamp"
-						:data-timestamp="scheduleTime * 1000"
-						:title="scheduledLabel">{{ scheduledLabel }}</span>
+					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
 					<span v-else
 						class="live-relative-timestamp"
-						:data-timestamp="timestamp"
+						:data-timestamp="time * 1000"
 						:title="dateFormat">{{ dateRelative }}</span>
 
 					<template v-if="isAdmin">
@@ -83,7 +80,7 @@ import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
 import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
 import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
-import moment from '@nextcloud/moment'
+import { getLanguage } from '@nextcloud/l10n'
 import {
 	showError,
 } from '@nextcloud/dialogs'
@@ -91,6 +88,7 @@ import {
 	deleteAnnouncement,
 	removeNotifications,
 } from '../services/announcementsService.js'
+import { formatRelativeTime } from '../utils/datetime.utils.js'
 
 export default {
 	name: 'Announcement',
@@ -159,23 +157,23 @@ export default {
 		boundariesElement() {
 			return document.querySelector(this.$el)
 		},
-		timestamp() {
-			return this.time * 1000
+		dateTime() {
+			return new Date(this.time * 1000)
 		},
 		dateFormat() {
-			return moment(this.timestamp).format('LLL')
+			return this.dateTime.toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
 		},
 
 		scheduleDateFormat() {
-			return moment(this.scheduleTime * 1000).format('LLL')
+			return (new Date(this.scheduleTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
 		},
 
 		dateRelative() {
-			const diff = moment().diff(moment(this.timestamp))
+			const diff = new Date() - this.dateTime
 			if (diff >= 0 && diff < 45000) {
 				return t('core', 'seconds ago')
 			}
-			return moment(this.timestamp).fromNow()
+			return formatRelativeTime(-diff)
 		},
 
 		isVisibleToEveryone() {

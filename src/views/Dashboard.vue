@@ -19,7 +19,7 @@
 import NcDashboardWidget from '@nextcloud/vue/dist/Components/NcDashboardWidget.js'
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl, imagePath } from '@nextcloud/router'
-import moment from '@nextcloud/moment'
+import { formatRelativeTimeFromNow } from '../utils/datetime.utils.js'
 
 export default {
 	name: 'Dashboard',
@@ -45,7 +45,7 @@ export default {
 					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
 					subText: t('announcementcenter', '{author}, {timestamp}', {
 						author: item.author,
-						timestamp: moment(item.time, 'X').fromNow(),
+						timestamp: formatRelativeTimeFromNow(-item.time * 1000),
 					}, null, { escape: false, sanitize: false }),
 				}
 			})
