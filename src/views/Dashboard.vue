@@ -45,7 +45,7 @@ export default {
 					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
 					subText: t('announcementcenter', '{author}, {timestamp}', {
 						author: item.author,
-						timestamp: formatRelativeTimeFromNow(-item.time * 1000),
+						timestamp: formatRelativeTimeFromNow(item.time * 1000),
 					}, null, { escape: false, sanitize: false }),
 				}
 			})
