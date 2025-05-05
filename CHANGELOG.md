@@ -5,6 +5,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.1.2 – 2025-05-05
+### Changed
+- Updated translations
+- Updated dependencies
+
+### Fixed
+- Fix relative time in the dashboard widget
+  [#917](https://github.com/nextcloud/announcementcenter/pull/917)
+
 ## 7.1.1 – 2025-04-28
 ### Changed
 - Updated translations
