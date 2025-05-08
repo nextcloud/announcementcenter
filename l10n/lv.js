@@ -14,7 +14,7 @@ OC.L10N.register(
     "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
     "Allow comments by default" : "Pēc noklusējuma atļaut piebildes",
     "Comments" : "Piebildes",
-    "seconds ago" : "pirms mirkļa",
+    "seconds ago" : "pirms vairākām sekundēm",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n piebilžu","%n piebilde","%n piebildes"],
     "Delete announcement" : "Izdzēst paziņojumu",
