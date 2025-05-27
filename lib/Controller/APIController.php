@@ -128,7 +128,14 @@ class APIController extends OCSController {
 		];
 
 		if ($this->manager->checkIsAdmin()) {
-			$groupIds = $this->manager->getGroups($announcement);
+			if ($announcement->getScheduleTime()) {
+				$groupIds = json_decode($announcement->getGroups(), true);
+				if (!is_array($groupIds)) {
+					$groupIds = [];
+				}
+			} else {
+				$groupIds = $this->manager->getGroups($announcement);
+			}
 			$groups = [];
 			foreach ($groupIds as $groupId) {
 				if ($groupId === 'everyone') {
@@ -180,7 +187,7 @@ class APIController extends OCSController {
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
 		} catch (AnnouncementDoesNotExistException $e) {
 		}
-		
+
 		return new DataResponse();
 	}
 
