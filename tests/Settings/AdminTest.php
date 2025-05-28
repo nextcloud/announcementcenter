@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -12,17 +13,13 @@ use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\IConfig;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class AdminTest extends TestCase {
-	/** @var Admin */
-	private $admin;
-
-	/** @var IConfig|MockObject */
-	protected $config;
-
-	/** @var IInitialState|MockObject */
-	protected $initialState;
+	private Admin $admin;
+	protected IConfig&MockObject $config;
+	protected IInitialState&MockObject $initialState;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -31,7 +28,7 @@ class AdminTest extends TestCase {
 		$this->admin = new Admin($this->config, $this->initialState);
 	}
 
-	public function dataGetForm() {
+	public static function dataGetForm(): array {
 		return [
 			[
 				[
@@ -96,17 +93,8 @@ class AdminTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataGetForm
-	 *
-	 * @param array $configMap
-	 * @param string $adminGroups
-	 * @param bool $createActivities
-	 * @param bool $createNotifications
-	 * @param bool $sendEmails
-	 * @param bool $allowComments
-	 */
-	public function testGetForm(array $configMap, $adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments) {
+	#[DataProvider('dataGetForm')]
+	public function testGetForm(array $configMap, array $adminGroups, bool $createActivities, bool $createNotifications, bool $sendEmails, bool $allowComments): void {
 		$this->config->expects(self::exactly(5))
 			->method('getAppValue')
 			->willReturnMap($configMap);
@@ -136,11 +124,11 @@ class AdminTest extends TestCase {
 		self::assertEquals($expected, $this->admin->getForm());
 	}
 
-	public function testGetSection() {
+	public function testGetSection(): void {
 		self::assertSame('additional', $this->admin->getSection());
 	}
 
-	public function testGetPriority() {
+	public function testGetPriority(): void {
 		self::assertSame(55, $this->admin->getPriority());
 	}
 }

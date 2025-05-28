@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2015-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -24,6 +25,7 @@ use OCP\Mail\IMailer;
 use OCP\Mail\IMessage;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
@@ -31,24 +33,15 @@ use Psr\Log\LoggerInterface;
  * @group DB
  */
 class BackgroundJobTest extends TestCase {
-	/** @var IConfig|MockObject */
-	protected $config;
-	/** @var ITimeFactory|MockObject */
-	protected $time;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IGroupManager|MockObject */
-	protected $groupManager;
-	/** @var IActivityManager|MockObject */
-	protected $activityManager;
-	/** @var INotificationManager|MockObject */
-	protected $notificationManager;
-	/** @var IMailer|MockObject */
-	protected $mailer;
-	/** @var LoggerInterface|MockObject */
-	protected $logger;
-	/** @var Manager|MockObject */
-	protected $manager;
+	protected IConfig&MockObject $config;
+	protected ITimeFactory&MockObject $time;
+	protected IUserManager&MockObject $userManager;
+	protected IGroupManager&MockObject $groupManager;
+	protected IActivityManager&MockObject $activityManager;
+	protected INotificationManager&MockObject $notificationManager;
+	protected IMailer&MockObject $mailer;
+	protected LoggerInterface&MockObject $logger;
+	protected Manager&MockObject $manager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -91,7 +84,7 @@ class BackgroundJobTest extends TestCase {
 				$this->logger,
 				$this->manager,
 			])
-			->setMethods($methods)
+			->onlyMethods($methods)
 			->getMock();
 	}
 
@@ -113,7 +106,7 @@ class BackgroundJobTest extends TestCase {
 		]]);
 	}
 
-	public function dataRun(): array {
+	public static function dataRun(): array {
 		return [
 			[23, true, false],
 			[42, false, true],
@@ -121,12 +114,7 @@ class BackgroundJobTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataRun
-	 * @param int $id
-	 * @param bool $activities
-	 * @param bool $notifications
-	 */
+	#[DataProvider('dataRun')]
 	public function testRun(int $id, bool $activities, bool $notifications): void {
 		$job = $this->getJob(['createPublicity']);
 
@@ -157,12 +145,9 @@ class BackgroundJobTest extends TestCase {
 	}
 
 	/**
-	 * @param string $uid
-	 * @param string $displayName
-	 * @param bool $loggedIn
-	 * @return IUser|MockObject
+	 * @return IUser&MockObject
 	 */
-	protected function getUserMock($uid, $displayName, $loggedIn = true) {
+	protected function getUserMock(string $uid, string $displayName, bool $loggedIn = true) {
 		$user = $this->createMock(IUser::class);
 		$user
 			->method('getUID')
@@ -194,7 +179,7 @@ class BackgroundJobTest extends TestCase {
 		return $group;
 	}
 
-	public function dataCreatePublicity(): array {
+	public static function dataCreatePublicity(): array {
 		return [
 			[['everyone'], true, [
 				'activities' => true,
@@ -209,12 +194,7 @@ class BackgroundJobTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataCreatePublicity
-	 * @param string[] $groups
-	 * @param bool $everyone
-	 * @param array $publicity
-	 */
+	#[DataProvider('dataCreatePublicity')]
 	public function testCreatePublicity(array $groups, bool $everyone, array $publicity): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects(self::once())
@@ -338,7 +318,7 @@ class BackgroundJobTest extends TestCase {
 		self::invokePrivate($job, 'createPublicity', [$announcement, $publicity, $email]);
 	}
 
-	public function dataCreatePublicityEveryoneAndGroup() {
+	public static function dataCreatePublicityEveryoneAndGroup(): array {
 		return [
 			[[
 				'activities' => true,
@@ -353,15 +333,8 @@ class BackgroundJobTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataCreatePublicityEveryoneAndGroup
-	 *
-	 * @param array $publicity
-	 * @param bool $activities
-	 * @param bool $notifications
-	 * @param bool $emails
-	 */
-	public function testCreatePublicityEveryone(array $publicity, $activities, $notifications, $emails): void {
+	#[DataProvider('dataCreatePublicityEveryoneAndGroup')]
+	public function testCreatePublicityEveryone(array $publicity, bool $activities, bool $notifications, bool $emails): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? self::exactly(5) : self::never())
 			->method('setAffectedUser')
@@ -409,15 +382,8 @@ class BackgroundJobTest extends TestCase {
 		self::invokePrivate($job, 'createPublicityEveryone', ['author', $event, $notification, $email, $publicity]);
 	}
 
-	/**
-	 * @dataProvider dataCreatePublicityEveryoneAndGroup
-	 *
-	 * @param array $publicity
-	 * @param bool $activities
-	 * @param bool $notifications
-	 * @param bool $emails
-	 */
-	public function testCreatePublicityGroups(array $publicity, $activities, $notifications, $emails): void {
+	#[DataProvider('dataCreatePublicityEveryoneAndGroup')]
+	public function testCreatePublicityGroups(array $publicity, bool $activities, bool $notifications, bool $emails): void {
 		$event = $this->createMock(IEvent::class);
 		$event->expects($activities ? self::exactly(4) : self::never())
 			->method('setAffectedUser')

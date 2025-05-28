@@ -1,5 +1,7 @@
 <?php
 
+
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -19,24 +21,17 @@ use OCP\L10N\IFactory;
 use OCP\Notification\AlreadyProcessedException;
 use OCP\Notification\IManager;
 use OCP\Notification\INotification;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class NotifierTest extends TestCase {
-	/** @var Notifier */
-	protected $notifier;
-
-	/** @var Manager|MockObject */
-	protected $manager;
-	/** @var IManager|MockObject */
-	protected $notificationManager;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IFactory|MockObject */
-	protected $factory;
-	/** @var IURLGenerator|MockObject */
-	protected $urlGenerator;
-	/** @var IL10N|MockObject */
-	protected $l;
+	protected Manager&MockObject $manager;
+	protected IManager&MockObject $notificationManager;
+	protected IUserManager&MockObject $userManager;
+	protected IFactory&MockObject $factory;
+	protected IURLGenerator&MockObject $urlGenerator;
+	protected IL10N&MockObject $l;
+	protected Notifier $notifier;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -66,7 +61,7 @@ class NotifierTest extends TestCase {
 	}
 
 	public function testPrepareWrongApp(): void {
-		/** @var \OCP\Notification\INotification|MockObject $notification */
+		/** @var INotification&MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())
@@ -81,7 +76,7 @@ class NotifierTest extends TestCase {
 	}
 
 	public function testPrepareWrongSubject(): void {
-		/** @var \OCP\Notification\INotification|MockObject $notification */
+		/** @var INotification&MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())
@@ -97,7 +92,7 @@ class NotifierTest extends TestCase {
 	}
 
 	public function testPrepareDoesNotExist(): void {
-		/** @var INotification|MockObject $notification */
+		/** @var INotification&MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())
@@ -119,7 +114,7 @@ class NotifierTest extends TestCase {
 		$this->notifier->prepare($notification, 'en');
 	}
 
-	public function dataPrepare(): array {
+	public static function dataPrepare(): array {
 		$message = "message\nmessage message message message message message message message message message message messagemessagemessagemessagemessagemessagemessage";
 		return [
 			['author', 'subject', 'message', 'message', '42', null, 'author announced “subject”', 'message'],
@@ -128,20 +123,9 @@ class NotifierTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataPrepare
-	 *
-	 * @param string $author
-	 * @param string $subject
-	 * @param string $message
-	 * @param string $plainMessage
-	 * @param int $objectId
-	 * @param ?string $userDisplayName
-	 * @param string $expectedSubject
-	 * @param string $expectedMessage
-	 */
-	public function testPrepare($author, $subject, $message, $plainMessage, $objectId, $userDisplayName, $expectedSubject, $expectedMessage): void {
-		/** @var INotification|MockObject $notification */
+	#[DataProvider('dataPrepare')]
+	public function testPrepare(string $author, string $subject, string $message, string $plainMessage, string $objectId, ?string $userDisplayName, string $expectedSubject, string $expectedMessage): void {
+		/** @var INotification&MockObject $notification */
 		$notification = $this->createMock(INotification::class);
 
 		$notification->expects(self::once())

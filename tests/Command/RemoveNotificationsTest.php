@@ -18,11 +18,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class RemoveNotificationsTest extends TestCase {
-	protected Manager|MockObject $manager;
-	protected LoggerInterface|MockObject $logger;
+	protected Manager&MockObject $manager;
+	protected LoggerInterface&MockObject $logger;
+	protected InputInterface&MockObject $input;
+	protected OutputInterface&MockObject $output;
 	protected Command $removeNotificationsCommand;
-	protected InputInterface|MockObject $input;
-	protected OutputInterface|MockObject $output;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -31,7 +31,7 @@ class RemoveNotificationsTest extends TestCase {
 		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->input = $this->getMockBuilder(InputInterface::class)
-			->setMethods([
+			->onlyMethods([
 				'getArgument',
 				'getOption',
 				'getFirstArgument',
@@ -57,7 +57,7 @@ class RemoveNotificationsTest extends TestCase {
 		);
 	}
 
-	public function testRemoveNotificationsSuccessfully() {
+	public function testRemoveNotificationsSuccessfully(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')
@@ -74,7 +74,7 @@ class RemoveNotificationsTest extends TestCase {
 		self::assertEquals(0, $result);
 	}
 
-	public function testRemoveNotificationsInvalidId() {
+	public function testRemoveNotificationsInvalidId(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')
@@ -83,7 +83,7 @@ class RemoveNotificationsTest extends TestCase {
 		self::assertEquals(true, $result > 0);
 	}
 
-	public function testRemoveNotificationsDoesNotExist() {
+	public function testRemoveNotificationsDoesNotExist(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')

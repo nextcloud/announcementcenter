@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -14,22 +15,18 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
 use OCP\IRequest;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * @package OCA\AnnouncementCenter\Tests\Controller
  */
 class PageControllerTest extends TestCase {
-	/** @var IRequest|MockObject */
-	protected $request;
-	/** @var Manager|MockObject */
-	protected $manager;
-	/** @var ICommentsManager|MockObject */
-	protected $commentsManager;
-	/** @var IConfig|MockObject */
-	protected $config;
-	/** @var IInitialState|MockObject */
-	protected $initialState;
+	protected IRequest&MockObject $request;
+	protected Manager&MockObject $manager;
+	protected ICommentsManager&MockObject $commentsManager;
+	protected IConfig&MockObject $config;
+	protected IInitialState&MockObject $initialState;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -52,7 +49,7 @@ class PageControllerTest extends TestCase {
 		);
 	}
 
-	public function dataIndex(): array {
+	public static function dataIndex(): array {
 		return [
 			[true, 'yes', true, 'no', false, 'no', false, 'no', false],
 			[false, 'no', false, 'yes', true, 'yes', true, 'yes', true],
@@ -60,20 +57,8 @@ class PageControllerTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataIndex
-	 *
-	 * @param bool $isAdmin
-	 * @param string $createActivitiesConfig
-	 * @param bool $createActivities
-	 * @param string $createNotificationsConfig
-	 * @param bool $createNotifications
-	 * @param string $sendEmailsConfig
-	 * @param bool $sendEmails
-	 * @param string $allowCommentsConfig
-	 * @param bool $allowComments
-	 */
-	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $sendEmailsConfig, bool $sendEmails, string $allowCommentsConfig, bool $allowComments) {
+	#[DataProvider('dataIndex')]
+	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $sendEmailsConfig, bool $sendEmails, string $allowCommentsConfig, bool $allowComments): void {
 		$this->manager->method('checkIsAdmin')
 			->willReturn($isAdmin);
 		$this->config->method('getAppValue')
@@ -84,14 +69,19 @@ class PageControllerTest extends TestCase {
 				['announcementcenter', 'allow_comments', 'yes', $allowCommentsConfig],
 			]);
 
+		$calls = [
+			['isAdmin', $isAdmin],
+			['createActivities', $createActivities],
+			['createNotifications', $createNotifications],
+			['sendEmails', $sendEmails],
+			['allowComments', $allowComments],
+			['activeId', 0],
+		];
 		$this->initialState->method('provideInitialState')
-			->withConsecutive(
-				['isAdmin', $isAdmin],
-				['createActivities', $createActivities],
-				['createNotifications', $createNotifications],
-				['sendEmails', $sendEmails],
-				['allowComments', $allowComments]
-			);
+			->willReturnCallback(function () use (&$calls) {
+				$expected = array_shift($calls);
+				$this->assertEquals($expected, func_get_args());
+			});
 
 		$controller = $this->getController();
 		$response = $controller->index();

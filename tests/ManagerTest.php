@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -18,11 +19,13 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\IConfig;
+use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 use OCP\Notification\INotification;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -32,36 +35,16 @@ use PHPUnit\Framework\MockObject\MockObject;
  * @group DB
  */
 class ManagerTest extends TestCase {
-
-	/** @var Manager */
-	protected $manager;
-
-	/** @var IConfig|MockObject */
-	protected $config;
-
-	/** @var AnnouncementMapper|MockObject */
-	protected $announcementMapper;
-
-	/** @var GroupMapper|MockObject */
-	protected $groupMapper;
-
-	/** @var IGroupManager|MockObject */
-	protected $groupManager;
-
-	/** @var INotificationManager|MockObject */
-	protected $notificationManager;
-
-	/** @var ICommentsManager|MockObject */
-	protected $commentsManager;
-
-	/** @var IJobList|MockObject */
-	protected $jobList;
-
-	/** @var IUserSession|MockObject */
-	protected $userSession;
-
-	/** @var NotificationType|MockObject */
-	protected $notificationType;
+	protected IConfig&MockObject $config;
+	protected AnnouncementMapper&MockObject $announcementMapper;
+	protected GroupMapper&MockObject $groupMapper;
+	protected IGroupManager&MockObject $groupManager;
+	protected INotificationManager&MockObject $notificationManager;
+	protected ICommentsManager&MockObject $commentsManager;
+	protected IJobList&MockObject $jobList;
+	protected IUserSession&MockObject $userSession;
+	protected NotificationType&MockObject $notificationType;
+	protected Manager $manager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -88,9 +71,9 @@ class ManagerTest extends TestCase {
 			$this->notificationType
 		);
 
-		$query = \OC::$server->getDatabaseConnection()->getQueryBuilder();
-		$query->delete('announcements')->execute();
-		$query->delete('announcements_map')->execute();
+		$query = \OCP\Server::get(IDBConnection::class)->getQueryBuilder();
+		$query->delete('announcements')->executeStatement();
+		$query->delete('announcements_map')->executeStatement();
 	}
 
 	public function testGetAnnouncementNotExist(): void {
@@ -179,17 +162,14 @@ class ManagerTest extends TestCase {
 		}
 	}
 
-	public function dataAnnouncementGroups() {
+	public static function dataAnnouncementGroups(): array {
 		return [
 			[['everyone']],
 			[['gid1', 'gid2']],
 		];
 	}
 
-	/**
-	 * @dataProvider dataAnnouncementGroups
-	 * @param array $groups
-	 */
+	#[DataProvider('dataAnnouncementGroups')]
 	public function testAnnouncementGroups(array $groups) {
 		/** @var Announcement $announcement */
 		$announcement = Announcement::fromParams([]);
@@ -201,7 +181,7 @@ class ManagerTest extends TestCase {
 		self::assertSame($groups, $this->manager->getGroups($announcement));
 	}
 
-	public function dataHasNotifications(): array {
+	public static function dataHasNotifications(): array {
 		return [
 			[23, false, true, false, 0],
 			[42, true, true, true, 0],
@@ -210,14 +190,7 @@ class ManagerTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataHasNotifications
-	 * @param int $id
-	 * @param bool $hasActivityJob
-	 * @param bool $hasNotificationJob
-	 * @param bool $hasEmailJob
-	 * @param int $numNotifications
-	 */
+	#[DataProvider('dataHasNotifications')]
 	public function testHasNotifications(int $id, bool $hasActivityJob, bool $hasNotificationJob, bool $hasEmailJob, int $numNotifications): void {
 		$this->jobList
 			->method('has')
@@ -260,19 +233,14 @@ class ManagerTest extends TestCase {
 		$this->manager->hasNotifications($announcement);
 	}
 
-	public function dataRemoveNotifications(): array {
+	public static function dataRemoveNotifications(): array {
 		return [
 			[23, false, false],
 			[42, true, true],
 		];
 	}
 
-	/**
-	 * @dataProvider dataRemoveNotifications
-	 * @param int $id
-	 * @param bool $hasActivity
-	 * @param bool $hasEmail
-	 */
+	#[DataProvider('dataRemoveNotifications')]
 	public function testRemoveNotifications(int $id, bool $hasActivity, bool $hasEmail): void {
 		$this->jobList
 			->method('has')
@@ -329,7 +297,7 @@ class ManagerTest extends TestCase {
 		$this->manager->removeNotifications($id);
 	}
 
-	public function dataCheckIsAdmin() {
+	public static function dataCheckIsAdmin(): array {
 		return [
 			[
 				['admin'],
@@ -371,13 +339,8 @@ class ManagerTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataCheckIsAdmin
-	 * @param string[] $adminGroups
-	 * @param array $inGroupMap
-	 * @param bool $expected
-	 */
-	public function testCheckIsAdmin($adminGroups, $inGroupMap, $expected) {
+	#[DataProvider('dataCheckIsAdmin')]
+	public function testCheckIsAdmin(array $adminGroups, array $inGroupMap, bool $expected) {
 		$this->config
 			->method('getAppValue')
 			->with('announcementcenter', 'admin_groups', '["admin"]')
@@ -395,7 +358,7 @@ class ManagerTest extends TestCase {
 		self::assertEquals($expected, $this->manager->checkIsAdmin());
 	}
 
-	public function testCheckIsAdminNoUser() {
+	public function testCheckIsAdminNoUser(): void {
 		$this->userSession
 			->method('getUser')
 			->willReturn(null);
@@ -406,7 +369,7 @@ class ManagerTest extends TestCase {
 		self::assertEquals(false, $this->manager->checkIsAdmin());
 	}
 
-	protected function assertDeleteMetaData($id) {
+	protected function assertDeleteMetaData($id): void {
 		$notification = $this->createMock(INotification::class);
 		$notification->expects($this->at(0))
 			->method('setApp')
@@ -429,7 +392,7 @@ class ManagerTest extends TestCase {
 			->with('announcement', $id);
 	}
 
-	protected function assertHasNotification($calls = 1, $offset = 0) {
+	protected function assertHasNotification(int $calls = 1, int $offset = 0): void {
 		$this->jobList->expects($this->at($offset + 0))
 			->method('has')
 			->willReturn(false);

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -27,10 +28,12 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\QBMapper;
+use OCP\AppFramework\IAppContainer;
 use OCP\BackgroundJob\IJob;
 use OCP\Migration\IRepairStep;
 use OCP\Notification\INotifier;
 use OCP\Settings\ISettings;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Class ApplicationTest
@@ -39,11 +42,8 @@ use OCP\Settings\ISettings;
  * @group DB
  */
 class ApplicationTest extends TestCase {
-	/** @var \OCA\AnnouncementCenter\AppInfo\Application */
-	protected $app;
-
-	/** @var \OCP\AppFramework\IAppContainer */
-	protected $container;
+	protected Application $app;
+	protected IAppContainer $container;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -51,12 +51,12 @@ class ApplicationTest extends TestCase {
 		$this->container = $this->app->getContainer();
 	}
 
-	public function testContainerAppName() {
+	public function testContainerAppName(): void {
 		$this->app = new Application();
 		self::assertEquals('announcementcenter', $this->container->getAppName());
 	}
 
-	public function dataContainerQuery(): array {
+	public static function dataContainerQuery(): array {
 		return [
 			[Setting::class, ISetting::class],
 			[Provider::class, IProvider::class],
@@ -74,12 +74,8 @@ class ApplicationTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider dataContainerQuery
-	 * @param string $service
-	 * @param string $expected
-	 */
-	public function testContainerQuery(string $service, string $expected) {
+	#[DataProvider('dataContainerQuery')]
+	public function testContainerQuery(string $service, string $expected): void {
 		self::assertInstanceOf($expected, $this->container->query($service));
 	}
 }
