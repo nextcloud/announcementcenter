@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -15,10 +16,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AnnouncementListTest extends TestCase {
-	protected Manager|MockObject $manager;
+	protected Manager&MockObject $manager;
+	protected InputInterface&MockObject $input;
+	protected OutputInterface&MockObject $output;
 	protected Command $listCommand;
-	protected InputInterface|MockObject $input;
-	protected OutputInterface|MockObject $output;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -26,7 +27,7 @@ class AnnouncementListTest extends TestCase {
 		$this->manager = $this->createMock(Manager::class);
 
 		$this->input = $this->getMockBuilder(InputInterface::class)
-			->setMethods([
+			->onlyMethods([
 				'getArgument',
 				'getOption',
 				'getFirstArgument',
@@ -51,7 +52,7 @@ class AnnouncementListTest extends TestCase {
 		);
 	}
 
-	public function testListSuccessfully() {
+	public function testListSuccessfully(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('limit')
@@ -65,7 +66,7 @@ class AnnouncementListTest extends TestCase {
 		self::assertEquals(0, $result);
 	}
 
-	public function testListInvalidLimit() {
+	public function testListInvalidLimit(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('limit')

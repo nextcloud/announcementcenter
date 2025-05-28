@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -9,7 +10,6 @@ namespace OCA\AnnouncementCenter\Tests\Controller;
 
 use OCA\AnnouncementCenter\Controller\APIController;
 use OCA\AnnouncementCenter\Manager;
-use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\NotificationType;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http;
@@ -24,6 +24,7 @@ use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\IUserSession;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
@@ -32,28 +33,17 @@ use Psr\Log\LoggerInterface;
  * @package OCA\AnnouncementCenter\Tests\Controller
  */
 class APIControllerTest extends TestCase {
-	/** @var IRequest|MockObject */
-	protected $request;
-	/** @var IGroupManager|MockObject */
-	protected $groupManager;
-	/** @var IUserManager|MockObject */
-	protected $userManager;
-	/** @var IL10N|MockObject */
-	protected $l;
-	/** @var Manager|MockObject */
-	protected $manager;
-	/** @var IConfig|MockObject */
-	protected $config;
-	/** @var ITimeFactory|MockObject */
-	protected $timeFactory;
-	/** @var IUserSession|MockObject */
-	protected $userSession;
-	/** @var IInitialStateService|MockObject */
-	protected $initialStateService;
-	/** @var LoggerInterface|MockObject */
-	protected $logger;
-	/** @var NotificationType|MockObject */
-	protected $notificationType;
+	protected IRequest&MockObject $request;
+	protected IGroupManager&MockObject $groupManager;
+	protected IUserManager&MockObject $userManager;
+	protected IL10N&MockObject $l;
+	protected Manager&MockObject $manager;
+	protected IConfig&MockObject $config;
+	protected ITimeFactory&MockObject $timeFactory;
+	protected IUserSession&MockObject $userSession;
+	protected IInitialStateService&MockObject $initialStateService;
+	protected LoggerInterface&MockObject $logger;
+	protected NotificationType&MockObject $notificationType;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -77,7 +67,7 @@ class APIControllerTest extends TestCase {
 
 	/**
 	 * @param array $methods
-	 * @return APIController|MockObject
+	 * @return APIController&MockObject
 	 */
 	protected function getController(array $methods = []): APIController {
 		if (empty($methods)) {
@@ -109,12 +99,12 @@ class APIControllerTest extends TestCase {
 			$this->notificationType,
 			$this->logger
 		])
-			->setMethods($methods)
+			->onlyMethods($methods)
 			->getMock();
 	}
 
 	protected function getUserMock(string $uid, string $displayName): IUser {
-		/** @var IUser|MockObject $user */
+		/** @var IUser&MockObject $user */
 		$user = $this->createMock(IUser::class);
 		$user
 			->method('getUID')
@@ -125,97 +115,15 @@ class APIControllerTest extends TestCase {
 		return $user;
 	}
 
-	public function dataGet(): array {
-		return [
-			[0, [], [], []],
-			[1, [], [], []],
-			[2, [], [], []],
-			[
-				1,
-				[
-					['id' => 1337, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
-				], [],
-				[
-					['id' => 1337, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
-				],
-			],
-			[
-				1,
-				[
-					['id' => 23, 'author' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
-				],
-				[
-					['author1', $this->getUserMock('author1', 'Author One')],
-				],
-				[
-					['id' => 23, 'author' => 'Author One', 'author_id' => 'author1', 'subject' => 'Subject #1', 'message' => 'Message #1', 'plainMessage' => 'Message #1', 'time' => 1440672792, 'groups' => ['gid1'], 'comments' => false],
-				],
-			],
-			[
-				1,
-				[
-					['id' => 42, 'author' => 'author1', 'subject' => "Subject\n<html>#1</html>", 'message' => "Message\n<html>#1</html>", 'plainMessage' => 'Message\n#1', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
-				],
-				[],
-				[
-					['id' => 42, 'author' => 'author1', 'author_id' => 'author1', 'subject' => 'Subject <html>#1</html>', 'message' => 'Message<br />&lt;html&gt;#1&lt;/html&gt;', 'plainMessage' => 'Message\n#1', 'time' => 1440672792, 'groups' => null, 'comments' => 31],
-				],
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataGet
-	 */
-	public function legacyTestGet(int $offset, array $announcements, array $userMap, array $expected) {
-		$this->userManager
-			->method('get')
-			->willReturnMap($userMap);
-
-		$comments = [];
-		$announcements = array_map(function (array $data) use (&$comments) {
-			$announcement = new Announcement();
-			$announcement->setId($data['id']);
-			$announcement->setUser($data['author']);
-			$announcement->setSubject($data['subject']);
-			$announcement->setMessage($data['message']);
-			$announcement->setPlainMessage($data['plainMessage']);
-			$announcement->setTime($data['time']);
-			$announcement->setAllowComments($data['comments'] === false ? 0 : 1);
-
-			if ($data['comments'] !== false) {
-				$comments[] = [$announcement, $data['comments']];
-			}
-
-			return $announcement;
-		}, $announcements);
-
-		$this->manager
-			->method('getAnnouncements')
-			->with($offset)
-			->willReturn($announcements);
-
-		$this->manager->expects(self::exactly(count($comments)))
-			->method('getNumberOfComments')
-			->willReturnMap($comments);
-
-		$controller = $this->getController();
-		$jsonResponse = $controller->get($offset);
-
-		self::assertEquals($expected, $jsonResponse->getData());
-	}
-
-	public function dataDelete(): array {
+	public static function dataDelete(): array {
 		return [
 			[42, true, Http::STATUS_OK],
 			[1337, false, Http::STATUS_FORBIDDEN],
 		];
 	}
 
-	/**
-	 * @dataProvider dataDelete
-	 */
-	public function testDelete(int $id, bool $isAdmin, int $statusCode) {
+	#[DataProvider('dataDelete')]
+	public function testDelete(int $id, bool $isAdmin, int $statusCode): void {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);
@@ -240,17 +148,15 @@ class APIControllerTest extends TestCase {
 		self::assertEquals($statusCode, $response->getStatus());
 	}
 
-	public function dataAddThrows(): array {
+	public static function dataAddThrows(): array {
 		return [
 			['', ['error' => 'The subject is too long or empty']],
 			[str_repeat('a', 513), ['error' => 'The subject is too long or empty']],
 		];
 	}
 
-	/**
-	 * @dataProvider dataAddThrows
-	 */
-	public function testAddThrows(string $subject, array $expectedData) {
+	#[DataProvider('dataAddThrows')]
+	public function testAddThrows(string $subject, array $expectedData): void {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(true);
@@ -263,9 +169,7 @@ class APIControllerTest extends TestCase {
 			->with($subject, '', '', 'author', self::anything())
 			->willThrowException(new \InvalidArgumentException());
 
-		$controller = $this->getController(['createPublicity']);
-		$controller->expects(self::never())
-			->method('createPublicity');
+		$controller = $this->getController();
 
 		$response = $controller->add($subject, '', '', [], true, true, true, true);
 
@@ -273,7 +177,7 @@ class APIControllerTest extends TestCase {
 		self::assertSame($expectedData, $response->getData());
 	}
 
-	public function testAddNoAdmin() {
+	public function testAddNoAdmin(): void {
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn(false);
@@ -281,9 +185,7 @@ class APIControllerTest extends TestCase {
 		$this->manager->expects(self::never())
 			->method('announce');
 
-		$controller = $this->getController(['createPublicity']);
-		$controller->expects(self::never())
-			->method('createPublicity');
+		$controller = $this->getController();
 
 		$response = $controller->add('subject', '', '', [], true, true, true, true);
 
@@ -291,71 +193,18 @@ class APIControllerTest extends TestCase {
 		self::assertSame(Http::STATUS_FORBIDDEN, $response->getStatus());
 	}
 
-	public function dataAdd(): array {
+	public static function dataAdd(): array {
 		return [
 			['subject1', 'message1', 'message1', ['gid1'], true, true, true, false],
 			['subject2', 'message2', 'message2', ['gid2'], true, false, true, false],
 			['subject3', 'message3', 'message3', ['gid3'], false, true, true, false],
 			['subject4', 'message4', 'message4', ['gid4'], false, false, true, false],
-			['subject4', 'message4', 'message5', ['gid4'], false, false, true, true],
+			['subject4', 'message4', 'message5', ['gid4'], false, false, true, 0],
 		];
 	}
 
-	/**
-	 * @dataProvider dataAdd
-	 */
-	public function legacyTestAdd(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments) {
-		$this->manager->expects(self::once())
-			->method('checkIsAdmin')
-			->willReturn(true);
-		$this->userSession->expects(self::once())
-			->method('getUser')
-			->willReturn($this->getUserMock('author', 'author'));
-
-		$this->manager->expects(self::once())
-			->method('announce')
-			->with($subject, $message, 'author', self::anything(), $groups, $comments)
-			->willReturn([
-				'author' => 'author',
-				'subject' => $subject,
-				'message' => $message,
-				'plainMessage' => $plainMessage,
-				'time' => time(),
-				'id' => 10,
-				'comments' => $comments,
-			]);
-		$this->userManager->expects(self::once())
-			->method('get')
-			->with('author')
-			->willReturn($this->getUserMock('author', 'Author'));
-
-		$this->logger->expects($this->once())
-			->method('info');
-
-		$controller = $this->getController();
-
-		$response = $controller->add($subject, $message, $plainMessage, $groups, $activities, $notifications, $emails, $comments);
-
-		self::assertInstanceOf(DataResponse::class, $response);
-		$data = $response->getData();
-		self::assertArrayHasKey('time', $data);
-		self::assertIsInt($data['time']);
-		unset($data['time']);
-		self::assertEquals([
-			'author' => 'Author',
-			'author_id' => 'author',
-			'subject' => $subject,
-			'message' => $message,
-			'plainMessage' => $plainMessage,
-			'id' => 10,
-			'comments' => $comments,
-			'notifications' => $notifications,
-			'emails' => $emails,
-		], $data);
-	}
-
 	protected function getGroupMock(string $gid): IGroup {
-		/** @var IGroup|MockObject $group */
+		/** @var IGroup&MockObject $group */
 		$group = $this->createMock(IGroup::class);
 
 		$group
@@ -368,18 +217,24 @@ class APIControllerTest extends TestCase {
 		return $group;
 	}
 
-	public function dataSearchGroup(): array {
+	public static function dataSearchGroup(): array {
 		return [
 			[true, 'gid', [], [], Http::STATUS_OK],
-			[true, 'gid', [$this->getGroupMock('gid1'), $this->getGroupMock('gid2')], [['id' => 'gid1', 'label' => 'gid1-displayname'], ['id' => 'gid2', 'label' => 'gid2-displayname']], Http::STATUS_OK],
+			[true, 'gid', ['gid1', 'gid2'], [['id' => 'gid1', 'label' => 'gid1-displayname'], ['id' => 'gid2', 'label' => 'gid2-displayname']], Http::STATUS_OK],
 			[false, '', null, ['message' => 'Logged in user must be an admin'], Http::STATUS_FORBIDDEN],
 		];
 	}
 
-	/**
-	 * @dataProvider dataSearchGroup
-	 */
-	public function testSearchGroup(bool $isAdmin, string $pattern, ?array $groupSearch, array $expected, int $code) {
+	#[DataProvider('dataSearchGroup')]
+	public function testSearchGroup(bool $isAdmin, string $pattern, ?array $gids, array $expected, int $code): void {
+		$groupSearch = null;
+		if ($gids !== null) {
+			$groupSearch = [];
+			foreach ($gids as $gid) {
+				$groupSearch[] = $this->getGroupMock($gid);
+			}
+		}
+
 		$this->manager->expects(self::once())
 			->method('checkIsAdmin')
 			->willReturn($isAdmin);

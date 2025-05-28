@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -12,21 +13,22 @@ use OCA\AnnouncementCenter\Model\NotificationType;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\IUserManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class AnnounceCommandTest extends TestCase {
-	protected IUserManager|MockObject $userManager;
-	protected ITimeFactory|MockObject $time;
-	protected Manager|MockObject $manager;
+class AnnounceTest extends TestCase {
+	protected IUserManager&MockObject $userManager;
+	protected ITimeFactory&MockObject $time;
+	protected Manager&MockObject $manager;
 	protected NotificationType $notificationType;
-	protected LoggerInterface|MockObject $logger;
+	protected LoggerInterface&MockObject $logger;
+	protected InputInterface&MockObject $input;
+	protected OutputInterface&MockObject $output;
 	protected Command $announceCommand;
-	protected InputInterface|MockObject $input;
-	protected OutputInterface|MockObject $output;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -38,7 +40,7 @@ class AnnounceCommandTest extends TestCase {
 		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->input = $this->getMockBuilder(InputInterface::class)
-			->setMethods([
+			->onlyMethods([
 				'getArgument',
 				'getOption',
 				'getFirstArgument',
@@ -67,7 +69,7 @@ class AnnounceCommandTest extends TestCase {
 		);
 	}
 
-	public function dataCorrect() {
+	public static function dataCorrect(): array {
 		return [
 			// user | subject | message | group | acitivites | notifications | emails | comments | scheduleTime | deleteTime
 			['nextcloud', 'TestSubject', 'TestMessage', ['everyone'], false, false, false, false, null, null],  // no notification type
@@ -83,7 +85,7 @@ class AnnounceCommandTest extends TestCase {
 		];
 	}
 
-	public function dataException() {
+	public static function dataException(): array {
 		return [
 			// user | subject | message | group | acitivites | notifications | emails | comments | scheduleTime | deleteTime
 			['invalid', 'TestSubject', 'TestMessage', ['everyone'], false, false, false, false, null, null],  // invalid user
@@ -94,7 +96,7 @@ class AnnounceCommandTest extends TestCase {
 		];
 	}
 
-	public function setupInput($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime) {
+	public function setupInput($user, $subject, $message, $group, $activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime) {
 		$argumentCallback = function (string $property) use ($user, $subject, $message) {
 			switch ($property) {
 				case 'user':
@@ -108,10 +110,10 @@ class AnnounceCommandTest extends TestCase {
 			}
 		};
 
-		$optionCallback = function (string $property) use ($activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime, $group) {
+		$optionCallback = function (string $property) use ($activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime, $group) {
 			switch ($property) {
 				case 'activities':
-					return $activites;
+					return $activities;
 				case 'notifications':
 					return $notifications;
 				case 'emails':
@@ -136,11 +138,9 @@ class AnnounceCommandTest extends TestCase {
 			->willReturnCallback($optionCallback);
 	}
 
-	/**
-	 * @dataProvider dataCorrect
-	 */
-	public function testExecuteSuccessfully($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime) {
-		$this->setupInput($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime);
+	#[DataProvider('dataCorrect')]
+	public function testExecuteSuccessfully(string $user, string $subject, string $message, ?array $group, bool $activities, bool $notifications, bool $emails, bool $comments, string|int|null $scheduleTime, string|int|null $deleteTime): void {
+		$this->setupInput($user, $subject, $message, $group, $activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime);
 		$this->userManager->expects($this->once())
 			->method('userExists')
 			->willReturn($user !== 'invalid');
@@ -155,11 +155,9 @@ class AnnounceCommandTest extends TestCase {
 		self::assertEquals(0, $result);
 	}
 
-	/**
-	 * @dataProvider dataException
-	 */
-	public function testExecuteException($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime) {
-		$this->setupInput($user, $subject, $message, $group, $activites, $notifications, $emails, $comments, $scheduleTime, $deleteTime);
+	#[DataProvider('dataException')]
+	public function testExecuteException(string $user, string $subject, string $message, ?array $group, bool $activities, bool $notifications, bool $emails, bool $comments, string|int|null $scheduleTime, string|int|null $deleteTime): void {
+		$this->setupInput($user, $subject, $message, $group, $activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime);
 		$this->userManager->expects($this->once())
 			->method('userExists')
 			->willReturn($user !== 'invalid');

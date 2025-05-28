@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -17,11 +18,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AnnouncementDeleteTest extends TestCase {
-	protected Manager|MockObject $manager;
-	protected LoggerInterface|MockObject $logger;
+	protected Manager&MockObject $manager;
+	protected LoggerInterface&MockObject $logger;
 	protected Command $deleteCommand;
-	protected InputInterface|MockObject $input;
-	protected OutputInterface|MockObject $output;
+	protected InputInterface&MockObject $input;
+	protected OutputInterface&MockObject $output;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -30,7 +31,7 @@ class AnnouncementDeleteTest extends TestCase {
 		$this->logger = $this->createMock(LoggerInterface::class);
 
 		$this->input = $this->getMockBuilder(InputInterface::class)
-			->setMethods([
+			->onlyMethods([
 				'getArgument',
 				'getOption',
 				'getFirstArgument',
@@ -56,7 +57,7 @@ class AnnouncementDeleteTest extends TestCase {
 		);
 	}
 
-	public function testDeleteSuccessfully() {
+	public function testDeleteSuccessfully(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')
@@ -69,7 +70,7 @@ class AnnouncementDeleteTest extends TestCase {
 		self::assertEquals(0, $result);
 	}
 
-	public function testDeleteInvalidId() {
+	public function testDeleteInvalidId(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')
@@ -78,7 +79,7 @@ class AnnouncementDeleteTest extends TestCase {
 		self::assertEquals(true, $result > 0);
 	}
 
-	public function testDeleteDoesNotExist() {
+	public function testDeleteDoesNotExist(): void {
 		$this->input->expects($this->once())
 			->method('getArgument')
 			->with('id')

@@ -14,15 +14,30 @@ use OCA\AnnouncementCenter\Model\AnnouncementMapper;
 use OCA\AnnouncementCenter\Service\AnnouncementSchedulerProcessor;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
+class MockAnnouncement extends Announcement {
+	public function getScheduleTime(): int {
+		return 0;
+	}
+
+	public function getDeleteTime(): int {
+		return 0;
+	}
+
+	public function getId(): int {
+		return 0;
+	}
+}
+
 class AnnouncementSchedulerProcessorTest extends TestCase {
-	protected AnnouncementMapper|MockObject $mapper;
-	protected Manager|MockObject $manager;
-	protected ITimeFactory|MockObject $timeFactory;
-	protected LoggerInterface|MockObject $logger;
-	protected Announcement|MockObject $announcement;
+	protected AnnouncementMapper&MockObject $mapper;
+	protected Manager&MockObject $manager;
+	protected ITimeFactory&MockObject $timeFactory;
+	protected LoggerInterface&MockObject $logger;
+	protected Announcement&MockObject $announcement;
 	protected AnnouncementSchedulerProcessor $asp;
 
 	protected function setUp(): void {
@@ -32,8 +47,8 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		$this->manager = $this->createMock(Manager::class);
 		$this->timeFactory = $this->createMock(ITimeFactory::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
-		$this->announcement = $this->getMockBuilder(Announcement::class)
-			->setMethods(['getScheduleTime', 'getDeleteTime', 'getId'])
+		$this->announcement = $this->getMockBuilder(MockAnnouncement::class)
+			->onlyMethods(['getScheduleTime', 'getDeleteTime', 'getId'])
 			->getMock();
 
 		$this->asp = new AnnouncementSchedulerProcessor(
@@ -44,7 +59,7 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		);
 	}
 
-	public function data() {
+	public static function dataDoCron(): array {
 		return [
 			[1, 1, 2, true, true],   // publish and delete
 			[2, 2, 1, false, false], // it's not time yet
@@ -63,9 +78,9 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 
 	/**
 	 * @test
-	 * @dataProvider data
+	 * @dataProvider dataDoCron
 	 */
-	public function testDoCron($publishTime, $deleteTime, $currentTime, $expectedPublish, $expectedDelete) {
+	public function testDoCron(int $publishTime, int $deleteTime, int $currentTime, bool $expectedPublish, bool $expectedDelete): void {
 		$this->logger->expects($this->any())
 			->method('debug');
 
@@ -79,7 +94,7 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		$this->timeFactory->expects($this->any())
 			->method('getTime')
 			->willReturn($currentTime);
-		
+
 		// setup an announcement
 		$this->mapper->expects($this->once())
 			->method('getAnnouncementsScheduled')

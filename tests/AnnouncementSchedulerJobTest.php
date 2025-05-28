@@ -15,10 +15,10 @@ use OCP\BackgroundJob\IJobList;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class AnnouncementSchedulerJobTest extends TestCase {
-	protected ITimeFactory|MockObject $time;
-	protected AnnouncementSchedulerProcessor|MockObject $asp;
+	protected ITimeFactory&MockObject $time;
+	protected AnnouncementSchedulerProcessor&MockObject $asp;
+	protected IJobList&MockObject $joblist;
 	protected AnnouncementSchedulerJob $asj;
-	protected IJobList|MockObject $joblist;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -36,7 +36,7 @@ class AnnouncementSchedulerJobTest extends TestCase {
 	/**
 	 * Test this because this happened in development
 	 */
-	public function testJobName() {
+	public function testJobName(): void {
 		//Read job name out of app info
 		$infoFile = file_get_contents('appinfo/info.xml');
 		$info = simplexml_load_string($infoFile);

@@ -10,6 +10,7 @@ namespace OCA\AnnouncementCenter\Tests\Model;
 
 use OCA\AnnouncementCenter\Model\NotificationType;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * @package OCA\AnnouncementCenter\Tests\Model
@@ -22,9 +23,9 @@ class NotificationTypeTest extends TestCase {
 		$this->notificationType = new NotificationType();
 	}
 
-	public function data(): array {
+	public static function dataEncodeDecode(): array {
 		return [
-			// Email|Notifications|Acitivites|BitEncodedType
+			// Email|Notifications|Activities|BitEncodedType
 			[false, false, false, 0],
 			[false, false, true, 1],
 			[false, true, false, 2],
@@ -36,20 +37,14 @@ class NotificationTypeTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @test
-	 * @dataProvider data
-	 */
-	public function testEncode($emails, $notifications, $activities, $expected) {
+	#[DataProvider('dataEncodeDecode')]
+	public function testEncode(bool $emails, bool $notifications, bool $activities, int $expected): void {
 		$result = $this->notificationType->setNotificationTypes($activities, $notifications, $emails);
 		self::assertEquals($result, $expected);
 	}
 
-	/**
-	 * @test
-	 * @dataProvider data
-	 */
-	public function testDecode($emails, $notifications, $activities, $expected) {
+	#[DataProvider('dataEncodeDecode')]
+	public function testDecode(bool $emails, bool $notifications, bool $activities, int $expected): void {
 		$result_activities = $this->notificationType->getActivities($expected);
 		$result_notifications = $this->notificationType->getNotifications($expected);
 		$result_emails = $this->notificationType->getEmail($expected);

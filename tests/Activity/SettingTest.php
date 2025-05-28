@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 /**
  * SPDX-FileCopyrightText: 2016 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
@@ -10,93 +11,70 @@ namespace OCA\AnnouncementCenter\Tests\Activity;
 use OCA\AnnouncementCenter\Activity\Setting;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\Activity\ISetting;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class SettingTest extends TestCase {
-	public function dataSettings() {
+	public static function dataSettings(): array {
 		return [
 			[Setting::class],
 		];
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testImplementsInterface($settingClass) {
-		$setting = \OC::$server->query($settingClass);
+	#[DataProvider('dataSettings')]
+	public function testImplementsInterface(string $settingClass): void {
+		$setting = \OCP\Server::get($settingClass);
 		self::assertInstanceOf(ISetting::class, $setting);
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testGetIdentifier($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testGetIdentifier(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsString($setting->getIdentifier());
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testGetName($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testGetName(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsString($setting->getName());
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testGetPriority($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testGetPriority(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		$priority = $setting->getPriority();
 		self::assertIsInt($setting->getPriority());
 		self::assertGreaterThanOrEqual(0, $priority);
 		self::assertLessThanOrEqual(100, $priority);
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testCanChangeStream($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testCanChangeStream(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsBool($setting->canChangeStream());
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testIsDefaultEnabledStream($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testIsDefaultEnabledStream(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsBool($setting->isDefaultEnabledStream());
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testCanChangeMail($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testCanChangeMail(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsBool($setting->canChangeMail());
 	}
 
-	/**
-	 * @dataProvider dataSettings
-	 * @param string $settingClass
-	 */
-	public function testIsDefaultEnabledMail($settingClass) {
+	#[DataProvider('dataSettings')]
+	public function testIsDefaultEnabledMail(string $settingClass): void {
 		/** @var ISetting $setting */
-		$setting = \OC::$server->query($settingClass);
+		$setting = \OCP\Server::get($settingClass);
 		self::assertIsBool($setting->isDefaultEnabledMail());
 	}
 }
