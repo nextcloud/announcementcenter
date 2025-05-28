@@ -60,6 +60,7 @@ nbproject
 /tests/coverage*
 /tests/clover.xml
 /tests/js/node_modules
+/tests/.phpunit.cache
 /tests/.phpunit.result.cache
 /vendor
 /vendor-bin/*/vendor
