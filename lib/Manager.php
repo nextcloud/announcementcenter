@@ -18,6 +18,7 @@ use OCA\AnnouncementCenter\Model\NotificationType;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
+use OCP\DB\Exception;
 use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUser;
@@ -144,7 +145,15 @@ class Manager {
 		$group = new Group();
 		$group->setId($announcement->getId());
 		$group->setGroup($gid);
-		$this->groupMapper->insert($group);
+
+		try {
+			$this->groupMapper->insert($group);
+		} catch (Exception $e) {
+			if ($e->getReason() !== Exception::REASON_UNIQUE_CONSTRAINT_VIOLATION) {
+				// If the group already exists, we ignore the error
+				throw $e;
+			}
+		}
 	}
 
 	public function delete(int $id): void {
