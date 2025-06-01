@@ -5,7 +5,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 7.1.2 – 2025-06-01
+## 7.1.3 – 2025-06-01
 ### Changed
 - Updated translations
 - Updated dependencies
@@ -13,10 +13,18 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Fix missing group list during the time an announcement is scheduled
   [#929](https://github.com/nextcloud/announcementcenter/pull/929)
-- Fix relative time on scheduling date on dashboard
-  [#917](https://github.com/nextcloud/announcementcenter/pull/917)
 - Fix background job when publishing is triggered twice
   [#930](https://github.com/nextcloud/announcementcenter/pull/930)
+
+## 7.1.2 – 2025-05-05
+### Changed
+- Updated translations
+- Updated dependenciesAdd commentMore actions
+
+### Fixed
+- Fix relative time in the dashboard widget
+  [#917](https://github.com/nextcloud/announcementcenter/pull/917)
+
 
 ## 7.1.1 – 2025-04-28
 ### Changed
