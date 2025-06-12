@@ -49,6 +49,8 @@ OC.L10N.register(
     "Visibility" : "Zichtbaarheid",
     "Everyone" : "Iedereen",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Deze groepen zullen de aankondiging kunnen zien. Als er geen groep is geseleceerd, kunnen alle gebruikers het zien.",
+    "Schedule announcement time" : "Aankondigingstijd inplannen",
+    "Schedule deletion time" : "Verwijderingsmoment inplannen",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=2; plural=(n != 1);");
