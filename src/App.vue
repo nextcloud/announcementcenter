@@ -26,8 +26,9 @@
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>
-		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
+		<NcAppSidebar :open="activeId !== 0 && activateAnnouncementHasComments"
 			:name="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
+			no-toggle
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
@@ -143,10 +144,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .comments {
-	margin: 10px;
+:deep(.comments) {
+	overflow: hidden auto;
+	height: 100%;
 }
-::v-deep .empty-content__icon span {
+:deep(.empty-content__icon span) {
 	width: 64px;
 	height: 64px;
 	background-size: 64px;
