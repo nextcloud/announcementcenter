@@ -26,8 +26,9 @@
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>
-		<NcAppSidebar v-show="activeId !== 0 && activateAnnouncementHasComments"
+		<NcAppSidebar :open="activeId !== 0 && activateAnnouncementHasComments"
 			:name="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
+			no-toggle
 			@close="onClickAnnouncement(0)">
 			<div ref="sidebar"
 				class="comments" />
