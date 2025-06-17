@@ -16,6 +16,7 @@ OC.L10N.register(
     "Announcement center" : "Център за съобщения",
     "This app allows admins to post announcements." : "Това приложение позволява на администраторите да публикуват обявления.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Обявете своя прозорец за поддръжка 🎛️, представете нов колега 👤 или се уверете, че всички знаят за голямото събитие през следващия месец 📅\n\n🖌️ Поддръжка за Markdown\n\n 📑 Коментари, включително @-споменавания\n\n👪 Групови права \n\n⚡ Интеграция на Активности\n\n🔔 Интеграция на известия",
+    "Setting changed" : "Настройките са променени",
     "An error occurred while changing the setting" : "Възникна грешка при промяна на настройката",
     "These groups will be able to post announcements." : "Следните групи ще могат да изпращат заявления.",
     "Create activities by default" : "Създава активности по подразбиране",
