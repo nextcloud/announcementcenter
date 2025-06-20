@@ -22,6 +22,7 @@
 					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
 					<NcDateTime v-else
 						ignore-seconds
+						:format="{ timeStyle: 'short', dateStyle: 'long' }"
 						:timestamp="time * 1000" />
 
 					<template v-if="isAdmin">
