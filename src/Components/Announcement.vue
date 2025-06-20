@@ -20,10 +20,10 @@
 					{{ author }}
 					·
 					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
-					<span v-else
-						class="live-relative-timestamp"
-						:data-timestamp="time * 1000"
-						:title="dateFormat">{{ dateRelative }}</span>
+					<NcDateTime v-else
+						ignore-seconds
+						:format="{ timeStyle: 'short', dateStyle: 'long' }"
+						:timestamp="time * 1000" />
 
 					<template v-if="isAdmin">
 						·
@@ -75,11 +75,12 @@
 </template>
 
 <script>
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionButton from '@nextcloud/vue/dist/Components/NcActionButton.js'
-import NcAvatar from '@nextcloud/vue/dist/Components/NcAvatar.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
-import NcRichText from '@nextcloud/vue/dist/Components/NcRichText.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcAvatar from '@nextcloud/vue/components/NcAvatar'
+import NcButton from '@nextcloud/vue/components/NcButton'
+import NcDateTime from '@nextcloud/vue/components/NcDateTime'
+import NcRichText from '@nextcloud/vue/components/NcRichText'
 import { getLanguage } from '@nextcloud/l10n'
 import {
 	showError,
@@ -88,7 +89,6 @@ import {
 	deleteAnnouncement,
 	removeNotifications,
 } from '../services/announcementsService.js'
-import { formatRelativeTime } from '../utils/datetime.utils.js'
 
 export default {
 	name: 'Announcement',
@@ -97,6 +97,7 @@ export default {
 		NcActionButton,
 		NcAvatar,
 		NcButton,
+		NcDateTime,
 		NcRichText,
 	},
 	props: {
@@ -157,23 +158,9 @@ export default {
 		boundariesElement() {
 			return document.querySelector(this.$el)
 		},
-		dateTime() {
-			return new Date(this.time * 1000)
-		},
-		dateFormat() {
-			return this.dateTime.toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
-		},
 
 		scheduleDateFormat() {
 			return (new Date(this.scheduleTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
-		},
-
-		dateRelative() {
-			const diff = new Date() - this.dateTime
-			if (diff >= 0 && diff < 45000) {
-				return t('core', 'seconds ago')
-			}
-			return formatRelativeTime(-diff)
 		},
 
 		isVisibleToEveryone() {
