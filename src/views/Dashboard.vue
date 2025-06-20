@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import NcDashboardWidget from '@nextcloud/vue/dist/Components/NcDashboardWidget.js'
+import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
 import { loadState } from '@nextcloud/initial-state'
+import { formatRelativeTime } from '@nextcloud/l10n'
 import { generateUrl, imagePath } from '@nextcloud/router'
-import { formatRelativeTimeFromNow } from '../utils/datetime.utils.js'
 
 export default {
 	name: 'Dashboard',
@@ -45,7 +45,7 @@ export default {
 					overlayIconUrl: imagePath('announcementcenter', 'empty.svg'),
 					subText: t('announcementcenter', '{author}, {timestamp}', {
 						author: item.author,
-						timestamp: formatRelativeTimeFromNow(item.time * 1000),
+						timestamp: formatRelativeTime(item.time * 1000, { ignoreSeconds: true }),
 					}, null, { escape: false, sanitize: false }),
 				}
 			})
