@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Aucune annonce",
     "There are currently no announcements …" : "Il n'y a aucune annonce pour l'instant ...",
     "Comments" : "Commentaires",
-    "seconds ago" : "à l'instant",
     "visible to everyone" : "visible pour tout le monde",
     "visible to group {name}" : "visible pour le groupe : {name}",
     "visible to groups {name1} and {name2}" : "visible pour les groupes {name1} et {name2}",

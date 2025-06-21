@@ -20,7 +20,6 @@ OC.L10N.register(
     "Allow comments by default" : "לאפשר תגובות כבררת מחדל",
     "No announcements" : "אין הכרזות",
     "Comments" : "תגובות",
-    "seconds ago" : "לפני מספר שניות",
     "visible to everyone" : "גלוי לכולם",
     "visible to group {name}" : "גלוי לקבוצה {name}",
     "visible to groups {name1} and {name2}" : "גלוי לקבוצות {name1} וגם {name2}",

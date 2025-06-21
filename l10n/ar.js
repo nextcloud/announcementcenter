@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "لا توجد اعلانات",
     "There are currently no announcements …" : "لا توجد أي إعلانات حاليّاً",
     "Comments" : "تعليقات",
-    "seconds ago" : "منذ ثوان مضت",
     "visible to everyone" : "مرئي للجميع",
     "visible to group {name}" : "مرئي لمجموعة \"{name}\"",
     "visible to groups {name1} and {name2}" : "مرئي لمجموعتي \"{name1}\" و \"{name2}\"",

@@ -24,7 +24,6 @@ OC.L10N.register(
     "No announcements" : "Nėra skelbimų",
     "There are currently no announcements …" : "Šiuo metu nėra jokių skelbimų…",
     "Comments" : "Komentarai",
-    "seconds ago" : "prieš keletą sekundžių",
     "visible to everyone" : "matomas visiems",
     "visible to group {name}" : "matomas grupei „{name}“",
     "visible to groups {name1} and {name2}" : "matomas grupėms „{name1}“ ir „{name2}“",

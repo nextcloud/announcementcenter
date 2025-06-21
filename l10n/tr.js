@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Herhangi bir duyuru yok",
     "There are currently no announcements …" : "Şu anda herhangi bir duyuru yok…",
     "Comments" : "Yorumlar",
-    "seconds ago" : "saniye önce",
     "visible to everyone" : "herkes görebilir",
     "visible to group {name}" : "{name} grubu görebilir",
     "visible to groups {name1} and {name2}" : "{name1} ve {name2} grupları görebilir",

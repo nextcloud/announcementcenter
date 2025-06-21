@@ -5,7 +5,6 @@ OC.L10N.register(
     "Announcements" : "Објави",
     "Read more" : "Прочитај повеќе",
     "Comments" : "Коментари",
-    "seconds ago" : "пред неколку секунди",
     ", " : ", ",
     "Announce" : "Објави",
     "Visibility" : "Видливост",

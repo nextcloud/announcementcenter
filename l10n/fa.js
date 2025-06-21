@@ -25,7 +25,6 @@ OC.L10N.register(
     "No announcements" : "بدون آگهی",
     "There are currently no announcements …" : "در حال حاضر هیچ اطلاعیه ای وجود ندارد…",
     "Comments" : "نظرات",
-    "seconds ago" : "یک ثانیه پیش",
     "visible to everyone" : "قابل مشاهده برای همه",
     "visible to group {name}" : "قابل مشاهده برای گروه: {name}",
     "visible to groups {name1} and {name2}" : "قابل مشاهده برای گروه های {name1} و {name2}",

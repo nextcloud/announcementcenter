@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Ingen kunngjøringer",
     "There are currently no announcements …" : "Det er foreløpig ingen kunngjøringer...",
     "Comments" : "Kommentarer",
-    "seconds ago" : "sekunder siden",
     "visible to everyone" : "synlig for alle",
     "visible to group {name}" : "synlig for gruppe: {name}",
     "visible to groups {name1} and {name2}" : "synlig for grupper: {name1} og {name2}",

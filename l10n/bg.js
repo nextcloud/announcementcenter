@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Няма известия",
     "There are currently no announcements …" : "В момента няма известия...",
     "Comments" : "Коментари",
-    "seconds ago" : "преди секунди",
     "visible to everyone" : "видим за всеки",
     "visible to group {name}" : "видим за групи: {име}",
     "visible to groups {name1} and {name2}" : "видим за групи: {име1} и {име2}",

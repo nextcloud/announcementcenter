@@ -16,7 +16,6 @@ OC.L10N.register(
     "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх",
     "No announcements" : "Зарлал байхгүй",
     "Comments" : "Сэтгэгдлүүд",
-    "seconds ago" : "хоёрдахь өмнө",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n сэтгэгдэл","%n сэтгэгдэл"],
     "Announce" : "Мэдээлэх",

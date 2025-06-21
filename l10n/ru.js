@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Уведомления отсуствуют",
     "There are currently no announcements …" : "На данный момент уведомления отсутствуют…",
     "Comments" : "Комментарии",
-    "seconds ago" : "несколько секунд назад",
     "visible to everyone" : "Видимое для всех",
     "visible to group {name}" : "Видимое для группы {name}",
     "visible to groups {name1} and {name2}" : "Видимое для групп {name1} и {name2}",

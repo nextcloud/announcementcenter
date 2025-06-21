@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Inga meddelanden",
     "There are currently no announcements …" : "Det finns inga meddelanden just nu ...",
     "Comments" : "Kommentarer",
-    "seconds ago" : "sekunder sedan",
     "visible to everyone" : "synligt för alla",
     "visible to group {name}" : "synligt för grupp {name}",
     "visible to groups {name1} and {name2}" : "synligt för grupper {name1} och {name2}",

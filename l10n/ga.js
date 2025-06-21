@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Gan fógraí",
     "There are currently no announcements …" : "Níl aon fhógraí ann faoi láthair…",
     "Comments" : "Tuairimí",
-    "seconds ago" : "soicind ó shin",
     "visible to everyone" : "le feiceáil ag gach duine",
     "visible to group {name}" : "infheicthe don ghrúpa {name}",
     "visible to groups {name1} and {name2}" : "infheicthe ag grúpaí {name1} agus {name2}",

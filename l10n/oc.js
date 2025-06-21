@@ -15,7 +15,6 @@ OC.L10N.register(
     "Announcement center" : "Centre d’anóncia",
     "No announcements" : "Cap d’anóncia",
     "Comments" : "Comentaris",
-    "seconds ago" : "fa qualques segondas",
     "visible to everyone" : "visible de totes",
     "visible to group {name}" : "visible pel grop {name}",
     "visible to groups {name1} and {name2}" : "visible pel grop {name1} e {name2}",

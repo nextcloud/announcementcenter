@@ -24,7 +24,6 @@ OC.L10N.register(
     "No announcements" : "Ei tiedotteita",
     "There are currently no announcements …" : "Ei tiedotteita tällä hetkellä…",
     "Comments" : "Kommentit",
-    "seconds ago" : "sekunteja sitten",
     "visible to everyone" : "kaikille näkyvä",
     "visible to group {name}" : "näkyvä ryhmälle {name}",
     "visible to groups {name1} and {name2}" : "näkyy ryhmille {name1} ja {name2}",

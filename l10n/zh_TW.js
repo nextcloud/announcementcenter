@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "無公告",
     "There are currently no announcements …" : "目前沒有公告…",
     "Comments" : "留言",
-    "seconds ago" : "秒前",
     "visible to everyone" : "對所有人可見",
     "visible to group {name}" : "對 {name} 群組可見",
     "visible to groups {name1} and {name2}" : "對 {name1} 與 {name2} 群組可見",

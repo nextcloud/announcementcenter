@@ -13,7 +13,6 @@ OC.L10N.register(
     "Create notifications by default" : "საწყისად ქმნის შეტყობინებებს",
     "Allow comments by default" : "საწყისად კომენტარების დაშვება",
     "Comments" : "კომენტარები",
-    "seconds ago" : "წამის წინ",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n კომენტარი","%n კომენტარი"],
     "Delete announcement" : "განცხადების გაუქმება",

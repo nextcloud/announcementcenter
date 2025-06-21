@@ -3,7 +3,6 @@ OC.L10N.register(
     {
     "Read more" : "Lenn muioc'h",
     "Comments" : "Displegadennoù",
-    "seconds ago" : "eilenn zo",
     ", " : "'",
     "Create notifications" : "Krouiñ kemennadennoù",
     "Everyone" : "Toud an dud"

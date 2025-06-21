@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Ez dago iragarpenik",
     "There are currently no announcements …" : "Une honetan ez dago iragarpenik…",
     "Comments" : "Iruzkinak",
-    "seconds ago" : "segundo lehenago",
     "visible to everyone" : "guztientzat ikusgai",
     "visible to group {name}" : "{name} taldearentzat ikusgai",
     "visible to groups {name1} and {name2}" : "{name1} eta {name2} taldeentzat ikusgai",

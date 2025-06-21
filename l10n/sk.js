@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Žiadne oznámenia",
     "There are currently no announcements …" : "Momentálne tu nie sú žiadne oznámenia...",
     "Comments" : "Komentáre",
-    "seconds ago" : "pred niekoľkými sekundami",
     "visible to everyone" : "viditeľné pre všetkých",
     "visible to group {name}" : "viditeľné pre skupinu {name}",
     "visible to groups {name1} and {name2}" : "viditeľné pre skupiny {name1} a {name2}",

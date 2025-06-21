@@ -13,7 +13,6 @@ OC.L10N.register(
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada",
     "Comments" : "Comentarios",
-    "seconds ago" : "hace segundos",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "Delete announcement" : "Eliminar anuncio",

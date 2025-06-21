@@ -18,7 +18,6 @@ OC.L10N.register(
     "Create notifications by default" : "Defaŭlte krei sciigojn",
     "Allow comments by default" : "Defaŭlte permesi komentojn",
     "Comments" : "Komentoj",
-    "seconds ago" : "antaŭ kelkaj sekundoj",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n komento","%n komentoj"],
     "Delete announcement" : "Forigi anoncon",

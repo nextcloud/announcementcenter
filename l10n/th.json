@@ -23,7 +23,6 @@
     "Allow comments by default" : "อนุญาตให้แสดงความคิดเห็นโดยค่าเริ่มต้น",
     "No announcements" : "ไม่มีประกาศ",
     "Comments" : "ความคิดเห็น",
-    "seconds ago" : "วินาทีที่ผ่านมา",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["ความคิดเห็น %n รายการ"],
     "Clear notifications" : "ล้างการแจ้งเตือน",

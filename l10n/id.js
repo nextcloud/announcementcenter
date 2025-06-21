@@ -19,7 +19,6 @@ OC.L10N.register(
     "Allow comments by default" : "Izinkan komentar secara default",
     "No announcements" : "Tidak ada pengumuman",
     "Comments" : "Komentar",
-    "seconds ago" : "beberapa detik yang lalu",
     "visible to everyone" : "terlihat untuk semua",
     "visible to group {name}" : "terlihat untuk grup {name}",
     "visible to groups {name1} and {name2}" : "terlihat untuk grup {name1} dan {name2}",

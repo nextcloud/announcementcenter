@@ -18,7 +18,6 @@ OC.L10N.register(
     "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
     "Allow comments by default" : "Sjálfgefið leyfa ummæli",
     "Comments" : "Athugasemdir",
-    "seconds ago" : "sekúndum síðan",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n ummæli","%n ummæli"],
     "Delete announcement" : "Eyða tilkynningu",

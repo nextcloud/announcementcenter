@@ -21,7 +21,6 @@ OC.L10N.register(
     "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
     "No announcements" : "Καμία ανακοίνωση",
     "Comments" : "Σχόλια",
-    "seconds ago" : "δευτερόλεπτα πριν",
     "visible to everyone" : "ορατό σε όλους",
     "visible to group {name}" : "ορατό στην ομάδα {name}",
     "visible to groups {name1} and {name2}" : "ορατό στις ομάδες {name1} και {name2}",

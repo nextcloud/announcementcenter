@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Жодних оголошень",
     "There are currently no announcements …" : "Наразі немає оголошень…",
     "Comments" : "Коментарі",
-    "seconds ago" : "секунд тому",
     "visible to everyone" : "Видимий для всіх",
     "visible to group {name}" : "видимий для групи {name}",
     "visible to groups {name1} and {name2}" : "видимий для груп {name1} і {name2}",

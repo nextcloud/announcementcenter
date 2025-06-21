@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "ھېچقانداق ئېلان يوق",
     "There are currently no announcements …" : "ھازىرچە ھېچقانداق ئېلان يوق…",
     "Comments" : "باھا",
-    "seconds ago" : "سېكۇنت بۇرۇن",
     "visible to everyone" : "ھەممەيلەنگە كۆرۈنىدۇ",
     "visible to group {name}" : "گۇرۇپپا {name} to} غا كۆرۈنىدۇ",
     "visible to groups {name1} and {name2}" : "گۇرۇپپىلارغا كۆرۈنىدۇ {name1} ۋە {name2}",

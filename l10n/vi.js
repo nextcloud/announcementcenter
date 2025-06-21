@@ -24,7 +24,6 @@ OC.L10N.register(
     "No announcements" : "Không có thông báo nào",
     "There are currently no announcements …" : "Hiện tại không có thông báo nào",
     "Comments" : "Các bình luận",
-    "seconds ago" : "vài giây trước",
     "visible to everyone" : "hiển thị với mọi người",
     "visible to group {name}" : "hiển thị cho nhóm {name}",
     "visible to groups {name1} and {name2}" : "hiển thị cho nhóm {name1} và {name2}",

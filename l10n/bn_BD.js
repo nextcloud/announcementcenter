@@ -1,7 +1,6 @@
 OC.L10N.register(
     "announcementcenter",
     {
-    "seconds ago" : "সেকেন্ড পূর্বে",
     ", " : ", ",
     "Everyone" : "সকলে"
 },

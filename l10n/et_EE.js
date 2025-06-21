@@ -14,7 +14,6 @@ OC.L10N.register(
     "Create notifications by default" : "Koosta teated vaikimisi",
     "Allow comments by default" : "Luba kommentaarid vaikimisi",
     "Comments" : "Kommentaarid",
-    "seconds ago" : "sekundit tagasi",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n kommentaar(i)","%n comments"],
     "Delete announcement" : "Kustuta teade",

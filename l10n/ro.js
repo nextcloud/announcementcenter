@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Niciun anunț",
     "There are currently no announcements …" : "În acest moment nu sunt anunțuri ...",
     "Comments" : "Comentarii",
-    "seconds ago" : "secunde în urmă",
     "visible to everyone" : "vizibil pentru toți",
     "visible to group {name}" : "vizibil pentru grupul {name}",
     "visible to groups {name1} and {name2}" : "vizibil pentru grupurile {name1} și {name2}",

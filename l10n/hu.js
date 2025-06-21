@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Nincsenek bejelentések",
     "There are currently no announcements …" : "Jelenleg nincsenek bejelentések…",
     "Comments" : "Hozzászólások",
-    "seconds ago" : "pár másodperce",
     "visible to everyone" : "mindenki számára látható",
     "visible to group {name}" : "a(z) {name} csoport számára látható",
     "visible to groups {name1} and {name2}" : "a(z)  {name1} és {name2} csoportok számára látható",

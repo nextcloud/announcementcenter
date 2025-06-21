@@ -26,7 +26,6 @@ OC.L10N.register(
     "No announcements" : "Нема најава",
     "There are currently no announcements …" : "Тренутно нема никаквих најава ...",
     "Comments" : "Коментари",
-    "seconds ago" : "пре неколико секунди",
     "visible to everyone" : "видљиво је свима",
     "visible to group {name}" : "видљиво је групи {name}",
     "visible to groups {name1} and {name2}" : "видљиво је групама {name1} и {name2}",

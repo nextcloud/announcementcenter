@@ -17,7 +17,6 @@ OC.L10N.register(
     "Create notifications by default" : "Skep by verstek kennisgewings",
     "Allow comments by default" : "Staan by verstek kommentare toe",
     "Comments" : "Kommentare",
-    "seconds ago" : "sekondes gelede",
     "visible to everyone" : "sigbaar vir almal",
     "visible to group {name}" : "sigbaar vir groep {name}",
     "visible to groups {name1} and {name2}" : "sigbaar vir groepe {name1} and {name2}",

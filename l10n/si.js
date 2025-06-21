@@ -12,7 +12,6 @@ OC.L10N.register(
     "These groups will be able to post announcements." : "මෙම සමූහයන්ට නිවේදන පළ කිරීමට හැකි වනු ඇත.",
     "No announcements" : "නිවේදන නැත",
     "Comments" : "අදහස්",
-    "seconds ago" : "තත්පර කිහිපයකට පෙර",
     "visible to everyone" : "සෑම දෙනාටම පෙනෙයි",
     "visible to group {name}" : "{name} සමූහයට පෙනෙයි ",
     "visible to groups {name1} and {name2}" : "{name1} සහ {name2} සමූහයන්ට පෙනෙයි",

@@ -14,7 +14,6 @@ OC.L10N.register(
     "Create notifications by default" : "Krijo njoftime në mënyrë automatike",
     "Allow comments by default" : "Lejo komentet në mënyrë automatike",
     "Comments" : "Komentet",
-    "seconds ago" : "sekonda më parë",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komente","%n komente "],
     "Delete announcement" : "Fshij njoftimin",

@@ -21,7 +21,6 @@ OC.L10N.register(
     "Allow comments by default" : "Unaprijed dopusti napomene",
     "No announcements" : "Nema obavijesti",
     "Comments" : "Komentari",
-    "seconds ago" : "prije nekoliko sekundi",
     "visible to everyone" : "vidljivo svima",
     "visible to group {name}" : "vidljivo grupi {name}",
     "visible to groups {name1} and {name2}" : "vidljivo grupama {name1} i {name2}",
