@@ -63,8 +63,8 @@ class Provider implements IProvider {
 	 */
 	public function parse($language, IEvent $event, ?IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
-			$event->getSubject() !== 'announcementsubject' && // 3.1 and later
-			strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
+			$event->getSubject() !== 'announcementsubject' // 3.1 and later
+			&& strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
 		) {
 			if (class_exists(UnknownActivityException::class)) {
 				throw new UnknownActivityException('Unknown app');
