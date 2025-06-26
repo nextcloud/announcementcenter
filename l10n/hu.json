@@ -27,7 +27,7 @@
     "visible to everyone" : "mindenki számára látható",
     "visible to group {name}" : "a(z) {name} csoport számára látható",
     "visible to groups {name1} and {name2}" : "a(z)  {name1} és {name2} csoportok számára látható",
-    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["a(z) {name} és %n még csoport számára látható","a(z) {name} és %n még csoport számára látható"],
+    "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["a(z) {name} és még %n csoport számára látható","a(z) {name} és még %n csoport számára látható"],
     "scheduled at {time}" : "Ütemezve: {time}",
     ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n hozzászólás","%n hozzászólás"],
