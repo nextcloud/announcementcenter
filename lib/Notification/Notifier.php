@@ -96,7 +96,7 @@ class Notifier implements INotifier {
 		}
 
 		try {
-			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId());
+			$announcement = $this->manager->getAnnouncement((int)$notification->getObjectId(), $this->notificationManager->isPreparingPushNotification());
 		} catch (AnnouncementDoesNotExistException $e) {
 			throw new AlreadyProcessedException();
 		}
