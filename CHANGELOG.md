@@ -5,6 +5,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.1.4 – 2025-07-14
+### Changed
+- Updated translations
+- Updated dependencies
+
+### Fixed
+- Fix missing notifications when announcing only for a group
+  [#944](https://github.com/nextcloud/announcementcenter/pull/944)
+
 ## 7.1.3 – 2025-06-01
 ### Changed
 - Updated translations
