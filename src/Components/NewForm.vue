@@ -235,6 +235,7 @@ export default {
 
 	&__message {
 		width: 100%;
+		resize: horizontal;
 	}
 
 	&__buttons {
