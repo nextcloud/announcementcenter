@@ -39,7 +39,7 @@ OC.L10N.register(
     "Delete announcement" : "Duyuruyu sil",
     "An error occurred while posting the announcement" : "Duyuru eklenirken bir sorun çıktı",
     "New announcement subject" : "Yeni duyuru konusu",
-    "Write announcement text, Markdown can be used …" : "Duyuru metnini yazın. Markdown kullanılabilir …",
+    "Write announcement text, Markdown can be used …" : "Duyuru yazısını yazın. Markdown kullanılabilir …",
     "Announce" : "Duyur",
     "Create activities" : "İşlem oluştur",
     "Create notifications" : "Bildirim oluştur",
