@@ -5,6 +5,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.2.1 – 2025-08-29
+### Fixed
+- Don't ship vendor-bin directory
+- Switch to outlined icons
+
 ## 7.2.0 – 2025-08-29
 ### Added
 - Compatibility with Nextcloud 32
