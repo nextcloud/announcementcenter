@@ -5,6 +5,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.2.0 – 2025-08-29
+### Added
+- Compatibility with Nextcloud 32
+
+### Changed
+- Updated translations
+- Updated dependencies
+
 ## 7.1.4 – 2025-07-14
 ### Changed
 - Updated translations
