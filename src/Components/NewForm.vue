@@ -66,7 +66,7 @@
 					:min="new Date()"
 					@change="setScheduleTime">
 					<template #icon>
-						<ClockStart :size="20" />
+						<IconClockStart :size="20" />
 					</template>
 				</NcActionInput>
 				<NcActionSeparator />
@@ -80,7 +80,7 @@
 					id-native-date-time-picker="date-time-picker-delete_id"
 					@change="setDeleteTime">
 					<template #icon>
-						<ClockEnd :size="20" />
+						<IconClockEnd :size="20" />
 					</template>
 				</NcActionInput>
 			</NcActions>
@@ -103,15 +103,15 @@ import {
 import { showError } from '@nextcloud/dialogs'
 import { remark } from 'remark'
 import strip from 'strip-markdown'
-import ClockStart from 'vue-material-design-icons/ClockStart.vue'
-import ClockEnd from 'vue-material-design-icons/ClockEnd.vue'
+import IconClockStart from 'vue-material-design-icons/ClockStart.vue'
+import IconClockEnd from 'vue-material-design-icons/ClockEnd.vue'
 
 export default {
 	name: 'NewForm',
 
 	components: {
-		ClockEnd,
-		ClockStart,
+		IconClockEnd,
+		IconClockStart,
 		NcActions,
 		NcActionCheckbox,
 		NcActionInput,

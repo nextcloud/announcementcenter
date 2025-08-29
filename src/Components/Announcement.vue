@@ -41,13 +41,20 @@
 					:force-menu="true"
 					:boundaries-element="boundariesElement">
 					<NcActionButton v-if="notifications"
-						icon="icon-notifications-off"
 						:close-after-click="true"
 						:name="t('announcementcenter', 'Clear notifications')"
-						@click="onRemoveNotifications" />
-					<NcActionButton icon="icon-delete"
-						:name="t('announcementcenter', 'Delete announcement')"
-						@click="onDeleteAnnouncement" />
+						@click="onRemoveNotifications">
+						<template #icon>
+							<IconBellOffOutline size="20" />
+						</template>
+					</NcActionButton>
+					<NcActionButton :name="t('announcementcenter', 'Delete announcement')"
+						class="critical"
+						@click="onDeleteAnnouncement">
+						<template #icon>
+							<IconTrashCanOutline size="20" />
+						</template>
+					</NcActionButton>
 				</NcActions>
 			</div>
 		</div>
@@ -89,10 +96,14 @@ import {
 	deleteAnnouncement,
 	removeNotifications,
 } from '../services/announcementsService.js'
+import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
+import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
 
 export default {
 	name: 'Announcement',
 	components: {
+		IconBellOffOutline,
+		IconTrashCanOutline,
 		NcActions,
 		NcActionButton,
 		NcAvatar,
@@ -322,5 +333,9 @@ export default {
 		&__comments {
 			margin-left: -16px;
 		}
+	}
+
+	.critical > :deep(.action-button) {
+		color: var(--color-text-error);
 	}
 </style>
