@@ -1,7 +1,11 @@
 { "translations": {
     "Announcements" : "Ilɣa",
-    "Comments" : "Commentaires",
+    "Read more" : "Ɣeṛ ugar",
+    "{author}, {time}" : "{author}, {time}",
+    "Comments" : "Iwenniten",
     ", " : ", ",
-    "Delete announcement" : "Kkes alɣu"
+    "Delete announcement" : "Kkes alɣu",
+    "Everyone" : "Yal yiwen",
+    "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
