@@ -26,13 +26,13 @@
 						:timestamp="time * 1000" />
 
 					<template v-if="isAdmin">
-						·
-						<template v-if="isVisibleToEveryone">
-							<span v-html="visibilityLabel"></span>
+						 · 
+						 <template v-if="isVisibleToEveryone">
+							{{ safeVisibilityLabel  }}
 						</template>
-						<span v-else
-							:title="visibilityTitle"
-							v-html="visibilityLabel"></span>
+						<span v-else :title="visibilityTitle">
+							{{ safeVisibilityLabel  }}
+						</span>
 					</template>
 				</div>
 
@@ -178,6 +178,12 @@ export default {
 				|| this.groups.filter(({ id }) => {
 					return id === 'everyone'
 				}).length === 1
+		},
+
+		safeVisibilityLabel() {
+			const txt = document.createElement('textarea')
+			txt.innerHTML = this.visibilityLabel
+			return txt.value
 		},
 
 		visibilityLabel() {
