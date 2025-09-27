@@ -28,12 +28,11 @@
 					<template v-if="isAdmin">
 						·
 						<template v-if="isVisibleToEveryone">
-							{{ visibilityLabel }}
+							<span v-html="visibilityLabel"></span>
 						</template>
 						<span v-else
-							:title="visibilityTitle">
-							{{ visibilityLabel }}
-						</span>
+							:title="visibilityTitle"
+							v-html="visibilityLabel"></span>
 					</template>
 				</div>
 
@@ -285,6 +284,7 @@ export default {
 					flex: 1 1 auto;
 					display: flex;
 					align-items: center;
+					flex-wrap: wrap;
 
 					:deep(.avatardiv) {
 						margin-right: 4px;
