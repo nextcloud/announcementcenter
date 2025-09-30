@@ -187,13 +187,25 @@ export default {
 			}
 
 			if (this.groups.length === 1) {
-				return t('announcementcenter', 'visible to group {name}', this.groups[0])
+				return t(
+					'announcementcenter',
+					'visible to group {name}',
+					this.groups[0],
+					undefined,
+					{ escape: false, sanitize: false },
+				)
 			}
 			if (this.groups.length === 2) {
-				return t('announcementcenter', 'visible to groups {name1} and {name2}', {
-					name1: this.groups[0].name,
-					name2: this.groups[1].name,
-				})
+				return t(
+					'announcementcenter',
+					'visible to groups {name1} and {name2}',
+					{
+						name1: this.groups[0].name,
+						name2: this.groups[1].name,
+					},
+					undefined,
+					{ escape: false, sanitize: false },
+				)
 			}
 			return n(
 				'announcementcenter',
@@ -201,6 +213,8 @@ export default {
 				'visible to group {name} and %n more',
 				this.groups.length - 1,
 				this.groups[0],
+				undefined,
+				{ escape: false, sanitize: false },
 			)
 		},
 
