@@ -13,12 +13,8 @@
 
 			<div class="announcement__header__details">
 				<div class="announcement__header__details__info">
-					<NcAvatar :user="authorId"
-						:display-name="author"
-						:size="16"
-						:show-user-status="false" />
-					{{ author }}
-					·
+					<NcUserBubble :user="authorId"
+						:display-name="author" />
 					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
 					<NcDateTime v-else
 						ignore-seconds
@@ -84,10 +80,10 @@
 <script>
 import NcActions from '@nextcloud/vue/components/NcActions'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcAvatar from '@nextcloud/vue/components/NcAvatar'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
+import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import { getLanguage } from '@nextcloud/l10n'
 import {
 	showError,
@@ -106,10 +102,10 @@ export default {
 		IconTrashCanOutline,
 		NcActions,
 		NcActionButton,
-		NcAvatar,
 		NcButton,
 		NcDateTime,
 		NcRichText,
+		NcUserBubble,
 	},
 	props: {
 		isAdmin: {
@@ -297,12 +293,6 @@ export default {
 				&__info {
 					color: var(--color-text-maxcontrast);
 					flex: 1 1 auto;
-					display: flex;
-					align-items: center;
-
-					:deep(.avatardiv) {
-						margin-right: 4px;
-					}
 
 					span {
 						margin-left: 4px;
