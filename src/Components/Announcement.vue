@@ -138,7 +138,7 @@ export default {
 		},
 		groups: {
 			type: Array,
-			required: true,
+			default: null,
 		},
 		comments: {
 			type: [Boolean, Number],
@@ -146,11 +146,10 @@ export default {
 		},
 		notifications: {
 			type: Boolean,
-			required: true,
+			default: false,
 		},
 		scheduleTime: {
 			type: Number,
-			required: false,
 			default: null,
 		},
 	},
