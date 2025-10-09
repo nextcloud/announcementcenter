@@ -133,7 +133,14 @@ export default {
 
 			if (!this.commentsView) {
 				// Create a new comments view when there is none
-				this.commentsView = new OCA.Comments.View('announcement')
+				this.commentsView = new OCA.Comments.View(
+					'announcement',
+					{
+						propsData: {
+							resourceId: id,
+						},
+					}
+				)
 			}
 
 			await this.commentsView.update(id)
