@@ -5,6 +5,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.2.2 – 2025-10-10
+### Fixed
+- Fix group names with HTML characters
+- Autocomplete of mentions (requires Nextcloud 31.0.10 or 32.0.1)
+
 ## 7.2.1 – 2025-08-29
 ### Fixed
 - Don't ship vendor-bin directory
