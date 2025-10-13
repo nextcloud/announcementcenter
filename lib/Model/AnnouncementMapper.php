@@ -72,7 +72,7 @@ class AnnouncementMapper extends QBMapper {
 			->where(
 				$qb->expr()->eq('announcement_id', $qb->createNamedParameter($entity->getId()))
 			);
-		$qb->execute();
+		$qb->executeStatement();
 		return $entity;
 	}
 
@@ -103,7 +103,7 @@ class AnnouncementMapper extends QBMapper {
 		}
 
 		$ids = [];
-		$result = $query->execute();
+		$result = $query->executeQuery();
 		while ($row = $result->fetch()) {
 			$ids[] = (int)$row['announcement_id'];
 		}
