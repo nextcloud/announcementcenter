@@ -78,14 +78,14 @@ class Version5000Date20210223091022 extends SimpleMigrationStep {
 			->from('announcements_groups');
 
 
-		$result = $query->execute();
+		$result = $query->executeQuery();
 		while ($row = $result->fetch()) {
 			$insert
 				->setParameter('announcement_id', (int)$row['announcement_id'], IQueryBuilder::PARAM_INT)
 				->setParameter('gid', $row['gid'])
 			;
 
-			$insert->execute();
+			$insert->executeStatement();
 		}
 		$result->closeCursor();
 	}

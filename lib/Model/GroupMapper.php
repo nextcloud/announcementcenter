@@ -36,7 +36,7 @@ class GroupMapper extends QBMapper {
 		$query = $this->db->getQueryBuilder();
 		$query->delete('announcements_map')
 			->where($query->expr()->eq('announcement_id', $query->createNamedParameter($announcement->getId())));
-		$query->execute();
+		$query->executeStatement();
 	}
 
 	/**
