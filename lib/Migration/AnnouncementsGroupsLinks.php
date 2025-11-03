@@ -55,13 +55,13 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 				'a.announcement_id', 'ag.announcement_id'
 			))
 			->where($query->expr()->isNull('ag.gid'));
-		$result = $query->execute();
+		$result = $query->executeQuery();
 
 		$output->startProgress();
 		while ($row = $result->fetch()) {
 			$output->advance(1, $row['announcement_subject']);
 			$queryInsert->setParameter('aid', (int)$row['announcement_id'])
-				->execute();
+				->executeStatement();
 		}
 		$output->finishProgress();
 
