@@ -101,6 +101,7 @@ import {
 	searchGroups,
 } from '../services/announcementsService.js'
 import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
 import { remark } from 'remark'
 import strip from 'strip-markdown'
 import IconClockStart from 'vue-material-design-icons/ClockStart.vue'
@@ -141,6 +142,8 @@ export default {
 	},
 
 	methods: {
+		t,
+
 		resetForm() {
 			this.subject = ''
 			this.message = ''

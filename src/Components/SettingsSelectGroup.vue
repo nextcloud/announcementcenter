@@ -25,6 +25,7 @@ import NcSelect from '@nextcloud/vue/dist/Components/NcSelect.js'
 
 import axios from '@nextcloud/axios'
 import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
 import { generateOcsUrl } from '@nextcloud/router'
 import debounce from 'debounce'
 
@@ -188,7 +189,7 @@ export default {
 			} catch (error) {
 				/** Emitted if groups could not be queried.<br />**Payload:** `error` (`object`) - The Axios error */
 				this.$emit('error', error)
-				showError(t('Unable to search the group'))
+				showError(t('announcementcenter', 'Unable to search the group'))
 			}
 			return false
 		},

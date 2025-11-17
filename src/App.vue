@@ -42,6 +42,7 @@ import NcAppSidebar from '@nextcloud/vue/dist/Components/NcAppSidebar.js'
 import NcContent from '@nextcloud/vue/dist/Components/NcContent.js'
 import NcEmptyContent from '@nextcloud/vue/dist/Components/NcEmptyContent.js'
 import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
 import { getAnnouncements } from './services/announcementsService.js'
@@ -100,6 +101,8 @@ export default {
 	},
 
 	methods: {
+		t,
+
 		async loadAnnouncements() {
 			const response = await getAnnouncements()
 			const announcements = response.data?.ocs?.data || []

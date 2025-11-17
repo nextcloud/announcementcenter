@@ -38,6 +38,7 @@ import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadi
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
 import NcSettingsSelectGroup from './Components/SettingsSelectGroup.vue'
 import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
 import { showError, showSuccess } from '@nextcloud/dialogs'
 
 export default {
@@ -60,6 +61,8 @@ export default {
 	},
 
 	methods: {
+		t,
+
 		async toggleCreateActivities(config) {
 			OCP.AppConfig.setValue('announcementcenter', 'create_activities', (config ? 'yes' : 'no'), {
 				success: function() {
