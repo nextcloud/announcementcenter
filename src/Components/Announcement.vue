@@ -154,6 +154,8 @@ export default {
 		},
 	},
 
+	emits: ['click'],
+
 	data() {
 		return {
 			isMessageFolded: true,
