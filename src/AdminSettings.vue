@@ -36,7 +36,7 @@
 <script>
 import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
 import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
-import NcSettingsSelectGroup from './Components/SettingsSelectGroup.vue'
+import NcSettingsSelectGroup from '@nextcloud/vue/components/NcSettingsSelectGroup'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import { showError, showSuccess } from '@nextcloud/dialogs'
