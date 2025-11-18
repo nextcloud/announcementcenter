@@ -84,7 +84,7 @@ import NcButton from '@nextcloud/vue/components/NcButton'
 import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
-import { getLanguage } from '@nextcloud/l10n'
+import { getLanguage, t, n } from '@nextcloud/l10n'
 import {
 	showError,
 } from '@nextcloud/dialogs'
@@ -153,6 +153,8 @@ export default {
 			default: null,
 		},
 	},
+
+	emits: ['click'],
 
 	data() {
 		return {
@@ -243,6 +245,9 @@ export default {
 	},
 
 	methods: {
+		t,
+		n,
+
 		onClickCommentCount() {
 			this.$emit('click', this.id)
 		},

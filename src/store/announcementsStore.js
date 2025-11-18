@@ -4,10 +4,9 @@
  */
 import Vue from 'vue'
 
-const state = {
-	announcements: {
-	},
-}
+const state = () => ({
+	announcements: {},
+})
 
 const getters = {
 	announcements: state => Object.values(state.announcements),

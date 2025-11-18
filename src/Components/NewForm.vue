@@ -20,7 +20,7 @@
 			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__buttons">
-			<NcButton type="primary"
+			<NcButton variant="primary"
 				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
@@ -28,19 +28,19 @@
 
 			<NcActions>
 				<NcActionCheckbox value="1"
-					:checked.sync="createActivities">
+					v-model="createActivities">
 					{{ t('announcementcenter', 'Create activities') }}
 				</NcActionCheckbox>
 				<NcActionCheckbox value="1"
-					:checked.sync="createNotifications">
+					v-model="createNotifications">
 					{{ t('announcementcenter', 'Create notifications') }}
 				</NcActionCheckbox>
 				<NcActionCheckbox value="1"
-					:checked.sync="sendEmails">
+					v-model="sendEmails">
 					{{ t('announcementcenter', 'Send emails') }}
 				</NcActionCheckbox>
 				<NcActionCheckbox value="1"
-					:checked.sync="allowComments">
+					v-model="allowComments">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
 				<NcActionSeparator />
@@ -62,9 +62,9 @@
 					:disabled="!scheduleEnabled"
 					is-native-picker
 					hide-label
-					:value="scheduleTime"
+					:model-value="scheduleTime"
 					:min="new Date()"
-					@change="setScheduleTime">
+					@update:modelValue="setScheduleTime">
 					<template #icon>
 						<IconClockStart :size="20" />
 					</template>
@@ -75,10 +75,10 @@
 					:disabled="!deleteEnabled"
 					is-native-picker
 					hide-label
-					:value="deleteTime"
+					:model-value="deleteTime"
 					:min="getMinDeleteTime()"
 					id-native-date-time-picker="date-time-picker-delete_id"
-					@change="setDeleteTime">
+					@update:modelValue="setDeleteTime">
 					<template #icon>
 						<IconClockEnd :size="20" />
 					</template>
@@ -89,11 +89,11 @@
 </template>
 
 <script>
-import NcActions from '@nextcloud/vue/dist/Components/NcActions.js'
-import NcActionCheckbox from '@nextcloud/vue/dist/Components/NcActionCheckbox.js'
-import NcActionInput from '@nextcloud/vue/dist/Components/NcActionInput.js'
-import NcActionSeparator from '@nextcloud/vue/dist/Components/NcActionSeparator.js'
-import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
+import NcActions from '@nextcloud/vue/components/NcActions'
+import NcActionCheckbox from '@nextcloud/vue/components/NcActionCheckbox'
+import NcActionInput from '@nextcloud/vue/components/NcActionInput'
+import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import debounce from 'debounce'
 import { loadState } from '@nextcloud/initial-state'
 import {
@@ -101,6 +101,7 @@ import {
 	searchGroups,
 } from '../services/announcementsService.js'
 import { showError } from '@nextcloud/dialogs'
+import { t } from '@nextcloud/l10n'
 import { remark } from 'remark'
 import strip from 'strip-markdown'
 import IconClockStart from 'vue-material-design-icons/ClockStart.vue'
@@ -141,6 +142,8 @@ export default {
 	},
 
 	methods: {
+		t,
+
 		resetForm() {
 			this.subject = ''
 			this.message = ''
@@ -159,15 +162,15 @@ export default {
 			this.searchGroups(search)
 		}, 300),
 
-		setScheduleTime(event) {
-			this.scheduleTime = new Date(event.target.value)
+		setScheduleTime(value) {
+			this.scheduleTime = new Date(value)
 			if (this.deleteTime && this.scheduleTime > this.deleteTime) {
 				this.deleteTime = this.scheduleTime
 			}
 		},
 
-		setDeleteTime(event) {
-			this.deleteTime = new Date(event.target.value)
+		setDeleteTime(value) {
+			this.deleteTime = new Date(value)
 			if (this.scheduleTime && this.scheduleTime > this.deleteTime) {
 				this.deleteTime = this.scheduleTime
 			}

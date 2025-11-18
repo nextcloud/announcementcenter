@@ -18,7 +18,7 @@
 <script>
 import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
 import { loadState } from '@nextcloud/initial-state'
-import { formatRelativeTime } from '@nextcloud/l10n'
+import { formatRelativeTime, t } from '@nextcloud/l10n'
 import { generateUrl, imagePath } from '@nextcloud/router'
 
 export default {
@@ -59,6 +59,10 @@ export default {
 		} catch (e) {
 			console.error(e)
 		}
+	},
+
+	methods: {
+		t,
 	},
 }
 </script>
