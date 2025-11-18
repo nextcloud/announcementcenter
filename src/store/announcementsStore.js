@@ -2,8 +2,6 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-import Vue from 'vue'
-
 const state = () => ({
 	announcements: {},
 })
@@ -21,7 +19,7 @@ const mutations = {
 	 * @param {object} announcement the announcement
 	 */
 	addAnnouncement(state, announcement) {
-		Vue.set(state.announcements, announcement.id, announcement)
+		state.announcements[announcement.id] = announcement
 	},
 
 	/**
@@ -31,7 +29,7 @@ const mutations = {
 	 * @param {number} id the id of the announcement to delete
 	 */
 	deleteAnnouncement(state, id) {
-		Vue.delete(state.announcements, id)
+		delete state.announcements[id]
 	},
 
 	/**
@@ -45,7 +43,7 @@ const mutations = {
 			return
 		}
 
-		Vue.set(state.announcements[id], 'notifications', false)
+		state.announcements[id].notifications = false
 	},
 }
 

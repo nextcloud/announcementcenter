@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-import Vue from 'vue'
+import { createApp } from 'vue'
 import { generateFilePath } from '@nextcloud/router'
 import { getRequestToken } from '@nextcloud/auth'
 import Dashboard from './views/Dashboard.vue'
@@ -16,9 +16,6 @@ __webpack_public_path__ = generateFilePath('announcementcenter', '', 'js/')
 
 document.addEventListener('DOMContentLoaded', function() {
 	OCA.Dashboard.register('announcementcenter', (el) => {
-		const View = Vue.extend(Dashboard)
-		new View({
-			propsData: {},
-		}).$mount(el)
+		createApp(Dashboard).mount(el)
 	})
 })
