@@ -8,34 +8,34 @@
 		<NcSettingsSelectGroup id="announcementcenter_admin_group"
 			v-model="adminGroups"
 			:label="t('announcementcenter', 'These groups will be able to post announcements.')"
-			@input="updateGroups" />
+			@update:modelValue="updateGroups" />
 
-		<NcCheckboxRadioSwitch :checked="createActivities"
+		<NcCheckboxRadioSwitch :model-value="createActivities"
 			type="switch"
-			@update:checked="toggleCreateActivities">
+			@update:modelValue="toggleCreateActivities">
 			{{ t('announcementcenter', 'Create activities by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :checked="createNotifications"
+		<NcCheckboxRadioSwitch :model-value="createNotifications"
 			type="switch"
-			@update:checked="toggleCreateNotifications">
+			@update:modelValue="toggleCreateNotifications">
 			{{ t('announcementcenter', 'Create notifications by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :checked="sendEmails"
+		<NcCheckboxRadioSwitch :model-value="sendEmails"
 			type="switch"
-			@update:checked="toggleSendEmails">
+			@update:modelValue="toggleSendEmails">
 			{{ t('announcementcenter', 'Send emails by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :checked="allowComments"
+		<NcCheckboxRadioSwitch :model-value="allowComments"
 			type="switch"
-			@update:checked="toggleAllowComments">
+			@update:modelValue="toggleAllowComments">
 			{{ t('announcementcenter', 'Allow comments by default') }}
 		</NcCheckboxRadioSwitch>
 	</NcSettingsSection>
 </template>
 
 <script>
-import NcCheckboxRadioSwitch from '@nextcloud/vue/dist/Components/NcCheckboxRadioSwitch.js'
-import NcSettingsSection from '@nextcloud/vue/dist/Components/NcSettingsSection.js'
+import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
+import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import NcSettingsSelectGroup from '@nextcloud/vue/components/NcSettingsSelectGroup'
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
