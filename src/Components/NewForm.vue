@@ -27,20 +27,16 @@
 			</NcButton>
 
 			<NcActions>
-				<NcActionCheckbox value="1"
-					v-model="createActivities">
+				<NcActionCheckbox v-model="createActivities" value="1">
 					{{ t('announcementcenter', 'Create activities') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					v-model="createNotifications">
+				<NcActionCheckbox v-model="createNotifications" value="1">
 					{{ t('announcementcenter', 'Create notifications') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					v-model="sendEmails">
+				<NcActionCheckbox v-model="sendEmails" value="1">
 					{{ t('announcementcenter', 'Send emails') }}
 				</NcActionCheckbox>
-				<NcActionCheckbox value="1"
-					v-model="allowComments">
+				<NcActionCheckbox v-model="allowComments" value="1">
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
 				<NcActionSeparator />
