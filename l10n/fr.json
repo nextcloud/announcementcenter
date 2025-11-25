@@ -47,7 +47,7 @@
     "Everyone" : "Tout le monde",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Ces groupes vont être capable de voir les annonces. Si aucun groupe n’est sélectionné, elles seront visibles par tous les utilisateurs.",
     "Schedule announcement time" : "Programmer l'heure de l'annonce",
-    "Schedule deletion time" : " Suppression de l'heure planifié",
+    "Schedule deletion time" : "Programmer l'heure de suppression",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }
