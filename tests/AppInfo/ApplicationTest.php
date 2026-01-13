@@ -35,12 +35,7 @@ use OCP\Notification\INotifier;
 use OCP\Settings\ISettings;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Class ApplicationTest
- *
- * @package OCA\AnnouncementCenter\Tests
- * @group DB
- */
+#[\PHPUnit\Framework\Attributes\Group('DB')]
 class ApplicationTest extends TestCase {
 	protected Application $app;
 	protected IAppContainer $container;

@@ -28,12 +28,7 @@ use OCP\Notification\INotification;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
-/**
- * Class ManagerTest
- *
- * @package OCA\AnnouncementCenter\Tests\Lib
- * @group DB
- */
+#[\PHPUnit\Framework\Attributes\Group('DB')]
 class ManagerTest extends TestCase {
 	protected IConfig&MockObject $config;
 	protected AnnouncementMapper&MockObject $announcementMapper;
