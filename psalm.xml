@@ -23,26 +23,21 @@
 	<extraFiles>
 		<directory name="vendor" />
 	</extraFiles>
-	<issueHandlers>
-		<UndefinedClass>
-			<errorLevel type="suppress">
-				<referencedClass name="OC" />
-				<referencedClass name="OCA\Guests\UserBackend" />
-				<referencedClass name="Symfony\Component\Console\Command\Command" />
-				<referencedClass name="Symfony\Component\Console\Input\InputArgument" />
-				<referencedClass name="Symfony\Component\Console\Input\InputInterface" />
-				<referencedClass name="Symfony\Component\Console\Input\InputOption" />
-				<referencedClass name="Symfony\Component\Console\Output\OutputInterface" />
-				<referencedClass name="Symfony\Component\EventDispatcher\EventDispatcherInterface" />
-			</errorLevel>
-		</UndefinedClass>
-		<UndefinedDocblockClass>
-			<errorLevel type="suppress">
-				<referencedClass name="Doctrine\DBAL\Schema\Schema" />
-				<referencedClass name="Doctrine\DBAL\Schema\SchemaException" />
-				<referencedClass name="Doctrine\DBAL\Driver\Statement" />
-				<referencedClass name="Doctrine\DBAL\Schema\Table" />
-			</errorLevel>
-		</UndefinedDocblockClass>
-	</issueHandlers>
+	<stubs>
+		<file name="tests/stubs/doctrine_dbal_schema_abstractasset.php" />
+		<file name="tests/stubs/doctrine_dbal_schema_column.php" />
+		<file name="tests/stubs/doctrine_dbal_schema_schema.php" />
+		<file name="tests/stubs/doctrine_dbal_schema_table.php" />
+		<file name="tests/stubs/stecman_component_symfony_console_bashcompletion_completion_completionawareinterface.php" />
+		<file name="tests/stubs/symfony_component_console_command_command.php" />
+		<file name="tests/stubs/symfony_component_console_helper_table.php" />
+		<file name="tests/stubs/symfony_component_console_input_inputargument.php" />
+		<file name="tests/stubs/symfony_component_console_input_inputinterface.php" />
+		<file name="tests/stubs/symfony_component_console_input_inputoption.php" />
+		<file name="tests/stubs/symfony_component_console_output_outputinterface.php" />
+		<file name="tests/stubs/symfony_component_console_question_confirmationquestion.php" />
+		<file name="tests/stubs/symfony_component_console_question_confirmationquestion.php" />
+		<file name="tests/stubs/symfony_component_console_question_question.php" />
+		<file name="tests/stubs/oca_guests_userbackend.php" />
+	</stubs>
 </psalm>
