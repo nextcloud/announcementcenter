@@ -89,6 +89,7 @@ class Announcement extends Entity {
 	 * @param string $columnName the name of the column
 	 * @return string the property name
 	 */
+	#[\Override]
 	public function columnToProperty($columnName): string {
 		// Strip off announcement_
 		if (strpos($columnName, 'announcement_') === 0) {
@@ -102,6 +103,7 @@ class Announcement extends Entity {
 	 * @param string $property the name of the property
 	 * @return string the column name
 	 */
+	#[\Override]
 	public function propertyToColumn($property): string {
 		if ($property !== 'allowComments') {
 			$property = 'announcement' . ucfirst($property);

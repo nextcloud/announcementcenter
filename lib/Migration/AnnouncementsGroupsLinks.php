@@ -28,6 +28,7 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	 * @return string
 	 * @since 9.1.0
 	 */
+	#[\Override]
 	public function getName(): string {
 		return 'Add read permissions for existing announcements';
 	}
@@ -40,6 +41,7 @@ class AnnouncementsGroupsLinks implements IRepairStep {
 	 * @param IOutput $output
 	 * @throws \Exception in case of failure
 	 */
+	#[\Override]
 	public function run(IOutput $output) {
 		$queryInsert = $this->connection->getQueryBuilder();
 		$queryInsert->insert('announcements_map')

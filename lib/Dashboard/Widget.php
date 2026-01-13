@@ -47,44 +47,32 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		$this->l10n = $l10n;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getId(): string {
 		return Application::APP_ID;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getTitle(): string {
 		return $this->l10n->t('Announcements');
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getOrder(): int {
 		return 1;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getIconClass(): string {
 		return 'icon-announcementcenter-dark';
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getUrl(): ?string {
 		return $this->url->linkToRouteAbsolute('announcementcenter.page.index');
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function getIconUrl(): string {
 		return $this->url->getAbsoluteURL($this->url->imagePath('announcementcenter', 'announcementcenter-dark.svg'));
 	}
@@ -92,6 +80,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	/**
 	 * @return list<WidgetButton>
 	 */
+	#[\Override]
 	public function getWidgetButtons(string $userId): array {
 		$buttons = [];
 		$buttons[] = new WidgetButton(
@@ -102,9 +91,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		return $buttons;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
+	#[\Override]
 	public function load(): void {
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
 			$announcements = $this->manager->getAnnouncements();
@@ -132,6 +119,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 		return $result;
 	}
 
+	#[\Override]
 	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
 		$announcements = $this->manager->getAnnouncements((int)$since, $limit);
 		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);

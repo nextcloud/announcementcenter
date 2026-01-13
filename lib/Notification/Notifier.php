@@ -54,6 +54,7 @@ class Notifier implements INotifier {
 	 * @return string
 	 * @since 17.0.0
 	 */
+	#[\Override]
 	public function getID(): string {
 		return 'announcementcenter';
 	}
@@ -64,6 +65,7 @@ class Notifier implements INotifier {
 	 * @return string
 	 * @since 17.0.0
 	 */
+	#[\Override]
 	public function getName(): string {
 		return $this->l10nFactory->get('announcementcenter')->t('Announcements');
 	}
@@ -74,6 +76,7 @@ class Notifier implements INotifier {
 	 * @return INotification
 	 * @throws \InvalidArgumentException When the notification was not prepared by a notifier
 	 */
+	#[\Override]
 	public function prepare(INotification $notification, string $languageCode): INotification {
 		if ($notification->getApp() !== 'announcementcenter') {
 			// Not my app => throw

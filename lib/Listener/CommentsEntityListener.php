@@ -26,6 +26,7 @@ class CommentsEntityListener implements IEventListener {
 		$this->manager = $manager;
 	}
 
+	#[\Override]
 	public function handle(Event $event): void {
 		if (!$event instanceof CommentsEntityEvent) {
 			return;
@@ -34,7 +35,7 @@ class CommentsEntityListener implements IEventListener {
 		$event->addEntityCollection('announcement', function ($name) {
 			try {
 				$announcement = $this->manager->getAnnouncement((int)$name);
-			} catch (AnnouncementDoesNotExistException $e) {
+			} catch (AnnouncementDoesNotExistException) {
 				return false;
 			}
 			return (bool)$announcement->getAllowComments();

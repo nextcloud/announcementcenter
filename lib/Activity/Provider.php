@@ -61,6 +61,7 @@ class Provider implements IProvider {
 	 * @throws \InvalidArgumentException
 	 * @since 11.0.0
 	 */
+	#[\Override]
 	public function parse($language, IEvent $event, ?IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' // 3.1 and later

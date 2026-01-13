@@ -65,6 +65,7 @@ class AnnouncementMapper extends QBMapper {
 	 * @psalm-return Announcement the deleted entity
 	 * @since 14.0.0
 	 */
+	#[\Override]
 	public function delete(Entity $entity): Entity {
 		$qb = $this->db->getQueryBuilder();
 

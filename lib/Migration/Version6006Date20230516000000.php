@@ -24,6 +24,7 @@ class Version6006Date20230516000000 extends SimpleMigrationStep {
 		$this->connection = $connection;
 	}
 
+	#[\Override]
 	public function postSchemaChange(IOutput $output, \Closure $schemaClosure, array $options): void {
 		// Remove former activity default setting
 		$query = $this->connection->getQueryBuilder();

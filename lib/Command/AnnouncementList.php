@@ -20,6 +20,7 @@ class AnnouncementList extends Command {
 		$this->manager = $manager;
 	}
 
+	#[\Override]
 	protected function configure(): void {
 		$this
 			->setName('announcementcenter:list')
@@ -32,6 +33,7 @@ class AnnouncementList extends Command {
 			);
 	}
 
+	#[\Override]
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		$ulimit = $input->getArgument('limit');
 		if (!is_numeric($ulimit)) {
