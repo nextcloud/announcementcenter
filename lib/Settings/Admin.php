@@ -29,6 +29,7 @@ class Admin implements ISettings {
 	/**
 	 * @return TemplateResponse
 	 */
+	#[\Override]
 	public function getForm(): TemplateResponse {
 		$adminGroups = json_decode($this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]'), true);
 
@@ -45,6 +46,7 @@ class Admin implements ISettings {
 	/**
 	 * @return string the section ID, e.g. 'sharing'
 	 */
+	#[\Override]
 	public function getSection(): string {
 		return 'additional';
 	}
@@ -56,6 +58,7 @@ class Admin implements ISettings {
 	 *
 	 * E.g.: 70
 	 */
+	#[\Override]
 	public function getPriority(): int {
 		return 55;
 	}

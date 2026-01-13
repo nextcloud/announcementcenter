@@ -1,9 +1,18 @@
 <!--
-  - SPDX-FileCopyrightText: 2015-2024 Nextcloud GmbH and Nextcloud contributors
+  - SPDX-FileCopyrightText: 2015-2026 Nextcloud GmbH and Nextcloud contributors
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 # Changelog
 All notable changes to this project will be documented in this file.
+
+## 7.3.0 – 2026-01-13
+### Added
+- Compatibility with Nextcloud 33
+
+### Changed
+- Updated translations
+- Updated dependencies
+- Removed Nextcloud 30, 31 and 32
 
 ## 7.2.2 – 2025-10-10
 ### Fixed

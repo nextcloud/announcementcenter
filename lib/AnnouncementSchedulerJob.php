@@ -24,6 +24,7 @@ class AnnouncementSchedulerJob extends TimedJob {
 		$this->setInterval(60);
 	}
 
+	#[\Override]
 	protected function run($argument) {
 		$this->asp->doCron($argument);
 	}

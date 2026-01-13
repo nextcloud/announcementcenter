@@ -27,6 +27,7 @@ class Group extends Entity {
 	 * @param string $columnName the name of the column
 	 * @return string the property name
 	 */
+	#[\Override]
 	public function columnToProperty($columnName): string {
 		switch ($columnName) {
 			case 'announcement_id':
@@ -42,6 +43,7 @@ class Group extends Entity {
 	 * @param string $property the name of the property
 	 * @return string the column name
 	 */
+	#[\Override]
 	public function propertyToColumn($property): string {
 		switch ($property) {
 			case 'id':

@@ -24,6 +24,7 @@ class AnnouncementDelete extends Command {
 		$this->logger = $logger;
 	}
 
+	#[\Override]
 	protected function configure(): void {
 		$this
 			->setName('announcementcenter:delete')
@@ -35,6 +36,7 @@ class AnnouncementDelete extends Command {
 			);
 	}
 
+	#[\Override]
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		try {
 			$deleteId = $this->parseId($input->getArgument('id'));

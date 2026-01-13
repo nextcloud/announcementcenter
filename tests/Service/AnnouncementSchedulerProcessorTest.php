@@ -76,10 +76,7 @@ class AnnouncementSchedulerProcessorTest extends TestCase {
 		return $value ? $this->once() : $this->never();
 	}
 
-	/**
-	 * @test
-	 * @dataProvider dataDoCron
-	 */
+	#[DataProvider('dataDoCron')]
 	public function testDoCron(int $publishTime, int $deleteTime, int $currentTime, bool $expectedPublish, bool $expectedDelete): void {
 		$this->logger->expects($this->any())
 			->method('debug');

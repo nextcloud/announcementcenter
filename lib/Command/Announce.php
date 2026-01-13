@@ -32,6 +32,7 @@ class Announce extends Command {
 		$this->logger = $logger;
 	}
 
+	#[\Override]
 	protected function configure(): void {
 		$this
 			->setName('announcementcenter:announce')
@@ -103,6 +104,7 @@ class Announce extends Command {
 		return $message;
 	}
 
+	#[\Override]
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		// required
 		$user = $input->getArgument('user');

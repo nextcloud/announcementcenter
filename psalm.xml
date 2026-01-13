@@ -18,10 +18,12 @@
 		<directory name="lib" />
 		<ignoreFiles>
 			<directory name="vendor" />
+			<directory name="vendor-bin" />
 		</ignoreFiles>
 	</projectFiles>
 	<extraFiles>
 		<directory name="vendor" />
+		<directory name="vendor-bin" />
 	</extraFiles>
 	<issueHandlers>
 		<UndefinedClass>

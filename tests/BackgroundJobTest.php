@@ -29,9 +29,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
-/**
- * @group DB
- */
+#[\PHPUnit\Framework\Attributes\Group('DB')]
 class BackgroundJobTest extends TestCase {
 	protected IConfig&MockObject $config;
 	protected ITimeFactory&MockObject $time;

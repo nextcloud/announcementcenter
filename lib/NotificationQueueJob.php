@@ -82,6 +82,7 @@ class NotificationQueueJob extends QueuedJob {
 	/**
 	 * @param array $argument
 	 */
+	#[\Override]
 	public function run($argument): void {
 		try {
 			$announcement = $this->manager->getAnnouncement($argument['id'], true);

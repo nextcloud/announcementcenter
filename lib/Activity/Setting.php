@@ -17,10 +17,12 @@ class Setting extends ActivitySettings {
 	) {
 	}
 
+	#[\Override]
 	public function getIdentifier(): string {
 		return 'announcementcenter';
 	}
 
+	#[\Override]
 	public function getName(): string {
 		return $this->l->t('An <strong>announcement</strong> is posted by an administrator');
 	}
@@ -31,38 +33,47 @@ class Setting extends ActivitySettings {
 	 *             priority values. It is required to return a value between 0 and 100.
 	 * @since 11.0.0
 	 */
+	#[\Override]
 	public function getPriority(): int {
 		return 70;
 	}
 
+	#[\Override]
 	public function canChangeStream(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public function isDefaultEnabledStream(): bool {
 		return true;
 	}
 
+	#[\Override]
 	public function canChangeMail(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public function isDefaultEnabledMail(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public function canChangeNotification(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public function isDefaultEnabledNotification(): bool {
 		return false;
 	}
 
+	#[\Override]
 	public function getGroupIdentifier(): string {
 		return 'other';
 	}
 
+	#[\Override]
 	public function getGroupName(): string {
 		return 'Other activities';
 	}

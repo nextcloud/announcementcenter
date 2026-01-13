@@ -25,6 +25,7 @@ class RemoveNotifications extends Command {
 		parent::__construct();
 	}
 
+	#[\Override]
 	protected function configure(): void {
 		$this
 			->setName('announcementcenter:remove-notifications')  # others use minus sign as well
@@ -36,6 +37,7 @@ class RemoveNotifications extends Command {
 			);
 	}
 
+	#[\Override]
 	protected function execute(InputInterface $input, OutputInterface $output): int {
 		try {
 			$removeNotId = $this->parseId($input->getArgument('id'));
