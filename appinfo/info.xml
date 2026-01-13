@@ -39,7 +39,7 @@
 	<screenshot>https://github.com/nextcloud/announcementcenter/raw/main/docs/AnnouncementCenterFrontpage.png</screenshot>
 
 	<dependencies>
-		<nextcloud min-version="30" max-version="33" />
+		<nextcloud min-version="32" max-version="33" />
 	</dependencies>
 
 	<background-jobs>
