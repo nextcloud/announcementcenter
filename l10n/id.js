@@ -9,6 +9,7 @@ OC.L10N.register(
     "An <strong>announcement</strong> is posted by an administrator" : "Sebuah <strong>pengumuman</strong> diposting oleh administrator",
     "The subject is too long or empty" : "Subjek terlalu panjang atau kosong",
     "Announcements" : "Pengumuman",
+    "Read more" : "Baca selengkapnya",
     "{user} announced {announcement}" : "{user} mengumumkan {announcement}",
     "{user} announced “{announcement}”" : "{user} mengumumkan \"{announcement}\"",
     "Announcement center" : "Pusat pengumuman",
