@@ -32,6 +32,7 @@ OC.L10N.register(
     "Create activities" : "Buat aktivitas",
     "Create notifications" : "Buat pemberitahuan",
     "Allow comments" : "Izinkan komentar",
+    "Visibility" : "Visibilitas",
     "Everyone" : "Semua",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Grup ini akan bisa melihat pengumuman. Apabila tidak ada grup terpilih, semua orang bisa melihat."
 },
