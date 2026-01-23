@@ -1,6 +1,6 @@
 {
   "name": "announcementcenter",
-  "version": "7.3.0",
+  "version": "7.4.0-dev.0",
   "author": "Joas Schilling <coding@schilljs.com>",
   "license": "AGPL-3.0-or-later",
   "private": true,
