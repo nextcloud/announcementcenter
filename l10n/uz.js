@@ -3,8 +3,8 @@ OC.L10N.register(
     {
     "Announcements" : "E'lonlar",
     "Read more" : "Ko'proq o'qish",
-    "Comments" : "Comments",
+    "Comments" : "Izohlar",
     "Visibility" : "Ko'rinish",
-    "Everyone" : "Everyone"
+    "Everyone" : "Barcha"
 },
 "nplurals=1; plural=0;");
