@@ -3,7 +3,7 @@
     "{actor} announced “{announcement}”" : "{actor} meddelade “{announcement}”",
     "You posted an announcement" : "Du postade ett meddelande",
     "{actor} posted an announcement" : "{actor} postade ett meddelande",
-    "The announcement does not exist anymore" : "Meddelandet existerar inte längre",
+    "The announcement does not exist anymore" : "Meddelandet finns inte längre",
     "An <strong>announcement</strong> is posted by an administrator" : "Ett <strong>meddelande</strong> är utsänt av en administratör ",
     "The subject is too long or empty" : "Ämnet är för långt eller tomt",
     "Announcements" : "Meddelanden",
