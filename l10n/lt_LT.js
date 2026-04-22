@@ -16,6 +16,7 @@ OC.L10N.register(
     "Announcement center" : "Skelbimų centras",
     "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Paskelbkite apie techninės priežiūros langą 🎛️, pristatykite naują kolegą 👤 ir užtikrinkite, kad visi sužinotų apie kitą mėnesį artėjantį didelį įvykį 📅\n\n🖌️ „Markdown“ palaikymas\n\n📑 Komentarai, įskaitant @-paminėjimus\n\n👪 Grupės leidimai\n\n⭕ Integracija į skydelį\n\n⚡ Integracija į veiklas\n\n🔔 Integracija į pranešimus",
+    "An error occurred while changing the setting" : "Keičiant nustatymą įvyko klaida",
     "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
     "Create activities by default" : "Pagal numatymą, kurti veiklas",
     "Create notifications by default" : "Pagal numatymą, kurti pranešimus",
