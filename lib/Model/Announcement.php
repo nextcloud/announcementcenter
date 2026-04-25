@@ -92,7 +92,7 @@ class Announcement extends Entity {
 	#[\Override]
 	public function columnToProperty($columnName): string {
 		// Strip off announcement_
-		if (strpos($columnName, 'announcement_') === 0) {
+		if (str_starts_with($columnName, 'announcement_')) {
 			$columnName = substr($columnName, strlen('announcement_'));
 		}
 

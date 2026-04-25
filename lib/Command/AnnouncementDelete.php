@@ -16,12 +16,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AnnouncementDelete extends Command {
-	protected Manager $manager;
-	protected LoggerInterface $logger;
-	public function __construct(Manager $manager, LoggerInterface $logger) {
+	public function __construct(
+		protected Manager $manager,
+		protected LoggerInterface $logger,
+	) {
 		parent::__construct();
-		$this->manager = $manager;
-		$this->logger = $logger;
 	}
 
 	#[\Override]

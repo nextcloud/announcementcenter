@@ -65,7 +65,7 @@ class Provider implements IProvider {
 	public function parse($language, IEvent $event, ?IEvent $previousEvent = null): IEvent {
 		if ($event->getApp() !== 'announcementcenter' || (
 			$event->getSubject() !== 'announcementsubject' // 3.1 and later
-			&& strpos($event->getSubject(), 'announcementsubject#') !== 0) // 3.0 and before
+			&& !str_starts_with($event->getSubject(), 'announcementsubject#')) // 3.0 and before
 		) {
 			if (class_exists(UnknownActivityException::class)) {
 				throw new UnknownActivityException('Unknown app');
@@ -94,7 +94,7 @@ class Provider implements IProvider {
 				$subject = $l->t('{actor} announced “{announcement}”');
 			}
 			$event->setParsedMessage($announcement->getMessage());
-		} catch (AnnouncementDoesNotExistException $e) {
+		} catch (AnnouncementDoesNotExistException) {
 			$parsedParameters = $this->getParsedParameters($parameters);
 			if ($parsedParameters['actor']['id'] === $this->activityManager->getCurrentUserId()) {
 				$subject = $l->t('You posted an announcement');

@@ -18,18 +18,14 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Announce extends Command {
-	protected IUserManager $userManager;
-	protected ITimeFactory $time;
-	protected Manager $manager;
-	protected NotificationType $notificationType;
-	protected LoggerInterface $logger;
-	public function __construct(IUserManager $userManager, ITimeFactory $time, Manager $manager, NotificationType $notificationType, LoggerInterface $logger) {
+	public function __construct(
+		protected IUserManager $userManager,
+		protected ITimeFactory $time,
+		protected Manager $manager,
+		protected NotificationType $notificationType,
+		protected LoggerInterface $logger,
+	) {
 		parent::__construct();
-		$this->userManager = $userManager;
-		$this->time = $time;
-		$this->manager = $manager;
-		$this->notificationType = $notificationType;
-		$this->logger = $logger;
 	}
 
 	#[\Override]

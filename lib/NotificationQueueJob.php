@@ -28,55 +28,21 @@ use OCP\Notification\INotification;
 use Psr\Log\LoggerInterface;
 
 class NotificationQueueJob extends QueuedJob {
-	/** @var IConfig */
-	protected $config;
-
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var IMailer */
-	private $mailer;
-
-	/** @var LoggerInterface */
-	private $logger;
-
-	/** @var IUserManager */
-	private $userManager;
-
-	/** @var IGroupManager */
-	private $groupManager;
-
-	/** @var Manager */
-	private $manager;
-
-	/** @var IActivityManager */
-	private $activityManager;
-
-	/** @var array */
-	protected $notifiedUsers = [];
-
-	/** @var bool */
-	protected $enabledForGuestsUsers;
+	protected array $notifiedUsers = [];
+	protected bool $enabledForGuestsUsers = false;
 
 	public function __construct(
-		IConfig $config,
+		protected IConfig $config,
 		ITimeFactory $time,
-		IUserManager $userManager,
-		IGroupManager $groupManager,
-		IActivityManager $activityManager,
-		INotificationManager $notificationManager,
-		IMailer $mailer,
-		LoggerInterface $logger,
-		Manager $manager) {
+		private readonly IUserManager $userManager,
+		private readonly IGroupManager $groupManager,
+		private readonly IActivityManager $activityManager,
+		protected INotificationManager $notificationManager,
+		private readonly IMailer $mailer,
+		private readonly LoggerInterface $logger,
+		private readonly Manager $manager,
+	) {
 		parent::__construct($time);
-		$this->config = $config;
-		$this->userManager = $userManager;
-		$this->groupManager = $groupManager;
-		$this->activityManager = $activityManager;
-		$this->notificationManager = $notificationManager;
-		$this->mailer = $mailer;
-		$this->logger = $logger;
-		$this->manager = $manager;
 	}
 
 	/**
@@ -86,14 +52,14 @@ class NotificationQueueJob extends QueuedJob {
 	public function run($argument): void {
 		try {
 			$announcement = $this->manager->getAnnouncement($argument['id'], true);
-		} catch (AnnouncementDoesNotExistException $e) {
+		} catch (AnnouncementDoesNotExistException) {
 			// Announcement was deleted in the meantime, so no need to announce it anymore
 			// So we die silently
 			return;
 		}
 
 		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist');
-		$this->enabledForGuestsUsers = strpos($guestsWhiteList, 'announcementcenter') !== false;
+		$this->enabledForGuestsUsers = str_contains($guestsWhiteList, 'announcementcenter');
 
 		$this->createPublicity($announcement, $argument);
 	}
@@ -155,7 +121,7 @@ class NotificationQueueJob extends QueuedJob {
 				continue;
 			}
 
-			if (strpos(trim($line), '* ') === 0) {
+			if (str_starts_with(trim($line), '* ')) {
 				$template->addBodyListItem(trim(substr($line, strpos($line, '*') + 1)), '', '', '', false);
 			} else {
 				$template->addBodyText($line);
@@ -170,7 +136,7 @@ class NotificationQueueJob extends QueuedJob {
 	 * @param array $publicity
 	 */
 	protected function createPublicityEveryone(string $authorId, IEvent $event, INotification $notification, IMessage $email, array $publicity): void {
-		$this->userManager->callForSeenUsers(function (IUser $user) use ($authorId, $event, $notification, $email, $publicity) {
+		$this->userManager->callForSeenUsers(function (IUser $user) use ($authorId, $event, $notification, $email, $publicity): void {
 			if (!$this->enabledForGuestsUsers && $user->getBackend() instanceof UserBackend) {
 				return;
 			}

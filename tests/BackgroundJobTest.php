@@ -161,7 +161,7 @@ class BackgroundJobTest extends TestCase {
 			->willReturn($uid . '@example.org');
 		$user
 			->method('isEnabled')
-			->willReturn(strpos($uid, 'disabled-') !== 0);
+			->willReturn(!str_starts_with($uid, 'disabled-'));
 		return $user;
 	}
 
@@ -356,7 +356,7 @@ class BackgroundJobTest extends TestCase {
 		$this->userManager->expects(self::once())
 			->method('callForSeenUsers')
 			->with(self::anything())
-			->willReturnCallback(function ($callback) {
+			->willReturnCallback(function ($callback): void {
 				$users = [
 					$this->getUserMock('author', 'User One'),
 					$this->getUserMock('u2', 'User Two'),

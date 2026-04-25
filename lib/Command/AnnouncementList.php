@@ -14,10 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Terminal;
 
 class AnnouncementList extends Command {
-	protected Manager $manager;
-	public function __construct(Manager $manager) {
+	public function __construct(
+		protected Manager $manager,
+	) {
 		parent::__construct();
-		$this->manager = $manager;
 	}
 
 	#[\Override]
@@ -78,9 +78,7 @@ class AnnouncementList extends Command {
 	}
 
 	private function formatTableRow(array $texts, array $widths, string $sep = ' '): string {
-		$callback = function ($a, $b) use ($sep) {
-			return $this->ellipseAndPadText($a, $b, $sep);
-		};
+		$callback = (fn ($a, $b) => $this->ellipseAndPadText($a, $b, $sep));
 		$formattedTexts = array_map(
 			$callback,
 			$texts,

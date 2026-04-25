@@ -44,9 +44,7 @@ class GroupMapper extends QBMapper {
 	 * @return array
 	 */
 	public function getGroupsForAnnouncements(array $announcements): array {
-		$ids = array_map(function (Announcement $announcement) {
-			return $announcement->getId();
-		}, $announcements);
+		$ids = array_map(fn (Announcement $announcement) => $announcement->getId(), $announcements);
 
 		$query = $this->db->getQueryBuilder();
 		$query->select('*')

@@ -29,14 +29,11 @@ class Group extends Entity {
 	 */
 	#[\Override]
 	public function columnToProperty($columnName): string {
-		switch ($columnName) {
-			case 'announcement_id':
-				return 'id';
-			case 'gid':
-				return 'group';
-		}
-
-		return parent::columnToProperty($columnName);
+		return match ($columnName) {
+			'announcement_id' => 'id',
+			'gid' => 'group',
+			default => parent::columnToProperty($columnName),
+		};
 	}
 
 	/**
@@ -45,13 +42,10 @@ class Group extends Entity {
 	 */
 	#[\Override]
 	public function propertyToColumn($property): string {
-		switch ($property) {
-			case 'id':
-				return 'announcement_id';
-			case 'group':
-				return 'gid';
-		}
-
-		return parent::propertyToColumn($property);
+		return match ($property) {
+			'id' => 'announcement_id',
+			'group' => 'gid',
+			default => parent::propertyToColumn($property),
+		};
 	}
 }

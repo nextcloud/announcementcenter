@@ -14,6 +14,7 @@ use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\NotificationType;
 use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -27,52 +28,33 @@ use OCP\IUserSession;
 use Psr\Log\LoggerInterface;
 
 class APIController extends OCSController {
-	protected IGroupManager $groupManager;
-	protected IUserManager $userManager;
-	protected IL10N $l;
-	protected Manager $manager;
-	protected ITimeFactory $timeFactory;
-	protected IUserSession $userSession;
-	protected LoggerInterface $logger;
-	protected NotificationType $notificationType;
-
-	public function __construct(string $appName,
+	public function __construct(
+		string $appName,
 		IRequest $request,
-		IGroupManager $groupManager,
-		IUserManager $userManager,
-		IL10N $l,
-		Manager $manager,
-		ITimeFactory $timeFactory,
-		IUserSession $userSession,
-		NotificationType $notificationType,
-		LoggerInterface $logger) {
+		protected IGroupManager $groupManager,
+		protected IUserManager $userManager,
+		protected IL10N $l,
+		protected Manager $manager,
+		protected ITimeFactory $timeFactory,
+		protected IUserSession $userSession,
+		protected NotificationType $notificationType,
+		protected LoggerInterface $logger,
+	) {
 		parent::__construct($appName, $request);
-
-		$this->groupManager = $groupManager;
-		$this->userManager = $userManager;
-		$this->l = $l;
-		$this->manager = $manager;
-		$this->timeFactory = $timeFactory;
-		$this->userSession = $userSession;
-		$this->notificationType = $notificationType;
-		$this->logger = $logger;
 	}
 
 	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
 	 * @param int $offset
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function get(int $offset = 0): DataResponse {
 		$announcements = $this->manager->getAnnouncements($offset);
-		$data = array_map([$this, 'renderAnnouncement'], $announcements);
+		$data = array_map($this->renderAnnouncement(...), $announcements);
 		return new DataResponse($data);
 	}
 
 	/**
-	 * @NoAdminRequired
 	 *
 	 * @param string $subject
 	 * @param string $message
@@ -86,6 +68,7 @@ class APIController extends OCSController {
 	 * @param ?int $deleteTime
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, ?int $scheduleTime = null, ?int $deleteTime = null): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
@@ -99,7 +82,7 @@ class APIController extends OCSController {
 
 		try {
 			$announcement = $this->manager->announce($subject, $message, $plainMessage, $userId, $this->timeFactory->getTime(), $groups, $comments, $notificationOptions, $scheduleTime, $deleteTime);
-		} catch (InvalidArgumentException $e) {
+		} catch (InvalidArgumentException) {
 			return new DataResponse(
 				['error' => $this->l->t('The subject is too long or empty')],
 				Http::STATUS_BAD_REQUEST
@@ -163,11 +146,11 @@ class APIController extends OCSController {
 	}
 
 	/**
-	 * @NoAdminRequired
 	 *
 	 * @param int $id
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function delete(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
@@ -185,18 +168,18 @@ class APIController extends OCSController {
 			$userId = $user instanceof IUser ? $user->getUID() : '';
 
 			$this->logger->info('Admin ' . $userId . ' deleted announcement: "' . $announcement->getSubject() . '"');
-		} catch (AnnouncementDoesNotExistException $e) {
+		} catch (AnnouncementDoesNotExistException) {
 		}
 
 		return new DataResponse();
 	}
 
 	/**
-	 * @NoAdminRequired
 	 *
 	 * @param int $id
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function removeNotifications(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
@@ -211,11 +194,11 @@ class APIController extends OCSController {
 	}
 
 	/**
-	 * @NoAdminRequired
 	 *
 	 * @param string $search
 	 * @return DataResponse
 	 */
+	#[NoAdminRequired]
 	public function searchGroups(string $search): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
 			return new DataResponse(
