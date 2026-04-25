@@ -32,10 +32,6 @@ class PageController extends Controller {
 		parent::__construct($appName, $request);
 	}
 
-	/**
-	 * @param int $announcement
-	 * @return TemplateResponse
-	 */
 	#[NoAdminRequired]
 	#[NoCSRFRequired]
 	public function index(int $announcement = 0): TemplateResponse {

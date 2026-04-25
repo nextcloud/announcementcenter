@@ -43,10 +43,6 @@ class APIController extends OCSController {
 		parent::__construct($appName, $request);
 	}
 
-	/**
-	 * @param int $offset
-	 * @return DataResponse
-	 */
 	#[NoAdminRequired]
 	public function get(int $offset = 0): DataResponse {
 		$announcements = $this->manager->getAnnouncements($offset);
@@ -55,18 +51,7 @@ class APIController extends OCSController {
 	}
 
 	/**
-	 *
-	 * @param string $subject
-	 * @param string $message
-	 * @param string $plainMessage
-	 * @param string[] $groups,
-	 * @param bool $activities
-	 * @param bool $notifications
-	 * @param bool $emails
-	 * @param bool $comments
-	 * @param ?int $scheduleTime
-	 * @param ?int $deleteTime
-	 * @return DataResponse
+	 * @param list<string> $groups
 	 */
 	#[NoAdminRequired]
 	public function add(string $subject, string $message, string $plainMessage, array $groups, bool $activities, bool $notifications, bool $emails, bool $comments, ?int $scheduleTime = null, ?int $deleteTime = null): DataResponse {
@@ -145,11 +130,6 @@ class APIController extends OCSController {
 		return $result;
 	}
 
-	/**
-	 *
-	 * @param int $id
-	 * @return DataResponse
-	 */
 	#[NoAdminRequired]
 	public function delete(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
@@ -174,11 +154,6 @@ class APIController extends OCSController {
 		return new DataResponse();
 	}
 
-	/**
-	 *
-	 * @param int $id
-	 * @return DataResponse
-	 */
 	#[NoAdminRequired]
 	public function removeNotifications(int $id): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
@@ -193,11 +168,6 @@ class APIController extends OCSController {
 		return new DataResponse();
 	}
 
-	/**
-	 *
-	 * @param string $search
-	 * @return DataResponse
-	 */
 	#[NoAdminRequired]
 	public function searchGroups(string $search): DataResponse {
 		if (!$this->manager->checkIsAdmin()) {
