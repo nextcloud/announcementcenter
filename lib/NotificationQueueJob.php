@@ -41,6 +41,7 @@ class NotificationQueueJob extends QueuedJob {
 		private readonly IMailer $mailer,
 		private readonly LoggerInterface $logger,
 		private readonly Manager $manager,
+		private readonly \OCP\IAppConfig $appConfig,
 	) {
 		parent::__construct($time);
 	}
@@ -58,8 +59,8 @@ class NotificationQueueJob extends QueuedJob {
 			return;
 		}
 
-		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist');
-		$this->enabledForGuestsUsers = str_contains($guestsWhiteList, 'announcementcenter');
+		$guestsWhiteList = $this->appConfig->getValue('guests', 'whitelist');
+		$this->enabledForGuestsUsers = str_contains((string)$guestsWhiteList, 'announcementcenter');
 
 		$this->createPublicity($announcement, $argument);
 	}

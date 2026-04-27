@@ -28,6 +28,7 @@ class PageController extends Controller {
 		protected ICommentsManager $commentsManager,
 		protected IConfig $config,
 		protected IInitialState $initialState,
+		private readonly \OCP\IAppConfig $appConfig,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -45,19 +46,19 @@ class PageController extends Controller {
 		);
 		$this->initialState->provideInitialState(
 			'createActivities',
-			$this->config->getAppValue(Application::APP_ID, 'create_activities', 'yes') === 'yes'
+			$this->appConfig->getValue(Application::APP_ID, 'create_activities', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
 			'createNotifications',
-			$this->config->getAppValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'
+			$this->appConfig->getValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
 			'sendEmails',
-			$this->config->getAppValue(Application::APP_ID, 'send_emails', 'yes') === 'yes'
+			$this->appConfig->getValue(Application::APP_ID, 'send_emails', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
 			'allowComments',
-			$this->config->getAppValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
+			$this->appConfig->getValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
 		);
 		$this->initialState->provideInitialState(
 			'activeId',
