@@ -97,39 +97,23 @@ class AnnounceTest extends TestCase {
 	}
 
 	public function setupInput($user, $subject, $message, $group, $activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime) {
-		$argumentCallback = function (string $property) use ($user, $subject, $message) {
-			switch ($property) {
-				case 'user':
-					return $user;
-				case 'message':
-					return $message;
-				case 'subject':
-					return $subject;
-				default:
-					throw new \InvalidArgumentException('Unknown property ' . $property);
-			}
-		};
+		$argumentCallback = (fn (string $property) => match ($property) {
+			'user' => $user,
+			'message' => $message,
+			'subject' => $subject,
+			default => throw new \InvalidArgumentException('Unknown property ' . $property),
+		});
 
-		$optionCallback = function (string $property) use ($activities, $notifications, $emails, $comments, $scheduleTime, $deleteTime, $group) {
-			switch ($property) {
-				case 'activities':
-					return $activities;
-				case 'notifications':
-					return $notifications;
-				case 'emails':
-					return $emails;
-				case 'comments':
-					return $comments;
-				case 'schedule-time':
-					return $scheduleTime;
-				case 'delete-time':
-					return $deleteTime;
-				case 'group':
-					return is_null($group) ? ['everyone'] : $group;
-				default:
-					throw new \InvalidArgumentException('Unknown property ' . $property);
-			}
-		};
+		$optionCallback = (fn (string $property) => match ($property) {
+			'activities' => $activities,
+			'notifications' => $notifications,
+			'emails' => $emails,
+			'comments' => $comments,
+			'schedule-time' => $scheduleTime,
+			'delete-time' => $deleteTime,
+			'group' => is_null($group) ? ['everyone'] : $group,
+			default => throw new \InvalidArgumentException('Unknown property ' . $property),
+		});
 		$this->input->expects($this->atLeastOnce())
 			->method('getArgument')
 			->willReturnCallback($argumentCallback);

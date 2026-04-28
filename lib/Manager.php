@@ -180,7 +180,7 @@ class Manager {
 	public function getAnnouncement(int $id, bool $ignorePermissions = false): Announcement {
 		try {
 			$announcement = $this->announcementMapper->getById($id);
-		} catch (DoesNotExistException $e) {
+		} catch (DoesNotExistException) {
 			throw new AnnouncementDoesNotExistException();
 		}
 

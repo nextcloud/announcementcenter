@@ -60,9 +60,7 @@ class APIControllerTest extends TestCase {
 
 		$this->l
 			->method('t')
-			->willReturnCallback(function ($string, $args) {
-				return vsprintf($string, $args);
-			});
+			->willReturnCallback(fn ($string, $args) => vsprintf($string, $args));
 	}
 
 	/**

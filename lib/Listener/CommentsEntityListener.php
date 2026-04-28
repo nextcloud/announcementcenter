@@ -18,12 +18,9 @@ use OCP\EventDispatcher\IEventListener;
  * @template-implements IEventListener<Event>
  */
 class CommentsEntityListener implements IEventListener {
-	protected Manager $manager;
-
 	public function __construct(
-		Manager $manager,
+		protected Manager $manager,
 	) {
-		$this->manager = $manager;
 	}
 
 	#[\Override]

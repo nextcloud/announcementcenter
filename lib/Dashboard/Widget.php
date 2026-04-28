@@ -24,27 +24,14 @@ use OCP\IUserManager;
 use OCP\Util;
 
 class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
-	private Manager $manager;
-	private IUserManager $userManager;
-	private IURLGenerator $url;
-	private IInitialState $initialState;
-	private IDateTimeFormatter $dateTimeFormatter;
-	private IL10N $l10n;
-
 	public function __construct(
-		Manager $manager,
-		IUserManager $userManager,
-		IURLGenerator $url,
-		IInitialState $initialState,
-		IDateTimeFormatter $dateTimeFormatter,
-		IL10N $l10n,
+		private readonly Manager $manager,
+		private readonly IUserManager $userManager,
+		private readonly IURLGenerator $url,
+		private readonly IInitialState $initialState,
+		private readonly IDateTimeFormatter $dateTimeFormatter,
+		private readonly IL10N $l10n,
 	) {
-		$this->manager = $manager;
-		$this->userManager = $userManager;
-		$this->url = $url;
-		$this->initialState = $initialState;
-		$this->dateTimeFormatter = $dateTimeFormatter;
-		$this->l10n = $l10n;
 	}
 
 	#[\Override]
@@ -95,7 +82,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	public function load(): void {
 		$this->initialState->provideLazyInitialState(Application::APP_ID . '_dashboard', function () {
 			$announcements = $this->manager->getAnnouncements();
-			return array_map([$this, 'renderAnnouncement'], $announcements);
+			return array_map($this->renderAnnouncement(...), $announcements);
 		});
 		Util::addStyle(Application::APP_ID, 'dashboard');
 		Util::addScript(Application::APP_ID, Application::APP_ID . '-dashboard');
@@ -122,7 +109,7 @@ class Widget implements IAPIWidget, IButtonWidget, IIconWidget {
 	#[\Override]
 	public function getItems(string $userId, ?string $since = null, int $limit = 7): array {
 		$announcements = $this->manager->getAnnouncements((int)$since, $limit);
-		$data = array_map([$this, 'renderAnnouncementAPI'], $announcements);
+		$data = array_map($this->renderAnnouncementAPI(...), $announcements);
 		return $data;
 	}
 

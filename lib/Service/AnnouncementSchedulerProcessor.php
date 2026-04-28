@@ -14,19 +14,16 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use Psr\Log\LoggerInterface;
 
 class AnnouncementSchedulerProcessor {
-	private AnnouncementMapper $mapper;
-	private Manager $manager;
-	private ITimeFactory $timeFactory;
-	private LoggerInterface $logger;
 	/**
 	 * Create cron that is fetching the b2share communities api
 	 * with dependency injection
 	 */
-	public function __construct(AnnouncementMapper $mapper, Manager $manager, ITimeFactory $time, LoggerInterface $logger) {
-		$this->mapper = $mapper;
-		$this->manager = $manager;
-		$this->timeFactory = $time;
-		$this->logger = $logger;
+	public function __construct(
+		private readonly AnnouncementMapper $mapper,
+		private readonly Manager $manager,
+		private readonly ITimeFactory $timeFactory,
+		private readonly LoggerInterface $logger,
+	) {
 	}
 
 	public function doCron($argument) {

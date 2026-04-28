@@ -11,6 +11,8 @@ namespace OCA\AnnouncementCenter\Controller;
 use OCA\AnnouncementCenter\AppInfo\Application;
 use OCA\AnnouncementCenter\Manager;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http\Attribute\NoAdminRequired;
+use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
@@ -19,40 +21,19 @@ use OCP\IRequest;
 use OCP\Util;
 
 class PageController extends Controller {
-
-
-	/** @var Manager */
-	protected $manager;
-	/** @var ICommentsManager */
-	protected $commentsManager;
-
-	/** @var IConfig */
-	protected $config;
-
-	/** @var IInitialState */
-	protected $initialState;
-
-	public function __construct(string $AppName,
+	public function __construct(
+		string $appName,
 		IRequest $request,
-		Manager $manager,
-		ICommentsManager $commentsManager,
-		IConfig $config,
-		IInitialState $initialState) {
-		parent::__construct($AppName, $request);
-
-		$this->manager = $manager;
-		$this->commentsManager = $commentsManager;
-		$this->config = $config;
-		$this->initialState = $initialState;
+		protected Manager $manager,
+		protected ICommentsManager $commentsManager,
+		protected IConfig $config,
+		protected IInitialState $initialState,
+	) {
+		parent::__construct($appName, $request);
 	}
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 *
-	 * @param int $announcement
-	 * @return TemplateResponse
-	 */
+	#[NoAdminRequired]
+	#[NoCSRFRequired]
 	public function index(int $announcement = 0): TemplateResponse {
 		if ($announcement) {
 			$this->manager->markNotificationRead($announcement);

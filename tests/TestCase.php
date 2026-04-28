@@ -9,4 +9,7 @@ declare(strict_types=1);
 namespace OCA\AnnouncementCenter\Tests;
 
 abstract class TestCase extends \Test\TestCase {
+	protected function setUp(): void {
+		parent::setUp();
+	}
 }

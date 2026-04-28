@@ -43,7 +43,7 @@ class AnnouncementSchedulerJobTest extends TestCase {
 		$backgroundJobs = $info->{'background-jobs'};
 		$job = (string)$backgroundJobs[0]->job;
 
-		$expected = get_class($this->asj);
+		$expected = $this->asj::class;
 		self::assertEquals($expected, $job);
 	}
 }

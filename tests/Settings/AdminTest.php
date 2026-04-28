@@ -100,7 +100,7 @@ class AdminTest extends TestCase {
 			->willReturnMap($configMap);
 
 		$this->initialState->method('provideInitialState')
-			->willReturnCallback(function ($key, $data) use ($adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments) {
+			->willReturnCallback(function ($key, $data) use ($adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments): void {
 				switch ($key) {
 					case 'admin_groups':
 						self::assertEquals($adminGroups, $data);

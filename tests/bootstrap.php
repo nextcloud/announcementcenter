@@ -15,6 +15,6 @@ require_once __DIR__ . '/../../../tests/autoload.php';
 
 \OCP\Server::get(\OCP\App\IAppManager::class)->loadApp('announcementcenter');
 
-if (!class_exists('\PHPUnit\Framework\TestCase')) {
+if (!class_exists(\PHPUnit\Framework\TestCase::class)) {
 	require_once('PHPUnit/Autoload.php');
 }
