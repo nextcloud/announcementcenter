@@ -111,7 +111,7 @@ class AnnounceTest extends TestCase {
 			'comments' => $comments,
 			'schedule-time' => $scheduleTime,
 			'delete-time' => $deleteTime,
-			'group' => is_null($group) ? ['everyone'] : $group,
+			'group' => $group ?? ['everyone'],
 			default => throw new \InvalidArgumentException('Unknown property ' . $property),
 		});
 		$this->input->expects($this->atLeastOnce())

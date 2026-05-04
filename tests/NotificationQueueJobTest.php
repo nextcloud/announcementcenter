@@ -15,12 +15,13 @@ use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Utility\ITimeFactory;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Mail\IEMailTemplate;
+use OCP\Mail\IEmailValidator;
 use OCP\Mail\IMailer;
 use OCP\Mail\IMessage;
 use OCP\Notification\IManager as INotificationManager;
@@ -30,8 +31,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
 #[\PHPUnit\Framework\Attributes\Group('DB')]
-class BackgroundJobTest extends TestCase {
-	protected IConfig&MockObject $config;
+class NotificationQueueJobTest extends TestCase {
 	protected ITimeFactory&MockObject $time;
 	protected IUserManager&MockObject $userManager;
 	protected IGroupManager&MockObject $groupManager;
@@ -40,11 +40,12 @@ class BackgroundJobTest extends TestCase {
 	protected IMailer&MockObject $mailer;
 	protected LoggerInterface&MockObject $logger;
 	protected Manager&MockObject $manager;
+	protected IAppConfig&MockObject $appConfig;
+	protected IEmailValidator&MockObject $emailValidator;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->config = $this->createMock(IConfig::class);
 		$this->time = $this->createMock(ITimeFactory::class);
 		$this->userManager = $this->createMock(IUserManager::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
@@ -53,26 +54,13 @@ class BackgroundJobTest extends TestCase {
 		$this->mailer = $this->createMock(IMailer::class);
 		$this->logger = $this->createMock(LoggerInterface::class);
 		$this->manager = $this->createMock(Manager::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
+		$this->emailValidator = $this->createMock(IEmailValidator::class);
 	}
 
 	protected function getJob(array $methods = []) {
 		if (empty($methods)) {
 			return new NotificationQueueJob(
-				$this->config,
-				$this->time,
-				$this->userManager,
-				$this->groupManager,
-				$this->activityManager,
-				$this->notificationManager,
-				$this->mailer,
-				$this->logger,
-				$this->manager
-			);
-		}
-
-		return $this->getMockBuilder(NotificationQueueJob::class)
-			->setConstructorArgs([
-				$this->config,
 				$this->time,
 				$this->userManager,
 				$this->groupManager,
@@ -81,6 +69,23 @@ class BackgroundJobTest extends TestCase {
 				$this->mailer,
 				$this->logger,
 				$this->manager,
+				$this->appConfig,
+				$this->emailValidator,
+			);
+		}
+
+		return $this->getMockBuilder(NotificationQueueJob::class)
+			->setConstructorArgs([
+				$this->time,
+				$this->userManager,
+				$this->groupManager,
+				$this->activityManager,
+				$this->notificationManager,
+				$this->mailer,
+				$this->logger,
+				$this->manager,
+				$this->appConfig,
+				$this->emailValidator,
 			])
 			->onlyMethods($methods)
 			->getMock();
@@ -116,7 +121,7 @@ class BackgroundJobTest extends TestCase {
 	public function testRun(int $id, bool $activities, bool $notifications): void {
 		$job = $this->getJob(['createPublicity']);
 
-		$this->config->method('getAppValue')
+		$this->appConfig->method('getValueString')
 			->with('guests', 'whitelist', '')
 			->willReturn('');
 
@@ -348,8 +353,8 @@ class BackgroundJobTest extends TestCase {
 			->method('setTo')
 			->willReturnSelf();
 
-		$this->mailer->expects(self::any())
-			->method('validateMailAddress')
+		$this->emailValidator->expects(self::any())
+			->method('isValid')
 			->willReturn(true);
 
 		$job = $this->getJob();

@@ -14,12 +14,9 @@ use OCP\Migration\IOutput;
 use OCP\Migration\IRepairStep;
 
 class AnnouncementsGroupsLinks implements IRepairStep {
-
-	/** @var IDBConnection */
-	protected $connection;
-
-	public function __construct(IDBConnection $connection) {
-		$this->connection = $connection;
+	public function __construct(
+		protected IDBConnection $connection,
+	) {
 	}
 
 	/**

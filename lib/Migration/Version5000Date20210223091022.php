@@ -20,12 +20,9 @@ use OCP\Migration\SimpleMigrationStep;
  * Move to a groups table with PK for cluster support
  */
 class Version5000Date20210223091022 extends SimpleMigrationStep {
-
-	/** @var IDBConnection */
-	protected $connection;
-
-	public function __construct(IDBConnection $connection) {
-		$this->connection = $connection;
+	public function __construct(
+		protected IDBConnection $connection,
+	) {
 	}
 
 	/**

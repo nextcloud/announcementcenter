@@ -11,9 +11,9 @@ namespace OCA\AnnouncementCenter\Tests\Controller;
 use OCA\AnnouncementCenter\Controller\PageController;
 use OCA\AnnouncementCenter\Manager;
 use OCA\AnnouncementCenter\Tests\TestCase;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
-use OCP\IConfig;
 use OCP\IRequest;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -25,8 +25,8 @@ class PageControllerTest extends TestCase {
 	protected IRequest&MockObject $request;
 	protected Manager&MockObject $manager;
 	protected ICommentsManager&MockObject $commentsManager;
-	protected IConfig&MockObject $config;
 	protected IInitialState&MockObject $initialState;
+	protected IAppConfig&MockObject $appConfig;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -34,8 +34,8 @@ class PageControllerTest extends TestCase {
 		$this->request = $this->createMock(IRequest::class);
 		$this->manager = $this->createMock(Manager::class);
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
-		$this->config = $this->createMock(IConfig::class);
 		$this->initialState = $this->createMock(IInitialState::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
 	}
 
 	protected function getController(): PageController {
@@ -44,29 +44,29 @@ class PageControllerTest extends TestCase {
 			$this->request,
 			$this->manager,
 			$this->commentsManager,
-			$this->config,
-			$this->initialState
+			$this->initialState,
+			$this->appConfig,
 		);
 	}
 
 	public static function dataIndex(): array {
 		return [
-			[true, 'yes', true, 'no', false, 'no', false, 'no', false],
-			[false, 'no', false, 'yes', true, 'yes', true, 'yes', true],
-			[false, 'no', false, 'no', false, 'yes', true, 'yes', true],
+			[true, true, true, false, false, false, false, false, false],
+			[false, false, false, true, true, true, true, true, true],
+			[false, false, false, false, false, true, true, true, true],
 		];
 	}
 
 	#[DataProvider('dataIndex')]
-	public function testIndex(bool $isAdmin, string $createActivitiesConfig, bool $createActivities, string $createNotificationsConfig, bool $createNotifications, string $sendEmailsConfig, bool $sendEmails, string $allowCommentsConfig, bool $allowComments): void {
+	public function testIndex(bool $isAdmin, bool $createActivitiesConfig, bool $createActivities, bool $createNotificationsConfig, bool $createNotifications, bool $sendEmailsConfig, bool $sendEmails, bool $allowCommentsConfig, bool $allowComments): void {
 		$this->manager->method('checkIsAdmin')
 			->willReturn($isAdmin);
-		$this->config->method('getAppValue')
+		$this->appConfig->method('getAppValueBool')
 			->willReturnMap([
-				['announcementcenter', 'create_activities', 'yes', $createActivitiesConfig],
-				['announcementcenter', 'create_notifications', 'yes', $createNotificationsConfig],
-				['announcementcenter', 'send_emails', 'yes', $sendEmailsConfig],
-				['announcementcenter', 'allow_comments', 'yes', $allowCommentsConfig],
+				['create_activities', true, $createActivitiesConfig],
+				['create_notifications', true, $createNotificationsConfig],
+				['send_emails', true, $sendEmailsConfig],
+				['allow_comments', true, $allowCommentsConfig],
 			]);
 
 		$calls = [

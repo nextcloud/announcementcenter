@@ -20,37 +20,16 @@ use OCP\IUserManager;
 use OCP\L10N\IFactory;
 
 class Provider implements IProvider {
-
-	/** @var IFactory */
-	protected $languageFactory;
-
-	/** @var IURLGenerator */
-	protected $url;
-
-	/** @var IActivityManager */
-	protected $activityManager;
-
-	/** @var IUserManager */
-	protected $userManager;
-
-	/** @var Manager */
-	protected $manager;
-
 	/** @var string[] */
 	protected $displayNames = [];
 
 	public function __construct(
-		IFactory $languageFactory,
-		IURLGenerator $url,
-		IActivityManager $activityManager,
-		IUserManager $userManager,
-		Manager $manager,
+		protected IFactory $languageFactory,
+		protected IURLGenerator $url,
+		protected IActivityManager $activityManager,
+		protected IUserManager $userManager,
+		protected Manager $manager,
 	) {
-		$this->languageFactory = $languageFactory;
-		$this->url = $url;
-		$this->activityManager = $activityManager;
-		$this->userManager = $userManager;
-		$this->manager = $manager;
 	}
 
 	/**

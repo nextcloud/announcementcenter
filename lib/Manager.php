@@ -16,62 +16,27 @@ use OCA\AnnouncementCenter\Model\Group;
 use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCA\AnnouncementCenter\Model\NotificationType;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\DB\Exception;
-use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserSession;
 use OCP\Notification\IManager as INotificationManager;
 
 class Manager {
-
-	/** @var IConfig */
-	protected $config;
-
-	/** @var AnnouncementMapper */
-	protected $announcementMapper;
-
-	/** @var GroupMapper */
-	protected $groupMapper;
-
-	/** @var IGroupManager */
-	protected $groupManager;
-
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var ICommentsManager */
-	protected $commentsManager;
-
-	/** @var IJobList */
-	protected $jobList;
-
-	/** @var IUserSession */
-	protected $userSession;
-
-	/** @var NotificationType */
-	protected $notificationType;
-
-	public function __construct(IConfig $config,
-		AnnouncementMapper $announcementMapper,
-		GroupMapper $groupMapper,
-		IGroupManager $groupManager,
-		INotificationManager $notificationManager,
-		ICommentsManager $commentsManager,
-		IJobList $jobList,
-		IUserSession $userSession,
-		NotificationType $notificationType) {
-		$this->config = $config;
-		$this->announcementMapper = $announcementMapper;
-		$this->groupMapper = $groupMapper;
-		$this->groupManager = $groupManager;
-		$this->notificationManager = $notificationManager;
-		$this->commentsManager = $commentsManager;
-		$this->jobList = $jobList;
-		$this->userSession = $userSession;
-		$this->notificationType = $notificationType;
+	public function __construct(
+		protected AnnouncementMapper $announcementMapper,
+		protected GroupMapper $groupMapper,
+		protected IGroupManager $groupManager,
+		protected INotificationManager $notificationManager,
+		protected ICommentsManager $commentsManager,
+		protected IJobList $jobList,
+		protected IUserSession $userSession,
+		protected NotificationType $notificationType,
+		protected IAppConfig $appConfig,
+	) {
 	}
 
 	/**
@@ -332,8 +297,6 @@ class Manager {
 	 * @return string[]
 	 */
 	protected function getAdminGroups(): array {
-		$adminGroups = $this->config->getAppValue('announcementcenter', 'admin_groups', '["admin"]');
-		$adminGroups = json_decode($adminGroups, true);
-		return $adminGroups;
+		return $this->appConfig->getAppValueArray('admin_groups', ['admin']);
 	}
 }
