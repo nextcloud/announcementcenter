@@ -20,32 +20,13 @@ use OCP\Notification\INotifier;
 use OCP\Notification\UnknownNotificationException;
 
 class Notifier implements INotifier {
-
-	/** @var Manager */
-	protected $manager;
-
-	/** @var IFactory */
-	protected $l10nFactory;
-
-	/** @var INotificationManager */
-	protected $notificationManager;
-
-	/** @var IUserManager */
-	protected $userManager;
-
-	/** @var IURLGenerator */
-	protected $urlGenerator;
-
-	public function __construct(Manager $manager,
-		IFactory $l10nFactory,
-		INotificationManager $notificationManager,
-		IUserManager $userManager,
-		IURLGenerator $urlGenerator) {
-		$this->manager = $manager;
-		$this->l10nFactory = $l10nFactory;
-		$this->notificationManager = $notificationManager;
-		$this->userManager = $userManager;
-		$this->urlGenerator = $urlGenerator;
+	public function __construct(
+		protected Manager $manager,
+		protected IFactory $l10nFactory,
+		protected INotificationManager $notificationManager,
+		protected IUserManager $userManager,
+		protected IURLGenerator $urlGenerator,
+	) {
 	}
 
 	/**

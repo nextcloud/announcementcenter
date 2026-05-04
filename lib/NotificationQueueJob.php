@@ -15,12 +15,13 @@ use OCP\Activity\IEvent;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\QueuedJob;
-use OCP\IConfig;
+use OCP\IAppConfig;
 use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserManager;
 use OCP\Mail\IEMailTemplate;
+use OCP\Mail\IEmailValidator;
 use OCP\Mail\IMailer;
 use OCP\Mail\IMessage;
 use OCP\Notification\IManager as INotificationManager;
@@ -32,7 +33,6 @@ class NotificationQueueJob extends QueuedJob {
 	protected bool $enabledForGuestsUsers = false;
 
 	public function __construct(
-		protected IConfig $config,
 		ITimeFactory $time,
 		private readonly IUserManager $userManager,
 		private readonly IGroupManager $groupManager,
@@ -41,6 +41,8 @@ class NotificationQueueJob extends QueuedJob {
 		private readonly IMailer $mailer,
 		private readonly LoggerInterface $logger,
 		private readonly Manager $manager,
+		private readonly IAppConfig $appConfig,
+		private readonly IEmailValidator $emailValidator,
 	) {
 		parent::__construct($time);
 	}
@@ -58,7 +60,7 @@ class NotificationQueueJob extends QueuedJob {
 			return;
 		}
 
-		$guestsWhiteList = $this->config->getAppValue('guests', 'whitelist');
+		$guestsWhiteList = $this->appConfig->getValueString('guests', 'whitelist');
 		$this->enabledForGuestsUsers = str_contains($guestsWhiteList, 'announcementcenter');
 
 		$this->createPublicity($announcement, $argument);
@@ -152,7 +154,7 @@ class NotificationQueueJob extends QueuedJob {
 			}
 
 			if (!empty($publicity['emails']) && $authorId !== $user->getUID() && $user->getEMailAddress() && $user->isEnabled()) {
-				if (!$this->mailer->validateMailAddress($user->getEMailAddress())) {
+				if (!$this->emailValidator->isValid($user->getEMailAddress())) {
 					$this->logger->warning('User has no valid email address: ' . $user->getUID());
 					return;
 				}

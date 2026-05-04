@@ -18,6 +18,6 @@ return RectorConfig::configure()
 	])
 	->withPhpSets(php81: true)
 	->withSets([
-		NextcloudSets::NEXTCLOUD_30,
+		NextcloudSets::NEXTCLOUD_32,
 	])
 	->withTypeCoverageLevel(0);

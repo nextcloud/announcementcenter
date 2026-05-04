@@ -11,82 +11,76 @@ namespace OCA\AnnouncementCenter\Tests\Settings;
 use OCA\AnnouncementCenter\Settings\Admin;
 use OCA\AnnouncementCenter\Tests\TestCase;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
-use OCP\IConfig;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class AdminTest extends TestCase {
 	private Admin $admin;
-	protected IConfig&MockObject $config;
 	protected IInitialState&MockObject $initialState;
+	protected IAppConfig&MockObject $appConfig;
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->config = $this->createMock(IConfig::class);
 		$this->initialState = $this->createMock(IInitialState::class);
-		$this->admin = new Admin($this->config, $this->initialState);
+		$this->appConfig = $this->createMock(IAppConfig::class);
+		$this->admin = new Admin($this->appConfig, $this->initialState);
 	}
 
 	public static function dataGetForm(): array {
 		return [
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'yes'],
-					['announcementcenter', 'create_notifications', 'yes', 'yes'],
-					['announcementcenter', 'send_emails', 'yes', 'yes'],
-					['announcementcenter', 'allow_comments', 'yes', 'yes'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+					['create_activities', true, true],
+					['create_notifications', true, true],
+					['send_emails', true, true],
+					['allow_comments', true, true],
 				],
 				['admin'], true, true, true, true,
 			],
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'no'],
-					['announcementcenter', 'create_notifications', 'yes', 'yes'],
-					['announcementcenter', 'send_emails', 'yes', 'yes'],
-					['announcementcenter', 'allow_comments', 'yes', 'yes'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+					['create_activities', true, false],
+					['create_notifications', true, true],
+					['send_emails', true, true],
+					['allow_comments', true, true],
 				],
 				['admin'], false, true, true, true,
 			],
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'yes'],
-					['announcementcenter', 'create_notifications', 'yes', 'no'],
-					['announcementcenter', 'send_emails', 'yes', 'yes'],
-					['announcementcenter', 'allow_comments', 'yes', 'yes'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+					['create_activities', true, true],
+					['create_notifications', true, false],
+					['send_emails', true, true],
+					['allow_comments', true, true],
 				],
 				['admin'], true, false, true, true,
 			],
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'yes'],
-					['announcementcenter', 'create_notifications', 'yes', 'yes'],
-					['announcementcenter', 'send_emails', 'yes', 'no'],
-					['announcementcenter', 'allow_comments', 'yes', 'yes'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+					['create_activities', true, true],
+					['create_notifications', true, true],
+					['send_emails', true, false],
+					['allow_comments', true, true],
 				],
 				['admin'], true, true, false, true,
 			],
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'yes'],
-					['announcementcenter', 'create_notifications', 'yes', 'yes'],
-					['announcementcenter', 'send_emails', 'yes', 'yes'],
-					['announcementcenter', 'allow_comments', 'yes', 'no'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin'])],
+					['create_activities', true, true],
+					['create_notifications', true, true],
+					['send_emails', true, true],
+					['allow_comments', true, false],
 				],
 				['admin'], true, true, true, false,
 			],
 			[
 				[
-					['announcementcenter', 'create_activities', 'yes', 'no'],
-					['announcementcenter', 'create_notifications', 'yes', 'no'],
-					['announcementcenter', 'send_emails', 'yes', 'no'],
-					['announcementcenter', 'allow_comments', 'yes', 'no'],
-					['announcementcenter', 'admin_groups', json_encode(['admin']), json_encode(['admin', 'group2'])],
+					['create_activities', true, false],
+					['create_notifications', true, false],
+					['send_emails', true, false],
+					['allow_comments', true, false],
 				],
 				['admin', 'group2'], false, false, false, false,
 			],
@@ -95,9 +89,14 @@ class AdminTest extends TestCase {
 
 	#[DataProvider('dataGetForm')]
 	public function testGetForm(array $configMap, array $adminGroups, bool $createActivities, bool $createNotifications, bool $sendEmails, bool $allowComments): void {
-		$this->config->expects(self::exactly(5))
-			->method('getAppValue')
+		$this->appConfig->expects(self::exactly(4))
+			->method('getAppValueBool')
 			->willReturnMap($configMap);
+		$this->appConfig->expects(self::once())
+			->method('getAppValueArray')
+			->willReturnMap([
+				['admin_groups', ['admin'], $adminGroups],
+			]);
 
 		$this->initialState->method('provideInitialState')
 			->willReturnCallback(function ($key, $data) use ($adminGroups, $createActivities, $createNotifications, $sendEmails, $allowComments): void {

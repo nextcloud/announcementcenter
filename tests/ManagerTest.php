@@ -16,9 +16,9 @@ use OCA\AnnouncementCenter\Model\GroupMapper;
 use OCA\AnnouncementCenter\Model\NotificationType;
 use OCA\AnnouncementCenter\NotificationQueueJob;
 use OCP\AppFramework\Db\DoesNotExistException;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
-use OCP\IConfig;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IUser;
@@ -30,7 +30,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 #[\PHPUnit\Framework\Attributes\Group('DB')]
 class ManagerTest extends TestCase {
-	protected IConfig&MockObject $config;
 	protected AnnouncementMapper&MockObject $announcementMapper;
 	protected GroupMapper&MockObject $groupMapper;
 	protected IGroupManager&MockObject $groupManager;
@@ -39,12 +38,12 @@ class ManagerTest extends TestCase {
 	protected IJobList&MockObject $jobList;
 	protected IUserSession&MockObject $userSession;
 	protected NotificationType&MockObject $notificationType;
+	protected IAppConfig&MockObject $appConfig;
 	protected Manager $manager;
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->config = $this->createMock(IConfig::class);
 		$this->announcementMapper = $this->createMock(AnnouncementMapper::class);
 		$this->groupMapper = $this->createMock(GroupMapper::class);
 		$this->groupManager = $this->createMock(IGroupManager::class);
@@ -53,9 +52,9 @@ class ManagerTest extends TestCase {
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->notificationType = $this->createMock(NotificationType::class);
+		$this->appConfig = $this->createMock(IAppConfig::class);
 
 		$this->manager = new Manager(
-			$this->config,
 			$this->announcementMapper,
 			$this->groupMapper,
 			$this->groupManager,
@@ -63,7 +62,8 @@ class ManagerTest extends TestCase {
 			$this->commentsManager,
 			$this->jobList,
 			$this->userSession,
-			$this->notificationType
+			$this->notificationType,
+			$this->appConfig,
 		);
 
 		$query = \OCP\Server::get(IDBConnection::class)->getQueryBuilder();
@@ -336,10 +336,10 @@ class ManagerTest extends TestCase {
 
 	#[DataProvider('dataCheckIsAdmin')]
 	public function testCheckIsAdmin(array $adminGroups, array $inGroupMap, bool $expected) {
-		$this->config
-			->method('getAppValue')
-			->with('announcementcenter', 'admin_groups', '["admin"]')
-			->willReturn(json_encode($adminGroups));
+		$this->appConfig
+			->method('getAppValueArray')
+			->with('admin_groups', ['admin'])
+			->willReturn($adminGroups);
 
 		$user = $this->getUserMock('uid');
 		$this->userSession

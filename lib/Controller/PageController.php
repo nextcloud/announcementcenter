@@ -14,9 +14,9 @@ use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\TemplateResponse;
+use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
-use OCP\IConfig;
 use OCP\IRequest;
 use OCP\Util;
 
@@ -26,8 +26,8 @@ class PageController extends Controller {
 		IRequest $request,
 		protected Manager $manager,
 		protected ICommentsManager $commentsManager,
-		protected IConfig $config,
 		protected IInitialState $initialState,
+		protected IAppConfig $appConfig,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -45,19 +45,19 @@ class PageController extends Controller {
 		);
 		$this->initialState->provideInitialState(
 			'createActivities',
-			$this->config->getAppValue(Application::APP_ID, 'create_activities', 'yes') === 'yes'
+			$this->appConfig->getAppValueBool('create_activities', true)
 		);
 		$this->initialState->provideInitialState(
 			'createNotifications',
-			$this->config->getAppValue(Application::APP_ID, 'create_notifications', 'yes') === 'yes'
+			$this->appConfig->getAppValueBool('create_notifications', true)
 		);
 		$this->initialState->provideInitialState(
 			'sendEmails',
-			$this->config->getAppValue(Application::APP_ID, 'send_emails', 'yes') === 'yes'
+			$this->appConfig->getAppValueBool('send_emails', true)
 		);
 		$this->initialState->provideInitialState(
 			'allowComments',
-			$this->config->getAppValue(Application::APP_ID, 'allow_comments', 'yes') === 'yes'
+			$this->appConfig->getAppValueBool('allow_comments', true)
 		);
 		$this->initialState->provideInitialState(
 			'activeId',
