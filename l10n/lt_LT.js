@@ -14,8 +14,9 @@ OC.L10N.register(
     "{user} announced {announcement}" : "{user} paskelbė {announcement}",
     "{user} announced “{announcement}”" : "{user} paskelbė „{announcement}“",
     "Announcement center" : "Skelbimų centras",
-    "This app allows admins to post announcements." : "Ši programa leidžia administratoriams skelbti pranešimus.",
+    "This app allows admins to post announcements." : "Ši programėlė leidžia administratoriams skelbti pranešimus.",
     "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Paskelbkite apie techninės priežiūros langą 🎛️, pristatykite naują kolegą 👤 ir užtikrinkite, kad visi sužinotų apie kitą mėnesį artėjantį didelį įvykį 📅\n\n🖌️ „Markdown“ palaikymas\n\n📑 Komentarai, įskaitant @-paminėjimus\n\n👪 Grupės leidimai\n\n⭕ Integracija į skydelį\n\n⚡ Integracija į veiklas\n\n🔔 Integracija į pranešimus",
+    "Setting changed" : "Nustatymas pakeistas",
     "An error occurred while changing the setting" : "Keičiant nustatymą įvyko klaida",
     "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
     "Create activities by default" : "Pagal numatymą, kurti veiklas",
@@ -29,6 +30,7 @@ OC.L10N.register(
     "visible to group {name}" : "matomas grupei „{name}“",
     "visible to groups {name1} and {name2}" : "matomas grupėms „{name1}“ ir „{name2}“",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["matomas grupei „{name}“ ir dar %n grupei","matomas grupei „{name}“ ir dar %n grupėms","matomas grupei „{name}“ ir dar %n grupių","matomas grupei „{name}“ ir dar %n grupei"],
+    "scheduled at {time}" : "numatyta {time}",
     ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komentaras","%n komentarai","%n komentarų","%n komentaras"],
     "An error occurred while removing the notifications of the announcement" : "Šalinant skelbimo pranešimus, įvyko klaida",
@@ -46,6 +48,8 @@ OC.L10N.register(
     "Visibility" : "Matomumas",
     "Everyone" : "Visi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šios grupės galės matyti skelbimą. Jeigu nebus pasirinkta jokia grupė, tuomet skelbimą galės matyti visi naudotojai.",
+    "Schedule announcement time" : "Suplanuokite paskelbimo laiką",
+    "Schedule deletion time" : "Suplanuokite ištrynimo laiką",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != 0 ? 2: 3);");
