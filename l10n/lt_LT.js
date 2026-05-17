@@ -15,7 +15,7 @@ OC.L10N.register(
     "{user} announced “{announcement}”" : "{user} paskelbė „{announcement}“",
     "Announcement center" : "Skelbimų centras",
     "This app allows admins to post announcements." : "Ši programėlė leidžia administratoriams skelbti pranešimus.",
-    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Paskelbkite apie techninės priežiūros langą 🎛️, pristatykite naują kolegą 👤 ir užtikrinkite, kad visi sužinotų apie kitą mėnesį artėjantį didelį įvykį 📅\n\n🖌️ „Markdown“ palaikymas\n\n📑 Komentarai, įskaitant @-paminėjimus\n\n👪 Grupės leidimai\n\n⭕ Integracija į skydelį\n\n⚡ Integracija į veiklas\n\n🔔 Integracija į pranešimus",
+    "Announce your maintenance window 🎛️, introduce a new colleague 👤 or make sure everyone knows about the big event next month 📅\n\n🖌️ Markdown support\n\n📑 Comments including @-mentions\n\n👪 Group permissions\n\n⭕ Dashboard integration\n\n⚡ Activities integration\n\n🔔 Notifications integration" : "Paskelbkite apie techninės priežiūros langą 🎛️, pristatykite naują kolegą 👤 ir užtikrinkite, kad visi sužinotų apie kitą mėnesį artėjantį didelį įvykį 📅\n\n🖌️ „Markdown“ palaikymas\n\n📑 Komentarai, įskaitant @-paminėjimus\n\n👪 Grupės leidimai\n\n⭕ Integracija į Skydelį\n\n⚡ Integracija į Veiklas\n\n🔔 Integracija į Pranešimus",
     "Setting changed" : "Nustatymas pakeistas",
     "An error occurred while changing the setting" : "Keičiant nustatymą įvyko klaida",
     "These groups will be able to post announcements." : "Šios grupės galės skelbti skelbimus.",
