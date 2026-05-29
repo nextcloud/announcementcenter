@@ -28,27 +28,22 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Db\Entity;
 use OCP\AppFramework\Db\QBMapper;
-use OCP\AppFramework\IAppContainer;
 use OCP\BackgroundJob\IJob;
 use OCP\Migration\IRepairStep;
 use OCP\Notification\INotifier;
 use OCP\Settings\ISettings;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Psr\Container\ContainerInterface;
 
 #[\PHPUnit\Framework\Attributes\Group('DB')]
 class ApplicationTest extends TestCase {
 	protected Application $app;
-	protected IAppContainer $container;
+	protected ContainerInterface $container;
 
 	protected function setUp(): void {
 		parent::setUp();
 		$this->app = new Application();
 		$this->container = $this->app->getContainer();
-	}
-
-	public function testContainerAppName(): void {
-		$this->app = new Application();
-		self::assertEquals('announcementcenter', $this->container->getAppName());
 	}
 
 	public static function dataContainerQuery(): array {
@@ -71,6 +66,6 @@ class ApplicationTest extends TestCase {
 
 	#[DataProvider('dataContainerQuery')]
 	public function testContainerQuery(string $service, string $expected): void {
-		self::assertInstanceOf($expected, $this->container->query($service));
+		self::assertInstanceOf($expected, $this->container->get($service));
 	}
 }
