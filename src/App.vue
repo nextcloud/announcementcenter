@@ -144,10 +144,10 @@ export default {
 						},
 					},
 				)
+				this.commentsView.$mount(this.$refs.sidebar)
 			}
 
 			await this.commentsView.update(id)
-			this.commentsView.$mount(this.$refs.sidebar)
 		},
 	},
 }
