@@ -15,6 +15,8 @@ use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
 use OCP\IRequest;
+use OCP\Server;
+use OCP\ServerVersion;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -27,6 +29,7 @@ class PageControllerTest extends TestCase {
 	protected ICommentsManager&MockObject $commentsManager;
 	protected IInitialState&MockObject $initialState;
 	protected IAppConfig&MockObject $appConfig;
+	protected ServerVersion $serverVersion;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -36,6 +39,7 @@ class PageControllerTest extends TestCase {
 		$this->commentsManager = $this->createMock(ICommentsManager::class);
 		$this->initialState = $this->createMock(IInitialState::class);
 		$this->appConfig = $this->createMock(IAppConfig::class);
+		$this->serverVersion = Server::get(ServerVersion::class);
 	}
 
 	protected function getController(): PageController {
@@ -46,6 +50,7 @@ class PageControllerTest extends TestCase {
 			$this->commentsManager,
 			$this->initialState,
 			$this->appConfig,
+			$this->serverVersion,
 		);
 	}
 
