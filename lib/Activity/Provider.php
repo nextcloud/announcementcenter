@@ -85,7 +85,6 @@ class Provider implements IProvider {
 			$event->setParsedMessage($l->t('The announcement does not exist anymore'));
 		}
 
-
 		$this->setSubjects($event, $subject, $parsedParameters);
 
 		return $event;

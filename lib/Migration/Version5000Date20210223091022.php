@@ -76,7 +76,6 @@ class Version5000Date20210223091022 extends SimpleMigrationStep {
 		$query->select('*')
 			->from('announcements_groups');
 
-
 		$result = $query->executeQuery();
 		while ($row = $result->fetch()) {
 			$insert
