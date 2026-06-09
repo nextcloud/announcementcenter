@@ -18,7 +18,6 @@ use OCP\AppFramework\Services\IAppConfig;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\Comments\ICommentsManager;
 use OCP\IRequest;
-use OCP\ServerVersion;
 use OCP\Util;
 
 class PageController extends Controller {
@@ -29,7 +28,6 @@ class PageController extends Controller {
 		protected ICommentsManager $commentsManager,
 		protected IInitialState $initialState,
 		protected IAppConfig $appConfig,
-		private ServerVersion $serverVersion,
 	) {
 		parent::__construct($appName, $request);
 	}
@@ -67,9 +65,6 @@ class PageController extends Controller {
 		);
 
 		$this->commentsManager->load();
-		if ($this->serverVersion->getMajorVersion() >= 34) {
-			Util::addStyle('comments', 'comments-app');
-		}
 		Util::addScript('announcementcenter', 'announcementcenter-main', 'comments');
 
 		return new TemplateResponse(Application::APP_ID, 'main', [
