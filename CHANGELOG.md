@@ -5,6 +5,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.4.1 – 2026-06-09
+### Changed
+- Updated translations
+- Updated dependencies
+
+### Fixed
+- Fix comments UI misalignment after server change
+
 ## 7.4.0 – 2026-05-11
 ### Added
 - Compatibility with Nextcloud 34
