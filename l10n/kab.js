@@ -7,6 +7,8 @@ OC.L10N.register(
     "Comments" : "Iwenniten",
     ", " : ", ",
     "Delete announcement" : "Kkes alɣu",
+    "Allow comments" : "Sireg iwenniten.",
+    "Visibility" : "Tawalit",
     "Everyone" : "Yal yiwen",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
