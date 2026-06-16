@@ -129,6 +129,9 @@ export default {
 			}
 
 			if (id === 0) {
+				if (this.commentsView) {
+					this.commentsView.$unmount()
+				}
 				// Destroy the comments view as the sidebar is destroyed
 				this.commentsView = null
 				return
