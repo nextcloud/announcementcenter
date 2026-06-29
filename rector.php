@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 use Nextcloud\Rector\Set\NextcloudSets;
 use Rector\Config\RectorConfig;
+use Rector\PHPUnit\Set\PHPUnitSetList;
 
 return RectorConfig::configure()
 	->withPaths([
@@ -19,5 +20,6 @@ return RectorConfig::configure()
 	->withPhpSets(php81: true)
 	->withSets([
 		NextcloudSets::NEXTCLOUD_32,
+		PHPUnitSetList::PHPUNIT_100,
 	])
 	->withTypeCoverageLevel(0);
