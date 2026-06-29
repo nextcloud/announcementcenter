@@ -22,7 +22,7 @@
 
 🔔 Notifications integration]]></description>
 	<version>7.5.0-dev.0</version>
-	<licence>agpl</licence>
+	<licence>AGPL-3.0-or-later</licence>
 	<author>Joas Schilling</author>
 	<namespace>AnnouncementCenter</namespace>
 
