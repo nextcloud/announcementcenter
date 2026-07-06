@@ -32,7 +32,7 @@ OC.L10N.register(
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["nähtav „{name}“ grupile ja veel %n-le grupile","nähtav „{name}“ grupile ja veel %n-le grupile"],
     "scheduled at {time}" : "ajastatud - {time}",
     ", " : ", ",
-    "_%n comment_::_%n comments_" : ["%n kommentaar(i)","%n comments"],
+    "_%n comment_::_%n comments_" : ["%n kommentaar","%n kommentaari"],
     "An error occurred while removing the notifications of the announcement" : "Teadaande teavituste eemaldamisel tekkis viga",
     "An error occurred while deleting the announcement" : "Teadaande kustutamisel tekkis viga",
     "Clear notifications" : "Eemalda teadaanded",
