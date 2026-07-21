@@ -15,5 +15,6 @@ export default createStore({
 
 	mutations,
 
+	// eslint-disable-next-line no-undef -- build-time Webpack constant
 	strict: process.env.NODE_ENV !== 'production',
 })
