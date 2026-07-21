@@ -5,7 +5,8 @@
 
 <template>
 	<div class="announcement__form">
-		<input v-model="subject"
+		<input
+			v-model="subject"
 			class="announcement__form__subject"
 			type="text"
 			name="subject"
@@ -13,14 +14,16 @@
 			maxlength="512"
 			:placeholder="t('announcementcenter', 'New announcement subject')">
 
-		<textarea v-model="message"
+		<textarea
+			v-model="message"
 			class="announcement__form__message"
 			name="message"
 			rows="4"
-			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
+			:placeholder="t('announcementcenter', 'Write announcement text, Markdown can be used …')" />
 
 		<div class="announcement__form__buttons">
-			<NcButton variant="primary"
+			<NcButton
+				variant="primary"
 				:disabled="!subject"
 				@click="onAnnounce">
 				{{ t('announcementcenter', 'Announce') }}
@@ -40,25 +43,27 @@
 					{{ t('announcementcenter', 'Allow comments') }}
 				</NcActionCheckbox>
 				<NcActionSeparator />
-				<NcActionInput v-model="groups"
+				<NcActionInput
+					v-model="groups"
 					icon="icon-group"
 					type="multiselect"
 					:options="groupOptions"
-					track-by="id"
+					trackBy="id"
 					:multiple="true"
-					:input-label="t('announcementcenter', 'Visibility')"
+					:inputLabel="t('announcementcenter', 'Visibility')"
 					:placeholder="t('announcementcenter', 'Everyone')"
 					:title="t('announcementcenter', 'These groups will be able to see the announcement. If no group is selected, all users can see it.')"
 					@search="onSearchChanged">
 					{{ t('announcementcenter', 'Everyone') }}
 				</NcActionInput>
 				<NcActionSeparator />
-				<NcActionInput type="datetime-local"
+				<NcActionInput
+					type="datetime-local"
 					:label="t('announcementcenter', 'Schedule announcement time')"
 					:disabled="!scheduleEnabled"
-					is-native-picker
-					hide-label
-					:model-value="scheduleTime"
+					isNativePicker
+					hideLabel
+					:modelValue="scheduleTime"
 					:min="new Date()"
 					@update:modelValue="setScheduleTime">
 					<template #icon>
@@ -66,14 +71,15 @@
 					</template>
 				</NcActionInput>
 				<NcActionSeparator />
-				<NcActionInput type="datetime-local"
+				<NcActionInput
+					type="datetime-local"
 					:label="t('announcementcenter', 'Schedule deletion time')"
 					:disabled="!deleteEnabled"
-					is-native-picker
-					hide-label
-					:model-value="deleteTime"
+					isNativePicker
+					hideLabel
+					:modelValue="deleteTime"
 					:min="getMinDeleteTime()"
-					id-native-date-time-picker="date-time-picker-delete_id"
+					idNativeDateTimePicker="date-time-picker-delete_id"
 					@update:modelValue="setDeleteTime">
 					<template #icon>
 						<IconClockEnd :size="20" />
@@ -85,23 +91,23 @@
 </template>
 
 <script>
-import NcActions from '@nextcloud/vue/components/NcActions'
+import { showError } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
+import debounce from 'debounce'
+import { remark } from 'remark'
+import strip from 'strip-markdown'
 import NcActionCheckbox from '@nextcloud/vue/components/NcActionCheckbox'
 import NcActionInput from '@nextcloud/vue/components/NcActionInput'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import NcActionSeparator from '@nextcloud/vue/components/NcActionSeparator'
 import NcButton from '@nextcloud/vue/components/NcButton'
-import debounce from 'debounce'
-import { loadState } from '@nextcloud/initial-state'
+import IconClockEnd from 'vue-material-design-icons/ClockEnd.vue'
+import IconClockStart from 'vue-material-design-icons/ClockStart.vue'
 import {
 	postAnnouncement,
 	searchGroups,
 } from '../services/announcementsService.js'
-import { showError } from '@nextcloud/dialogs'
-import { t } from '@nextcloud/l10n'
-import { remark } from 'remark'
-import strip from 'strip-markdown'
-import IconClockStart from 'vue-material-design-icons/ClockStart.vue'
-import IconClockEnd from 'vue-material-design-icons/ClockEnd.vue'
 
 export default {
 	name: 'NewForm',
@@ -185,7 +191,7 @@ export default {
 		},
 
 		async onAnnounce() {
-			const groups = this.groups.map(group => {
+			const groups = this.groups.map((group) => {
 				return group.id
 			})
 

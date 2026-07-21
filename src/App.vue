@@ -4,45 +4,49 @@
 -->
 
 <template>
-	<NcContent app-name="announcementcenter">
+	<NcContent appName="announcementcenter">
 		<NcAppContent>
 			<NewForm v-if="isAdmin" />
 
 			<transition-group name="fade-collapse" tag="div">
-				<Announcement v-for="announcement in announcements"
+				<Announcement
+					v-for="announcement in announcements"
 					:key="announcement.id"
-					:is-admin="isAdmin"
-					:author-id="announcement.author_id"
-					:schedule-time="announcement.schedule_time"
+					:isAdmin="isAdmin"
+					:authorId="announcement.author_id"
+					:scheduleTime="announcement.schedule_time"
 					v-bind="announcement"
 					@click="onClickAnnouncement" />
 			</transition-group>
 
-			<NcEmptyContent v-if="!announcements.length"
+			<NcEmptyContent
+				v-if="!announcements.length"
 				:name="t('announcementcenter', 'No announcements')"
-				:description="t('announcementcenter', 'There are currently no announcements …')">
+				:description="t('announcementcenter', 'There are currently no announcements …')">
 				<template #icon>
 					<span class="icon-announcementcenter-dark" />
 				</template>
 			</NcEmptyContent>
 		</NcAppContent>
-		<NcAppSidebar :open="activeId !== 0 && activateAnnouncementHasComments"
+		<NcAppSidebar
+			:open="activeId !== 0 && activateAnnouncementHasComments"
 			:name="activeAnnouncementTitle + ' - ' + t('announcementcenter', 'Comments')"
-			no-toggle
+			noToggle
 			@close="onClickAnnouncement(0)">
-			<div ref="sidebar"
+			<div
+				ref="sidebar"
 				class="comments" />
 		</NcAppSidebar>
 	</NcContent>
 </template>
 
 <script>
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
 import NcContent from '@nextcloud/vue/components/NcContent'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
 import { getAnnouncements } from './services/announcementsService.js'
@@ -107,7 +111,7 @@ export default {
 			const response = await getAnnouncements()
 			const announcements = response.data?.ocs?.data || []
 
-			announcements.forEach(announcement => {
+			announcements.forEach((announcement) => {
 				this.$store.dispatch('addAnnouncement', announcement)
 			})
 		},

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-const path = require('path')
 const webpackConfig = require('@nextcloud/webpack-vue-config')
+const path = require('path')
 
 webpackConfig.entry.admin = path.join(__dirname, 'src', 'admin')
 webpackConfig.entry.dashboard = path.join(__dirname, 'src', 'dashboard')

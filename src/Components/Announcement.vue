@@ -6,18 +6,21 @@
 <template>
 	<div class="announcement">
 		<div class="announcement__header">
-			<h2 class="announcement__header__subject"
+			<h2
+				class="announcement__header__subject"
 				:title="subject">
 				{{ subject }}
 			</h2>
 
 			<div class="announcement__header__details">
 				<div class="announcement__header__details__info">
-					<NcUserBubble :user="authorId"
-						:display-name="author" />
+					<NcUserBubble
+						:user="authorId"
+						:displayName="author" />
 					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
-					<NcDateTime v-else
-						ignore-seconds
+					<NcDateTime
+						v-else
+						ignoreSeconds
 						:format="{ timeStyle: 'short', dateStyle: 'long' }"
 						:timestamp="time * 1000" />
 
@@ -26,25 +29,29 @@
 						<template v-if="isVisibleToEveryone">
 							{{ visibilityLabel }}
 						</template>
-						<span v-else
+						<span
+							v-else
 							:title="visibilityTitle">
 							{{ visibilityLabel }}
 						</span>
 					</template>
 				</div>
 
-				<NcActions v-if="isAdmin"
-					:force-menu="true"
-					:boundaries-element="boundariesElement">
-					<NcActionButton v-if="notifications"
-						:close-after-click="true"
+				<NcActions
+					v-if="isAdmin"
+					:forceMenu="true"
+					:boundariesElement="boundariesElement">
+					<NcActionButton
+						v-if="notifications"
+						:closeAfterClick="true"
 						:name="t('announcementcenter', 'Clear notifications')"
 						@click="onRemoveNotifications">
 						<template #icon>
 							<IconBellOffOutline size="20" />
 						</template>
 					</NcActionButton>
-					<NcActionButton :name="t('announcementcenter', 'Delete announcement')"
+					<NcActionButton
+						:name="t('announcementcenter', 'Delete announcement')"
 						class="critical"
 						@click="onDeleteAnnouncement">
 						<template #icon>
@@ -55,21 +62,25 @@
 			</div>
 		</div>
 
-		<div v-if="message"
+		<div
+			v-if="message"
 			class="announcement__message"
 			@click="onClickFoldedMessage">
-			<NcRichText :text="message"
+			<NcRichText
+				:text="message"
 				:arguments="{}"
 				:autolink="true"
-				:use-markdown="true"
+				:useMarkdown="true"
 				:class="{'announcement__message--folded': isMessageFolded}" />
 
-			<div v-if="isMessageFolded"
+			<div
+				v-if="isMessageFolded"
 				class="announcement__message__overlay" />
 		</div>
 
-		<NcButton v-if="comments !== false"
-			type="tertiary"
+		<NcButton
+			v-if="comments !== false"
+			variant="tertiary"
 			class="announcement__comments"
 			@click="onClickCommentCount">
 			{{ commentsCount }}
@@ -78,22 +89,22 @@
 </template>
 
 <script>
-import NcActions from '@nextcloud/vue/components/NcActions'
+import {
+	showError,
+} from '@nextcloud/dialogs'
+import { getLanguage, n, t } from '@nextcloud/l10n'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
+import NcActions from '@nextcloud/vue/components/NcActions'
 import NcButton from '@nextcloud/vue/components/NcButton'
 import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
-import { getLanguage, t, n } from '@nextcloud/l10n'
-import {
-	showError,
-} from '@nextcloud/dialogs'
+import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
+import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
 import {
 	deleteAnnouncement,
 	removeNotifications,
 } from '../services/announcementsService.js'
-import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
-import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
 
 export default {
 	name: 'Announcement',
@@ -107,47 +118,58 @@ export default {
 		NcRichText,
 		NcUserBubble,
 	},
+
 	props: {
 		isAdmin: {
 			type: Boolean,
 			required: true,
 		},
+
 		id: {
 			type: Number,
 			required: true,
 		},
+
 		authorId: {
 			type: String,
 			required: true,
 		},
+
 		author: {
 			type: String,
 			required: true,
 		},
+
 		time: {
 			type: Number,
 			required: true,
 		},
+
 		subject: {
 			type: String,
 			required: true,
 		},
+
 		message: {
 			type: String,
 			required: true,
 		},
+
 		groups: {
 			type: Array,
 			default: null,
 		},
+
 		comments: {
 			type: [Boolean, Number],
 			required: true,
 		},
+
 		notifications: {
 			type: Boolean,
 			default: false,
 		},
+
 		scheduleTime: {
 			type: Number,
 			default: null,
@@ -251,12 +273,14 @@ export default {
 		onClickCommentCount() {
 			this.$emit('click', this.id)
 		},
+
 		onClickFoldedMessage() {
 			this.isMessageFolded = false
 			if (this.comments !== false) {
 				this.$emit('click', this.id)
 			}
 		},
+
 		async onRemoveNotifications() {
 			try {
 				await removeNotifications(this.id)
@@ -266,6 +290,7 @@ export default {
 				showError(t('announcementcenter', 'An error occurred while removing the notifications of the announcement'))
 			}
 		},
+
 		async onDeleteAnnouncement() {
 			try {
 				await deleteAnnouncement(this.id)

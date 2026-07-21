@@ -5,27 +5,32 @@
 
 <template>
 	<NcSettingsSection :name="t('announcementcenter', 'Announcements')">
-		<NcSettingsSelectGroup id="announcementcenter_admin_group"
+		<NcSettingsSelectGroup
+			id="announcementcenter_admin_group"
 			v-model="adminGroups"
 			:label="t('announcementcenter', 'These groups will be able to post announcements.')"
 			@update:modelValue="updateGroups" />
 
-		<NcCheckboxRadioSwitch :model-value="createActivities"
+		<NcCheckboxRadioSwitch
+			:modelValue="createActivities"
 			type="switch"
 			@update:modelValue="toggleCreateActivities">
 			{{ t('announcementcenter', 'Create activities by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :model-value="createNotifications"
+		<NcCheckboxRadioSwitch
+			:modelValue="createNotifications"
 			type="switch"
 			@update:modelValue="toggleCreateNotifications">
 			{{ t('announcementcenter', 'Create notifications by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :model-value="sendEmails"
+		<NcCheckboxRadioSwitch
+			:modelValue="sendEmails"
 			type="switch"
 			@update:modelValue="toggleSendEmails">
 			{{ t('announcementcenter', 'Send emails by default') }}
 		</NcCheckboxRadioSwitch>
-		<NcCheckboxRadioSwitch :model-value="allowComments"
+		<NcCheckboxRadioSwitch
+			:modelValue="allowComments"
 			type="switch"
 			@update:modelValue="toggleAllowComments">
 			{{ t('announcementcenter', 'Allow comments by default') }}
@@ -34,12 +39,12 @@
 </template>
 
 <script>
+import { showError, showSuccess } from '@nextcloud/dialogs'
+import { loadState } from '@nextcloud/initial-state'
+import { t } from '@nextcloud/l10n'
 import NcCheckboxRadioSwitch from '@nextcloud/vue/components/NcCheckboxRadioSwitch'
 import NcSettingsSection from '@nextcloud/vue/components/NcSettingsSection'
 import NcSettingsSelectGroup from '@nextcloud/vue/components/NcSettingsSelectGroup'
-import { loadState } from '@nextcloud/initial-state'
-import { t } from '@nextcloud/l10n'
-import { showError, showSuccess } from '@nextcloud/dialogs'
 
 export default {
 	name: 'AdminSettings',
@@ -74,6 +79,7 @@ export default {
 				},
 			})
 		},
+
 		async toggleCreateNotifications(config) {
 			OCP.AppConfig.setValue('announcementcenter', 'create_notifications', (config ? 'yes' : 'no'), {
 				success: function() {
@@ -85,6 +91,7 @@ export default {
 				},
 			})
 		},
+
 		async toggleSendEmails(config) {
 			OCP.AppConfig.setValue('announcementcenter', 'send_emails', (config ? 'yes' : 'no'), {
 				success: function() {
@@ -96,6 +103,7 @@ export default {
 				},
 			})
 		},
+
 		async toggleAllowComments(config) {
 			OCP.AppConfig.setValue('announcementcenter', 'allow_comments', (config ? 'yes' : 'no'), {
 				success: function() {
@@ -107,6 +115,7 @@ export default {
 				},
 			})
 		},
+
 		async updateGroups(config) {
 			OCP.AppConfig.setValue('announcementcenter', 'admin_groups', JSON.stringify(config), {
 				success() {
@@ -120,6 +129,3 @@ export default {
 	},
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
