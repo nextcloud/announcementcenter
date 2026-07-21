@@ -2,13 +2,15 @@
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-const state = () => ({
-	announcements: {},
-})
+function state() {
+	return {
+		announcements: {},
+	}
+}
 
 const getters = {
-	announcements: state => Object.values(state.announcements),
-	announcement: state => id => state.announcements[id],
+	announcements: (state) => Object.values(state.announcements),
+	announcement: (state) => (id) => state.announcements[id],
 }
 
 const mutations = {

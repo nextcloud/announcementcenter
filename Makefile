@@ -91,7 +91,7 @@ appstore: dev-setup build-js-production
 	--exclude=/tests \
 	--exclude=/vendor \
 	--exclude=/vendor-bin \
-	--exclude=/.eslintrc.js \
+	--exclude=/eslint.config.mjs \
 	--exclude=/.l10nignore \
 	--exclude=/.php-cs-fixer.cache \
 	--exclude=/.php-cs-fixer.dist.php \

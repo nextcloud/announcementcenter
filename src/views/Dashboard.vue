@@ -4,11 +4,12 @@
 -->
 
 <template>
-	<NcDashboardWidget id="announcementcenter_panel"
+	<NcDashboardWidget
+		id="announcementcenter_panel"
 		:items="items"
 		:loading="loading"
-		empty-content-icon="icon-announcementcenter-dark"
-		:empty-content-message="t('announcementcenter', 'No announcements')">
+		emptyContentIcon="icon-announcementcenter-dark"
+		:emptyContentMessage="t('announcementcenter', 'No announcements')">
 		<template #emptyContentIcon>
 			<div class="icon-announcementcenter-dark" />
 		</template>
@@ -16,10 +17,10 @@
 </template>
 
 <script>
-import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
 import { loadState } from '@nextcloud/initial-state'
 import { formatRelativeTime, t } from '@nextcloud/l10n'
 import { generateUrl, imagePath } from '@nextcloud/router'
+import NcDashboardWidget from '@nextcloud/vue/components/NcDashboardWidget'
 
 export default {
 	name: 'Dashboard',

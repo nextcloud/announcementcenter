@@ -12,7 +12,7 @@ import { generateOcsUrl } from '@nextcloud/router'
  * @param {number} [offset] The last announcement id loaded
  * @return {object} The axios response
  */
-const getAnnouncements = async function(offset) {
+async function getAnnouncements(offset) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		params: {
 			offset: offset || 0,
@@ -26,7 +26,7 @@ const getAnnouncements = async function(offset) {
  * @param {string} [search] Search term to autocomplete a group
  * @return {object} The axios response
  */
-const searchGroups = async function(search) {
+async function searchGroups(search) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/groups'), {
 		params: {
 			search: search || '',
@@ -49,7 +49,7 @@ const searchGroups = async function(search) {
  * @param {number} deleteTime Time, when the announcement should be deleted
  * @return {object} The axios response
  */
-const postAnnouncement = async function(subject, message, plainMessage, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
+async function postAnnouncement(subject, message, plainMessage, groups, activities, notifications, emails, comments, scheduleTime = null, deleteTime = null) {
 	return axios.post(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		subject,
 		message,
@@ -70,7 +70,7 @@ const postAnnouncement = async function(subject, message, plainMessage, groups, 
  * @param {number} id The announcement id to delete
  * @return {object} The axios response
  */
-const deleteAnnouncement = async function(id) {
+async function deleteAnnouncement(id) {
 	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}', { id }))
 }
 
@@ -80,14 +80,14 @@ const deleteAnnouncement = async function(id) {
  * @param {number} id The announcement id to delete
  * @return {object} The axios response
  */
-const removeNotifications = async function(id) {
+async function removeNotifications(id) {
 	return axios.delete(generateOcsUrl('apps/announcementcenter/api/v1/announcements/{id}/notifications', { id }))
 }
 
 export {
-	getAnnouncements,
-	searchGroups,
-	postAnnouncement,
 	deleteAnnouncement,
+	getAnnouncements,
+	postAnnouncement,
 	removeNotifications,
+	searchGroups,
 }
