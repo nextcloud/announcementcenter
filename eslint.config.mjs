@@ -8,4 +8,13 @@ import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
 	...recommendedJavascript,
+	{
+		name: 'announcementcenter/temporary-disabled',
+		rules: {
+			// TODO: rename components to multi-word
+			'vue/multi-word-component-names': 'off',
+			// TODO: migrate to @nextcloud/logger
+			'no-console': 'off',
+		},
+	},
 ])
