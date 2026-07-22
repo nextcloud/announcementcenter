@@ -33,7 +33,6 @@ OC.L10N.register(
     "Delete announcement" : "Cantzella comunicatzione",
     "An error occurred while posting the announcement" : "B'at àpidu un'errore publichende sa comunicatzione",
     "New announcement subject" : "Ogetu nou de sa comunicatzione",
-    "Write announcement text, Markdown can be used …" : "Iscrie su testu de sa comunicatzione, podes impreare Markdown …",
     "Announce" : "Comunicatzione",
     "Create activities" : "Crea atividades",
     "Create notifications" : "Crea notìficas",

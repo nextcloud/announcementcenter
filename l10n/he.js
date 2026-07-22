@@ -32,7 +32,6 @@ OC.L10N.register(
     "Delete announcement" : "למחוק הכרזה",
     "An error occurred while posting the announcement" : "אירעה שגיאה בפרסום ההכרזה",
     "New announcement subject" : "נושא הכרזה חדש",
-    "Write announcement text, Markdown can be used …" : "נא לכתוב את תוכן ההכרזה, ניתן להשתמש ב־Markdown…",
     "Announce" : "להכריז",
     "Create activities" : "יצירת פעילויות",
     "Create notifications" : "יצירת התרעות",

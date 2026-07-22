@@ -20,7 +20,6 @@ OC.L10N.register(
     "An error occurred while removing the notifications of the announcement" : "Prodúxose un error mentanto se quitaben los avisos del anunciu",
     "An error occurred while deleting the announcement" : "Prodúxose un error mentanto se desaniciaba l'anunciu",
     "An error occurred while posting the announcement" : "Prodúxose un error mentanto s'espublizaba l'anunciu",
-    "Write announcement text, Markdown can be used …" : "Escribi'l testu del anunciu, pues usar la sintaxis de Markdown…",
     "Visibility" : "Visibilidá",
     "Everyone" : "Tol mundu"
 },
