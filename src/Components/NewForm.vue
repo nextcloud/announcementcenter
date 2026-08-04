@@ -62,7 +62,6 @@
 					:label="t('announcementcenter', 'Schedule announcement time')"
 					:disabled="!scheduleEnabled"
 					isNativePicker
-					hideLabel
 					:modelValue="scheduleTime"
 					:min="new Date()"
 					@update:modelValue="setScheduleTime">
@@ -76,7 +75,6 @@
 					:label="t('announcementcenter', 'Schedule deletion time')"
 					:disabled="!deleteEnabled"
 					isNativePicker
-					hideLabel
 					:modelValue="deleteTime"
 					:min="getMinDeleteTime()"
 					idNativeDateTimePicker="date-time-picker-delete_id"
