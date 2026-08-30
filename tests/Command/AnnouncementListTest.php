@@ -27,24 +27,30 @@ class AnnouncementListTest extends TestCase {
 
 		$this->manager = $this->createMock(Manager::class);
 
+		$methods = [
+			'getFirstArgument',
+			'hasParameterOption',
+			'getParameterOption',
+			'bind',
+			'validate',
+			'getArguments',
+			'getArgument',
+			'setArgument',
+			'hasArgument',
+			'getOptions',
+			'getOption',
+			'setOption',
+			'hasOption',
+			'isInteractive',
+			'setInteractive',
+		];
+		// TODO Revert when dropping Nextcloud 34 and lower
+		if (method_exists(InputInterface::class, '__toString')) {
+			$methods[] = '__toString';
+		}
+
 		$this->input = $this->getMockBuilder(InputInterface::class)
-			->onlyMethods([
-				'getArgument',
-				'getOption',
-				'getFirstArgument',
-				'hasParameterOption',
-				'getParameterOption',
-				'bind',
-				'validate',
-				'getArguments',
-				'setArgument',
-				'hasArgument',
-				'getOptions',
-				'isInteractive',
-				'hasOption',
-				'setOption',
-				'setInteractive',
-			])
+			->onlyMethods($methods)
 			->getMock();
 		$this->output = $this->createMock(OutputInterface::class);
 

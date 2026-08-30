@@ -1,2 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.0.0@b8e96bb617bf59382113b1b56cef751f648a7dc9"/>
+<files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
+  <file src="lib/Migration/Version3009Date20200630194059.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[$schema->createTable('announcements')]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Migration/Version5000Date20210223091022.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Migration/Version5000Date20210223091309.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[$schema->dropTable('announcements_groups')]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Migration/Version6003Date20220505000000.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[$schema->getTable('announcements')]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="lib/Migration/Version6009Date20240311074015.php">
+    <UndefinedDocblockClass>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+      <code><![CDATA[$table]]></code>
+    </UndefinedDocblockClass>
+  </file>
+</files>
