@@ -11,80 +11,82 @@
 				:title="subject">
 				{{ subject }}
 			</h2>
-
-			<div class="announcement__header__details">
-				<div class="announcement__header__details__info">
-					<NcUserBubble
-						:user="authorId"
-						:displayName="author" />
-					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
-					<NcDateTime
-						v-else
-						ignoreSeconds
-						:format="{ timeStyle: 'short', dateStyle: 'long' }"
-						:timestamp="time * 1000" />
-
-					<template v-if="isAdmin">
-						·
-						<template v-if="isVisibleToEveryone">
-							{{ visibilityLabel }}
-						</template>
-						<span
-							v-else
-							:title="visibilityTitle">
-							{{ visibilityLabel }}
-						</span>
+			<NcActions
+				v-if="isAdmin"
+				:forceMenu="true"
+				:boundariesElement="boundariesElement">
+				<NcActionButton
+					v-if="notifications"
+					:closeAfterClick="true"
+					:name="t('announcementcenter', 'Clear notifications')"
+					@click="onRemoveNotifications">
+					<template #icon>
+						<IconBellOffOutline size="20" />
 					</template>
-				</div>
+				</NcActionButton>
+				<NcActionButton
+					:name="t('announcementcenter', 'Delete announcement')"
+					class="critical"
+					@click="onDeleteAnnouncement">
+					<template #icon>
+						<IconTrashCanOutline size="20" />
+					</template>
+				</NcActionButton>
+			</NcActions>
+		</div>
 
-				<NcActions
-					v-if="isAdmin"
-					:forceMenu="true"
-					:boundariesElement="boundariesElement">
-					<NcActionButton
-						v-if="notifications"
-						:closeAfterClick="true"
-						:name="t('announcementcenter', 'Clear notifications')"
-						@click="onRemoveNotifications">
-						<template #icon>
-							<IconBellOffOutline size="20" />
-						</template>
-					</NcActionButton>
-					<NcActionButton
-						:name="t('announcementcenter', 'Delete announcement')"
-						class="critical"
-						@click="onDeleteAnnouncement">
-						<template #icon>
-							<IconTrashCanOutline size="20" />
-						</template>
-					</NcActionButton>
-				</NcActions>
+		<NcNoteCard type="info">
+			<div class="announcement__header__details">
+				<NcUserBubble
+					:user="authorId"
+					:displayName="author" />
+
+				<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
+				<span v-if="isDeleting" :title="deletingLabel">{{ deletingLabel }}</span>
+
+				<NcDateTime
+					v-else
+					ignoreSeconds
+					:format="{ timeStyle: 'short', dateStyle: 'long' }"
+					:timestamp="time * 1000" />
+
+				<template v-if="isAdmin">
+					<template v-if="isVisibleToEveryone">
+						{{ visibilityLabel }}
+					</template>
+					<span
+						v-else
+						:title="visibilityTitle">
+						{{ visibilityLabel }}
+					</span>
+				</template>
 			</div>
-		</div>
+		</NcNoteCard>
 
-		<div
-			v-if="message"
-			class="announcement__message"
-			@click="onClickFoldedMessage">
-			<NcRichText
-				:text="message"
-				:arguments="{}"
-				:autolink="true"
-				:useMarkdown="true"
-				:class="{'announcement__message--folded': isMessageFolded}" />
-
+		<div class="announcement__contents">
 			<div
-				v-if="isMessageFolded"
-				class="announcement__message__overlay" />
-		</div>
+				v-if="message"
+				class="message"
+				@click="onClickFoldedMessage">
+				<NcRichText
+					:text="message"
+					:arguments="{}"
+					:autolink="true"
+					:useMarkdown="true"
+					:class="{'announcement__message--folded': isMessageFolded}" />
 
-		<NcButton
-			v-if="comments !== false"
-			variant="tertiary"
-			class="announcement__comments"
-			@click="onClickCommentCount">
-			{{ commentsCount }}
-		</NcButton>
+				<div
+					v-if="isMessageFolded"
+					class="announcement__message__overlay" />
+			</div>
+
+			<NcButton
+				v-if="comments !== false"
+				variant="secondary"
+				@click="onClickCommentCount">
+				{{ commentsCount }}
+			</NcButton>
+		</div>
 	</div>
 </template>
 
@@ -93,12 +95,7 @@ import {
 	showError,
 } from '@nextcloud/dialogs'
 import { getLanguage, n, t } from '@nextcloud/l10n'
-import NcActionButton from '@nextcloud/vue/components/NcActionButton'
-import NcActions from '@nextcloud/vue/components/NcActions'
-import NcButton from '@nextcloud/vue/components/NcButton'
-import NcDateTime from '@nextcloud/vue/components/NcDateTime'
-import NcRichText from '@nextcloud/vue/components/NcRichText'
-import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
+import { NcActionButton, NcActions, NcButton, NcDateTime, NcNoteCard, NcRichText, NcUserBubble } from '@nextcloud/vue'
 import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
 import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
 import {
@@ -115,6 +112,7 @@ export default {
 		NcActionButton,
 		NcButton,
 		NcDateTime,
+		NcNoteCard,
 		NcRichText,
 		NcUserBubble,
 	},
@@ -174,6 +172,11 @@ export default {
 			type: Number,
 			default: null,
 		},
+
+		deleteTime: {
+			type: Number,
+			default: null,
+		},
 	},
 
 	emits: ['click'],
@@ -191,6 +194,10 @@ export default {
 
 		scheduleDateFormat() {
 			return (new Date(this.scheduleTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
+		},
+
+		deleteDateFormat() {
+			return (new Date(this.deleteTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
 		},
 
 		isVisibleToEveryone() {
@@ -243,6 +250,14 @@ export default {
 
 		scheduledLabel() {
 			return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
+		},
+
+		isDeleting() {
+			return this.isAdmin && this.deleteTime && this.deleteTime !== null
+		},
+
+		deletingLabel() {
+			return t('announcementcenter', 'to be hidden at {time}', { time: this.deleteDateFormat })
 		},
 
 		visibilityTitle() {
@@ -307,64 +322,55 @@ export default {
 <style lang="scss" scoped>
 	.announcement {
 		max-width: 690px;
-		padding: 0 10px;
 		margin: 0 auto 3em;
-		font-size: 15px;
+		display: flex;
+		flex-direction: column;
 
 		&:nth-child(1) {
 			margin-top: 70px;
 		}
 
 		&__header {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+
 			&__details {
 				display: flex;
-
-				&__info {
-					color: var(--color-text-maxcontrast);
-					flex: 1 1 auto;
-
-					span {
-						margin-left: 4px;
-						margin-right: 4px;
-					}
-				}
-
-				.action-item {
-					display: flex;
-					flex: 0 0 44px;
-					position: relative;
-				}
+				flex-direction: column;
 			}
 		}
 
-		&__message {
-			position: relative;
-			margin-top: 20px;
+		&__contents {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
 
-			&--folded {
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 7;
-				-webkit-box-orient: vertical;
-				cursor: pointer;
+			.message {
+				position: relative;
+
+				&--folded {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display: -webkit-box;
+					-webkit-line-clamp: 7;
+					-webkit-box-orient: vertical;
+					cursor: pointer;
+				}
+
+				&__overlay {
+					position: absolute;
+					bottom: 0;
+					height: 3.2em;
+					width: 100%;
+					cursor: pointer;
+					background: linear-gradient(
+						rgba(255, 255, 255, 0),
+						var(--color-main-background)
+					);
+				}
 			}
-
-			&__overlay {
-				position: absolute;
-				bottom: 0;
-				height: 3.2em;
-				width: 100%;
-				cursor: pointer;
-				background: linear-gradient(
-					rgba(255, 255, 255, 0),
-					var(--color-main-background)
-				);
-			}
-		}
-
-		&__comments {
-			margin-left: -16px;
 		}
 	}
 
