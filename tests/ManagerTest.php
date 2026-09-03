@@ -19,6 +19,7 @@ use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Services\IAppConfig;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IDBConnection;
 use OCP\IGroupManager;
 use OCP\IUser;
@@ -38,6 +39,7 @@ class ManagerTest extends TestCase {
 	protected IJobList&MockObject $jobList;
 	protected IUserSession&MockObject $userSession;
 	protected NotificationType&MockObject $notificationType;
+	protected IEventDispatcher&MockObject $eventDispatcher;
 	protected IAppConfig&MockObject $appConfig;
 	protected Manager $manager;
 
@@ -52,6 +54,7 @@ class ManagerTest extends TestCase {
 		$this->jobList = $this->createMock(IJobList::class);
 		$this->userSession = $this->createMock(IUserSession::class);
 		$this->notificationType = $this->createMock(NotificationType::class);
+		$this->eventDispatcher = $this->createMock(IEventDispatcher::class);
 		$this->appConfig = $this->createMock(IAppConfig::class);
 
 		$this->manager = new Manager(
@@ -63,12 +66,23 @@ class ManagerTest extends TestCase {
 			$this->jobList,
 			$this->userSession,
 			$this->notificationType,
+			$this->eventDispatcher,
 			$this->appConfig,
 		);
 
 		$query = \OCP\Server::get(IDBConnection::class)->getQueryBuilder();
 		$query->delete('announcements')->executeStatement();
 		$query->delete('announcements_map')->executeStatement();
+	}
+
+	public function testAnnounceGood(): void {
+		$this->groupManager->expects(self::never())
+			->method('groupExists');
+
+		$this->eventDispatcher->expects(self::once())
+			->method('dispatchTyped');
+
+		$this->manager->announce('foo', 'bar', 'baz', 'admin', 0, [], false, 0);
 	}
 
 	public function testGetAnnouncementNotExist(): void {
