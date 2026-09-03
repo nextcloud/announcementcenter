@@ -15,6 +15,7 @@
 					:isAdmin="isAdmin"
 					:authorId="announcement.author_id"
 					:scheduleTime="announcement.schedule_time"
+					:deleteTime="announcement.delete_time"
 					v-bind="announcement"
 					@click="onClickAnnouncement" />
 			</transition-group>
