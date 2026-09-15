@@ -44,8 +44,8 @@ class APIController extends OCSController {
 	}
 
 	#[NoAdminRequired]
-	public function get(int $offset = 0): DataResponse {
-		$announcements = $this->manager->getAnnouncements($offset);
+	public function get(int $offset = 0, int $limit = 7): DataResponse {
+		$announcements = $this->manager->getAnnouncements($offset, $limit);
 		$data = array_map($this->renderAnnouncement(...), $announcements);
 		return new DataResponse($data);
 	}

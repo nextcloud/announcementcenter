@@ -12,10 +12,11 @@ import { generateOcsUrl } from '@nextcloud/router'
  * @param {number} [offset] The last announcement id loaded
  * @return {object} The axios response
  */
-async function getAnnouncements(offset) {
+async function getAnnouncements(offset, limit) {
 	return axios.get(generateOcsUrl('apps/announcementcenter/api/v1/announcements'), {
 		params: {
 			offset: offset || 0,
+			limit: limit || 7,
 		},
 	})
 }

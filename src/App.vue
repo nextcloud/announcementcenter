@@ -5,22 +5,38 @@
 
 <template>
 	<NcContent appName="announcementcenter">
-		<NcAppContent>
+		<NcAppContent
+			v-infinite-scroll="loadAnnouncements"
+			:infiniteScrollImmediateCheck="false"
+			:infiniteScrollDisabled="false"
+			:infiniteScrollDistance="300">
 			<NewForm v-if="isAdmin" />
 
-			<transition-group name="fade-collapse" tag="div">
-				<Announcement
-					v-for="announcement in announcements"
-					:key="announcement.id"
-					:isAdmin="isAdmin"
-					:authorId="announcement.author_id"
-					:scheduleTime="announcement.schedule_time"
-					v-bind="announcement"
-					@click="onClickAnnouncement" />
-			</transition-group>
+			<div v-if="announcements.length">
+				<transition-group name="fade-collapse" tag="div">
+					<Announcement
+						v-for="announcement in announcements"
+						:key="announcement.id"
+						:isAdmin="isAdmin"
+						:authorId="announcement.author_id"
+						:scheduleTime="announcement.schedule_time"
+						v-bind="announcement"
+						@click="onClickAnnouncement" />
+				</transition-group>
+
+				<div class="load-more">
+					<NcButton
+						v-if="hasMore"
+						:disabled="loading"
+						variant="secondary"
+						@click.prevent="loadAnnouncements">
+						{{ t('announcementcenter', 'Load more') }}
+					</NcButton>
+				</div>
+			</div>
 
 			<NcEmptyContent
-				v-if="!announcements.length"
+				v-else
 				:name="t('announcementcenter', 'No announcements')"
 				:description="t('announcementcenter', 'There are currently no announcements …')">
 				<template #icon>
@@ -43,21 +59,24 @@
 <script>
 import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
-import NcAppContent from '@nextcloud/vue/components/NcAppContent'
-import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
-import NcContent from '@nextcloud/vue/components/NcContent'
-import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
+import { NcAppContent, NcAppSidebar, NcButton, NcContent, NcEmptyContent } from '@nextcloud/vue'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
+import infiniteScroll from './directives/infinite-scroll.js'
 import { getAnnouncements } from './services/announcementsService.js'
 
 export default {
 	name: 'App',
 
+	directives: {
+		infiniteScroll,
+	},
+
 	components: {
 		Announcement,
 		NcAppContent,
 		NcAppSidebar,
+		NcButton,
 		NcContent,
 		NcEmptyContent,
 		NewForm,
@@ -68,6 +87,8 @@ export default {
 			isAdmin: loadState('announcementcenter', 'isAdmin'),
 			commentsView: null,
 			activeId: 0,
+			hasMore: true,
+			loading: false,
 		}
 	},
 
@@ -77,6 +98,14 @@ export default {
 			return announcements.sort((a1, a2) => {
 				return a2.time - a1.time
 			})
+		},
+
+		loadOffset() {
+			if (this.announcements.length === 0) {
+				return 0
+			} else {
+				return this.announcements.at(-1).id
+			}
 		},
 
 		activeAnnouncement() {
@@ -108,12 +137,24 @@ export default {
 		t,
 
 		async loadAnnouncements() {
-			const response = await getAnnouncements()
+			if (this.hasMore === false) {
+				return
+			}
+
+			this.loading = true
+
+			const response = await getAnnouncements(this.loadOffset, 7)
 			const announcements = response.data?.ocs?.data || []
+
+			if (announcements.length < 7) {
+				this.hasMore = false
+			}
 
 			announcements.forEach((announcement) => {
 				this.$store.dispatch('addAnnouncement', announcement)
 			})
+
+			this.loading = false
 		},
 
 		/**
@@ -187,5 +228,11 @@ export default {
 .fade-enter,
 .fade-leave-to {
 	opacity: 0;
+}
+
+.load-more {
+	margin: 0 auto 3em auto;
+	display: flex;
+    justify-content: center;
 }
 </style>
