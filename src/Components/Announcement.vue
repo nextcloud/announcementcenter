@@ -361,6 +361,10 @@ export default {
 					var(--color-main-background)
 				);
 			}
+
+			:deep(img) {
+				max-width: 100%;
+			}
 		}
 
 		&__comments {
