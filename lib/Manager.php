@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace OCA\AnnouncementCenter;
 
+use OCA\AnnouncementCenter\Events\AnnouncementPublished;
 use OCA\AnnouncementCenter\Model\Announcement;
 use OCA\AnnouncementCenter\Model\AnnouncementDoesNotExistException;
 use OCA\AnnouncementCenter\Model\AnnouncementMapper;
@@ -20,6 +21,7 @@ use OCP\AppFramework\Services\IAppConfig;
 use OCP\BackgroundJob\IJobList;
 use OCP\Comments\ICommentsManager;
 use OCP\DB\Exception;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\IGroupManager;
 use OCP\IUser;
 use OCP\IUserSession;
@@ -35,6 +37,7 @@ class Manager {
 		protected IJobList $jobList,
 		protected IUserSession $userSession,
 		protected NotificationType $notificationType,
+		protected IEventDispatcher $eventDispatcher,
 		protected IAppConfig $appConfig,
 	) {
 	}
@@ -104,6 +107,8 @@ class Manager {
 				'emails' => $this->notificationType->getEmail($notificationOptions),
 			]);
 		}
+
+		$this->eventDispatcher->dispatchTyped(new AnnouncementPublished($announcement));
 	}
 
 	protected function addGroupLink(Announcement $announcement, string $gid): void {
