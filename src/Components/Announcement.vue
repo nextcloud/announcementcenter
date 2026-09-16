@@ -16,7 +16,8 @@
 				<div class="announcement__header__details__info">
 					<NcUserBubble
 						:user="authorId"
-						:displayName="author" />
+						:displayName="author"
+						:size="24" />
 
 					<NcChip
 						v-if="!isScheduled"
@@ -378,6 +379,12 @@ export default {
 					flex-wrap: wrap;
 					gap: 4px;
 					color: var(--color-text-maxcontrast);
+
+					// Compensate for NcUserBubble rendering 2px higher than NcChip
+					:deep(.user-bubble__wrapper) {
+						position: relative;
+						top: 2px;
+					}
 				}
 
 				.action-item {
