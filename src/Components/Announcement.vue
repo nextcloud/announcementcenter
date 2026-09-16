@@ -17,10 +17,18 @@
 					<NcUserBubble
 						:user="authorId"
 						:displayName="author" />
-					<NcDateTime
-						ignoreSeconds
-						:format="{ timeStyle: 'short', dateStyle: 'long' }"
-						:timestamp="time * 1000" />
+
+					<NcChip
+						v-if="!isScheduled"
+						noClose>
+						<template #icon>
+							<IconClockOutline :size="16" />
+						</template>
+						<NcDateTime
+							ignoreSeconds
+							:format="{ timeStyle: 'short', dateStyle: 'long' }"
+							:timestamp="time * 1000" />
+					</NcChip>
 
 					<NcChip
 						v-if="isAdmin && isScheduled"
@@ -121,6 +129,7 @@ import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
 import IconCalendarClockOutline from 'vue-material-design-icons/CalendarClockOutline.vue'
+import IconClockOutline from 'vue-material-design-icons/ClockOutline.vue'
 import IconDeleteClockOutline from 'vue-material-design-icons/DeleteClockOutline.vue'
 import IconLockOutline from 'vue-material-design-icons/LockOutline.vue'
 import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
@@ -135,6 +144,7 @@ export default {
 	components: {
 		IconBellOffOutline,
 		IconCalendarClockOutline,
+		IconClockOutline,
 		IconDeleteClockOutline,
 		IconLockOutline,
 		IconTrashCanOutline,
