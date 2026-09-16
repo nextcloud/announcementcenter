@@ -25,22 +25,35 @@
 					<NcChip
 						v-if="isAdmin && isScheduled"
 						:text="t('announcementcenter', 'Scheduled')"
-						variant="warning"
+						variant="primary"
 						noClose
-						:title="scheduledLabel" />
+						:title="scheduledLabel">
+						<template #icon>
+							<IconCalendarClockOutline :size="16" />
+						</template>
+					</NcChip>
 
 					<NcChip
 						v-if="isAdmin && isScheduledForDeletion"
-						:text="t('announcementcenter', 'Expiring')"
+						:text="t('announcementcenter', 'Deletion')"
 						:variant="deletionChipVariant"
 						noClose
-						:title="scheduledDeletionLabel" />
+						:title="scheduledDeletionLabel">
+						<template #icon>
+							<IconDeleteClockOutline :size="16" />
+						</template>
+					</NcChip>
 
 					<NcChip
 						v-if="isAdmin"
 						:text="isVisibleToEveryone ? t('announcementcenter', 'Everyone') : t('announcementcenter', 'Restricted')"
 						noClose
-						:title="visibilityLabel" />
+						:title="visibilityLabel">
+						<template #icon>
+							<IconWeb v-if="isVisibleToEveryone" :size="16" />
+							<IconLockOutline v-else :size="16" />
+						</template>
+					</NcChip>
 				</div>
 
 				<NcActions
@@ -107,7 +120,11 @@ import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
+import IconCalendarClockOutline from 'vue-material-design-icons/CalendarClockOutline.vue'
+import IconDeleteClockOutline from 'vue-material-design-icons/DeleteClockOutline.vue'
+import IconLockOutline from 'vue-material-design-icons/LockOutline.vue'
 import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
+import IconWeb from 'vue-material-design-icons/Web.vue'
 import {
 	deleteAnnouncement,
 	removeNotifications,
@@ -117,7 +134,11 @@ export default {
 	name: 'Announcement',
 	components: {
 		IconBellOffOutline,
+		IconCalendarClockOutline,
+		IconDeleteClockOutline,
+		IconLockOutline,
 		IconTrashCanOutline,
+		IconWeb,
 		NcActions,
 		NcActionButton,
 		NcButton,
