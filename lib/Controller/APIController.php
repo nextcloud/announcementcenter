@@ -91,11 +91,12 @@ class APIController extends OCSController {
 			'message' => $announcement->getMessage(),
 			'groups' => null,
 			'comments' => $announcement->getAllowComments() ? $this->manager->getNumberOfComments($announcement) : false,
-			'schedule_time' => $announcement->getScheduleTime(),
-			'delete_time' => $announcement->getDeleteTime(),
 		];
 
 		if ($this->manager->checkIsAdmin()) {
+			$result['schedule_time'] = $announcement->getScheduleTime();
+			$result['delete_time'] = $announcement->getDeleteTime();
+
 			if ($announcement->getScheduleTime()) {
 				$groupIds = json_decode($announcement->getGroups(), true);
 				if (!is_array($groupIds)) {

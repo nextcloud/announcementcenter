@@ -17,24 +17,35 @@
 					<NcUserBubble
 						:user="authorId"
 						:displayName="author" />
-					<span v-if="isScheduled" :title="scheduledLabel">{{ scheduledLabel }}</span>
 					<NcDateTime
-						v-else
 						ignoreSeconds
 						:format="{ timeStyle: 'short', dateStyle: 'long' }"
 						:timestamp="time * 1000" />
 
-					<template v-if="isAdmin">
-						·
-						<template v-if="isVisibleToEveryone">
-							{{ visibilityLabel }}
+					<NcChip
+						v-if="isAdmin && isScheduled"
+						:text="t('announcementcenter', 'Scheduled')"
+						variant="warning"
+						noClose
+						:title="scheduledLabel" />
+
+					<NcChip
+						v-if="isAdmin && isScheduledForDeletion"
+						:text="t('announcementcenter', 'Expiring')"
+						:variant="deletionChipVariant"
+						noClose
+						:title="scheduledDeletionLabel" />
+
+					<NcChip
+						v-if="isAdmin"
+						:text="isVisibleToEveryone ? t('announcementcenter', 'Everyone') : t('announcementcenter', 'Restricted')"
+						noClose
+						:title="visibilityLabel">
+						<template #icon>
+							<IconWeb v-if="isVisibleToEveryone" :size="16" />
+							<IconLockOutline v-else :size="16" />
 						</template>
-						<span
-							v-else
-							:title="visibilityTitle">
-							{{ visibilityLabel }}
-						</span>
-					</template>
+					</NcChip>
 				</div>
 
 				<NcActions
@@ -96,11 +107,14 @@ import { getLanguage, n, t } from '@nextcloud/l10n'
 import NcActionButton from '@nextcloud/vue/components/NcActionButton'
 import NcActions from '@nextcloud/vue/components/NcActions'
 import NcButton from '@nextcloud/vue/components/NcButton'
+import NcChip from '@nextcloud/vue/components/NcChip'
 import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
+import IconLockOutline from 'vue-material-design-icons/LockOutline.vue'
 import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
+import IconWeb from 'vue-material-design-icons/Web.vue'
 import {
 	deleteAnnouncement,
 	removeNotifications,
@@ -110,10 +124,13 @@ export default {
 	name: 'Announcement',
 	components: {
 		IconBellOffOutline,
+		IconLockOutline,
 		IconTrashCanOutline,
+		IconWeb,
 		NcActions,
 		NcActionButton,
 		NcButton,
+		NcChip,
 		NcDateTime,
 		NcRichText,
 		NcUserBubble,
@@ -174,6 +191,11 @@ export default {
 			type: Number,
 			default: null,
 		},
+
+		deleteTime: {
+			type: Number,
+			default: null,
+		},
 	},
 
 	emits: ['click'],
@@ -191,6 +213,10 @@ export default {
 
 		scheduleDateFormat() {
 			return (new Date(this.scheduleTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
+		},
+
+		deleteDateFormat() {
+			return (new Date(this.deleteTime * 1000)).toLocaleString(getLanguage(), { dateStyle: 'long', timeStyle: 'short' })
 		},
 
 		isVisibleToEveryone() {
@@ -241,18 +267,22 @@ export default {
 			return this.scheduleTime && this.scheduleTime !== null
 		},
 
+		isScheduledForDeletion() {
+			return this.deleteTime && this.deleteTime !== null
+		},
+
+		deletionChipVariant() {
+			// Avoid showing two warning (yellow) chips while the announcement
+			// itself is not published yet.
+			return this.isScheduled ? 'tertiary' : 'warning'
+		},
+
 		scheduledLabel() {
 			return t('announcementcenter', 'scheduled at {time}', { time: this.scheduleDateFormat })
 		},
 
-		visibilityTitle() {
-			if (this.isVisibleToEveryone) {
-				return ''
-			}
-
-			return this.groups.map(({ name }) => {
-				return name
-			}).join(t('announcementcenter', ', '))
+		scheduledDeletionLabel() {
+			return t('announcementcenter', 'scheduled for deletion at {time}', { time: this.deleteDateFormat })
 		},
 
 		commentsCount() {
@@ -320,13 +350,12 @@ export default {
 				display: flex;
 
 				&__info {
-					color: var(--color-text-maxcontrast);
+					display: flex;
+					align-items: center;
 					flex: 1 1 auto;
-
-					span {
-						margin-left: 4px;
-						margin-right: 4px;
-					}
+					flex-wrap: wrap;
+					gap: 4px;
+					color: var(--color-text-maxcontrast);
 				}
 
 				.action-item {
