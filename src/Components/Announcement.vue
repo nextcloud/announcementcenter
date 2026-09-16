@@ -40,7 +40,12 @@
 						v-if="isAdmin"
 						:text="isVisibleToEveryone ? t('announcementcenter', 'Everyone') : t('announcementcenter', 'Restricted')"
 						noClose
-						:title="visibilityLabel" />
+						:title="visibilityLabel">
+						<template #icon>
+							<IconWeb v-if="isVisibleToEveryone" :size="16" />
+							<IconLockOutline v-else :size="16" />
+						</template>
+					</NcChip>
 				</div>
 
 				<NcActions
@@ -107,7 +112,9 @@ import NcDateTime from '@nextcloud/vue/components/NcDateTime'
 import NcRichText from '@nextcloud/vue/components/NcRichText'
 import NcUserBubble from '@nextcloud/vue/components/NcUserBubble'
 import IconBellOffOutline from 'vue-material-design-icons/BellOffOutline.vue'
+import IconLockOutline from 'vue-material-design-icons/LockOutline.vue'
 import IconTrashCanOutline from 'vue-material-design-icons/TrashCanOutline.vue'
+import IconWeb from 'vue-material-design-icons/Web.vue'
 import {
 	deleteAnnouncement,
 	removeNotifications,
@@ -117,7 +124,9 @@ export default {
 	name: 'Announcement',
 	components: {
 		IconBellOffOutline,
+		IconLockOutline,
 		IconTrashCanOutline,
+		IconWeb,
 		NcActions,
 		NcActionButton,
 		NcButton,
