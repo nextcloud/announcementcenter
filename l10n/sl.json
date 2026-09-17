@@ -25,10 +25,12 @@
     "visible to group {name}" : "vidno skupini {name}",
     "visible to groups {name1} and {name2}" : "vidno skupinam {name1} in {name2}",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["vidno skupini {name} in še %n drugi","vidno skupini {name} in še %n drugima","vidno skupini {name} in še %n drugim","vidno skupini {name} in še %n drugim"],
-    ", " : ",",
     "_%n comment_::_%n comments_" : ["%n komentar","%n komentarja","%n komentarji","%n komentarjev"],
     "An error occurred while removing the notifications of the announcement" : "Prišlo je do napake med brisanjem obvestila objave.",
     "An error occurred while deleting the announcement" : "Prišlo je do napake med brisanje obvestila.",
+    "Scheduled" : "Načrtovano",
+    "Everyone" : "Vsi",
+    "Restricted" : "Omejeno",
     "Clear notifications" : "Počisti obvestila",
     "Delete announcement" : "Izbriši objavo",
     "An error occurred while posting the announcement" : "Prišlo je do napake med objavljanjem objave.",
@@ -39,7 +41,6 @@
     "Send emails" : "Pošlji elektronska sporočila",
     "Allow comments" : "Dovoli komentiranje obvestil",
     "Visibility" : "Vidnost",
-    "Everyone" : "Vsi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Če ni navedene nobene skupine, bodo obvestilo prejeli vsi uporabniki.",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);"

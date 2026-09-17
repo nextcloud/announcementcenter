@@ -13,14 +13,14 @@ OC.L10N.register(
     "Create notifications by default" : "საწყისად ქმნის შეტყობინებებს",
     "Allow comments by default" : "საწყისად კომენტარების დაშვება",
     "Comments" : "კომენტარები",
-    ", " : ",",
     "_%n comment_::_%n comments_" : ["%n კომენტარი","%n კომენტარი"],
+    "Everyone" : "ყველა",
+    "Restricted" : "აკრძალული",
     "Delete announcement" : "განცხადების გაუქმება",
     "Announce" : "განცხადება",
     "Create activities" : "აქტივობების შექმნა",
     "Create notifications" : "შეტყობინებების შექმნა",
     "Allow comments" : "კომენტარების დაშვება",
-    "Everyone" : "ყველა",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "ეს ჯგუფები იხილავენ განცხადებებს. თუ ჯგუფი არაა არჩეული, ყველა მომხმარებელი იხილავს მათ."
 },
 "nplurals=2; plural=(n!=1);");

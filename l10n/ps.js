@@ -9,7 +9,6 @@ OC.L10N.register(
     "Announcements" : "اعلانونه",
     "Allow comments by default" : "تبصرو ته اجازه ورکړئ",
     "Comments" : "تبصرې",
-    ", " : ", ",
     "_%n comment_::_%n comments_" : ["%nتبصره","%nتبصرې"],
     "Announce" : "اعلان وکړئ",
     "Create activities" : "کړنې جوړې کړئ",

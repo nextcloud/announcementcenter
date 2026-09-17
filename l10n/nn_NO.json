@@ -1,6 +1,5 @@
 { "translations": {
     "Comments" : "Kommentarar",
-    ", " : ", ",
     "Everyone" : "Alle"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

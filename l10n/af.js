@@ -20,8 +20,8 @@ OC.L10N.register(
     "visible to everyone" : "sigbaar vir almal",
     "visible to group {name}" : "sigbaar vir groep {name}",
     "visible to groups {name1} and {name2}" : "sigbaar vir groepe {name1} and {name2}",
-    ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n kommentaar","%n kommentare"],
+    "Everyone" : "Almal",
     "Clear notifications" : "Wis kennisgewings",
     "Delete announcement" : "Skrap aankondiging",
     "An error occurred while posting the announcement" : "’n Fout het voorgekom toe die kommentaar geplaas is",
@@ -29,7 +29,6 @@ OC.L10N.register(
     "Create activities" : "Skep aktiwiteite",
     "Create notifications" : "Skep kennisgewings",
     "Allow comments" : "Staan kommentare toe",
-    "Everyone" : "Almal",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Hierdie groepe sal die aankondiging kan sien. Almal sal dit kan sien indien geen groep gekies is nie.",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },

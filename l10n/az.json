@@ -1,7 +1,6 @@
 { "translations": {
     "Comments" : "Şərhlər",
-    ", " : ",",
-    "Announce" : "Elan et",
-    "Everyone" : "Hamı"
+    "Everyone" : "Hamı",
+    "Announce" : "Elan et"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }

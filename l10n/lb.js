@@ -3,8 +3,9 @@ OC.L10N.register(
     {
     "Announcements" : "Ukënnegungen",
     "Comments" : "Kommentarer",
-    ", " : ", ",
-    "Announce" : "Ukënnegen",
-    "Everyone" : "Jiddereen"
+    "Scheduled" : "Geplangt",
+    "Everyone" : "Jiddereen",
+    "Restricted" : "Ageschränkt",
+    "Announce" : "Ukënnegen"
 },
 "nplurals=2; plural=(n != 1);");

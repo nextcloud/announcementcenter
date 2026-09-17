@@ -28,10 +28,12 @@
     "visible to groups {name1} and {name2}" : "synlig for grupper: {name1} og {name2}",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["Synlig for gruppe {name} og %n flere","synlig for gruppe {name} og %n flere"],
     "scheduled at {time}" : "planlagt kl. {time}",
-    ", " : ",",
     "_%n comment_::_%n comments_" : ["%n kommentar","%n kommentarer"],
     "An error occurred while removing the notifications of the announcement" : "Det oppsto en feil ved fjerning av kunngjøringen",
     "An error occurred while deleting the announcement" : "Det oppsto en feil ved sletting av kunngjøringen",
+    "Scheduled" : "Planlagt",
+    "Everyone" : "Alle",
+    "Restricted" : "Begrenset",
     "Clear notifications" : "Slett alle varsler",
     "Delete announcement" : "Slett kunngjøring",
     "An error occurred while posting the announcement" : "En feil oppsto ved posting av kunngjøringen",
@@ -42,7 +44,6 @@
     "Send emails" : "Send e-poster",
     "Allow comments" : "Tillatt kommentarer",
     "Visibility" : "Synlighet",
-    "Everyone" : "Alle",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Disse gruppene vil kunne se kunngjøringen, hvis ingen grupper er valgt vil alle brukerne kunne se den.",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"

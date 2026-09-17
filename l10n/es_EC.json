@@ -26,10 +26,12 @@
     "visible to group {name}" : "visible para el grupo {name}",
     "visible to groups {name1} and {name2}" : "visible para los grupos {name1} y {name2}",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible para el grupo {name} y %n más","visible para el grupo {name} y %n más","visible para el grupo {name} y %n más"],
-    ", " : ",",
     "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "An error occurred while removing the notifications of the announcement" : "Se produjo un error al eliminar las notificaciones del anuncio",
     "An error occurred while deleting the announcement" : "Se produjo un error al eliminar el anuncio",
+    "Scheduled" : "Programado",
+    "Everyone" : "Todos",
+    "Restricted" : "Restringido",
     "Clear notifications" : "Borrar notificaciones",
     "Delete announcement" : "Borrar anuncio",
     "An error occurred while posting the announcement" : "Se produjo un error al publicar el anuncio",
@@ -40,7 +42,6 @@
     "Send emails" : "Enviar correos electrónicos",
     "Allow comments" : "Permitir comentarios",
     "Visibility" : "Visibilidad",
-    "Everyone" : "Todos",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Estos grupos podrán ver el anuncio. Si no se seleccióna un grupo, todos los usuarios podrán verlo.",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"

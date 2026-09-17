@@ -4,7 +4,8 @@ OC.L10N.register(
     "Announcements" : "E'lonlar",
     "Read more" : "Ko'proq o'qish",
     "Comments" : "Izohlar",
-    "Visibility" : "Ko'rinish",
-    "Everyone" : "Barcha"
+    "Everyone" : "Barcha",
+    "Restricted" : "Cheklangan",
+    "Visibility" : "Ko'rinish"
 },
 "nplurals=1; plural=0;");

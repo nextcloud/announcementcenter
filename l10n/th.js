@@ -25,8 +25,9 @@ OC.L10N.register(
     "Allow comments by default" : "อนุญาตให้แสดงความคิดเห็นโดยค่าเริ่มต้น",
     "No announcements" : "ไม่มีประกาศ",
     "Comments" : "ความคิดเห็น",
-    ", " : ", ",
     "_%n comment_::_%n comments_" : ["ความคิดเห็น %n รายการ"],
+    "Everyone" : "ทุกคน",
+    "Restricted" : "ถูกจำกัด",
     "Clear notifications" : "ล้างการแจ้งเตือน",
     "Delete announcement" : "ลบประกาศ",
     "An error occurred while posting the announcement" : "เกิดข้อผิดพลาดขณะโพสต์ประกาศ",
@@ -35,7 +36,6 @@ OC.L10N.register(
     "Create notifications" : "สร้างการแจ้งเตือน",
     "Send emails" : "ส่งอีเมล์",
     "Allow comments" : "อนุญาตแสดงความคิดเก็น",
-    "Everyone" : "ทุกคน",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=1; plural=0;");

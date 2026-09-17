@@ -14,15 +14,15 @@ OC.L10N.register(
     "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
     "Allow comments by default" : "Pēc noklusējuma atļaut piebildes",
     "Comments" : "Piebildes",
-    ", " : ",",
     "_%n comment_::_%n comments_" : ["%n piebilžu","%n piebilde","%n piebildes"],
+    "Everyone" : "Visi",
+    "Restricted" : "Ierobežota",
     "Delete announcement" : "Izdzēst paziņojumu",
     "Announce" : "Paziņot",
     "Create activities" : "Izveidot darbības",
     "Create notifications" : "Izveidot paziņojumu",
     "Allow comments" : "Atļaut piebildes",
     "Visibility" : "Redzamība",
-    "Everyone" : "Visi",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Šīs grupas varēs redzēt paziņojumu. Ja netiks izvēlēta neviena grupa, visi lietotāji to varēs redzēt."
 },
 "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);");

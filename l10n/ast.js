@@ -19,8 +19,8 @@ OC.L10N.register(
     "_%n comment_::_%n comments_" : ["%n comentariu","%n comentarios"],
     "An error occurred while removing the notifications of the announcement" : "Prodúxose un error mentanto se quitaben los avisos del anunciu",
     "An error occurred while deleting the announcement" : "Prodúxose un error mentanto se desaniciaba l'anunciu",
+    "Everyone" : "Tol mundu",
     "An error occurred while posting the announcement" : "Prodúxose un error mentanto s'espublizaba l'anunciu",
-    "Visibility" : "Visibilidá",
-    "Everyone" : "Tol mundu"
+    "Visibility" : "Visibilidá"
 },
 "nplurals=2; plural=(n != 1);");

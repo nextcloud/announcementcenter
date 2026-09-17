@@ -16,8 +16,9 @@
     "visible to everyone" : "visible de totes",
     "visible to group {name}" : "visible pel grop {name}",
     "visible to groups {name1} and {name2}" : "visible pel grop {name1} e {name2}",
-    ", " : ", ",
     "_%n comment_::_%n comments_" : ["%n comentari","%n comentaris"],
+    "Everyone" : "Tot lo monde",
+    "Restricted" : "Restrencha",
     "Clear notifications" : "Escafar las anóncias",
     "Delete announcement" : "Suprimir l’anóncia",
     "Announce" : "Anóncia",
@@ -25,7 +26,6 @@
     "Create notifications" : "Crear de notificacions",
     "Allow comments" : "Permetre los comentaris",
     "Visibility" : "Visibilitat",
-    "Everyone" : "Tot lo monde",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },"pluralForm" :"nplurals=2; plural=(n > 1);"
 }

@@ -1,8 +1,9 @@
 { "translations": {
     "Announcements" : "Ukënnegungen",
     "Comments" : "Kommentarer",
-    ", " : ", ",
-    "Announce" : "Ukënnegen",
-    "Everyone" : "Jiddereen"
+    "Scheduled" : "Geplangt",
+    "Everyone" : "Jiddereen",
+    "Restricted" : "Ageschränkt",
+    "Announce" : "Ukënnegen"
 },"pluralForm" :"nplurals=2; plural=(n != 1);"
 }
