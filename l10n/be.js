@@ -4,6 +4,7 @@ OC.L10N.register(
     "Read more" : "Больш падрабязна",
     "Comments" : "Каментарыі",
     "Everyone" : "Усе",
+    "Restricted" : "Абмежавана",
     "Clear notifications" : "Ачысціць апавяшчэнні",
     "Visibility" : "Бачнасць"
 },
