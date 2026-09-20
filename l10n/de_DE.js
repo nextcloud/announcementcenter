@@ -36,7 +36,7 @@ OC.L10N.register(
     "An error occurred while removing the notifications of the announcement" : "Es ist ein Fehler beim Entfernen der Benachrichtigungen zur Ankündigung aufgetreten",
     "An error occurred while deleting the announcement" : "Es ist ein Fehler beim Löschen der Ankündigung aufgetreten",
     "Scheduled" : "Geplant",
-    "Expiring" : "Auslaufend",
+    "Expiring" : "Ablaufend",
     "Everyone" : "Jeder",
     "Restricted" : "Eingeschränkt",
     "Clear notifications" : "Benachrichtigungen löschen",
