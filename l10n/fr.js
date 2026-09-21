@@ -31,6 +31,7 @@ OC.L10N.register(
     "visible to groups {name1} and {name2}" : "visible pour les groupes {name1} et {name2}",
     "_visible to group {name} and %n more_::_visible to group {name} and %n more_" : ["visible au groupe {name} et %n en plus","visible au groupe {name} et %n en plus","visible pour le groupe {name} et %n de plus"],
     "scheduled at {time}" : "programmée à {time}",
+    "scheduled for deletion at {time}" : "programmée pour suppression à {time}",
     "_%n comment_::_%n comments_" : ["%n commentaire","%n commentaires","%n commentaires"],
     "An error occurred while removing the notifications of the announcement" : "Une erreur est survenue lors de la suppression des notifications de l’annonce",
     "An error occurred while deleting the announcement" : "Une erreur est survenue lors de la suppression de l’annonce",
