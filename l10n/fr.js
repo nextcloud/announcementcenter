@@ -36,6 +36,7 @@ OC.L10N.register(
     "An error occurred while removing the notifications of the announcement" : "Une erreur est survenue lors de la suppression des notifications de l’annonce",
     "An error occurred while deleting the announcement" : "Une erreur est survenue lors de la suppression de l’annonce",
     "Scheduled" : "Place attribuée",
+    "Expiring" : "Va expirer",
     "Everyone" : "Tout le monde",
     "Restricted" : "Restreinte",
     "Clear notifications" : "Effacer les notifications",
