@@ -20,6 +20,18 @@
 					@click="onClickAnnouncement" />
 			</transition-group>
 
+			<div
+				v-if="hasMore && announcements.length"
+				:ref="observeLoadMore"
+				class="load-more">
+				<NcButton
+					:disabled="loading"
+					variant="secondary"
+					@click="loadAnnouncements">
+					{{ t('announcementcenter', 'Load more') }}
+				</NcButton>
+			</div>
+
 			<NcEmptyContent
 				v-if="!announcements.length"
 				:name="t('announcementcenter', 'No announcements')"
@@ -46,11 +58,15 @@ import { loadState } from '@nextcloud/initial-state'
 import { t } from '@nextcloud/l10n'
 import NcAppContent from '@nextcloud/vue/components/NcAppContent'
 import NcAppSidebar from '@nextcloud/vue/components/NcAppSidebar'
+import NcButton from '@nextcloud/vue/components/NcButton'
 import NcContent from '@nextcloud/vue/components/NcContent'
 import NcEmptyContent from '@nextcloud/vue/components/NcEmptyContent'
 import Announcement from './Components/Announcement.vue'
 import NewForm from './Components/NewForm.vue'
 import { getAnnouncements } from './services/announcementsService.js'
+
+// Page size of the announcements API
+const PAGE_SIZE = 7
 
 export default {
 	name: 'App',
@@ -59,6 +75,7 @@ export default {
 		Announcement,
 		NcAppContent,
 		NcAppSidebar,
+		NcButton,
 		NcContent,
 		NcEmptyContent,
 		NewForm,
@@ -69,6 +86,8 @@ export default {
 			isAdmin: loadState('announcementcenter', 'isAdmin'),
 			commentsView: null,
 			activeId: 0,
+			hasMore: true,
+			loading: false,
 		}
 	},
 
@@ -76,7 +95,7 @@ export default {
 		announcements() {
 			const announcements = this.$store.getters.announcements
 			return announcements.sort((a1, a2) => {
-				return a2.time - a1.time
+				return a2.time - a1.time || a2.id - a1.id
 			})
 		},
 
@@ -96,6 +115,18 @@ export default {
 		},
 	},
 
+	created() {
+		this.observer = new IntersectionObserver(([entry]) => {
+			if (entry.isIntersecting) {
+				this.loadAnnouncements()
+			}
+		}, { rootMargin: '300px' })
+	},
+
+	beforeUnmount() {
+		this.observer?.disconnect()
+	},
+
 	async mounted() {
 		await this.loadAnnouncements()
 
@@ -108,13 +139,35 @@ export default {
 	methods: {
 		t,
 
-		async loadAnnouncements() {
-			const response = await getAnnouncements()
-			const announcements = response.data?.ocs?.data || []
+		/**
+		 * (Re-)observe the "Load more" button, so it also triggers while it stays visible after a render
+		 *
+		 * @param {HTMLElement|null} el the button wrapper
+		 */
+		observeLoadMore(el) {
+			this.observer.disconnect()
+			if (el) {
+				this.observer.observe(el)
+			}
+		},
 
-			announcements.forEach((announcement) => {
-				this.$store.dispatch('addAnnouncement', announcement)
-			})
+		async loadAnnouncements() {
+			if (!this.hasMore || this.loading) {
+				return
+			}
+
+			this.loading = true
+			try {
+				const response = await getAnnouncements(this.announcements.at(-1)?.id)
+				const announcements = response.data?.ocs?.data || []
+				this.hasMore = announcements.length === PAGE_SIZE
+
+				announcements.forEach((announcement) => {
+					this.$store.dispatch('addAnnouncement', announcement)
+				})
+			} finally {
+				this.loading = false
+			}
 		},
 
 		/**
@@ -162,6 +215,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.load-more {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 3em;
+}
+
 :deep(.comments) {
 	overflow: hidden auto;
 	height: 100%;

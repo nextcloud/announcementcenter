@@ -5,6 +5,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 7.5.1 – 2026-09-24
+### Added
+- Dispatch `AnnouncementPublished` event when an announcement is published
+  [#1158](https://github.com/nextcloud/announcementcenter/pull/1158)
+
+### Changed
+- Updated translations
+- Updated dependencies
+- Use chips to show the scheduling, expiration and group restriction of announcements
+  [#1172](https://github.com/nextcloud/announcementcenter/pull/1172)
+
+### Fixed
+- Fix loading of older announcements when scrolling down
+  [#1159](https://github.com/nextcloud/announcementcenter/pull/1159)
+- Fix images overflowing the width of the announcement
+  [#1161](https://github.com/nextcloud/announcementcenter/pull/1161)
+
 ## 7.5.0 – 2026-08-06
 ### Added
 - Compatibility with Nextcloud 35
