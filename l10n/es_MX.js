@@ -14,6 +14,7 @@ OC.L10N.register(
     "Create activities by default" : "Crear actividades predeterminadas",
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada",
+    "Load more" : "Cargar más",
     "Comments" : "Comentarios",
     "_%n comment_::_%n comments_" : ["%n comentario","%n comentarios","%n comentarios"],
     "Scheduled" : "Programado",

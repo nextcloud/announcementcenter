@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Dovoli ustvarjanje obvestil",
     "Send emails by default" : "Elektronsko sporočilo pošlji privzeto",
     "Allow comments by default" : "Dovoli komentiranje",
+    "Load more" : "Naloži več",
     "No announcements" : "Ni obvestil",
     "Comments" : "Opombe",
     "visible to everyone" : "vidno vsem",

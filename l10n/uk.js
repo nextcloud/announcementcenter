@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Створити типове сповіщення",
     "Send emails by default" : "Типово надсилати ел. поштою",
     "Allow comments by default" : "Типово дозволити додавати коментарі",
+    "Load more" : "Більше",
     "No announcements" : "Відсутні оголошення",
     "There are currently no announcements …" : "Відсутні оголошення ...",
     "Comments" : "Коментарі",

@@ -17,6 +17,7 @@ OC.L10N.register(
     "Create activities by default" : "Búa sjálfgefið til virkniaðgerðir",
     "Create notifications by default" : "Búa sjálfgefið til tilkynningar",
     "Allow comments by default" : "Sjálfgefið leyfa ummæli",
+    "Load more" : "Hlaða inn fleiri",
     "Comments" : "Athugasemdir",
     "_%n comment_::_%n comments_" : ["%n ummæli","%n ummæli"],
     "Everyone" : "Allir",

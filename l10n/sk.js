@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
     "Send emails by default" : "Odoslať emaily ako predvolené",
     "Allow comments by default" : "V predvolenom nastavení povoliť komentáre",
+    "Load more" : "Načítať viac",
     "No announcements" : "Žiadne oznámenia",
     "There are currently no announcements …" : "Momentálne nie sú k dispozícii žiadne oznámenia …",
     "Comments" : "Komentáre",

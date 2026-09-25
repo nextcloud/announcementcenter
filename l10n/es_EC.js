@@ -22,6 +22,7 @@ OC.L10N.register(
     "Create notifications by default" : "Crear notificaciones predeterminada",
     "Send emails by default" : "Enviar correos electrónicos de forma predeterminada",
     "Allow comments by default" : "Permitir comentarios predeterminada",
+    "Load more" : "Cargar más",
     "No announcements" : "No hay anuncios",
     "Comments" : "Comentarios",
     "visible to everyone" : "visible para todos",

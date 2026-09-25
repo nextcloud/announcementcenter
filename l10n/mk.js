@@ -4,6 +4,7 @@ OC.L10N.register(
     "The subject is too long or empty" : "Темата е премногу долга или ја нема",
     "Announcements" : "Објави",
     "Read more" : "Прочитај повеќе",
+    "Load more" : "Вчитај повеќе",
     "Comments" : "Коментари",
     "Everyone" : "Сите",
     "Restricted" : "Ограничена",

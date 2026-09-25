@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Unda arifa kwa chaguo-msingi",
     "Send emails by default" : "Tuma barua pepe kwa chaguo-msingi",
     "Allow comments by default" : "Ruhusu maoni kwa chaguo-msingi",
+    "Load more" : "Pakia zaidi",
     "No announcements" : "Hakuna matangazo",
     "Comments" : "Maoni",
     "visible to everyone" : "inayoonekana kwa kila mtu",

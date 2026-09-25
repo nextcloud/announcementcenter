@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Crează notificări în mod implicit",
     "Send emails by default" : "Trimite mailuri implicit",
     "Allow comments by default" : "Permite comentarii în mod implicit",
+    "Load more" : "Încarcă mai mult",
     "No announcements" : "Niciun anunț",
     "Comments" : "Comentarii",
     "visible to everyone" : "vizibil pentru toți",

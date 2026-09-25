@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Benachrichtigungen standardmäßig erstellen",
     "Send emails by default" : "Standardmäßig E-Mails senden",
     "Allow comments by default" : "Kommentare standardmäßig erlauben",
+    "Load more" : "Mehr laden",
     "No announcements" : "Keine Ankündigungen",
     "There are currently no announcements …" : "Es gibt derzeit keine Ankündigungen …",
     "Comments" : "Kommentare",

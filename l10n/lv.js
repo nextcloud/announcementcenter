@@ -13,6 +13,7 @@ OC.L10N.register(
     "Create activities by default" : "Izveidot darbības pēc noklusējuma",
     "Create notifications by default" : "Izveidot ziņojumus pēc noklusējuma",
     "Allow comments by default" : "Pēc noklusējuma atļaut piebildes",
+    "Load more" : "Ielādēt vairāk",
     "Comments" : "Piebildes",
     "_%n comment_::_%n comments_" : ["%n piebilžu","%n piebilde","%n piebildes"],
     "Everyone" : "Visi",

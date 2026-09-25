@@ -18,6 +18,7 @@ OC.L10N.register(
     "Create activities by default" : "יצירת פעילויות כבררת מחדל",
     "Create notifications by default" : "יצירת התרעות כבררת מחדל",
     "Allow comments by default" : "לאפשר תגובות כבררת מחדל",
+    "Load more" : "לטעון עוד",
     "No announcements" : "אין הכרזות",
     "Comments" : "תגובות",
     "visible to everyone" : "גלוי לכולם",

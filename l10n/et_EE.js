@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Koosta teated vaikimisi",
     "Send emails by default" : "Vaikimisi saada e-kirjadena",
     "Allow comments by default" : "Luba kommentaarid vaikimisi",
+    "Load more" : "Laadi veel",
     "No announcements" : "Teadaandeid pole",
     "There are currently no announcements …" : "Hetkel rohkem teadaandeid  pole…",
     "Comments" : "Kommentaarid",

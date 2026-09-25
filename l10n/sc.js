@@ -19,6 +19,7 @@ OC.L10N.register(
     "Create activities by default" : "Crea atividades in manera predefinida",
     "Create notifications by default" : "Crea notìficas in manera predefinida",
     "Allow comments by default" : "Permite cummentos in manera predefinida",
+    "Load more" : "Càrriga àteru",
     "No announcements" : "Peruna comunicatzione",
     "Comments" : "Cummentos",
     "visible to everyone" : "visìbile pro totus",

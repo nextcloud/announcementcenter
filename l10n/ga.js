@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Cruthaigh fógraí de réir réamhshocraithe",
     "Send emails by default" : "Seol ríomhphoist de réir réamhshocraithe",
     "Allow comments by default" : "Ceadaigh tuairimí de réir réamhshocraithe",
+    "Load more" : "Luchtaigh níos mó",
     "No announcements" : "Gan fógraí",
     "There are currently no announcements …" : "Níl aon fhógraí ann faoi láthair …",
     "Comments" : "Tuairimí",

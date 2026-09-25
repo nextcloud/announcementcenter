@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Opprett varsler som forvalg",
     "Send emails by default" : "Send e-poster som standard",
     "Allow comments by default" : "Tillatt kommentarer som standard",
+    "Load more" : "Last mer",
     "No announcements" : "Ingen kunngjøringer",
     "Comments" : "Kommentarer",
     "visible to everyone" : "synlig for alle",

@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "デフォルトで通知を作成する",
     "Send emails by default" : "デフォルトでメールを送信",
     "Allow comments by default" : "デフォルトでコメントを許可する",
+    "Load more" : "さらに読み込む",
     "No announcements" : "お知らせがありません",
     "There are currently no announcements …" : "現在、お知らせはありません…",
     "Comments" : "コメント",

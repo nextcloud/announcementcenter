@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "سۈكۈت بويىچە ئۇقتۇرۇش قۇر",
     "Send emails by default" : "كۆڭۈلدىكى ئەھۋالدا ئېلېكترونلۇق خەت ئەۋەتىڭ",
     "Allow comments by default" : "سۈكۈتتىكى باھالارغا يول قويۇڭ",
+    "Load more" : "تېخىمۇ كۆپ يۈكلەڭ",
     "No announcements" : "ھېچقانداق ئېلان يوق",
     "Comments" : "باھا",
     "visible to everyone" : "ھەممەيلەنگە كۆرۈنىدۇ",

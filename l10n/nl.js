@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Standaard meldingen creëren",
     "Send emails by default" : "E-mails standaard verzenden",
     "Allow comments by default" : "Reageren standaard toestaan",
+    "Load more" : "Laad meer",
     "No announcements" : "Geen aankondigingen",
     "There are currently no announcements …" : "Er zijn momenteel geen mededelingen …",
     "Comments" : "Reacties",

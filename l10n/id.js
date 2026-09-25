@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Buat pemberitahuan sebagai bawaan",
     "Send emails by default" : "Kirim email secara default",
     "Allow comments by default" : "Izinkan komentar secara default",
+    "Load more" : "Muat lebih banyak",
     "No announcements" : "Tidak ada pengumuman",
     "Comments" : "Komentar",
     "visible to everyone" : "terlihat untuk semua",

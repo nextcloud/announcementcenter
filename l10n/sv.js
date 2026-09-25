@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Skapa aviseringar som standard",
     "Send emails by default" : "Skicka e-post som standard",
     "Allow comments by default" : "Tillåt kommentarer som standard",
+    "Load more" : "Hämta fler",
     "No announcements" : "Inga meddelanden",
     "There are currently no announcements …" : "Det finns för närvarande inga anslag …",
     "Comments" : "Kommentarer",

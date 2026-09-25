@@ -22,6 +22,7 @@ OC.L10N.register(
     "Create notifications by default" : "기본적으로 알림 만들기",
     "Send emails by default" : "기본으로 이메일 발송",
     "Allow comments by default" : "기본적으로 댓글 허용",
+    "Load more" : "더 불러오기",
     "No announcements" : "공지 없음",
     "Comments" : "댓글",
     "visible to everyone" : "모든 사용자에게 보임",

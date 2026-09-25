@@ -4,6 +4,7 @@ OC.L10N.register(
     "Announcements" : "Ilɣa",
     "Read more" : "Ɣeṛ ugar",
     "{author}, {time}" : "{author}, {time}",
+    "Load more" : "Sali-d ugar",
     "Comments" : "Iwenniten",
     "Everyone" : "Yal yiwen",
     "Restricted" : "Yesεa tilas",

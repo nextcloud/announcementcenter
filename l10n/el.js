@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Δημιουργία ειδοποιήσεων από προεπιλογή",
     "Send emails by default" : "Αποστολή email από προεπιλογή",
     "Allow comments by default" : "Να επιτρέπονται σχόλια από προεπιλογή",
+    "Load more" : "Φόρτωση περισσότερων",
     "No announcements" : "Καμία ανακοίνωση",
     "Comments" : "Σχόλια",
     "visible to everyone" : "ορατό σε όλους",

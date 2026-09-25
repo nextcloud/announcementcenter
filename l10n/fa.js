@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "ایجاد اعلان به صورت پیش‌فرض",
     "Send emails by default" : "ارسال ایمیل به صورت پیش‌فرض",
     "Allow comments by default" : "اجازه نظر دادن به صورت پیش‌فرض",
+    "Load more" : "بارگذاری بیشتر",
     "No announcements" : "بدون اطلاعیه",
     "Comments" : "نظرات",
     "visible to everyone" : "قابل مشاهده برای همه",

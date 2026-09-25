@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Tạo các thông báo mặc định",
     "Send emails by default" : "Gửi email theo mặc định",
     "Allow comments by default" : "Cho phép bình luận mặc định",
+    "Load more" : "Xem thêm",
     "No announcements" : "Không có thông báo nào",
     "Comments" : "Các bình luận",
     "visible to everyone" : "hiển thị với mọi người",

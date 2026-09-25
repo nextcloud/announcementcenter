@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "Értesítések létrehozása alapértelmezés szerint",
     "Send emails by default" : "E-mailek küldése alapértelmezetten",
     "Allow comments by default" : "Hozzászólások engedélyezése alapértelmezetten",
+    "Load more" : "Továbbiak betöltése",
     "No announcements" : "Nincsenek bejelentések",
     "There are currently no announcements …" : "Jelenleg egyetlen bejelentés sincs…",
     "Comments" : "Hozzászólások",

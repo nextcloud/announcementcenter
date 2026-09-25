@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Luo ilmoitukset oletuksena",
     "Send emails by default" : "Lähetä sähköpostia oletusarvoisesti",
     "Allow comments by default" : "Salli kommentit oletuksena",
+    "Load more" : "Lataa lisää",
     "No announcements" : "Ei tiedotteita",
     "Comments" : "Kommentit",
     "visible to everyone" : "kaikille näkyvä",

@@ -21,6 +21,7 @@ OC.L10N.register(
     "Create notifications by default" : "Анхнаасаа мэдэгдэл үүсгэх",
     "Send emails by default" : "Анхдагчаар имэйл илгээх",
     "Allow comments by default" : "Анхнаасаа сэтгэгдэл зөвшөөрөх",
+    "Load more" : "Цааш ачаалах",
     "No announcements" : "–ó–∞—Ä–ª–∞–ª –±–∞–π—Ö–≥“Ø–π",
     "Comments" : "–°—ç—Ç–≥—ç–≥–¥–ª“Ø“Ø–¥",
     "visible to everyone" : "бүх хэрэглэгчид харагдана",
