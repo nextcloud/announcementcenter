@@ -19,7 +19,7 @@ OC.L10N.register(
     "Setting changed" : "Nastavenie zmenené",
     "An error occurred while changing the setting" : "Nastala chyba počas zmeny nastavenia",
     "These groups will be able to post announcements." : "Tieto skupiny budú môcť zverejňovať oznámenia.",
-    "Create activities by default" : "V predvolenom nastavení vytvárať aktivity",
+    "Create activities by default" : "Predvolene vytvárať aktivity",
     "Create notifications by default" : "V predvolenom nastavení vytvárať hlásenia",
     "Send emails by default" : "Odoslať emaily ako predvolené",
     "Allow comments by default" : "V predvolenom nastavení povoliť komentáre",
@@ -53,7 +53,7 @@ OC.L10N.register(
     "Visibility" : "Viditeľnosť",
     "These groups will be able to see the announcement. If no group is selected, all users can see it." : "Tieto skupiny budú môcť vidieť oznámenie. Ak nie je vybraná žiadna skupina, všetci používatelia ho môžu vidieť.",
     "Schedule announcement time" : "Naplánujte si čas oznámenia",
-    "Schedule deletion time" : "Naplánujte si čas mazania",
+    "Schedule deletion time" : "Naplánujte čas mazania",
     "{author}, {timestamp}" : "{author}, {timestamp}"
 },
 "nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);");
