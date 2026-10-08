@@ -37,7 +37,7 @@ OC.L10N.register(
     "An error occurred while removing the notifications of the announcement" : "Duyurunun bildirimleri silinirken bir sorun çıktı",
     "An error occurred while deleting the announcement" : "Duyuru silinirken bir sorun çıktı",
     "Scheduled" : "Zamanlanmış",
-    "Expiring" : "Geçerlilik süresi sona eriyor",
+    "Expiring" : "Geçerlilik süresi doluyor",
     "Everyone" : "Herkes",
     "Restricted" : "Kısıtlanmış",
     "Clear notifications" : "Bildirimleri temizle",
