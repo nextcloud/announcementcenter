@@ -23,6 +23,7 @@ OC.L10N.register(
     "Create notifications by default" : "أنشِئْ الاشعارات افتراضياً",
     "Send emails by default" : "أرسل إيميل ما لم يحدد غير ذلك",
     "Allow comments by default" : "إسمح بالتعليقات ما لم يحدد غير ذلك",
+    "Load more" : "حمّل أكثر",
     "No announcements" : "لا توجد اعلانات",
     "Comments" : "تعليقات",
     "visible to everyone" : "مرئي للجميع",

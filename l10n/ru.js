@@ -24,7 +24,7 @@ OC.L10N.register(
     "Send emails by default" : "Отправить электронные письма по умолчанию",
     "Allow comments by default" : "По умолчанию комментарии будут разрешены",
     "Load more" : "Загрузить ещё",
-    "No announcements" : "Объявлений нет",
+    "No announcements" : "Нет ни одного объявления",
     "There are currently no announcements …" : "В настоящее время объявлений нет …",
     "Comments" : "Комментарии",
     "visible to everyone" : "видимое для всех",
