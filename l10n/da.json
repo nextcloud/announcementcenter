@@ -32,7 +32,7 @@
     "scheduled at {time}" : "planlagt til kl {time}",
     "scheduled for deletion at {time}" : "sletning planlagt til {time}",
     "_%n comment_::_%n comments_" : ["%n kommentar","%n kommentarer"],
-    "An error occurred while removing the notifications of the announcement" : "Der opstod en fejl under fjernelse af meddelelserne om notifikationerne",
+    "An error occurred while removing the notifications of the announcement" : "Der opstod en fejl, da notifikationerne om meddelelsen skulle fjernes",
     "An error occurred while deleting the announcement" : "Der opstod en fejl under sletning af notifikationen",
     "Scheduled" : "Planlagt",
     "Expiring" : "Udløber",
