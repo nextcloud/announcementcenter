@@ -1,6 +1,7 @@
 OC.L10N.register(
     "announcementcenter",
     {
+    "Announcements" : "Аб'явы",
     "Read more" : "Больш падрабязна",
     "Comments" : "Каментарыі",
     "Everyone" : "Усе",
