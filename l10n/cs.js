@@ -37,6 +37,7 @@ OC.L10N.register(
     "An error occurred while removing the notifications of the announcement" : "Při odebírání oznámení došlo k chybě",
     "An error occurred while deleting the announcement" : "Při mazání oznámení došlo k chybě",
     "Scheduled" : "Naplánováno",
+    "Expiring" : "Platnost končí",
     "Everyone" : "Všichni",
     "Restricted" : "Uživatelsky nepřiřaditelný",
     "Clear notifications" : "Smazat upozornění",
